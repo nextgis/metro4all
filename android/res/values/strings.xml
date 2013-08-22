@@ -2,7 +2,12 @@
 <resources>
 
     <string name="app_name">Metro Access</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="sHomepage">http://nextgis.ru</string>
+    <string name="sDetailpage">http://...html</string>
+    
+    <string name="about_app">This is the application for route calculation in the subway for disabled. \n\nDevelopers:\n  Dmitriy Baryshnikov\n\nMore info at</string>
 
+	<string name="sSettings">Settings</string>
+	<string name="sAbout">About</string>
+	
 </resources>
