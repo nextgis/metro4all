@@ -1,0 +1,16 @@
+﻿{
+    "packages" : [
+        {
+            "name" : "Moscow",
+            "name_ru" : "Москва",
+            "ver" : 0,
+            "path" : ""
+        },
+        {
+            "name" : "St.Peterburg",
+            "name_ru" : "Санкт-Петербург",
+            "ver" : 0,
+            "path" : ""
+        }
+    ]
+}

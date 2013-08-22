@@ -9,5 +9,12 @@
 
 	<string name="sSettings">Settings</string>
 	<string name="sAbout">About</string>
+	<string name="sNetworkGetErr">Get data failed</string>
+	<string name="sNetworkUnreachErr">Network is not available</string>
+    <string name="sDownLoading">Downloading &#8230;</string>
+	<string name="sNetworkInvalidData">The data is invalid</string>
 	
+	<string name="sSelectDataToDownload">Select data to download</string>
+	<string name="sDownload">Download</string>
+	<string name="sCancel">Cancel</string>
 </resources>
