@@ -44,7 +44,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 
-public class MetaUploader extends AsyncTask<String, Void, Void> {
+public class MetaDownloader extends AsyncTask<String, Void, Void> {
     private String msContent;
     private Context moContext;
     private String msError = null;
@@ -54,7 +54,7 @@ public class MetaUploader extends AsyncTask<String, Void, Void> {
     private boolean mbShowProgress;
     private HttpGet moHTTPGet;
 	
-    public MetaUploader(Context c, String sMsg, Handler eventReceiver, boolean bShowProgress) {        
+    public MetaDownloader(Context c, String sMsg, Handler eventReceiver, boolean bShowProgress) {        
         super();
         
         mbShowProgress = bShowProgress;
@@ -97,6 +97,7 @@ public class MetaUploader extends AsyncTask<String, Void, Void> {
 						bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
 						msContent = EntityUtils.toString(entity, HTTP.UTF_8);
 			            bundle.putString(MainActivity.BUNDLE_PAYLOAD_KEY, msContent);
+			            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
 					}
 					else{
 						bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);

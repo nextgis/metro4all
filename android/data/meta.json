@@ -4,13 +4,13 @@
             "name" : "Moscow",
             "name_ru" : "Москва",
             "ver" : 0,
-            "path" : ""
+            "path" : "msk"
         },
         {
             "name" : "St.Peterburg",
             "name_ru" : "Санкт-Петербург",
             "ver" : 0,
-            "path" : ""
+            "path" : "spb"
         }
     ]
 }
