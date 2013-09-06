@@ -18,3 +18,4 @@ local.properties
 # Eclipse project files
 android/.classpath
 android/.project
+android/lint.xml

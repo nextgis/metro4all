@@ -20,6 +20,7 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,7 +47,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 import android.app.AlertDialog;
@@ -70,6 +74,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	
 	final static String CURRENT_METRO_SEL = "metro_selection";
 	
+	final static String CSV_CHAR = ";";
+	
 //TODO:	public final static int MENU_SETTINGS = 4;
 	public final static int MENU_ABOUT = 5;
 
@@ -80,6 +86,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	//protected JSONObject moJSONMeta;
 	protected HashMap<Integer, JSONObject> mmoRouteMetadata = new HashMap<Integer, JSONObject>();
 	protected String msRDataPath;
+	
+	protected Spinner mSpinnerFrom, mSpinnerTo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +145,11 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                     
                     String sJSON = oJSONRoot.toString();
                     File file = new File(sPath, META);
-                    writeToFile(file, sJSON);
+                    if(writeToFile(file, sJSON)){
+                    	//store data
+                    	//create sqlite db
+                    	//Creating and saving the graph
+                    }
                     
                     LoadInterface();
             		break;
@@ -155,6 +167,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			//ask to download data
 			GetRoutingData();
 		}
+		
+		Button button = (Button) findViewById(R.id.btSearch);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	onSearch();
+             }
+        });        
+
 	}
 	
 	private void LoadInterface(){
@@ -204,6 +224,45 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			e.printStackTrace();
 		}
 	    setContentView(R.layout.activity_main);
+	    
+	    //fill with station list
+	    File file = new File(msRDataPath, "stations.csv");
+		if (file != null) {
+        	InputStream in;
+			try {
+				in = new BufferedInputStream(new FileInputStream(file));
+       	
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+		        final ArrayAdapter<Station> station_from_adapter = new ArrayAdapter<Station>(this, android.R.layout.simple_spinner_item);
+		        final ArrayAdapter<Station> station_to_adapter = new ArrayAdapter<Station>(this, android.R.layout.simple_spinner_item);
+		        String line = reader.readLine();
+		        while ((line = reader.readLine()) != null) {
+		             String[] RowData = line.split(CSV_CHAR);
+ 					 String sName = RowData[0];
+ 					 int nID = Integer.parseInt(RowData[2]);//???
+
+ 				     station_from_adapter.add(new Station(nID, sName));
+ 				     station_to_adapter.add(new Station(nID, sName)); 					 
+		        }
+		        
+		        mSpinnerFrom = (Spinner) findViewById(R.id.spFrom);
+		        station_from_adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);//.simple_spinner_dropdown_item);
+		        mSpinnerFrom.setAdapter(station_from_adapter);
+		        
+		        mSpinnerTo = (Spinner) findViewById(R.id.spTo);
+		        station_to_adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+		        mSpinnerTo.setAdapter(station_to_adapter);
+		        
+		        reader.close();
+		        if (in != null) {
+		        	in.close();
+		    	} 
+		    }
+		    catch (IOException ex) {
+		    	ex.printStackTrace();
+			}			
+		}
 	}
 
 	@Override
@@ -421,4 +480,38 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		}
 	}
 	
+	protected void onSearch(){
+		Station stFrom, stTo;
+		stFrom = (Station) mSpinnerFrom.getSelectedItem();
+		stTo = (Station) mSpinnerTo.getSelectedItem();
+		//search
+	}
+	
+	public class Station {
+	    private int id;
+	    private String name;
+	    
+	    public Station(){
+	        super();
+	    }
+	    
+	    public Station(int id, String name) {
+	        super();
+	        this.id = id;
+	        this.name = name;
+	    }
+
+	    public int getId() {
+			return id;
+		}
+	    
+	    public String getName() {
+			return name;
+		} 
+
+		@Override
+	    public String toString() {
+	        return this.name;
+	    }
+	}	
 }

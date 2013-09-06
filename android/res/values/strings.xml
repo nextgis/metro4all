@@ -20,4 +20,7 @@
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sDownload">Download</string>
 	<string name="sCancel">Cancel</string>
+	<string name="sSearch">Search</string>
+	<string name="sFromStation">From Station</string>
+	<string name="sToStation">To Station</string>
 </resources>
