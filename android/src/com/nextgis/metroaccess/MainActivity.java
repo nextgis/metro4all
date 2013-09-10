@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -43,10 +44,18 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.view.MenuItem;
 
+import edu.asu.emit.qyan.alg.control.YenTopKShortestPathsAlg;
+import edu.asu.emit.qyan.alg.model.Graph;
+import edu.asu.emit.qyan.alg.model.Path;
+import edu.asu.emit.qyan.alg.model.VariableGraph;
+import edu.asu.emit.qyan.alg.model.Vertex;
+import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,6 +68,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+//https://code.google.com/p/k-shortest-paths/
 
 public class MainActivity extends SherlockActivity implements OnNavigationListener{
 	final static String TAG = "metroaccess";	
@@ -84,10 +94,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	private static Handler moGetJSONHandler; 
 	//protected JSONObject moJSONMetaRemote;
 	//protected JSONObject moJSONMeta;
-	protected HashMap<Integer, JSONObject> mmoRouteMetadata = new HashMap<Integer, JSONObject>();
+	protected HashMap<Integer, JSONObject> mmoRouteMetadata;
 	protected String msRDataPath;
 	
 	protected Spinner mSpinnerFrom, mSpinnerTo;
+	protected HashMap<Integer, String> mmoStations;
+	
+	//protected DefaultDirectedWeightedGraph<Integer, DefaultWeightedEdge> mGraph;
+	protected Graph mGraph;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +109,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
         // initialize the default settings
 //TODO:        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-		
+					
 		moGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
             	super.handleMessage(msg);
@@ -156,6 +169,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             	}
             }
         };		
+        
+		mmoStations = new HashMap<Integer, String>();
+		mmoRouteMetadata = new HashMap<Integer, JSONObject>();        
 		
 		//check for data exist
 		if(IsRoutingDataExist()){
@@ -166,14 +182,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		else{
 			//ask to download data
 			GetRoutingData();
-		}
-		
-		Button button = (Button) findViewById(R.id.btSearch);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	onSearch();
-             }
-        });        
+		}      
 
 	}
 	
@@ -224,7 +233,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			e.printStackTrace();
 		}
 	    setContentView(R.layout.activity_main);
-	    
+	
+		//mGraph = new DefaultDirectedWeightedGraph<Integer, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+	    mGraph = new VariableGraph();
 	    //fill with station list
 	    File file = new File(msRDataPath, "stations.csv");
 		if (file != null) {
@@ -240,10 +251,15 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
  					 String sName = RowData[0];
- 					 int nID = Integer.parseInt(RowData[2]);//???
+ 					 int nID = Integer.parseInt(RowData[2]);//TODO: remove unnecessary data
+ 					 
+ 					 mGraph.add_vertex(new Vertex(nID));
+ 					 //mGraph.addVertex(nID);
 
  				     station_from_adapter.add(new Station(nID, sName));
- 				     station_to_adapter.add(new Station(nID, sName)); 					 
+ 				     station_to_adapter.add(new Station(nID, sName)); 	
+ 				     
+ 				    mmoStations.put(nID, sName);
 		        }
 		        
 		        mSpinnerFrom = (Spinner) findViewById(R.id.spFrom);
@@ -263,6 +279,49 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		    	ex.printStackTrace();
 			}			
 		}
+		
+		
+		//fill routes
+	    File file_route = new File(msRDataPath, "graph.csv");
+		if (file_route != null) {
+        	InputStream in;
+			try {
+				in = new BufferedInputStream(new FileInputStream(file_route));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		        String line = reader.readLine();
+		        while ((line = reader.readLine()) != null) {
+		             String[] RowData = line.split(CSV_CHAR);
+ 					 int nFromId = Integer.parseInt(RowData[0]);
+ 					 int nToId = Integer.parseInt(RowData[1]);
+ 					 int nCost = Integer.parseInt(RowData[4]);
+ 					 
+ 					 Log.d("Route", ">" + nFromId + "-" + nToId + ":" + nCost);
+ 					 mGraph.add_edge(nFromId, nToId, nCost);
+ 					 mGraph.add_edge(nToId, nFromId, nCost);
+ 					 //DefaultWeightedEdge ed1 = mGraph.addEdge(nFromId, nToId);
+ 					 //mGraph.setEdgeWeight(ed1, nCost);
+ 					 //DefaultWeightedEdge ed2 = mGraph.addEdge(nToId, nFromId);
+					 //mGraph.setEdgeWeight(ed2, nCost);
+		        }
+		        reader.close();
+		        if (in != null) {
+		        	in.close();
+		    	}
+			}
+		    catch (IOException ex) {
+		    	ex.printStackTrace();
+			}
+			catch(IllegalArgumentException ex){
+				ex.printStackTrace();
+			}
+		}
+		
+		Button button = (Button) findViewById(R.id.btSearch);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	onSearch();
+             }
+        });  
 	}
 
 	@Override
@@ -318,8 +377,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	}
 	
 	protected void GetRoutingData(){
-		MetaDownloader uploader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), moGetJSONHandler, true);
-		uploader.execute(sUrl + META);		
+		MetaDownloader loader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), moGetJSONHandler, true);
+		loader.execute(sUrl + META);		
 	}
 
 	protected void AskForDownloadData(String sJSON){
@@ -485,6 +544,46 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		stFrom = (Station) mSpinnerFrom.getSelectedItem();
 		stTo = (Station) mSpinnerTo.getSelectedItem();
 		//search
+		//BellmanFordShortestPath
+		/*List<DefaultWeightedEdge> path = BellmanFordShortestPath.findPathBetween(mGraph, stFrom.getId(), stTo.getId());
+		if(path != null){
+			for(DefaultWeightedEdge edge : path) {
+                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
+                }
+		}*/
+		//DijkstraShortestPath
+		/*List<DefaultWeightedEdge> path = DijkstraShortestPath.findPathBetween(mGraph, stFrom.getId(), stTo.getId());
+		if(path != null){
+			for(DefaultWeightedEdge edge : path) {
+                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
+                }
+		}*/	
+        //KShortestPaths
+		/*
+		KShortestPaths<Integer, DefaultWeightedEdge> kPaths = new KShortestPaths<Integer, DefaultWeightedEdge>(mGraph, stFrom.getId(), 2);
+        List<GraphPath<Integer, DefaultWeightedEdge>> paths = null;
+        try {
+            paths = kPaths.getPaths(stTo.getId());
+            for (GraphPath<Integer, DefaultWeightedEdge> path : paths) {
+                for (DefaultWeightedEdge edge : path.getEdgeList()) {
+                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
+                }
+                Log.d("Route", "Weight: " + path.getWeight());
+            }
+        } catch (IllegalArgumentException e) {
+        	e.printStackTrace();
+        }*/
+		
+		//YenTopKShortestPathsAlg
+		YenTopKShortestPathsAlg yenAlg = new YenTopKShortestPathsAlg(mGraph);
+		List<Path> shortest_paths_list = yenAlg.get_shortest_paths(mGraph.get_vertex(stFrom.getId()), mGraph.get_vertex(stTo.getId()), 3);
+		int nCounter = 0;
+		for (Path path : shortest_paths_list) {
+			Log.d("Route", "Route# " + nCounter++);
+            for (BaseVertex v : path.get_vertices()) {
+            	Log.d("Route", "<" + mmoStations.get(v.get_id()));
+            }
+        }		
 	}
 	
 	public class Station {

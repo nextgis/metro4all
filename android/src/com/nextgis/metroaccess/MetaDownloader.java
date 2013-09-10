@@ -89,9 +89,11 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 
 	            HttpClient Client = new DefaultHttpClient();
 	            HttpResponse response = Client.execute(moHTTPGet);
+	            if(response == null)
+	            	return null;
 	            HttpEntity entity = response.getEntity();
 	                        
-	            if(moEventReceiver != null){
+	            if(moEventReceiver != null && entity != null){
 		            Bundle bundle = new Bundle();
 					if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
 						bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
