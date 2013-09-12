@@ -78,6 +78,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	final static String BUNDLE_PAYLOAD_KEY = "json";
 	final static String BUNDLE_ERRORMARK_KEY = "error";
 	final static String BUNDLE_EVENTSRC_KEY = "eventsrc";
+	final static String BUNDLE_PATHCOUNT_KEY = "pathcount";
+	final static String BUNDLE_PATH_KEY = "path_";
 	
 	final static String REMOTE_METAFILE = "remotemeta.json";
 	final static String ROUTE_DATA_DIR = "rdata";
@@ -98,7 +100,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected String msRDataPath;
 	
 	protected Spinner mSpinnerFrom, mSpinnerTo;
-	protected HashMap<Integer, String> mmoStations;
+	public static HashMap<Integer, String> mmoStations;
 	
 	//protected DefaultDirectedWeightedGraph<Integer, DefaultWeightedEdge> mGraph;
 	protected Graph mGraph;
@@ -577,13 +579,34 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		//YenTopKShortestPathsAlg
 		YenTopKShortestPathsAlg yenAlg = new YenTopKShortestPathsAlg(mGraph);
 		List<Path> shortest_paths_list = yenAlg.get_shortest_paths(mGraph.get_vertex(stFrom.getId()), mGraph.get_vertex(stTo.getId()), 3);
-		int nCounter = 0;
-		for (Path path : shortest_paths_list) {
-			Log.d("Route", "Route# " + nCounter++);
-            for (BaseVertex v : path.get_vertices()) {
-            	Log.d("Route", "<" + mmoStations.get(v.get_id()));
-            }
-        }		
+		
+		if(shortest_paths_list.size() == 0){
+			Toast.makeText(this, R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
+		}
+		else {
+	        Intent intentView = new Intent(MainActivity.this, com.nextgis.metroaccess.StationListView.class);
+	        intentView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		
+	        int nCounter = 0;
+	        Bundle bundle = new Bundle();
+			
+	        for (Path path : shortest_paths_list) {
+				ArrayList<Integer> IndexPath = new  ArrayList<Integer>();
+				Log.d(TAG, "Route# " + nCounter);
+	            for (BaseVertex v : path.get_vertices()) {
+	            	IndexPath.add(v.get_id());
+	            	Log.d(TAG, "<" + mmoStations.get(v.get_id()));
+	            }
+	            intentView.putIntegerArrayListExtra(BUNDLE_PATH_KEY + nCounter, IndexPath);
+	            nCounter++;
+	        }	        
+	        
+	        bundle.putInt(BUNDLE_PATHCOUNT_KEY, nCounter);
+			
+			intentView.putExtras(bundle);
+	        
+	        MainActivity.this.startActivity(intentView);
+		}
 	}
 	
 	public class Station {

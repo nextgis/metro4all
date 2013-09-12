@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+******************************************************************************
+ * Project:  Metro Access
+ * Purpose:  Routing in subway for disabled.
+ * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ ******************************************************************************
+*   Copyright (C) 2013 NextGIS
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************
+-->
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="?android:attr/listPreferredItemHeight"
+  android:padding="5dip"
+  >
+   
+  <ImageView
+      android:id="@+id/ivIcon"
+      android:layout_width="64dip"
+      android:layout_height="64dip"
+      android:layout_marginRight="5dip"
+      android:scaleType="fitCenter"/>
+   
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:layout_weight="1">
+   
+      <TextView
+          android:id="@+id/tvStationName"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center_vertical"
+          android:textStyle="bold"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:ellipsize="marquee"/>
+       
+<!-- TODO: add icons and digit of problems  
+        
+		<View
+		  android:layout_height="fill_parent"
+		  android:layout_width="1dp"
+		  android:background="@android:color/darker_gray"/>
+        <TextView
+          android:id="@+id/tvDescription"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:singleLine="true"
+          android:ellipsize="marquee" />
+-->
+  </LinearLayout>   
+<!--  
+  <TextView
+      android:id="@+id/tvTime"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="2"
+      android:gravity="center_vertical"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:ellipsize="marquee"/>
+    -->
+</LinearLayout>

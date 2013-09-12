@@ -31,7 +31,11 @@
         <activity 
     		android:name="com.nextgis.metroaccess.AboutActivity"
     		android:label="@string/sAbout">
-		</activity>        
+		</activity>  
+        <activity 
+    		android:name="com.nextgis.metroaccess.StationListView"
+    		android:label="@string/sRoute">
+		</activity> 		      
     </application>
 
 </manifest>

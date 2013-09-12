@@ -16,6 +16,7 @@
 	<string name="sNetworkInvalidData">The data is invalid</string>
 	<string name="sFileNotFound">File not found</string>
 	<string name="sCannotReadFile">Can not read file</string>
+	<string name="sCannotGetPath">Can not find path</string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sDownload">Download</string>
@@ -23,4 +24,5 @@
 	<string name="sSearch">Search</string>
 	<string name="sFromStation">From Station</string>
 	<string name="sToStation">To Station</string>
+	<string name="sRoute">Route</string>
 </resources>

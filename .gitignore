@@ -19,3 +19,7 @@ local.properties
 android/.classpath
 android/.project
 android/lint.xml
+
+#archives
+*.zip
+*.7z
