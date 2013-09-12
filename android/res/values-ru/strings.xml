@@ -7,22 +7,22 @@
     
     <string name="about_app">Это приложение расчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. Вы можете выбрать более оптимальный маршрут. \n\nПодробнее:</string>
 
-	<string name="sSettings">Settings</string>
-	<string name="sAbout">About</string>
-	<string name="sNetworkGetErr">Get data failed</string>
-	<string name="sNetworkUnreachErr">Network is not available</string>
-    <string name="sDownLoading">Downloading &#8230;</string>
-    <string name="sZipExtractionProcess">Extracting &#8230;</string>
-	<string name="sNetworkInvalidData">The data is invalid</string>
-	<string name="sFileNotFound">File not found</string>
-	<string name="sCannotReadFile">Can not read file</string>
-	<string name="sCannotGetPath">Can not find path</string>
+	<string name="sSettings">Настройки</string>
+	<string name="sAbout">О программе</string>
+	<string name="sNetworkGetErr">Ошибка получения данных</string>
+	<string name="sNetworkUnreachErr">Отсутствует подключение к сети</string>
+    <string name="sDownLoading">Загружается &#8230;</string>
+    <string name="sZipExtractionProcess">Распаковка &#8230;</string>
+	<string name="sNetworkInvalidData">Ошибка в данных</string>
+	<string name="sFileNotFound">Файл не найден</string>
+	<string name="sCannotReadFile">Не могу прочитать файл</string>
+	<string name="sCannotGetPath">Не найден путь</string>
 	
-	<string name="sSelectDataToDownload">Select data to download</string>
-	<string name="sDownload">Download</string>
-	<string name="sCancel">Cancel</string>
-	<string name="sSearch">Search</string>
-	<string name="sFromStation">From Station</string>
-	<string name="sToStation">To Station</string>
-	<string name="sRoute">Route</string>
+	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
+	<string name="sDownload">Загрузить</string>
+	<string name="sCancel">Отмена</string>
+	<string name="sSearch">Поиск</string>
+	<string name="sFromStation">От станции</string>
+	<string name="sToStation">До станции</string>
+	<string name="sRoute">Маршрут</string>
 </resources>
