@@ -66,14 +66,18 @@
           android:ellipsize="marquee" />
 -->
   </LinearLayout>   
-<!--  
-  <TextView
-      android:id="@+id/tvTime"
-      android:layout_width="fill_parent"
+  
+  <View
+    android:layout_height="fill_parent"
+    android:layout_width="1dp"
+    android:background="@android:color/darker_gray"/>
+  
+  <ImageButton
+      android:id="@+id/show_sheme"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_weight="2"
-      android:gravity="center_vertical"
-      android:textAppearance="?android:attr/textAppearanceSmall"
-      android:ellipsize="marquee"/>
-    -->
+      android:layout_gravity="center"
+      android:layout_margin="15dip"
+      android:background="@drawable/ic_content_picture" />
+  
 </LinearLayout>

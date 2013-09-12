@@ -62,10 +62,34 @@ public class StationListView extends SherlockActivity {
 	    	}
 	    	*/
 	    	if(mnPathCount > 0){
-	    		ArrayList<Integer> list = extras.getIntegerArrayList(MainActivity.BUNDLE_PATH_KEY + 1);
+	    		ArrayList<Integer> list = extras.getIntegerArrayList(MainActivity.BUNDLE_PATH_KEY + 0);
+	    		boolean bCross = false;
 	    		if(list != null){
-	    			for(Integer id : list){
-	    				mStationList.add(new StationItem(id, MainActivity.mmoStations.get(id),0));
+	    			for(int i = 0; i < list.size(); i++){
+	    				int nId = list.get(i);
+	    				int nType = 5;
+	    				if(i == list.size() - 1){//check dst
+	    					nType = 2;
+	    				}
+	    				else{
+	    					if(i == 0){//check src
+	    						nType = 1;
+	    					}
+	    					else{
+	    						if(bCross){
+	    							bCross = false;
+	    							nType = 3;
+	    						}
+    							int nNextId = list.get(i + 1);
+    							int nLineFrom = MainActivity.mmoStations.get(nId).getLine();
+    							int nLineTo = MainActivity.mmoStations.get(nNextId).getLine();
+    							if(nLineFrom != nLineTo){
+   									bCross = true;
+    								nType = 4;
+    							}
+	    					}
+	    				}
+	    				mStationList.add(new StationItem(nId, MainActivity.mmoStations.get(nId).getName(), nType));
 	    			}
 	    		}
 	    	}

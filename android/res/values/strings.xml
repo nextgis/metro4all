@@ -19,6 +19,7 @@
 	<string name="sCannotGetPath">Can not find path</string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
+	<string name="sUpdateAvaliable">Data updates is avaliable</string>
 	<string name="sDownload">Download</string>
 	<string name="sCancel">Cancel</string>
 	<string name="sSearch">Search</string>

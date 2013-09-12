@@ -97,10 +97,10 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	//protected JSONObject moJSONMetaRemote;
 	//protected JSONObject moJSONMeta;
 	protected HashMap<Integer, JSONObject> mmoRouteMetadata;
-	protected String msRDataPath;
+	protected static String msRDataPath;
 	
 	protected Spinner mSpinnerFrom, mSpinnerTo;
-	public static HashMap<Integer, String> mmoStations;
+	public static HashMap<Integer, Station> mmoStations;
 	
 	//protected DefaultDirectedWeightedGraph<Integer, DefaultWeightedEdge> mGraph;
 	protected Graph mGraph;
@@ -136,8 +136,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             	case 1://get remote meta
             		if(IsRoutingDataExist()){
             			//check if updates available
-//            			searchButton.setEnabled(true);
-//            			demoButton.setEnabled(true);
+            			CheckUpdatesAvailable(sPayload);
             		}
             		else{
             			AskForDownloadData(sPayload);
@@ -172,14 +171,13 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             }
         };		
         
-		mmoStations = new HashMap<Integer, String>();
+		mmoStations = new HashMap<Integer, Station>();
 		mmoRouteMetadata = new HashMap<Integer, JSONObject>();        
 		
 		//check for data exist
 		if(IsRoutingDataExist()){
 			//else check for updates
-			CheckForUpdates();
-			LoadInterface();		
+			CheckForUpdates();		
 		}
 		else{
 			//ask to download data
@@ -190,28 +188,15 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	
 	private void LoadInterface(){
 		ArrayList<String> items = new ArrayList<String>();
-		File f = new File(getExternalFilesDir(ROUTE_DATA_DIR).getPath());
-		File[] files = f.listFiles();
-		int nCounter = 0;
-		for (File inFile : files) {
-		    if (inFile.isDirectory()) {
-		        File metafile = new File(inFile, META);
-		        if(metafile.isFile()){
-		        	String sJSON = readFromFile(metafile);
-		        	JSONObject oJSON;
-					try {
-						oJSON = new JSONObject(sJSON);
-			        	String sName = oJSON.getString("name_" + Locale.getDefault().getLanguage());
-			        	oJSON.put("path", inFile.getPath());
-			        	items.add(sName);
-			        	mmoRouteMetadata.put(nCounter, oJSON);
-			        	nCounter++;
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		        }
-		    }
+		for (int i = 0; i < mmoRouteMetadata.size(); i++) {
+			JSONObject oJSON = mmoRouteMetadata.get(i);
+			try{
+	        	String sName = oJSON.getString("name_" + Locale.getDefault().getLanguage());
+	        	items.add(sName);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -253,15 +238,16 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
  					 String sName = RowData[0];
+ 					 int nLine = Integer.parseInt(RowData[1]);
  					 int nID = Integer.parseInt(RowData[2]);//TODO: remove unnecessary data
  					 
  					 mGraph.add_vertex(new Vertex(nID));
  					 //mGraph.addVertex(nID);
-
- 				     station_from_adapter.add(new Station(nID, sName));
- 				     station_to_adapter.add(new Station(nID, sName)); 	
+ 					 Station st = new Station(nID, sName, nLine);
+ 				     station_from_adapter.add(st);
+ 				     station_to_adapter.add(st); 	
  				     
- 				    mmoStations.put(nID, sName);
+ 				     mmoStations.put(nID, st);
 		        }
 		        
 		        mSpinnerFrom = (Spinner) findViewById(R.id.spFrom);
@@ -360,17 +346,31 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	}	
 	
 	//check if data for routing is downloaded
-	protected boolean IsRoutingDataExist(){		
-		File f = new File(getExternalFilesDir(ROUTE_DATA_DIR).getPath());
-		File[] files = f.listFiles();
-		for (File inFile : files) {
-		    if (inFile.isDirectory()) {
-		        File metafile = new File(inFile, META);
-		        if(metafile.isFile())
-		        	return true;
-		    }
+	protected boolean IsRoutingDataExist(){	
+		if(mmoRouteMetadata.isEmpty()){			
+			File f = new File(getExternalFilesDir(ROUTE_DATA_DIR).getPath());
+			File[] files = f.listFiles();
+			int nCounter = 0;
+			for (File inFile : files) {
+			    if (inFile.isDirectory()) {
+			        File metafile = new File(inFile, META);
+			        if(metafile.isFile()){
+			        	String sJSON = readFromFile(metafile);
+			        	JSONObject oJSON;
+						try {
+							oJSON = new JSONObject(sJSON);
+				        	oJSON.put("path", inFile.getPath());
+				        	mmoRouteMetadata.put(nCounter, oJSON);
+				        	nCounter++;
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			        }
+			    }
+			}		
 		}
-		return false;
+		return !mmoRouteMetadata.isEmpty();
 	}	
 	
 	protected void CheckForUpdates(){
@@ -381,6 +381,95 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected void GetRoutingData(){
 		MetaDownloader loader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), moGetJSONHandler, true);
 		loader.execute(sUrl + META);		
+	}
+	
+	protected void CheckUpdatesAvailable(String sJSON){
+		//ask user for download
+		try{
+			JSONObject oJSONMetaRemote = new JSONObject(sJSON);
+			final JSONArray jsonArray = oJSONMetaRemote.getJSONArray("packages");
+
+			ArrayList<String> items = new ArrayList<String>();
+
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				String sLocaleKeyName = "name_" + Locale.getDefault().getLanguage();
+				String sEnName = jsonObject.getString("name");
+				String sName = jsonObject.getString(sLocaleKeyName);	
+				if(sName.length() == 0)
+					sName = sEnName;
+				int nVer = jsonObject.getInt("ver");
+				for(int j = 0; j < mmoRouteMetadata.size(); j++)
+				{
+					String sRemoteEnName = mmoRouteMetadata.get(j).getString("name");
+					if(sRemoteEnName.equals(sEnName)){
+						if(nVer > mmoRouteMetadata.get(j).getInt("ver")) {
+							items.add(sName);
+						}
+					}
+				}
+			}
+
+			int count = items.size();
+			if(count < 1){
+				LoadInterface();
+				return;
+			}
+			final boolean[] checkedItems = new boolean[count];
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(R.string.sUpdateAvaliable)
+			.setCancelable(false)
+			.setMultiChoiceItems(items.toArray(new String[items.size()]), checkedItems,
+					new DialogInterface.OnMultiChoiceClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+					checkedItems[which] = isChecked;
+				}
+			})
+			.setPositiveButton(R.string.sDownload,
+					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					for (int i = 0; i < checkedItems.length; i++) {
+						if (checkedItems[i]){
+							try {
+								JSONObject jsonObject = jsonArray.getJSONObject(i);
+								//download and unzip
+								int nVer = jsonObject.getInt("ver");
+								String sPath = jsonObject.getString("path");
+								String sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
+								String sName = jsonObject.getString("name");
+								if(sLocName.length() == 0){
+									sLocName = sName;
+								}
+								DataDownloader uploader = new DataDownloader(MainActivity.this, sPath, sName, sLocName, nVer, getResources().getString(R.string.sDownLoading), moGetJSONHandler);
+								uploader.execute(sUrl + sPath + ".zip");
+
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			})
+
+			.setNegativeButton(R.string.sCancel,
+					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.cancel();
+
+				}
+			});
+			builder.create();
+			builder.show();		    
+	    }
+	    catch (Exception e) {
+	    	Toast.makeText(MainActivity.this, R.string.sNetworkInvalidData, Toast.LENGTH_LONG).show();
+		}	    	
+		
 	}
 
 	protected void AskForDownloadData(String sJSON){
@@ -610,30 +699,36 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	}
 	
 	public class Station {
-	    private int id;
-	    private String name;
+	    private int mnId;
+	    private String msName;
+	    private int mnLine;
 	    
 	    public Station(){
 	        super();
 	    }
 	    
-	    public Station(int id, String name) {
+	    public Station(int id, String name, int line) {
 	        super();
-	        this.id = id;
-	        this.name = name;
+	        this.mnId = id;
+	        this.msName = name;
+	        this.mnLine = line; 
 	    }
 
 	    public int getId() {
-			return id;
+			return mnId;
 		}
 	    
 	    public String getName() {
-			return name;
+			return msName;
+		} 
+	    
+	    public int getLine() {
+			return mnLine;
 		} 
 
 		@Override
 	    public String toString() {
-	        return this.name;
+	        return this.msName;
 	    }
 	}	
 }

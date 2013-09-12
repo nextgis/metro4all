@@ -20,20 +20,31 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class StationListAdapter extends BaseAdapter {
 	private Context mContext;
 	private ArrayList <StationItem> mStationList;
+	private ImageButton showSchemaButton;
 	
 	public StationListAdapter(Context c, ArrayList <StationItem> list) {
 		mContext = c;
@@ -69,39 +80,43 @@ public class StationListAdapter extends BaseAdapter {
 		TextView tvName = (TextView)v.findViewById(R.id.tvStationName);
 		tvName.setText(entry.GetName());
 		
-		/*
+
 		//TextView tvPhone = (TextView)v.findViewById(R.id.tvPhone);
 
 		ImageView ivIcon = (ImageView)v.findViewById(R.id.ivIcon);
 		// set data to display
-		File path = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-	    File imgFile = new File(path, entry.GetImage());		
-		Log.d("PanicButton", imgFile.getPath());
+		//File path = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+	    File imgFile = new File(MainActivity.msRDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
+		Log.d(MainActivity.TAG, imgFile.getPath());
 		if(imgFile.exists()){
 
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
 		}	
-		else
-		{
-			ivIcon.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_police));
-		}
-		tvPhone.setText(entry.GetPhone());
+
+		//tvPhone.setText(entry.GetPhone());
 		
-		callButton = (ImageButton) v.findViewById(R.id.phone_call);		 
-		callButton.setOnClickListener(new OnClickListener() {
+		showSchemaButton = (ImageButton) v.findViewById(R.id.show_sheme);
+		final File schemaFile = new File(MainActivity.msRDataPath + "/schemes", "" + entry.GetId() + ".png");		
+		if(schemaFile.exists()){
+			showSchemaButton.setOnClickListener(new OnClickListener() {
  
-			public void onClick(View arg0) {
-			    try {
-			        Intent callIntent = new Intent(Intent.ACTION_CALL);
-			        callIntent.setData(Uri.parse("tel:" + entry.GetPhone()));
-			        mContext.startActivity(callIntent);
-			    } catch (ActivityNotFoundException e) {
-			        Log.e("Panic Button", "Call failed", e);
-			    }
-			}
- 
-		});		*/
+				public void onClick(View arg0) {
+				    try {
+				    	Log.d(MainActivity.TAG, schemaFile.getPath());
+				    	Intent intent = new Intent(Intent.ACTION_VIEW);
+				    	intent.setDataAndType(Uri.fromFile(schemaFile),"image/png");
+				    	mContext.startActivity(intent);
+				    } catch (ActivityNotFoundException e) {
+				        Log.e(MainActivity.TAG, "Call failed", e);
+				    }
+				}
+	 
+			});
+		}
+		else{
+			showSchemaButton.setVisibility(View.INVISIBLE);
+		}
 
 		return v;
 
@@ -120,6 +135,18 @@ public class StationListAdapter extends BaseAdapter {
 		
 		public String GetName(){
 			return sName;
+		}
+		
+		public int GetId(){
+			return nId;
+		}
+		
+		public int GetType(){
+			return nType;
+		}
+		
+		public int GetLine(){
+			return MainActivity.mmoStations.get(nId).getLine();
 		}
 		
 		public int describeContents() {
