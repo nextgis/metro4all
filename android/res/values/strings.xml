@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Metro Access</string>
+    <string name="app_name">Metro4All</string>
     <string name="sHomepage">http://nextgis.ru</string>
-    <string name="sDetailpage">http://...html</string>
+    <string name="sDetailpage">http://metro4all.ru</string>
     
     <string name="about_app">This is the application for route calculation in the subway for disabled. \n\nDevelopers:\n  Dmitriy Baryshnikov\n\nMore info at</string>
 
