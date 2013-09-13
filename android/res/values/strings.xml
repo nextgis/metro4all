@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Metro Access</string>
+    <string name="app_name">Metro4All</string>
     <string name="sHomepage">http://nextgis.ru</string>
-    <string name="sDetailpage">http://...html</string>
+    <string name="sDetailpage">http://metro4all.ru</string>
     
-    <string name="about_app">This is the application for route calculation in the subway for disabled. \n\nDevelopers:\n  Dmitriy Baryshnikov\n\nMore info at</string>
+    <string name="about_app">This application calculates subway routes and provides information for disabled on key stations. \n\nMore info at:</string>
 
 	<string name="sSettings">Settings</string>
 	<string name="sAbout">About</string>
-	<string name="sNetworkGetErr">Get data failed</string>
+	<string name="sNetworkGetErr">Getting data failed</string>
 	<string name="sNetworkUnreachErr">Network is not available</string>
     <string name="sDownLoading">Downloading &#8230;</string>
     <string name="sZipExtractionProcess">Extracting &#8230;</string>
-	<string name="sNetworkInvalidData">The data is invalid</string>
+	<string name="sNetworkInvalidData">The data are invalid</string>
 	<string name="sFileNotFound">File not found</string>
-	<string name="sCannotReadFile">Can not read file</string>
-	<string name="sCannotGetPath">Can not find path</string>
+	<string name="sCannotReadFile">Cannot read file</string>
+	<string name="sCannotGetPath">Cannot find path</string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data updates is avaliable</string>
