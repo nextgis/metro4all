@@ -165,7 +165,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                     	//Creating and saving the graph
                     }
                     
-                    LoadInterface();
+                    if(IsRoutingDataExist())
+                    	LoadInterface();
             		break;
             	}
             }

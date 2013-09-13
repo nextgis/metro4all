@@ -25,7 +25,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="?android:attr/listPreferredItemHeight"
-  android:padding="5dip"
+  
   >
    
   <ImageView
@@ -33,7 +33,7 @@
       android:layout_width="64dip"
       android:layout_height="64dip"
       android:layout_marginRight="5dip"
-      android:scaleType="fitCenter"/>
+      />
    
   <LinearLayout
       android:orientation="vertical"
@@ -50,34 +50,24 @@
           android:textStyle="bold"
           android:textAppearance="?android:attr/textAppearanceMedium"
           android:ellipsize="marquee"/>
-       
-<!-- TODO: add icons and digit of problems  
-        
-		<View
-		  android:layout_height="fill_parent"
-		  android:layout_width="1dp"
-		  android:background="@android:color/darker_gray"/>
-        <TextView
-          android:id="@+id/tvDescription"
+      
+      <LinearLayout
+          android:id="@+id/lDetailes"
+	      android:orientation="horizontal"
           android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:singleLine="true"
-          android:ellipsize="marquee" />
--->
+          android:gravity="center_vertical"
+          android:layout_height="14dip"
+          android:layout_weight="1">
+       
+	  </LinearLayout>
   </LinearLayout>   
-  
-  <View
-    android:layout_height="fill_parent"
-    android:layout_width="1dp"
-    android:background="@android:color/darker_gray"/>
   
   <ImageButton
       android:id="@+id/show_sheme"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_margin="15dip"
+      android:layout_margin="5dip"
       android:background="@drawable/ic_content_picture" />
   
 </LinearLayout>

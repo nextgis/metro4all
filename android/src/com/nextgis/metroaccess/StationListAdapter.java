@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +40,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class StationListAdapter extends BaseAdapter {
@@ -80,9 +82,15 @@ public class StationListAdapter extends BaseAdapter {
 		TextView tvName = (TextView)v.findViewById(R.id.tvStationName);
 		tvName.setText(entry.GetName());
 		
-
-		//TextView tvPhone = (TextView)v.findViewById(R.id.tvPhone);
-
+		
+		if(entry.GetType() < 2){
+			int[] anDetails = {800,37,1,1,37,410,890,21};
+			AddDetailes(v, anDetails);
+		}
+		else{
+			AddEmpty(v);
+		}
+		
 		ImageView ivIcon = (ImageView)v.findViewById(R.id.ivIcon);
 		// set data to display
 		//File path = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -94,7 +102,6 @@ public class StationListAdapter extends BaseAdapter {
 		    ivIcon.setImageBitmap(myBitmap);
 		}	
 
-		//tvPhone.setText(entry.GetPhone());
 		
 		showSchemaButton = (ImageButton) v.findViewById(R.id.show_sheme);
 		final File schemaFile = new File(MainActivity.msRDataPath + "/schemes", "" + entry.GetId() + ".png");		
@@ -120,6 +127,65 @@ public class StationListAdapter extends BaseAdapter {
 
 		return v;
 
+	}
+
+	protected void AddEmpty(View v ){
+		LinearLayout lDetailes = (LinearLayout)v.findViewById(R.id.lDetailes);
+		lDetailes.removeAllViews();
+		TextView tvx = new TextView(lDetailes.getContext());
+		tvx.setText(" ");
+		tvx.setTextAppearance(mContext, R.attr.textAppearanceSmall);
+		tvx.setGravity(Gravity.CENTER);
+		lDetailes.addView(tvx);
+	}
+	
+	protected void AddDetailes(View v, int[] val ){
+		LinearLayout lDetailes = (LinearLayout)v.findViewById(R.id.lDetailes);
+		lDetailes.removeAllViews();
+		for(int i = 0; i < 8; i++){
+			if(val[i] > 0){
+				ImageView ivx = new ImageView(lDetailes.getContext());
+				switch(i){
+				case 0:
+					ivx.setImageResource(R.drawable.ic_5);
+					break;
+				case 1:
+					ivx.setImageResource(R.drawable.ic_6);
+					break;
+				case 2:
+					ivx.setImageResource(R.drawable.ic_7);
+					break;				
+				case 3:
+					ivx.setImageResource(R.drawable.ic_8);
+					break;				
+				case 4:
+					ivx.setImageResource(R.drawable.ic_9);
+					break;				
+				case 5:
+					ivx.setImageResource(R.drawable.ic_10);
+					break;				
+				case 6:
+					ivx.setImageResource(R.drawable.ic_11);
+					break;
+				case 7:
+					ivx.setImageResource(R.drawable.ic_12);
+					break;	
+				}
+			
+				LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+				lp.setMargins(2, 2, 2, 2);	
+				lp.gravity = Gravity.CENTER;
+				ivx.setLayoutParams(lp);
+			
+				lDetailes.addView(ivx);
+			
+				TextView tvx = new TextView(lDetailes.getContext());
+				tvx.setText("" + val[i]);
+				tvx.setTextAppearance(lDetailes.getContext(), R.attr.textAppearanceSmall);
+				tvx.setGravity(Gravity.CENTER);
+				lDetailes.addView(tvx);
+			}
+		}
 	}
 	
 	public static class StationItem implements Parcelable{

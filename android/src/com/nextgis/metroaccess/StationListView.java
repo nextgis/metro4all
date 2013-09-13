@@ -70,10 +70,25 @@ public class StationListView extends SherlockActivity {
 	    				int nType = 5;
 	    				if(i == list.size() - 1){//check dst
 	    					nType = 2;
+	    					//check cross
+							int nNextId = list.get(i - 1);
+							int nLineFrom = MainActivity.mmoStations.get(nId).getLine();
+							int nLineTo = MainActivity.mmoStations.get(nNextId).getLine();
+							if(nLineFrom != nLineTo){
+								nType = 7;
+							}
 	    				}
 	    				else{
 	    					if(i == 0){//check src
 	    						nType = 1;
+	    						//check cross
+    							int nNextId = list.get(i + 1);
+    							int nLineFrom = MainActivity.mmoStations.get(nId).getLine();
+    							int nLineTo = MainActivity.mmoStations.get(nNextId).getLine();
+    							if(nLineFrom != nLineTo){
+   									bCross = true;
+    								nType = 6;
+    							}
 	    					}
 	    					else{
 	    						if(bCross){

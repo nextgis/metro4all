@@ -104,6 +104,7 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 					else{
 						bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
 						bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkGetErr));
+						bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
 					}				
 					
 		            Message oMsg = new Message();
@@ -125,6 +126,7 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
                 bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkUnreachErr));
+                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
                 
                 Message oMsg = new Message();
                 oMsg.setData(bundle);            	
@@ -145,6 +147,7 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
             	Bundle bundle = new Bundle();
                 bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
                 bundle.putString(MainActivity.BUNDLE_MSG_KEY, msError);
+                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
                 
                 Message oMsg = new Message();
                 oMsg.setData(bundle);            	

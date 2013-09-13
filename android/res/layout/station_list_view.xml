@@ -33,7 +33,9 @@
     	<ListView
     	    android:id="@+id/pathlistview"
     	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content" >
+    	    android:layout_height="wrap_content"
+			android:divider="@null"
+			android:dividerHeight="0dp">
 
     </ListView>
 </LinearLayout>
