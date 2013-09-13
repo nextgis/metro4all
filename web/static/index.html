@@ -677,6 +677,8 @@
               if ($('#metroStartStation').val().length == 0 || $('#metroEndStation').val().length == 0) {
                 // todo: use bootstrap
                 alert('Не выбрана входная или выходная станция!');
+              } else if ($('#metroStartStation').val() == $('#metroEndStation').val()) {
+                alert('Выбраны одинаковые станции!');
               } else {
                   $('.pagination').empty();
                   $('#routePanel').empty();
