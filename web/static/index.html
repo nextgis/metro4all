@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="bootstrap-3.0.0/assets/ico/favicon.png">
+
+    <title>Metro4all</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Select2 plugin -->
+    <link href="select2-3.4.2/select2.css" rel="stylesheet"/>
+
+    <!-- Leaflet -->
+    <link href="leaflet-0.6.4/leaflet.css" rel="stylesheet"/>
+    <!--[if lte IE 8]>
+      <link href="leaflet-0.6.4/leaflet.ie.css" rel="stylesheet"/>
+    <![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="container">
+    <div class="row">
+
+
+      <!-- Left panel -->
+      <div class="col-md-3">
+      <form id="mainform" role="form">
+        <legend>Начало</legend>
+        <div class="form-group">
+          <label for="metroStartStation">Станция:</label>
+          <div>
+            <select id="metroStartStation" name="station_from">
+              <option></option>
+              <optgroup label="1. Сокольническая">
+                <option value="11">Библиотека им. Ленина</option>
+                <option value="16">Воробьёвы горы</option>
+                <option value="6">Комсомольская</option>
+                <option value="5">Красносельская</option>
+                <option value="7">Красные Ворота</option>
+                <option value="12">Кропоткинская</option>
+                <option value="9">Лубянка</option>
+                <option value="10">Охотный Ряд</option>
+                <option value="13">Парк культуры</option>
+                <option value="3">Преображенская площадь</option>
+                <option value="18">Проспект Вернадского</option>
+                <option value="4">Сокольники</option>
+                <option value="15">Спортивная</option>
+                <option value="1">Улица Подбельского</option>
+                <option value="17">Университет</option>
+                <option value="14">Фрунзенская</option>
+                <option value="2">Черкизовская</option>
+                <option value="8">Чистые пруды</option>
+                <option value="19">Юго-Западная</option>
+              </optgroup>
+              <optgroup label="2. Замоскворецкая">
+                <option value="29">Автозаводская</option>
+                <option value="225">Алма-Атинская</option>
+                <option value="37">Аэропорт</option>
+                <option value="35">Белорусская</option>
+                <option value="40">Водный стадион</option>
+                <option value="39">Войковская</option>
+                <option value="36">Динамо</option>
+                <option value="21">Домодедовская</option>
+                <option value="24">Кантемировская</option>
+                <option value="226">Каширская</option>
+                <option value="28">Коломенская</option>
+                <option value="20">Красногвардейская</option>
+                <option value="34">Маяковская</option>
+                <option value="31">Новокузнецкая</option>
+                <option value="22">Орехово</option>
+                <option value="30">Павелецкая</option>
+                <option value="41">Речной вокзал</option>
+                <option value="38">Сокол</option>
+                <option value="33">Тверская</option>
+                <option value="32">Театральная</option>
+                <option value="23">Царицыно</option>
+              </optgroup>
+              <optgroup label="3. Арбатско-Покровская">
+                <option value="44">Арбатская</option>
+                <option value="47">Бауманская</option>
+                <option value="214">Волоколамская</option>
+                <option value="51">Измайловская</option>
+                <option value="42">Киевская</option>
+                <option value="66">Крылатское</option>
+                <option value="210">Кунцевская</option>
+                <option value="46">Курская</option>
+                <option value="213">Митино</option>
+                <option value="65">Молодёжная</option>
+                <option value="215">Мякинино</option>
+                <option value="165">Парк победы</option>
+                <option value="50">Партизанская</option>
+                <option value="52">Первомайская</option>
+                <option value="45">Пл. Революции</option>
+                <option value="212">Пятницкое шоссе</option>
+                <option value="49">Семёновская</option>
+                <option value="216">Славянский бульвар</option>
+                <option value="43">Смоленская</option>
+                <option value="211">Строгино</option>
+                <option value="53">Щёлковская</option>
+                <option value="48">Электрозаводская</option>
+              </optgroup>
+              <optgroup label="4. Филёвская">
+                <option value="54">Александровский сад</option>
+                <option value="55">Арбатская</option>
+                <option value="61">Багратионовская</option>
+                <option value="188">Выставочная</option>
+                <option value="57">Киевская</option>
+                <option value="64">Кунцевская</option>
+                <option value="59">Кутузовская</option>
+                <option value="189">Международная</option>
+                <option value="63">Пионерская</option>
+                <option value="56">Смоленская</option>
+                <option value="58">Студенческая</option>
+                <option value="60">Фили</option>
+                <option value="62">Филёвский парк</option>
+              </optgroup>
+              <optgroup label="5. Кольцевая">
+                <option value="67">Белорусская</option>
+                <option value="74">Добрынинская</option>
+                <option value="77">Киевская</option>
+                <option value="70">Комсомольская</option>
+                <option value="78">Краснопресненская</option>
+                <option value="71">Курская</option>
+                <option value="68">Новослободская</option>
+                <option value="75">Октябрьская</option>
+                <option value="73">Павелецкая</option>
+                <option value="76">Парк культуры</option>
+                <option value="69">Проспект Мира</option>
+                <option value="72">Таганская</option>
+              </optgroup>
+              <optgroup label="6. Калужско-Рижская">
+                <option value="101">Академическая</option>
+                <option value="91">Алексеевская</option>
+                <option value="87">Бабушкинская</option>
+                <option value="105">Беляево</option>
+                <option value="89">Ботанический сад</option>
+                <option value="90">ВДНХ</option>
+                <option value="104">Калужская</option>
+                <option value="96">Китай-город</option>
+                <option value="106">Коньково</option>
+                <option value="100">Ленинский проспект</option>
+                <option value="86">Медведково</option>
+                <option value="109">Новоясеневская</option>
+                <option value="103">Новые Черёмушки</option>
+                <option value="98">Октябрьская</option>
+                <option value="93">Проспект Мира</option>
+                <option value="102">Профсоюзная</option>
+                <option value="92">Рижская</option>
+                <option value="88">Свиблово</option>
+                <option value="94">Сухаревская</option>
+                <option value="97">Третьяковская</option>
+                <option value="95">Тургеневская</option>
+                <option value="107">Тёплый Стан</option>
+                <option value="99">Шаболовская</option>
+                <option value="108">Ясенево</option>
+              </optgroup>
+              <optgroup label="7. Таганско-Краснопресненская">
+                <option value="120">Баррикадная</option>
+                <option value="122">Беговая</option>
+                <option value="114">Волгоградский проспект</option>
+                <option value="110">Выхино</option>
+                <option value="227">Китай-город</option>
+                <option value="118">Кузнецкий Мост</option>
+                <option value="112">Кузьминки</option>
+                <option value="124">Октябрьское Поле</option>
+                <option value="128">Планерная</option>
+                <option value="123">Полежаевская</option>
+                <option value="115">Пролетарская</option>
+                <option value="119">Пушкинская</option>
+                <option value="111">Рязанский проспект</option>
+                <option value="127">Сходненская</option>
+                <option value="116">Таганская</option>
+                <option value="113">Текстильщики</option>
+                <option value="126">Тушинская</option>
+                <option value="121">Улица 1905 года</option>
+                <option value="125">Щукинская</option>
+              <optgroup>
+              <optgroup label="8. Калининская">
+                <option value="82">Авиамоторная</option>
+                <option value="84">Марксистская</option>
+                <option value="79">Новогиреево</option>
+                <option value="186">Новокосино</option>
+                <option value="80">Перово</option>
+                <option value="83">Площадь Ильича</option>
+                <option value="85">Третьяковская</option>
+                <option value="81">Шоссе Энтузиастов</option>
+              </optgroup>
+              <optgroup label="9. Серпуховско-Тимирязевская">
+                <option value="129">Алтуфьево</option>
+                <option value="163">Аннино</option>
+                <option value="130">Бибирево</option>
+                <option value="140">Боровицкая</option>
+                <option value="164">Бульвар Дмитрия Донского</option>
+                <option value="132">Владыкино</option>
+                <option value="135">Дмитровская</option>
+                <option value="137">Менделеевская</option>
+                <option value="144">Нагатинская</option>
+                <option value="145">Нагорная</option>
+                <option value="146">Нахимовский проспект</option>
+                <option value="131">Отрадное</option>
+                <option value="133">Петровско-Разумовская</option>
+                <option value="141">Полянка</option>
+                <option value="150">Пражская</option>
+                <option value="136">Савёловская</option>
+                <option value="147">Севастопольская</option>
+                <option value="142">Серпуховская</option>
+                <option value="134">Тимирязевская</option>
+                <option value="143">Тульская</option>
+                <option value="162">Улица Академика Янгеля</option>
+                <option value="138">Цветной бульвар</option>
+                <option value="148">Чертановская</option>
+                <option value="139">Чеховская</option>
+                <option value="149">Южная</option>
+              <optgroup>
+              <optgroup label="10. Люблинская">
+                <option value="220">Борисово</option>
+                <option value="158">Братиславская</option>
+                <option value="156">Волжская</option>
+                <option value="218">Достоевская</option>
+                <option value="161">Дубровка</option>
+                <option value="222">Зябликово</option>
+                <option value="154">Кожуховская</option>
+                <option value="153">Крестьянская Застава</option>
+                <option value="157">Люблино</option>
+                <option value="217">Марьина Роща</option>
+                <option value="159">Марьино</option>
+                <option value="155">Печатники</option>
+                <option value="152">Римская</option>
+                <option value="219">Сретенский бульвар</option>
+                <option value="166">Трубная</option>
+                <option value="151">Чкаловская</option>
+                <option value="221">Шипиловская</option>
+              </optgroup>
+              <optgroup label="11. Каховская">
+                <option value="27">Варшавская</option>
+                <option value="26">Каховская</option>
+                <option value="25">Каширская</option>
+              </optgroup>
+              <optgroup label="12. Бутовская">
+                <option value="193">Бульвар Адмирала Ушакова</option>
+                <option value="195">Бунинская аллея</option>
+                <option value="194">Улица Горчакова</option>
+                <option value="192">Улица Скобелевская</option>
+                <option value="191">Улица Старокачаловская</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="metroStartInputID">Вход:</label>
+          <input name="portal_from" class="form-control" id="metroStartInputID" type="text" placeholder="Выберите вход на карте..." readonly>
+          <div id="metroStartInput" style="height: 150px;"></div>
+        </div>
+        <legend>Конец</legend>
+        <div class="form-group">
+          <label for="metroEndStation">Станция:</label>
+          <div>
+            <select name="station_to" id="metroEndStation">
+              <option></option>
+              <optgroup label="1. Сокольническая">
+                <option value="11">Библиотека им. Ленина</option>
+                <option value="16">Воробьёвы горы</option>
+                <option value="6">Комсомольская</option>
+                <option value="5">Красносельская</option>
+                <option value="7">Красные Ворота</option>
+                <option value="12">Кропоткинская</option>
+                <option value="9">Лубянка</option>
+                <option value="10">Охотный Ряд</option>
+                <option value="13">Парк культуры</option>
+                <option value="3">Преображенская площадь</option>
+                <option value="18">Проспект Вернадского</option>
+                <option value="4">Сокольники</option>
+                <option value="15">Спортивная</option>
+                <option value="1">Улица Подбельского</option>
+                <option value="17">Университет</option>
+                <option value="14">Фрунзенская</option>
+                <option value="2">Черкизовская</option>
+                <option value="8">Чистые пруды</option>
+                <option value="19">Юго-Западная</option>
+              </optgroup>
+              <optgroup label="2. Замоскворецкая">
+                <option value="29">Автозаводская</option>
+                <option value="225">Алма-Атинская</option>
+                <option value="37">Аэропорт</option>
+                <option value="35">Белорусская</option>
+                <option value="40">Водный стадион</option>
+                <option value="39">Войковская</option>
+                <option value="36">Динамо</option>
+                <option value="21">Домодедовская</option>
+                <option value="24">Кантемировская</option>
+                <option value="226">Каширская</option>
+                <option value="28">Коломенская</option>
+                <option value="20">Красногвардейская</option>
+                <option value="34">Маяковская</option>
+                <option value="31">Новокузнецкая</option>
+                <option value="22">Орехово</option>
+                <option value="30">Павелецкая</option>
+                <option value="41">Речной вокзал</option>
+                <option value="38">Сокол</option>
+                <option value="33">Тверская</option>
+                <option value="32">Театральная</option>
+                <option value="23">Царицыно</option>
+              </optgroup>
+              <optgroup label="3. Арбатско-Покровская">
+                <option value="44">Арбатская</option>
+                <option value="47">Бауманская</option>
+                <option value="214">Волоколамская</option>
+                <option value="51">Измайловская</option>
+                <option value="42">Киевская</option>
+                <option value="66">Крылатское</option>
+                <option value="210">Кунцевская</option>
+                <option value="46">Курская</option>
+                <option value="213">Митино</option>
+                <option value="65">Молодёжная</option>
+                <option value="215">Мякинино</option>
+                <option value="165">Парк победы</option>
+                <option value="50">Партизанская</option>
+                <option value="52">Первомайская</option>
+                <option value="45">Пл. Революции</option>
+                <option value="212">Пятницкое шоссе</option>
+                <option value="49">Семёновская</option>
+                <option value="216">Славянский бульвар</option>
+                <option value="43">Смоленская</option>
+                <option value="211">Строгино</option>
+                <option value="53">Щёлковская</option>
+                <option value="48">Электрозаводская</option>
+              </optgroup>
+              <optgroup label="4. Филёвская">
+                <option value="54">Александровский сад</option>
+                <option value="55">Арбатская</option>
+                <option value="61">Багратионовская</option>
+                <option value="188">Выставочная</option>
+                <option value="57">Киевская</option>
+                <option value="64">Кунцевская</option>
+                <option value="59">Кутузовская</option>
+                <option value="189">Международная</option>
+                <option value="63">Пионерская</option>
+                <option value="56">Смоленская</option>
+                <option value="58">Студенческая</option>
+                <option value="60">Фили</option>
+                <option value="62">Филёвский парк</option>
+              </optgroup>
+              <optgroup label="5. Кольцевая">
+                <option value="67">Белорусская</option>
+                <option value="74">Добрынинская</option>
+                <option value="77">Киевская</option>
+                <option value="70">Комсомольская</option>
+                <option value="78">Краснопресненская</option>
+                <option value="71">Курская</option>
+                <option value="68">Новослободская</option>
+                <option value="75">Октябрьская</option>
+                <option value="73">Павелецкая</option>
+                <option value="76">Парк культуры</option>
+                <option value="69">Проспект Мира</option>
+                <option value="72">Таганская</option>
+              </optgroup>
+              <optgroup label="6. Калужско-Рижская">
+                <option value="101">Академическая</option>
+                <option value="91">Алексеевская</option>
+                <option value="87">Бабушкинская</option>
+                <option value="105">Беляево</option>
+                <option value="89">Ботанический сад</option>
+                <option value="90">ВДНХ</option>
+                <option value="104">Калужская</option>
+                <option value="96">Китай-город</option>
+                <option value="106">Коньково</option>
+                <option value="100">Ленинский проспект</option>
+                <option value="86">Медведково</option>
+                <option value="109">Новоясеневская</option>
+                <option value="103">Новые Черёмушки</option>
+                <option value="98">Октябрьская</option>
+                <option value="93">Проспект Мира</option>
+                <option value="102">Профсоюзная</option>
+                <option value="92">Рижская</option>
+                <option value="88">Свиблово</option>
+                <option value="94">Сухаревская</option>
+                <option value="97">Третьяковская</option>
+                <option value="95">Тургеневская</option>
+                <option value="107">Тёплый Стан</option>
+                <option value="99">Шаболовская</option>
+                <option value="108">Ясенево</option>
+              </optgroup>
+              <optgroup label="7. Таганско-Краснопресненская">
+                <option value="120">Баррикадная</option>
+                <option value="122">Беговая</option>
+                <option value="114">Волгоградский проспект</option>
+                <option value="110">Выхино</option>
+                <option value="227">Китай-город</option>
+                <option value="118">Кузнецкий Мост</option>
+                <option value="112">Кузьминки</option>
+                <option value="124">Октябрьское Поле</option>
+                <option value="128">Планерная</option>
+                <option value="123">Полежаевская</option>
+                <option value="115">Пролетарская</option>
+                <option value="119">Пушкинская</option>
+                <option value="111">Рязанский проспект</option>
+                <option value="127">Сходненская</option>
+                <option value="116">Таганская</option>
+                <option value="113">Текстильщики</option>
+                <option value="126">Тушинская</option>
+                <option value="121">Улица 1905 года</option>
+                <option value="125">Щукинская</option>
+              <optgroup>
+              <optgroup label="8. Калининская">
+                <option value="82">Авиамоторная</option>
+                <option value="84">Марксистская</option>
+                <option value="79">Новогиреево</option>
+                <option value="186">Новокосино</option>
+                <option value="80">Перово</option>
+                <option value="83">Площадь Ильича</option>
+                <option value="85">Третьяковская</option>
+                <option value="81">Шоссе Энтузиастов</option>
+              </optgroup>
+              <optgroup label="9. Серпуховско-Тимирязевская">
+                <option value="129">Алтуфьево</option>
+                <option value="163">Аннино</option>
+                <option value="130">Бибирево</option>
+                <option value="140">Боровицкая</option>
+                <option value="164">Бульвар Дмитрия Донского</option>
+                <option value="132">Владыкино</option>
+                <option value="135">Дмитровская</option>
+                <option value="137">Менделеевская</option>
+                <option value="144">Нагатинская</option>
+                <option value="145">Нагорная</option>
+                <option value="146">Нахимовский проспект</option>
+                <option value="131">Отрадное</option>
+                <option value="133">Петровско-Разумовская</option>
+                <option value="141">Полянка</option>
+                <option value="150">Пражская</option>
+                <option value="136">Савёловская</option>
+                <option value="147">Севастопольская</option>
+                <option value="142">Серпуховская</option>
+                <option value="134">Тимирязевская</option>
+                <option value="143">Тульская</option>
+                <option value="162">Улица Академика Янгеля</option>
+                <option value="138">Цветной бульвар</option>
+                <option value="148">Чертановская</option>
+                <option value="139">Чеховская</option>
+                <option value="149">Южная</option>
+              <optgroup>
+              <optgroup label="10. Люблинская">
+                <option value="220">Борисово</option>
+                <option value="158">Братиславская</option>
+                <option value="156">Волжская</option>
+                <option value="218">Достоевская</option>
+                <option value="161">Дубровка</option>
+                <option value="222">Зябликово</option>
+                <option value="154">Кожуховская</option>
+                <option value="153">Крестьянская Застава</option>
+                <option value="157">Люблино</option>
+                <option value="217">Марьина Роща</option>
+                <option value="159">Марьино</option>
+                <option value="155">Печатники</option>
+                <option value="152">Римская</option>
+                <option value="219">Сретенский бульвар</option>
+                <option value="166">Трубная</option>
+                <option value="151">Чкаловская</option>
+                <option value="221">Шипиловская</option>
+              </optgroup>
+              <optgroup label="11. Каховская">
+                <option value="27">Варшавская</option>
+                <option value="26">Каховская</option>
+                <option value="25">Каширская</option>
+              </optgroup>
+              <optgroup label="12. Бутовская">
+                <option value="193">Бульвар Адмирала Ушакова</option>
+                <option value="195">Бунинская аллея</option>
+                <option value="194">Улица Горчакова</option>
+                <option value="192">Улица Скобелевская</option>
+                <option value="191">Улица Старокачаловская</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="metroEndInputID">Выход:</label>
+          <input name="portal_to" class="form-control" id="metroEndInputID" type="text" placeholder="Выберите выход на карте..." readonly>
+          <div id="metroEndInput" style="height: 150px;"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Поиск</button>
+      </form>
+      </div>
+
+      <div id="map" class="col-md-6">
+          <legend>Карта</legend>
+      </div>
+
+      <!-- Right panel -->
+      <div class="col-md-3">
+        <legend>Маршрут</legend>
+        <ul class="pagination"></ul>
+        <div id="routePanel"></div>
+      </div>
+    </div>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="bootstrap-3.0.0/assets/js/jquery.js"></script>
+    <script src="bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="select2-3.4.2/select2.js"></script>
+    <script src="select2-3.4.2/select2_locale_ru.js"></script>
+    <script src="leaflet-0.6.4/leaflet.js"></script>
+    <script src="jquery-svgpan/jquery-svgpan.js"></script>
+    <script>
+        var barriersLookup = {
+            'min_width': 'Мин. ширина',
+            'min_step': 'Мин. ступенек пешком',
+            'min_step_ramp': 'Мин. ступенек по рельсам и рампам',
+            'lift': 'Лифт',
+            'lift_minus_step': 'Лифт отнимает ступенек',
+            'min_rail_width': 'Мин. ширина рельс',
+            'max_rail_width': 'Макс. ширина рельс',
+            'max_angle': 'Макс. угол'
+        };
+
+        function calculateBBOX(geojson) {
+            var features = geojson.features,
+                longitudes = [],
+                latitudes = [];
+
+            for (var i=0; i<features.length; i+=1) {
+                lon = features[i].geometry.coordinates[0];
+                lat = features[i].geometry.coordinates[1];
+                longitudes.push(lon);
+                latitudes.push(lat);
+            }
+
+            return [
+                [Math.min.apply(Math,latitudes), Math.min.apply(Math,longitudes)],
+                [Math.max.apply(Math,latitudes), Math.max.apply(Math,longitudes)]
+            ]
+        }
+
+        function showRoute(routes, index) {
+            $.each(routes[index], function(i, item){
+                var content = "<h4>"+(i+1)+". "+item.station_name+"</h4>";
+                if ((item.station_type == 'start') || (item.station_type == 'end')) {
+                    if (item.barriers) {
+                        content+="<ul>";
+                        for (i in item.barriers) {
+                            content+="<li><strong>" + barriersLookup[i] + "</strong>: " + item.barriers[i] + "</li>";
+                        }
+                        content+="</ul>";
+                    } else {
+                        content+="<em>" + {'start': 'Вход', 'end': 'Выход'}[item.station_type] + " не выбран</em>";
+                    }
+                }
+
+                $('#routePanel').append(
+                "<div>" + content + "</div>"
+                );
+            });
+        }
+
+        $(document).ready(function() {
+          var url = "/",
+              metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11),
+              metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
+
+          $("#metroStartStation").select2({width: "100%"});
+          $("#metroEndStation").select2({width: "100%"});
+          
+          // Поле выбора станции входа
+          $("#metroStartStation").on("change", function(e) {
+            $("#metroStartInputID").val("");
+            $.ajax({
+              dataType: "json",
+              url: url + "portals/search",
+              data: {
+                station: e.val,
+                direction: "in"
+              },
+            }).done(function(data) {
+                if (data.features.length != 0) {
+                    // Очищаем слой входов
+                    if (typeof inPortals !== 'undefined') {
+                        metroStartInputMap.removeLayer(inPortals);
+                    }
+
+                    // Устанавливаем новый охват
+                    metroStartInputMap.fitBounds(calculateBBOX(data), {padding: [0, 10]});
+                    
+                    // Добавляем входы на карту
+                    inPortals = L.geoJson(
+                        data, {
+                            pointToLayer: function(feature, latlng) {
+                                return L.marker(
+                                    latlng, {
+                                        icon: L.icon({
+                                            iconUrl: 'icons/in.png',
+                                        })
+                                    }
+                                )
+                            },
+                            onEachFeature: function(feature, layer) {
+                                layer.on('click', function (e) {
+                                    $("#metroStartInputID").val(feature.id);
+                                });
+                            }
+                        }
+                    ).addTo(metroStartInputMap);
+                }
+            });
+          });
+          
+
+          // Поле выбора станции выхода
+          $("#metroEndStation").on("change", function(e) {
+            $("#metroEndInputID").val("");
+            $.ajax({
+              dataType: "json",
+              url: url + "portals/search",
+              data: {
+                station: e.val,
+                direction: "out"
+              },
+            }).done(function(data) {
+                if (data.features.length != 0) {
+                    
+                    // Очищаем слой выходов
+                    if (typeof outPortals !== 'undefined') {
+                        metroEndInputMap.removeLayer(outPortals);
+                    }
+
+                    // Устанавливаем новый охват
+                    metroEndInputMap.fitBounds(calculateBBOX(data), {padding: [0, 10]});
+                    
+                    // Добавляем выходы на карту
+                    outPortals = L.geoJson(
+                        data, {
+                            pointToLayer: function(feature, latlng) {
+                                return L.marker(
+                                    latlng, {
+                                        icon: L.icon({
+                                            iconUrl: 'icons/out.png',
+                                        })
+                                    }
+                                )
+                            },
+                            onEachFeature: function(feature, layer) {
+                                layer.on('click', function (e) {
+                                    $("#metroEndInputID").val(feature.id);
+                                });
+                            }
+                        }
+                    ).addTo(metroEndInputMap);
+                }
+            });
+          });
+
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
+              maxZoom: 18
+          }).addTo(metroStartInputMap);
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
+              maxZoom: 18
+          }).addTo(metroEndInputMap);
+
+          $("#mainform").submit(function() {
+              if ($('#metroStartStation').val().length == 0 || $('#metroEndStation').val().length == 0) {
+                // todo: use bootstrap
+                alert('Не выбрана входная или выходная станция!');
+              } else {
+                  $('.pagination').empty();
+                  $('#routePanel').empty();
+                  $.ajax({
+                      dataType: "json",
+                      url: url + "routes/search",
+                      data: $("#mainform").serialize()
+                  }).done(function(data) {
+                    
+                    // Кнопки переключения маршрутов
+                    $.each(data.routes, function(i, item){
+                        $('.pagination').append('<li><a href="#">'+(i+1)+'</a></li>');
+                    });
+
+                    // Обработчики нажатия кнопок
+                    $('.pagination li').click(function(e){
+                        $('.pagination li').addClass('active').not(this).removeClass('active');
+                        $('#routePanel').empty();
+                        showRoute(data.routes, parseInt($(this).text())-1);
+                    });
+
+                    // Активируем первый маршрут
+                    $('.pagination li').first().trigger('click');
+
+                  });
+              }
+              return false;
+          });
+
+        });
+    </script>
+  </body>
+</html>
