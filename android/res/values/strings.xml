@@ -26,4 +26,5 @@
 	<string name="sFromStation">From Station</string>
 	<string name="sToStation">To Station</string>
 	<string name="sRoute">Route</string>
+	<string name="sSchema">Schema</string>
 </resources>

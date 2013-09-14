@@ -26,4 +26,5 @@
 	<string name="sFromStation">От станции</string>
 	<string name="sToStation">До станции</string>
 	<string name="sRoute">Маршрут</string>
+	<string name="sSchema">Схема</string>
 </resources>

@@ -675,7 +675,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		}
 		else {
 	        Intent intentView = new Intent(MainActivity.this, com.nextgis.metroaccess.StationListView.class);
-	        intentView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+	        //intentView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 		
 	        int nCounter = 0;
 	        Bundle bundle = new Bundle();

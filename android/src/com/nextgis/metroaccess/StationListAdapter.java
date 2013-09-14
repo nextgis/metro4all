@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -111,9 +112,18 @@ public class StationListAdapter extends BaseAdapter {
 				public void onClick(View arg0) {
 				    try {
 				    	Log.d(MainActivity.TAG, schemaFile.getPath());
-				    	Intent intent = new Intent(Intent.ACTION_VIEW);
-				    	intent.setDataAndType(Uri.fromFile(schemaFile),"image/png");
-				    	mContext.startActivity(intent);
+				    	
+				    	Bundle bundle = new Bundle();
+				    	bundle.putString("image_path", schemaFile.getPath());
+				        Intent intentView = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
+				        //intentView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+				    	//Intent intent = new Intent(Intent.ACTION_VIEW);
+				    	//intent.setDataAndType(Uri.fromFile(schemaFile),"image/png");
+				    	
+				    	intentView.putExtras(bundle);
+				    	
+				    	mContext.startActivity(intentView);
 				    } catch (ActivityNotFoundException e) {
 				        Log.e(MainActivity.TAG, "Call failed", e);
 				    }
