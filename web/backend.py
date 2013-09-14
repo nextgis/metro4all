@@ -65,6 +65,25 @@ def get_routes(delta=5, limit=3):
                     max_angle=row['max_angle']
                 )
 
+    # Заполнение информации о препятствиях на переходах
+    def fill_interchange_barriers(station_from, station_to, u):
+        barriers_data_store = csv.DictReader(
+            open('backend_data/interchanges.csv', 'rb'),
+            delimiter=';'
+        )
+        for row in barriers_data_store:
+            if (int(row['station_from']) == station_from) and (int(row['station_to']) == station_to):
+                u['barriers'] = dict(
+                    min_width=row['min_width'],
+                    min_step=row['min_step'],
+                    min_step_ramp=row['min_step_ramp'],
+                    lift=row['lift'],
+                    lift_minus_step=row['lift_minus_step'],
+                    min_rail_width=row['min_rail_width'],
+                    max_rail_width=row['max_rail_width'],
+                    max_angle=row['max_angle']
+                )
+
     station_from = int(request.query.station_from) if request.query.station_from else None
     station_to = int(request.query.station_to) if request.query.station_to else None
     portal_from = int(request.query.portal_from) if request.query.portal_from else None
@@ -120,8 +139,8 @@ def get_routes(delta=5, limit=3):
                         unit['barriers'] = None
 
                 elif station_type == "interchange":
-                    # todo
-                    unit['barriers'] = "interchange barriers"
+                    unit['barriers'] = None
+                    fill_interchange_barriers(get_station_id(station), get_station_id(get_next_item(simple_paths_list_sorted[index], station)), unit)
 
                 elif station_type == "regular":
                     unit['barriers'] = None

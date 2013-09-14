@@ -560,6 +560,14 @@
                     } else {
                         content+="<em>" + "Препятствия не отображаются, так как не выбран " + {'start': 'вход', 'end': 'выход'}[item.station_type] + "</em>";
                     }
+                } else if (item.station_type == 'interchange') {
+                    if (item.barriers) {
+                        content+="<ul>";
+                        for (i in item.barriers) {
+                            content+="<li><strong>" + barriersLookup[i] + "</strong>: " + item.barriers[i] + "</li>";
+                        }
+                        content+="</ul>";
+                    }
                 }
 
                 $('#routePanel').append(
