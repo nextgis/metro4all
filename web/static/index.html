@@ -38,7 +38,7 @@
       <!-- Left panel -->
       <div class="col-md-3">
       <form id="mainform" role="form">
-        <legend>Откуда</legend>
+        <legend>Начало</legend>
         <div class="form-group">
           <label for="metroStartStation">Станция:</label>
           <div>
@@ -264,7 +264,7 @@
           <input name="portal_from" class="form-control" id="metroStartInputID" type="text" placeholder="Выберите вход на карте..." readonly>
           <div id="metroStartInput" style="height: 150px;"></div>
         </div>
-        <legend>Куда</legend>
+        <legend>Конец</legend>
         <div class="form-group">
           <label for="metroEndStation">Станция:</label>
           <div>
@@ -518,9 +518,9 @@
     <script src="select2-3.4.2/select2_locale_ru.js"></script>
     <script src="leaflet-0.6.4/leaflet.js"></script>
     <script src="TileLayer.Grayscale.js"></script>
+    <script src="ma/ma.url.js"></script>
     <script>
-        var 
-        stationsLookup = [
+        var stationsLookup = [
             {},
             {'name': 'Сокольническая', 'color': '#ED1B35'},
             {'name': 'Замоскворецкая', 'color': '#44B85C'},
@@ -541,13 +541,13 @@
             content+="<li><strong>Ступенек</strong>: " + barriers['min_step'] + "</li>";
             content+="<li><strong>Из них по рельсам и рампам</strong>: " + barriers['min_step_ramp'] + "</li>";
             content+="<li><strong>Лифт</strong>: " + {true: 'есть', false: 'нет'}[barriers['lift']];
-            
+
             // Лифт
             if (barriers['lift']) {
                 content+=", экономит " + barriers['lift_minus_step'] + " ступенек";
             }
             content+="</li>";
-            
+
             // Аппарели
             content+="<li><strong>Мин-макс. расстояние между колесами</strong>: "
             if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
@@ -613,6 +613,7 @@
         }
 
         $(document).ready(function() {
+          ma.url.init();
           mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
           var url = "/",
               metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11),
@@ -624,6 +625,8 @@
           // Поле выбора станции входа
           $("#metroStartStation").on("change", function(e) {
             $("#metroStartInputID").val("");
+            ma.view.$document.triggerHandler('/url/update', ['start', '']);
+            ma.view.$document.triggerHandler('/url/update', ['stat-start', e.val]);
             $.ajax({
               dataType: "json",
               url: url + "portals/search",
@@ -653,6 +656,7 @@
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     $("#metroStartInputID").val(feature.id);
+                                    ma.view.$document.triggerHandler('/url/update', ['start', feature.id]);
                                 });
                             }
                         }
@@ -668,6 +672,8 @@
           // Поле выбора станции выхода
           $("#metroEndStation").on("change", function(e) {
             $("#metroEndInputID").val("");
+            ma.view.$document.triggerHandler('/url/update', ['end', '']);
+            ma.view.$document.triggerHandler('/url/update', ['stat-end', e.val]);
             $.ajax({
               dataType: "json",
               url: url + "portals/search",
@@ -698,6 +704,7 @@
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     $("#metroEndInputID").val(feature.id);
+                                    ma.view.$document.triggerHandler('/url/update', ['end', feature.id]);
                                 });
                             }
                         }
@@ -748,10 +755,12 @@
                     });
 
                     // Обработчики нажатия кнопок
-                    $('.pagination li').click(function(e){
+                    $('.pagination li').click(function(e) {
+                        var route_index = parseInt($(this).text()) - 1;
                         $('.pagination li').addClass('active').not(this).removeClass('active');
                         $('#routePanel').empty();
-                        showRoute(data.routes, parseInt($(this).text())-1);
+                        showRoute(data.routes, route_index);
+                        ma.view.$document.triggerHandler('/url/update', ['route',route_index + 1]);
                     });
 
                     // Активируем первый маршрут
