@@ -529,24 +529,6 @@
             'max_angle': 'Макс. угол'
         };
 
-        function calculateBBOX(geojson) {
-            var features = geojson.features,
-                longitudes = [],
-                latitudes = [];
-
-            for (var i=0; i<features.length; i+=1) {
-                lon = features[i].geometry.coordinates[0];
-                lat = features[i].geometry.coordinates[1];
-                longitudes.push(lon);
-                latitudes.push(lat);
-            }
-
-            return [
-                [Math.min.apply(Math,latitudes), Math.min.apply(Math,longitudes)],
-                [Math.max.apply(Math,latitudes), Math.max.apply(Math,longitudes)]
-            ]
-        }
-
         function showRoute(routes, index) {
             $.each(routes[index], function(i, item){
                 var content = "<h4>"+(i+1)+". "+item.station_name+"</h4>";
@@ -600,10 +582,7 @@
                     if (typeof inPortals !== 'undefined') {
                         metroStartInputMap.removeLayer(inPortals);
                     }
-
-                    // Устанавливаем новый охват
-                    metroStartInputMap.fitBounds(calculateBBOX(data), {padding: [0, 10]});
-                    
+                
                     // Добавляем входы на карту
                     inPortals = L.geoJson(
                         data, {
@@ -623,6 +602,9 @@
                             }
                         }
                     ).addTo(metroStartInputMap);
+
+                    // Устанавливаем новый охват
+                    metroStartInputMap.fitBounds(inPortals.getBounds(), {padding: [0, 10]});
                 }
             });
           });
@@ -645,10 +627,7 @@
                     if (typeof outPortals !== 'undefined') {
                         metroEndInputMap.removeLayer(outPortals);
                     }
-
-                    // Устанавливаем новый охват
-                    metroEndInputMap.fitBounds(calculateBBOX(data), {padding: [0, 10]});
-                    
+                  
                     // Добавляем выходы на карту
                     outPortals = L.geoJson(
                         data, {
@@ -668,6 +647,9 @@
                             }
                         }
                     ).addTo(metroEndInputMap);
+
+                    // Устанавливаем новый охват
+                    metroEndInputMap.fitBounds(outPortals.getBounds(), {padding: [0, 10]});
                 }
             });
           });
