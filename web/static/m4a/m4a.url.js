@@ -1,13 +1,13 @@
-var ma = {};
+var m4a = {};
 
-ma.viewmodel = {};
-ma.view = {};
+m4a.viewmodel = {};
+m4a.view = {};
 
-(function ($, ma) {
-    ma.url = {};
-    ma.view.$document = $(document);
+(function ($, m4a) {
+    m4a.url = {};
+    m4a.view.$document = $(document);
 
-    $.extend(ma.url, {
+    $.extend(m4a.url, {
         init: function () {
             this.bindEvents();
         },
@@ -15,7 +15,7 @@ ma.view = {};
 
         bindEvents: function() {
             var context = this,
-                $document = ma.view.$document;
+                $document = m4a.view.$document;
 
             $document.on('/url/update', function(e, key, value) {
                 var uri = context.updateQueryStringParameter(window.location.href, key, value);
@@ -38,4 +38,4 @@ ma.view = {};
             }
         }
     })
-})(jQuery, ma)
+})(jQuery, m4a)

@@ -518,7 +518,7 @@
     <script src="select2-3.4.2/select2_locale_ru.js"></script>
     <script src="leaflet-0.6.4/leaflet.js"></script>
     <script src="TileLayer.Grayscale.js"></script>
-    <script src="ma/ma.url.js"></script>
+    <script src="m4a/m4a.url.js"></script>
     <script>
         var stationsLookup = [
             {},
@@ -613,7 +613,7 @@
         }
 
         $(document).ready(function() {
-          ma.url.init();
+          m4a.url.init();
           mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
           var url = "/",
               metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11),
@@ -625,8 +625,8 @@
           // Поле выбора станции входа
           $("#metroStartStation").on("change", function(e) {
             $("#metroStartInputID").val("");
-            ma.view.$document.triggerHandler('/url/update', ['start', '']);
-            ma.view.$document.triggerHandler('/url/update', ['stat-start', e.val]);
+            m4a.view.$document.triggerHandler('/url/update', ['start', '']);
+            m4a.view.$document.triggerHandler('/url/update', ['stat-start', e.val]);
             $.ajax({
               dataType: "json",
               url: url + "portals/search",
@@ -656,7 +656,7 @@
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     $("#metroStartInputID").val(feature.id);
-                                    ma.view.$document.triggerHandler('/url/update', ['start', feature.id]);
+                                    m4a.view.$document.triggerHandler('/url/update', ['start', feature.id]);
                                 });
                             }
                         }
@@ -672,8 +672,8 @@
           // Поле выбора станции выхода
           $("#metroEndStation").on("change", function(e) {
             $("#metroEndInputID").val("");
-            ma.view.$document.triggerHandler('/url/update', ['end', '']);
-            ma.view.$document.triggerHandler('/url/update', ['stat-end', e.val]);
+            m4a.view.$document.triggerHandler('/url/update', ['end', '']);
+            m4a.view.$document.triggerHandler('/url/update', ['stat-end', e.val]);
             $.ajax({
               dataType: "json",
               url: url + "portals/search",
@@ -704,7 +704,7 @@
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     $("#metroEndInputID").val(feature.id);
-                                    ma.view.$document.triggerHandler('/url/update', ['end', feature.id]);
+                                    m4a.view.$document.triggerHandler('/url/update', ['end', feature.id]);
                                 });
                             }
                         }
@@ -760,7 +760,7 @@
                         $('.pagination li').addClass('active').not(this).removeClass('active');
                         $('#routePanel').empty();
                         showRoute(data.routes, route_index);
-                        ma.view.$document.triggerHandler('/url/update', ['route',route_index + 1]);
+                        m4a.view.$document.triggerHandler('/url/update', ['route',route_index + 1]);
                     });
 
                     // Активируем первый маршрут
