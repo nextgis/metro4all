@@ -5,7 +5,7 @@ from geojson import Feature, FeatureCollection, dumps
 from bottle import route, response, request, run, static_file, HTTPResponse
 from helpers import STATIONS
 
-G = nx.Graph(nx.read_dot('graph.dot'))
+G = nx.Graph(nx.read_dot('../data/msk/graph.dot'))
 
 
 @route('/static/<path:path>')
@@ -23,7 +23,7 @@ def get_portals():
 
     portals = []
     store = csv.DictReader(
-        open('backend_data/portals.csv', 'rb'),
+        open('../data/msk/portals.csv', 'rb'),
         delimiter=';'
     )
     for row in store:
@@ -49,7 +49,7 @@ def get_routes(delta=5, limit=3):
     # Заполнение информации о препятствиях на входах и выходах
     def fill_portal_barriers(portal_id, u):
         barriers_data_store = csv.DictReader(
-            open('backend_data/portals.csv', 'rb'),
+            open('../data/msk/portals.csv', 'rb'),
             delimiter=';'
         )
         for row in barriers_data_store:
@@ -68,7 +68,7 @@ def get_routes(delta=5, limit=3):
     # Заполнение информации о препятствиях на переходах
     def fill_interchange_barriers(station_from, station_to, u):
         barriers_data_store = csv.DictReader(
-            open('backend_data/interchanges.csv', 'rb'),
+            open('../data/msk/interchanges.csv', 'rb'),
             delimiter=';'
         )
         for row in barriers_data_store:
