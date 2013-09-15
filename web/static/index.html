@@ -635,12 +635,12 @@
                 direction: "in"
               },
             }).done(function(data) {
+                // Очищаем слой входов
+                if (typeof inPortals !== 'undefined') {
+                    metroStartInputMap.removeLayer(inPortals);
+                }
                 if (data.features.length != 0) {
-                    // Очищаем слой входов
-                    if (typeof inPortals !== 'undefined') {
-                        metroStartInputMap.removeLayer(inPortals);
-                    }
-                
+
                     // Добавляем входы на карту
                     inPortals = L.geoJson(
                         data, {
@@ -682,13 +682,12 @@
                 direction: "out"
               },
             }).done(function(data) {
+                // Очищаем слой выходов
+                if (typeof outPortals !== 'undefined') {
+                    metroEndInputMap.removeLayer(outPortals);
+                }
                 if (data.features.length != 0) {
-                    
-                    // Очищаем слой выходов
-                    if (typeof outPortals !== 'undefined') {
-                        metroEndInputMap.removeLayer(outPortals);
-                    }
-                  
+
                     // Добавляем выходы на карту
                     outPortals = L.geoJson(
                         data, {
