@@ -10,7 +10,7 @@ G = nx.Graph(nx.read_dot('../data/msk/graph.dot'))
 
 @route('/static/<path:path>')
 def static(path):
-    return static_file(path, root='/home/rykov/nextgis/projects/metroaccess/webapp/static')
+    return static_file(path, root='/home/tenzorr/projects/metroaccess/metroaccess/web/static')
 
 
 @route('/portals/search')
