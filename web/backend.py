@@ -123,7 +123,8 @@ def get_routes(delta=5, limit=3):
                     station_type=station_type,
                     station_id=get_station_id(station),
                     station_name=station,
-                    station_line=get_station_line(station)
+                    station_line=get_station_line(station),
+                    coordinates=get_station_coords(station)
                 )
 
                 if station_type == "start":
@@ -175,6 +176,13 @@ def get_station_line(name):
     for id, line, n, coords in STATIONS:
         if name == n:
             return line
+
+
+# Получение координат станции по имени
+def get_station_coords(name):
+    for id, line, n, coords in STATIONS:
+        if name == n:
+            return coords
 
 
 # Проверка на принадлежность станций (по имени) к одной линии

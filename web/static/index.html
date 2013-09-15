@@ -496,6 +496,7 @@
 
       <div id="map" class="col-md-6">
           <legend>Карта</legend>
+          <div id="mainMap" style="height: 480px;"></div>
       </div>
 
       <!-- Right panel -->
@@ -516,8 +517,10 @@
     <script src="select2-3.4.2/select2.js"></script>
     <script src="select2-3.4.2/select2_locale_ru.js"></script>
     <script src="leaflet-0.6.4/leaflet.js"></script>
+    <script src="TileLayer.Grayscale.js"></script>
     <script>
-        var barriersLookup = {
+        var 
+        barriersLookup = {
             'min_width': 'Мин. ширина',
             'min_step': 'Мин. ступенек пешком',
             'min_step_ramp': 'Мин. ступенек по рельсам и рампам',
@@ -526,9 +529,25 @@
             'min_rail_width': 'Мин. ширина рельс',
             'max_rail_width': 'Макс. ширина рельс',
             'max_angle': 'Макс. угол'
-        };
+        },
+        stationsLookup = [
+            {},
+            {'name': 'Сокольническая', 'color': '#ED1B35'},
+            {'name': 'Замоскворецкая', 'color': '#44B85C'},
+            {'name': 'Арбатско-Покровская', 'color': '#0078BF'},
+            {'name': 'Филёвская', 'color': '#19C1F3'},
+            {'name': 'Кольцевая', 'color': '#894E35'},
+            {'name': 'Калужско-Рижская', 'color': '#F58631'},
+            {'name': 'Таганско-Краснопресненская', 'color': '#8E479C'},
+            {'name': 'Калининская', 'color': '#FFCB31'},
+            {'name': 'Серпуховско-Тимирязевская', 'color': '#A1A2A3'},
+            {'name': 'Люблинская', 'color': '#B3D445'},
+            {'name': 'Каховская', 'color': '#79CDCD'},
+            {'name': 'Бутовская', 'color': '#ACBFE1'}];
 
         function showRoute(routes, index) {
+            
+            // Вывод списка станций, входящих в маршрут
             $.each(routes[index], function(i, item){
                 var content = "<h4>"+(i+1)+". "+item.station_name+"</h4>";
                 if ((item.station_type == 'start') || (item.station_type == 'end')) {
@@ -555,9 +574,30 @@
                 "<div>" + content + "</div>"
                 );
             });
+            
+            // Отображение маршрута на карте
+            if (typeof route !== 'undefined') {
+                mainMap.removeLayer(route);
+            }
+            route = L.layerGroup()
+            $.each(routes[index], function(i, item){
+                if (i != 0) {
+                    route.addLayer(
+                        L.polyline(
+                            [routes[index][i-1].coordinates, item.coordinates],
+                            {
+                                color: stationsLookup[item.station_line].color,
+                                opacity: 1
+                            })
+                    ).addTo(mainMap);
+                }
+            });
+            
+
         }
 
         $(document).ready(function() {
+          mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
           var url = "/",
               metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11),
               metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
@@ -653,14 +693,23 @@
             });
           });
 
+          // Карта для выбора входов
           L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
               maxZoom: 18
           }).addTo(metroStartInputMap);
+
+          // Карта для выбора выходов
           L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
               maxZoom: 18
           }).addTo(metroEndInputMap);
+
+          // Карта для отображения маршрутов
+          L.tileLayer.grayscale('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
+              maxZoom: 18
+          }).addTo(mainMap);
 
           $("#mainform").submit(function() {
               if ($('#metroStartStation').val().length == 0 || $('#metroEndStation').val().length == 0) {
