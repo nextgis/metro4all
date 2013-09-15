@@ -55,14 +55,14 @@ def get_routes(delta=5, limit=3):
         for row in barriers_data_store:
             if int(row['id_entrance']) == portal_id:
                 u['barriers'] = dict(
-                    min_width=row['min_width'],
+                    min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
                     min_step=row['min_step'],
                     min_step_ramp=row['min_step_ramp'],
                     lift=False if row['lift'] in ['', '0'] else True,
                     lift_minus_step=row['lift_minus_step'],
-                    min_rail_width=row['min_rail_width'],
-                    max_rail_width=row['max_rail_width'],
-                    max_angle=row['max_angle']
+                    min_rail_width=int(row['min_rail_width'])/10 if (row['min_rail_width'].isdigit() and row['min_rail_width'] != '0') else None,
+                    max_rail_width=int(row['max_rail_width'])/10 if (row['max_rail_width'].isdigit() and row['max_rail_width'] != '0') else None,
+                    max_angle=int(row['max_angle'])/10 if (row['max_angle'].isdigit() and row['max_angle'] != '0') else None
                 )
 
     # Заполнение информации о препятствиях на переходах
@@ -74,14 +74,14 @@ def get_routes(delta=5, limit=3):
         for row in barriers_data_store:
             if (int(row['station_from']) == station_from) and (int(row['station_to']) == station_to):
                 u['barriers'] = dict(
-                    min_width=row['min_width'],
+                    min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
                     min_step=row['min_step'],
                     min_step_ramp=row['min_step_ramp'],
                     lift=False if row['lift'] in ['', '0'] else True,
                     lift_minus_step=row['lift_minus_step'],
-                    min_rail_width=row['min_rail_width'],
-                    max_rail_width=row['max_rail_width'],
-                    max_angle=row['max_angle']
+                    min_rail_width=int(row['min_rail_width'])/10 if (row['min_rail_width'].isdigit() and row['min_rail_width'] != '0') else None,
+                    max_rail_width=int(row['max_rail_width'])/10 if (row['max_rail_width'].isdigit() and row['max_rail_width'] != '0') else None,
+                    max_angle=int(row['max_angle'])/10 if (row['max_angle'].isdigit() and row['max_angle'] != '0') else None
                 )
 
     station_from = int(request.query.station_from) if request.query.station_from else None

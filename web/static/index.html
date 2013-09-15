@@ -38,7 +38,7 @@
       <!-- Left panel -->
       <div class="col-md-3">
       <form id="mainform" role="form">
-        <legend>Начало</legend>
+        <legend>Откуда</legend>
         <div class="form-group">
           <label for="metroStartStation">Станция:</label>
           <div>
@@ -264,7 +264,7 @@
           <input name="portal_from" class="form-control" id="metroStartInputID" type="text" placeholder="Выберите вход на карте..." readonly>
           <div id="metroStartInput" style="height: 150px;"></div>
         </div>
-        <legend>Конец</legend>
+        <legend>Куда</legend>
         <div class="form-group">
           <label for="metroEndStation">Станция:</label>
           <div>
@@ -541,12 +541,30 @@
             content+="<li><strong>Ступенек</strong>: " + barriers['min_step'] + "</li>";
             content+="<li><strong>Из них по рельсам и рампам</strong>: " + barriers['min_step_ramp'] + "</li>";
             content+="<li><strong>Лифт</strong>: " + {true: 'есть', false: 'нет'}[barriers['lift']];
+            
+            // Лифт
             if (barriers['lift']) {
                 content+=", экономит " + barriers['lift_minus_step'] + " ступенек";
             }
             content+="</li>";
-            content+="<li><strong>Мин-макс. расстояние между колесами</strong>: " + barriers['min_rail_width'] + "-" + barriers['max_rail_width'] + " см" + "</li>";
-            content+="<li><strong>Угол наклона</strong>: " + barriers['max_angle'] + "&deg;" + "</li>";
+            
+            // Аппарели
+            content+="<li><strong>Мин-макс. расстояние между колесами</strong>: "
+            if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
+                content+=barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + " см";
+            } else {
+                content+="аппарели отсутствуют";
+            }
+            content+="</li>";
+
+            // Наклонные поверхности
+            content+="<li><strong>Угол наклона</strong>: "
+            if (barriers['max_angle']) {
+                content+=barriers['max_angle'] + "&deg;";
+            } else {
+                content+="наклонных поверхностей нет";
+            }
+            content+="</li>";
             content+="</ul>";
             return content;
         }
