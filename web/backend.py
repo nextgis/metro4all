@@ -158,21 +158,21 @@ def get_routes(delta=5, limit=3):
 
 # Получение названия станции по идентификатору
 def get_station_name(station_id):
-    for id, line, name in STATIONS:
+    for id, line, name, coords in STATIONS:
         if id == station_id:
             return name
 
 
 # Получение идентификатора станции по имени
 def get_station_id(name):
-    for id, line, n in STATIONS:
+    for id, line, n, coords in STATIONS:
         if name == n:
             return id
 
 
 # Получение идентификатора линии по имени станции
 def get_station_line(name):
-    for id, line, n in STATIONS:
+    for id, line, n, coords in STATIONS:
         if name == n:
             return line
 
