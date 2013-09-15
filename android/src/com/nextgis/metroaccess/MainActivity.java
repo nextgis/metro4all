@@ -88,6 +88,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	
 	final static String CSV_CHAR = ";";
 	
+	public final static int MENU_SEARCH = 3;
 //TODO:	public final static int MENU_SETTINGS = 4;
 	public final static int MENU_ABOUT = 5;
 
@@ -104,6 +105,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	
 	//protected DefaultDirectedWeightedGraph<Integer, DefaultWeightedEdge> mGraph;
 	protected Graph mGraph;
+	
+	protected Button mSearchButton;
+	protected MenuItem mSearchMenuItem;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -251,14 +255,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
  				     mmoStations.put(nID, st);
 		        }
 		        
-		        mSpinnerFrom = (Spinner) findViewById(R.id.spFrom);
+/*		        mSpinnerFrom = (Spinner) findViewById(R.id.spFrom);
 		        station_from_adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);//.simple_spinner_dropdown_item);
 		        mSpinnerFrom.setAdapter(station_from_adapter);
 		        
 		        mSpinnerTo = (Spinner) findViewById(R.id.spTo);
 		        station_to_adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 		        mSpinnerTo.setAdapter(station_to_adapter);
-		        
+*/		        
 		        reader.close();
 		        if (in != null) {
 		        	in.close();
@@ -305,16 +309,21 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			}
 		}
 		
-		Button button = (Button) findViewById(R.id.btSearch);
-        button.setOnClickListener(new View.OnClickListener() {
+		mSearchButton = (Button) findViewById(R.id.btSearch);
+		mSearchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	onSearch();
              }
         });  
+		mSearchButton.setEnabled(false);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		mSearchMenuItem = menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_SEARCH, com.actionbarsherlock.view.Menu.NONE, R.string.sSearch)
+		.setIcon(R.drawable.ic_action_search);
+		mSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		mSearchMenuItem.setEnabled(false);
 		//TODO:        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.sSettings)
 //      .setIcon(R.drawable.ic_action_settings)
 //      .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);		
@@ -331,6 +340,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		switch (item.getItemId()) {
         case android.R.id.home:
             return false;
+        case MENU_SEARCH:
+        	onSearch();
+        	return true;
 //TODO:        case MENU_SETTINGS:
             // app icon in action bar clicked; go home
 //            Intent intentSet = new Intent(this, PreferencesActivity.class);

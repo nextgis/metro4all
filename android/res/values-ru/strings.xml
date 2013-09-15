@@ -27,4 +27,9 @@
 	<string name="sToStation">До станции</string>
 	<string name="sRoute">Маршрут</string>
 	<string name="sSchema">Схема</string>
+	<string name="sStationName">Название: </string>
+	<string name="sEntranceName">Вход: </string>
+	<string name="sNotSet">Не назначено</string>	
+	<string name="sSelFromStation">Выберите станцию отправления</string>
+	<string name="sSelToStation">Выберите станцию прибытия</string>	
 </resources>

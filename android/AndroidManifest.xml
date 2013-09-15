@@ -38,7 +38,7 @@
 		</activity> 		      
         <activity 
     		android:name="com.nextgis.metroaccess.StationImageView"
-    		android:label="@string/sImage">
+    		android:label="@string/sSchema">
 		</activity> 		      
       </application>
 
