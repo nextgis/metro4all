@@ -1,0 +1,2008 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' upload='false' generator='JOSM'>
+  <node id='-5998' action='modify' visible='true' lat='59.9724909857481' lon='30.35078813497267'>
+    <tag k='ref' v='5' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-5997' action='modify' visible='true' lat='59.97218407277117' lon='30.348198562003002'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-5996' action='modify' visible='true' lat='59.97124231360357' lon='30.34862658787342'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-5995' action='modify' visible='true' lat='59.97115015838865' lon='30.34796566557257'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4517' action='modify' visible='true' lat='59.928330147330456' lon='30.41191324329338'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4515' action='modify' visible='true' lat='59.92850890822654' lon='30.41274090354268'>
+    <tag k='ref' v='8' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4513' action='modify' visible='true' lat='59.928970106890056' lon='30.41315473366733'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4511' action='modify' visible='true' lat='59.929352646653285' lon='30.412833658570612'>
+    <tag k='ref' v='5' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4509' action='modify' visible='true' lat='59.92954212733229' lon='30.411898973289087'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4507' action='modify' visible='true' lat='59.92937409735051' lon='30.411064178037638'>
+    <tag k='ref' v='7' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4505' action='modify' visible='true' lat='59.92892005463209' lon='30.41072169793448'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4503' action='modify' visible='true' lat='59.9074685369812' lon='30.48298780628755'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4501' action='modify' visible='true' lat='59.914896677000996' lon='30.349672685953106'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4499' action='modify' visible='true' lat='59.93601476337298' lon='30.315146505016227'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4497' action='modify' visible='true' lat='59.952259948670196' lon='30.291143982277386'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4495' action='modify' visible='true' lat='59.95205094808064' lon='30.291907427507333'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4493' action='modify' visible='true' lat='59.95170082448167' lon='30.291971642526676'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4489' action='modify' visible='true' lat='59.97191938822572' lon='30.259569459882567'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4487' action='modify' visible='true' lat='60.008298493260995' lon='30.25891156107205'>
+    <tag k='ref' v='5' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4485' action='modify' visible='true' lat='60.008464942950944' lon='30.25923445440987'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4483' action='modify' visible='true' lat='60.00823922688126' lon='30.258492808774577'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4481' action='modify' visible='true' lat='59.9427265233624' lon='30.27811274882987'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4479' action='modify' visible='true' lat='59.87717411455715' lon='30.441840669874352'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4477' action='modify' visible='true' lat='59.83039882531531' lon='30.50081283832705'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4475' action='modify' visible='true' lat='59.83119243569475' lon='30.502311265222882'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4473' action='modify' visible='true' lat='59.83005414183175' lon='30.37364728574202'>
+    <tag k='ref' v='5' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4471' action='modify' visible='true' lat='59.82975240967375' lon='30.373803687202525'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4469' action='modify' visible='true' lat='59.83027980527252' lon='30.376714772451294'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4467' action='modify' visible='true' lat='59.82998821739193' lon='30.37487327138405'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4465' action='modify' visible='true' lat='59.830185990319904' lon='30.37458064929665'>
+    <tag k='ref' v='7' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4463' action='modify' visible='true' lat='59.82986904595807' lon='30.374732005548747'>
+    <tag k='ref' v='6' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4461' action='modify' visible='true' lat='59.849345795473404' lon='30.321126824008303'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4459' action='modify' visible='true' lat='59.84914868940399' lon='30.321148229014753'>
+    <tag k='ref' v='5' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4457' action='modify' visible='true' lat='59.849087765473634' lon='30.321968754261896'>
+    <tag k='ref' v='7' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4455' action='modify' visible='true' lat='59.85320883877443' lon='30.320884233935228'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4453' action='modify' visible='true' lat='59.853459670237314' lon='30.32086282892878'>
+    <tag k='ref' v='8' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4451' action='modify' visible='true' lat='59.85352058616437' lon='30.321740434193124'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4449' action='modify' visible='true' lat='59.927100622332006' lon='30.320218270157657'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4447' action='modify' visible='true' lat='59.92659751441057' lon='30.318603803468566'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4445' action='modify' visible='true' lat='59.92632193950113' lon='30.31789242908368'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4443' action='modify' visible='true' lat='59.9268073543203' lon='30.316752211984507'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4441' action='modify' visible='true' lat='59.93502311135476' lon='30.330081446923398'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4439' action='modify' visible='true' lat='59.934926599545705' lon='30.3309376471813'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4437' action='modify' visible='true' lat='59.93459416783157' lon='30.330737867121123'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4435' action='modify' visible='true' lat='59.956162326494066' lon='30.319158378182898'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4433' action='modify' visible='true' lat='59.966272277225904' lon='30.3114370021488'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4431' action='modify' visible='true' lat='59.96611425399954' lon='30.31107133328866'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4429' action='modify' visible='true' lat='59.966406194624184' lon='30.310784149452157'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4427' action='modify' visible='true' lat='59.96644458417852' lon='30.311174790819823'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4425' action='modify' visible='true' lat='59.98543227525384' lon='30.301169987590725'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4423' action='modify' visible='true' lat='60.00254665818359' lon='30.29695982925376'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4421' action='modify' visible='true' lat='60.0372514408483' lon='30.321720196963746'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4419' action='modify' visible='true' lat='60.06699386470502' lon='30.334308909044584'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4417' action='modify' visible='true' lat='60.0507523645508' lon='30.44383111646768'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4415' action='modify' visible='true' lat='60.05048537778127' lon='30.44366462459037'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4413' action='modify' visible='true' lat='60.034881080866235' lon='30.418612773667597'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4411' action='modify' visible='true' lat='60.008766123380106' lon='30.370758960190255'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4409' action='modify' visible='true' lat='59.98475801399946' lon='30.344448477382443'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4407' action='modify' visible='true' lat='59.95552406292317' lon='30.35615187133574'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4405' action='modify' visible='true' lat='59.94468061421585' lon='30.359894389997788'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4403' action='modify' visible='true' lat='59.92979212253669' lon='30.360872543969702'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4401' action='modify' visible='true' lat='59.92980476231548' lon='30.361215618141134'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4399' action='modify' visible='true' lat='59.931677078033296' lon='30.360168319513686'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4397' action='modify' visible='true' lat='59.92766031408949' lon='30.348278957587606'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4395' action='modify' visible='true' lat='59.9281355969989' lon='30.346503044229603'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4393' action='modify' visible='true' lat='59.920717649470625' lon='30.329723318117363'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4391' action='modify' visible='true' lat='59.91661639943261' lon='30.318566229044023'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4389' action='modify' visible='true' lat='59.90710336171468' lon='30.299059133168363'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4387' action='modify' visible='true' lat='59.901043170587506' lon='30.274756205217262'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4385' action='modify' visible='true' lat='59.87987529275159' lon='30.261726651673513'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4383' action='modify' visible='true' lat='59.85205134141117' lon='30.26973003429106'>
+    <tag k='ref' v='6' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4381' action='modify' visible='true' lat='59.85206567518715' lon='30.267040138480848'>
+    <tag k='ref' v='7' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4379' action='modify' visible='true' lat='59.851685828037965' lon='30.267068678489444'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4377' action='modify' visible='true' lat='59.849847449905766' lon='30.26900226407185'>
+    <tag k='ref' v='8' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4375' action='modify' visible='true' lat='59.849546419249144' lon='30.269009399073997'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4373' action='modify' visible='true' lat='59.849575088952804' lon='30.26763234365922'>
+    <tag k='ref' v='5' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4371' action='modify' visible='true' lat='59.841509369933746' lon='30.253556274649053'>
+    <tag k='ref' v='7' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4369' action='modify' visible='true' lat='59.841480784603164' lon='30.25426939932586'>
+    <tag k='ref' v='8' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4367' action='modify' visible='true' lat='59.84165801325714' lon='30.25431112470589'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4365' action='modify' visible='true' lat='59.841800938903745' lon='30.25030169500704'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4363' action='modify' visible='true' lat='59.84187525999747' lon='30.249713746470306'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4361' action='modify' visible='true' lat='59.842269730717575' lon='30.249846509043117'>
+    <tag k='ref' v='6' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='-4359' action='modify' visible='true' lat='59.942580950446214' lon='30.278238056606792'>
+    <tag k='name' v='Василеостровская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='51' />
+  </node>
+  <node id='-4357' action='modify' visible='true' lat='59.922358837417505' lon='30.335780724082404'>
+    <tag k='name' v='Звенигородская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='87' />
+  </node>
+  <node id='-4355' action='modify' visible='true' lat='59.920581420586835' lon='30.329933841964905'>
+    <tag k='name' v='Пушкинская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='10' />
+  </node>
+  <node id='88803981' action='modify' visible='true' version='1' lat='59.95616327107895' lon='30.318737017436597'>
+    <tag k='name' v='Горьковская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='33' />
+  </node>
+  <node id='88833360' action='modify' visible='true' version='1' lat='59.951804149048506' lon='30.29117742084034'>
+    <tag k='name' v='Спортивная' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='90' />
+  </node>
+  <node id='88833366' action='modify' visible='true' version='1' lat='59.96096014546986' lon='30.292036719166383'>
+    <tag k='name' v='Чкаловская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='91' />
+  </node>
+  <node id='90551453' action='modify' visible='true' version='1' lat='60.016713072462956' lon='30.31587936978939'>
+    <tag k='name' v='Удельная' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='37' />
+  </node>
+  <node id='91264383' action='modify' visible='true' version='1' lat='59.97176085661351' lon='30.259459772497472'>
+    <tag k='name' v='Крестовский остров' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='92' />
+  </node>
+  <node id='91264384' action='modify' visible='true' version='1' lat='59.98926559647527' lon='30.255286839965613'>
+    <tag k='name' v='Старая деревня' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='93' />
+  </node>
+  <node id='92580819' action='modify' visible='true' version='1' lat='59.92682012179117' lon='30.317893419467023'>
+    <tag k='name' v='Садовая' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='88' />
+  </node>
+  <node id='94516905' action='modify' visible='true' version='1' lat='60.00874738399046' lon='30.258374285428587'>
+    <tag k='name' v='Комендантский проспект' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='94' />
+  </node>
+  <node id='94857612' action='modify' visible='true' version='1' lat='59.92702891860601' lon='30.320479505264338'>
+    <tag k='name' v='Сенная площадь' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='31' />
+  </node>
+  <node id='94858991' action='modify' visible='true' version='1' lat='59.92821382878189' lon='30.34621359063025'>
+    <tag k='name' v='Достоевская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='69' />
+  </node>
+  <node id='94877075' action='modify' visible='true' version='1' lat='59.920732' lon='30.3556508'>
+    <tag k='name' v='Лиговский проспект' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='68' />
+  </node>
+  <node id='94877563' action='modify' visible='true' version='1' lat='59.9235999' lon='30.3835376'>
+    <tag k='name' v='Площадь Александра Невского 2' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='67' />
+  </node>
+  <node id='94890886' action='modify' visible='true' version='1' lat='59.9242035' lon='30.3853436'>
+    <tag k='name' v='Площадь Александра Невского 1' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='47' />
+  </node>
+  <node id='94891390' action='modify' visible='true' version='1' lat='59.92897105725973' lon='30.41188944328736'>
+    <tag k='name' v='Новочеркасская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='66' />
+  </node>
+  <node id='94896142' action='modify' visible='true' version='1' lat='59.9315338' lon='30.4424016'>
+    <tag k='name' v='Ладожская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='65' />
+  </node>
+  <node id='96449579' action='modify' visible='true' version='1' lat='59.98545414721953' lon='30.300865084851715'>
+    <tag k='name' v='Чёрная речка' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='35' />
+  </node>
+  <node id='96453108' action='modify' visible='true' version='1' lat='60.002518060817174' lon='30.296674025311766'>
+    <tag k='name' v='Пионерская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='36' />
+  </node>
+  <node id='96459081' action='modify' visible='true' version='1' lat='60.03706217692258' lon='30.3215562'>
+    <tag k='name' v='Озерки' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='38' />
+  </node>
+  <node id='97036546' action='modify' visible='true' version='1' lat='59.93159235461807' lon='30.36045340584202'>
+    <tag k='name' v='Площадь Восстания' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='12' />
+  </node>
+  <node id='97049932' action='modify' visible='true' version='1' lat='59.93144482120148' lon='30.355014396618454'>
+    <tag k='name' v='Маяковская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='48' />
+  </node>
+  <node id='108028429' action='modify' visible='true' version='1' lat='59.927601' lon='30.3480982'>
+    <tag k='name' v='Владимирская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='11' />
+  </node>
+  <node id='158694484' action='modify' visible='true' version='1' lat='60.05069290691532' lon='30.44294349333781'>
+    <tag k='name' v='Девяткино' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='21' />
+  </node>
+  <node id='211439601' action='modify' visible='true' version='1' lat='59.90744646040293' lon='30.483305487526867'>
+    <tag k='name' v='Улица Дыбенко' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='63' />
+  </node>
+  <node id='211439603' action='modify' visible='true' version='1' lat='59.9198333' lon='30.466766'>
+    <tag k='name' v='Проспект Большевиков' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='64' />
+  </node>
+  <node id='248088101' action='modify' visible='true' version='1' lat='59.8308399' lon='30.5002908'>
+    <tag k='name' v='Рыбацкое' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='42' />
+  </node>
+  <node id='248088210' action='modify' visible='true' version='1' lat='59.8487982' lon='30.4577476'>
+    <tag k='name' v='Обухово' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='43' />
+  </node>
+  <node id='249299628' action='modify' visible='true' version='1' lat='59.8967725' lon='30.4235025'>
+    <tag k='name' v='Елизаровская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='46' />
+  </node>
+  <node id='249302441' action='modify' visible='true' version='1' lat='59.87732321953173' lon='30.441665335431967'>
+    <tag k='name' v='Ломоносовская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='45' />
+  </node>
+  <node id='249304980' action='modify' visible='true' version='1' lat='59.86523306712578' lon='30.470345715425214'>
+    <tag k='name' v='Пролетарская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='44' />
+  </node>
+  <node id='249307183' action='modify' visible='true' version='1' lat='59.9341319' lon='30.3311572'>
+    <tag k='name' v='Гостиный двор' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='49' />
+  </node>
+  <node id='249307184' action='modify' visible='true' version='1' lat='59.94838282296603' lon='30.23521802947991'>
+    <tag k='name' v='Приморская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='52' />
+  </node>
+  <node id='249898478' action='modify' visible='true' version='1' lat='59.8917247564743' lon='30.317877009583196'>
+    <tag k='name' v='Московские ворота' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='28' />
+  </node>
+  <node id='249902972' action='modify' visible='true' version='1' lat='59.90625963352535' lon='30.31755601497636'>
+    <tag k='name' v='Фрунзенская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='29' />
+  </node>
+  <node id='249904416' action='modify' visible='true' version='1' lat='59.87922111439477' lon='30.31865496437479'>
+    <tag k='name' v='Электросила' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='27' />
+  </node>
+  <node id='258760945' action='modify' visible='true' version='1' lat='59.86730452879732' lon='30.261416993124367'>
+    <tag k='name' v='Автово' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='5' />
+  </node>
+  <node id='268479754' action='modify' visible='true' version='1' lat='59.9663149' lon='30.3113933'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='291557399' action='modify' visible='true' version='1' lat='59.93458518735037' lon='30.327917340051577'>
+    <tag k='name' v='Невский проспект' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='32' />
+  </node>
+  <node id='298969888' action='modify' visible='true' version='1' lat='59.8296785' lon='30.3754571'>
+    <tag k='name' v='Купчино' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='23' />
+  </node>
+  <node id='309943041' action='modify' visible='true' version='1' lat='59.9072952' lon='30.483258'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='312393508' action='modify' visible='true' version='1' lat='59.9075939' lon='30.300785'>
+    <tag k='name' v='Балтийская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='8' />
+  </node>
+  <node id='313475956' action='modify' visible='true' version='1' lat='59.90119470494506' lon='30.274938066565547'>
+    <tag k='name' v='Нарвская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='7' />
+  </node>
+  <node id='313476034' action='modify' visible='true' version='1' lat='59.879683821531316' lon='30.26197249020202'>
+    <tag k='name' v='Кировский завод' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='6' />
+  </node>
+  <node id='315025552' action='modify' visible='true' version='1' lat='59.866431198377725' lon='30.32182942002579'>
+    <tag k='name' v='Парк Победы' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='26' />
+  </node>
+  <node id='315051539' action='modify' visible='true' version='1' lat='59.83323497094235' lon='30.349505599957016'>
+    <tag k='name' v='Звёздная' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='24' />
+  </node>
+  <node id='316828146' action='modify' visible='true' version='1' lat='59.9235889' lon='30.3837645'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='318455877' action='modify' visible='true' version='1' lat='59.9315707' lon='30.3607974'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='344890527' action='modify' visible='true' version='1' lat='59.8506403' lon='30.2683859'>
+    <tag k='name' v='Ленинский проспект' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='4' />
+  </node>
+  <node id='344890631' action='modify' visible='true' version='1' lat='59.84181935657498' lon='30.251917509969914'>
+    <tag k='name' v='Проспект Ветеранов' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='3' />
+  </node>
+  <node id='348143207' action='modify' visible='true' version='1' lat='59.9484249' lon='30.234382'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348143471' action='modify' visible='true' version='1' lat='59.9340262' lon='30.3337762'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348143763' action='modify' visible='true' version='1' lat='59.896581829341834' lon='30.423775287709244'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348144102' action='modify' visible='true' version='1' lat='59.86508068608398' lon='30.470130798539497'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348148610' action='modify' visible='true' version='1' lat='59.9445053' lon='30.3595248'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348149205' action='modify' visible='true' version='1' lat='59.9849295' lon='30.3441943'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348149366' action='modify' visible='true' version='1' lat='60.0089505' lon='30.3705976'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348149695' action='modify' visible='true' version='1' lat='60.0352226' lon='30.4184507'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='348149970' action='modify' visible='true' version='1' lat='60.05080618701419' lon='30.442299892910928'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='353926927' action='modify' visible='true' version='1' lat='59.97165976564798' lon='30.25926672503224'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='353927287' action='modify' visible='true' version='1' lat='59.9610371' lon='30.2922966'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='359711515' action='modify' visible='true' version='1' lat='59.895976424761734' lon='30.357691159518602'>
+    <tag k='name' v='Волковская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='85' />
+  </node>
+  <node id='359711518' action='modify' visible='true' version='1' lat='59.91463045886738' lon='30.349597668329412'>
+    <tag k='name' v='Обводный канал' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='86' />
+  </node>
+  <node id='413927289' action='modify' visible='true' version='1' lat='59.87919358168817' lon='30.31891772604202'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='573384918' action='modify' visible='true' version='1' lat='59.93466927508933' lon='30.32983743987965'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='648222978' action='modify' visible='true' version='1' lat='59.8513083' lon='30.3222655'>
+    <tag k='name' v='Московская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='25' />
+  </node>
+  <node id='666932659' action='modify' visible='true' version='1' lat='59.9062662' lon='30.3178339'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='666934478' action='modify' visible='true' version='1' lat='59.8332783' lon='30.3490566'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='667305561' action='modify' visible='true' version='1' lat='59.9355441' lon='30.327003'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='667330261' action='modify' visible='true' version='1' lat='60.067223' lon='30.3342458'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='667330910' action='modify' visible='true' version='1' lat='60.037283591951294' lon='30.321384369918327'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='667333214' action='modify' visible='true' version='1' lat='59.8917201' lon='30.3180206'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='695134915' action='modify' visible='true' version='1' lat='59.87015266497141' lon='30.379657908302505'>
+    <tag k='name' v='Международная' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='83' />
+  </node>
+  <node id='695134921' action='modify' visible='true' version='1' lat='59.88308689033128' lon='30.370033399914032'>
+    <tag k='name' v='Бухарестская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='84' />
+  </node>
+  <node id='698657793' action='modify' visible='true' version='1' lat='60.05143581916147' lon='30.33243043583866'>
+    <tag k='name' v='Проспект Просвещения' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='39' />
+  </node>
+  <node id='698657806' action='modify' visible='true' version='1' lat='60.051408' lon='30.3329119'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='698657809' action='modify' visible='true' version='1' lat='60.051657066657484' lon='30.33271659166386'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='763045997' action='modify' visible='true' version='1' lat='59.927176' lon='30.3204055'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='836617887' action='modify' visible='true' version='1' lat='59.9283386' lon='30.346316'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='836617898' action='modify' visible='true' version='1' lat='59.9209171' lon='30.3549725'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='836617905' action='modify' visible='true' version='1' lat='59.9326802' lon='30.4390651'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='836617908' action='modify' visible='true' version='1' lat='59.9276441' lon='30.3480336'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='894133529' action='modify' visible='true' version='1' lat='59.8962624' lon='30.3573431'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='946973292' action='modify' visible='true' version='1' lat='59.8485409' lon='30.4578275'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='946973293' action='modify' visible='true' version='1' lat='59.95633690052025' lon='30.318844511840027'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='950308631' action='modify' visible='true' version='1' lat='59.9204279' lon='30.3300458'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1109163066' action='modify' visible='true' version='1' lat='59.9293869' lon='30.3622586'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1109163113' action='modify' visible='true' version='1' lat='59.9316' lon='30.3550794'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1109163125' action='modify' visible='true' version='1' lat='59.9292816' lon='30.3609905'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1109163128' action='modify' visible='true' version='1' lat='59.9314826' lon='30.3552482'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1109163153' action='modify' visible='true' version='1' lat='59.92671055977985' lon='30.319672855586706'>
+    <tag k='name' v='Спасская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='70' />
+  </node>
+  <node id='1119799048' action='modify' visible='true' version='1' lat='59.9225439' lon='30.3355322'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1138170281' action='modify' visible='true' version='1' lat='60.0166497888794' lon='30.315266284980655'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1172985005' action='modify' visible='true' version='1' lat='59.9324731' lon='30.4397372'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1172985008' action='modify' visible='true' version='1' lat='59.932516' lon='30.4388546'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1179673927' action='modify' visible='true' version='1' lat='59.9323051' lon='30.4395217'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1426965000' action='modify' visible='true' version='1' lat='59.971328580757614' lon='30.34786123042354'>
+    <tag k='ref' v='6' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1427002108' action='modify' visible='true' version='1' lat='59.9712138' lon='30.3471605'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1440436739' action='modify' visible='true' version='1' lat='59.93604562807102' lon='30.314888589772195'>
+    <tag k='name' v='Адмиралтейская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='89' />
+  </node>
+  <node id='1478166567' action='modify' visible='true' version='1' lat='59.8663638' lon='30.3215416'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1479478805' action='modify' visible='true' version='1' lat='59.9196285' lon='30.466985'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1508561575' action='modify' visible='true' version='1' lat='59.9585394' lon='30.3550987'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1508561577' action='modify' visible='true' version='1' lat='59.9586315' lon='30.3545561'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1566643775' action='modify' visible='true' version='1' lat='59.93615808048279' lon='30.314710444972064'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1645794192' action='modify' visible='true' version='1' lat='59.91433751163236' lon='30.349522767501078'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1646568762' action='modify' visible='true' version='1' lat='59.9855993' lon='30.3007945'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1652691240' action='modify' visible='true' version='1' lat='59.9242358' lon='30.385375'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1669404531' action='modify' visible='true' version='1' lat='59.9895694' lon='30.2548193'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1669404539' action='modify' visible='true' version='1' lat='59.9896684' lon='30.2555496'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1669412327' action='modify' visible='true' version='1' lat='60.00238723273441' lon='30.296764756768905'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1669412330' action='modify' visible='true' version='1' lat='60.00265407759829' lon='30.296690441040337'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1669544278' action='modify' visible='true' version='1' lat='59.83150720586061' lon='30.50143677563194'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1669571976' action='modify' visible='true' version='1' lat='59.9160425' lon='30.3180705'>
+    <tag k='name' v='Технологический институт 1' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='9' />
+  </node>
+  <node id='1669571977' action='modify' visible='true' version='1' lat='59.9160374' lon='30.3187059'>
+    <tag k='name' v='Технологический институт 2' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='30' />
+  </node>
+  <node id='1669571979' action='modify' visible='true' version='1' lat='59.9163668' lon='30.3183783'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1720800877' action='modify' visible='true' version='1' lat='59.96616266051006' lon='30.31144788502364'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1735167407' action='modify' visible='true' version='1' lat='59.8672906' lon='30.261131'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1735167424' action='modify' visible='true' version='1' lat='59.9074435' lon='30.2997935'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1735167440' action='modify' visible='true' version='1' lat='59.9011136' lon='30.2745693'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1735235519' action='modify' visible='true' version='1' lat='59.95558' lon='30.3557797'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1735235528' action='modify' visible='true' version='1' lat='59.9996192' lon='30.3660153'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1876375630' action='modify' visible='true' version='1' lat='59.8298848686627' lon='30.37519224770252'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='1933529453' action='modify' visible='true' version='1' lat='59.9609872' lon='30.2917567'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2029434689' action='modify' visible='true' version='1' lat='59.9517832184141' lon='30.290629302331297'>
+    <tag k='ref' v='4' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2036731738' action='modify' visible='true' version='1' lat='59.94451655104648' lon='30.359937309969908'>
+    <tag k='name' v='Чернышевская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='13' />
+  </node>
+  <node id='2036827694' action='modify' visible='true' version='1' lat='59.95727861686419' lon='30.355601659948423'>
+    <tag k='name' v='Площадь Ленина' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='14' />
+  </node>
+  <node id='2036840002' action='modify' visible='true' version='1' lat='59.971031329719146' lon='30.347313379931233'>
+    <tag k='name' v='Выборгская' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='15' />
+  </node>
+  <node id='2036840003' action='modify' visible='true' version='1' lat='59.9710908' lon='30.3475977'>
+    <tag k='ref' v='7' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2036845118' action='modify' visible='true' version='1' lat='59.98475058101804' lon='30.344206746242012'>
+    <tag k='name' v='Лесная' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='16' />
+  </node>
+  <node id='2036851507' action='modify' visible='true' version='1' lat='59.99960344269973' lon='30.36632630988394'>
+    <tag k='name' v='Площадь Мужества' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='17' />
+  </node>
+  <node id='2036864189' action='modify' visible='true' version='1' lat='60.008937668714815' lon='30.370868474778145'>
+    <tag k='name' v='Политехническая' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='18' />
+  </node>
+  <node id='2036865229' action='modify' visible='true' version='1' lat='60.012756324492095' lon='30.395920510010086'>
+    <tag k='name' v='Академическая' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='19' />
+  </node>
+  <node id='2036865230' action='modify' visible='true' version='1' lat='60.012805' lon='30.3962342'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2036899257' action='modify' visible='true' version='1' lat='60.034951310221956' lon='30.418164099179844'>
+    <tag k='name' v='Гражданский проспект' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='20' />
+  </node>
+  <node id='2045866983' action='modify' visible='true' version='1' lat='59.9426599' lon='30.2784374'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2050425920' action='modify' visible='true' version='1' lat='60.0087997211081' lon='30.25883270833614'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2050425928' action='modify' visible='true' version='1' lat='60.00857316100075' lon='30.258085270306722'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2056804599' action='modify' visible='true' version='1' lat='59.92714656760556' lon='30.317639171036973'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2079490033' action='modify' visible='true' version='1' lat='59.8774152' lon='30.4420544'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2080780678' action='modify' visible='true' version='1' lat='59.9221699902225' lon='30.336067026255463'>
+    <tag k='ref' v='2' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2087808191' action='modify' visible='true' version='1' lat='59.88419002002118' lon='30.36918980541512'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2087808197' action='modify' visible='true' version='1' lat='59.8705092' lon='30.3791689'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2112794338' action='modify' visible='true' version='1' lat='59.8796705' lon='30.2615495'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2124487499' action='modify' visible='true' version='1' lat='59.853202801270484' lon='30.321755024860312'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2124487500' action='modify' visible='true' version='1' lat='59.8495014954849' lon='30.321962814890398'>
+    <tag k='ref' v='6' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2238315693' action='modify' visible='true' version='1' lat='60.0669104' lon='30.3340207'>
+    <tag k='name' v='Парнас' />
+    <tag k='railway' v='station' />
+    <tag k='ref' v='40' />
+  </node>
+  <node id='2302967363' action='modify' visible='true' version='1' lat='59.92851983223367' lon='30.41102907988825'>
+    <tag k='ref' v='6' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2302983912' action='modify' visible='true' version='1' lat='59.84169294414067' lon='30.253687442690726'>
+    <tag k='ref' v='5' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2302983924' action='modify' visible='true' version='1' lat='59.84219844275318' lon='30.250449791227446'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2303004112' action='modify' visible='true' version='1' lat='59.85169263578364' lon='30.26972004540189'>
+    <tag k='ref' v='3' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2303004120' action='modify' visible='true' version='1' lat='59.84983982913807' lon='30.267652354770043'>
+    <tag k='ref' v='1' />
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <node id='2372474641' action='modify' visible='true' version='1' lat='59.8387888' lon='30.412066'>
+    <tag k='railway' v='subway_entrance' />
+  </node>
+  <way id='-6477' action='modify' visible='true'>
+    <nd ref='-4505' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-6007' action='modify' visible='true'>
+    <nd ref='-5998' />
+    <nd ref='2036840002' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-6006' action='modify' visible='true'>
+    <nd ref='-5997' />
+    <nd ref='2036840002' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-6005' action='modify' visible='true'>
+    <nd ref='-5996' />
+    <nd ref='2036840002' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-6004' action='modify' visible='true'>
+    <nd ref='2036840002' />
+    <nd ref='-5995' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5018' visible='true'>
+    <nd ref='1479478805' />
+    <nd ref='211439603' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5016' action='modify' visible='true'>
+    <nd ref='946973293' />
+    <nd ref='88803981' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-5014' visible='true'>
+    <nd ref='413927289' />
+    <nd ref='249904416' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5012' visible='true'>
+    <nd ref='667333214' />
+    <nd ref='249898478' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5010' visible='true'>
+    <nd ref='2056804599' />
+    <nd ref='92580819' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5008' action='modify' visible='true'>
+    <nd ref='1645794192' />
+    <nd ref='359711518' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-5006' visible='true'>
+    <nd ref='348143763' />
+    <nd ref='249299628' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5004' visible='true'>
+    <nd ref='2036865230' />
+    <nd ref='2036865229' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5002' visible='true'>
+    <nd ref='2087808197' />
+    <nd ref='695134915' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-5000' visible='true'>
+    <nd ref='2050425928' />
+    <nd ref='94516905' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4998' visible='true'>
+    <nd ref='2050425920' />
+    <nd ref='94516905' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4996' visible='true'>
+    <nd ref='1179673927' />
+    <nd ref='94896142' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4994' visible='true'>
+    <nd ref='836617905' />
+    <nd ref='94896142' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4992' visible='true'>
+    <nd ref='1172985005' />
+    <nd ref='94896142' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4990' visible='true'>
+    <nd ref='1172985008' />
+    <nd ref='94896142' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4988' action='modify' visible='true'>
+    <nd ref='108028429' />
+    <nd ref='836617908' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4986' action='modify' visible='true'>
+    <nd ref='348149205' />
+    <nd ref='2036845118' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4984' visible='true'>
+    <nd ref='2124487500' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4982' visible='true'>
+    <nd ref='2124487499' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4980' visible='true'>
+    <nd ref='316828146' />
+    <nd ref='94877563' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4978' action='modify' visible='true'>
+    <nd ref='2112794338' />
+    <nd ref='313476034' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4976' visible='true'>
+    <nd ref='1735235528' />
+    <nd ref='2036851507' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4974' action='modify' visible='true'>
+    <nd ref='2079490033' />
+    <nd ref='249302441' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4972' visible='true'>
+    <nd ref='348149970' />
+    <nd ref='158694484' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4970' action='modify' visible='true'>
+    <nd ref='318455877' />
+    <nd ref='97036546' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4968' visible='true'>
+    <nd ref='666934478' />
+    <nd ref='315051539' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4966' action='modify' visible='true'>
+    <nd ref='96459081' />
+    <nd ref='667330910' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4964' visible='true'>
+    <nd ref='894133529' />
+    <nd ref='359711515' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4962' action='modify' visible='true'>
+    <nd ref='698657793' />
+    <nd ref='698657806' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4960' action='modify' visible='true'>
+    <nd ref='698657809' />
+    <nd ref='698657793' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4958' action='modify' visible='true'>
+    <nd ref='763045997' />
+    <nd ref='94857612' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4956' action='modify' visible='true'>
+    <nd ref='298969888' />
+    <nd ref='1876375630' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4954' visible='true'>
+    <nd ref='1735167407' />
+    <nd ref='258760945' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4952' action='modify' visible='true'>
+    <nd ref='1735167440' />
+    <nd ref='313475956' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4950' action='modify' visible='true'>
+    <nd ref='348148610' />
+    <nd ref='2036731738' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4948' action='modify' visible='true'>
+    <nd ref='950308631' />
+    <nd ref='-4355' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4946' action='modify' visible='true'>
+    <nd ref='1669571979' />
+    <nd ref='1669571976' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4944' visible='true'>
+    <nd ref='2303004120' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4942' visible='true'>
+    <nd ref='2303004112' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4940' action='modify' visible='true'>
+    <nd ref='667330261' />
+    <nd ref='2238315693' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4938' visible='true'>
+    <nd ref='667305561' />
+    <nd ref='249307183' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4936' visible='true'>
+    <nd ref='348143471' />
+    <nd ref='249307183' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4934' visible='true'>
+    <nd ref='1478166567' />
+    <nd ref='315025552' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4932' visible='true'>
+    <nd ref='666932659' />
+    <nd ref='249902972' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4930' visible='true'>
+    <nd ref='946973292' />
+    <nd ref='248088210' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4928' visible='true'>
+    <nd ref='836617887' />
+    <nd ref='94858991' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4926' visible='true'>
+    <nd ref='1652691240' />
+    <nd ref='94890886' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4924' visible='true'>
+    <nd ref='1109163113' />
+    <nd ref='97049932' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4922' visible='true'>
+    <nd ref='1109163128' />
+    <nd ref='97049932' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4920' action='modify' visible='true'>
+    <nd ref='1669412327' />
+    <nd ref='96453108' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4918' action='modify' visible='true'>
+    <nd ref='1669412330' />
+    <nd ref='96453108' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4916' visible='true'>
+    <nd ref='573384918' />
+    <nd ref='291557399' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4914' visible='true'>
+    <nd ref='348144102' />
+    <nd ref='249304980' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4912' visible='true'>
+    <nd ref='2087808191' />
+    <nd ref='695134921' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4910' visible='true'>
+    <nd ref='2080780678' />
+    <nd ref='-4357' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4908' visible='true'>
+    <nd ref='1119799048' />
+    <nd ref='-4357' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4906' action='modify' visible='true'>
+    <nd ref='348149366' />
+    <nd ref='2036864189' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4904' visible='true'>
+    <nd ref='1735167424' />
+    <nd ref='312393508' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4902' visible='true'>
+    <nd ref='836617898' />
+    <nd ref='94877075' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4900' action='modify' visible='true'>
+    <nd ref='1138170281' />
+    <nd ref='90551453' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4896' action='modify' visible='true'>
+    <nd ref='348149695' />
+    <nd ref='2036899257' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4894' visible='true'>
+    <nd ref='2302983912' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4892' visible='true'>
+    <nd ref='2302983924' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4890' action='modify' visible='true'>
+    <nd ref='1646568762' />
+    <nd ref='96449579' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4888' visible='true'>
+    <nd ref='2036840003' />
+    <nd ref='2036840002' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4886' visible='true'>
+    <nd ref='1427002108' />
+    <nd ref='2036840002' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4884' visible='true'>
+    <nd ref='1426965000' />
+    <nd ref='2036840002' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4882' action='modify' visible='true'>
+    <nd ref='309943041' />
+    <nd ref='211439601' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4880' action='modify' visible='true'>
+    <nd ref='2036827694' />
+    <nd ref='1508561575' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4878' action='modify' visible='true'>
+    <nd ref='1735235519' />
+    <nd ref='2036827694' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4876' action='modify' visible='true'>
+    <nd ref='1508561577' />
+    <nd ref='2036827694' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4874' visible='true'>
+    <nd ref='2302967363' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4872' visible='true'>
+    <nd ref='1669544278' />
+    <nd ref='248088101' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4870' action='modify' visible='true'>
+    <nd ref='211439601' />
+    <nd ref='211439603' />
+    <nd ref='94896142' />
+    <nd ref='94891390' />
+    <nd ref='94877563' />
+    <nd ref='94877075' />
+    <nd ref='94858991' />
+    <nd ref='1109163153' />
+    <tag k='colour' v='#ea7125' />
+    <tag k='name' v='Правобережная' />
+    <tag k='railway' v='subway' />
+    <tag k='ref' v='4' />
+  </way>
+  <way id='-4868' action='modify' visible='true'>
+    <nd ref='248088101' />
+    <nd ref='248088210' />
+    <nd ref='249304980' />
+    <nd ref='249302441' />
+    <nd ref='249299628' />
+    <nd ref='94890886' />
+    <nd ref='97049932' />
+    <nd ref='249307183' />
+    <nd ref='-4359' />
+    <nd ref='249307184' />
+    <tag k='colour' v='#009a49' />
+    <tag k='name' v='Невско-Василеостровская' />
+    <tag k='railway' v='subway' />
+    <tag k='ref' v='3' />
+  </way>
+  <way id='-4866' action='modify' visible='true'>
+    <nd ref='94516905' />
+    <nd ref='91264384' />
+    <nd ref='91264383' />
+    <nd ref='88833366' />
+    <nd ref='88833360' />
+    <nd ref='1440436739' />
+    <nd ref='92580819' />
+    <nd ref='-4357' />
+    <nd ref='359711518' />
+    <nd ref='359711515' />
+    <nd ref='695134921' />
+    <nd ref='695134915' />
+    <tag k='colour' v='#702785' />
+    <tag k='name' v='Фрунзенско-Приморская' />
+    <tag k='railway' v='subway' />
+    <tag k='ref' v='5' />
+  </way>
+  <way id='-4864' action='modify' visible='true'>
+    <nd ref='344890631' />
+    <nd ref='344890527' />
+    <nd ref='258760945' />
+    <nd ref='313476034' />
+    <nd ref='313475956' />
+    <nd ref='312393508' />
+    <nd ref='1669571976' />
+    <nd ref='-4355' />
+    <nd ref='108028429' />
+    <nd ref='97036546' />
+    <nd ref='2036731738' />
+    <nd ref='2036827694' />
+    <nd ref='2036840002' />
+    <nd ref='2036845118' />
+    <nd ref='2036851507' />
+    <nd ref='2036864189' />
+    <nd ref='2036865229' />
+    <nd ref='2036899257' />
+    <nd ref='158694484' />
+    <tag k='colour' v='#d6083b' />
+    <tag k='name' v='Кировско-Выборгская' />
+    <tag k='railway' v='subway' />
+    <tag k='ref' v='1' />
+  </way>
+  <way id='-4862' action='modify' visible='true'>
+    <nd ref='2238315693' />
+    <nd ref='698657793' />
+    <nd ref='96459081' />
+    <nd ref='90551453' />
+    <nd ref='96453108' />
+    <nd ref='96449579' />
+    <nd ref='88803981' />
+    <nd ref='291557399' />
+    <nd ref='94857612' />
+    <nd ref='1669571977' />
+    <nd ref='249902972' />
+    <nd ref='249898478' />
+    <nd ref='249904416' />
+    <nd ref='315025552' />
+    <nd ref='648222978' />
+    <nd ref='315051539' />
+    <nd ref='298969888' />
+    <tag k='colour' v='#0078c9' />
+    <tag k='name' v='Московско-Петроградская' />
+    <tag k='railway' v='subway' />
+    <tag k='ref' v='2' />
+  </way>
+  <way id='-4860' action='modify' visible='true'>
+    <nd ref='1109163153' />
+    <nd ref='92580819' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4858' action='modify' visible='true'>
+    <nd ref='92580819' />
+    <nd ref='94857612' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4856' action='modify' visible='true'>
+    <nd ref='94857612' />
+    <nd ref='1109163153' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4854' action='modify' visible='true'>
+    <nd ref='1669571976' />
+    <nd ref='1669571977' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4852' action='modify' visible='true'>
+    <nd ref='-4355' />
+    <nd ref='-4357' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4850' action='modify' visible='true'>
+    <nd ref='94858991' />
+    <nd ref='108028429' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4848' action='modify' visible='true'>
+    <nd ref='97049932' />
+    <nd ref='97036546' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4846' action='modify' visible='true'>
+    <nd ref='291557399' />
+    <nd ref='249307183' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4844' action='modify' visible='true'>
+    <nd ref='94877563' />
+    <nd ref='94890886' />
+    <tag k='highway' v='footway' />
+  </way>
+  <way id='-4842' action='modify' visible='true'>
+    <nd ref='2045866983' />
+    <nd ref='-4359' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4840' action='modify' visible='true'>
+    <nd ref='348143207' />
+    <nd ref='249307184' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4838' action='modify' visible='true'>
+    <nd ref='88833360' />
+    <nd ref='2029434689' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4836' action='modify' visible='true'>
+    <nd ref='88833366' />
+    <nd ref='353927287' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4834' action='modify' visible='true'>
+    <nd ref='1933529453' />
+    <nd ref='88833366' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4832' action='modify' visible='true'>
+    <nd ref='91264383' />
+    <nd ref='353926927' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4830' action='modify' visible='true'>
+    <nd ref='91264384' />
+    <nd ref='1669404539' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4828' action='modify' visible='true'>
+    <nd ref='1669404531' />
+    <nd ref='91264384' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4826' action='modify' visible='true'>
+    <nd ref='1566643775' />
+    <nd ref='1440436739' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4824' visible='true'>
+    <nd ref='-4497' />
+    <nd ref='88833360' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4822' visible='true'>
+    <nd ref='-4495' />
+    <nd ref='88833360' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4818' visible='true'>
+    <nd ref='-4493' />
+    <nd ref='88833360' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4816' visible='true'>
+    <nd ref='-4477' />
+    <nd ref='248088101' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4814' visible='true'>
+    <nd ref='-4475' />
+    <nd ref='248088101' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4812' visible='true'>
+    <nd ref='-4515' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4810' visible='true'>
+    <nd ref='-4513' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4808' visible='true'>
+    <nd ref='-4509' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4806' visible='true'>
+    <nd ref='-4507' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4804' visible='true'>
+    <nd ref='-4517' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4802' visible='true'>
+    <nd ref='-4511' />
+    <nd ref='94891390' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4800' action='modify' visible='true'>
+    <nd ref='2036827694' />
+    <nd ref='-4407' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4798' action='modify' visible='true'>
+    <nd ref='211439601' />
+    <nd ref='-4503' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4796' action='modify' visible='true'>
+    <nd ref='96449579' />
+    <nd ref='-4425' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4794' visible='true'>
+    <nd ref='-4367' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4792' visible='true'>
+    <nd ref='-4361' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4790' visible='true'>
+    <nd ref='-4371' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4788' visible='true'>
+    <nd ref='-4363' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4786' visible='true'>
+    <nd ref='-4365' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4784' visible='true'>
+    <nd ref='-4369' />
+    <nd ref='344890631' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4782' action='modify' visible='true'>
+    <nd ref='2036899257' />
+    <nd ref='-4413' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4780' visible='true'>
+    <nd ref='90551453' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4778' visible='true'>
+    <nd ref='90551453' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4776' action='modify' visible='true'>
+    <nd ref='312393508' />
+    <nd ref='-4389' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4774' action='modify' visible='true'>
+    <nd ref='2036864189' />
+    <nd ref='-4411' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4772' visible='true'>
+    <nd ref='-4439' />
+    <nd ref='291557399' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4770' visible='true'>
+    <nd ref='-4441' />
+    <nd ref='291557399' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4768' visible='true'>
+    <nd ref='-4437' />
+    <nd ref='291557399' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4766' action='modify' visible='true'>
+    <nd ref='-4355' />
+    <nd ref='-4393' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4764' action='modify' visible='true'>
+    <nd ref='96453108' />
+    <nd ref='-4423' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4762' visible='true'>
+    <nd ref='94890886' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4760' visible='true'>
+    <nd ref='-4395' />
+    <nd ref='94858991' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4758' action='modify' visible='true'>
+    <nd ref='-4359' />
+    <nd ref='-4481' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4756' action='modify' visible='true'>
+    <nd ref='2238315693' />
+    <nd ref='-4419' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4754' visible='true'>
+    <nd ref='-4373' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4752' visible='true'>
+    <nd ref='-4379' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4750' visible='true'>
+    <nd ref='-4383' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4748' visible='true'>
+    <nd ref='-4377' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4746' visible='true'>
+    <nd ref='-4381' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4744' visible='true'>
+    <nd ref='-4375' />
+    <nd ref='344890527' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4742' action='modify' visible='true'>
+    <nd ref='2036731738' />
+    <nd ref='-4405' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4740' action='modify' visible='true'>
+    <nd ref='313475956' />
+    <nd ref='-4387' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4738' visible='true'>
+    <nd ref='-4463' />
+    <nd ref='298969888' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4736' visible='true'>
+    <nd ref='-4469' />
+    <nd ref='298969888' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4734' visible='true'>
+    <nd ref='298969888' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4732' visible='true'>
+    <nd ref='-4473' />
+    <nd ref='298969888' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4730' visible='true'>
+    <nd ref='-4471' />
+    <nd ref='298969888' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4728' visible='true'>
+    <nd ref='-4465' />
+    <nd ref='298969888' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4726' visible='true'>
+    <nd ref='-4467' />
+    <nd ref='298969888' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4724' action='modify' visible='true'>
+    <nd ref='94857612' />
+    <nd ref='-4449' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4722' visible='true'>
+    <nd ref='698657793' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4720' action='modify' visible='true'>
+    <nd ref='-4421' />
+    <nd ref='96459081' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4718' action='modify' visible='true'>
+    <nd ref='1669571977' />
+    <nd ref='-4391' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4716' action='modify' visible='true'>
+    <nd ref='97036546' />
+    <nd ref='-4399' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4714' visible='true'>
+    <nd ref='-4417' />
+    <nd ref='158694484' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4712' visible='true'>
+    <nd ref='-4415' />
+    <nd ref='158694484' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4710' action='modify' visible='true'>
+    <nd ref='249302441' />
+    <nd ref='-4479' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4708' action='modify' visible='true'>
+    <nd ref='313476034' />
+    <nd ref='-4385' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4706' visible='true'>
+    <nd ref='94877563' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4704' visible='true'>
+    <nd ref='-4453' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4702' visible='true'>
+    <nd ref='-4457' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4700' visible='true'>
+    <nd ref='-4461' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4698' visible='true'>
+    <nd ref='-4455' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4696' visible='true'>
+    <nd ref='-4459' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4694' visible='true'>
+    <nd ref='-4451' />
+    <nd ref='648222978' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4692' action='modify' visible='true'>
+    <nd ref='2036845118' />
+    <nd ref='-4409' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4690' action='modify' visible='true'>
+    <nd ref='108028429' />
+    <nd ref='-4397' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4688' visible='true'>
+    <nd ref='-4485' />
+    <nd ref='94516905' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4686' visible='true'>
+    <nd ref='-4487' />
+    <nd ref='94516905' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4684' visible='true'>
+    <nd ref='-4483' />
+    <nd ref='94516905' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4682' action='modify' visible='true'>
+    <nd ref='91264383' />
+    <nd ref='-4489' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4680' action='modify' visible='true'>
+    <nd ref='1440436739' />
+    <nd ref='-4499' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4678' action='modify' visible='true'>
+    <nd ref='359711518' />
+    <nd ref='-4501' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-4676' visible='true'>
+    <nd ref='-4443' />
+    <nd ref='92580819' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4674' visible='true'>
+    <nd ref='-4447' />
+    <nd ref='92580819' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4672' visible='true'>
+    <nd ref='-4445' />
+    <nd ref='92580819' />
+    <tag k='highway' v='steps' />
+  </way>
+  <way id='-4670' action='modify' visible='true'>
+    <nd ref='88803981' />
+    <nd ref='-4435' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+</osm>
