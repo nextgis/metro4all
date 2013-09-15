@@ -520,16 +520,6 @@
     <script src="TileLayer.Grayscale.js"></script>
     <script>
         var 
-        barriersLookup = {
-            'min_width': 'Мин. ширина',
-            'min_step': 'Мин. ступенек пешком',
-            'min_step_ramp': 'Мин. ступенек по рельсам и рампам',
-            'lift': 'Лифт',
-            'lift_minus_step': 'Лифт отнимает ступенек',
-            'min_rail_width': 'Мин. ширина рельс',
-            'max_rail_width': 'Макс. ширина рельс',
-            'max_angle': 'Макс. угол'
-        },
         stationsLookup = [
             {},
             {'name': 'Сокольническая', 'color': '#ED1B35'},
@@ -545,6 +535,22 @@
             {'name': 'Каховская', 'color': '#79CDCD'},
             {'name': 'Бутовская', 'color': '#ACBFE1'}];
 
+        function fillBarriers(content, barriers) {
+            content+="<ul>";
+            content+="<li><strong>Ширина коляски</strong>: " + barriers['min_width'] + " см" + "</li>";
+            content+="<li><strong>Ступенек</strong>: " + barriers['min_step'] + "</li>";
+            content+="<li><strong>Из них по рельсам и рампам</strong>: " + barriers['min_step_ramp'] + "</li>";
+            content+="<li><strong>Лифт</strong>: " + {true: 'есть', false: 'нет'}[barriers['lift']];
+            if (barriers['lift']) {
+                content+=", экономит " + barriers['lift_minus_step'] + " ступенек";
+            }
+            content+="</li>";
+            content+="<li><strong>Мин-макс. расстояние между колесами</strong>: " + barriers['min_rail_width'] + "-" + barriers['max_rail_width'] + " см" + "</li>";
+            content+="<li><strong>Уклон наклона</strong>: " + barriers['max_angle'] + "&deg;" + "</li>";
+            content+="</ul>";
+            return content;
+        }
+
         function showRoute(routes, index) {
             
             // Вывод списка станций, входящих в маршрут
@@ -552,21 +558,13 @@
                 var content = "<h4>"+(i+1)+". "+item.station_name+"</h4>";
                 if ((item.station_type == 'start') || (item.station_type == 'end')) {
                     if (item.barriers) {
-                        content+="<ul>";
-                        for (i in item.barriers) {
-                            content+="<li><strong>" + barriersLookup[i] + "</strong>: " + item.barriers[i] + "</li>";
-                        }
-                        content+="</ul>";
+                        content = fillBarriers(content, item.barriers);
                     } else {
                         content+="<em>" + "Препятствия не отображаются, так как не выбран " + {'start': 'вход', 'end': 'выход'}[item.station_type] + "</em>";
                     }
                 } else if (item.station_type == 'interchange') {
                     if (item.barriers) {
-                        content+="<ul>";
-                        for (i in item.barriers) {
-                            content+="<li><strong>" + barriersLookup[i] + "</strong>: " + item.barriers[i] + "</li>";
-                        }
-                        content+="</ul>";
+                        content = fillBarriers(content, item.barriers);
                     }
                 }
 
@@ -728,7 +726,7 @@
                     
                     // Кнопки переключения маршрутов
                     $.each(data.routes, function(i, item){
-                        $('.pagination').append('<li><a href="javascript:void(0)">'+(i+1)+'</a></li>');
+                        $('.pagination').append('<li><a href="#">'+(i+1)+'</a></li>');
                     });
 
                     // Обработчики нажатия кнопок
