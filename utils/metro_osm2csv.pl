@@ -131,7 +131,7 @@ close STATIONS;
 
 open GRAPH, '>graph.csv' or die "Cannot open graph.csv: $!";
 print GRAPH "id_from;id_to;name_from;name_to;cost\n";
-printf GRAPH "%s;%s;%s;%s;%s\n", $_->{from}->{ref}, $_->{to}->{ref}, $_->{from}->{name}, $_->{to}->{name}, $_->{weight} foreach sort { $a->{from}->{ref} <=> $b->{from}->{ref} } @graph;
+printf GRAPH "%s;%s;%s;%s;%s\n", $_->{from}->{ref}, $_->{to}->{ref}, $_->{from}->{name}, $_->{to}->{name}, $_->{weight} foreach sort { $a->{from}->{ref} <=> $b->{from}->{ref} or $a->{to}->{ref} <=> $b->{to}->{ref} } @graph;
 close GRAPH;
 
 open PORTALS, '>portals.csv' or die "Cannot open portals.csv: $!";
