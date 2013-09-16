@@ -57,7 +57,10 @@ def get_portals():
                     type='Point',
                     coordinates=[row['lon'], row['lat']]
                 ),
-                properties=dict(direction=row['direction'])
+                properties=dict(
+                    name=row['name'],
+                    direction=row['direction']
+                )
             )
             portals.append(feature)
 

@@ -46,7 +46,8 @@
         </div>
         <div class="form-group">
           <label for="metroStartInputID">Вход:</label>
-          <input name="portal_from" class="form-control" id="metroStartInputID" type="text" placeholder="Выберите вход на карте..." readonly>
+          <input class="form-control" id="metroStartInputName" type="text" placeholder="Выберите выход на карте..." disabled>
+          <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
           <div id="metroStartInput" style="height: 150px;"></div>
           <em>Нажмите на значок входа, чтобы его выбрать</em>
         </div>
@@ -59,7 +60,8 @@
         </div>
         <div class="form-group">
           <label for="metroEndInputID">Выход:</label>
-          <input name="portal_to" class="form-control" id="metroEndInputID" type="text" placeholder="Выберите выход на карте..." readonly>
+          <input class="form-control" id="metroEndInputName" type="text" placeholder="Выберите выход на карте..." disabled>
+          <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
           <div id="metroEndInput" style="height: 150px;"></div>
           <em>Нажмите на значок выхода, чтобы его выбрать</em>
         </div>
@@ -161,7 +163,7 @@
                 }
 
                 $('#routePanel').append(
-                "<div>" + content + "</div>"
+                    "<div>" + content + "</div>"
                 );
             });
             
@@ -199,6 +201,7 @@
           // Поле выбора станции входа
           $("#metroStartStation").on("change", function(e) {
             $("#metroStartInputID").val("");
+            $("#metroStartInputName").val("");
             m4a.view.$document.triggerHandler('/url/update', ['start', '']);
             m4a.view.$document.triggerHandler('/url/update', ['stat-start', e.val]);
             $.ajax({
@@ -230,6 +233,7 @@
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     $("#metroStartInputID").val(feature.id);
+                                    $("#metroStartInputName").val(feature.properties.name || feature.id);
                                     m4a.view.$document.triggerHandler('/url/update', ['start', feature.id]);
                                 });
                             }
@@ -246,6 +250,7 @@
           // Поле выбора станции выхода
           $("#metroEndStation").on("change", function(e) {
             $("#metroEndInputID").val("");
+            $("#metroEndInputName").val("");
             m4a.view.$document.triggerHandler('/url/update', ['end', '']);
             m4a.view.$document.triggerHandler('/url/update', ['stat-end', e.val]);
             $.ajax({
@@ -277,6 +282,7 @@
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     $("#metroEndInputID").val(feature.id);
+                                    $("#metroEndInputName").val(feature.properties.name || feature.id);
                                     m4a.view.$document.triggerHandler('/url/update', ['end', feature.id]);
                                 });
                             }
