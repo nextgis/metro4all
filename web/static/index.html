@@ -113,7 +113,7 @@
             content+="<ul>";
             content+="<li><strong>Ширина коляски</strong>: " + "до " + barriers['min_width'] + " см" + "</li>";
             content+="<li><strong>Ступенек</strong>: " + barriers['min_step'] + "</li>";
-            content+="<li><strong>Из них по рельсам и рампам</strong>: " + barriers['min_step_ramp'] + "</li>";
+            content+="<li><strong>Из них без рельс и рамп</strong>: " + (barriers['min_step'] - barriers['min_step_ramp']) + "</li>";
             content+="<li><strong>Лифт</strong>: " + {true: 'есть', false: 'нет'}[barriers['lift']];
 
             // Лифт

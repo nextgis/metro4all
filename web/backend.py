@@ -78,8 +78,8 @@ def get_routes(delta=5, limit=3):
             if int(row['id_entrance']) == portal_id:
                 u['barriers'] = dict(
                     min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
-                    min_step=row['min_step'],
-                    min_step_ramp=row['min_step_ramp'],
+                    min_step=int(row['min_step']) if (row['min_step'].isdigit()) else 0,
+                    min_step_ramp=int(row['min_step_ramp']) if (row['min_step_ramp'].isdigit()) else 0,
                     lift=False if row['lift'] in ['', '0'] else True,
                     lift_minus_step=row['lift_minus_step'],
                     min_rail_width=int(row['min_rail_width'])/10 if (row['min_rail_width'].isdigit() and row['min_rail_width'] != '0') else None,
@@ -97,8 +97,8 @@ def get_routes(delta=5, limit=3):
             if (int(row['station_from']) == station_from) and (int(row['station_to']) == station_to):
                 u['barriers'] = dict(
                     min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
-                    min_step=row['min_step'],
-                    min_step_ramp=row['min_step_ramp'],
+                    min_step=int(row['min_step']) if (row['min_step'].isdigit()) else 0,
+                    min_step_ramp=int(row['min_step_ramp']) if (row['min_step_ramp'].isdigit()) else 0,
                     lift=False if row['lift'] in ['', '0'] else True,
                     lift_minus_step=row['lift_minus_step'],
                     min_rail_width=int(row['min_rail_width'])/10 if (row['min_rail_width'].isdigit() and row['min_rail_width'] != '0') else None,
