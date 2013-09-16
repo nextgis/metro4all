@@ -94,6 +94,8 @@
     <script src="select2-3.4.2/select2_locale_ru.js"></script>
     <script src="leaflet-0.6.4/leaflet.js"></script>
     <script src="TileLayer.Grayscale.js"></script>
+    <script src="m4a/m4a.loader.js"></script>
+    <script src="m4a/m4a.stations.js"></script>
     <script src="m4a/m4a.url.js"></script>
     <script>
         var stationsLookup = [
@@ -109,7 +111,9 @@
             {'name': 'Серпуховско-Тимирязевская', 'color': '#A1A2A3'},
             {'name': 'Люблинская', 'color': '#B3D445'},
             {'name': 'Каховская', 'color': '#79CDCD'},
-            {'name': 'Бутовская', 'color': '#ACBFE1'}];
+            {'name': 'Бутовская', 'color': '#ACBFE1'}
+        ];
+
 
         function fillBarriers(content, barriers) {
             content+="<ul>";
@@ -145,8 +149,8 @@
             return content;
         }
 
+
         function showRoute(routes, index) {
-            
             // Вывод списка станций, входящих в маршрут
             $.each(routes[index], function(i, item){
                 var content = "<h4>"+(i+1)+". "+item.station_name+"</h4>";
@@ -162,16 +166,14 @@
                     }
                 }
 
-                $('#routePanel').append(
-                    "<div>" + content + "</div>"
-                );
+                $('#routePanel').append("<div>" + content + "</div>");
             });
             
             // Отображение маршрута на карте
             if (typeof route !== 'undefined') {
-                mainMap.removeLayer(route);
+                m4a.viewmodel.mainMap.removeLayer(route);
             }
-            route = L.layerGroup()
+            route = L.layerGroup();
             $.each(routes[index], function(i, item){
                 if (i != 0) {
                     route.addLayer(
@@ -181,175 +183,103 @@
                                 color: stationsLookup[item.station_line].color,
                                 opacity: 1
                             })
-                    ).addTo(mainMap);
+                    ).addTo(m4a.viewmodel.mainMap);
                 }
             });
-
         }
 
+
         $(document).ready(function() {
-          m4a.url.init();
-          mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
-          var url = "/",
-              metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11),
-              metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
+            m4a.loader.init();
+
+            var url = "/",
+                viewmodel = m4a.viewmodel,
+                view = m4a.view;
+            viewmodel.mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
+            viewmodel.metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
+            viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
 
           // Заполнение выпадающих списков
-          $.ajax("/stations").done(function(data){$("#metroStartStation").select2({width: "100%", data: data})});
-          $.ajax("/stations").done(function(data){$("#metroEndStation").select2({width: "100%", data: data})});
-          
-          // Поле выбора станции входа
-          $("#metroStartStation").on("change", function(e) {
-            $("#metroStartInputID").val("");
-            $("#metroStartInputName").val("");
-            m4a.view.$document.triggerHandler('/url/update', ['start', '']);
-            m4a.view.$document.triggerHandler('/url/update', ['stat-start', e.val]);
-            $.ajax({
-              dataType: "json",
-              url: url + "portals/search",
-              data: {
-                station: e.val,
-                direction: "in"
-              },
-            }).done(function(data) {
-                // Очищаем слой входов
-                if (typeof inPortals !== 'undefined') {
-                    metroStartInputMap.removeLayer(inPortals);
-                }
-                if (data.features.length != 0) {
+          $.ajax("/stations").done(function(data){
+              m4a.view.$metroStartStation.select2({width: "100%", data: data});
+              m4a.view.$metroEndStation.select2({width: "100%", data: data});
 
-                    // Добавляем входы на карту
-                    inPortals = L.geoJson(
-                        data, {
-                            pointToLayer: function(feature, latlng) {
-                                return L.marker(
-                                    latlng, {
-                                        icon: L.icon({
-                                            iconUrl: 'icons/in.png',
-                                        })
-                                    }
-                                )
-                            },
-                            onEachFeature: function(feature, layer) {
-                                layer.on('click', function (e) {
-                                    $("#metroStartInputID").val(feature.id);
-                                    $("#metroStartInputName").val(feature.properties.name || feature.id);
-                                    m4a.view.$document.triggerHandler('/url/update', ['start', feature.id]);
-                                });
-                            }
-                        }
-                    ).addTo(metroStartInputMap);
+              // Поле выбора станции входа
+              view.$metroStartStation.on("change", function() {
+                m4a.stations.setStartStation(this.value);
+                m4a.stations.updateInputsData(this.value);
+              });
 
-                    // Устанавливаем новый охват
-                    metroStartInputMap.fitBounds(inPortals.getBounds(), {padding: [0, 10]});
-                }
-            });
+              // Поле выбора станции выхода
+              view.$metroEndStation.on("change", function() {
+                m4a.stations.setEndStation(this.value);
+                m4a.stations.updateOutputsData(this.value);
+              });
+
+              // Карта для выбора входов
+              L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
+                  maxZoom: 18
+              }).addTo(m4a.viewmodel.metroStartInputMap);
+
+              // Карта для выбора выходов
+              L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
+                  maxZoom: 18
+              }).addTo(m4a.viewmodel.metroEndInputMap);
+
+              // Карта для отображения маршрутов
+              L.tileLayer.grayscale('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
+                  maxZoom: 18
+              }).addTo(m4a.viewmodel.mainMap);
+
+              $("#mainform").submit(function() {
+                  var view = m4a.view,
+                      start_station = view.$metroStartStation.val(),
+                      end_station = view.$metroEndStation.val();
+
+                  if (start_station.length == 0 || end_station.length == 0) {
+                    // todo: use bootstrap
+                    alert('Не выбрана входная или выходная станция!');
+                  } else if (start_station == end_station) {
+                    alert('Выбраны одинаковые станции!');
+                  } else {
+                      $('.pagination').empty();
+                      $('#routePanel').empty();
+                      $.ajax({
+                          dataType: "json",
+                          url: url + "routes/search",
+                          data: $("#mainform").serialize()
+                      }).done(function(data) {
+                        var routes = data.routes;
+
+                        // Кнопки переключения маршрутов
+                        $.each(routes, function(i, item){
+                            $('.pagination').append('<li data-route-id="' + i + '"><a href="javascript:void(0)">'+(i+1)+'</a></li>');
+                        });
+
+                        // Обработчики нажатия кнопок
+                        $('.pagination li').click(function() {
+                            var $this = $(this),
+                                route_index = parseInt($this.data('route-id'), 10);
+                            $('.pagination li').removeClass('active');
+                            $this.addClass('active');
+                            $('#routePanel').empty();
+                            showRoute(routes, route_index);
+                            m4a.view.$document.triggerHandler('/url/update', ['route',route_index + 1]);
+                        });
+
+                        // Активируем первый маршрут
+                        $('.pagination li').first().trigger('click');
+
+                      });
+                  }
+                  return false;
+              });
+
+              m4a.url.parse();
           });
-          
-
-          // Поле выбора станции выхода
-          $("#metroEndStation").on("change", function(e) {
-            $("#metroEndInputID").val("");
-            $("#metroEndInputName").val("");
-            m4a.view.$document.triggerHandler('/url/update', ['end', '']);
-            m4a.view.$document.triggerHandler('/url/update', ['stat-end', e.val]);
-            $.ajax({
-              dataType: "json",
-              url: url + "portals/search",
-              data: {
-                station: e.val,
-                direction: "out"
-              },
-            }).done(function(data) {
-                // Очищаем слой выходов
-                if (typeof outPortals !== 'undefined') {
-                    metroEndInputMap.removeLayer(outPortals);
-                }
-                if (data.features.length != 0) {
-
-                    // Добавляем выходы на карту
-                    outPortals = L.geoJson(
-                        data, {
-                            pointToLayer: function(feature, latlng) {
-                                return L.marker(
-                                    latlng, {
-                                        icon: L.icon({
-                                            iconUrl: 'icons/out.png',
-                                        })
-                                    }
-                                )
-                            },
-                            onEachFeature: function(feature, layer) {
-                                layer.on('click', function (e) {
-                                    $("#metroEndInputID").val(feature.id);
-                                    $("#metroEndInputName").val(feature.properties.name || feature.id);
-                                    m4a.view.$document.triggerHandler('/url/update', ['end', feature.id]);
-                                });
-                            }
-                        }
-                    ).addTo(metroEndInputMap);
-
-                    // Устанавливаем новый охват
-                    metroEndInputMap.fitBounds(outPortals.getBounds(), {padding: [0, 10]});
-                }
-            });
-          });
-
-          // Карта для выбора входов
-          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
-              maxZoom: 18
-          }).addTo(metroStartInputMap);
-
-          // Карта для выбора выходов
-          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
-              maxZoom: 18
-          }).addTo(metroEndInputMap);
-
-          // Карта для отображения маршрутов
-          L.tileLayer.grayscale('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
-              maxZoom: 18
-          }).addTo(mainMap);
-
-          $("#mainform").submit(function() {
-              if ($('#metroStartStation').val().length == 0 || $('#metroEndStation').val().length == 0) {
-                // todo: use bootstrap
-                alert('Не выбрана входная или выходная станция!');
-              } else if ($('#metroStartStation').val() == $('#metroEndStation').val()) {
-                alert('Выбраны одинаковые станции!');
-              } else {
-                  $('.pagination').empty();
-                  $('#routePanel').empty();
-                  $.ajax({
-                      dataType: "json",
-                      url: url + "routes/search",
-                      data: $("#mainform").serialize()
-                  }).done(function(data) {
-                    
-                    // Кнопки переключения маршрутов
-                    $.each(data.routes, function(i, item){
-                        $('.pagination').append('<li><a href="javascript:void(0)">'+(i+1)+'</a></li>');
-                    });
-
-                    // Обработчики нажатия кнопок
-                    $('.pagination li').click(function(e) {
-                        var route_index = parseInt($(this).text()) - 1;
-                        $('.pagination li').addClass('active').not(this).removeClass('active');
-                        $('#routePanel').empty();
-                        showRoute(data.routes, route_index);
-                        m4a.view.$document.triggerHandler('/url/update', ['route',route_index + 1]);
-                    });
-
-                    // Активируем первый маршрут
-                    $('.pagination li').first().trigger('click');
-
-                  });
-              }
-              return false;
-          });
-
         });
     </script>
   </body>
