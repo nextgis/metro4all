@@ -118,10 +118,10 @@
         function fillBarriers(barriers) {
             c = "";
             c+="<ul class='obstacles'>";
-            c+="<li><strong>Ширина коляски</strong>" + "до " + barriers['min_width'] + " см" + "</li>";
-            c+="<li><strong>Ступенек</strong>" + barriers['min_step'] + "</li>";
-            c+="<li><strong>Из них без рельс и рамп</strong>" + (barriers['min_step'] - barriers['min_step_ramp']) + "</li>";
-            c+="<li><strong>Лифт</strong>" + {true: 'есть', false: 'нет'}[barriers['lift']];
+            c+="<li><strong>Ширина коляски</strong> " + "до " + barriers['min_width'] + " см" + "</li>";
+            c+="<li><strong>Ступенек</strong> " + barriers['min_step'] + "</li>";
+            c+="<li><strong>Из них без рельс и рамп</strong> " + (barriers['min_step'] - barriers['min_step_ramp']) + "</li>";
+            c+="<li><strong>Лифт</strong> " + {true: 'есть', false: 'нет'}[barriers['lift']];
 
             // Лифт
             if (barriers['lift']) {
@@ -130,7 +130,7 @@
             c+="</li>";
 
             // Аппарели
-            c+="<li><strong>Мин-макс. расстояние между колесами</strong>"
+            c+="<li><strong>Мин-макс. расстояние между колесами</strong> "
             if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
                 c+=barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + " см";
             } else {
@@ -139,7 +139,7 @@
             c+="</li>";
 
             // Наклонные поверхности
-            c+="<li><strong>Угол наклона</strong>"
+            c+="<li><strong>Угол наклона</strong> "
             if (barriers['max_angle']) {
                 c+=barriers['max_angle'] + "&deg;";
             } else {
