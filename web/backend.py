@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
+import re
 import csv
 import networkx as nx
 from geojson import Feature, FeatureCollection, dumps
 from bottle import route, response, request, run, static_file, HTTPResponse
 from helpers import STATIONS
+from helpers import LINES
 
 G = nx.Graph(nx.read_dot('../data/msk/graph.dot'))
 
@@ -13,6 +15,26 @@ def static(path):
     return static_file(path, root='/home/tenzorr/projects/metroaccess/metroaccess/web/static')
 
 
+# Получение списка станций для выпадающих списков
+@route('/stations')
+def get_stations():
+    results = []
+    for line_id, line_name in LINES:
+        group = []
+        for station_id, numline, station_name, coords in STATIONS:
+            if line_id == numline:
+                group.append(dict(
+                    id=station_id,
+                    text=re.sub('\(\d*\)', '', station_name).strip())
+                )
+        group = sorted(group, key=lambda i: i['text'])
+        results.append(dict(text=line_name, children=group))
+
+    response.content_type = 'application/json'
+    return dumps(dict(results=results))
+
+
+# Получение списка входов для заданной станции
 @route('/portals/search')
 def get_portals():
 
