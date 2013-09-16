@@ -19,7 +19,7 @@ def get_node_id(name, stations=STATIONS):
     '''Получение идентификатора станции по имени.
     '''
 
-    for id, line, n in stations:
+    for id, line, n, coords in stations:
         if name == n:
             return id
 
@@ -28,7 +28,7 @@ def get_node_line(name, stations=STATIONS):
     '''Получение идентификатора линии по имени станции.
     '''
 
-    for id, line, n in stations:
+    for id, line, n, coords in stations:
         if name == n:
             return line
 
@@ -85,7 +85,7 @@ def build_opt_group(line=None):
     '''
 
     storage = []
-    for id, numline, name in STATIONS:
+    for id, numline, name, coords in STATIONS:
         if numline == line:
             storage.append((id, name))
 

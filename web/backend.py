@@ -1,18 +1,40 @@
 # -*- encoding: utf-8 -*-
+import re
 import csv
 import networkx as nx
 from geojson import Feature, FeatureCollection, dumps
 from bottle import route, response, request, run, static_file, HTTPResponse
 from helpers import STATIONS
+from helpers import LINES
 
-G = nx.Graph(nx.read_dot('graph.dot'))
+G = nx.Graph(nx.read_dot('../data/msk/graph.dot'))
 
 
 @route('/static/<path:path>')
 def static(path):
-    return static_file(path, root='/home/rykov/nextgis/projects/metroaccess/webapp/static')
+    return static_file(path, root='/home/tenzorr/projects/metroaccess/metroaccess/web/static')
 
 
+# Получение списка станций для выпадающих списков
+@route('/stations')
+def get_stations():
+    results = []
+    for line_id, line_name in LINES:
+        group = []
+        for station_id, numline, station_name, coords in STATIONS:
+            if line_id == numline:
+                group.append(dict(
+                    id=station_id,
+                    text=re.sub('\(\d*\)', '', station_name).strip())
+                )
+        group = sorted(group, key=lambda i: i['text'])
+        results.append(dict(text=line_name, children=group))
+
+    response.content_type = 'application/json'
+    return dumps(dict(results=results))
+
+
+# Получение списка входов для заданной станции
 @route('/portals/search')
 def get_portals():
 
@@ -23,7 +45,7 @@ def get_portals():
 
     portals = []
     store = csv.DictReader(
-        open('backend_data/portals.csv', 'rb'),
+        open('../data/msk/portals.csv', 'rb'),
         delimiter=';'
     )
     for row in store:
@@ -35,7 +57,10 @@ def get_portals():
                     type='Point',
                     coordinates=[row['lon'], row['lat']]
                 ),
-                properties=dict(direction=row['direction'])
+                properties=dict(
+                    name=row['name'],
+                    direction=row['direction']
+                )
             )
             portals.append(feature)
 
@@ -49,39 +74,39 @@ def get_routes(delta=5, limit=3):
     # Заполнение информации о препятствиях на входах и выходах
     def fill_portal_barriers(portal_id, u):
         barriers_data_store = csv.DictReader(
-            open('backend_data/portals.csv', 'rb'),
+            open('../data/msk/portals.csv', 'rb'),
             delimiter=';'
         )
         for row in barriers_data_store:
             if int(row['id_entrance']) == portal_id:
                 u['barriers'] = dict(
-                    min_width=row['min_width'],
-                    min_step=row['min_step'],
-                    min_step_ramp=row['min_step_ramp'],
-                    lift=row['lift'],
+                    min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
+                    min_step=int(row['min_step']) if (row['min_step'].isdigit()) else 0,
+                    min_step_ramp=int(row['min_step_ramp']) if (row['min_step_ramp'].isdigit()) else 0,
+                    lift=False if row['lift'] in ['', '0'] else True,
                     lift_minus_step=row['lift_minus_step'],
-                    min_rail_width=row['min_rail_width'],
-                    max_rail_width=row['max_rail_width'],
-                    max_angle=row['max_angle']
+                    min_rail_width=int(row['min_rail_width'])/10 if (row['min_rail_width'].isdigit() and row['min_rail_width'] != '0') else None,
+                    max_rail_width=int(row['max_rail_width'])/10 if (row['max_rail_width'].isdigit() and row['max_rail_width'] != '0') else None,
+                    max_angle=int(row['max_angle'])/10 if (row['max_angle'].isdigit() and row['max_angle'] != '0') else None
                 )
 
     # Заполнение информации о препятствиях на переходах
     def fill_interchange_barriers(station_from, station_to, u):
         barriers_data_store = csv.DictReader(
-            open('backend_data/interchanges.csv', 'rb'),
+            open('../data/msk/interchanges.csv', 'rb'),
             delimiter=';'
         )
         for row in barriers_data_store:
             if (int(row['station_from']) == station_from) and (int(row['station_to']) == station_to):
                 u['barriers'] = dict(
-                    min_width=row['min_width'],
-                    min_step=row['min_step'],
-                    min_step_ramp=row['min_step_ramp'],
-                    lift=row['lift'],
+                    min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
+                    min_step=int(row['min_step']) if (row['min_step'].isdigit()) else 0,
+                    min_step_ramp=int(row['min_step_ramp']) if (row['min_step_ramp'].isdigit()) else 0,
+                    lift=False if row['lift'] in ['', '0'] else True,
                     lift_minus_step=row['lift_minus_step'],
-                    min_rail_width=row['min_rail_width'],
-                    max_rail_width=row['max_rail_width'],
-                    max_angle=row['max_angle']
+                    min_rail_width=int(row['min_rail_width'])/10 if (row['min_rail_width'].isdigit() and row['min_rail_width'] != '0') else None,
+                    max_rail_width=int(row['max_rail_width'])/10 if (row['max_rail_width'].isdigit() and row['max_rail_width'] != '0') else None,
+                    max_angle=int(row['max_angle'])/10 if (row['max_angle'].isdigit() and row['max_angle'] != '0') else None
                 )
 
     station_from = int(request.query.station_from) if request.query.station_from else None
@@ -123,7 +148,8 @@ def get_routes(delta=5, limit=3):
                     station_type=station_type,
                     station_id=get_station_id(station),
                     station_name=station,
-                    station_line=get_station_line(station)
+                    station_line=get_station_line(station),
+                    coordinates=get_station_coords(station)
                 )
 
                 if station_type == "start":
@@ -158,23 +184,30 @@ def get_routes(delta=5, limit=3):
 
 # Получение названия станции по идентификатору
 def get_station_name(station_id):
-    for id, line, name in STATIONS:
+    for id, line, name, coords in STATIONS:
         if id == station_id:
             return name
 
 
 # Получение идентификатора станции по имени
 def get_station_id(name):
-    for id, line, n in STATIONS:
+    for id, line, n, coords in STATIONS:
         if name == n:
             return id
 
 
 # Получение идентификатора линии по имени станции
 def get_station_line(name):
-    for id, line, n in STATIONS:
+    for id, line, n, coords in STATIONS:
         if name == n:
             return line
+
+
+# Получение координат станции по имени
+def get_station_coords(name):
+    for id, line, n, coords in STATIONS:
+        if name == n:
+            return coords
 
 
 # Проверка на принадлежность станций (по имени) к одной линии
