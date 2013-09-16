@@ -140,7 +140,7 @@ foreach(sort { $a->{station}->{ref} <=> $b->{station}->{ref} or $a->{ref} <=> $b
     my @res;
     my $exitid = $_->{station}->{ref} * 10 + $_->{ref} - 1;
     push @res, $exitid;
-    push @res, '';
+    push @res, $_->{station}->{name}.'-'.$_->{ref};
     push @res, $_->{station}->{ref};
     push @res, $_->{dir};
     push @res, $_->{lat};
