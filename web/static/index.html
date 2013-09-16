@@ -115,59 +115,81 @@
         ];
 
 
-        function fillBarriers(content, barriers) {
-            content+="<ul>";
-            content+="<li><strong>Ширина коляски</strong>: " + "до " + barriers['min_width'] + " см" + "</li>";
-            content+="<li><strong>Ступенек</strong>: " + barriers['min_step'] + "</li>";
-            content+="<li><strong>Из них без рельс и рамп</strong>: " + (barriers['min_step'] - barriers['min_step_ramp']) + "</li>";
-            content+="<li><strong>Лифт</strong>: " + {true: 'есть', false: 'нет'}[barriers['lift']];
+        function fillBarriers(barriers) {
+            c = "";
+            c+="<ul class='obstacles'>";
+            c+="<li><strong>Ширина коляски</strong>: " + "до " + barriers['min_width'] + " см" + "</li>";
+            c+="<li><strong>Ступенек</strong>: " + barriers['min_step'] + "</li>";
+            c+="<li><strong>Из них без рельс и рамп</strong>: " + (barriers['min_step'] - barriers['min_step_ramp']) + "</li>";
+            c+="<li><strong>Лифт</strong>: " + {true: 'есть', false: 'нет'}[barriers['lift']];
 
             // Лифт
             if (barriers['lift']) {
-                content+=", экономит " + barriers['lift_minus_step'] + " ступенек";
+                c+=", экономит " + barriers['lift_minus_step'] + " ступенек";
             }
-            content+="</li>";
+            c+="</li>";
 
             // Аппарели
-            content+="<li><strong>Мин-макс. расстояние между колесами</strong>: "
+            c+="<li><strong>Мин-макс. расстояние между колесами</strong>: "
             if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
-                content+=barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + " см";
+                c+=barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + " см";
             } else {
-                content+="аппарели отсутствуют";
+                c+="аппарели отсутствуют";
             }
-            content+="</li>";
+            c+="</li>";
 
             // Наклонные поверхности
-            content+="<li><strong>Угол наклона</strong>: "
+            c+="<li><strong>Угол наклона</strong>: "
             if (barriers['max_angle']) {
-                content+=barriers['max_angle'] + "&deg;";
+                c+=barriers['max_angle'] + "&deg;";
             } else {
-                content+="наклонных поверхностей нет";
+                c+="наклонных поверхностей нет";
             }
-            content+="</li>";
-            content+="</ul>";
-            return content;
+            c+="</li>";
+            c+="</ul>";
+            return c;
         }
 
 
         function showRoute(routes, index) {
+
             // Вывод списка станций, входящих в маршрут
+            var content = "<ul class='route'>";
             $.each(routes[index], function(i, item){
-                var content = "<h4>"+(i+1)+". "+item.station_name+"</h4>";
-                if ((item.station_type == 'start') || (item.station_type == 'end')) {
-                    if (item.barriers) {
-                        content = fillBarriers(content, item.barriers);
-                    } else {
-                        content+="<em>" + "Препятствия не отображаются, так как не выбран " + {'start': 'вход', 'end': 'выход'}[item.station_type] + "</em>";
-                    }
-                } else if (item.station_type == 'interchange') {
-                    if (item.barriers) {
-                        content = fillBarriers(content, item.barriers);
-                    }
+                
+                if (i == 0) {
+                  content+="<li class=" + "'enter line-" + item.station_line + "'>" + item.station_name
+                  if (item.barriers) {
+                      content+=fillBarriers(item.barriers);
+                  } else {
+                    content+="<div>Препятствия не отображаются, так как не выбран вход</div>";
+                  }
+                  content+="</li>"
                 }
 
-                $('#routePanel').append("<div>" + content + "</div>");
+                else if (i < routes[index].length-1) {
+                  if ((item.station_type == 'regular') && (routes[index][i-1].station_type != 'interchange' )) {
+                    content+="<li class=" + "'station line-" + item.station_line + "'>" + item.station_name + "</li>"
+                  } else if (item.station_type == 'interchange') {
+                    content+="<li class=" + "'transition from-line-" + item.station_line + " " + "to-line-" + routes[index][i+1].station_line + "'>" + item.station_name + " &ndash; " + routes[index][i+1].station_name
+                    content+=fillBarriers(item.barriers)
+                    content+="</li>"
+                  }
+                }
+
+                else {
+                  content+="<li class=" + "'exit line-" + item.station_line + "'>" + item.station_name
+                  if (item.barriers) {
+                      content+=fillBarriers(item.barriers);
+                  } else {
+                    content+="<div>Препятствия не отображаются, так как не выбран выход</div>";
+                  }
+                  content+="</li>"
+                }
+
             });
+            content+="</ul>";
+            $('#routePanel').append(content);
             
             // Отображение маршрута на карте
             if (typeof route !== 'undefined') {
