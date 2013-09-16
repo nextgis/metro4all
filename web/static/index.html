@@ -172,7 +172,9 @@
                     content+="<li class=" + "'station line-" + item.station_line + "'>" + item.station_name + "</li>"
                   } else if (item.station_type == 'interchange') {
                     content+="<li class=" + "'transition from-line-" + item.station_line + " " + "to-line-" + routes[index][i+1].station_line + "'>" + item.station_name + " &ndash; " + routes[index][i+1].station_name
-                    content+=fillBarriers(item.barriers)
+                    if (item.barriers) {
+                        content+=fillBarriers(item.barriers);
+                    }
                     content+="</li>"
                   }
                 }
