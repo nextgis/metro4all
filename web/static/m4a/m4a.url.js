@@ -1,11 +1,5 @@
-var m4a = {};
-
-m4a.viewmodel = {};
-m4a.view = {};
-
 (function ($, m4a) {
     m4a.url = {};
-    m4a.view.$document = $(document);
 
     $.extend(m4a.url, {
         init: function () {
@@ -36,6 +30,43 @@ m4a.view = {};
             else {
                 return uri + separator + key + "=" + value;
             }
+        },
+
+
+        parse: function () {
+            var view = m4a.view,
+                stat_start = this.getURLParameter('stat-start'),
+                start = this.getURLParameter('start'),
+                stat_end = this.getURLParameter('stat-end'),
+                end = this.getURLParameter('end'),
+                route = this.getURLParameter('route');
+
+            if (stat_start) {
+                view.$metroStartStation.select2('val', stat_start);
+                m4a.stations.updateInputsData(stat_start);
+                if (start) {
+                    view.$metroStartInputID.val(start);
+                    view.$metroStartInputName.val(start);
+                }
+            }
+
+            if (stat_end) {
+                view.$metroEndStation.select2('val', stat_end);
+                m4a.stations.updateOutputsData(stat_start);
+                if (end) {
+                    view.$metroEndInputID.val(end);
+                    view.$metroEndInputName.val(end);
+                }
+            }
+
+            if (stat_start && start && stat_end && end) {
+                $("#mainform").submit();
+            }
+        },
+
+
+        getURLParameter: function (name) {
+            return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(window.location.href) || [, ''])[1]);
         }
     })
 })(jQuery, m4a)
