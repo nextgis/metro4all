@@ -1,0 +1,185 @@
+.route {
+    margin: 0;
+    padding: 0;
+}
+
+.route > li {
+    list-style: none;
+    padding: 0 0 10px 20px;
+    line-height: 15px;
+    background-image: url(../img/search-result-1-line.png);
+    background-repeat: no-repeat;
+    background-position: 6px 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.route > li:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    margin-right: 5px;
+    margin-left: -20px;
+}
+
+.route > li.transition:before {
+    background-image: url(../img/search-result-1-circle-from.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.route > li.exit:before {
+    background-image: url(../img/search-result-1-circle.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.route > li div {
+    padding-left: 10px;
+}
+
+/* transition */
+
+.route > li.transition.from-line-2:before,
+.route > li.exit.line-2:before {
+    background-position: 0 -16px;
+}
+
+.route > li.transition.from-line-3:before,
+.route > li.exit.line-3:before {
+    background-position: 0 -32px;
+}
+
+.route > li.transition.from-line-4:before,
+.route > li.exit.line-4:before {
+    background-position: 0 -48px;
+}
+
+.route > li.transition.from-line-5:before,
+.route > li.exit.line-5:before {
+    background-position: 0 -64px;
+}
+
+.route > li.transition.from-line-6:before,
+.route > li.exit.line-6:before {
+    background-position: 0 -80px;
+}
+
+.route > li.transition.from-line-7:before,
+.route > li.exit.line-7:before {
+    background-position: 0 -96px;
+}
+
+.route > li.transition.from-line-8:before,
+.route > li.exit.line-8:before {
+    background-position: 0 -112px;
+}
+
+.route > li.transition.from-line-9:before,
+.route > li.exit.line-9:before {
+    background-position: 0 -128px;
+}
+
+.route > li.transition.from-line-10:before,
+.route > li.exit.line-10:before {
+    background-position: 0 -144px;
+}
+
+.route > li.transition.from-line-11:before,
+.route > li.exit.line-11:before {
+    background-position: 0 -160px;
+}
+
+.route > li.transition.from-line-12:before,
+.route > li.exit.line-12:before {
+    background-position: 0 -176px;
+}
+
+/* lines */
+
+.route > li.line-2,
+.route > li.to-line-2 {
+    background-position: 0 -200px;
+}
+
+.route > li.line-3,
+.route > li.to-line-3 {
+    background-position: 0 -400px;
+}
+
+.route > li.line-4,
+.route > li.to-line-4 {
+    background-position: 0 -600px;
+}
+
+.route > li.line-5,
+.route > li.to-line-5 {
+    background-position: 0 -800px;
+}
+
+.route > li.line-6,
+.route > li.to-line-6 {
+    background-position: 0 -1000px;
+}
+
+.route > li.line-7,
+.route > li.to-line-7 {
+    background-position: 0 -1200px;
+}
+
+.route > li.line-8,
+.route > li.to-line-8 {
+    background-position: 0 -1400px;
+}
+
+.route > li.line-9,
+.route > li.to-line-9 {
+    background-position: 0 -1600px;
+}
+
+.route > li.line-10,
+.route > li.to-line-10 {
+    background-position: 0 -1800px;
+}
+
+.route > li.line-11,
+.route > li.to-line-11 {
+    background-position: 0 -2000px;
+}
+
+.route > li.line-12,
+.route > li.to-line-12 {
+    background-position: 0 -2200px;
+}
+
+.route > li.exit {
+    background-image: none;
+}
+
+.obstacles {
+    margin: 7px 0 10px 0;
+    padding: 0;
+}
+
+.obstacles li {
+    list-style: none;
+    font-size: 12px;
+    margin: 0 0 3px 0;
+    padding: 0;
+    width: 220px;
+    font-weight: normal;
+}
+
+.obstacles li strong {
+    font-weight: normal;
+}
+
+.obstacles li strong:after {
+    content: ':';
+}
+
+.route-paging {
+    margin-top: 0;
+}

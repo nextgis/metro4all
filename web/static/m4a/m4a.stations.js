@@ -32,7 +32,7 @@
                                 return L.marker(
                                     latlng, {
                                         icon: L.icon({
-                                            iconUrl: '/static/icons/in.png'
+                                            iconUrl: '/static/img/in.png'
                                         })
                                     }
                                 )
@@ -87,7 +87,7 @@
                                 return L.marker(
                                     latlng, {
                                         icon: L.icon({
-                                            iconUrl: '/static/icons/out.png',
+                                            iconUrl: '/static/img/out.png',
                                         })
                                     }
                                 )
