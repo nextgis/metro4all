@@ -80,7 +80,7 @@ def get_routes(delta=5, limit=3):
         for row in barriers_data_store:
             if int(row['id_entrance']) == portal_id:
                 u['barriers'] = dict(
-                    min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
+                    max_width=int(row['max_width'])/10 if row['max_width'].isdigit() else row['max_width'],
                     min_step=int(row['min_step']) if (row['min_step'].isdigit()) else 0,
                     min_step_ramp=int(row['min_step_ramp']) if (row['min_step_ramp'].isdigit()) else 0,
                     lift=False if row['lift'] in ['', '0'] else True,
@@ -99,7 +99,7 @@ def get_routes(delta=5, limit=3):
         for row in barriers_data_store:
             if (int(row['station_from']) == station_from) and (int(row['station_to']) == station_to):
                 u['barriers'] = dict(
-                    min_width=int(row['min_width'])/10 if row['min_width'].isdigit() else row['min_width'],
+                    max_width=int(row['max_width'])/10 if row['max_width'].isdigit() else row['max_width'],
                     min_step=int(row['min_step']) if (row['min_step'].isdigit()) else 0,
                     min_step_ramp=int(row['min_step_ramp']) if (row['min_step_ramp'].isdigit()) else 0,
                     lift=False if row['lift'] in ['', '0'] else True,

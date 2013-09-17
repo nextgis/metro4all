@@ -1,4 +1,4 @@
-id_entrance;name;id_station;direction;lat;lon;min_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
+id_entrance;name;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
 36;Проспект Ветеранов-1;3;both;59.841875;30.249713;;;;;;;;
 37;Проспект Ветеранов-2;3;both;59.841800;30.250301;;;;;;;;
 38;Проспект Ветеранов-3;3;both;59.842198;30.250449;;;;;;;;

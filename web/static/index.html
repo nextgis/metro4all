@@ -118,7 +118,7 @@
         function fillBarriers(barriers) {
             c = "";
             c+="<ul class='obstacles'>";
-            c+="<li><strong>Ширина коляски</strong> " + "до " + barriers['min_width'] + " см" + "</li>";
+            c+="<li><strong>Ширина коляски</strong> " + "до " + barriers['max_width'] + " см" + "</li>";
             c+="<li><strong>Ступенек</strong> " + barriers['min_step'] + "</li>";
             c+="<li><strong>Из них без рельс и рамп</strong> " + (barriers['min_step'] - barriers['min_step_ramp']) + "</li>";
             c+="<li><strong>Лифт</strong> " + {true: 'есть', false: 'нет'}[barriers['lift']];
