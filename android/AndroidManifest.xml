@@ -42,7 +42,11 @@
 		</activity> 		      
         <activity 
     		android:name="com.nextgis.metroaccess.SelectStationActivity">
-		</activity> 
+		</activity>
+        <activity 
+    		android:name="com.nextgis.metroaccess.PreferencesActivity"
+    		android:label="@string/sPrefTitle">
+		</activity>		 
       </application>
 
 </manifest>

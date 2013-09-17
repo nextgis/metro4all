@@ -186,20 +186,14 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 		}
     }    
    
-/*	@Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		//getSupportMenuInflater().inflate(R.menu.main, menu);
-       menu.add(Menu.NONE, MENU_ADD, Menu.NONE, R.string.sMark)
-       .setIcon(R.drawable.ic_navigation_accept)
-       .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);//MenuItem.SHOW_AS_ACTION_WITH_TEXT | 
-       menu.add(Menu.NONE, MENU_CANCEL, Menu.NONE, R.string.sCancel)
-       .setIcon(R.drawable.ic_navigation_cancel)
-       .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-       menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.sSettings)
+        menu.add(Menu.NONE, MainActivity.MENU_SETTINGS, Menu.NONE, R.string.sSettings)
        .setIcon(R.drawable.ic_action_settings)
        .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);		
-       menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.sAbout)
+       menu.add(Menu.NONE, MainActivity.MENU_ABOUT, Menu.NONE, R.string.sAbout)
        .setIcon(R.drawable.ic_action_about)
        .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);	
       return true;
@@ -210,27 +204,20 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	   switch (item.getItemId()) {
        case android.R.id.home:
            return false;
-       case MENU_SETTINGS:
+       case MainActivity.MENU_SETTINGS:
            // app icon in action bar clicked; go home
            Intent intentSet = new Intent(this, PreferencesActivity.class);
            intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
            startActivity(intentSet);
            return true;
-       case MENU_ABOUT:
+       case MainActivity.MENU_ABOUT:
            Intent intentAbout = new Intent(this, AboutActivity.class);
            intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
            startActivity(intentAbout);
            return true;	  
-       case MENU_ADD:
-    	onFinish();
-       	return true;
-       case MENU_CANCEL:
-    	finish();
-       	return true;
 	   }
 	   return super.onOptionsItemSelected(item);
 	}   
-*/   
    
 	public void Finish(int nStationId, int nPortalId){
 	    Intent intent = new Intent();

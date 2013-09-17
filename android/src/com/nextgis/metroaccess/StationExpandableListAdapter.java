@@ -26,8 +26,11 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,10 +44,20 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 	private List <StationItem> mStationList;
 	private Map<StationItem, List<PortalItem>> mPortalCollection;
 
+	private int mnType;
+	private int mnMaxWidth, mnWheelWidth;
+	
 	public StationExpandableListAdapter(Context c, List<StationItem> stationList, Map<StationItem, List<PortalItem>> portalCollection) {
 		mContext = c;
 		mStationList = stationList;
 		mPortalCollection = portalCollection;
+		
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 1);
+		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
+		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
+		
 	}
 	
 	@Override
@@ -66,6 +79,15 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 		PortalItem entry = (PortalItem) getChild(groupPosition, childPosition);
 		TextView item = (TextView) convertView.findViewById(R.id.txPortalName);
+		//
+		if(mnType > 1){
+			boolean bSmallWidth = entry.GetDetailes()[0] < mnMaxWidth;
+			boolean bCanRoll = entry.GetDetailes()[5] < mnWheelWidth && entry.GetDetailes()[6] > mnWheelWidth;
+			if(bSmallWidth || !bCanRoll){
+				item.setTextColor(Color.RED);
+			}
+		}
+		//
 		item.setText(entry.GetName());
 
 		return convertView;

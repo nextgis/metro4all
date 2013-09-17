@@ -38,5 +38,15 @@
 	<string name="sSelLinesTab">Lines</string>
 	<string name="sSelRecentTab">Recent</string>	
 	<!-- dialogs -->
-	
+	<string name="sPrefTitle">Preferences</string>
+	<string name="sPrefCatMain">Main</string>
+	<string name="sPrefNaviType">Navigation type</string>
+	<string name="sPrefNaviTypeSummary">Navigation type affects on routing</string>
+	<string name="sPrefNaviTypeTitle">Select navigation type</string>
+	<string name="sPrefWheelBaseSize">Width behind wheels</string>
+	<string name="sPrefWheelBaseSizeSummary">The distance between the wheels (cm)</string>
+	<string name="sPrefWheelBaseSizeTitle">Set width behind wheels</string>		
+	<string name="sPrefCarriageSize">Max width of carriage</string>
+	<string name="sPrefCarriageSizeSummary">The maximum width of carriage (cm)</string>
+	<string name="sPrefCarriageSizeTitle">Set max width of carriage</string>		
 </resources>

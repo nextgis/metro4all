@@ -137,7 +137,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		maoDepRecentIds = new ArrayList<Pair<Integer, Integer>>();
 		maoArrRecentIds = new ArrayList<Pair<Integer, Integer>>();
         // initialize the default settings
-        //PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 					
 		moGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -442,9 +442,11 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		.setIcon(R.drawable.ic_action_search);
 		mSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		mSearchMenuItem.setEnabled(false);
-		//TODO:        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.sSettings)
-//      .setIcon(R.drawable.ic_action_settings)
-//      .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);		
+
+		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_SETTINGS, com.actionbarsherlock.view.Menu.NONE, R.string.sSettings)
+       .setIcon(R.drawable.ic_action_settings)
+       .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);		
+		
 		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_ABOUT, com.actionbarsherlock.view.Menu.NONE, R.string.sAbout)
 		.setIcon(R.drawable.ic_action_about)
 		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);	
@@ -461,12 +463,12 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         case MENU_SEARCH:
         	onSearch();
         	return true;
-//TODO:        case MENU_SETTINGS:
+        case MENU_SETTINGS:
             // app icon in action bar clicked; go home
-//            Intent intentSet = new Intent(this, PreferencesActivity.class);
-//            intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intentSet);
-//            return true;
+            Intent intentSet = new Intent(this, PreferencesActivity.class);
+            intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentSet);
+            return true;
         case MENU_ABOUT:
             Intent intentAbout = new Intent(this, AboutActivity.class);
             intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -818,6 +820,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    Bundle bundle = new Bundle();
 	    bundle.putInt(BUNDLE_EVENTSRC_KEY, DEPARTURE_RESULT);
         bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
+        bundle.putBoolean(BUNDLE_ENTRANCE_KEY, true);
 	    intent.putExtras(bundle);
 	    startActivityForResult(intent, DEPARTURE_RESULT);	
 	}
@@ -827,6 +830,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    Bundle bundle = new Bundle();
 	    bundle.putInt(BUNDLE_EVENTSRC_KEY, ARRIVAL_RESULT);
         bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
+        bundle.putBoolean(BUNDLE_ENTRANCE_KEY, false);
 	    intent.putExtras(bundle);
 	    startActivityForResult(intent, ARRIVAL_RESULT);			
 	}
