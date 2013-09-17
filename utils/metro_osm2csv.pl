@@ -133,7 +133,7 @@ open PORTALS, '>portals.csv' or die "Cannot open portals.csv: $!";
 print PORTALS "id_entrance;name;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle\n";
 foreach(sort { $a->{station}->{ref} <=> $b->{station}->{ref} or $a->{ref} <=> $b->{ref} } grep { exists $_->{station} } values %exits) {
     my @res;
-    my $exitid = $_->{station}->{ref} * 12 + $_->{ref} - 1;
+    my $exitid = $_->{station}->{ref} * 12 + $_->{ref} - 1 + 1000;
     push @res, $exitid;
     push @res, $_->{station}->{name}.'-'.$_->{ref};
     push @res, $_->{station}->{ref};
