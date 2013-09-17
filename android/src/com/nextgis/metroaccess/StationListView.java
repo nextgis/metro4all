@@ -22,21 +22,23 @@
 package com.nextgis.metroaccess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.nextgis.metroaccess.StationListAdapter.StationItem;
 
 public class StationListView extends SherlockActivity {
 	
     private ListView mPathListView;
     private ArrayList <StationItem> mStationList = new ArrayList<StationItem>();
     protected StationListAdapter mListAdapter;
-    private int mnPathCount;
+    private int mnPathCount, mnDeparturePortalId, mnArrivalPortalId;
+    
+	protected HashMap<Integer, StationItem> mmoStations;
+
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,11 @@ public class StationListView extends SherlockActivity {
 
 	    Bundle extras = getIntent().getExtras(); 
 	    if(extras != null) {
+	    	mnDeparturePortalId = extras.getInt("dep_" + MainActivity.BUNDLE_PORTALID_KEY);
+	    	mnArrivalPortalId = extras.getInt("arr_" + MainActivity.BUNDLE_PORTALID_KEY);
+	        
 	    	mnPathCount = extras.getInt(MainActivity.BUNDLE_PATHCOUNT_KEY);
+	    	mmoStations = (HashMap<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
 	    	//TODO:
 	    	/*
 	    	if(mnPathCount == 3){
@@ -72,8 +78,8 @@ public class StationListView extends SherlockActivity {
 	    					nType = 2;
 	    					//check cross
 							int nNextId = list.get(i - 1);
-							int nLineFrom = MainActivity.mmoStations.get(nId).getLine();
-							int nLineTo = MainActivity.mmoStations.get(nNextId).getLine();
+							int nLineFrom = mmoStations.get(nId).GetLine();
+							int nLineTo = mmoStations.get(nNextId).GetLine();
 							if(nLineFrom != nLineTo){
 								nType = 7;
 							}
@@ -83,8 +89,8 @@ public class StationListView extends SherlockActivity {
 	    						nType = 1;
 	    						//check cross
     							int nNextId = list.get(i + 1);
-    							int nLineFrom = MainActivity.mmoStations.get(nId).getLine();
-    							int nLineTo = MainActivity.mmoStations.get(nNextId).getLine();
+    							int nLineFrom = mmoStations.get(nId).GetLine();
+    							int nLineTo = mmoStations.get(nNextId).GetLine();
     							if(nLineFrom != nLineTo){
    									bCross = true;
     								nType = 6;
@@ -96,15 +102,17 @@ public class StationListView extends SherlockActivity {
 	    							nType = 3;
 	    						}
     							int nNextId = list.get(i + 1);
-    							int nLineFrom = MainActivity.mmoStations.get(nId).getLine();
-    							int nLineTo = MainActivity.mmoStations.get(nNextId).getLine();
+    							int nLineFrom = mmoStations.get(nId).GetLine();
+    							int nLineTo = mmoStations.get(nNextId).GetLine();
     							if(nLineFrom != nLineTo){
    									bCross = true;
     								nType = 4;
     							}
 	    					}
 	    				}
-	    				mStationList.add(new StationItem(nId, MainActivity.mmoStations.get(nId).getName(), nType));
+	    				StationItem entry = mmoStations.get(nId);
+	    				entry.SetType(nType);
+	    				mStationList.add(entry);
 	    			}
 	    		}
 	    	}
@@ -114,7 +122,7 @@ public class StationListView extends SherlockActivity {
 	    // load list
 	    mPathListView = (ListView)findViewById(R.id.pathlistview);
         // create new adapter
-	    mListAdapter = new StationListAdapter(this, mStationList);
+	    mListAdapter = new StationListAdapter(this, mStationList, mnDeparturePortalId, mnArrivalPortalId);
         // set adapter to list view
 	    mPathListView.setAdapter(mListAdapter);	
 

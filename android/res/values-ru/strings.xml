@@ -31,5 +31,10 @@
 	<string name="sEntranceName">Вход: </string>
 	<string name="sNotSet">Не назначено</string>	
 	<string name="sSelFromStation">Выберите станцию отправления</string>
-	<string name="sSelToStation">Выберите станцию прибытия</string>	
+	<string name="sSelToStation">Выберите станцию прибытия</string>
+	<!-- tabs -->
+	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
+	<string name="sSelLinesTab">Линии</string>
+	<string name="sSelRecentTab">Недавние</string>	
+		
 </resources>

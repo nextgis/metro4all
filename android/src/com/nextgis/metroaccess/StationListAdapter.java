@@ -28,10 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -48,10 +45,13 @@ public class StationListAdapter extends BaseAdapter {
 	private Context mContext;
 	private ArrayList <StationItem> mStationList;
 	private ImageButton showSchemaButton;
+	private int mnDeparturePortalId, mnArrivalPortalId;
 	
-	public StationListAdapter(Context c, ArrayList <StationItem> list) {
+	public StationListAdapter(Context c, ArrayList <StationItem> list, int nDeparturePortalId, int nArrivalPortalId) {
 		mContext = c;
 		mStationList = list;
+		mnDeparturePortalId = nDeparturePortalId; 
+		mnArrivalPortalId = nArrivalPortalId;
 	}
 
 	public int getCount() {
@@ -83,9 +83,14 @@ public class StationListAdapter extends BaseAdapter {
 		TextView tvName = (TextView)v.findViewById(R.id.tvStationName);
 		tvName.setText(entry.GetName());
 		
-		
-		if(entry.GetType() < 2){
-			int[] anDetails = {800,37,1,1,37,410,890,21};
+		if(entry.GetType() == 1 ){
+			PortalItem pit = entry.GetPortal(mnDeparturePortalId);
+			int[] anDetails = pit.GetDetailes();
+			AddDetailes(v, anDetails);
+		}
+		else if(entry.GetType() == 2 ){
+			PortalItem pit = entry.GetPortal(mnArrivalPortalId);
+			int[] anDetails = pit.GetDetailes();
 			AddDetailes(v, anDetails);
 		}
 		else{
@@ -196,62 +201,5 @@ public class StationListAdapter extends BaseAdapter {
 				lDetailes.addView(tvx);
 			}
 		}
-	}
-	
-	public static class StationItem implements Parcelable{
-		private String sName;
-		private int nType;// 1 - src, 2 - dest, 3 - cross from, 4 - cross to, 5 - transit
-		private int nId;
-		
-		public StationItem(int nId, String sName, int nType) {
-			this.sName = sName;
-			this.nId = nId;
-			this.nType = nType;
-		}		
-		
-		public String GetName(){
-			return sName;
-		}
-		
-		public int GetId(){
-			return nId;
-		}
-		
-		public int GetType(){
-			return nType;
-		}
-		
-		public int GetLine(){
-			return MainActivity.mmoStations.get(nId).getLine();
-		}
-		
-		public int describeContents() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		public void writeToParcel(Parcel out, int flags) {
-			out.writeString(sName);
-			out.writeInt(nId);
-			out.writeInt(nType);
-		}	
-		
-		public static final Parcelable.Creator<StationItem> CREATOR
-        = new Parcelable.Creator<StationItem>() {
-		    public StationItem createFromParcel(Parcel in) {
-		        return new StationItem(in);
-		    }
-		
-		    public StationItem[] newArray(int size) {
-		        return new StationItem[size];
-		    }
-		};
-		
-		private StationItem(Parcel in) {
-			sName = in.readString();
-			nId = in.readInt();
-			nType = in.readInt();
-		}
-
 	}
 }

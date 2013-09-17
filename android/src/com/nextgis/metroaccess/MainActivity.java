@@ -56,11 +56,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -80,6 +81,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	final static String BUNDLE_EVENTSRC_KEY = "eventsrc";
 	final static String BUNDLE_PATHCOUNT_KEY = "pathcount";
 	final static String BUNDLE_PATH_KEY = "path_";
+	final static String BUNDLE_STATIONMAP_KEY = "stationmap";
+	final static String BUNDLE_STATIONID_KEY = "stationid";
+	final static String BUNDLE_PORTALID_KEY = "portalid";
 	
 	final static String REMOTE_METAFILE = "remotemeta.json";
 	final static String ROUTE_DATA_DIR = "rdata";
@@ -89,32 +93,46 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	final static String CSV_CHAR = ";";
 	
 	public final static int MENU_SEARCH = 3;
-//TODO:	public final static int MENU_SETTINGS = 4;
+	public final static int MENU_SETTINGS = 4;
 	public final static int MENU_ABOUT = 5;
 
+	public final static int DEPARTURE_RESULT = 1;
+	public final static int ARRIVAL_RESULT = 2;
+
+	public final static int MAX_RECENT_ITEMS = 10;
+	
 	//public final static int GET_META = 0;
 	
 	private static Handler moGetJSONHandler; 
-	//protected JSONObject moJSONMetaRemote;
-	//protected JSONObject moJSONMeta;
 	protected HashMap<Integer, JSONObject> mmoRouteMetadata;
 	protected static String msRDataPath;
 	
-	protected Spinner mSpinnerFrom, mSpinnerTo;
-	public static HashMap<Integer, Station> mmoStations;
-	
-	//protected DefaultDirectedWeightedGraph<Integer, DefaultWeightedEdge> mGraph;
+	protected HashMap<Integer, StationItem> mmoStations;
+	protected List<Pair<Integer, Integer>> maoDepRecentIds, maoArrRecentIds;
+
 	protected Graph mGraph;
 	
 	protected Button mSearchButton;
+	protected Button mSelectFromStationButton;
+	protected Button mSelectToStationButton;
 	protected MenuItem mSearchMenuItem;
 	
+	protected int mnDepartureStationId, mnArrivalStationId;
+	protected int mnDeparturePortalId, mnArrivalPortalId;
+	protected TextView mtvDepartureStationName, mtvArrivalStationName; 
+	protected TextView mtvDeparturePortalName, mtvArrivalPortalName;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		mnDepartureStationId = mnArrivalStationId = -1;
+		mnDeparturePortalId = mnArrivalPortalId = -1;
+		
+		maoDepRecentIds = new ArrayList<Pair<Integer, Integer>>();
+		maoArrRecentIds = new ArrayList<Pair<Integer, Integer>>();
         // initialize the default settings
-//TODO:        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        //PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 					
 		moGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -176,7 +194,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             }
         };		
         
-		mmoStations = new HashMap<Integer, Station>();
+		mmoStations = new HashMap<Integer, StationItem>();
 		mmoRouteMetadata = new HashMap<Integer, JSONObject>();        
 		
 		//check for data exist
@@ -221,94 +239,141 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    
 	    try {
 			msRDataPath = mmoRouteMetadata.get(nCurrentMetro).getString("path");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	    setContentView(R.layout.activity_main);
-	
-		//mGraph = new DefaultDirectedWeightedGraph<Integer, DefaultWeightedEdge>(DefaultWeightedEdge.class);
-	    mGraph = new VariableGraph();
-	    //fill with station list
-	    File file = new File(msRDataPath, "stations.csv");
-		if (file != null) {
-        	InputStream in;
-			try {
-				in = new BufferedInputStream(new FileInputStream(file));
-       	
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-		        final ArrayAdapter<Station> station_from_adapter = new ArrayAdapter<Station>(this, android.R.layout.simple_spinner_item);
-		        final ArrayAdapter<Station> station_to_adapter = new ArrayAdapter<Station>(this, android.R.layout.simple_spinner_item);
+			setContentView(R.layout.activity_main);
+	
+			mGraph = new VariableGraph();
+
+		    //fill with station list
+		    File station_file = new File(msRDataPath, "stations.csv");
+			if (station_file != null) {
+	        	InputStream in;
+				in = new BufferedInputStream(new FileInputStream(station_file));
+	       	
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+	
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
- 					 String sName = RowData[0];
- 					 int nLine = Integer.parseInt(RowData[1]);
- 					 int nID = Integer.parseInt(RowData[2]);//TODO: remove unnecessary data
- 					 
- 					 mGraph.add_vertex(new Vertex(nID));
- 					 //mGraph.addVertex(nID);
- 					 Station st = new Station(nID, sName, nLine);
- 				     station_from_adapter.add(st);
- 				     station_to_adapter.add(st); 	
- 				     
- 				     mmoStations.put(nID, st);
+					 String sName = RowData[0];
+					 int nLine = Integer.parseInt(RowData[1]);
+					 int nID = Integer.parseInt(RowData[2]);
+	 					 
+					 mGraph.add_vertex(new Vertex(nID));
+					 StationItem st = new StationItem(nID, sName, nLine, 0);
+	 				     
+				     mmoStations.put(nID, st);
 		        }
-		        
-/*		        mSpinnerFrom = (Spinner) findViewById(R.id.spFrom);
-		        station_from_adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);//.simple_spinner_dropdown_item);
-		        mSpinnerFrom.setAdapter(station_from_adapter);
-		        
-		        mSpinnerTo = (Spinner) findViewById(R.id.spTo);
-		        station_to_adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-		        mSpinnerTo.setAdapter(station_to_adapter);
-*/		        
+			        
 		        reader.close();
 		        if (in != null) {
 		        	in.close();
 		    	} 
-		    }
-		    catch (IOException ex) {
-		    	ex.printStackTrace();
-			}			
-		}
+			}
+	
+			File portals_file = new File(msRDataPath, "portals.csv");
+			if (portals_file != null) {
+			   	InputStream in;
+				in = new BufferedInputStream(new FileInputStream(portals_file));
+	
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+	
+		        String line = reader.readLine();
+		        while ((line = reader.readLine()) != null) {
+		             String[] RowData = line.split(CSV_CHAR);
+					 int nID = Integer.parseInt(RowData[0]);
+					 String sName = RowData[1];
+					 int nStationId = Integer.parseInt(RowData[2]);
+					 int nDirection = 0;
+					 if(RowData[3].equals("in")){
+						 nDirection = 1;
+					 }
+					 else if(RowData[3].equals("out")){
+						 nDirection = 2;
+					 }
+					 else{
+					 	nDirection = 3;
+					 }						
+					 
+					 int min_width = 0;
+					 int min_step = 0;
+					 int min_step_ramp = 0;
+					 int lift = 0;
+					 int lift_minus_step = 0;
+					 int min_rail_width = 0;
+					 int max_rail_width = 0;
+					 int max_angle = 0;
+					 
+					 if(RowData.length > 13)
+					 {
+						 String tmp = RowData[6];
+						 min_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+						 tmp = RowData[7];
+						 min_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+						 tmp = RowData[8];
+						 min_step_ramp = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+						 tmp = RowData[9];
+						 lift = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+						 tmp = RowData[10];
+						 lift_minus_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+						 tmp = RowData[11];
+						 min_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+						 tmp = RowData[12];
+						 max_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+						 tmp = RowData[13];
+						 max_angle = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+					 }
+					 int [] detailes = {min_width, min_step, min_step_ramp, lift, lift_minus_step, min_rail_width, max_rail_width, max_angle};
+					 PortalItem pt = new PortalItem(nID, sName, nStationId, nDirection, detailes);
+	
+					 mmoStations.get(nStationId).AddPortal(pt);
+					 
+					 Log.d(TAG, "#" + nID);
+		        }
+		        
+		        reader.close();
+			    if (in != null) {
+			       	in.close();
+			   	} 
+			}	
 		
 		
-		//fill routes
-	    File file_route = new File(msRDataPath, "graph.csv");
-		if (file_route != null) {
-        	InputStream in;
-			try {
+			//fill routes
+			File file_route = new File(msRDataPath, "graph.csv");
+			if (file_route != null) {
+	        	InputStream in;
 				in = new BufferedInputStream(new FileInputStream(file_route));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
- 					 int nFromId = Integer.parseInt(RowData[0]);
- 					 int nToId = Integer.parseInt(RowData[1]);
- 					 int nCost = Integer.parseInt(RowData[4]);
- 					 
- 					 Log.d("Route", ">" + nFromId + "-" + nToId + ":" + nCost);
- 					 mGraph.add_edge(nFromId, nToId, nCost);
- 					 mGraph.add_edge(nToId, nFromId, nCost);
- 					 //DefaultWeightedEdge ed1 = mGraph.addEdge(nFromId, nToId);
- 					 //mGraph.setEdgeWeight(ed1, nCost);
- 					 //DefaultWeightedEdge ed2 = mGraph.addEdge(nToId, nFromId);
-					 //mGraph.setEdgeWeight(ed2, nCost);
+					 int nFromId = Integer.parseInt(RowData[0]);
+					 int nToId = Integer.parseInt(RowData[1]);
+					 int nCost = Integer.parseInt(RowData[4]);
+	 					 
+					 Log.d("Route", ">" + nFromId + "-" + nToId + ":" + nCost);
+					 mGraph.add_edge(nFromId, nToId, nCost);
+					 mGraph.add_edge(nToId, nFromId, nCost);
 		        }
 		        reader.close();
 		        if (in != null) {
 		        	in.close();
 		    	}
 			}
-		    catch (IOException ex) {
-		    	ex.printStackTrace();
-			}
-			catch(IllegalArgumentException ex){
-				ex.printStackTrace();
-			}
+	    }
+	    catch (IOException ex) {
+	    	ex.printStackTrace();
 		}
-		
+		catch(IllegalArgumentException ex){
+			ex.printStackTrace();
+		}
+		catch (JSONException e) {
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	    
 		mSearchButton = (Button) findViewById(R.id.btSearch);
 		mSearchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -316,6 +381,28 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
              }
         });  
 		mSearchButton.setEnabled(false);
+		
+		//from station
+		mSelectFromStationButton = (Button) findViewById(R.id.btSetDepart);
+		mSelectFromStationButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	onSelectDepatrure();
+             }
+        });  		
+		//to station
+		mSelectToStationButton = (Button) findViewById(R.id.btSelArrival);
+		mSelectToStationButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	onSelectArrival();
+             }
+        });
+		
+		mtvDepartureStationName = (TextView) findViewById(R.id.fromstationname);
+		mtvArrivalStationName = (TextView) findViewById(R.id.tostationname);
+		mtvDeparturePortalName = (TextView) findViewById(R.id.fromentrancename);
+		mtvArrivalPortalName =  (TextView) findViewById(R.id.toentrancename);
+		
+		UpdateUI();
 	}
 
 	@Override
@@ -616,9 +703,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.actionbarsherlock.app.SherlockActivity#onPause()
-	 */
 	@Override
 	protected void onPause() {
 	    ActionBar actionBar = getSupportActionBar();
@@ -626,6 +710,33 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
 		    
 			edit.putInt(CURRENT_METRO_SEL, actionBar.getSelectedNavigationIndex());
+			
+			edit.putInt("dep_"+BUNDLE_STATIONID_KEY, mnDepartureStationId);
+			edit.putInt("arr_"+BUNDLE_STATIONID_KEY, mnArrivalStationId);
+			edit.putInt("dep_"+BUNDLE_PORTALID_KEY, mnDeparturePortalId);
+			edit.putInt("arr_"+BUNDLE_PORTALID_KEY, mnArrivalPortalId);
+			
+			int nbeg = maoDepRecentIds.size() < MAX_RECENT_ITEMS ? 0 : maoDepRecentIds.size() - MAX_RECENT_ITEMS;
+			int nsize = maoDepRecentIds.size() - nbeg;
+			int counter = 0;
+			for(int i = nbeg; i < nsize; i++){
+				edit.putInt("recent_dep_"+BUNDLE_STATIONID_KEY+counter, maoDepRecentIds.get(i).first);
+				edit.putInt("recent_dep_"+BUNDLE_PORTALID_KEY+counter, maoDepRecentIds.get(i).second);
+				
+				counter++;
+			}
+			edit.putInt("recent_dep_counter",counter);
+			
+			nbeg = maoArrRecentIds.size() < MAX_RECENT_ITEMS ? 0 : maoArrRecentIds.size() - MAX_RECENT_ITEMS;
+			nsize = maoArrRecentIds.size() - nbeg;
+			counter = 0;
+			for(int i = nbeg; i < nsize; i++){
+				edit.putInt("recent_arr_"+BUNDLE_STATIONID_KEY+counter, maoArrRecentIds.get(i).first);
+				edit.putInt("recent_arr_"+BUNDLE_PORTALID_KEY+counter, maoArrRecentIds.get(i).second);
+				
+				counter++;
+			}
+			edit.putInt("recent_arr_counter",counter);
 			
 			edit.commit();
 		}
@@ -636,18 +747,107 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected void onResume() {
 		super.onResume();
 	    ActionBar actionBar = getSupportActionBar();
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if(ActionBar.NAVIGATION_MODE_LIST == actionBar.getNavigationMode()){
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		    int nCurrentMetro = prefs.getInt(CURRENT_METRO_SEL, 0);
 		    actionBar.setSelectedNavigationItem(nCurrentMetro);
 		}
+	    mnDepartureStationId = prefs.getInt("dep_"+BUNDLE_STATIONID_KEY, -1);
+	    mnArrivalStationId = prefs.getInt("arr_"+BUNDLE_STATIONID_KEY, -1);
+	    mnDeparturePortalId = prefs.getInt("dep_"+BUNDLE_PORTALID_KEY, -1);
+	    mnArrivalPortalId = prefs.getInt("arr_"+BUNDLE_PORTALID_KEY, -1);
+
+	    UpdateUI();
+	}
+	
+	protected void 	onSelectDepatrure(){
+	    Intent intent = new Intent(this, SelectStationActivity.class);
+	    Bundle bundle = new Bundle();
+	    bundle.putInt(BUNDLE_EVENTSRC_KEY, DEPARTURE_RESULT);
+        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
+	    intent.putExtras(bundle);
+	    startActivityForResult(intent, DEPARTURE_RESULT);	
+	}
+	
+	protected void 	onSelectArrival(){
+	    Intent intent = new Intent(this, SelectStationActivity.class);
+	    Bundle bundle = new Bundle();
+	    bundle.putInt(BUNDLE_EVENTSRC_KEY, ARRIVAL_RESULT);
+        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
+	    intent.putExtras(bundle);
+	    startActivityForResult(intent, ARRIVAL_RESULT);			
+	}
+	
+	@Override
+	  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (data == null) {
+	    	return;
+	    }
+	    
+	    if (resultCode != RESULT_OK) {
+	    	return;
+	    }
+	    
+    	int nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
+    	int nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+    	
+    	
+		final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
+		
+	    switch(requestCode){
+	    case DEPARTURE_RESULT:
+	    	maoDepRecentIds.add(Pair.create(nStationId, nPortalId));
+	       	mnDepartureStationId = nStationId;	    	
+	    	mnDeparturePortalId = nPortalId;
+			edit.putInt("dep_"+BUNDLE_STATIONID_KEY, mnDepartureStationId);
+			edit.putInt("dep_"+BUNDLE_PORTALID_KEY, mnDeparturePortalId);
+	       	break;
+	    case ARRIVAL_RESULT:
+	    	maoArrRecentIds.add(Pair.create(nStationId, nPortalId));
+	    	mnArrivalStationId = nStationId;
+	    	mnArrivalPortalId = nPortalId;
+			edit.putInt("arr_"+BUNDLE_STATIONID_KEY, mnArrivalStationId);
+			edit.putInt("arr_"+BUNDLE_PORTALID_KEY, mnArrivalPortalId);
+	    	break;
+    	default:
+    		break;
+	    }
+
+	    edit.commit();
+	    
+	    UpdateUI();
+	}	
+	
+	protected void UpdateUI(){
+    	StationItem dep_sit = mmoStations.get(mnDepartureStationId);
+    	if(dep_sit != null && mtvDepartureStationName != null){    		
+    		mtvDepartureStationName.setText(dep_sit.GetName());
+    		PortalItem pit = dep_sit.GetPortal(mnDeparturePortalId);
+    		if(pit != null && mtvDeparturePortalName != null){
+    			mtvDeparturePortalName.setText(pit.GetName());
+    		}
+    	}
+
+    	StationItem arr_sit = mmoStations.get(mnArrivalStationId);
+    	if(arr_sit != null && mtvArrivalStationName != null){
+    		mtvArrivalStationName.setText(arr_sit.GetName());
+    		PortalItem pit = arr_sit.GetPortal(mnArrivalPortalId);
+    		if(pit != null && mtvArrivalPortalName != null){
+    			mtvArrivalPortalName.setText(pit.GetName());
+    		}
+    	}
+
+	    if(mnDepartureStationId != mnArrivalStationId && mnArrivalStationId != -1 && mnArrivalStationId != -1){
+	    	if(mSearchButton != null) 
+	    		mSearchButton.setEnabled(true);
+	    }
+	    else{
+	    	if(mSearchButton != null) 
+	    		mSearchButton.setEnabled(false);
+	    }
 	}
 	
 	protected void onSearch(){
-		Station stFrom, stTo;
-		stFrom = (Station) mSpinnerFrom.getSelectedItem();
-		stTo = (Station) mSpinnerTo.getSelectedItem();
-		//search
 		//BellmanFordShortestPath
 		/*List<DefaultWeightedEdge> path = BellmanFordShortestPath.findPathBetween(mGraph, stFrom.getId(), stTo.getId());
 		if(path != null){
@@ -680,7 +880,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		
 		//YenTopKShortestPathsAlg
 		YenTopKShortestPathsAlg yenAlg = new YenTopKShortestPathsAlg(mGraph);
-		List<Path> shortest_paths_list = yenAlg.get_shortest_paths(mGraph.get_vertex(stFrom.getId()), mGraph.get_vertex(stTo.getId()), 3);
+		List<Path> shortest_paths_list = yenAlg.get_shortest_paths(mGraph.get_vertex(mnDepartureStationId), mGraph.get_vertex(mnArrivalStationId), 3);
 		
 		if(shortest_paths_list.size() == 0){
 			Toast.makeText(this, R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
@@ -691,7 +891,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		
 	        int nCounter = 0;
 	        Bundle bundle = new Bundle();
-			
+	        bundle.putInt("dep_" + BUNDLE_PORTALID_KEY, mnDeparturePortalId);
+	        bundle.putInt("arr_" + BUNDLE_PORTALID_KEY, mnArrivalPortalId);			
+
 	        for (Path path : shortest_paths_list) {
 				ArrayList<Integer> IndexPath = new  ArrayList<Integer>();
 				Log.d(TAG, "Route# " + nCounter);
@@ -704,44 +906,12 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	        }	        
 	        
 	        bundle.putInt(BUNDLE_PATHCOUNT_KEY, nCounter);
+	        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
 			
 			intentView.putExtras(bundle);
 	        
 	        MainActivity.this.startActivity(intentView);
+	       
 		}
-	}
-	
-	public class Station {
-	    private int mnId;
-	    private String msName;
-	    private int mnLine;
-	    
-	    public Station(){
-	        super();
-	    }
-	    
-	    public Station(int id, String name, int line) {
-	        super();
-	        this.mnId = id;
-	        this.msName = name;
-	        this.mnLine = line; 
-	    }
-
-	    public int getId() {
-			return mnId;
-		}
-	    
-	    public String getName() {
-			return msName;
-		} 
-	    
-	    public int getLine() {
-			return mnLine;
-		} 
-
-		@Override
-	    public String toString() {
-	        return this.msName;
-	    }
-	}	
+	} 
 }

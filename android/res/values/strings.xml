@@ -19,12 +19,12 @@
 	<string name="sCannotGetPath">Cannot find path</string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
-	<string name="sUpdateAvaliable">Data updates is avaliable</string>
+	<string name="sUpdateAvaliable">Data updates is available</string>
 	<string name="sDownload">Download</string>
 	<string name="sCancel">Cancel</string>
 	<string name="sSearch">Search</string>
-	<string name="sFromStation">From Station</string>
-	<string name="sToStation">To Station</string>
+	<string name="sFromStation">Departure station</string>
+	<string name="sToStation">Arrival station</string>
 	<string name="sRoute">Route</string>
 	<string name="sSchema">Schema</string>
 	<string name="sStationName">Name: </string>
@@ -32,4 +32,10 @@
 	<string name="sNotSet">Not set</string>
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>
+	<!-- tabs -->
+	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
+	<string name="sSelLinesTab">Lines</string>
+	<string name="sSelRecentTab">Recent</string>	
+	<!-- dialogs -->
+	
 </resources>

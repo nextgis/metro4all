@@ -15,9 +15,9 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   inkscape:export-filename="D:\work\projects\android\metroaccess\art\icons\127.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90"
+   inkscape:export-filename="D:\work\projects\android\metroaccess\art\icons\110.png"
+   inkscape:export-xdpi="67.368423"
+   inkscape:export-ydpi="67.368423"
    sodipodi:docname="station_icons.svg">
   <defs
      id="defs4">
@@ -146,9 +146,9 @@
      inkscape:pageshadow="2"
      inkscape:zoom="7.1926018"
      inkscape:cx="27.635963"
-     inkscape:cy="16.837329"
+     inkscape:cy="29.352142"
      inkscape:document-units="px"
-     inkscape:current-layer="layer10"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:window-width="1600"
      inkscape:window-height="838"
@@ -189,7 +189,7 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="line2"
-     style="display:inline">
+     style="display:none">
     <path
        style="fill:#37c871;stroke:#aaccff;stroke-width:9.90902138;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
        d="M 31.857411,10.512546 32.142589,53.53285"
@@ -225,10 +225,10 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="station"
-     style="display:none">
+     style="display:inline">
     <path
        sodipodi:type="arc"
-       style="fill:#aaccff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#00d4aa;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path2989"
        sodipodi:cx="32.245777"
        sodipodi:cy="32.639015"
@@ -277,7 +277,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="cross from"
-     style="display:inline">
+     style="display:none">
     <path
        sodipodi:type="arc"
        style="fill:#aaccff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
@@ -303,7 +303,7 @@
      inkscape:groupmode="layer"
      id="layer8"
      inkscape:label="cross from circle"
-     style="display:inline">
+     style="display:none">
     <path
        sodipodi:type="arc"
        style="fill:#aaccff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"

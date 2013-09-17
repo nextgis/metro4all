@@ -40,6 +40,9 @@
     		android:name="com.nextgis.metroaccess.StationImageView"
     		android:label="@string/sSchema">
 		</activity> 		      
+        <activity 
+    		android:name="com.nextgis.metroaccess.SelectStationActivity">
+		</activity> 
       </application>
 
 </manifest>
