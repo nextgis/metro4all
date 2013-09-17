@@ -216,7 +216,7 @@
         $(document).ready(function() {
             m4a.loader.init();
 
-            var url = "/",
+            var url = "/" + m4a.viewmodel.url.proxy,
                 viewmodel = m4a.viewmodel,
                 view = m4a.view;
             viewmodel.mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
@@ -224,7 +224,7 @@
             viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
 
           // Заполнение выпадающих списков
-          $.ajax("/stations").done(function(data){
+          $.ajax(url + "stations").done(function(data){
               m4a.view.$metroStartStation.select2({width: "100%", data: data});
               m4a.view.$metroEndStation.select2({width: "100%", data: data});
 

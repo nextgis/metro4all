@@ -9,7 +9,7 @@ m4a.view = {};
     $.extend(m4a.loader, {
         init: function() {
             this.setDomOptions();
-
+            m4a.viewmodel.url={'proxy' : ''};
             m4a.url.init();
         },
 
