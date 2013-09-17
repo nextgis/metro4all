@@ -110,8 +110,16 @@ public class StationItem implements Parcelable {
 		this.nType = nType;
 	}
 	
-	public List<PortalItem> GetPortals(){
-		List<PortalItem> ret = new ArrayList<PortalItem>(maoPortals.values());
+	public List<PortalItem> GetPortals(boolean bIn){
+		List<PortalItem> ret = new ArrayList<PortalItem>();
+		for(PortalItem pit : maoPortals.values()){
+			if(bIn && (pit.GetDirection() == 1 || pit.GetDirection() == 3)){
+				ret.add(pit);
+			}
+			else if(!bIn && (pit.GetDirection() == 2 || pit.GetDirection() == 3)){
+				ret.add(pit);
+			}
+		}
 		return ret;
 	}
 	

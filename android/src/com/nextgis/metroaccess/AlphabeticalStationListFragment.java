@@ -49,9 +49,10 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
     	mPortalCollection = new LinkedHashMap<StationItem, List<PortalItem>>();
     	
      	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+     	boolean bIn = parentActivity.IsIn();
     	for(StationItem it : parentActivity.GetStations().values()){
     		mStationList.add(it); 
-    		mPortalCollection.put(it, it.GetPortals());
+    		mPortalCollection.put(it, it.GetPortals(bIn));
     	}   	
     	
     	View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);

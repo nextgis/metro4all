@@ -79,6 +79,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	final static String BUNDLE_PAYLOAD_KEY = "json";
 	final static String BUNDLE_ERRORMARK_KEY = "error";
 	final static String BUNDLE_EVENTSRC_KEY = "eventsrc";
+	final static String BUNDLE_ENTRANCE_KEY = "in";
 	final static String BUNDLE_PATHCOUNT_KEY = "pathcount";
 	final static String BUNDLE_PATH_KEY = "path_";
 	final static String BUNDLE_STATIONMAP_KEY = "stationmap";

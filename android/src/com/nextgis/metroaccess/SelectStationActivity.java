@@ -20,7 +20,6 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
@@ -48,6 +47,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	protected static AlphabeticalStationListFragment mAlphaStListFragment;
 	protected static LinesStationListFragment mLinesStListFragment;
 	protected static RecentStationListFragment mRecentStListFragment;
+	protected boolean mbIn;
 
 	protected Map<Integer, StationItem> mmoStations;
 	
@@ -78,14 +78,6 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 
 			public void onPageSelected(int arg0) {
 				Log.d(MainActivity.TAG, "onPageSelected: " + arg0);
-/*				
-				if(descriptfrag != null)
-					descriptfrag.onStoreValues();
-				if(positionfrag != null)
-					positionfrag.onStoreValues();
-				if(camfrag != null)
-					camfrag.onStoreValues();
-*/
 				actionBar.getTabAt(arg0).select();	
 			}
         } );   
@@ -109,6 +101,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         Bundle extras = getIntent().getExtras();  
         if(extras != null){
         	int nType = extras.getInt(MainActivity.BUNDLE_EVENTSRC_KEY);
+        	mbIn = extras.getBoolean(MainActivity.BUNDLE_ENTRANCE_KEY);
         	switch(nType){
         	case MainActivity.DEPARTURE_RESULT:
         		setTitle(R.string.sFromStation);
@@ -121,56 +114,13 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         }        
     }
     
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-/*        
-		if(descriptfrag != null)
-			descriptfrag.onStoreValues();
-		if(positionfrag != null)
-			positionfrag.onStoreValues();
-		if(camfrag != null)
-			camfrag.onStoreValues();
-		if(notefrag != null)
-			notefrag.onStoreValues();
-        
-        
-        outState.putString("cat", m_sCat);
-        outState.putString("subcat", m_sSubCat);
-        outState.putFloat("az", m_fAzimuth);
-        outState.putFloat("dist", m_fDist);
-        outState.putString("note", m_sNote);
-        outState.putStringArrayList("photos", image_lst);
-        int nAzArraySize = image_rotation.size();
-        double[] adfAz = new double [nAzArraySize];
-        for(int i = 0; i < nAzArraySize; i++)
-        	adfAz[i] = image_rotation.get(i);
-        
-        outState.putDoubleArray("photos_az", adfAz);
-        */
-    } 
-    
-    @Override
-    protected void onRestoreInstanceState  (Bundle outState) {
-    	 super.onRestoreInstanceState(outState);
-/*    	 
-    	 m_sCat = outState.getString("cat");
-    	 m_sSubCat = outState.getString("subcat");
-    	 m_fAzimuth = outState.getFloat("az");
-    	 m_fDist = outState.getFloat("dist");
-    	 m_sNote = outState.getString("note"); 
-    	 image_lst = outState.getStringArrayList("photos");
-    	 double[] adfAz = outState.getDoubleArray("photos_az");
-    	 for(int i = 0; i < adfAz.length; i++)
-    	 {
-    		 image_rotation.add(adfAz[i]);
-    	 }*/
-    } 
-    
 	public Map<Integer, StationItem> GetStations(){
 		return mmoStations;
 	}
 
+	public boolean IsIn(){
+		return mbIn;
+	}
     
      public static class TabListener<T extends SherlockFragment> implements ActionBar.TabListener {
     	 private final String m_Tag;
@@ -289,15 +239,5 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	    setResult(RESULT_OK, intent);
     	finish();
 		   
-	}
-   
-    public void onFinish() {
-//    	@Override
-//    	  public void onClick(View v) {
-	    Intent intent = new Intent();
-//	    intent.putExtra("name", etName.getText().toString());
-	    setResult(RESULT_OK, intent);
-    	finish();
-    }
-    
+	}    
 }
