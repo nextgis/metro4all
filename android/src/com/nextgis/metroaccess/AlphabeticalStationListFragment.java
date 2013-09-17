@@ -21,6 +21,7 @@
 package com.nextgis.metroaccess;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,9 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
     	for(StationItem it : parentActivity.GetStations().values()){
     		mStationList.add(it); 
     		mPortalCollection.put(it, it.GetPortals(bIn));
-    	}   	
+    	}   
+    	
+    	//Collections.sort(mStationList, parentActivity.new StationItemComparator());
     	
     	View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
     	
@@ -62,6 +65,7 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
     	mExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
         final StationExpandableListAdapter expListAdapter = new StationExpandableListAdapter(parentActivity, mStationList, mPortalCollection);
         mExpListView.setAdapter(expListAdapter);
+        mExpListView.setFastScrollEnabled(true);
  
         setGroupIndicatorToRight();
 

@@ -20,6 +20,7 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+import java.util.Comparator;
 import java.util.Map;
 
 import android.content.Intent;
@@ -226,5 +227,12 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	    setResult(RESULT_OK, intent);
     	finish();
 		   
-	}    
+	} 
+	
+	public class StationItemComparator implements Comparator<StationItem>
+	{
+	    public int compare(StationItem left, StationItem right) {
+	    	return left.GetName().compareTo( right.GetName() );
+	    }
+	}
 }

@@ -22,6 +22,9 @@
 package com.nextgis.metroaccess;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,20 +40,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-public class StationExpandableListAdapter extends BaseExpandableListAdapter {
+public class StationExpandableListAdapter extends BaseExpandableListAdapter implements SectionIndexer {
 	private Context mContext;
 	private List <StationItem> mStationList;
 	private Map<StationItem, List<PortalItem>> mPortalCollection;
+	
+	private HashMap<String, Integer> mAlphaIndexer; 
 
 	private int mnType;
 	private int mnMaxWidth, mnWheelWidth;
 	
+	private String[] msaSections;
+	
 	public StationExpandableListAdapter(Context c, List<StationItem> stationList, Map<StationItem, List<PortalItem>> portalCollection) {
 		mContext = c;
-		mStationList = stationList;
-		mPortalCollection = portalCollection;
+		mStationList = new ArrayList <StationItem>();
+		mStationList.addAll(stationList);
+		//mStationList = stationList;
+		mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
+		mPortalCollection.putAll(portalCollection);
+		//mPortalCollection = portalCollection;
 		
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -58,6 +70,33 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
 		
+		mAlphaIndexer = new HashMap<String, Integer>();
+		int size = mStationList.size();  
+		   
+        for (int x = 0; x < size; x++) {  
+             String s = mStationList.get(x).GetName();  
+             String ch = s.substring(0, 1);  
+             ch = ch.toUpperCase();  
+             if (!mAlphaIndexer.containsKey(ch)){
+            	 mAlphaIndexer.put(ch, x);
+            	 
+            	 StationItem sit = new StationItem(-1, ch, -1, -1);
+            	 mStationList.add(sit);
+            	 mPortalCollection.put(sit, null);
+             }     
+        }  	
+        
+        List<String> sectionList = new ArrayList<String>( mAlphaIndexer.keySet() );  
+
+        Collections.sort(sectionList);  
+        
+        SelectStationActivity parentActivity = (SelectStationActivity)mContext;
+        
+        Collections.sort(mStationList, parentActivity.new StationItemComparator());
+
+        msaSections = new String[sectionList.size()];  
+
+        sectionList.toArray(msaSections);
 	}
 	
 	@Override
@@ -95,7 +134,10 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return mPortalCollection.get(mStationList.get(groupPosition)).size();
+		List<PortalItem> ls = mPortalCollection.get(mStationList.get(groupPosition));
+		if(ls == null)
+			return 0;
+		return ls.size();
 	}
 
 	@Override
@@ -145,6 +187,21 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
+	}
+
+	@Override
+	public int getPositionForSection(int arg0) {
+		return mAlphaIndexer.get(msaSections[arg0]);
+	}
+
+	@Override
+	public int getSectionForPosition(int position) {
+		return 0;
+	}
+
+	@Override
+	public Object[] getSections() {
+		return msaSections;
 	}
 
 }
