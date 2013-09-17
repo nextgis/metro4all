@@ -31,6 +31,20 @@ def get_next_item(array, item):
     return next_item
 
 
+# Извлечение информации о препятствиях
+def get_barriers(item):
+    return dict(
+        max_width=int(item['max_width'])/10 if item['max_width'].isdigit() else item['max_width'],
+        min_step=int(item['min_step']) if (item['min_step'].isdigit()) else 0,
+        min_step_ramp=int(item['min_step_ramp']) if (item['min_step_ramp'].isdigit()) else 0,
+        lift=False if item['lift'] in ['', '0'] else True,
+        lift_minus_step=item['lift_minus_step'],
+        min_rail_width=int(item['min_rail_width'])/10 if (item['min_rail_width'].isdigit() and item['min_rail_width'] != '0') else None,
+        max_rail_width=int(item['max_rail_width'])/10 if (item['max_rail_width'].isdigit() and item['max_rail_width'] != '0') else None,
+        max_angle=int(item['max_angle'])/10 if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
+    )
+
+
 LINES = {
     'msk': [i for i in csv.DictReader(open('../data/msk/lines.csv', 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open('../data/spb/lines.csv', 'rb'), delimiter=';')]
@@ -108,7 +122,7 @@ def get_portals():
                 properties=dict(
                     name=portal['name'],
                     direction=portal['direction'],
-                    barriers=dict()
+                    barriers=get_barriers(portal)
                 )
             )
             portals.append(feature)
@@ -150,19 +164,6 @@ def get_routes(delta=5, limit=3):
         node1_line = get_station_info(node1)['line']
         node2_line = get_station_info(node2)['line']
         return node1_line == node2_line
-
-    # Получение информации о препятствиях
-    def get_barriers(item):
-        return dict(
-            max_width=int(item['max_width'])/10 if item['max_width'].isdigit() else item['max_width'],
-            min_step=int(item['min_step']) if (item['min_step'].isdigit()) else 0,
-            min_step_ramp=int(item['min_step_ramp']) if (item['min_step_ramp'].isdigit()) else 0,
-            lift=False if item['lift'] in ['', '0'] else True,
-            lift_minus_step=item['lift_minus_step'],
-            min_rail_width=int(item['min_rail_width'])/10 if (item['min_rail_width'].isdigit() and item['min_rail_width'] != '0') else None,
-            max_rail_width=int(item['max_rail_width'])/10 if (item['max_rail_width'].isdigit() and item['max_rail_width'] != '0') else None,
-            max_angle=int(item['max_angle'])/10 if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
-        )
 
     # Заполнение информации о препятствиях на входах и выходах
     def portal_barriers(portal_id):
