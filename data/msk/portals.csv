@@ -1,4 +1,4 @@
-id_entrance;name;id_station;direction;lat;lon;min_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
+id_entrance;name;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
 14962;;44;in;55.7522236899999;37.61004135;730;47;16;0;0;310;860;20
 14963;;44;out;55.7522236899999;37.61004135;730;61;30;0;0;310;860;20
 14972;;44;in;55.7520257999999;37.61023103;730;41;41;0;0;0;0;0

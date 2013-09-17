@@ -13,7 +13,7 @@
         updateInputsData: function(station_id) {
             $.ajax({
               dataType: "json",
-              url: "/" + "portals/search",
+              url: m4a.viewmodel.url.proxy + "portals/search",
               data: {
                 station: station_id,
                 direction: "in"
@@ -32,7 +32,7 @@
                                 return L.marker(
                                     latlng, {
                                         icon: L.icon({
-                                            iconUrl: 'icons/in.png'
+                                            iconUrl: '/static/icons/in.png'
                                         })
                                     }
                                 )
@@ -67,7 +67,7 @@
         updateOutputsData: function(station_id) {
             $.ajax({
               dataType: "json",
-              url: "/" + "portals/search",
+              url: m4a.viewmodel.url.proxy + "portals/search",
               data: {
                 station: station_id,
                 direction: "out"
@@ -87,7 +87,7 @@
                                 return L.marker(
                                     latlng, {
                                         icon: L.icon({
-                                            iconUrl: 'icons/out.png',
+                                            iconUrl: '/static/icons/out.png',
                                         })
                                     }
                                 )

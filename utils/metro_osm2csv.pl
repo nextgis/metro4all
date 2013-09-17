@@ -115,30 +115,25 @@ if( open INTER, '<interchanges.csv' ) {
 # OK, time to write all csv back, overwriting old ones
 
 open LINES, '>lines.csv' or die "Cannot open lines.csv: $!";
-print LINES "id_line;name\n";
-printf LINES "%s;%s\n", $_->{ref}, $_->{name} foreach sort {$a->{ref} <=> $b->{ref}} @lines;
+print LINES "id_line;name;color\n";
+printf LINES "%d;%s;%s\n", $_->{ref}, $_->{name}, $_->{colour} foreach sort {$a->{ref} <=> $b->{ref}} @lines;
 close LINES;
 
-open COLOURS, '>colors.csv' or die "Cannot open colors.csv: $!";
-print COLOURS "id_line;color\n";
-printf COLOURS "%s;%s\n", $_->{ref}, $_->{colour} foreach sort {$a->{ref} <=> $b->{ref}} @lines;
-close COLOURS;
-
 open STATIONS, '>stations.csv' or die "Cannot open stations.csv: $!";
-print STATIONS "name;id_line;id_station\n";
-printf STATIONS "%s;%s;%s\n", $_->{name}, $_->{line}, $_->{ref} foreach sort {$a->{ref} <=> $b->{ref}} values %stations;
+print STATIONS "id_station;id_line;name;lat;lon\n";
+printf STATIONS "%d;%d;%s;%s;%s\n", $_->{ref}, $_->{line}, $_->{name}, $_->{lat}, $_->{lon} foreach sort {$a->{ref} <=> $b->{ref}} values %stations;
 close STATIONS;
 
 open GRAPH, '>graph.csv' or die "Cannot open graph.csv: $!";
 print GRAPH "id_from;id_to;name_from;name_to;cost\n";
-printf GRAPH "%s;%s;%s;%s;%s\n", $_->{from}->{ref}, $_->{to}->{ref}, $_->{from}->{name}, $_->{to}->{name}, $_->{weight} foreach sort { $a->{from}->{ref} <=> $b->{from}->{ref} or $a->{to}->{ref} <=> $b->{to}->{ref} } @graph;
+printf GRAPH "%d;%d;%s;%s;%d\n", $_->{from}->{ref}, $_->{to}->{ref}, $_->{from}->{name}, $_->{to}->{name}, $_->{weight} foreach sort { $a->{from}->{ref} <=> $b->{from}->{ref} or $a->{to}->{ref} <=> $b->{to}->{ref} } @graph;
 close GRAPH;
 
 open PORTALS, '>portals.csv' or die "Cannot open portals.csv: $!";
-print PORTALS "id_entrance;name;id_station;direction;lat;lon;min_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle\n";
+print PORTALS "id_entrance;name;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle\n";
 foreach(sort { $a->{station}->{ref} <=> $b->{station}->{ref} or $a->{ref} <=> $b->{ref} } grep { exists $_->{station} } values %exits) {
     my @res;
-    my $exitid = $_->{station}->{ref} * 12 + $_->{ref} - 1;
+    my $exitid = $_->{station}->{ref} * 12 + $_->{ref} - 1 + 1000;
     push @res, $exitid;
     push @res, $_->{station}->{name}.'-'.$_->{ref};
     push @res, $_->{station}->{ref};
@@ -151,6 +146,6 @@ foreach(sort { $a->{station}->{ref} <=> $b->{station}->{ref} or $a->{ref} <=> $b
 close PORTALS;
 
 open INTER, '>interchanges.csv' or die "Cannot open inter.csv: $!";
-print INTER "station_from;station_to;min_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle\n";
+print INTER "station_from;station_to;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle\n";
 printf INTER "%d;%d;%s\n", $_->{from}->{ref}, $_->{to}->{ref}, $itails{$_->{from}->{ref}.'_'.$_->{to}->{ref}} || ';;;;;;;' foreach sort { $a->{from}->{ref} <=> $b->{from}->{ref} } grep { exists $_->{inter} } @graph;
 close INTER;

@@ -98,27 +98,11 @@
     <script src="m4a/m4a.stations.js"></script>
     <script src="m4a/m4a.url.js"></script>
     <script>
-        var stationsLookup = [
-            {},
-            {'name': 'Сокольническая', 'color': '#ED1B35'},
-            {'name': 'Замоскворецкая', 'color': '#44B85C'},
-            {'name': 'Арбатско-Покровская', 'color': '#0078BF'},
-            {'name': 'Филёвская', 'color': '#19C1F3'},
-            {'name': 'Кольцевая', 'color': '#894E35'},
-            {'name': 'Калужско-Рижская', 'color': '#F58631'},
-            {'name': 'Таганско-Краснопресненская', 'color': '#8E479C'},
-            {'name': 'Калининская', 'color': '#FFCB31'},
-            {'name': 'Серпуховско-Тимирязевская', 'color': '#A1A2A3'},
-            {'name': 'Люблинская', 'color': '#B3D445'},
-            {'name': 'Каховская', 'color': '#79CDCD'},
-            {'name': 'Бутовская', 'color': '#ACBFE1'}
-        ];
-
 
         function fillBarriers(barriers) {
             c = "";
             c+="<ul class='obstacles'>";
-            c+="<li><strong>Ширина коляски</strong> " + "до " + barriers['min_width'] + " см" + "</li>";
+            c+="<li><strong>Ширина коляски</strong> " + "до " + barriers['max_width'] + " см" + "</li>";
             c+="<li><strong>Ступенек</strong> " + barriers['min_step'] + "</li>";
             c+="<li><strong>Из них без рельс и рамп</strong> " + (barriers['min_step'] - barriers['min_step_ramp']) + "</li>";
             c+="<li><strong>Лифт</strong> " + {true: 'есть', false: 'нет'}[barriers['lift']];
@@ -158,7 +142,7 @@
             $.each(routes[index], function(i, item){
                 
                 if (i == 0) {
-                  content+="<li class=" + "'enter line-" + item.station_line + "'>" + item.station_name
+                  content+="<li class=" + "'enter line-" + item.station_line.id + "'>" + item.station_name
                   if (item.barriers) {
                       content+=fillBarriers(item.barriers);
                   } else {
@@ -169,9 +153,9 @@
 
                 else if (i < routes[index].length-1) {
                   if ((item.station_type == 'regular') && (routes[index][i-1].station_type != 'interchange' )) {
-                    content+="<li class=" + "'station line-" + item.station_line + "'>" + item.station_name + "</li>"
+                    content+="<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
                   } else if (item.station_type == 'interchange') {
-                    content+="<li class=" + "'transition from-line-" + item.station_line + " " + "to-line-" + routes[index][i+1].station_line + "'>" + item.station_name + " &ndash; " + routes[index][i+1].station_name
+                    content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index][i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &rarr; " + routes[index][i+1].station_name + " (" + routes[index][i+1].station_line.name +")"
                     if (item.barriers) {
                         content+=fillBarriers(item.barriers);
                     }
@@ -180,7 +164,7 @@
                 }
 
                 else {
-                  content+="<li class=" + "'exit line-" + item.station_line + "'>" + item.station_name
+                  content+="<li class=" + "'exit line-" + item.station_line.id + "'>" + item.station_name
                   if (item.barriers) {
                       content+=fillBarriers(item.barriers);
                   } else {
@@ -204,7 +188,7 @@
                         L.polyline(
                             [routes[index][i-1].coordinates, item.coordinates],
                             {
-                                color: stationsLookup[item.station_line].color,
+                                color: item.station_line.color,
                                 opacity: 1
                             })
                     ).addTo(m4a.viewmodel.mainMap);
@@ -216,7 +200,7 @@
         $(document).ready(function() {
             m4a.loader.init();
 
-            var url = "/",
+            var url = m4a.viewmodel.url.proxy,
                 viewmodel = m4a.viewmodel,
                 view = m4a.view;
             viewmodel.mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
@@ -224,7 +208,7 @@
             viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
 
           // Заполнение выпадающих списков
-          $.ajax("/stations").done(function(data){
+          $.ajax(url + "stations").done(function(data){
               m4a.view.$metroStartStation.select2({width: "100%", data: data});
               m4a.view.$metroEndStation.select2({width: "100%", data: data});
 

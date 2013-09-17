@@ -1,4 +1,4 @@
-station_from;station_to;min_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
+station_from;station_to;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
 75;98;0;22;0;0;0;0;0;0
 98;75;0;22;0;0;0;0;0;0
 42;77;1000;24;0;0;0;0;0;0
