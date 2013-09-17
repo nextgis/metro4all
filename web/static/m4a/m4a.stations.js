@@ -19,11 +19,11 @@
                 direction: "in"
               }
             }).done(function(data) {
+                // Очищаем слой входов
+                if (typeof inPortals !== 'undefined') {
+                    m4a.viewmodel.metroStartInputMap.removeLayer(inPortals);
+                }
                 if (data.features.length != 0) {
-                    // Очищаем слой входов
-                    if (typeof inPortals !== 'undefined') {
-                        m4a.viewmodel.metroStartInputMap.removeLayer(inPortals);
-                    }
 
                     // Добавляем входы на карту
                     inPortals = L.geoJson(
@@ -73,12 +73,11 @@
                 direction: "out"
               }
             }).done(function(data) {
+                // Очищаем слой выходов
+                if (typeof outPortals !== 'undefined') {
+                    m4a.viewmodel.metroEndInputMap.removeLayer(outPortals);
+                }
                 if (data.features.length != 0) {
-
-                    // Очищаем слой выходов
-                    if (typeof outPortals !== 'undefined') {
-                        m4a.viewmodel.metroEndInputMap.removeLayer(outPortals);
-                    }
 
                     // Добавляем выходы на карту
                     outPortals = L.geoJson(
