@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon" />
 
     <title>Metro4all</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="static/bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet">
 
     <!-- Select2 plugin -->
-    <link href="select2-3.4.2/select2.css" rel="stylesheet"/>
+    <link href="static/select2-3.4.2/select2.css" rel="stylesheet"/>
 
     <!-- Leaflet -->
-    <link href="leaflet-0.6.4/leaflet.css" rel="stylesheet"/>
+    <link href="static/leaflet-0.6.4/leaflet.css" rel="stylesheet"/>
     <!--[if lte IE 8]>
       <link href="leaflet-0.6.4/leaflet.ie.css" rel="stylesheet"/>
     <![endif]-->
@@ -28,7 +28,7 @@
     <![endif]-->
 
     <!-- m4a CSS -->
-    <link href="css/m4a.css" rel="stylesheet">
+    <link href="static/css/m4a.css" rel="stylesheet">
 
   </head>
 
@@ -90,15 +90,22 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="bootstrap-3.0.0/assets/js/jquery.js"></script>
-    <script src="bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
-    <script src="select2-3.4.2/select2.js"></script>
-    <script src="select2-3.4.2/select2_locale_ru.js"></script>
-    <script src="leaflet-0.6.4/leaflet.js"></script>
-    <script src="TileLayer.Grayscale.js"></script>
-    <script src="m4a/m4a.loader.js"></script>
-    <script src="m4a/m4a.stations.js"></script>
-    <script src="m4a/m4a.url.js"></script>
+    <script>
+        var global_config = {
+          minimap: {'center': {{config['minimap']['center']}}, 'zoom': {{config['minimap']['zoom']}}},
+          mainmap: {'center': {{config['mainmap']['center']}}, 'zoom': {{config['mainmap']['zoom']}}},
+          city: "{{config['city']}}"
+        }
+    </script>
+    <script src="static/bootstrap-3.0.0/assets/js/jquery.js"></script>
+    <script src="static/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="static/select2-3.4.2/select2.js"></script>
+    <script src="static/select2-3.4.2/select2_locale_ru.js"></script>
+    <script src="static/leaflet-0.6.4/leaflet.js"></script>
+    <script src="static/TileLayer.Grayscale.js"></script>
+    <script src="static/m4a/m4a.loader.js"></script>
+    <script src="static/m4a/m4a.stations.js"></script>
+    <script src="static/m4a/m4a.url.js"></script>
     <script>
 
         function fillBarriers(barriers) {
@@ -205,12 +212,12 @@
             var url = m4a.viewmodel.url.proxy,
                 viewmodel = m4a.viewmodel,
                 view = m4a.view;
-            viewmodel.mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
-            viewmodel.metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
-            viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
+            viewmodel.mainMap = L.map('mainMap').setView(global_config.mainmap.center, global_config.mainmap.zoom);
+            viewmodel.metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
+            viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
 
           // Заполнение выпадающих списков
-          $.ajax(url + "stations").done(function(data){
+          $.ajax(url + global_config.city + "/stations").done(function(data){
               m4a.view.$metroStartStation.select2({width: "100%", data: data});
               m4a.view.$metroEndStation.select2({width: "100%", data: data});
 
@@ -259,7 +266,7 @@
                       $('#routePanel').empty();
                       $.ajax({
                           dataType: "json",
-                          url: url + "routes/search",
+                          url: url + global_config.city + "/routes/search",
                           data: $("#mainform").serialize()
                       }).done(function(data) {
                         var routes = data.routes;

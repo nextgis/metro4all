@@ -2,7 +2,7 @@
 import csv
 import networkx as nx
 from geojson import Feature, FeatureCollection, dumps
-from bottle import route, response, request, run, static_file, HTTPResponse
+from bottle import view, route, response, request, run, static_file, HTTPResponse
 
 
 # Инициализация графа
@@ -71,16 +71,33 @@ GRAPH = {
 }
 
 
+@route('/<city>')
+@view('index')
+def main(city):
+    config = {
+        'msk': dict(
+            minimap=dict(center=[55.75, 37.62], zoom=11),
+            mainmap=dict(center=[55.75, 37.62], zoom=10),
+            city='msk'
+        ),
+        'spb': dict(
+            minimap=dict(center=[59.95, 30.316667], zoom=11),
+            mainmap=dict(center=[59.95, 30.316667], zoom=10),
+            city='spb'
+        )
+    }
+    city = city if city in ['msk', 'spb'] else 'msk'
+    return dict(config=config[city])
+    
+
 @route('/static/<path:path>')
 def static(path):
     return static_file(path, root='/home/tenzorr/projects/metroaccess/metroaccess/web/static')
 
 
 # Получение списка станций для выпадающих списков
-@route('/stations')
-def get_stations():
-
-    city = 'msk'
+@route('/<city>/stations')
+def get_stations(city):
 
     results = []
     for line in LINES[city]:
@@ -99,10 +116,8 @@ def get_stations():
 
 
 # Получение списка входов для заданной станции
-@route('/portals/search')
-def get_portals():
-
-    city = 'msk'
+@route('/<city>/portals/search')
+def get_portals(city):
 
     id_station = request.query.station
 
@@ -131,10 +146,9 @@ def get_portals():
     return dumps(FeatureCollection(portals))
 
 
-@route('/routes/search')
-def get_routes(delta=5, limit=3):
+@route('/<city>/routes/search')
+def get_routes(city, delta=5, limit=3):
 
-    city = 'msk'
     station_from = int(request.query.station_from) if request.query.station_from else None
     station_to = int(request.query.station_to) if request.query.station_to else None
     portal_from = int(request.query.portal_from) if request.query.portal_from else None
