@@ -13,7 +13,7 @@
         updateInputsData: function(station_id) {
             $.ajax({
               dataType: "json",
-              url: "/" + m4a.viewmodel.url.proxy + "portals/search",
+              url: m4a.viewmodel.url.proxy + "portals/search",
               data: {
                 station: station_id,
                 direction: "in"
@@ -67,7 +67,7 @@
         updateOutputsData: function(station_id) {
             $.ajax({
               dataType: "json",
-              url: "/" + "portals/search",
+              url: m4a.viewmodel.url.proxy + "portals/search",
               data: {
                 station: station_id,
                 direction: "out"

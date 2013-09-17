@@ -9,7 +9,7 @@ m4a.view = {};
     $.extend(m4a.loader, {
         init: function() {
             this.setDomOptions();
-            m4a.viewmodel.url={'proxy' : typeof ajax !== 'undefined' ? ajax : ''};
+            m4a.viewmodel.url={'proxy' : typeof ajax !== 'undefined' ? ajax : '/'};
             m4a.url.init();
         },
 
