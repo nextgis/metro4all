@@ -151,9 +151,9 @@ def get_routes(delta=5, limit=3):
         node2_line = get_station_info(node2)['line']
         return node1_line == node2_line
 
-    # Заполнение информации о препятствиях
-    def fill_barriers(item, u):
-        u['barriers'] = dict(
+    # Получение информации о препятствиях
+    def get_barriers(item):
+        return dict(
             max_width=int(item['max_width'])/10 if item['max_width'].isdigit() else item['max_width'],
             min_step=int(item['min_step']) if (item['min_step'].isdigit()) else 0,
             min_step_ramp=int(item['min_step_ramp']) if (item['min_step_ramp'].isdigit()) else 0,
@@ -165,16 +165,16 @@ def get_routes(delta=5, limit=3):
         )
 
     # Заполнение информации о препятствиях на входах и выходах
-    def fill_portal_barriers(portal_id, u):
+    def portal_barriers(portal_id):
         for portal in PORTALS[city]:
             if int(portal['id_entrance']) == portal_id:
-                fill_barriers(portal, u)
+                return get_barriers(portal)
 
     # Заполнение информации о препятствиях на переходах
-    def fill_interchange_barriers(station_from, station_to, u):
+    def interchange_barriers(station_from, station_to):
         for interchange in INTERCHANGES[city]:
             if (int(interchange['station_from']) == station_from) and (int(interchange['station_to']) == station_to):
-                fill_barriers(interchange, u)
+                return get_barriers(interchange)
 
     if ((station_from is not None) and (station_to is not None)):
 
@@ -218,19 +218,19 @@ def get_routes(delta=5, limit=3):
 
                 if station_type == "start":
                     if portal_from is not None:
-                        fill_portal_barriers(portal_from, unit)
+                        unit['barriers'] = portal_barriers(portal_from)
                     else:
                         unit['barriers'] = None
 
                 elif station_type == "end":
                     if portal_to is not None:
-                        fill_portal_barriers(portal_to, unit)
+                        unit['barriers'] = portal_barriers(portal_to)
                     else:
                         unit['barriers'] = None
 
                 elif station_type == "interchange":
                     unit['barriers'] = None
-                    fill_interchange_barriers(station, get_next_item(simple_paths_list_sorted[index], station), unit)
+                    unit['barriers'] = interchange_barriers(station, get_next_item(simple_paths_list_sorted[index], station))
 
                 elif station_type == "regular":
                     unit['barriers'] = None
