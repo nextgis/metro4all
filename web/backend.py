@@ -151,35 +151,30 @@ def get_routes(delta=5, limit=3):
         node2_line = get_station_info(node2)['line']
         return node1_line == node2_line
 
+    # Заполнение информации о препятствиях
+    def fill_barriers(item, u):
+        u['barriers'] = dict(
+            max_width=int(item['max_width'])/10 if item['max_width'].isdigit() else item['max_width'],
+            min_step=int(item['min_step']) if (item['min_step'].isdigit()) else 0,
+            min_step_ramp=int(item['min_step_ramp']) if (item['min_step_ramp'].isdigit()) else 0,
+            lift=False if item['lift'] in ['', '0'] else True,
+            lift_minus_step=item['lift_minus_step'],
+            min_rail_width=int(item['min_rail_width'])/10 if (item['min_rail_width'].isdigit() and item['min_rail_width'] != '0') else None,
+            max_rail_width=int(item['max_rail_width'])/10 if (item['max_rail_width'].isdigit() and item['max_rail_width'] != '0') else None,
+            max_angle=int(item['max_angle'])/10 if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
+        )
+
     # Заполнение информации о препятствиях на входах и выходах
     def fill_portal_barriers(portal_id, u):
         for portal in PORTALS[city]:
             if int(portal['id_entrance']) == portal_id:
-                u['barriers'] = dict(
-                    max_width=int(portal['max_width'])/10 if portal['max_width'].isdigit() else portal['max_width'],
-                    min_step=int(portal['min_step']) if (portal['min_step'].isdigit()) else 0,
-                    min_step_ramp=int(portal['min_step_ramp']) if (portal['min_step_ramp'].isdigit()) else 0,
-                    lift=False if portal['lift'] in ['', '0'] else True,
-                    lift_minus_step=portal['lift_minus_step'],
-                    min_rail_width=int(portal['min_rail_width'])/10 if (portal['min_rail_width'].isdigit() and portal['min_rail_width'] != '0') else None,
-                    max_rail_width=int(portal['max_rail_width'])/10 if (portal['max_rail_width'].isdigit() and portal['max_rail_width'] != '0') else None,
-                    max_angle=int(portal['max_angle'])/10 if (portal['max_angle'].isdigit() and portal['max_angle'] != '0') else None
-                )
+                fill_barriers(portal, u)
 
     # Заполнение информации о препятствиях на переходах
     def fill_interchange_barriers(station_from, station_to, u):
         for interchange in INTERCHANGES[city]:
             if (int(interchange['station_from']) == station_from) and (int(interchange['station_to']) == station_to):
-                u['barriers'] = dict(
-                    max_width=int(interchange['max_width'])/10 if interchange['max_width'].isdigit() else interchange['max_width'],
-                    min_step=int(interchange['min_step']) if (interchange['min_step'].isdigit()) else 0,
-                    min_step_ramp=int(interchange['min_step_ramp']) if (interchange['min_step_ramp'].isdigit()) else 0,
-                    lift=False if interchange['lift'] in ['', '0'] else True,
-                    lift_minus_step=interchange['lift_minus_step'],
-                    min_rail_width=int(interchange['min_rail_width'])/10 if (interchange['min_rail_width'].isdigit() and interchange['min_rail_width'] != '0') else None,
-                    max_rail_width=int(interchange['max_rail_width'])/10 if (interchange['max_rail_width'].isdigit() and interchange['max_rail_width'] != '0') else None,
-                    max_angle=int(interchange['max_angle'])/10 if (interchange['max_angle'].isdigit() and interchange['max_angle'] != '0') else None
-                )
+                fill_barriers(interchange, u)
 
     if ((station_from is not None) and (station_to is not None)):
 
