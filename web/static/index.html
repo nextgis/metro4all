@@ -155,7 +155,7 @@
                   if ((item.station_type == 'regular') && (routes[index][i-1].station_type != 'interchange' )) {
                     content+="<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
                   } else if (item.station_type == 'interchange') {
-                    content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index][i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &ndash; " + routes[index][i+1].station_name + " (" + routes[index][i+1].station_line.name +")"
+                    content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index][i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &rarr; " + routes[index][i+1].station_name + " (" + routes[index][i+1].station_line.name +")"
                     if (item.barriers) {
                         content+=fillBarriers(item.barriers);
                     }
