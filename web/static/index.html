@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 
     <title>Metro4all</title>
 
@@ -26,6 +26,9 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+
+    <!-- m4a CSS -->
+    <link href="css/m4a.css" rel="stylesheet">
 
   </head>
 
@@ -77,9 +80,8 @@
       <!-- Right panel -->
       <div class="col-md-3">
         <legend>Маршрут</legend>
-        <div style="float:left; width:185px;">Aльтернативные маршруты:</div>
-        <ul class="pagination pagination-sm" style="margin: 0 0"></ul>
-        <div id="routePanel"></div>
+        <ul class="route-paging pagination pagination-sm"></ul>
+        <div id="routePanel" class="loading"></div>
       </div>
     </div>
     </div><!-- /.container -->
