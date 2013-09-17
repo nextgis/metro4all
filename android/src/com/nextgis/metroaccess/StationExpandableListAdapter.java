@@ -24,6 +24,7 @@ package com.nextgis.metroaccess;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,75 +45,80 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-public class StationExpandableListAdapter extends BaseExpandableListAdapter implements SectionIndexer {
-	private Context mContext;
-	private List <StationItem> mStationList;
-	private Map<StationItem, List<PortalItem>> mPortalCollection;
+public class StationExpandableListAdapter extends BaseExpandableListAdapter {
+	protected Context mContext;
+	protected List <StationItem> mStationList;
+	protected Map<StationItem, List<PortalItem>> mPortalCollection;
 	
-	private HashMap<String, Integer> mAlphaIndexer; 
-
-	private int mnType;
-	private int mnMaxWidth, mnWheelWidth;
+	protected int mnType;
+	protected int mnMaxWidth, mnWheelWidth;
 	
-	private String[] msaSections;
+	protected LayoutInflater mInfalInflater;
 	
-	private LayoutInflater mInfalInflater;
-	
-	public StationExpandableListAdapter(Context c, List<StationItem> stationList, Map<StationItem, List<PortalItem>> portalCollection) {
+	public StationExpandableListAdapter(Context c) {
 		mContext = c;
 
 		mInfalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		mStationList = new ArrayList <StationItem>();
-		mStationList.addAll(stationList);
-		//mStationList = stationList;
-		mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
-		mPortalCollection.putAll(portalCollection);
-		//mPortalCollection = portalCollection;
-		
-		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 1);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
-		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
+		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	
+    }
+	
+	protected void onInit(){
+		//load recent data
+		SelectStationActivity act = (SelectStationActivity)mContext;
+		boolean bIn = act.IsIn();
 		
-		mAlphaIndexer = new HashMap<String, Integer>();
-        for (int x = 0; x < mStationList.size(); x++) {  
-             String s = mStationList.get(x).GetName();  
-             String ch = s.substring(0, 1);  
-             ch = ch.toUpperCase();  
-             if (!mAlphaIndexer.containsKey(ch)){
-            	 mAlphaIndexer.put(ch, x);
-            	 
-            	 StationItem sit = new StationItem(-1, ch, -1, -1);
-            	 mStationList.add(x, sit);
-            	 mPortalCollection.put(sit, null);
-            	 
-             }     
-        }  	
-        
-        List<String> sectionList = new ArrayList<String>( mAlphaIndexer.keySet() );  
-
-        Collections.sort(sectionList);  
-        
-        SelectStationActivity parentActivity = (SelectStationActivity)mContext;
-        
-        //Collections.sort(mStationList, parentActivity.new StationItemComparator());
-
-        msaSections = new String[sectionList.size()];  
-
-        sectionList.toArray(msaSections);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+		SelectStationActivity parentActivity = (SelectStationActivity)mContext;
+		Map<Integer, StationItem> omStations = parentActivity.GetStations();
+		mStationList = new ArrayList<StationItem>();
+		mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
+		
+		if(bIn){
+			int size = prefs.getInt("recent_dep_counter", 0);
+			for(int i = 0; i < size; i++){
+				int nStationId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
+				//int nPortalId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
+				
+				StationItem sit = omStations.get(nStationId);
+				if(sit != null && !mPortalCollection.containsKey(sit)){
+					mStationList.add(sit);
+					mPortalCollection.put(sit, sit.GetPortals(bIn));
+				}
+			}				
+		}
+		else{
+			int size = prefs.getInt("recent_arr_counter", 0);
+			for(int i = 0; i < size; i++){
+				int nStationId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
+				//int nPortalId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
+				
+				StationItem sit = omStations.get(nStationId);
+				if(sit != null && !mPortalCollection.containsKey(sit)){
+					mStationList.add(sit);
+					mPortalCollection.put(sit, sit.GetPortals(bIn));
+				}
+			}
+		}
 	}
 	
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return mPortalCollection.get(mStationList.get(groupPosition)).get(childPosition);
+		List<PortalItem> lpit = mPortalCollection.get(mStationList.get(groupPosition));
+		if(lpit != null)
+			return lpit.get(childPosition);
+		return null;
 	}
 
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
 		PortalItem pit = (PortalItem)getChild(groupPosition, childPosition);
-		return pit.GetId();
+		if(pit != null)
+			return pit.GetId();
+		return -1;
 	}
 
 	@Override
@@ -157,7 +164,9 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	@Override
 	public long getGroupId(int groupPosition) {
 		StationItem sit = (StationItem)mStationList.get(groupPosition);
-		return sit.GetId();
+		if(sit != null)
+			return sit.GetId();
+		return -1;
 	}
 
 	@Override
@@ -198,21 +207,6 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
-	}
-
-	@Override
-	public int getPositionForSection(int arg0) {
-		return mAlphaIndexer.get(msaSections[arg0]);
-	}
-
-	@Override
-	public int getSectionForPosition(int position) {
-		return 0;
-	}
-
-	@Override
-	public Object[] getSections() {
-		return msaSections;
 	}
 
 }

@@ -64,6 +64,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    
 	    metWheelWidth = (EditTextPreference) findPreference(KEY_PREF_WHEEL_WIDTH);
 	    metWheelWidth.setSummary((String) metWheelWidth.getText() + " cm");
+	    
+	    //TODO: add data packages list and button update data
     }
     
     @Override

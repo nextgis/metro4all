@@ -20,7 +20,9 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
@@ -48,8 +50,10 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	protected static AlphabeticalStationListFragment mAlphaStListFragment;
 	protected static LinesStationListFragment mLinesStListFragment;
 	protected static RecentStationListFragment mRecentStListFragment;
+	
 	protected boolean mbIn;
-
+	protected List<StationItem> mStationList;
+	protected Map<StationItem, List<PortalItem>> mPortalCollection;
 	protected Map<Integer, StationItem> mmoStations;
 	
     @Override
@@ -112,6 +116,13 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         		break;
         	}
         	mmoStations = (Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
+        	
+        	mStationList = new ArrayList<StationItem>();
+        	mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
+        	for(StationItem it : mmoStations.values()){
+        		mStationList.add(it); 
+        		mPortalCollection.put(it, it.GetPortals(mbIn));
+        	}          	
         }        
     }
     
@@ -122,8 +133,16 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	public boolean IsIn(){
 		return mbIn;
 	}
-    
-     public static class TabListener<T extends SherlockFragment> implements ActionBar.TabListener {
+
+	public List<StationItem> GetStationList(){
+		return mStationList;
+	}
+	
+	public Map<StationItem, List<PortalItem>> GetPortalCollection(){
+		return mPortalCollection;
+	}
+
+    public static class TabListener<T extends SherlockFragment> implements ActionBar.TabListener {
     	 private final String m_Tag;
     	 private ViewPager m_Pager;
     	 
@@ -228,11 +247,4 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     	finish();
 		   
 	} 
-	
-	public class StationItemComparator implements Comparator<StationItem>
-	{
-	    public int compare(StationItem left, StationItem right) {
-	    	return left.GetName().compareTo( right.GetName() );
-	    }
-	}
 }

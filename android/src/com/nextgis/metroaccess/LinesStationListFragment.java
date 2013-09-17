@@ -20,10 +20,15 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -37,30 +42,55 @@ import android.os.Bundle;
 
 public class LinesStationListFragment extends SherlockFragment {
 	protected ExpandableListView mExpListView;
-	protected List<StationItem> mStationList;
-	protected Map<StationItem, List<PortalItem>> mPortalCollection;
+	protected Map<Integer, String> momLines;
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
     	
     	this.setRetainInstance(true);
     	
-    	mStationList = new ArrayList<StationItem>();
-    	mPortalCollection = new LinkedHashMap<StationItem, List<PortalItem>>();
-    	
      	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-     	boolean bIn = parentActivity.IsIn();
-    	for(StationItem it : parentActivity.GetStations().values()){
-    		mStationList.add(it); 
-    		mPortalCollection.put(it, it.GetPortals(bIn));
-    	}   
     	
-    	Collections.sort(mStationList, parentActivity.new StationItemComparator());
+    	View view = inflater.inflate(R.layout.line_stationlist_fragment, container, false);
+
+    	try {
     	
-    	View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
+		momLines = new HashMap<Integer, String>();
+	    //fill with lines list
+	    File lines_file = new File(MainActivity.msRDataPath, "lines.csv");
+		if (lines_file != null) {
+        	InputStream in;
+			in = new BufferedInputStream(new FileInputStream(lines_file));
+       	
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+	        String line = reader.readLine();
+	        while ((line = reader.readLine()) != null) {
+	             String[] RowData = line.split(MainActivity.CSV_CHAR);
+	             
+				 String sName = RowData[1];
+				 int nLineId = Integer.parseInt(RowData[0]);
+				 
+				 momLines.put(nLineId, sName);
+	        }
+		        
+	        reader.close();
+	        if (in != null) {
+	        	in.close();
+	    	} 
+		}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     	
     	mExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-        final StationExpandableListAdapter expListAdapter = new StationExpandableListAdapter(parentActivity, mStationList, mPortalCollection);
+        final LinesExpandableListAdapter expListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), parentActivity.GetPortalCollection(), momLines);
+        expListAdapter.onInit();
         mExpListView.setAdapter(expListAdapter);
         mExpListView.setFastScrollEnabled(true);
  

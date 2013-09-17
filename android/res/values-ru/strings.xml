@@ -29,6 +29,7 @@
 	<string name="sSchema">Схема</string>
 	<string name="sStationName">Станция: </string>
 	<string name="sEntranceName">Вход: </string>
+	<string name="sExitName">Выход: </string>		
 	<string name="sNotSet">Не назначено</string>	
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>

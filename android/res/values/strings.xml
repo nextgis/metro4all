@@ -30,6 +30,7 @@
 	<string name="sSchema">Schema</string>
 	<string name="sStationName">Name: </string>
 	<string name="sEntranceName">Entrance: </string>
+	<string name="sExitName">Exit: </string>
 	<string name="sNotSet">Not set</string>
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>

@@ -20,12 +20,6 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.actionbarsherlock.app.SherlockFragment;
 
 import android.view.LayoutInflater;
@@ -37,30 +31,19 @@ import android.os.Bundle;
 
 public class AlphabeticalStationListFragment extends SherlockFragment {
 	protected ExpandableListView mExpListView;
-	protected List<StationItem> mStationList;
-	protected Map<StationItem, List<PortalItem>> mPortalCollection;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
     	
     	this.setRetainInstance(true);
     	
-    	mStationList = new ArrayList<StationItem>();
-    	mPortalCollection = new LinkedHashMap<StationItem, List<PortalItem>>();
-    	
+   	
      	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-     	boolean bIn = parentActivity.IsIn();
-    	for(StationItem it : parentActivity.GetStations().values()){
-    		mStationList.add(it); 
-    		mPortalCollection.put(it, it.GetPortals(bIn));
-    	}   
-    	
-    	Collections.sort(mStationList, parentActivity.new StationItemComparator());
-    	
     	View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
     	
     	mExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-        final StationExpandableListAdapter expListAdapter = new StationExpandableListAdapter(parentActivity, mStationList, mPortalCollection);
+        final StationIndexedExpandableListAdapter expListAdapter = new StationIndexedExpandableListAdapter(parentActivity, parentActivity.GetStationList(), parentActivity.GetPortalCollection());
+        expListAdapter.onInit();
         mExpListView.setAdapter(expListAdapter);
         mExpListView.setFastScrollEnabled(true);
  

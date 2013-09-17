@@ -812,6 +812,20 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    mnDeparturePortalId = prefs.getInt("dep_"+BUNDLE_PORTALID_KEY, -1);
 	    mnArrivalPortalId = prefs.getInt("arr_"+BUNDLE_PORTALID_KEY, -1);
 
+		int size = prefs.getInt("recent_dep_counter", 0);
+		for(int i = 0; i < size; i++){
+			int nB = prefs.getInt("recent_dep_"+BUNDLE_STATIONID_KEY+i, -1);
+			int nE = prefs.getInt("recent_dep_"+BUNDLE_PORTALID_KEY+i, -1);
+			maoDepRecentIds.add(Pair.create(nB, nE));
+		}
+
+		size = prefs.getInt("recent_arr_counter", 0);
+		for(int i = 0; i < size; i++){
+			int nB = prefs.getInt("recent_arr_"+BUNDLE_STATIONID_KEY+i, -1);
+			int nE = prefs.getInt("recent_arr_"+BUNDLE_PORTALID_KEY+i, -1);
+			maoArrRecentIds.add(Pair.create(nB, nE));
+		}	    
+	    
 	    UpdateUI();
 	}
 	
