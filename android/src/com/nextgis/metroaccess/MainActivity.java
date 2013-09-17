@@ -121,10 +121,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected int mnDeparturePortalId, mnArrivalPortalId;
 	protected TextView mtvDepartureStationName, mtvArrivalStationName; 
 	protected TextView mtvDeparturePortalName, mtvArrivalPortalName;
+	
+	protected boolean mbDirected;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		mbDirected = false;
 
 		mnDepartureStationId = mnArrivalStationId = -1;
 		mnDeparturePortalId = mnArrivalPortalId = -1;
@@ -169,12 +173,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                     String sName = resultData.getString("name");
                     String sLocalName = resultData.getString("locname");
                     int nVer = resultData.getInt("ver");
+                    boolean bDirected = resultData.getBoolean("directed");
 
                     JSONObject oJSONRoot = new JSONObject();
                     try {
 						oJSONRoot.put("name", sName);
 						oJSONRoot.put("name_" + Locale.getDefault().getLanguage(), sLocalName);
 						oJSONRoot.put("ver", nVer);
+						oJSONRoot.put("directed", bDirected);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -217,7 +223,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	        	String sName = oJSON.getString("name_" + Locale.getDefault().getLanguage());
 	        	items.add(sName);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -238,8 +243,13 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    actionBar.setSelectedNavigationItem(nCurrentMetro);
 	    
 	    try {
-			msRDataPath = mmoRouteMetadata.get(nCurrentMetro).getString("path");
+	    	JSONObject mmeta = mmoRouteMetadata.get(nCurrentMetro);
+			msRDataPath = mmeta.getString("path");
 
+			if(mmeta.has("directed")){
+				mbDirected = mmeta.getBoolean("directed");
+			}
+					
 			setContentView(R.layout.activity_main);
 	
 			mGraph = new VariableGraph();
@@ -255,6 +265,12 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
+		             
+		             if(RowData.length != 3){
+		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "stations.csv", Toast.LENGTH_LONG).show();
+		            	 return;
+		             }
+		             
 					 String sName = RowData[0];
 					 int nLine = Integer.parseInt(RowData[1]);
 					 int nID = Integer.parseInt(RowData[2]);
@@ -281,6 +297,12 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
+		             
+		             if(RowData.length < 4){
+		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "portals.csv", Toast.LENGTH_LONG).show();
+		            	 return;
+		             }
+		             
 					 int nID = Integer.parseInt(RowData[0]);
 					 String sName = RowData[1];
 					 int nStationId = Integer.parseInt(RowData[2]);
@@ -347,13 +369,21 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
+		             
+		             if(RowData.length != 5){
+		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "graph.csv", Toast.LENGTH_LONG).show();
+		            	 return;
+		             }
+		             
 					 int nFromId = Integer.parseInt(RowData[0]);
 					 int nToId = Integer.parseInt(RowData[1]);
 					 int nCost = Integer.parseInt(RowData[4]);
 	 					 
 					 Log.d("Route", ">" + nFromId + "-" + nToId + ":" + nCost);
 					 mGraph.add_edge(nFromId, nToId, nCost);
-					 mGraph.add_edge(nToId, nFromId, nCost);
+					 if(!mbDirected){
+						 mGraph.add_edge(nToId, nFromId, nCost);
+					 }
 		        }
 		        reader.close();
 		        if (in != null) {
@@ -487,6 +517,13 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		//ask user for download
 		try{
 			JSONObject oJSONMetaRemote = new JSONObject(sJSON);
+			
+			//save remote meta to file
+			if(oJSONMetaRemote != null ){
+				File file = new File(getExternalFilesDir(null), REMOTE_METAFILE);
+				writeToFile(file, sJSON);
+			}			
+			
 			final JSONArray jsonArray = oJSONMetaRemote.getJSONArray("packages");
 
 			ArrayList<String> items = new ArrayList<String>();
@@ -538,12 +575,19 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 								//download and unzip
 								int nVer = jsonObject.getInt("ver");
 								String sPath = jsonObject.getString("path");
-								String sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
 								String sName = jsonObject.getString("name");
+								String sLocName = sName;
+								if(jsonObject.has("name_" + Locale.getDefault().getLanguage())){
+									sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
+								}
+								boolean bDirected = false;
+								if(jsonObject.has("directed")){
+									bDirected = jsonObject.getBoolean("directed");
+								}
 								if(sLocName.length() == 0){
 									sLocName = sName;
 								}
-								DataDownloader uploader = new DataDownloader(MainActivity.this, sPath, sName, sLocName, nVer, getResources().getString(R.string.sDownLoading), moGetJSONHandler);
+								DataDownloader uploader = new DataDownloader(MainActivity.this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), moGetJSONHandler);
 								uploader.execute(sUrl + sPath + ".zip");
 
 							} catch (JSONException e) {
@@ -620,12 +664,20 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 												//download and unzip
 												int nVer = jsonObject.getInt("ver");
 												String sPath = jsonObject.getString("path");
-												String sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
 												String sName = jsonObject.getString("name");
+												String sLocName = sName;
+												if(jsonObject.has("name_" + Locale.getDefault().getLanguage())){
+													sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
+												}
+												boolean bDirected = false;
+												if(jsonObject.has("directed")){
+													bDirected = jsonObject.getBoolean("directed");
+												}
+												
 												if(sLocName.length() == 0){
 													sLocName = sName;
 												}
-												DataDownloader uploader = new DataDownloader(MainActivity.this, sPath, sName, sLocName, nVer, getResources().getString(R.string.sDownLoading), moGetJSONHandler);
+												DataDownloader uploader = new DataDownloader(MainActivity.this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), moGetJSONHandler);
 												uploader.execute(sUrl + sPath + ".zip");
 												
 											} catch (JSONException e) {

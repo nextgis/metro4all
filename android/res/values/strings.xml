@@ -17,6 +17,7 @@
 	<string name="sFileNotFound">File not found</string>
 	<string name="sCannotReadFile">Cannot read file</string>
 	<string name="sCannotGetPath">Cannot find path</string>
+	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data updates is available</string>

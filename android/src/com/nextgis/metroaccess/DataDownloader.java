@@ -53,8 +53,9 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     private String  msName;
     private String  msLocName;
     private int mnVer;
+    private boolean mbDirected;
 	
-    public DataDownloader(Context c, String sSubPath, String sName, String sLocName, int nVer, String sMsg, Handler eventReceiver) {        
+    public DataDownloader(Context c, String sSubPath, String sName, String sLocName, int nVer, boolean bDirected, String sMsg, Handler eventReceiver) {        
         super();
         moContext = c;
        	moDownloadDialog = null;
@@ -64,6 +65,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
         msName = sName;
         msLocName = sLocName;
         mnVer = nVer;
+        mbDirected = bDirected;
         
         File dir = moContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
         File zipFile = new File(dir, sSubPath + ".zip");		
@@ -150,7 +152,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     	moDownloadDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     	moDownloadDialog.setCancelable(false);
     	moDownloadDialog.show();
-    	new UnZipTask(msName, msLocName, moContext.getExternalFilesDir(MainActivity.ROUTE_DATA_DIR) + File.separator + msSubPath, mnVer).execute(msTmpOutFile);
+    	new UnZipTask(msName, msLocName, moContext.getExternalFilesDir(MainActivity.ROUTE_DATA_DIR) + File.separator + msSubPath, mnVer, mbDirected).execute(msTmpOutFile);
     }
     
     private class UnZipTask extends AsyncTask<String, Void, Boolean> {
@@ -158,13 +160,15 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     	private String msLocName;
     	private String msPath;
     	private int mnVer;
+    	private boolean mbDirected;
     	
-        public UnZipTask(String sName, String sLocName, String sSubPath, int nVer) {        
+        public UnZipTask(String sName, String sLocName, String sSubPath, int nVer, boolean bDirected) {        
             super();
             msName = sName;
             msLocName = sLocName;
             msPath = sSubPath;
             mnVer = nVer;
+            mbDirected = bDirected;
         }
         
     	@Override
@@ -192,6 +196,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
             bundle.putString("name", msName);
             bundle.putString("locname", msLocName);
             bundle.putInt("ver", mnVer);
+            bundle.putBoolean("directed", mbDirected);
             
             Message msg = new Message();
             msg.setData(bundle);
