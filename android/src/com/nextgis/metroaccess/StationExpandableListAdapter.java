@@ -55,8 +55,13 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	
 	private String[] msaSections;
 	
+	private LayoutInflater mInfalInflater;
+	
 	public StationExpandableListAdapter(Context c, List<StationItem> stationList, Map<StationItem, List<PortalItem>> portalCollection) {
 		mContext = c;
+
+		mInfalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
 		mStationList = new ArrayList <StationItem>();
 		mStationList.addAll(stationList);
 		//mStationList = stationList;
@@ -71,9 +76,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
 		
 		mAlphaIndexer = new HashMap<String, Integer>();
-		int size = mStationList.size();  
-		   
-        for (int x = 0; x < size; x++) {  
+        for (int x = 0; x < mStationList.size(); x++) {  
              String s = mStationList.get(x).GetName();  
              String ch = s.substring(0, 1);  
              ch = ch.toUpperCase();  
@@ -81,8 +84,9 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
             	 mAlphaIndexer.put(ch, x);
             	 
             	 StationItem sit = new StationItem(-1, ch, -1, -1);
-            	 mStationList.add(sit);
+            	 mStationList.add(x, sit);
             	 mPortalCollection.put(sit, null);
+            	 
              }     
         }  	
         
@@ -92,7 +96,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
         
         SelectStationActivity parentActivity = (SelectStationActivity)mContext;
         
-        Collections.sort(mStationList, parentActivity.new StationItemComparator());
+        //Collections.sort(mStationList, parentActivity.new StationItemComparator());
 
         msaSections = new String[sectionList.size()];  
 
@@ -158,24 +162,31 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			LayoutInflater infalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.select_station_row_layout, null);
-		}
 		StationItem entry = (StationItem) getGroup(groupPosition);
-		TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
-		item.setText(entry.GetName());
+		if(entry.GetId() == -1){
+			if (convertView == null || convertView.findViewById(R.id.tvCategoryName) == null) {
+				convertView = mInfalInflater.inflate(R.layout.select_category_row_layout, null);
+			}
+			TextView item = (TextView) convertView.findViewById(R.id.tvCategoryName);
+			item.setText(entry.GetName());
+		}
+		else{
+			if (convertView == null || convertView.findViewById(R.id.tvStationName) == null) {
+				convertView = mInfalInflater.inflate(R.layout.select_station_row_layout, null);
+			}
+			TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
+			item.setText(entry.GetName());
 
-		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
+			ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 
-		File imgFile = new File(MainActivity.msRDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
-		Log.d(MainActivity.TAG, imgFile.getPath());
-		if(imgFile.exists()){
-		
-		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-		    ivIcon.setImageBitmap(myBitmap);
-		}	
-
+			File imgFile = new File(MainActivity.msRDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
+			Log.d(MainActivity.TAG, imgFile.getPath());
+			if(imgFile.exists()){
+			
+			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+			    ivIcon.setImageBitmap(myBitmap);
+			}	
+		}
 		return convertView;
 	}
 

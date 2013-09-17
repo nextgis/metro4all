@@ -28,7 +28,6 @@ import java.util.Map;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,18 +55,16 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
     		mPortalCollection.put(it, it.GetPortals(bIn));
     	}   
     	
-    	//Collections.sort(mStationList, parentActivity.new StationItemComparator());
+    	Collections.sort(mStationList, parentActivity.new StationItemComparator());
     	
     	View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
-    	
-
     	
     	mExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
         final StationExpandableListAdapter expListAdapter = new StationExpandableListAdapter(parentActivity, mStationList, mPortalCollection);
         mExpListView.setAdapter(expListAdapter);
         mExpListView.setFastScrollEnabled(true);
  
-        setGroupIndicatorToRight();
+        mExpListView.setGroupIndicator(null);
 
         mExpListView.setOnChildClickListener(new OnChildClickListener() {
  
@@ -81,51 +78,4 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
         
         return view;
     }
-    
-    private void setGroupIndicatorToRight() {
-    	mExpListView.setGroupIndicator(null);
-        /* 
-        DisplayMetrics dm = new DisplayMetrics();
-        getSherlockActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
- 
-        mExpListView.setIndicatorBounds(width - (int)(45 * dm.density + 0.5f), width - (int)(15 * dm.density + 0.5f));
-        */
-    }
- 
-/*	public void onStoreValues() {		
-		if(getView() != null)
-		{
-			SelectStationActivity activity = (SelectStationActivity) getSherlockActivity();
-			if(activity == null)
-				return;
-			
-			if (getView().findViewById(R.id.poi_notes_text) != null) {
-				activity.SetNotes(((TextView) getView().findViewById(R.id.poi_notes_text)).getText().toString());
-			}
-		}	
-		UpdateSummary();
-	}
-	
-	protected void UpdateSummary(){
-		if(getView() != null )
-		{
-			SelectStationActivity activity = (SelectStationActivity) getSherlockActivity();
-			if(activity == null)
-				return;
-	    	
-	        String sCoords = PositionFragment.getLocationText(getSherlockActivity(), activity.getLocation());
-			if (getView().findViewById(R.id.poi_summary_text) != null) {
-				TextView summary = (TextView)getView().findViewById(R.id.poi_summary_text);
-		        summary.setText(
-		        		activity.getResources().getText(R.string.sum_cat) + activity.m_sCat + "\n" + 
-		        		activity.getResources().getText(R.string.sum_subcat) + activity.m_sSubCat + "\n" + 
-		        		activity.getResources().getText(R.string.sum_coords) + sCoords + "\n" + 
-		        		activity.getResources().getText(R.string.sum_az) + activity.m_fAzimuth + "\n" + 
-		        		activity.getResources().getText(R.string.sum_dist) + activity.m_fDist
-		        		);				
-			}	
-		}			
-	}
-	*/
 }
