@@ -81,7 +81,7 @@
       <div class="col-md-3">
         <legend>Маршрут</legend>
         <ul class="route-paging pagination pagination-sm"></ul>
-        <div id="routePanel" class="loading"></div>
+        <div id="routePanel" class="{{config['route_css_class']}}"></div>
       </div>
     </div>
     </div><!-- /.container -->
@@ -147,7 +147,7 @@
         function showRoute(routes, index) {
 
             // Вывод списка станций, входящих в маршрут
-            var content = "<ul class='route {{config['route_css_class']}}'>";
+            var content = "<ul class='route'>";
             $.each(routes[index], function(i, item){
                 
                 if (i == 0) {
