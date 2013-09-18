@@ -38,10 +38,12 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	public static final String KEY_PREF_USER_TYPE = "user_type";
 	public static final String KEY_PREF_MAX_WIDTH = "max_width";
 	public static final String KEY_PREF_WHEEL_WIDTH = "wheel_width";
+	public static final String KEY_PREF_DOWNLOAD_PATH = "download_path";
 	
 	ListPreference mlsNaviType;
 	EditTextPreference metWheelWidth;
 	EditTextPreference metMaxWidth;
+	EditTextPreference metDownloadPath;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    metWheelWidth.setSummary((String) metWheelWidth.getText() + " cm");
 	    
 	    //TODO: add data packages list and button update data
+	    metDownloadPath = (EditTextPreference) findPreference(KEY_PREF_DOWNLOAD_PATH);
+	    metWheelWidth.setSummary((String) metWheelWidth.getText());
     }
     
     @Override
@@ -124,6 +128,11 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             if(index >= 0){
             	mlsNaviType.setSummary((String) mlsNaviType.getEntries()[index]);
             }
-        }		
+        }	
+		else if(key.equals(KEY_PREF_DOWNLOAD_PATH)){
+			newVal = sharedPreferences.getString(key, MainActivity.sUrl);
+    		if(newVal.length() > 0)
+            	Pref.setSummary(newVal);			
+		}
 	}	
 }

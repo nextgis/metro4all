@@ -23,8 +23,6 @@ package com.nextgis.metroaccess;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,13 +34,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 public class StationExpandableListAdapter extends BaseExpandableListAdapter {
@@ -124,8 +120,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			LayoutInflater infalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.select_portal_row_layout, null);
+			convertView = mInfalInflater.inflate(R.layout.select_portal_row_layout, null);
 		}
 		PortalItem entry = (PortalItem) getChild(groupPosition, childPosition);
 		TextView item = (TextView) convertView.findViewById(R.id.txPortalName);

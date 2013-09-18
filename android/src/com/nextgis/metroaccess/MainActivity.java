@@ -73,7 +73,6 @@ import android.content.SharedPreferences;
 
 public class MainActivity extends SherlockActivity implements OnNavigationListener{
 	final static String TAG = "metroaccess";	
-	final static String sUrl = "http://gis-lab.info/data/zp-gis/data/ma/";
 	final static String META = "meta.json";
 	final static String BUNDLE_MSG_KEY = "msg";
 	final static String BUNDLE_PAYLOAD_KEY = "json";
@@ -104,7 +103,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	
 	//public final static int GET_META = 0;
 	
-	private static Handler moGetJSONHandler; 
+	protected static Handler moGetJSONHandler; 
 	protected HashMap<Integer, JSONObject> mmoRouteMetadata;
 	protected static String msRDataPath;
 	
@@ -125,6 +124,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	
 	protected boolean mbDirected;
 
+	public static String sUrl = "http://gis-lab.info/data/zp-gis/data/ma/";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -138,7 +139,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		maoArrRecentIds = new ArrayList<Pair<Integer, Integer>>();
         // initialize the default settings
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-					
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, sUrl);
+		
 		moGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
             	super.handleMessage(msg);
@@ -267,14 +270,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(CSV_CHAR);
 		             
-		             if(RowData.length != 3){
+		             if(RowData.length < 3){
 		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "stations.csv", Toast.LENGTH_LONG).show();
 		            	 return;
 		             }
 		             
-					 String sName = RowData[0];
+					 String sName = RowData[2];
 					 int nLine = Integer.parseInt(RowData[1]);
-					 int nID = Integer.parseInt(RowData[2]);
+					 int nID = Integer.parseInt(RowData[0]);
 	 					 
 					 mGraph.add_vertex(new Vertex(nID));
 					 StationItem st = new StationItem(nID, sName, nLine, 0);
@@ -432,6 +435,11 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		mtvArrivalStationName = (TextView) findViewById(R.id.tostationname);
 		mtvDeparturePortalName = (TextView) findViewById(R.id.fromentrancename);
 		mtvArrivalPortalName =  (TextView) findViewById(R.id.toentrancename);
+		
+		TextView tv1 = (TextView) findViewById(R.id.fromentrancenamelabel);
+		tv1.setText(tv1.getText() + ": ");
+		TextView tv2 = (TextView) findViewById(R.id.toentrancenamelabel);
+		tv2.setText(tv2.getText() + ": ");
 		
 		UpdateUI();
 	}
@@ -816,14 +824,21 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		for(int i = 0; i < size; i++){
 			int nB = prefs.getInt("recent_dep_"+BUNDLE_STATIONID_KEY+i, -1);
 			int nE = prefs.getInt("recent_dep_"+BUNDLE_PORTALID_KEY+i, -1);
-			maoDepRecentIds.add(Pair.create(nB, nE));
+			
+			Pair<Integer, Integer> pair = Pair.create(nB, nE);
+			if(!maoDepRecentIds.contains(pair)){
+				maoDepRecentIds.add(Pair.create(nB, nE));
+			}
 		}
 
 		size = prefs.getInt("recent_arr_counter", 0);
 		for(int i = 0; i < size; i++){
 			int nB = prefs.getInt("recent_arr_"+BUNDLE_STATIONID_KEY+i, -1);
 			int nE = prefs.getInt("recent_arr_"+BUNDLE_PORTALID_KEY+i, -1);
-			maoArrRecentIds.add(Pair.create(nB, nE));
+			Pair<Integer, Integer> pair = Pair.create(nB, nE);
+			if(!maoArrRecentIds.contains(pair)){
+				maoArrRecentIds.add(Pair.create(nB, nE));
+			}
 		}	    
 	    
 	    UpdateUI();
@@ -911,10 +926,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    if(mnDepartureStationId != mnArrivalStationId && mnArrivalStationId != -1 && mnArrivalStationId != -1){
 	    	if(mSearchButton != null) 
 	    		mSearchButton.setEnabled(true);
+    		if(mSearchMenuItem != null)
+	    		mSearchMenuItem.setEnabled(true);
 	    }
 	    else{
 	    	if(mSearchButton != null) 
 	    		mSearchButton.setEnabled(false);
+	    	if(mSearchMenuItem != null)
+	    		mSearchMenuItem.setEnabled(false);
 	    }
 	}
 	

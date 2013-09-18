@@ -45,4 +45,14 @@
 		    android:inputType="number"
 		    android:dialogTitle="@string/sPrefWheelBaseSizeTitle" />		
 	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="@string/sPrefCatData">
+		<EditTextPreference
+		    android:key="download_path"
+		    android:title="@string/sPrefDataPath"
+		    android:summary="@string/sPrefDataPathSummary"
+		    android:defaultValue="http://gis-lab.info/data/zp-gis/data/ma/"
+		    android:dialogTitle="@string/sPrefDataPathTitle" />
+	    		
+	</PreferenceCategory>
 </PreferenceScreen>
