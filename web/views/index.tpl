@@ -149,7 +149,7 @@
             // Вывод списка станций, входящих в маршрут
             var content = "<ul class='route'>";
             
-            content+="<li class='portal'>Вход"
+            content+="<li class='enter'>Вход" + " &rarr; " + routes[index].route[0].station_name 
             if (routes[index].portals.portal_from) {
                 var barriers = routes[index].portals.portal_from.barriers;
                 if (barriers) {
@@ -176,7 +176,7 @@
 
             });
 
-            content+="<li class='portal'>Выход"
+            content+="<li class='exit'>Выход" + " &rarr; " + routes[index].route[routes[index].length-1].station_name
             if (routes[index].portals.portal_to) {
                 var barriers = routes[index].portals.portal_to.barriers;
                 if (barriers) {
