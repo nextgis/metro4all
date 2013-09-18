@@ -17,6 +17,7 @@
 
     <!-- Leaflet -->
     <link href="static/leaflet-0.6.4/leaflet.css" rel="stylesheet"/>
+    <link href="static/leaflet.label.css" rel="stylesheet"/>
     <!--[if lte IE 8]>
       <link href="leaflet-0.6.4/leaflet.ie.css" rel="stylesheet"/>
     <![endif]-->
@@ -102,6 +103,7 @@
     <script src="static/select2-3.4.2/select2.js"></script>
     <script src="static/select2-3.4.2/select2_locale_ru.js"></script>
     <script src="static/leaflet-0.6.4/leaflet.js"></script>
+    <script src="static/leaflet.label.js"></script>
     <script src="static/TileLayer.Grayscale.js"></script>
     <script src="static/m4a/m4a.loader.js"></script>
     <script src="static/m4a/m4a.stations.js"></script>
@@ -197,6 +199,17 @@
                 m4a.viewmodel.mainMap.removeLayer(route);
             }
             route = L.layerGroup();
+            // Маркеры станций
+            route.addLayer(L.marker(
+              item.coordinates,
+              {
+                icon: L.icon({
+                  iconUrl: '/static/img/station.png',
+                  iconAnchor: [3, 3]
+                })
+              }).bindLabel(item.station_name)
+            ).addTo(m4a.viewmodel.mainMap);
+            // Сегменты маршрута
             $.each(routes[index].route, function(i, item){
                 if (i != 0) {
                     route.addLayer(
