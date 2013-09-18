@@ -222,6 +222,19 @@
                     ).addTo(m4a.viewmodel.mainMap);
                 }
             });
+
+            // Охват на маршрут
+            var xmin = routes[index].route[0].coordinates[1],
+                ymin = routes[index].route[0].coordinates[0],
+                xmax = routes[index].route[0].coordinates[1],
+                ymax = routes[index].route[0].coordinates[0];
+            $.each(routes[index].route, function(i, item) {
+              xmin = (item.coordinates[1]) < xmin ? item.coordinates[1] : xmin;
+              ymin = (item.coordinates[0]) < ymin ? item.coordinates[0] : ymin;
+              xmax = (item.coordinates[1]) > xmax ? item.coordinates[1] : xmax;
+              ymax = (item.coordinates[0]) > ymax ? item.coordinates[0] : ymax;
+            }
+            m4a.viewmodel.mainMap.fitBounds([[ymin, xmin], [ymax, xmax]]);
         }
 
 
