@@ -149,16 +149,18 @@
             // Вывод списка станций, входящих в маршрут
             var content = "<ul class='route'>";
             
+            content+="<li class='portal'>Вход"
             if (routes[index].portals.portal_from) {
-                content+="<li class='inportal'>Вход"
                 var barriers = routes[index].portals.portal_from.barriers;
                 if (barriers) {
                   content+=fillBarriers(barriers);
-                } else {
-                  content+="<div>Препятствия не отображаются, так как не выбран вход</div>";
                 }
-                content+="</li>";
+            } else {
+              content+="<ul class='obstacles'>";
+              content+="<li>Препятствия не отображаются, так как не выбран вход</li>";
+              content+="</ul>";
             }
+            content+="</li>";
 
             $.each(routes[index].route, function(i, item){
                 if (item.station_type == 'regular') {
@@ -173,16 +175,18 @@
 
             });
 
+            content+="<li class='portal'>Выход"
             if (routes[index].portals.portal_to) {
-                content+="<li class='inportal'>Выход"
                 var barriers = routes[index].portals.portal_to.barriers;
                 if (barriers) {
                   content+=fillBarriers(barriers);
-                } else {
-                  content+="<div>Препятствия не отображаются, так как не выбран вход</div>";
                 }
-                content+="</li>";
+            } else {
+              content+="<ul class='obstacles'>";
+              content+="<li>Препятствия не отображаются, так как не выбран выход</li>";
+              content+="</ul>";
             }
+            content+="</li>";
 
             content+="</ul>";
             $('#routePanel').append(content);
