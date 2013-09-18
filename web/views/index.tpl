@@ -163,7 +163,7 @@
             content+="</li>";
 
             $.each(routes[index].route, function(i, item){
-                if (item.station_type == 'regular') {
+                if ((item.station_type == 'regular') && (i>0 && (routes[index].route[i-1].station_type != 'interchange'))) {
                   content+="<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
                 } else if (item.station_type == 'interchange') {
                   content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index].route[i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &rarr; " + routes[index].route[i+1].station_name + " (" + routes[index].route[i+1].station_line.name +")"
