@@ -199,18 +199,18 @@
                 m4a.viewmodel.mainMap.removeLayer(route);
             }
             route = L.layerGroup();
-            // Маркеры станций
-            route.addLayer(L.marker(
-              item.coordinates,
-              {
-                icon: L.icon({
-                  iconUrl: '/static/img/station.png',
-                  iconAnchor: [3, 3]
-                })
-              }).bindLabel(item.station_name)
-            ).addTo(m4a.viewmodel.mainMap);
-            // Сегменты маршрута
             $.each(routes[index].route, function(i, item){
+                // Маркеры станций
+                route.addLayer(L.marker(
+                  item.coordinates,
+                  {
+                    icon: L.icon({
+                      iconUrl: '/static/img/station.png',
+                      iconAnchor: [3, 3]
+                    })
+                  }).bindLabel(item.station_name)
+                ).addTo(m4a.viewmodel.mainMap);
+                // Сегменты маршрута
                 if (i != 0) {
                     route.addLayer(
                         L.polyline(
