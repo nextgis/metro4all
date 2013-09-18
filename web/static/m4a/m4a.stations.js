@@ -98,7 +98,7 @@
                                     var view = m4a.view;
                                     view.$metroEndInputID.val(feature.id);
                                     view.$metroEndInputName.val(feature.properties.name || feature.id);
-                                    $.each(inPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/out.png'}))});
+                                    $.each(outPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/out.png'}))});
                                     e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
                                     view.$document.triggerHandler('/url/update', ['end', feature.id]);
                                 });
