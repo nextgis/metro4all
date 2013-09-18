@@ -147,7 +147,7 @@
         function showRoute(routes, index) {
 
             // Вывод списка станций, входящих в маршрут
-            var content = "<ul class='route'>";
+            var content = "<ul class='route {{config['route_css_class']}}'>";
             $.each(routes[index], function(i, item){
                 
                 if (i == 0) {

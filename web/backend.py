@@ -78,12 +78,14 @@ def main(city):
         'msk': dict(
             minimap=dict(center=[55.75, 37.62], zoom=11),
             mainmap=dict(center=[55.75, 37.62], zoom=10),
-            city='msk'
+            city='msk',
+            route_css_class='city-1'
         ),
         'spb': dict(
             minimap=dict(center=[59.95, 30.316667], zoom=11),
             mainmap=dict(center=[59.95, 30.316667], zoom=10),
-            city='spb'
+            city='spb',
+            route_css_class='city-2'
         )
     }
     city = city if city in ['msk', 'spb'] else 'msk'
