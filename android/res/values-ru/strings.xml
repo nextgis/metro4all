@@ -17,7 +17,8 @@
 	<string name="sFileNotFound">Файл не найден</string>
 	<string name="sCannotReadFile">Не могу прочитать файл</string>
 	<string name="sCannotGetPath">Не найден путь</string>
-	
+	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
+		
 	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>
 	<string name="sDownload">Загрузить</string>
@@ -33,9 +34,35 @@
 	<string name="sNotSet">Не назначено</string>	
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>
+	<string name="sBarriersExist">There are the following barriers&#8230;</string>
+	<string name="sMaxWCWidth">The max weelchair width</string>
+	<string name="sStairsCount">The stairs count</string>
+	<string name="sStairsWORails">From them without rails and ramps</string>
+	<string name="sLift">Elevetators</string>
+	<string name="sLiftEconomy">Elevetators economy stairs</string>
+	<string name="sCM">см</string>
+	<string name="sMinRailWidth">Minimum rail width</string>
+	<string name="sMaxRailWidth">Maximum rail width</string>
+	<string name="sMaxAngle">Maximum angle of the ramp</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>
 	<string name="sSelRecentTab">Недавние</string>	
-		
+	<!-- dialogs -->
+	<string name="sPrefTitle">Preferences</string>
+	<string name="sPrefCatMain">Основные</string>
+	<string name="sPrefCatData">Данные</string>
+	<string name="sPrefNaviType">Navigation type</string>
+	<string name="sPrefNaviTypeSummary">Navigation type affects on routing</string>
+	<string name="sPrefNaviTypeTitle">Select navigation type</string>
+	<string name="sPrefWheelBaseSize">Width behind wheels</string>
+	<string name="sPrefWheelBaseSizeSummary">The distance between the wheels (cm)</string>
+	<string name="sPrefWheelBaseSizeTitle">Set width behind wheels</string>		
+	<string name="sPrefCarriageSize">Max width of carriage</string>
+	<string name="sPrefCarriageSizeSummary">The maximum width of carriage (cm)</string>
+	<string name="sPrefCarriageSizeTitle">Set max width of carriage</string>	
+	<string name="sPrefDataPath">Download data URL</string>
+	<string name="sPrefDataPathSummary">Set download routing data URL</string>
+	<string name="sPrefDataPathTitle">Set download data URL</string>
+			
 </resources>

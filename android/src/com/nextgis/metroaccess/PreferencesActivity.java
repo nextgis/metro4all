@@ -62,14 +62,14 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         }
         
         metMaxWidth = (EditTextPreference) findPreference(KEY_PREF_MAX_WIDTH);
-        metMaxWidth.setSummary((String) metMaxWidth.getText() + " cm");
+        metMaxWidth.setSummary((String) metMaxWidth.getText() + " " + getString(R.string.sCM));
 	    
 	    metWheelWidth = (EditTextPreference) findPreference(KEY_PREF_WHEEL_WIDTH);
-	    metWheelWidth.setSummary((String) metWheelWidth.getText() + " cm");
+	    metWheelWidth.setSummary((String) metWheelWidth.getText() + " " + getString(R.string.sCM));
 	    
 	    //TODO: add data packages list and button update data
 	    metDownloadPath = (EditTextPreference) findPreference(KEY_PREF_DOWNLOAD_PATH);
-	    metWheelWidth.setSummary((String) metWheelWidth.getText());
+	    metDownloadPath.setSummary((String) metDownloadPath.getText());
     }
     
     @Override
@@ -113,7 +113,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     		editor.commit();
     		
     		if(newVal.length() > 0)
-            	Pref.setSummary(newVal);
+            	Pref.setSummary(newVal  + " " + getString(R.string.sCM));
         }
 		else if(key.equals(KEY_PREF_USER_TYPE))
 		{
