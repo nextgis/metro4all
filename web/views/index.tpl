@@ -233,7 +233,7 @@
               ymin = (item.coordinates[0]) < ymin ? item.coordinates[0] : ymin;
               xmax = (item.coordinates[1]) > xmax ? item.coordinates[1] : xmax;
               ymax = (item.coordinates[0]) > ymax ? item.coordinates[0] : ymax;
-            }
+            });
             m4a.viewmodel.mainMap.fitBounds([[ymin, xmin], [ymax, xmax]]);
         }
 
