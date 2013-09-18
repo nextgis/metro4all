@@ -151,7 +151,7 @@
             $.each(routes[index], function(i, item){
                 
                 if (i == 0) {
-                  content+="<li class=" + "'enter line-" + item.station_line.id + "'>" + item.station_name
+                  content+="<li class=" + "'enter line-" + item.station_line.id + "'>" + "Вход" + " &rarr; " +item.station_name
                   if (item.barriers) {
                       content+=fillBarriers(item.barriers);
                   } else {
@@ -173,7 +173,7 @@
                 }
 
                 else {
-                  content+="<li class=" + "'exit line-" + item.station_line.id + "'>" + item.station_name
+                  content+="<li class=" + "'exit line-" + item.station_line.id + "'>" + "Выход" + " &rarr; " +item.station_name
                   if (item.barriers) {
                       content+=fillBarriers(item.barriers);
                   } else {
