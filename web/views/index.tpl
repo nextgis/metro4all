@@ -68,7 +68,7 @@
           <div id="metroEndInput" style="height: 150px;"></div>
           <em>Нажмите на значок выхода, чтобы его выбрать</em>
         </div>
-        <button type="submit" class="btn btn-primary">Поиск</button>
+        <button type="submit" class="btn btn-primary">Проложить маршрут</button>
       </form>
       </div>
 
