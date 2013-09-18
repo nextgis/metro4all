@@ -148,41 +148,42 @@
 
             // Вывод списка станций, входящих в маршрут
             var content = "<ul class='route'>";
-            $.each(routes[index], function(i, item){
-                
-                if (i == 0) {
-                  content+="<li class=" + "'enter line-" + item.station_line.id + "'>" + "Вход" + " &rarr; " +item.station_name
+            
+            if (routes[index].portals.portal_from) {
+                content+="<li class='inportal'>Вход"
+                var barriers = routes[index].portals.portal_from.barriers;
+                if (barriers) {
+                  content+=fillBarriers(barriers);
+                } else {
+                  content+="<div>Препятствия не отображаются, так как не выбран вход</div>";
+                }
+                content+="</li>";
+            }
+
+            $.each(routes[index].route, function(i, item){
+                if (item.station_type == 'regular') {
+                  content+="<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
+                } else if (item.station_type == 'interchange') {
+                  content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index].route[i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &rarr; " + routes[index].route[i+1].station_name + " (" + routes[index].route[i+1].station_line.name +")"
                   if (item.barriers) {
                       content+=fillBarriers(item.barriers);
-                  } else {
-                    content+="<div>Препятствия не отображаются, так как не выбран вход</div>";
-                  }
-                  content+="</li>"
-                }
-
-                else if (i < routes[index].length-1) {
-                  if ((item.station_type == 'regular') && (routes[index][i-1].station_type != 'interchange' )) {
-                    content+="<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
-                  } else if (item.station_type == 'interchange') {
-                    content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index][i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &rarr; " + routes[index][i+1].station_name + " (" + routes[index][i+1].station_line.name +")"
-                    if (item.barriers) {
-                        content+=fillBarriers(item.barriers);
-                    }
-                    content+="</li>"
-                  }
-                }
-
-                else {
-                  content+="<li class=" + "'exit line-" + item.station_line.id + "'>" + "Выход" + " &rarr; " +item.station_name
-                  if (item.barriers) {
-                      content+=fillBarriers(item.barriers);
-                  } else {
-                    content+="<div>Препятствия не отображаются, так как не выбран выход</div>";
                   }
                   content+="</li>"
                 }
 
             });
+
+            if (routes[index].portals.portal_to) {
+                content+="<li class='inportal'>Выход"
+                var barriers = routes[index].portals.portal_to.barriers;
+                if (barriers) {
+                  content+=fillBarriers(barriers);
+                } else {
+                  content+="<div>Препятствия не отображаются, так как не выбран вход</div>";
+                }
+                content+="</li>";
+            }
+
             content+="</ul>";
             $('#routePanel').append(content);
             
@@ -191,11 +192,11 @@
                 m4a.viewmodel.mainMap.removeLayer(route);
             }
             route = L.layerGroup();
-            $.each(routes[index], function(i, item){
+            $.each(routes[index].route, function(i, item){
                 if (i != 0) {
                     route.addLayer(
                         L.polyline(
-                            [routes[index][i-1].coordinates, item.coordinates],
+                            [routes[index].route[i-1].coordinates, item.coordinates],
                             {
                                 color: item.station_line.color,
                                 opacity: 1
@@ -269,7 +270,7 @@
                           url: url + global_config.city + "/routes/search",
                           data: $("#mainform").serialize()
                       }).done(function(data) {
-                        var routes = data.routes;
+                        var routes = data.result;
 
                         // Кнопки переключения маршрутов
                         $.each(routes, function(i, item){

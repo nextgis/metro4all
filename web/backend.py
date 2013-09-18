@@ -205,22 +205,11 @@ def get_routes(city, delta=5, limit=3):
         for index in range(min(limit, len(simple_paths_list))):
             route = []
             for station in simple_paths_list_sorted[index]:
-                station_index = simple_paths_list_sorted[index].index(station)
+                line_id = get_station_info(station)['line']
                 same_line = check_the_same_line(station, get_next_item(simple_paths_list_sorted[index], station))
 
-                if station_index == 0:
-                    station_type = "start"
+                station_type = "regular" if same_line else "interchange"
 
-                elif station_index == len(simple_paths_list_sorted[index])-1:
-                    station_type = "end"
-
-                elif same_line:
-                    station_type = "regular"
-
-                else:
-                    station_type = "interchange"
-
-                line_id = get_station_info(station)['line']
                 unit = dict(
                     station_type=station_type,
                     station_id=station,
@@ -233,19 +222,7 @@ def get_routes(city, delta=5, limit=3):
                     )
                 )
 
-                if station_type == "start":
-                    if portal_from is not None:
-                        unit['barriers'] = portal_barriers(portal_from)
-                    else:
-                        unit['barriers'] = None
-
-                elif station_type == "end":
-                    if portal_to is not None:
-                        unit['barriers'] = portal_barriers(portal_to)
-                    else:
-                        unit['barriers'] = None
-
-                elif station_type == "interchange":
+                if station_type == "interchange":
                     unit['barriers'] = None
                     unit['barriers'] = interchange_barriers(station, get_next_item(simple_paths_list_sorted[index], station))
 
@@ -254,10 +231,16 @@ def get_routes(city, delta=5, limit=3):
 
                 route.append(unit)
 
-            routes.append(route)
+            # Заполняем информацию о входах
+            portals = dict(
+                portal_from=dict(barriers=portal_barriers(portal_from)) if portal_from else None,
+                portal_to=dict(barriers=portal_barriers(portal_to)) if portal_to else None
+            )
+
+            routes.append(dict(route=route, portals=portals))
 
         response.content_type = 'application/json'
-        return dumps(dict(routes=routes))
+        return dumps(dict(result=routes))
 
     else:
         return HTTPResponse(status=400)
