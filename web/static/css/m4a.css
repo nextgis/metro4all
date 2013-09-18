@@ -101,61 +101,61 @@
 
 .route > li.line-2,
 .route > li.to-line-2 {
-    background-position: 0 -200px;
+    background-position: 0 -300px;
 }
 
 .route > li.line-3,
 .route > li.to-line-3 {
-    background-position: 0 -400px;
+    background-position: 0 -600px;
 }
 
 .route > li.line-4,
 .route > li.to-line-4 {
-    background-position: 0 -600px;
+    background-position: 0 -900px;
 }
 
 .route > li.line-5,
 .route > li.to-line-5 {
-    background-position: 0 -800px;
+    background-position: 0 -1200px;
 }
 
 .route > li.line-6,
 .route > li.to-line-6 {
-    background-position: 0 -1000px;
+    background-position: 0 -1500px;
 }
 
 .route > li.line-7,
 .route > li.to-line-7 {
-    background-position: 0 -1200px;
+    background-position: 0 -1800px;
 }
 
 .route > li.line-8,
 .route > li.to-line-8 {
-    background-position: 0 -1400px;
+    background-position: 0 -2100px;
 }
 
 .route > li.line-9,
 .route > li.to-line-9 {
-    background-position: 0 -1600px;
+    background-position: 0 -2400px;
 }
 
 .route > li.line-10,
 .route > li.to-line-10 {
-    background-position: 0 -1800px;
+    background-position: 0 -2700px;
 }
 
 .route > li.line-11,
 .route > li.to-line-11 {
-    background-position: 0 -2000px;
+    background-position: 0 -3000px;
 }
 
 .route > li.line-12,
 .route > li.to-line-12 {
-    background-position: 0 -2200px;
+    background-position: 0 -3300px;
 }
 
 .route > li.exit {
-    background-image: none;
+    background-image: none !important;
 }
 
 .obstacles {
@@ -182,4 +182,16 @@
 
 .route-paging {
     margin-top: 0;
+}
+
+.city-2 .route > li {
+    background-image: url(../img/search-result-2-line.png);
+}
+
+.city-2 .route > li.transition:before {
+    background-image: url(../img/search-result-2-circle-from.png);
+}
+
+.city-2 .route > li.exit:before {
+    background-image: url(../img/search-result-2-circle.png);
 }

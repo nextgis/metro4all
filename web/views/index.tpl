@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon" />
 
     <title>Metro4all</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="static/bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet">
 
     <!-- Select2 plugin -->
-    <link href="select2-3.4.2/select2.css" rel="stylesheet"/>
+    <link href="static/select2-3.4.2/select2.css" rel="stylesheet"/>
 
     <!-- Leaflet -->
-    <link href="leaflet-0.6.4/leaflet.css" rel="stylesheet"/>
+    <link href="static/leaflet-0.6.4/leaflet.css" rel="stylesheet"/>
     <!--[if lte IE 8]>
       <link href="leaflet-0.6.4/leaflet.ie.css" rel="stylesheet"/>
     <![endif]-->
@@ -28,7 +28,7 @@
     <![endif]-->
 
     <!-- m4a CSS -->
-    <link href="css/m4a.css" rel="stylesheet">
+    <link href="static/css/m4a.css" rel="stylesheet">
 
   </head>
 
@@ -68,7 +68,7 @@
           <div id="metroEndInput" style="height: 150px;"></div>
           <em>Нажмите на значок выхода, чтобы его выбрать</em>
         </div>
-        <button type="submit" class="btn btn-primary">Поиск</button>
+        <button type="submit" class="btn btn-primary">Проложить маршрут</button>
       </form>
       </div>
 
@@ -81,7 +81,7 @@
       <div class="col-md-3">
         <legend>Маршрут</legend>
         <ul class="route-paging pagination pagination-sm"></ul>
-        <div id="routePanel" class="loading"></div>
+        <div id="routePanel" class="{{config['route_css_class']}}"></div>
       </div>
     </div>
     </div><!-- /.container -->
@@ -90,15 +90,22 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="bootstrap-3.0.0/assets/js/jquery.js"></script>
-    <script src="bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
-    <script src="select2-3.4.2/select2.js"></script>
-    <script src="select2-3.4.2/select2_locale_ru.js"></script>
-    <script src="leaflet-0.6.4/leaflet.js"></script>
-    <script src="TileLayer.Grayscale.js"></script>
-    <script src="m4a/m4a.loader.js"></script>
-    <script src="m4a/m4a.stations.js"></script>
-    <script src="m4a/m4a.url.js"></script>
+    <script>
+        var global_config = {
+          minimap: {'center': {{config['minimap']['center']}}, 'zoom': {{config['minimap']['zoom']}}},
+          mainmap: {'center': {{config['mainmap']['center']}}, 'zoom': {{config['mainmap']['zoom']}}},
+          city: "{{config['city']}}"
+        }
+    </script>
+    <script src="static/bootstrap-3.0.0/assets/js/jquery.js"></script>
+    <script src="static/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="static/select2-3.4.2/select2.js"></script>
+    <script src="static/select2-3.4.2/select2_locale_ru.js"></script>
+    <script src="static/leaflet-0.6.4/leaflet.js"></script>
+    <script src="static/TileLayer.Grayscale.js"></script>
+    <script src="static/m4a/m4a.loader.js"></script>
+    <script src="static/m4a/m4a.stations.js"></script>
+    <script src="static/m4a/m4a.url.js"></script>
     <script>
 
         function fillBarriers(barriers) {
@@ -141,41 +148,47 @@
 
             // Вывод списка станций, входящих в маршрут
             var content = "<ul class='route'>";
-            $.each(routes[index], function(i, item){
-                
-                if (i == 0) {
-                  content+="<li class=" + "'enter line-" + item.station_line.id + "'>" + item.station_name
+            
+            content+="<li class='enter'>Вход" + " &rarr; " + routes[index].route[0].station_name 
+            if (routes[index].portals.portal_from) {
+                var barriers = routes[index].portals.portal_from.barriers;
+                if (barriers) {
+                  content+=fillBarriers(barriers);
+                }
+            } else {
+              content+="<ul class='obstacles'>";
+              content+="<li>Препятствия не отображаются, так как не выбран вход</li>";
+              content+="</ul>";
+            }
+            content+="</li>";
+
+            $.each(routes[index].route, function(i, item){
+                var condition = (i == 0) ? item.station_type == 'regular' : (item.station_type == 'regular' && routes[index].route[i-1].station_type != 'interchange')
+                if (condition) {
+                  content+="<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
+                } else if (item.station_type == 'interchange') {
+                  content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index].route[i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &rarr; " + routes[index].route[i+1].station_name + " (" + routes[index].route[i+1].station_line.name +")"
                   if (item.barriers) {
                       content+=fillBarriers(item.barriers);
-                  } else {
-                    content+="<div>Препятствия не отображаются, так как не выбран вход</div>";
-                  }
-                  content+="</li>"
-                }
-
-                else if (i < routes[index].length-1) {
-                  if ((item.station_type == 'regular') && (routes[index][i-1].station_type != 'interchange' )) {
-                    content+="<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
-                  } else if (item.station_type == 'interchange') {
-                    content+="<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index][i+1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name +")" +" &rarr; " + routes[index][i+1].station_name + " (" + routes[index][i+1].station_line.name +")"
-                    if (item.barriers) {
-                        content+=fillBarriers(item.barriers);
-                    }
-                    content+="</li>"
-                  }
-                }
-
-                else {
-                  content+="<li class=" + "'exit line-" + item.station_line.id + "'>" + item.station_name
-                  if (item.barriers) {
-                      content+=fillBarriers(item.barriers);
-                  } else {
-                    content+="<div>Препятствия не отображаются, так как не выбран выход</div>";
                   }
                   content+="</li>"
                 }
 
             });
+
+            content+="<li class='exit'>" + routes[index].route[routes[index].route.length - 1].station_name + " &rarr; " + "Выход";
+            if (routes[index].portals.portal_to) {
+                var barriers = routes[index].portals.portal_to.barriers;
+                if (barriers) {
+                  content+=fillBarriers(barriers);
+                }
+            } else {
+              content+="<ul class='obstacles'>";
+              content+="<li>Препятствия не отображаются, так как не выбран выход</li>";
+              content+="</ul>";
+            }
+            content+="</li>";
+
             content+="</ul>";
             $('#routePanel').append(content);
             
@@ -184,11 +197,11 @@
                 m4a.viewmodel.mainMap.removeLayer(route);
             }
             route = L.layerGroup();
-            $.each(routes[index], function(i, item){
+            $.each(routes[index].route, function(i, item){
                 if (i != 0) {
                     route.addLayer(
                         L.polyline(
-                            [routes[index][i-1].coordinates, item.coordinates],
+                            [routes[index].route[i-1].coordinates, item.coordinates],
                             {
                                 color: item.station_line.color,
                                 opacity: 1
@@ -205,12 +218,12 @@
             var url = m4a.viewmodel.url.proxy,
                 viewmodel = m4a.viewmodel,
                 view = m4a.view;
-            viewmodel.mainMap = L.map('mainMap').setView([55.75, 37.62], 10);
-            viewmodel.metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
-            viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView([55.75, 37.62], 11);
+            viewmodel.mainMap = L.map('mainMap').setView(global_config.mainmap.center, global_config.mainmap.zoom);
+            viewmodel.metroStartInputMap = L.map('metroStartInput', {zoomControl:false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
+            viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl:false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
 
           // Заполнение выпадающих списков
-          $.ajax(url + "stations").done(function(data){
+          $.ajax(url + global_config.city + "/stations").done(function(data){
               m4a.view.$metroStartStation.select2({width: "100%", data: data});
               m4a.view.$metroEndStation.select2({width: "100%", data: data});
 
@@ -259,10 +272,10 @@
                       $('#routePanel').empty();
                       $.ajax({
                           dataType: "json",
-                          url: url + "routes/search",
+                          url: url + global_config.city + "/routes/search",
                           data: $("#mainform").serialize()
                       }).done(function(data) {
-                        var routes = data.routes;
+                        var routes = data.result;
 
                         // Кнопки переключения маршрутов
                         $.each(routes, function(i, item){

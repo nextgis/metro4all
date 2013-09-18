@@ -2,7 +2,7 @@
 import csv
 import networkx as nx
 from geojson import Feature, FeatureCollection, dumps
-from bottle import route, response, request, run, static_file, HTTPResponse
+from bottle import view, route, response, request, run, static_file, HTTPResponse
 
 
 # Инициализация графа
@@ -71,16 +71,35 @@ GRAPH = {
 }
 
 
+@route('/<city>')
+@view('index')
+def main(city):
+    config = {
+        'msk': dict(
+            minimap=dict(center=[55.75, 37.62], zoom=11),
+            mainmap=dict(center=[55.75, 37.62], zoom=10),
+            city='msk',
+            route_css_class='city-1'
+        ),
+        'spb': dict(
+            minimap=dict(center=[59.95, 30.316667], zoom=11),
+            mainmap=dict(center=[59.95, 30.316667], zoom=10),
+            city='spb',
+            route_css_class='city-2'
+        )
+    }
+    city = city if city in ['msk', 'spb'] else 'msk'
+    return dict(config=config[city])
+    
+
 @route('/static/<path:path>')
 def static(path):
     return static_file(path, root='/home/tenzorr/projects/metroaccess/metroaccess/web/static')
 
 
 # Получение списка станций для выпадающих списков
-@route('/stations')
-def get_stations():
-
-    city = 'msk'
+@route('/<city>/stations')
+def get_stations(city):
 
     results = []
     for line in LINES[city]:
@@ -99,10 +118,8 @@ def get_stations():
 
 
 # Получение списка входов для заданной станции
-@route('/portals/search')
-def get_portals():
-
-    city = 'msk'
+@route('/<city>/portals/search')
+def get_portals(city):
 
     id_station = request.query.station
 
@@ -131,10 +148,9 @@ def get_portals():
     return dumps(FeatureCollection(portals))
 
 
-@route('/routes/search')
-def get_routes(delta=5, limit=3):
+@route('/<city>/routes/search')
+def get_routes(city, delta=5, limit=3):
 
-    city = 'msk'
     station_from = int(request.query.station_from) if request.query.station_from else None
     station_to = int(request.query.station_to) if request.query.station_to else None
     portal_from = int(request.query.portal_from) if request.query.portal_from else None
@@ -189,22 +205,11 @@ def get_routes(delta=5, limit=3):
         for index in range(min(limit, len(simple_paths_list))):
             route = []
             for station in simple_paths_list_sorted[index]:
-                station_index = simple_paths_list_sorted[index].index(station)
+                line_id = get_station_info(station)['line']
                 same_line = check_the_same_line(station, get_next_item(simple_paths_list_sorted[index], station))
 
-                if station_index == 0:
-                    station_type = "start"
+                station_type = "regular" if same_line else "interchange"
 
-                elif station_index == len(simple_paths_list_sorted[index])-1:
-                    station_type = "end"
-
-                elif same_line:
-                    station_type = "regular"
-
-                else:
-                    station_type = "interchange"
-
-                line_id = get_station_info(station)['line']
                 unit = dict(
                     station_type=station_type,
                     station_id=station,
@@ -217,19 +222,7 @@ def get_routes(delta=5, limit=3):
                     )
                 )
 
-                if station_type == "start":
-                    if portal_from is not None:
-                        unit['barriers'] = portal_barriers(portal_from)
-                    else:
-                        unit['barriers'] = None
-
-                elif station_type == "end":
-                    if portal_to is not None:
-                        unit['barriers'] = portal_barriers(portal_to)
-                    else:
-                        unit['barriers'] = None
-
-                elif station_type == "interchange":
+                if station_type == "interchange":
                     unit['barriers'] = None
                     unit['barriers'] = interchange_barriers(station, get_next_item(simple_paths_list_sorted[index], station))
 
@@ -238,10 +231,16 @@ def get_routes(delta=5, limit=3):
 
                 route.append(unit)
 
-            routes.append(route)
+            # Заполняем информацию о входах
+            portals = dict(
+                portal_from=dict(barriers=portal_barriers(portal_from)) if portal_from else None,
+                portal_to=dict(barriers=portal_barriers(portal_to)) if portal_to else None
+            )
+
+            routes.append(dict(route=route, portals=portals))
 
         response.content_type = 'application/json'
-        return dumps(dict(routes=routes))
+        return dumps(dict(result=routes))
 
     else:
         return HTTPResponse(status=400)
