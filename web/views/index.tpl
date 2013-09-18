@@ -176,7 +176,7 @@
 
             });
 
-            content+="<li class='exit'>Выход" + " &rarr; " + routes[index].route[routes[index].length-1].station_name
+            content+="<li class='exit'>Выход" + " &rarr; " + routes[index].route[routes[index]route.length - 1].station_name
             if (routes[index].portals.portal_to) {
                 var barriers = routes[index].portals.portal_to.barriers;
                 if (barriers) {
