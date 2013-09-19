@@ -17,6 +17,7 @@
 
     <!-- Leaflet -->
     <link href="static/leaflet-0.6.4/leaflet.css" rel="stylesheet"/>
+    <link href="static/leaflet.label.css" rel="stylesheet"/>
     <!--[if lte IE 8]>
       <link href="leaflet-0.6.4/leaflet.ie.css" rel="stylesheet"/>
     <![endif]-->
@@ -102,6 +103,7 @@
     <script src="static/select2-3.4.2/select2.js"></script>
     <script src="static/select2-3.4.2/select2_locale_ru.js"></script>
     <script src="static/leaflet-0.6.4/leaflet.js"></script>
+    <script src="static/leaflet.label.js"></script>
     <script src="static/TileLayer.Grayscale.js"></script>
     <script src="static/m4a/m4a.loader.js"></script>
     <script src="static/m4a/m4a.stations.js"></script>
@@ -198,6 +200,17 @@
             }
             route = L.layerGroup();
             $.each(routes[index].route, function(i, item){
+                // Маркеры станций
+                route.addLayer(L.marker(
+                  item.coordinates,
+                  {
+                    icon: L.icon({
+                      iconUrl: '/static/img/station.png',
+                      iconAnchor: [3, 3]
+                    })
+                  }).bindLabel(item.station_name)
+                ).addTo(m4a.viewmodel.mainMap);
+                // Сегменты маршрута
                 if (i != 0) {
                     route.addLayer(
                         L.polyline(
@@ -209,6 +222,19 @@
                     ).addTo(m4a.viewmodel.mainMap);
                 }
             });
+
+            // Охват на маршрут
+            var xmin = routes[index].route[0].coordinates[1],
+                ymin = routes[index].route[0].coordinates[0],
+                xmax = routes[index].route[0].coordinates[1],
+                ymax = routes[index].route[0].coordinates[0];
+            $.each(routes[index].route, function(i, item) {
+              xmin = (item.coordinates[1]) < xmin ? item.coordinates[1] : xmin;
+              ymin = (item.coordinates[0]) < ymin ? item.coordinates[0] : ymin;
+              xmax = (item.coordinates[1]) > xmax ? item.coordinates[1] : xmax;
+              ymax = (item.coordinates[0]) > ymax ? item.coordinates[0] : ymax;
+            });
+            m4a.viewmodel.mainMap.fitBounds([[ymin, xmin], [ymax, xmax]]);
         }
 
 
