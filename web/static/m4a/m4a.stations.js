@@ -42,6 +42,8 @@
                                     var view = m4a.view;
                                     view.$metroStartInputID.val(feature.id);
                                     view.$metroStartInputName.val(feature.properties.name || feature.id);
+                                    $.each(inPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/in.png'}))});
+                                    e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
                                     view.$document.triggerHandler('/url/update', ['start', feature.id]);
                                 });
                             }
@@ -96,6 +98,8 @@
                                     var view = m4a.view;
                                     view.$metroEndInputID.val(feature.id);
                                     view.$metroEndInputName.val(feature.properties.name || feature.id);
+                                    $.each(inPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/out.png'}))});
+                                    e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
                                     view.$document.triggerHandler('/url/update', ['end', feature.id]);
                                 });
                             }
