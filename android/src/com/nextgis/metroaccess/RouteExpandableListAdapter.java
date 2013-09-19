@@ -129,7 +129,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-		RouteItem entry = (RouteItem) getGroup(groupPosition);
+		RouteItem entry = (RouteItem) getGroup(groupPosition);		
 		if (convertView == null) {
 			convertView = mInfalInflater.inflate(R.layout.station_row_layout, null);
 		}
@@ -167,10 +167,11 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		if(imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
-		}	
+		}
 
 		
 		ImageButton showSchemaButton = (ImageButton) convertView.findViewById(R.id.show_sheme);
+		showSchemaButton.setFocusable(false);
 		final File schemaFile = new File(MainActivity.msRDataPath + "/schemes", "" + entry.GetId() + ".png");		
 		if(schemaFile.exists()){
 			showSchemaButton.setOnClickListener(new OnClickListener() {
@@ -192,6 +193,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				}
 	 
 			});
+			showSchemaButton.setVisibility(View.VISIBLE);
 		}
 		else{
 			showSchemaButton.setVisibility(View.INVISIBLE);

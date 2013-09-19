@@ -25,16 +25,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Pair;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.SpinnerAdapter;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.view.MenuItem;
 
-public class StationListView extends SherlockActivity {
+public class StationListView extends SherlockActivity implements OnNavigationListener{
 	
 	protected int mnType;
 	protected int mnMaxWidth, mnWheelWidth;	
@@ -43,23 +48,26 @@ public class StationListView extends SherlockActivity {
     
 	protected Map<Integer, StationItem> mmoStations;
 	protected Map<String, int[]> mmoCrosses;
-    protected List<RouteItem> mRouteList;
 	public static final char DEGREE_CHAR = (char) 0x00B0;
+	
+	protected RouteExpandableListAdapter moAdapters[];
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //mbFilled = false;
         setContentView(R.layout.station_list_view);
         
-       	getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    ActionBar actionBar = getSupportActionBar();
+		Context context = actionBar.getThemedContext();		
+        
+	    actionBar.setHomeButtonEnabled(true);
+	    actionBar.setDisplayHomeAsUpEnabled(true);
         
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 1);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	        
 
-		mRouteList = new ArrayList<RouteItem>();
 	    Bundle extras = getIntent().getExtras(); 
 	    if(extras != null) {
 	    	mnDeparturePortalId = extras.getInt("dep_" + MainActivity.BUNDLE_PORTALID_KEY);
@@ -68,77 +76,106 @@ public class StationListView extends SherlockActivity {
 	    	mnPathCount = extras.getInt(MainActivity.BUNDLE_PATHCOUNT_KEY);
 	    	mmoStations = (Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
 	    	mmoCrosses = (Map<String, int[]>) extras.getSerializable(MainActivity.BUNDLE_CROSSESMAP_KEY);
-	    	//TODO:
-	    	/*
-	    	if(mnPathCount == 3){
-	    		
+
+	    	String[] data = new String[mnPathCount];
+	    	for(int i = 0; i < mnPathCount; i++){
+	    		data[i] = getString(R.string.sRoute) + " " + (i + 1);
 	    	}
-	    	else if(mnPathCount == 2){
-	    		
-	    	}
-	    	else if(mnPathCount == 1){
-	    		
-	    	}
-	    	*/
-	    	if(mnPathCount > 0){
-	    		
-	    		ArrayList<Integer> list = extras.getIntegerArrayList(MainActivity.BUNDLE_PATH_KEY + 0);
-	    		boolean bCross = false;
-	    		if(list != null){
 	    			
-	    			//add entrance
-			    	RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName), list.get(0), 6);
-			    	mRouteList.add(FillBarriersForEntrance(oEntrance, list.get(0)));	    		
-	    			
-		    		for(int i = 0; i < list.size(); i++){
-	    				int nId = list.get(i);
-	    				int nType = 5;
-						if(bCross){
-							bCross = false;
-							nType = 3;
-						}
-						
-						if(i != list.size() - 1){
-							int nNextId = list.get(i + 1);
-							int nLineFrom = mmoStations.get(nId).GetLine();
-							int nLineTo = mmoStations.get(nNextId).GetLine();
-							if(nLineFrom != nLineTo){
-								bCross = true;
-								nType = 4;
-							}
-						}
-						
-	    				StationItem entry = mmoStations.get(nId);
-			    		RouteItem oSta = new RouteItem(entry.GetId(), entry.GetName(), entry.GetLine(), nType);
-			    		if(i == list.size() - 1){
-			    			mRouteList.add(FillBarriersForExit(oSta, mnArrivalPortalId));
-			    		}
-			    		else{
-			    			mRouteList.add(FillBarriers(oSta, entry.GetId(), list.get(i + 1)));
-			    		}
-	    			}
-		    		
-		    		//add exit
-		    		StationItem sit = mmoStations.get(list.get(list.size() - 1));
-			    	RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), sit.GetLine(), 7);
-		    		mRouteList.add(oExit);	 
-	    		}	    		
-	    	}
+			ArrayAdapter<CharSequence> adapter= new ArrayAdapter<CharSequence>(context, R.layout.sherlock_spinner_dropdown_item, data);
+			adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+		    
+		    actionBar.setDisplayShowTitleEnabled(false);
+		    actionBar.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_LIST);
+		    actionBar.setListNavigationCallbacks((SpinnerAdapter)adapter, this);   
+		    
+
+		    if(mnPathCount > 0){
+		    	moAdapters = new RouteExpandableListAdapter[mnPathCount];
+			    for(int i = 0; i < mnPathCount; i++){
+			    	List<Integer> list = extras.getIntegerArrayList(MainActivity.BUNDLE_PATH_KEY + i);
+			    	moAdapters[i] = CreateAndFillAdapter(list);
+			    }
+		    }
 	    }
 
 	    
 	    // load list
     	mExpListView = (ExpandableListView) findViewById(R.id.lvPathList);
-        // create new adapter
-	    final RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, mRouteList);
-        // set adapter to list view
-	    mExpListView.setAdapter(expListAdapter);	
+
+    	// set adapter to list view
+	    mExpListView.setAdapter(moAdapters[0]);
 
         mExpListView.setFastScrollEnabled(true);
  
         mExpListView.setGroupIndicator(null);
+        
+        //mExpListView.setOnGroupClickListener(this);
     }
 	
+	protected RouteExpandableListAdapter CreateAndFillAdapter(List<Integer> list) {
+   		boolean bCross = false;
+   		boolean bCrossCross = false;
+   		if(list != null){
+    			
+			//add entrance
+	   		List<RouteItem> routeList = new ArrayList<RouteItem>();
+	   		RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName), list.get(0), 6);
+	   		routeList.add(FillBarriersForEntrance(oEntrance, list.get(0)));	    		
+	    			
+		    for(int i = 0; i < list.size(); i++){
+		    	bCrossCross = false;
+	    		int nId = list.get(i);
+	    		int nType = 5;
+				if(bCross){
+					bCross = false;
+					int nNextId = list.get(i + 1);
+					int nLineFrom = mmoStations.get(nId).GetLine();
+					int nLineTo = mmoStations.get(nNextId).GetLine();
+					if(nLineFrom != nLineTo){
+						nType = 9;
+						bCrossCross = true;
+						bCross = true;
+					}
+					else{
+						bCross = false;
+						nType = 3;
+					}
+				}
+				
+				if(!bCrossCross && i != list.size() - 1){
+					int nNextId = list.get(i + 1);
+					int nLineFrom = mmoStations.get(nId).GetLine();
+					int nLineTo = mmoStations.get(nNextId).GetLine();
+					if(nLineFrom != nLineTo){
+						bCross = true;
+						nType = 4;
+					}
+				}
+				
+	    		StationItem entry = mmoStations.get(nId);
+				RouteItem oSta = new RouteItem(entry.GetId(), entry.GetName(), entry.GetLine(), nType);
+				if(i == list.size() - 1){
+					routeList.add(FillBarriersForExit(oSta, mnArrivalPortalId));
+				}
+				else{
+					routeList.add(FillBarriers(oSta, entry.GetId(), list.get(i + 1)));
+				}
+	    	}
+		    		
+		    //add exit
+		    StationItem sit = mmoStations.get(list.get(list.size() - 1));
+			RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), sit.GetLine(), 7);
+			routeList.add(oExit);	 
+	    		    		
+	        // create new adapter
+		    RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, routeList);
+	        
+		    return expListAdapter;
+   		}
+   		return null;
+	}
+
 	protected RouteItem FillBarriers(RouteItem it, int StationFromId, int StationToId){
 		int[] naBarriers = mmoCrosses.get("" + StationFromId + "->" + StationToId);
 		if(naBarriers != null && naBarriers.length == 8){
@@ -222,14 +259,18 @@ public class StationListView extends SherlockActivity {
      public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; go home
-                //Intent intent = new Intent(this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //startActivity(intent);
             	finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+	@Override
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+    	// set adapter to list view
+	    mExpListView.setAdapter(moAdapters[itemPosition]);
+
+		return true;
+	}
 }

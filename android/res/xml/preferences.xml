@@ -22,14 +22,14 @@
     android:title="@string/sPrefTitle" >
 	<PreferenceCategory
 		android:title="@string/sPrefCatMain">
-		<ListPreference
+		<!-- ListPreference
 		    android:key="user_type"
 		    android:title="@string/sPrefNaviType"
 		    android:summary="@string/sPrefNaviTypeSummary"
 			android:defaultValue="1"
 			android:entries="@array/navi_type"
 			android:entryValues="@array/navi_type_val"
-			android:dialogTitle="@string/sPrefNaviTypeTitle" />
+			android:dialogTitle="@string/sPrefNaviTypeTitle" /-->
 		<EditTextPreference
 		    android:key="max_width"
 		    android:title="@string/sPrefCarriageSize"
@@ -46,7 +46,8 @@
 		    android:dialogTitle="@string/sPrefWheelBaseSizeTitle" />		
 	</PreferenceCategory>
 	<PreferenceCategory
-		android:title="@string/sPrefCatData">
+		android:title="@string/sPrefCatData"
+		android:key="data_cat">
 		<EditTextPreference
 		    android:key="download_path"
 		    android:title="@string/sPrefDataPath"

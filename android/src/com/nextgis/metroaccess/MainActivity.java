@@ -88,6 +88,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	final static String BUNDLE_CROSSESMAP_KEY = "crossmap";
 	final static String BUNDLE_STATIONID_KEY = "stationid";
 	final static String BUNDLE_PORTALID_KEY = "portalid";
+	final static String BUNDLE_METAMAP_KEY = "metamap";
 	
 	final static String REMOTE_METAFILE = "remotemeta.json";
 	final static String ROUTE_DATA_DIR = "rdata";
@@ -108,7 +109,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	//public final static int GET_META = 0;
 	
 	protected static Handler moGetJSONHandler; 
-	protected HashMap<Integer, JSONObject> mmoRouteMetadata;
+	protected Map<Integer, JSONObject> mmoRouteMetadata;
 	protected static String msRDataPath;
 	
 	protected Map<Integer, StationItem> mmoStations;
@@ -160,7 +161,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	            	switch(nEventSource){
 	            	case 1://get remote meta
 	            		File file = new File(getExternalFilesDir(null), REMOTE_METAFILE);
-	            		sPayload = readFromFile(file);
+	            		sPayload = readFromFile(file, MainActivity.this);
 	            		break;
             		default:
             			return;
@@ -512,6 +513,19 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             // app icon in action bar clicked; go home
             Intent intentSet = new Intent(this, PreferencesActivity.class);
             intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bundle bundle = new Bundle();
+            List<String> aoRouteMetadata = new ArrayList<String>();
+            for(JSONObject obj : mmoRouteMetadata.values()){
+           		try {
+	            	if(obj.has("name")){
+	 						aoRouteMetadata.add(obj.getString("name"));
+	            	}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+            }
+            bundle.putSerializable(BUNDLE_METAMAP_KEY, (Serializable) aoRouteMetadata);
+            intentSet.putExtras(bundle);            
             startActivity(intentSet);
             return true;
         case MENU_ABOUT:
@@ -533,7 +547,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			    if (inFile.isDirectory()) {
 			        File metafile = new File(inFile, META);
 			        if(metafile.isFile()){
-			        	String sJSON = readFromFile(metafile);
+			        	String sJSON = readFromFile(metafile, this);
 			        	JSONObject oJSON;
 						try {
 							oJSON = new JSONObject(sJSON);
@@ -754,7 +768,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		}
 	}
 	
-	private boolean writeToFile(File filePath, String sData){
+	protected boolean writeToFile(File filePath, String sData){
 		try{
 			FileOutputStream os = new FileOutputStream(filePath, false);
 			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(os);
@@ -767,7 +781,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		}		
 	}
 
-	private String readFromFile(File filePath) {
+	public static String readFromFile(File filePath, Context c) {
 
 	    String ret = "";
 
@@ -789,9 +803,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	        }
 	    }
 	    catch (FileNotFoundException e) {
-	    	Toast.makeText(MainActivity.this, getString(R.string.sFileNotFound) + ": " + e.toString(), Toast.LENGTH_LONG).show();
+	    	Toast.makeText(c, c.getString(R.string.sFileNotFound) + ": " + e.toString(), Toast.LENGTH_LONG).show();
 	    } catch (IOException e) {
-	    	Toast.makeText(MainActivity.this, getString(R.string.sCannotReadFile) + ": " + e.toString(), Toast.LENGTH_LONG).show();
+	    	Toast.makeText(c, c.getString(R.string.sCannotReadFile) + ": " + e.toString(), Toast.LENGTH_LONG).show();
 	    }
 
 	    return ret;
