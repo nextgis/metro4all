@@ -82,6 +82,9 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		if(bit.IsProblem()){
 			item.setTextColor(Color.RED);
 		}
+		else{
+			item.setTextColor(Color.WHITE);	
+		}			
 		//
 		item.setText(bit.GetName());
 		
@@ -137,7 +140,21 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		TextView subitem = (TextView) convertView.findViewById(R.id.tvBarriersExist);
 		if(entry.GetProblems().size() > 0){
 			subitem.setVisibility(View.VISIBLE);
-			subitem.setText(mContext.getString(R.string.sBarriersExist));
+			boolean bConflict = false;
+			for(BarrierItem bit : entry.GetProblems()){
+				if(bit.IsProblem()){
+					bConflict = true;
+					break;
+				}
+			}
+			if(bConflict){
+				subitem.setText(mContext.getString(R.string.sBarriersExist) + " " + mContext.getString(R.string.sBarriersConflict));
+				subitem.setTextColor(Color.RED);
+			}
+			else{
+				subitem.setText(mContext.getString(R.string.sBarriersExist));
+				subitem.setTextColor(Color.WHITE);
+			}
 		}
 		else{
 			subitem.setVisibility(View.INVISIBLE);

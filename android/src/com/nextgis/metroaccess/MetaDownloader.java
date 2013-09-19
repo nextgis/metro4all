@@ -29,6 +29,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
@@ -86,8 +89,16 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 	        	moHTTPGet = new HttpGet(sURL);
 	            
 	            Log.d(MainActivity.TAG, "HTTPGet URL " + sURL);
+	            
+	            HttpParams httpParameters = new BasicHttpParams();
+	            int timeoutConnection = 1000;
+	            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+	            // Set the default socket timeout (SO_TIMEOUT) 
+	            // in milliseconds which is the timeout for waiting for data.
+	            int timeoutSocket = 2000;
+	            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);         
 
-	            HttpClient Client = new DefaultHttpClient();
+	            HttpClient Client = new DefaultHttpClient(httpParameters);
 	            HttpResponse response = Client.execute(moHTTPGet);
 	            if(response == null)
 	            	return null;

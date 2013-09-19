@@ -30,10 +30,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +66,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -82,6 +85,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	final static String BUNDLE_PATHCOUNT_KEY = "pathcount";
 	final static String BUNDLE_PATH_KEY = "path_";
 	final static String BUNDLE_STATIONMAP_KEY = "stationmap";
+	final static String BUNDLE_CROSSESMAP_KEY = "crossmap";
 	final static String BUNDLE_STATIONID_KEY = "stationid";
 	final static String BUNDLE_PORTALID_KEY = "portalid";
 	
@@ -107,7 +111,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected HashMap<Integer, JSONObject> mmoRouteMetadata;
 	protected static String msRDataPath;
 	
-	protected HashMap<Integer, StationItem> mmoStations;
+	protected Map<Integer, StationItem> mmoStations;
+	protected Map<String, int[]> mmoCrosses;
 	protected List<Pair<Integer, Integer>> maoDepRecentIds, maoArrRecentIds;
 
 	protected Graph mGraph;
@@ -394,6 +399,38 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        	in.close();
 		    	}
 			}
+			
+			//fill interchanges.csv
+			mmoCrosses = new HashMap<String, int[]>(); 
+			File inter_route = new File(msRDataPath, "interchanges.csv");
+			if (inter_route != null) {
+	        	InputStream in = new BufferedInputStream(new FileInputStream(inter_route));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		        String line = reader.readLine();
+		        while ((line = reader.readLine()) != null) {
+		             String[] RowData = line.split(CSV_CHAR);
+		             
+		             //station_from;station_to;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
+		             
+		             if(RowData.length != 10){
+		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "interchanges.csv", Toast.LENGTH_LONG).show();
+		            	 return;
+		             }
+		             
+					 int nFromId = Integer.parseInt(RowData[0]);
+					 int nToId = Integer.parseInt(RowData[1]);
+					 int[] naBarriers = {0,0,0,0,0,0,0,0};
+					 for(int i = 2; i < 10; i++){
+						 int nVal = Integer.parseInt(RowData[i]);
+						 naBarriers[i - 2] = nVal;
+					 }	 
+					 mmoCrosses.put("" + nFromId + "->" + nToId, naBarriers);					 
+		        }
+		        reader.close();
+		        if (in != null) {
+		        	in.close();
+		    	}
+			}
 	    }
 	    catch (IOException ex) {
 	    	ex.printStackTrace();
@@ -515,7 +552,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	}	
 	
 	protected void CheckForUpdates(){
-		MetaDownloader uploader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), moGetJSONHandler, false);
+		MetaDownloader uploader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), moGetJSONHandler, true);
 		uploader.execute(sUrl + META);				
 	}
 	
@@ -848,7 +885,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    Intent intent = new Intent(this, SelectStationActivity.class);
 	    Bundle bundle = new Bundle();
 	    bundle.putInt(BUNDLE_EVENTSRC_KEY, DEPARTURE_RESULT);
-        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
+        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
         bundle.putBoolean(BUNDLE_ENTRANCE_KEY, true);
 	    intent.putExtras(bundle);
 	    startActivityForResult(intent, DEPARTURE_RESULT);	
@@ -858,7 +895,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    Intent intent = new Intent(this, SelectStationActivity.class);
 	    Bundle bundle = new Bundle();
 	    bundle.putInt(BUNDLE_EVENTSRC_KEY, ARRIVAL_RESULT);
-        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
+        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
         bundle.putBoolean(BUNDLE_ENTRANCE_KEY, false);
 	    intent.putExtras(bundle);
 	    startActivityForResult(intent, ARRIVAL_RESULT);			
@@ -938,70 +975,89 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	}
 	
 	protected void onSearch(){
-		//BellmanFordShortestPath
-		/*List<DefaultWeightedEdge> path = BellmanFordShortestPath.findPathBetween(mGraph, stFrom.getId(), stTo.getId());
-		if(path != null){
-			for(DefaultWeightedEdge edge : path) {
-                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
-                }
-		}*/
-		//DijkstraShortestPath
-		/*List<DefaultWeightedEdge> path = DijkstraShortestPath.findPathBetween(mGraph, stFrom.getId(), stTo.getId());
-		if(path != null){
-			for(DefaultWeightedEdge edge : path) {
-                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
-                }
-		}*/	
-        //KShortestPaths
-		/*
-		KShortestPaths<Integer, DefaultWeightedEdge> kPaths = new KShortestPaths<Integer, DefaultWeightedEdge>(mGraph, stFrom.getId(), 2);
-        List<GraphPath<Integer, DefaultWeightedEdge>> paths = null;
-        try {
-            paths = kPaths.getPaths(stTo.getId());
-            for (GraphPath<Integer, DefaultWeightedEdge> path : paths) {
-                for (DefaultWeightedEdge edge : path.getEdgeList()) {
-                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
-                }
-                Log.d("Route", "Weight: " + path.getWeight());
-            }
-        } catch (IllegalArgumentException e) {
-        	e.printStackTrace();
-        }*/
 		
-		//YenTopKShortestPathsAlg
-		YenTopKShortestPathsAlg yenAlg = new YenTopKShortestPathsAlg(mGraph);
-		List<Path> shortest_paths_list = yenAlg.get_shortest_paths(mGraph.get_vertex(mnDepartureStationId), mGraph.get_vertex(mnArrivalStationId), 3);
+		final ProgressDialog progressDialog = new ProgressDialog(this);
+		progressDialog.setCancelable(false);
+		progressDialog.setIndeterminate(true);
+		progressDialog.setMessage(getString(R.string.sSearching));
+		progressDialog.show();
 		
-		if(shortest_paths_list.size() == 0){
-			Toast.makeText(this, R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
-		}
-		else {
-	        Intent intentView = new Intent(MainActivity.this, com.nextgis.metroaccess.StationListView.class);
-	        //intentView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-		
-	        int nCounter = 0;
-	        Bundle bundle = new Bundle();
-	        bundle.putInt("dep_" + BUNDLE_PORTALID_KEY, mnDeparturePortalId);
-	        bundle.putInt("arr_" + BUNDLE_PORTALID_KEY, mnArrivalPortalId);			
+		new Thread() {
 
-	        for (Path path : shortest_paths_list) {
-				ArrayList<Integer> IndexPath = new  ArrayList<Integer>();
-				Log.d(TAG, "Route# " + nCounter);
-	            for (BaseVertex v : path.get_vertices()) {
-	            	IndexPath.add(v.get_id());
-	            	Log.d(TAG, "<" + mmoStations.get(v.get_id()));
-	            }
-	            intentView.putIntegerArrayListExtra(BUNDLE_PATH_KEY + nCounter, IndexPath);
-	            nCounter++;
-	        }	        
-	        
-	        bundle.putInt(BUNDLE_PATHCOUNT_KEY, nCounter);
-	        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, mmoStations);
-			
-			intentView.putExtras(bundle);
-	        
-	        MainActivity.this.startActivity(intentView);
-	       
-		}
+			public void run() {
+
+				//BellmanFordShortestPath
+				/*List<DefaultWeightedEdge> path = BellmanFordShortestPath.findPathBetween(mGraph, stFrom.getId(), stTo.getId());
+				if(path != null){
+					for(DefaultWeightedEdge edge : path) {
+		                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
+		                }
+				}*/
+				//DijkstraShortestPath
+				/*List<DefaultWeightedEdge> path = DijkstraShortestPath.findPathBetween(mGraph, stFrom.getId(), stTo.getId());
+				if(path != null){
+					for(DefaultWeightedEdge edge : path) {
+		                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
+		                }
+				}*/	
+		        //KShortestPaths
+				/*
+				KShortestPaths<Integer, DefaultWeightedEdge> kPaths = new KShortestPaths<Integer, DefaultWeightedEdge>(mGraph, stFrom.getId(), 2);
+		        List<GraphPath<Integer, DefaultWeightedEdge>> paths = null;
+		        try {
+		            paths = kPaths.getPaths(stTo.getId());
+		            for (GraphPath<Integer, DefaultWeightedEdge> path : paths) {
+		                for (DefaultWeightedEdge edge : path.getEdgeList()) {
+		                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
+		                }
+		                Log.d("Route", "Weight: " + path.getWeight());
+		            }
+		        } catch (IllegalArgumentException e) {
+		        	e.printStackTrace();
+		        }*/
+				
+				//YenTopKShortestPathsAlg
+				YenTopKShortestPathsAlg yenAlg = new YenTopKShortestPathsAlg(mGraph);
+				List<Path> shortest_paths_list = yenAlg.get_shortest_paths(mGraph.get_vertex(mnDepartureStationId), mGraph.get_vertex(mnArrivalStationId), 3);
+				
+				if(shortest_paths_list.size() == 0){
+					Toast.makeText(MainActivity.this, R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
+				}
+				else {
+			        Intent intentView = new Intent(MainActivity.this, com.nextgis.metroaccess.StationListView.class);
+			        //intentView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+				
+			        int nCounter = 0;
+			        Bundle bundle = new Bundle();
+			        bundle.putInt("dep_" + BUNDLE_PORTALID_KEY, mnDeparturePortalId);
+			        bundle.putInt("arr_" + BUNDLE_PORTALID_KEY, mnArrivalPortalId);			
+
+			        for (Path path : shortest_paths_list) {
+						ArrayList<Integer> IndexPath = new  ArrayList<Integer>();
+						Log.d(TAG, "Route# " + nCounter);
+			            for (BaseVertex v : path.get_vertices()) {
+			            	IndexPath.add(v.get_id());
+			            	Log.d(TAG, "<" + mmoStations.get(v.get_id()));
+			            }
+			            intentView.putIntegerArrayListExtra(BUNDLE_PATH_KEY + nCounter, IndexPath);
+			            nCounter++;
+			        }	        
+			        
+			        bundle.putInt(BUNDLE_PATHCOUNT_KEY, nCounter);
+			        bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
+			        bundle.putSerializable(BUNDLE_CROSSESMAP_KEY, (Serializable) mmoCrosses);
+					
+					intentView.putExtras(bundle);
+			        
+			        MainActivity.this.startActivity(intentView);
+			       
+				}
+
+				progressDialog.dismiss();
+
+			}
+
+		}.start();
+
 	} 
 }

@@ -13,6 +13,7 @@
 	<string name="sNetworkUnreachErr">Network is not available</string>
     <string name="sDownLoading">Downloading &#8230;</string>
     <string name="sZipExtractionProcess">Extracting &#8230;</string>
+    <string name="sSearching">Searching &#8230;</string>
 	<string name="sNetworkInvalidData">The data are invalid</string>
 	<string name="sFileNotFound">File not found</string>
 	<string name="sCannotReadFile">Cannot read file</string>
@@ -35,6 +36,7 @@
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>
 	<string name="sBarriersExist">There are the following barriers&#8230;</string>
+	<string name="sBarriersConflict">You have a conflict</string>
 	<string name="sMaxWCWidth">The max weelchair width</string>
 	<string name="sStairsCount">The stairs count</string>
 	<string name="sStairsWORails">From them without rails and ramps</string>

@@ -28,6 +28,7 @@ import java.util.Map;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Pair;
 import android.widget.ExpandableListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -41,6 +42,7 @@ public class StationListView extends SherlockActivity {
 	protected int mnPathCount, mnDeparturePortalId, mnArrivalPortalId;
     
 	protected Map<Integer, StationItem> mmoStations;
+	protected Map<String, int[]> mmoCrosses;
     protected List<RouteItem> mRouteList;
 	public static final char DEGREE_CHAR = (char) 0x00B0;
 
@@ -65,6 +67,7 @@ public class StationListView extends SherlockActivity {
 	    	
 	    	mnPathCount = extras.getInt(MainActivity.BUNDLE_PATHCOUNT_KEY);
 	    	mmoStations = (Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
+	    	mmoCrosses = (Map<String, int[]>) extras.getSerializable(MainActivity.BUNDLE_CROSSESMAP_KEY);
 	    	//TODO:
 	    	/*
 	    	if(mnPathCount == 3){
@@ -111,7 +114,7 @@ public class StationListView extends SherlockActivity {
 			    			mRouteList.add(FillBarriersForExit(oSta, mnArrivalPortalId));
 			    		}
 			    		else{
-			    			mRouteList.add(FillBarriers(oSta, entry.GetId()));
+			    			mRouteList.add(FillBarriers(oSta, entry.GetId(), list.get(i + 1)));
 			    		}
 	    			}
 		    		
@@ -136,8 +139,11 @@ public class StationListView extends SherlockActivity {
         mExpListView.setGroupIndicator(null);
     }
 	
-	protected RouteItem FillBarriers(RouteItem it, int StationId){
-		//TODO: Fill with data from intercha...
+	protected RouteItem FillBarriers(RouteItem it, int StationFromId, int StationToId){
+		int[] naBarriers = mmoCrosses.get("" + StationFromId + "->" + StationToId);
+		if(naBarriers != null && naBarriers.length == 8){
+			FillWithData(naBarriers, it);
+		}
 		return it;
 	}
 
@@ -194,12 +200,14 @@ public class StationListView extends SherlockActivity {
 		}
 		if(naBarriers[5] > 0){//min_rail_width
 			String sName = getString(R.string.sMinRailWidth) + ": " + naBarriers[5] / 10 + " " + getString(R.string.sCM);
-			BarrierItem bit = new BarrierItem(5, sName, false, naBarriers[5]);
+			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
+			BarrierItem bit = new BarrierItem(5, sName, !bCanRoll, naBarriers[5]);
 			it.AddBarrier(bit);
 		}
 		if(naBarriers[6] > 0){//max_rail_width
 			String sName = getString(R.string.sMaxRailWidth) + ": " + naBarriers[6] / 10 + " " + getString(R.string.sCM);
-			BarrierItem bit = new BarrierItem(6, sName, false, naBarriers[6]);
+			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
+			BarrierItem bit = new BarrierItem(6, sName, !bCanRoll, naBarriers[6]);
 			it.AddBarrier(bit);
 		}
 		if(naBarriers[7] > 0){//max_angle

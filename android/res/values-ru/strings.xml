@@ -11,7 +11,8 @@
 	<string name="sAbout">О программе</string>
 	<string name="sNetworkGetErr">Ошибка получения данных</string>
 	<string name="sNetworkUnreachErr">Отсутствует подключение к сети</string>
-    <string name="sDownLoading">Загружается &#8230;</string>
+    <string name="sDownLoading">Загружается &#8230;</string>    
+    <string name="sSearching">Поиск &#8230;</string>
     <string name="sZipExtractionProcess">Распаковка &#8230;</string>
 	<string name="sNetworkInvalidData">Ошибка в данных</string>
 	<string name="sFileNotFound">Файл не найден</string>
@@ -35,6 +36,7 @@
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>
 	<string name="sBarriersExist">There are the following barriers&#8230;</string>
+	<string name="sBarriersConflict">You have a conflict</string>		
 	<string name="sMaxWCWidth">The max weelchair width</string>
 	<string name="sStairsCount">The stairs count</string>
 	<string name="sStairsWORails">From them without rails and ramps</string>
