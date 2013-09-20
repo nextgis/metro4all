@@ -30,8 +30,12 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -173,6 +177,9 @@ public class DataDownloader extends AsyncTask<String, String, String> {
         
     	@Override
     	protected Boolean doInBackground(String... params) {
+    		
+            Bundle bundle = new Bundle();
+            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
     
     		String filePath = params[0];
     		File archive = new File(filePath);
@@ -185,19 +192,39 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     			}
     			zipfile.close();
     			archive.delete();
-    		} catch (Exception e) {
-    			return false;
-    		}
     		
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
-            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
-            bundle.putString("path", msPath);
-            bundle.putString("name", msName);
-            bundle.putString("locname", msLocName);
-            bundle.putInt("ver", mnVer);
-            bundle.putBoolean("directed", mbDirected);
+    			JSONObject oJSONRoot = new JSONObject();
+
+            	oJSONRoot.put("name", msName);
+				oJSONRoot.put("name_" + Locale.getDefault().getLanguage(), msLocName);
+				oJSONRoot.put("ver", mnVer);
+				oJSONRoot.put("directed", mbDirected);            
             
+	            String sJSON = oJSONRoot.toString();
+	            File file = new File(msPath, MainActivity.META);
+	            if(MainActivity.writeToFile(file, sJSON)){
+	            	//store data
+	            	//create sqlite db
+	            	//Creating and saving the graph
+		            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
+	            } 
+	            else{
+		            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
+	                bundle.putString(MainActivity.BUNDLE_MSG_KEY, "write failed");
+	            }
+    		
+			} 
+    		catch (JSONException e) {
+				e.printStackTrace();
+	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
+				bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+			}
+			catch (Exception e) {
+	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
+	            bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+				return false;
+			}    		
+                  
             Message msg = new Message();
             msg.setData(bundle);
             if(moEventReceiver != null){

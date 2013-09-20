@@ -94,11 +94,11 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    metWheelWidth = (EditTextPreference) findPreference(KEY_PREF_WHEEL_WIDTH);
 	    metWheelWidth.setSummary((String) metWheelWidth.getText() + " " + getString(R.string.sCM));
 	    
-	    //TODO: add data packages list and button update data
-	    metDownloadPath = (EditTextPreference) findPreference(KEY_PREF_DOWNLOAD_PATH);
-	    msUrl = (String) metDownloadPath.getText();
-	    metDownloadPath.setSummary(msUrl);
+	    //metDownloadPath = (EditTextPreference) findPreference(KEY_PREF_DOWNLOAD_PATH);
+	    //msUrl = (String) metDownloadPath.getText();
+	    //metDownloadPath.setSummary(msUrl);
 	    
+	    //TODO: add button update data
 	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
 	    
 		File file = new File(getExternalFilesDir(null), MainActivity.REMOTE_METAFILE);
@@ -209,7 +209,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             }
         }	*/
 		else if(key.equals(KEY_PREF_DOWNLOAD_PATH)){
-			msUrl = sharedPreferences.getString(key, msUrl);			
+			msUrl = sharedPreferences.getString(key, MainActivity.sUrl);			
     		if(msUrl.length() > 0)
             	Pref.setSummary(msUrl);			
 		}
@@ -242,6 +242,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 						if(sLocName.length() == 0){
 							sLocName = sName;
 						}
+						
+						msUrl = sharedPreferences.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.sUrl);
 						
 						DataDownloader uploader = new DataDownloader(this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), null);
 						uploader.execute(msUrl + sPath + ".zip");

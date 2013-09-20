@@ -21,7 +21,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/sPrefTitle" >
 	<PreferenceCategory
-		android:title="@string/sPrefCatMain">
+		android:title="@string/sPrefCatMain"
+		android:key="main_cat">
 		<!-- ListPreference
 		    android:key="user_type"
 		    android:title="@string/sPrefNaviType"
@@ -48,12 +49,12 @@
 	<PreferenceCategory
 		android:title="@string/sPrefCatData"
 		android:key="data_cat">
-		<EditTextPreference
+		<!-- EditTextPreference
 		    android:key="download_path"
 		    android:title="@string/sPrefDataPath"
 		    android:summary="@string/sPrefDataPathSummary"
 		    android:defaultValue="http://gis-lab.info/data/zp-gis/data/ma/"
-		    android:dialogTitle="@string/sPrefDataPathTitle" />
+		    android:dialogTitle="@string/sPrefDataPathTitle" /-->
 	    		
 	</PreferenceCategory>
 </PreferenceScreen>

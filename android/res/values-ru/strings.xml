@@ -38,7 +38,7 @@
 	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
 	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
 	<string name="sMaxWCWidth">Максимальная ширина коляски</string>
-	<string name="sStairsCount">Ступенек:</string>
+	<string name="sStairsCount">Ступенек</string>
 	<string name="sStairsWORails">Из них без аппарелей или рамп</string>
 	<string name="sLift">Лифт</string>
 	<string name="sLiftEconomy">Лифт экономит ступенек</string>
