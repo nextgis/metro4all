@@ -52,7 +52,8 @@
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
 	<string name="sLimits">My limitations</string>	
-	<string name="sLimitsSet">Set my limitations</string>		
+	<string name="sLimitsSet">Set my limitations</string>
+	<string name="sSummary">Trip summary</string>		
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>

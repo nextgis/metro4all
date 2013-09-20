@@ -148,7 +148,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				}
 			}
 			if(bConflict){
-				subitem.setText(mContext.getString(R.string.sBarriersExist) + " " + mContext.getString(R.string.sBarriersConflict));
+				subitem.setText(mContext.getString(R.string.sBarriersExist));
+				// + " " + mContext.getString(R.string.sBarriersConflict));
 				subitem.setTextColor(Color.RED);
 			}
 			else{

@@ -19,7 +19,7 @@
 	<string name="sCannotReadFile">Не могу прочитать файл</string>
 	<string name="sCannotGetPath">Не найден путь</string>
 	<string name="sInvalidCSVData">Некорректные данные в csv, неправильное число полей. Файл: </string>
-	<string name="sNoOrEmptyData">Отсутвуют данные для построения маршрутоа или данные поврждены. Обновите данные</string>
+	<string name="sNoOrEmptyData">Отсутствуют данные для построения маршрутов или данные повреждены. Обновите данные</string>
 		
 	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>

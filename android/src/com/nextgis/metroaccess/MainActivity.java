@@ -169,6 +169,10 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	            		File file = new File(getExternalFilesDir(null), REMOTE_METAFILE);
 	            		sPayload = readFromFile(file, MainActivity.this);
 	            		break;
+	            	case 2:
+	            		if(IsRoutingDataExist())
+	                    	LoadInterface();
+	            		break;
             		default:
             			return;
 	            	}
@@ -497,8 +501,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 					new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
+					LoadInterface();
 					dialog.cancel();
-
 				}
 			});
 			builder.create();

@@ -111,6 +111,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		
             Bundle bundle = new Bundle();
             bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
+            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
             bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
             
             Message msg = new Message();
@@ -139,6 +140,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     			
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
+                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
                 bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
                 
                 Message msg = new Message();

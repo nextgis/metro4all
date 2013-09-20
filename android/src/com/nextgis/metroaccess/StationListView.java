@@ -171,8 +171,57 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		    //add exit
 		    StationItem sit = mmoStations.get(list.get(list.size() - 1));
 			RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), sit.GetLine(), 7);
-			routeList.add(oExit);	 
-	    		    		
+			routeList.add(oExit);
+			
+			/*int[] naBarriers = {0,0,0,0,0,0,0,0};
+			for(RouteItem rit : routeList){
+				List<BarrierItem> bits = rit.GetProblems();
+				if(bits != null){
+					for(BarrierItem bit : bits){
+						if(bit.GetId() == 0){
+							if(naBarriers[0] < bit.GetValue()){
+								naBarriers[0] = bit.GetValue();
+							}
+						}
+						else if(bit.GetId() == 1){
+							naBarriers[1] += bit.GetValue();							
+						}
+						else if(bit.GetId() == 2){
+							naBarriers[2] += bit.GetValue();
+						}
+						else if(bit.GetId() == 3){
+							naBarriers[3] += bit.GetValue();
+						}
+						else if(bit.GetId() == 4){
+							naBarriers[4] += bit.GetValue();
+						}
+						else if(bit.GetId() == 5){
+							if(naBarriers[5] == 0){ 
+								naBarriers[5] = bit.GetValue();
+							}
+							else if(naBarriers[5] > bit.GetValue()){
+								naBarriers[5] = bit.GetValue();
+							}
+						}
+						else if(bit.GetId() == 6){
+							if(naBarriers[6] < bit.GetValue()){
+								naBarriers[6] = bit.GetValue();
+							}
+						}
+						else if(bit.GetId() == 7){
+							if(naBarriers[7] < bit.GetValue()){
+								naBarriers[7] = bit.GetValue();
+							}
+						}
+					}
+				}
+			}
+			
+			RouteItem oSumm = new RouteItem(-1, getString(R.string.sSummary), 0, 0);
+			FillWithData(naBarriers, oSumm, true);	    		
+			routeList.add(0, oSumm);
+			*/
+			
 	        // create new adapter
 		    RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, routeList);
 	        
@@ -184,7 +233,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	protected RouteItem FillBarriers(RouteItem it, int StationFromId, int StationToId){
 		int[] naBarriers = mmoCrosses.get("" + StationFromId + "->" + StationToId);
 		if(naBarriers != null && naBarriers.length == 8){
-			FillWithData(naBarriers, it);
+			FillWithData(naBarriers, it, false);
 		}
 		return it;
 	}
@@ -194,7 +243,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		if(sit != null){
 			PortalItem pit = sit.GetPortal(it.GetId());
 			if(pit != null){
-				FillWithData(pit.GetDetailes(), it);		
+				FillWithData(pit.GetDetailes(), it, false);		
 			}
 		}
 		it.SetLine(sit.GetLine());
@@ -206,53 +255,53 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		if(sit != null){
 			PortalItem pit = sit.GetPortal(PortalId);
 			if(pit != null){
-				FillWithData(pit.GetDetailes(), it);		
+				FillWithData(pit.GetDetailes(), it, false);		
 			}
 		}
 		it.SetLine(sit.GetLine());
 		return it;
 	}
 
-	protected void FillWithData(int[] naBarriers, RouteItem it){
-		if(naBarriers[0] > 0){//max_width
+	protected void FillWithData(int[] naBarriers, RouteItem it, boolean bWithZeroes){
+		if(bWithZeroes || naBarriers[0] > 0){//max_width
 			boolean bProblem = naBarriers[0] < mnMaxWidth;
 			String sName = getString(R.string.sMaxWCWidth) + ": " + naBarriers[0] / 10 + " " + getString(R.string.sCM);
 			BarrierItem bit = new BarrierItem(0, sName, bProblem, naBarriers[0]);
 			it.AddBarrier(bit);
 		}
-		if(naBarriers[1] > 0){//min_step
+		if(bWithZeroes || naBarriers[1] > 0){//min_step
 			String sName = getString(R.string.sStairsCount) + ": " + naBarriers[1];
 			BarrierItem bit = new BarrierItem(1, sName, false, naBarriers[1]);
 			it.AddBarrier(bit);
 		}
-		if(naBarriers[2] > 0){//min_step_ramp
+		if(bWithZeroes || naBarriers[2] > 0){//min_step_ramp
 			String sName = getString(R.string.sStairsWORails) + ": " + naBarriers[2];
 			BarrierItem bit = new BarrierItem(2, sName, false, naBarriers[2]);
 			it.AddBarrier(bit);
 		}
-		if(naBarriers[3] > 0){//lift
+		if(bWithZeroes || naBarriers[3] > 0){//lift
 			String sName = getString(R.string.sLift) + ": " + naBarriers[3];
 			BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
 			it.AddBarrier(bit);
 		}				
-		if(naBarriers[4] > 0){//lift_minus_step
+		if(bWithZeroes || naBarriers[4] > 0){//lift_minus_step
 			String sName = getString(R.string.sLiftEconomy) + ": " + naBarriers[4];
 			BarrierItem bit = new BarrierItem(4, sName, false, naBarriers[4]);
 			it.AddBarrier(bit);
 		}
-		if(naBarriers[5] > 0){//min_rail_width
+		if(bWithZeroes || naBarriers[5] > 0){//min_rail_width
 			String sName = getString(R.string.sMinRailWidth) + ": " + naBarriers[5] / 10 + " " + getString(R.string.sCM);
 			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
 			BarrierItem bit = new BarrierItem(5, sName, !bCanRoll, naBarriers[5]);
 			it.AddBarrier(bit);
 		}
-		if(naBarriers[6] > 0){//max_rail_width
+		if(bWithZeroes || naBarriers[6] > 0){//max_rail_width
 			String sName = getString(R.string.sMaxRailWidth) + ": " + naBarriers[6] / 10 + " " + getString(R.string.sCM);
 			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
 			BarrierItem bit = new BarrierItem(6, sName, !bCanRoll, naBarriers[6]);
 			it.AddBarrier(bit);
 		}
-		if(naBarriers[7] > 0){//max_angle
+		if(bWithZeroes || naBarriers[7] > 0){//max_angle
 			String sName = getString(R.string.sMaxAngle) + ": " + naBarriers[7] + DEGREE_CHAR;
 			BarrierItem bit = new BarrierItem(7, sName, false, naBarriers[7]);
 			it.AddBarrier(bit);
