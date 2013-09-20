@@ -23,6 +23,7 @@
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data updates is available</string>
 	<string name="sDownload">Download</string>
+	<string name="sDelete">Delete</string>
 	<string name="sCancel">Cancel</string>
 	<string name="sSearch">Search</string>
 	<string name="sFromStation">Departure station</string>
@@ -46,6 +47,8 @@
 	<string name="sMinRailWidth">Minimum rail width</string>
 	<string name="sMaxRailWidth">Maximum rail width</string>
 	<string name="sMaxAngle">Maximum angle of the ramp</string>
+	<string name="sDownloadData">Download new data?</string>
+	<string name="sDeleteData">Delete exist data?</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>

@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   inkscape:export-filename="D:\work\projects\android\metroaccess\art\icons\66.png"
+   inkscape:export-filename="D:\work\projects\android\metroaccess\art\icons\19.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docname="station_icons.svg">
@@ -246,10 +246,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.1926018"
-     inkscape:cx="6.7107963"
+     inkscape:cx="-17.133148"
      inkscape:cy="33.520889"
      inkscape:document-units="px"
-     inkscape:current-layer="layer12"
+     inkscape:current-layer="layer3"
      showgrid="false"
      inkscape:window-width="1600"
      inkscape:window-height="838"
@@ -301,9 +301,9 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="line2"
-     style="display:none">
+     style="display:inline">
     <path
-       style="fill:#37c871;stroke:#aaccff;stroke-width:9.90902138;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       style="fill:#37c871;stroke:#ff0000;stroke-width:9.90902138000000040;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
        d="M 31.857411,10.512546 32.142589,53.53285"
        id="path3802-1"
        inkscape:connector-curvature="0"
@@ -313,7 +313,7 @@
      inkscape:groupmode="layer"
      id="layer11"
      inkscape:label="line in"
-     style="display:inline">
+     style="display:none">
     <path
        style="fill:none;stroke:#ff6600;stroke-width:9.9090004;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;display:inline"
        d="m 54.380554,32.022698 -22.26422,0 0,32.749026"
@@ -387,10 +387,10 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="cross to"
-     style="display:none">
+     style="display:inline">
     <path
        sodipodi:type="arc"
-       style="fill:#aaccff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#ff0000;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="path2989-9-52"
        sodipodi:cx="32.245777"
        sodipodi:cy="32.639015"
@@ -413,10 +413,10 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="cross from"
-     style="display:none">
+     style="display:inline">
     <path
        sodipodi:type="arc"
-       style="fill:#aaccff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#ff0000;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="path2989-9-5"
        sodipodi:cx="32.245777"
        sodipodi:cy="32.639015"

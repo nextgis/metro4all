@@ -103,6 +103,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 	public final static int DEPARTURE_RESULT = 1;
 	public final static int ARRIVAL_RESULT = 2;
+	public final static int PREF_RESULT = 3;
 
 	public final static int MAX_RECENT_ITEMS = 10;
 	
@@ -526,7 +527,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             }
             bundle.putSerializable(BUNDLE_METAMAP_KEY, (Serializable) aoRouteMetadata);
             intentSet.putExtras(bundle);            
-            startActivity(intentSet);
+            startActivityForResult(intentSet, PREF_RESULT);
             return true;
         case MENU_ABOUT:
             Intent intentAbout = new Intent(this, AboutActivity.class);
@@ -891,6 +892,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 				maoArrRecentIds.add(Pair.create(nB, nE));
 			}
 		}	    
+		
+		
+		/check if routing data changed
 	    
 	    UpdateUI();
 	}
@@ -945,6 +949,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    	mnArrivalPortalId = nPortalId;
 			edit.putInt("arr_"+BUNDLE_STATIONID_KEY, mnArrivalStationId);
 			edit.putInt("arr_"+BUNDLE_PORTALID_KEY, mnArrivalPortalId);
+	    	break;
+	    case PREF_RESULT:
 	    	break;
     	default:
     		break;

@@ -21,14 +21,17 @@
 package com.nextgis.metroaccess;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -36,6 +39,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
@@ -55,6 +59,11 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	protected EditTextPreference metWheelWidth;
 	protected EditTextPreference metMaxWidth;
 	protected EditTextPreference metDownloadPath;
+	
+	protected Map<String, JSONObject> moRemoteData;  
+	protected Map<String, CheckBoxPreference> mDBs;
+	
+	protected String msUrl;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +96,16 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    
 	    //TODO: add data packages list and button update data
 	    metDownloadPath = (EditTextPreference) findPreference(KEY_PREF_DOWNLOAD_PATH);
-	    metDownloadPath.setSummary((String) metDownloadPath.getText());
+	    msUrl = (String) metDownloadPath.getText();
+	    metDownloadPath.setSummary(msUrl);
 	    
 	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
 	    
 		File file = new File(getExternalFilesDir(null), MainActivity.REMOTE_METAFILE);
 		String sPayload = MainActivity.readFromFile(file, this);
-
-		 try{
+		moRemoteData = new HashMap<String, JSONObject>();
+		mDBs = new HashMap<String, CheckBoxPreference>();
+		try{
 		    	JSONObject oJSONMetaRemote = new JSONObject(sPayload);
 				
 			    final JSONArray jsonArray = oJSONMetaRemote.getJSONArray("packages");
@@ -107,10 +118,13 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 					if(sLocName.length() == 0)
 						sLocName = sName;
 					int nVer = jsonObject.getInt("ver");
+					
+					final String sKey = "db_" + i;
+					moRemoteData.put(sKey, jsonObject);
 					  
-					//TODO: check is exist
+					//check is exist
 					CheckBoxPreference db = new CheckBoxPreference(this);
-					db.setKey("db_" + i); //Refer to get the pref value
+					db.setKey(sKey); //Refer to get the pref value
 					db.setTitle(sLocName);
 					db.setSummary("ver." + nVer);
 					//
@@ -124,13 +138,16 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 						}
 					}
 					db.setChecked(bChecked);			
-					
+					db.setOnPreferenceChangeListener(new MyOnPreferenceChangeListener(sKey));
+
 					targetCategory.addPreference(db);
-			    	  
+					
+					mDBs.put(sKey,  db);
+
 			    }
-	    } 
-	    catch (Exception e) {
-	    	Toast.makeText(this, R.string.sNetworkInvalidData, Toast.LENGTH_LONG).show();
+		 } 
+		 catch (Exception e) {
+			 Toast.makeText(this, R.string.sNetworkInvalidData, Toast.LENGTH_LONG).show();
 		}		 
     }
     
@@ -192,9 +209,131 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             }
         }	*/
 		else if(key.equals(KEY_PREF_DOWNLOAD_PATH)){
-			newVal = sharedPreferences.getString(key, MainActivity.sUrl);
-    		if(newVal.length() > 0)
-            	Pref.setSummary(newVal);			
+			msUrl = sharedPreferences.getString(key, msUrl);			
+    		if(msUrl.length() > 0)
+            	Pref.setSummary(msUrl);			
+		}
+		else if(key.startsWith("db_")){
+			//update interface
+			//set or not set check
+			boolean bVal = sharedPreferences.getBoolean(key, true);
+			CheckBoxPreference db = mDBs.get(key);
+			if(db != null){
+				db.setChecked(bVal);
+			}
+
+			JSONObject jsonObject = moRemoteData.get(key);
+			if(jsonObject != null){
+				if(bVal){
+					//download and unzip
+					try {
+						int nVer = jsonObject.getInt("ver");
+					
+						String sPath = jsonObject.getString("path");
+						String sName = jsonObject.getString("name");
+						String sLocName = sName;
+						if(jsonObject.has("name_" + Locale.getDefault().getLanguage())){
+							sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
+						}
+						boolean bDirected = false;
+						if(jsonObject.has("directed")){
+							bDirected = jsonObject.getBoolean("directed");
+						}
+						if(sLocName.length() == 0){
+							sLocName = sName;
+						}
+						
+						DataDownloader uploader = new DataDownloader(this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), null);
+						uploader.execute(msUrl + sPath + ".zip");
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}			
+				}
+				else {
+					try {
+						String sPath = jsonObject.getString("path");
+						String sFullPath = getExternalFilesDir(MainActivity.ROUTE_DATA_DIR) + File.separator + sPath;
+						DeleteRecursive(new File(sFullPath));
+					}
+					catch (JSONException e) {
+						e.printStackTrace();
+					}		
+				}
+    		}
 		}
 	}	
+	
+	
+	private void DeleteRecursive(File fileOrDirectory) {
+	    if (fileOrDirectory.isDirectory())
+	        for (File child : fileOrDirectory.listFiles())
+	            DeleteRecursive(child);
+
+	    fileOrDirectory.delete();
+	}
+
+	class MyOnPreferenceChangeListener implements OnPreferenceChangeListener{
+		protected String msKey;
+		protected SharedPreferences mSharedPref;
+		
+		public MyOnPreferenceChangeListener(String sKey) {
+			msKey = sKey;
+			mSharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);
+		}
+
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+			boolean currentVal = mSharedPref.getBoolean(msKey, false);
+			boolean newVal = (Boolean) newValue;
+			if(currentVal == newVal){
+				return true;
+			}
+			else if(newVal == true){
+				AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
+				builder.setTitle(R.string.sDownload)
+				.setMessage(R.string.sDownloadData)
+				.setCancelable(false)
+				.setPositiveButton(R.string.sDownload, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id){
+						Editor editor = MyOnPreferenceChangeListener.this.mSharedPref.edit();
+						editor.putBoolean(msKey,  true);
+						editor.commit();
+					}								
+				})
+				.setNegativeButton(R.string.sCancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				builder.create();
+				builder.show();
+			}
+			else  if(newVal == false){
+				AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
+				builder.setTitle(R.string.sDelete)
+				.setMessage(R.string.sDeleteData)
+				.setCancelable(false)
+				.setPositiveButton(R.string.sDelete, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id){
+						Editor editor = MyOnPreferenceChangeListener.this.mSharedPref.edit();
+						editor.putBoolean(msKey,  false);
+						editor.commit();
+					}								
+				})
+				.setNegativeButton(R.string.sCancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				AlertDialog dlg = builder.create();
+				dlg.setCancelable(false);
+				dlg.setCanceledOnTouchOutside(false);
+				dlg.show();
+			}
+			return false;
+		}
+	}
 }

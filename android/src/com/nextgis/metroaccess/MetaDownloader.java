@@ -91,11 +91,11 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 	            Log.d(MainActivity.TAG, "HTTPGet URL " + sURL);
 	            
 	            HttpParams httpParameters = new BasicHttpParams();
-	            int timeoutConnection = 1000;
+	            int timeoutConnection = 500;
 	            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
 	            // Set the default socket timeout (SO_TIMEOUT) 
 	            // in milliseconds which is the timeout for waiting for data.
-	            int timeoutSocket = 2000;
+	            int timeoutSocket = 1000;
 	            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);         
 
 	            HttpClient Client = new DefaultHttpClient(httpParameters);
@@ -104,24 +104,29 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 	            	return null;
 	            HttpEntity entity = response.getEntity();
 	                        
-	            if(moEventReceiver != null && entity != null){
-		            Bundle bundle = new Bundle();
-					if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
-						bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
-						msContent = EntityUtils.toString(entity, HTTP.UTF_8);
-			            bundle.putString(MainActivity.BUNDLE_PAYLOAD_KEY, msContent);
-			            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
-					}
-					else{
-						bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
-						bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkGetErr));
-						bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
-					}				
-					
-		            Message oMsg = new Message();
-		            oMsg.setData(bundle);
-	            	
-	            	moEventReceiver.sendMessage(oMsg);
+	            if(moEventReceiver != null){
+	            	if(entity != null){
+			            Bundle bundle = new Bundle();
+						if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+							bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
+							msContent = EntityUtils.toString(entity, HTTP.UTF_8);
+				            bundle.putString(MainActivity.BUNDLE_PAYLOAD_KEY, msContent);
+				            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
+						}
+						else{
+							bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
+							bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkGetErr));
+							bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
+						}				
+						
+			            Message oMsg = new Message();
+			            oMsg.setData(bundle);
+		            	
+		            	moEventReceiver.sendMessage(oMsg);
+		            }
+		            else{
+		            	msError = moContext.getString(R.string.sNetworkUnreachErr);
+		            }
 	            }
 	            
 	        } catch (ClientProtocolException e) {
