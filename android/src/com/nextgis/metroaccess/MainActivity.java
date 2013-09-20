@@ -123,6 +123,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected Button mSearchButton;
 	protected Button mSelectFromStationButton;
 	protected Button mSelectToStationButton;
+	protected Button mSetButton;
 	protected MenuItem mSearchMenuItem;
 	
 	protected int mnDepartureStationId, mnArrivalStationId;
@@ -132,11 +133,13 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	
 	protected boolean mbDirected, mbInterfaceLoaded;
 
-	public static String sUrl = "http://gis-lab.info/data/zp-gis/data/ma/";
+	public static String sUrl = "http://metro4all.ru/data/";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.empty_activity_main);
 		
 		mbDirected = false;
 		mbInterfaceLoaded = false;
@@ -280,6 +283,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
              }
         });
 		
+		//settings
+		mSetButton = (Button) findViewById(R.id.btSettings);
+		mSetButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	onSettings();
+             }
+        });		
+		
 		mtvDepartureStationName = (TextView) findViewById(R.id.fromstationname);
 		mtvArrivalStationName = (TextView) findViewById(R.id.tostationname);
 		mtvDeparturePortalName = (TextView) findViewById(R.id.fromentrancename);
@@ -292,6 +303,25 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		
 	    actionBar.setSelectedNavigationItem(nCurrentMetro);
 
+	}
+
+	protected void onSettings() {
+        Intent intentSet = new Intent(this, PreferencesActivity.class);
+        intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        List<String> aoRouteMetadata = new ArrayList<String>();
+        for(JSONObject obj : mmoRouteMetadata.values()){
+       		try {
+            	if(obj.has("name") && obj.has("ver")){
+						aoRouteMetadata.add(obj.getString("name") + CSV_CHAR + "ver." + obj.getInt("ver"));
+            	}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+        }
+        bundle.putSerializable(BUNDLE_METAMAP_KEY, (Serializable) aoRouteMetadata);
+        intentSet.putExtras(bundle);            
+        startActivityForResult(intentSet, PREF_RESULT);		
 	}
 
 	@Override
@@ -323,22 +353,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         	return true;
         case MENU_SETTINGS:
             // app icon in action bar clicked; go home
-            Intent intentSet = new Intent(this, PreferencesActivity.class);
-            intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Bundle bundle = new Bundle();
-            List<String> aoRouteMetadata = new ArrayList<String>();
-            for(JSONObject obj : mmoRouteMetadata.values()){
-           		try {
-	            	if(obj.has("name")){
-	 						aoRouteMetadata.add(obj.getString("name"));
-	            	}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-            }
-            bundle.putSerializable(BUNDLE_METAMAP_KEY, (Serializable) aoRouteMetadata);
-            intentSet.putExtras(bundle);            
-            startActivityForResult(intentSet, PREF_RESULT);
+        	onSettings();
             return true;
         case MENU_ABOUT:
             Intent intentAbout = new Intent(this, AboutActivity.class);
@@ -415,6 +430,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 					String sRemoteEnName = mmoRouteMetadata.get(j).getString("name");
 					if(sRemoteEnName.equals(sEnName)){
 						if(nVer > mmoRouteMetadata.get(j).getInt("ver")) {
+							if(jsonObject.has("size"))
+					    		  sName += " (" + jsonObject.getInt("size") + "Kb)";
 							items.add(sName);
 						}
 					}
@@ -427,7 +444,10 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 				return;
 			}
 			final boolean[] checkedItems = new boolean[count];
-
+		    for(int i = 0; i < count; i++){
+		    	checkedItems[i] = true;
+		    }
+		    
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.sUpdateAvaliable)
 			.setCancelable(false)
@@ -486,6 +506,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    }
 	    catch (Exception e) {
 	    	Toast.makeText(MainActivity.this, R.string.sNetworkInvalidData, Toast.LENGTH_LONG).show();
+	    	LoadInterface();
 		}	    	
 		
 	}
@@ -511,11 +532,16 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		    	  String sName = jsonObject.getString(sLocaleKeyName);	
 		    	  if(sName.length() == 0)
 		    		  sName = jsonObject.getString("name");
+		    	  if(jsonObject.has("size"))
+		    		  sName += " (" + jsonObject.getInt("size") + "Kb)";
 		    	  items.add(sName);
 		    }
 		    
 		    int count = items.size();
 		    final boolean[] checkedItems = new boolean[count];
+		    for(int i = 0; i < count; i++){
+		    	checkedItems[i] = true;
+		    }
 		    
 		    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.sSelectDataToDownload)

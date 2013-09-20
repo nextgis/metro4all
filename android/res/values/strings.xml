@@ -19,6 +19,7 @@
 	<string name="sCannotReadFile">Cannot read file</string>
 	<string name="sCannotGetPath">Cannot find path</string>
 	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
+	<string name="sNoOrEmptyData">The data are upsent or invalid. Please download new routing data</string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data updates is available</string>
@@ -28,7 +29,7 @@
 	<string name="sSearch">Search</string>
 	<string name="sFromStation">Departure</string>
 	<string name="sToStation">Arrival</string>
-	<string name="sRoute">Route</string>
+	<string name="sRoute">Option</string>
 	<string name="sSchema">Schema</string>
 	<string name="sStationName">Name: </string>
 	<string name="sEntranceName">Entrance: </string>
@@ -44,11 +45,14 @@
 	<string name="sLift">Elevator</string>
 	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
 	<string name="sCM">cm</string>
-	<string name="sMinRailWidth">Minimum rail width</string>
-	<string name="sMaxRailWidth">Maximum rail width</string>
-	<string name="sMaxAngle">Maximum angle of the ramp/rail</string>
+	<string name="sMinRailWidth">Min rail width</string>
+	<string name="sMaxRailWidth">Max rail width</string>
+	<string name="sMaxAngle">Max angle of the ramp/rail</string>
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
+	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
+	<string name="sLimits">My limitations</string>	
+	<string name="sLimitsSet">Set my limitations</string>		
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>
@@ -69,4 +73,6 @@
 	<string name="sPrefDataPath">Download data URL</string>
 	<string name="sPrefDataPathSummary">Set download routing data URL</string>
 	<string name="sPrefDataPathTitle">Set download data URL</string>
+	<string name="sPrefUpdDataSummary">Click to update routing data</string>
+	<string name="sPrefUpdDataTitle">Update data</string>
 </resources>

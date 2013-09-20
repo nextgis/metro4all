@@ -40,6 +40,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	public static final String KEY_PREF_MAX_WIDTH = "max_width";
 	public static final String KEY_PREF_WHEEL_WIDTH = "wheel_width";
 	public static final String KEY_PREF_DOWNLOAD_PATH = "download_path";
+	public static final String KEY_PREF_UPDROUTEDATA = "update_route_data";
 	
 	//ListPreference mlsNaviType;
 	protected EditTextPreference metWheelWidth;
@@ -65,6 +67,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	
 	protected String msUrl;
 	
+	protected List<String> aoRouteMetadata;
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +78,6 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         
         addPreferencesFromResource(R.xml.preferences);
         
-    	List<String> aoRouteMetadata = null;
-
 	    Bundle extras = getIntent().getExtras(); 
 	    if(extras != null) {
 	    	aoRouteMetadata = (List<String>) extras.getSerializable(MainActivity.BUNDLE_METAMAP_KEY);
@@ -117,7 +119,9 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 					String sName = jsonObject.getString("name");
 					if(sLocName.length() == 0)
 						sLocName = sName;
-					int nVer = jsonObject.getInt("ver");
+					// = jsonObject.getInt("ver");
+					
+					//int nVer = 0;
 					
 					final String sKey = "db_" + i;
 					moRemoteData.put(sKey, jsonObject);
@@ -126,13 +130,17 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 					CheckBoxPreference db = new CheckBoxPreference(this);
 					db.setKey(sKey); //Refer to get the pref value
 					db.setTitle(sLocName);
-					db.setSummary("ver." + nVer);
+					//db.setSummary("ver." + nVer);
 					//
 					boolean bChecked = false;
 					if(aoRouteMetadata != null){
 						for(String sExistName : aoRouteMetadata){
-							if(sExistName.equals(sName)){
+							String[] RowData = sExistName.split(MainActivity.CSV_CHAR);
+							String sExName = RowData[0];
+							String sVer = RowData[1];
+							if(sExName.equals(sName)){
 								bChecked = true;
+								db.setSummary(sVer);
 								break;
 							}
 						}
@@ -145,6 +153,69 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 					mDBs.put(sKey,  db);
 
 			    }
+			    
+			    Preference checkUpd = new Preference(this);
+			    checkUpd.setKey(KEY_PREF_UPDROUTEDATA);
+			    checkUpd.setTitle(R.string.sPrefUpdDataTitle);
+			    checkUpd.setSummary(R.string.sPrefUpdDataSummary);
+			    checkUpd.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		        	public boolean onPreferenceClick(Preference preference) {
+		        		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);		
+		        		msUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.sUrl);
+		        		
+		        		for(JSONObject jsonObject : moRemoteData.values()){
+		        			if(jsonObject != null){	
+		        				    				
+		    					//download and unzip
+		    					try {
+		    						int nVer = jsonObject.getInt("ver");
+		    					
+		    						String sPath = jsonObject.getString("path");
+		    						String sName = jsonObject.getString("name");
+		    						String sLocName = sName;
+		    						if(jsonObject.has("name_" + Locale.getDefault().getLanguage())){
+		    							sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
+		    						}
+		    						boolean bDirected = false;
+		    						if(jsonObject.has("directed")){
+		    							bDirected = jsonObject.getBoolean("directed");
+		    						}
+		    						if(sLocName.length() == 0){
+		    							sLocName = sName;
+		    						}
+		    						
+
+									boolean bChecked = false;
+									if(PreferencesActivity.this.aoRouteMetadata != null){
+										for(String sExistName : PreferencesActivity.this.aoRouteMetadata){
+											String[] RowData = sExistName.split(MainActivity.CSV_CHAR);
+											String sExName = RowData[0];
+											String sVer = RowData[1];
+											if(sExName.equals(sName)){
+												bChecked = true;
+												break;
+											}
+										}
+									}
+									
+									if(!bChecked)
+										continue;   
+		    						
+		    						
+    	    						DataDownloader uploader = new DataDownloader(PreferencesActivity.this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), null);
+		    						uploader.execute(msUrl + sPath + ".zip");
+		    					} catch (JSONException e) {
+		    						e.printStackTrace();
+		    					}	
+		        			}
+		        		}
+
+						return true;
+		        	}
+		        });
+			    
+			    targetCategory.addPreference(checkUpd);
+			    
 		 } 
 		 catch (Exception e) {
 			 Toast.makeText(this, R.string.sNetworkInvalidData, Toast.LENGTH_LONG).show();

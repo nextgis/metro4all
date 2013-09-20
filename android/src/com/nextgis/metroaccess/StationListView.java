@@ -29,7 +29,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Pair;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SpinnerAdapter;
@@ -64,7 +63,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	    actionBar.setDisplayHomeAsUpEnabled(true);
         
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 1);
+		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	        
 
@@ -129,13 +128,19 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	    		int nType = 5;
 				if(bCross){
 					bCross = false;
-					int nNextId = list.get(i + 1);
-					int nLineFrom = mmoStations.get(nId).GetLine();
-					int nLineTo = mmoStations.get(nNextId).GetLine();
-					if(nLineFrom != nLineTo){
-						nType = 9;
-						bCrossCross = true;
-						bCross = true;
+					if(i != list.size() - 1){
+						int nNextId = list.get(i + 1);
+						int nLineFrom = mmoStations.get(nId).GetLine();
+						int nLineTo = mmoStations.get(nNextId).GetLine();
+						if(nLineFrom != nLineTo){
+							nType = 9;
+							bCrossCross = true;
+							bCross = true;
+						}
+						else{
+							bCross = false;
+							nType = 3;
+						}
 					}
 					else{
 						bCross = false;

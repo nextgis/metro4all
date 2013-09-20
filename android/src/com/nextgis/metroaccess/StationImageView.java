@@ -20,7 +20,6 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 
@@ -45,6 +44,9 @@ public class StationImageView extends SherlockActivity {
 	        mWebView = (WebView)findViewById(R.id.webView);
 	        // (*) this line make uses of the Zoom control
 	        mWebView.getSettings().setBuiltInZoomControls(true);
+	        
+	        mWebView.getSettings().setLoadWithOverviewMode(true);
+	        mWebView.getSettings().setUseWideViewPort(true);
 	        // simply, just load an image
 	        mWebView.loadUrl("file://" + extras.getString("image_path"));
 	    }

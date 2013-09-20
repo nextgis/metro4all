@@ -19,15 +19,17 @@
 	<string name="sCannotReadFile">Не могу прочитать файл</string>
 	<string name="sCannotGetPath">Не найден путь</string>
 	<string name="sInvalidCSVData">Некорректные данные в csv, неправильное число полей. Файл: </string>
+	<string name="sNoOrEmptyData">Отсутвуют данные для построения маршрутоа или данные поврждены. Обновите данные</string>
 		
 	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>
 	<string name="sDownload">Загрузить</string>
+	<string name="sDelete">Удалить</string>
 	<string name="sCancel">Отмена</string>
 	<string name="sSearch">Проложить маршрут</string>
 	<string name="sFromStation">Откуда</string>
 	<string name="sToStation">Куда</string>
-	<string name="sRoute">Маршрут</string>
+	<string name="sRoute">Вариант</string>
 	<string name="sSchema">Схема</string>
 	<string name="sStationName">Станция: </string>
 	<string name="sEntranceName">Вход</string>
@@ -37,16 +39,21 @@
 	<string name="sSelToStation">Выберите станцию</string>
 	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
 	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
-	<string name="sMaxWCWidth">Максимальная ширина коляски</string>
+	<string name="sMaxWCWidth">Макс. ширина коляски</string>
 	<string name="sStairsCount">Ступенек</string>
 	<string name="sStairsWORails">Из них без аппарелей или рамп</string>
 	<string name="sLift">Лифт</string>
 	<string name="sLiftEconomy">Лифт экономит ступенек</string>
 	<string name="sCM">см</string>
-	<string name="sMinRailWidth">Минимальная ширина аппарели</string>
-	<string name="sMaxRailWidth">Максимальная ширина аппарели</string>
+	<string name="sMinRailWidth">Мин. ширина аппарели</string>
+	<string name="sMaxRailWidth">Макс. ширина аппарели</string>
 	<string name="sMaxAngle">Угол наклона</string>
-	<!-- tabs -->
+	<string name="sDownloadData">Загрузить данные по маршрутам?</string>
+	<string name="sDeleteData">Удалить данные по маршрутам?</string>	
+	<string name="sConflictNotes">Входы конфликтующие с вашими ограничениями отмечены красным</string>
+	<string name="sLimits">Мои ограничения</string>		
+	<string name="sLimitsSet">Установить мои ограничения</string>
+		<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>
 	<string name="sSelRecentTab">Недавние</string>	
@@ -66,5 +73,6 @@
 	<string name="sPrefDataPath">Загружать данные по ссылке</string>
 	<string name="sPrefDataPathSummary">Ссылка для загрузки данных маршрутизации</string>
 	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
-			
+	<string name="sPrefUpdDataSummary">Нажмите чтобы обновить данные для маршрутизации</string>
+	<string name="sPrefUpdDataTitle">Обновить данные</string>			
 </resources>

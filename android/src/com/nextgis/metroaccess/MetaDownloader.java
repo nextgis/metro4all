@@ -91,11 +91,11 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 	            Log.d(MainActivity.TAG, "HTTPGet URL " + sURL);
 	            
 	            HttpParams httpParameters = new BasicHttpParams();
-	            int timeoutConnection = 500;
+	            int timeoutConnection = 1500;
 	            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
 	            // Set the default socket timeout (SO_TIMEOUT) 
 	            // in milliseconds which is the timeout for waiting for data.
-	            int timeoutSocket = 1000;
+	            int timeoutSocket = 3000;
 	            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);         
 
 	            HttpClient Client = new DefaultHttpClient(httpParameters);
@@ -131,10 +131,10 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 	            
 	        } catch (ClientProtocolException e) {
 	        	msError = e.getMessage();
-	            cancel(true);
+	            //cancel(true);
 	        } catch (IOException e) {
 	        	msError = e.getMessage();
-	            cancel(true);
+	            //cancel(true);
 	        }
         }
         else {
