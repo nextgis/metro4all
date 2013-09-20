@@ -95,8 +95,11 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		if(imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
+		    ivIcon.setVisibility(View.VISIBLE);
 		}	
-		
+		else{
+			ivIcon.setVisibility(View.INVISIBLE);
+		}		
 
 		return convertView;
 	}
@@ -147,13 +150,19 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 					break;
 				}
 			}
-			if(bConflict){
+			
+			if(entry.GetId() == -1){
+				subitem.setText(mContext.getString(R.string.sSummaryClick));
+			}
+			else{
 				subitem.setText(mContext.getString(R.string.sBarriersExist));
+			}			
+			
+			if(bConflict){
 				// + " " + mContext.getString(R.string.sBarriersConflict));
 				subitem.setTextColor(Color.RED);
 			}
 			else{
-				subitem.setText(mContext.getString(R.string.sBarriersExist));
 				subitem.setTextColor(Color.WHITE);
 			}
 		}
@@ -168,8 +177,11 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		if(imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
+		    ivIcon.setVisibility(View.VISIBLE);
 		}
-
+		else{
+			ivIcon.setVisibility(View.INVISIBLE);
+		}
 		
 		ImageButton showSchemaButton = (ImageButton) convertView.findViewById(R.id.show_sheme);
 		showSchemaButton.setFocusable(false);

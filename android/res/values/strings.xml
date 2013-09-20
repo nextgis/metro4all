@@ -45,6 +45,7 @@
 	<string name="sLift">Elevator</string>
 	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
 	<string name="sCM">cm</string>
+	<string name="sNo">No</string>
 	<string name="sMinRailWidth">Min rail width</string>
 	<string name="sMaxRailWidth">Max rail width</string>
 	<string name="sMaxAngle">Max angle of the ramp/rail</string>
@@ -54,6 +55,7 @@
 	<string name="sLimits">My limitations</string>	
 	<string name="sLimitsSet">Set my limitations</string>
 	<string name="sSummary">Trip summary</string>		
+	<string name="sSummaryClick">Press to show details</string>		
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>

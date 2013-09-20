@@ -173,13 +173,13 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), sit.GetLine(), 7);
 			routeList.add(oExit);
 			
-			/*int[] naBarriers = {0,0,0,0,0,0,0,0};
+			int[] naBarriers = {0,0,0,0,0,0,0,0};
 			for(RouteItem rit : routeList){
 				List<BarrierItem> bits = rit.GetProblems();
 				if(bits != null){
 					for(BarrierItem bit : bits){
 						if(bit.GetId() == 0){
-							if(naBarriers[0] < bit.GetValue()){
+							if(naBarriers[0] == 0 || naBarriers[0] > bit.GetValue()){
 								naBarriers[0] = bit.GetValue();
 							}
 						}
@@ -218,9 +218,9 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			}
 			
 			RouteItem oSumm = new RouteItem(-1, getString(R.string.sSummary), 0, 0);
-			FillWithData(naBarriers, oSumm, true);	    		
+			FillWithData(naBarriers, oSumm, false);	    		
 			routeList.add(0, oSumm);
-			*/
+			
 			
 	        // create new adapter
 		    RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, routeList);
@@ -283,7 +283,12 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			String sName = getString(R.string.sLift) + ": " + naBarriers[3];
 			BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
 			it.AddBarrier(bit);
-		}				
+		}	
+		else{
+			String sName = getString(R.string.sLift) + ": " + getString(R.string.sNo);
+			BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
+			it.AddBarrier(bit);
+		}
 		if(bWithZeroes || naBarriers[4] > 0){//lift_minus_step
 			String sName = getString(R.string.sLiftEconomy) + ": " + naBarriers[4];
 			BarrierItem bit = new BarrierItem(4, sName, false, naBarriers[4]);

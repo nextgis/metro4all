@@ -20,7 +20,14 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+import java.io.File;
+
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -28,6 +35,10 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class StationImageView extends SherlockActivity {
 	WebView mWebView;
+	float width;
+    float height;
+	float currentHeight;
+	String msPath;
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +55,56 @@ public class StationImageView extends SherlockActivity {
 	        mWebView = (WebView)findViewById(R.id.webView);
 	        // (*) this line make uses of the Zoom control
 	        mWebView.getSettings().setBuiltInZoomControls(true);
+	        mWebView.getSettings().setJavaScriptEnabled(true);
 	        
 	        mWebView.getSettings().setLoadWithOverviewMode(true);
 	        mWebView.getSettings().setUseWideViewPort(true);
+	        
+	        DisplayMetrics displaymetrics = new DisplayMetrics();
+	        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+	        height = displaymetrics.heightPixels;
+	        width = displaymetrics.widthPixels;
+	        currentHeight = height;
+	        
+	        msPath = extras.getString("image_path");
+	        
+	        loadImage();
 	        // simply, just load an image
-	        mWebView.loadUrl("file://" + extras.getString("image_path"));
+	        //mWebView.loadUrl("file://" + extras.getString("image_path"));
 	    }
 	}
+	
+	protected void loadImage(){
+		//mWebView.loadUrl("file://" + msPath);
+		Bitmap BitmapOfMyImage = BitmapFactory.decodeFile(msPath);  
+
+		File f = new File(msPath);
+		
+		String sFolder = f.getParent();
+		String sName = f.getName();
+		String sPath = "file://" + sFolder + "/";
+		String sCmd = "<html><center><img src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></html>";
+		
+		mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
+			//This loads the image at the center of thee screen
+	    
+	}
+	
+	//this function will set the current height according to screen orientation
+	@Override
+	public void onConfigurationChanged(Configuration newConfig){
+		if(newConfig.equals(Configuration.ORIENTATION_LANDSCAPE)){
+
+			currentHeight=width; 
+			loadImage();                 
+
+		}if(newConfig.equals(Configuration.ORIENTATION_PORTRAIT)){
+
+			currentHeight=height;
+			loadImage();
+
+		}
+	} 	
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

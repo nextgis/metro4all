@@ -45,6 +45,7 @@
 	<string name="sLift">Лифт</string>
 	<string name="sLiftEconomy">Лифт экономит ступенек</string>
 	<string name="sCM">см</string>
+	<string name="sNo">Нет</string>
 	<string name="sMinRailWidth">Мин. ширина аппарели</string>
 	<string name="sMaxRailWidth">Макс. ширина аппарели</string>
 	<string name="sMaxAngle">Угол наклона</string>
@@ -53,6 +54,8 @@
 	<string name="sConflictNotes">Входы конфликтующие с вашими ограничениями отмечены красным</string>
 	<string name="sLimits">Мои ограничения</string>		
 	<string name="sLimitsSet">Установить мои ограничения</string>
+	<string name="sSummary">Сводка по маршруту</string>
+	<string name="sSummaryClick">Выберите для просмотра деталей</string>	
 		<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>
