@@ -1381,10 +1381,11 @@
     <tag k='highway' v='steps' />
     <tag k='oneway' v='yes' />
   </way>
-  <way id='-562' visible='true'>
+  <way id='-562' action='modify' visible='true'>
     <nd ref='1735167424' />
     <nd ref='312393508' />
     <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
   </way>
   <way id='-560' visible='true'>
     <nd ref='836617898' />
