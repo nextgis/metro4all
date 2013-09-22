@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
+import glob
 import csv
 import networkx as nx
 from geojson import Feature, FeatureCollection, dumps
 from bottle import view, route, response, request, run, static_file, HTTPResponse
 from os import path
+
 
 # Инициализация графа
 def init_graph(city):
@@ -70,6 +72,11 @@ GRAPH = {
     'spb': init_graph('spb')
 }
 
+SCHEMAS = {
+    'msk': [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/msk/schemes/*.png'))],
+    'spb': [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/spb/schemes/*.png'))]
+}
+
 
 @route('/<city>')
 @view('index')
@@ -90,7 +97,7 @@ def main(city):
     }
     city = city if city in ['msk', 'spb'] else 'msk'
     return dict(config=config[city])
-    
+
 
 @route('/static/<path:path>')
 def static(path):
@@ -219,7 +226,8 @@ def get_routes(city, delta=5, limit=3):
                         id=line_id,
                         name=get_line_info(line_id)['name'],
                         color=get_line_info(line_id)['color']
-                    )
+                    ),
+                    schema="%s.png" % station if "%s.png" % station in SCHEMAS[city] else None
                 )
 
                 if station_type == "interchange":
