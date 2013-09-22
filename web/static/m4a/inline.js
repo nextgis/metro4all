@@ -136,8 +136,9 @@ $(document).ready(function () {
         viewmodel = m4a.viewmodel,
         view = m4a.view;
     viewmodel.mainMap = L.map('mainMap').setView(global_config.mainmap.center, global_config.mainmap.zoom);
-    viewmodel.metroStartInputMap = L.map('metroStartInput', {zoomControl: false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
-    viewmodel.metroEndInputMap = L.map('metroEndInput', {zoomControl: false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
+    viewmodel.miniMaps = {}
+    viewmodel.miniMaps.in = L.map('metroStartInput', {zoomControl: false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
+    viewmodel.miniMaps.out = L.map('metroEndInput', {zoomControl: false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
 
     // Заполнение выпадающих списков
     $.ajax(url + global_config.city + "/stations").done(function (data) {
@@ -147,26 +148,26 @@ $(document).ready(function () {
         // Поле выбора станции входа
         view.$metroStartStation.on("change", function () {
             m4a.stations.setStartStation(this.value);
-            m4a.stations.updateInputsData(this.value);
+            m4a.stations.updatePortalsByAjax(this.value, 'in');
         });
 
         // Поле выбора станции выхода
         view.$metroEndStation.on("change", function () {
             m4a.stations.setEndStation(this.value);
-            m4a.stations.updateOutputsData(this.value);
+            m4a.stations.updatePortalsByAjax(this.value, 'out');
         });
 
         // Карта для выбора входов
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
             maxZoom: 18
-        }).addTo(m4a.viewmodel.metroStartInputMap);
+        }).addTo(m4a.viewmodel.miniMaps.in);
 
         // Карта для выбора выходов
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
             maxZoom: 18
-        }).addTo(m4a.viewmodel.metroEndInputMap);
+        }).addTo(m4a.viewmodel.miniMaps.out);
 
         // Карта для отображения маршрутов
         L.tileLayer.grayscale('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -196,7 +197,8 @@ $(document).ready(function () {
 
                         // Кнопки переключения маршрутов
                         $.each(routes, function (i, item) {
-                            $('.pagination').append('<li data-route-id="' + i + '"><a href="javascript:void(0)">' + (i + 1) + '</a></li>');
+                            $('.pagination').append('<li data-route-id="' + i +
+                                '"><a href="javascript:void(0)">' + (i + 1) + '</a></li>');
                         });
 
                         // Обработчики нажатия кнопок

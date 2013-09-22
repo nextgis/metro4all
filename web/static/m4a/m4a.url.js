@@ -65,7 +65,7 @@
             if (stat_start) {
                 this.urlParameters['stat-start'] = stat_start;
                 view.$metroStartStation.select2('val', stat_start);
-                m4a.stations.updateInputsData(stat_start);
+                m4a.stations.updatePortalsByAjax(stat_start, 'in');
                 if (start) {
                     this.urlParameters['portal-start'] = start;
                     view.$metroStartInputID.val(start);
@@ -76,7 +76,7 @@
             if (stat_end) {
                 this.urlParameters['stat-end'] = stat_end;
                 view.$metroEndStation.select2('val', stat_end);
-                m4a.stations.updateOutputsData(stat_start);
+                m4a.stations.updatePortalsByAjax(stat_start, 'out');
                 if (end) {
                     this.urlParameters['portal-end'] = end;
                     view.$metroEndInputID.val(end);
