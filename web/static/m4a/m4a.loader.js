@@ -11,6 +11,7 @@ m4a.view = {};
             this.setDomOptions();
             m4a.viewmodel.url={'proxy' : typeof ajax !== 'undefined' ? ajax : '/'};
             m4a.url.init();
+            m4a.profiles.init();
         },
 
 

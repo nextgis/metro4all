@@ -1,16 +1,18 @@
 # -*- encoding: utf-8 -*-
+import glob
 import csv
 import networkx as nx
 from geojson import Feature, FeatureCollection, dumps
 from bottle import view, route, response, request, run, static_file, HTTPResponse
+from os import path
 
 
 # Инициализация графа
 def init_graph(city):
 
     graph = nx.Graph()
-    nodes = csv.DictReader(open('../data/%s/stations.csv' % city, 'rb'), delimiter=';')
-    edges = csv.DictReader(open('../data/%s/graph.csv' % city, 'rb'), delimiter=';')
+    nodes = csv.DictReader(open(path.join(path.dirname(__file__), '../data/%s/stations.csv' % city), 'rb'), delimiter=';')
+    edges = csv.DictReader(open(path.join(path.dirname(__file__), '../data/%s/graph.csv' % city), 'rb'), delimiter=';')
 
     for node in nodes:
         graph.add_node(int(node['id_station']))
@@ -46,28 +48,33 @@ def get_barriers(item):
 
 
 LINES = {
-    'msk': [i for i in csv.DictReader(open('../data/msk/lines.csv', 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open('../data/spb/lines.csv', 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/lines.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/lines.csv'), 'rb'), delimiter=';')]
 }
 
 STATIONS = {
-    'msk': [i for i in csv.DictReader(open('../data/msk/stations.csv', 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open('../data/spb/stations.csv', 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/stations.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/stations.csv'), 'rb'), delimiter=';')]
 }
 
 PORTALS = {
-    'msk': [i for i in csv.DictReader(open('../data/msk/portals.csv', 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open('../data/spb/portals.csv', 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/portals.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/portals.csv'), 'rb'), delimiter=';')]
 }
 
 INTERCHANGES = {
-    'msk': [i for i in csv.DictReader(open('../data/msk/interchanges.csv', 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open('../data/spb/interchanges.csv', 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/interchanges.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/interchanges.csv'), 'rb'), delimiter=';')]
 }
 
 GRAPH = {
     'msk': init_graph('msk'),
     'spb': init_graph('spb')
+}
+
+SCHEMAS = {
+    'msk': [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/msk/schemes/*.png'))],
+    'spb': [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/spb/schemes/*.png'))]
 }
 
 
@@ -90,11 +97,11 @@ def main(city):
     }
     city = city if city in ['msk', 'spb'] else 'msk'
     return dict(config=config[city])
-    
+
 
 @route('/static/<path:path>')
 def static(path):
-    return static_file(path, root='/home/tenzorr/projects/metroaccess/metroaccess/web/static')
+    return static_file(path, root='static')
 
 
 # Получение списка станций для выпадающих списков
@@ -219,7 +226,8 @@ def get_routes(city, delta=5, limit=3):
                         id=line_id,
                         name=get_line_info(line_id)['name'],
                         color=get_line_info(line_id)['color']
-                    )
+                    ),
+                    schema="%s.png" % station if "%s.png" % station in SCHEMAS[city] else None
                 )
 
                 if station_type == "interchange":
@@ -244,6 +252,11 @@ def get_routes(city, delta=5, limit=3):
 
     else:
         return HTTPResponse(status=400)
+
+
+def run_fcgi():
+    from bottle import FlupFCGIServer
+    run(host='0.0.0.0', port=6543, server=FlupFCGIServer)
 
 
 if __name__ == "__main__":

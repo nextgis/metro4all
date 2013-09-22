@@ -2,6 +2,9 @@
     m4a.url = {};
 
     $.extend(m4a.url, {
+        url: null,
+        urlParameters: { },
+
         init: function () {
             this.bindEvents();
         },
@@ -12,48 +15,70 @@
                 $document = m4a.view.$document;
 
             $document.on('/url/update', function(e, key, value) {
-                var uri = context.updateQueryStringParameter(window.location.href, key, value);
+                var uri = context.updateQueryStringParameter(key, value);
                 window.location.href = uri;
             })
         },
 
 
-        // from http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
-        updateQueryStringParameter: function (uri, key, value) {
-            uri.replace('?', '#');
-            var re = new RegExp("([#|&])" + key + "=.*?(&|$)", "i"),
-                separator = uri.indexOf('#') !== -1 ? "&" : "#";
+        updateUrl: function(key, value) {
+            var uri = this.updateQueryStringParameter(key, value);
+            window.location.href = uri;
+        },
 
-            if (uri.match(re)) {
-                return uri.replace(re, '$1' + key + "=" + value + '$2');
+
+        // from http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
+        updateQueryStringParameter: function (key, value) {
+            var urlCompiled = location.protocol + '//' + location.host + location.pathname + "#",
+                delimiter = '&',
+                firstIteration = true;
+
+            if (value) {
+                this.urlParameters[key] = value;
+            } else {
+                delete this.urlParameters[key];
             }
-            else {
-                return uri + separator + key + "=" + value;
+
+            for (var key in this.urlParameters) {
+                if (this.urlParameters.hasOwnProperty(key)) {
+                    if (firstIteration) {
+                        firstIteration = false;
+                        urlCompiled += key + '=' + this.urlParameters[key];
+                        continue;
+                    }
+                    urlCompiled += delimiter + key + '=' + this.urlParameters[key];
+                }
             }
+
+            return urlCompiled;
         },
 
 
         parse: function () {
             var view = m4a.view,
                 stat_start = this.getURLParameter('stat-start'),
-                start = this.getURLParameter('start'),
+                start = this.getURLParameter('portal-start'),
                 stat_end = this.getURLParameter('stat-end'),
-                end = this.getURLParameter('end'),
+                end = this.getURLParameter('portal-end'),
                 route = this.getURLParameter('route');
 
             if (stat_start) {
+                this.urlParameters['stat-start'] = stat_start;
                 view.$metroStartStation.select2('val', stat_start);
-                m4a.stations.updateInputsData(stat_start);
+                m4a.stations.updatePortalsByAjax(stat_start, 'in');
                 if (start) {
+                    this.urlParameters['portal-start'] = start;
                     view.$metroStartInputID.val(start);
                     view.$metroStartInputName.val(start);
                 }
             }
 
             if (stat_end) {
+                this.urlParameters['stat-end'] = stat_end;
                 view.$metroEndStation.select2('val', stat_end);
-                m4a.stations.updateOutputsData(stat_start);
+                m4a.stations.updatePortalsByAjax(stat_start, 'out');
                 if (end) {
+                    this.urlParameters['portal-end'] = end;
                     view.$metroEndInputID.val(end);
                     view.$metroEndInputName.val(end);
                 }

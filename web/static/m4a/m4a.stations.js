@@ -2,114 +2,104 @@
     m4a.stations = {};
 
     $.extend(m4a.stations, {
+        portals: {
+            in: {
+                layer: null,
+                data: null
+            },
+            out: {
+                layer: null,
+                data: null
+            }
+        },
+
+        portalsSelected: {
+            in: { feature: null, marker: null },
+            out: { feature: null, marker: null }
+        },
+
         setStartStation: function (station_id) {
             var view = m4a.view;
             view.$metroStartInputID.val("");
             view.$metroStartInputName.val("");
-            view.$document.triggerHandler('/url/update', ['start', '']);
+            view.$document.triggerHandler('/url/update', ['portal-start', '']);
             view.$document.triggerHandler('/url/update', ['stat-start', station_id]);
         },
 
-        updateInputsData: function(station_id) {
-            $.ajax({
-              dataType: "json",
-              url: m4a.viewmodel.url.proxy + global_config.city + "/portals/search",
-              data: {
-                station: station_id,
-                direction: "in"
-              }
-            }).done(function(data) {
-                // Очищаем слой входов
-                if (typeof inPortals !== 'undefined') {
-                    m4a.viewmodel.metroStartInputMap.removeLayer(inPortals);
-                }
-                if (data.features.length != 0) {
 
-                    // Добавляем входы на карту
-                    inPortals = L.geoJson(
-                        data, {
-                            pointToLayer: function(feature, latlng) {
-                                return L.marker(
-                                    latlng, {
-                                        icon: L.icon({
-                                            iconUrl: '/static/img/in.png'
-                                        })
-                                    }
-                                )
-                            },
-                            onEachFeature: function(feature, layer) {
-                                layer.on('click', function (e) {
-                                    var view = m4a.view;
-                                    view.$metroStartInputID.val(feature.id);
-                                    view.$metroStartInputName.val(feature.properties.name || feature.id);
-                                    $.each(inPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/in.png'}))});
-                                    e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
-                                    view.$document.triggerHandler('/url/update', ['start', feature.id]);
-                                });
-                            }
-                        }
-                    ).addTo(m4a.viewmodel.metroStartInputMap);
-
-                    // Устанавливаем новый охват
-                    m4a.viewmodel.metroStartInputMap.fitBounds(inPortals.getBounds(), {padding: [0, 10]});
-                }
-            });
-        },
 
 
         setEndStation: function(station_id) {
             var view = m4a.view;
             view.$metroEndInputID.val("");
             view.$metroEndInputName.val("");
-            view.$document.triggerHandler('/url/update', ['end', '']);
+            view.$document.triggerHandler('/url/update', ['portal-end', '']);
             view.$document.triggerHandler('/url/update', ['stat-end', station_id]);
         },
 
 
-        updateOutputsData: function(station_id) {
+        updatePortalsByAjax: function (stationId, type) {
+            var context = this;
             $.ajax({
               dataType: "json",
               url: m4a.viewmodel.url.proxy + global_config.city + "/portals/search",
               data: {
-                station: station_id,
-                direction: "out"
+                station: stationId,
+                direction: type
               }
             }).done(function(data) {
-                // Очищаем слой выходов
-                if (typeof outPortals !== 'undefined') {
-                    m4a.viewmodel.metroEndInputMap.removeLayer(outPortals);
-                }
-                if (data.features.length != 0) {
-
-                    // Добавляем выходы на карту
-                    outPortals = L.geoJson(
-                        data, {
-                            pointToLayer: function(feature, latlng) {
-                                return L.marker(
-                                    latlng, {
-                                        icon: L.icon({
-                                            iconUrl: '/static/img/out.png',
-                                        })
-                                    }
-                                )
-                            },
-                            onEachFeature: function(feature, layer) {
-                                layer.on('click', function (e) {
-                                    var view = m4a.view;
-                                    view.$metroEndInputID.val(feature.id);
-                                    view.$metroEndInputName.val(feature.properties.name || feature.id);
-                                    $.each(outPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/out.png'}))});
-                                    e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
-                                    view.$document.triggerHandler('/url/update', ['end', feature.id]);
-                                });
-                            }
-                        }
-                    ).addTo(m4a.viewmodel.metroEndInputMap);
-
-                    // Устанавливаем новый охват
-                    m4a.viewmodel.metroEndInputMap.fitBounds(outPortals.getBounds(), {padding: [0, 10]});
-                }
+                context.updatePortalsLayer(type, data);
             });
+        },
+
+
+        updatePortalsLayer: function (type, data) {
+            var context = this;
+
+            if (this.portals[type]['layer']) { // Очищаем слой выходов
+                m4a.viewmodel.miniMaps[type].removeLayer(this.portals[type]['layer']);
+            }
+
+            if (data.features.length != 0) {
+                this.portals[type]['data'] = data;
+                this.portals[type]['layer'] = L.geoJson( // Добавляем выходы на карту
+                    data, {
+                        pointToLayer: function (feature, latlng) {
+                            context.portalsSelected[type] = { feature: null, marker: null };
+                            return L.marker(latlng, { icon: context.buildIconStation(feature, type)});
+                        },
+                        onEachFeature: function (feature, layer) {
+                             layer.on('click', function (e) {
+                                var view = m4a.view;
+                                view.$metroEndInputID.val(feature.id);
+                                view.$metroEndInputName.val(feature.properties.name || feature.id);
+
+                                if (context.portalsSelected[type].marker && context.portalsSelected[type].feature) {
+                                    context.portalsSelected[type].marker.setIcon(
+                                        context.buildIconStation(context.portalsSelected[type].feature, type));
+                                }
+                                context.portalsSelected[type].marker = e.target;
+                                context.portalsSelected[type].feature = feature;
+                                context.portalsSelected[type].marker.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
+
+                                view.$document.triggerHandler('/url/update', ['portal-' + type, feature.id]);
+                            });
+                        }
+                    }
+                ).addTo(m4a.viewmodel.miniMaps[type]);
+
+                // Устанавливаем новый охват
+                m4a.viewmodel.miniMaps[type].fitBounds(this.portals[type]['layer'].getBounds(), {padding: [0, 10]});
+            }
+        },
+
+
+        buildIconStation: function(station, type) {
+            if (m4a.profiles.validateStation(station)) {
+                return L.icon({ iconUrl: '/static/img/' + type + '.png' });
+            } else {
+                return L.icon({ iconUrl: '/static/img/invalid.png' });
+            }
         }
     })
 }) (jQuery, m4a)
