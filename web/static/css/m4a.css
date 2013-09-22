@@ -25,15 +25,11 @@
 }
 
 .route > li.transition:before {
-    background-image: url(../img/search-result-1-circle-from.png);
-    background-repeat: no-repeat;
-    background-position: 0 0;
+    background: url(../img/search-result-1-circle-from.png) no-repeat 0 0;
 }
 
 .route > li.exit:before {
-    background-image: url(../img/search-result-1-circle.png);
-    background-repeat: no-repeat;
-    background-position: 0 0;
+    background: url(../img/search-result-1-circle.png) no-repeat 0 0;
 }
 
 .route > li div {
@@ -195,3 +191,65 @@
 .city-2 .route > li.exit:before {
     background-image: url(../img/search-result-2-circle.png);
 }
+
+/* profiles section */
+
+div.profiles {
+    margin-bottom: 3px;
+}
+
+div.profiles *:not(:first-child):not(:last-child) {
+    border-radius: 0 0 0 0;
+}
+
+div.profiles *:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+div.profiles *:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+div.profiles input {
+    min-width: 50px;
+    max-width: 100px;
+    height: 35px;
+    border: solid #aaaaaa 1px;
+    border-left: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+label.profile {
+    width: 35px;
+    height: 35px;
+    opacity: 0.5;
+}
+
+label.profile:hover {
+    opacity: 0.7;
+}
+
+label.profile.active {
+    opacity: 1.0;
+}
+
+#profile_man {
+    background: url(../img/profiles.png) no-repeat 0 -35px;
+}
+
+#profile_wheelchair {
+    background: url(../img/profiles.png) no-repeat -35px -35px;
+}
+
+#profile_trolley {
+    background: url(../img/profiles.png) no-repeat -70px -35px;
+}
+
+div.profile-descr {
+    font-size: 12px;
+    color: #aaaaaa;
+    margin-bottom: 11px;
+}
+

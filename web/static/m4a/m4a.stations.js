@@ -6,11 +6,18 @@
             var view = m4a.view;
             view.$metroStartInputID.val("");
             view.$metroStartInputName.val("");
-            view.$document.triggerHandler('/url/update', ['start', '']);
+            view.$document.triggerHandler('/url/update', ['portal-start', '']);
             view.$document.triggerHandler('/url/update', ['stat-start', station_id]);
         },
 
+        portalsSelected: {
+            in: null,
+            out: null
+        },
+
         updateInputsData: function(station_id) {
+            var context = this;
+
             $.ajax({
               dataType: "json",
               url: m4a.viewmodel.url.proxy + global_config.city + "/portals/search",
@@ -29,22 +36,26 @@
                     inPortals = L.geoJson(
                         data, {
                             pointToLayer: function(feature, latlng) {
-                                return L.marker(
-                                    latlng, {
-                                        icon: L.icon({
-                                            iconUrl: '/static/img/in.png'
-                                        })
-                                    }
-                                )
+                                context.portalsSelected.in = null;
+                                if (m4a.profiles.validateStation(feature)) {
+                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/in.png' }) } );
+                                } else {
+                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/invalid.png' }) } );
+                                }
                             },
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     var view = m4a.view;
                                     view.$metroStartInputID.val(feature.id);
                                     view.$metroStartInputName.val(feature.properties.name || feature.id);
-                                    $.each(inPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/in.png'}))});
+
+                                    if (context.portalsSelected.in) {
+                                        context.portalsSelected.in.setIcon(L.icon({iconUrl: '/static/img/in.png'}));
+                                    }
+                                    context.portalsSelected.in = e.target;
                                     e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
-                                    view.$document.triggerHandler('/url/update', ['start', feature.id]);
+
+                                    view.$document.triggerHandler('/url/update', ['portal-start', feature.id]);
                                 });
                             }
                         }
@@ -61,12 +72,14 @@
             var view = m4a.view;
             view.$metroEndInputID.val("");
             view.$metroEndInputName.val("");
-            view.$document.triggerHandler('/url/update', ['end', '']);
+            view.$document.triggerHandler('/url/update', ['portal-end', '']);
             view.$document.triggerHandler('/url/update', ['stat-end', station_id]);
         },
 
 
         updateOutputsData: function(station_id) {
+            var context = this;
+
             $.ajax({
               dataType: "json",
               url: m4a.viewmodel.url.proxy + global_config.city + "/portals/search",
@@ -85,22 +98,26 @@
                     outPortals = L.geoJson(
                         data, {
                             pointToLayer: function(feature, latlng) {
-                                return L.marker(
-                                    latlng, {
-                                        icon: L.icon({
-                                            iconUrl: '/static/img/out.png',
-                                        })
-                                    }
-                                )
+                                context.portalsSelected.out = null;
+                                if (m4a.profiles.validateStation(feature)) {
+                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/out.png' }) } );
+                                } else {
+                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/invalid.png' }) } );
+                                }
                             },
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
                                     var view = m4a.view;
                                     view.$metroEndInputID.val(feature.id);
                                     view.$metroEndInputName.val(feature.properties.name || feature.id);
-                                    $.each(outPortals.getLayers(), function(i, item){item.setIcon(L.icon({iconUrl: '/static/img/out.png'}))});
+
+                                    if (context.portalsSelected.out) {
+                                        context.portalsSelected.out.setIcon(L.icon({iconUrl: '/static/img/out.png'}));
+                                    }
+                                    context.portalsSelected.out = e.target;
                                     e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
-                                    view.$document.triggerHandler('/url/update', ['end', feature.id]);
+
+                                    view.$document.triggerHandler('/url/update', ['portal-end', feature.id]);
                                 });
                             }
                         }
