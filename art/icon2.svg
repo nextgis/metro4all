@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   width="64"
+   height="64"
+   sodipodi:docname="icon2.svg"
+   inkscape:export-filename="D:\work\projects\android\metroaccess\art\newico_512.png"
+   inkscape:export-xdpi="720"
+   inkscape:export-ydpi="720">
+  <metadata
+     id="metadata2991">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs2989">
+    <linearGradient
+       id="linearGradient7055">
+      <stop
+         id="stop7057"
+         offset="0"
+         style="stop-color: rgb(114, 159, 207); stop-opacity: 1;" />
+      <stop
+         id="stop7059"
+         offset="1"
+         style="stop-color: rgb(52, 101, 164); stop-opacity: 1;" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6985"
+       id="radialGradient3078"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1428272,0.63891882,-0.22370356,0.37519729,2.5636863,-5.702687)"
+       cx="29.797192"
+       cy="24.594734"
+       fx="29.797192"
+       fy="24.594734"
+       r="9.7845659" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient6985">
+      <stop
+         style="stop-color: rgb(255, 255, 255); stop-opacity: 1;"
+         offset="0"
+         id="stop6987" />
+      <stop
+         style="stop-color: rgb(255, 255, 255); stop-opacity: 0;"
+         offset="1"
+         id="stop6989" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="988"
+     id="namedview2987"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="7.2785228"
+     inkscape:cx="30.478434"
+     inkscape:cy="33.383364"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2985" />
+  <rect
+     style="fill:#0d69e1;fill-opacity:1;stroke:none"
+     id="rect3023"
+     width="59.857563"
+     height="59.720589"
+     x="2.0712185"
+     y="2.1397057"
+     rx="2.5955923"
+     ry="2.5955923" />
+  <path
+     style="fill:#ffffff;fill-opacity:1;stroke:none"
+     d="m 61.859877,40.75659 -11.779746,0 0,4.109218 -11.779749,0 0,4.109215 -11.505804,0 0,4.109213 -11.916723,0 0,4.109215 -13.0125137,0 0,4.794085 15.0671207,0 0,-4.383163 12.053698,0 0,-4.383162 11.642775,0 0,-4.109214 11.368827,0 0,-4.109218 9.862115,0 z"
+     id="path3019"
+     inkscape:connector-curvature="0" />
+  <text
+     xml:space="preserve"
+     style="font-size:39.86248398px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.8380487;font-family:Estrangelo Edessa;-inkscape-font-specification:Estrangelo Edessa"
+     x="12.243942"
+     y="38.283516"
+     id="text3026"
+     sodipodi:linespacing="125%"
+     transform="scale(1.120268,0.89264355)"><tspan
+       sodipodi:role="line"
+       id="tspan3028"
+       x="12.243942"
+       y="38.283516"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.99656206;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Estrangelo Edessa;-inkscape-font-specification:Estrangelo Edessa">M</tspan></text>
+</svg>
