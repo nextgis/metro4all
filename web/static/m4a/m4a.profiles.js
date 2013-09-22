@@ -108,8 +108,26 @@
             if (m4a.viewmodel.profile.name === 'man') {
                 return true;
             }
+
+            var barriersParameters = station.properties.barriers;
+
             if (m4a.viewmodel.profile.name === 'wheelchair') {
-                return  station.properties.barriers.max_width >= m4a.viewmodel.profile.values.width;
+                if (barriersParameters.max_width) {
+                    return m4a.viewmodel.profile.values.width <= barriersParameters.max_width;
+                }
+                return true;
+            }
+
+            if (m4a.viewmodel.profile.name === 'trolley') {
+                if (barriersParameters.min_rail_width && barriersParameters.max_rail_width) {
+                    return (m4a.viewmodel.profile.values.width <= barriersParameters.max_rail_width) &&
+                        (m4a.viewmodel.profile.values.width >= barriersParameters.min_rail_width);
+                }
+                if (barriersParameters.min_step && barriersParameters.min_step_ramp) {
+                    return (barriersParameters.min_step > 0) &&
+                        (barriersParameters.min_step_ramp < barriersParameters.min_step);
+                }
+                return true;
             }
         }
     })
