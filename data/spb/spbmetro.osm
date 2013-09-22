@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' upload='false' generator='JOSM'>
+  <node id='-796' action='modify' visible='true' lat='59.91664808796018' lon='30.318671244284147'>
+    <tag k='railway' v='subway_entrance' />
+    <tag k='ref' v='4' />
+  </node>
+  <node id='-795' action='modify' visible='true' lat='59.91638112556395' lon='30.31848816947957'>
+    <tag k='railway' v='subway_entrance' />
+    <tag k='ref' v='3' />
+  </node>
   <node id='-176' action='modify' visible='true' lat='59.9724909857481' lon='30.35078813497267'>
     <tag k='railway' v='subway_entrance' />
     <tag k='ref' v='9' />
@@ -714,7 +722,7 @@
   </node>
   <node id='836617908' action='modify' visible='true' version='1' lat='59.9276441' lon='30.3480336'>
     <tag k='railway' v='subway_entrance' />
-    <tag k='ref' v='3' />
+    <tag k='ref' v='1' />
   </node>
   <node id='894133529' action='modify' visible='true' version='1' lat='59.8962624' lon='30.3573431'>
     <tag k='railway' v='subway_entrance' />
@@ -1007,6 +1015,18 @@
   <node id='2372474641' action='modify' visible='true' version='1' lat='59.8387888' lon='30.412066'>
     <tag k='railway' v='subway_entrance' />
   </node>
+  <way id='-803' action='modify' visible='true'>
+    <nd ref='1669571976' />
+    <nd ref='-795' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
+  <way id='-802' action='modify' visible='true'>
+    <nd ref='-796' />
+    <nd ref='1669571977' />
+    <tag k='highway' v='steps' />
+    <tag k='oneway' v='yes' />
+  </way>
   <way id='-699' action='modify' visible='true'>
     <nd ref='1109163066' />
     <nd ref='97036546' />
@@ -1134,8 +1154,8 @@
     <tag k='highway' v='steps' />
   </way>
   <way id='-646' action='modify' visible='true'>
-    <nd ref='108028429' />
     <nd ref='836617908' />
+    <nd ref='108028429' />
     <tag k='highway' v='steps' />
     <tag k='oneway' v='yes' />
   </way>
