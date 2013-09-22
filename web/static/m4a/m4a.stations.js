@@ -37,11 +37,7 @@
                         data, {
                             pointToLayer: function(feature, latlng) {
                                 context.portalsSelected.in = null;
-                                if (m4a.profiles.validateStation(feature)) {
-                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/in.png' }) } );
-                                } else {
-                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/invalid.png' }) } );
-                                }
+                                return L.marker( latlng, { icon: context.buildIconStation(feature, 'in')} );
                             },
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
@@ -50,7 +46,7 @@
                                     view.$metroStartInputName.val(feature.properties.name || feature.id);
 
                                     if (context.portalsSelected.in) {
-                                        context.portalsSelected.in.setIcon(L.icon({iconUrl: '/static/img/in.png'}));
+                                        context.portalsSelected.in.setIcon(context.buildIconStation(feature, 'in'));
                                     }
                                     context.portalsSelected.in = e.target;
                                     e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
@@ -99,11 +95,7 @@
                         data, {
                             pointToLayer: function(feature, latlng) {
                                 context.portalsSelected.out = null;
-                                if (m4a.profiles.validateStation(feature)) {
-                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/out.png' }) } );
-                                } else {
-                                    return L.marker( latlng, { icon: L.icon({ iconUrl: '/static/img/invalid.png' }) } );
-                                }
+                                return L.marker( latlng, { icon: context.buildIconStation(feature, 'out')} );
                             },
                             onEachFeature: function(feature, layer) {
                                 layer.on('click', function (e) {
@@ -112,7 +104,7 @@
                                     view.$metroEndInputName.val(feature.properties.name || feature.id);
 
                                     if (context.portalsSelected.out) {
-                                        context.portalsSelected.out.setIcon(L.icon({iconUrl: '/static/img/out.png'}));
+                                        context.portalsSelected.out.setIcon(context.buildIconStation(feature, 'out'));
                                     }
                                     context.portalsSelected.out = e.target;
                                     e.target.setIcon(L.icon({iconUrl: '/static/img/check.png'}));
@@ -127,6 +119,15 @@
                     m4a.viewmodel.metroEndInputMap.fitBounds(outPortals.getBounds(), {padding: [0, 10]});
                 }
             });
+        },
+
+
+        buildIconStation: function(station, type) {
+            if (m4a.profiles.validateStation(station)) {
+                return L.icon({ iconUrl: '/static/img/' + type + '.png' });
+            } else {
+                return L.icon({ iconUrl: '/static/img/invalid.png' });
+            }
         }
     })
 }) (jQuery, m4a)
