@@ -16,9 +16,9 @@
    width="64"
    height="64"
    sodipodi:docname="icon2.svg"
-   inkscape:export-filename="D:\work\projects\android\metroaccess\art\newico_512.png"
-   inkscape:export-xdpi="720"
-   inkscape:export-ydpi="720">
+   inkscape:export-filename="D:\work\projects\android\metroaccess\art\newico_acc.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <metadata
      id="metadata2991">
     <rdf:RDF>
@@ -27,7 +27,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
