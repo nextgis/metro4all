@@ -41,7 +41,7 @@
       <!-- Left panel -->
       <div class="col-md-3">
       <form id="mainform" role="form">
-        <legend>Профиль</legend>
+        <legend>Мои ограничения</legend>
         <div class="btn-group profiles" data-toggle="buttons">
           <label id="profile_man" class="btn btn-default profile" data-profile="man" data-type="sample" title="Я просто иду">
             <input type="radio" name="options" id="option1">

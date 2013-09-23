@@ -45,16 +45,22 @@
 
         profileControls: {
             man: {
-                description: 'Я просто иду'
+                description: 'Без ограничений'
             },
             wheelchair: {
                 html: '<input type="input" value="60" title="Ширина коляски в см">',
-                description: function (value) {return 'Я на коляске шириной ' + value + ' см'},
+                description: function (value) {
+                    if (value === '') { return ''; }
+                    return 'Я на коляске шириной ' + value + ' см';
+                },
                 values: {width: 0}
             },
             trolley : {
                 html: '<input type="input" value="60" title="Ширина тележки в см">',
-                description: function (value) {return 'Я c тележкой шириной ' + value + ' см'},
+                description: function (value) {
+                    if (value === '') { return ''; }
+                    return 'Я c тележкой шириной ' + value + ' см';
+                },
                 values: {width: 0}
             }
         },
