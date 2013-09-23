@@ -23,5 +23,5 @@ mkdir 'icons' or die "Cannot create icons directory" if !-e 'icons';
 
 foreach my $line (keys %lines) {
   my $color = $lines{$line};
-  `perl $0 ../../art/icons/$_.svg $color | rsvg-convert -o icons/$line$_.png` for 1..9;
+  `perl $0 ../../art/icons/$_.svg $color | rsvg-convert -o icons/$line$_.png` for 0..9;
 }
