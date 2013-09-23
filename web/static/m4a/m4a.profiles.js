@@ -39,6 +39,7 @@
                 m4a.viewmodel.profile.name = profile;
                 m4a.viewmodel.profile.values = null;
                 context.buildProfileControl(profile, type, $this);
+                m4a.stations.updateLocalPortals();
             });
         },
 
@@ -81,6 +82,7 @@
                     }
                     context.updateDescription(context.profileControls[profile].description(this.value));
                     m4a.viewmodel.profile.values.width = this.value;
+                    m4a.stations.updateLocalPortals();
                 });
                 this.lastProfileControl.trigger('input');
             } else {
