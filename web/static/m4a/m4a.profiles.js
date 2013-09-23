@@ -50,7 +50,7 @@
             wheelchair: {
                 html: '<input type="input" value="60" title="Ширина коляски в см">',
                 description: function (value) {
-                    if (value === '') { return ''; }
+                    if (value === '') { return 'Я на коляске'; }
                     return 'Я на коляске шириной ' + value + ' см';
                 },
                 values: {width: 0}
@@ -58,7 +58,7 @@
             trolley : {
                 html: '<input type="input" value="60" title="Ширина тележки в см">',
                 description: function (value) {
-                    if (value === '') { return ''; }
+                    if (value === '') { return 'Я c тележкой'; }
                     return 'Я c тележкой шириной ' + value + ' см';
                 },
                 values: {width: 0}
