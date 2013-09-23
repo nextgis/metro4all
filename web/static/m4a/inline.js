@@ -209,7 +209,7 @@ $(document).ready(function () {
                             $this.addClass('active');
                             $('#routePanel').empty();
                             showRoute(routes, route_index);
-                            m4a.view.$document.triggerHandler('/url/update', ['route', route_index + 1]);
+//                            m4a.view.$document.triggerHandler('/url/update', ['route', route_index + 1]);
                         });
 
                         // Активируем первый маршрут

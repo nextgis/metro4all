@@ -35,7 +35,7 @@
                 var $this = $(this),
                     profile = $this.data('profile'),
                     type = $this.data('type');
-                m4a.url.updateUrl('profile', profile);
+//                m4a.url.updateUrl('profile', profile);
                 m4a.viewmodel.profile.name = profile;
                 m4a.viewmodel.profile.values = null;
                 context.buildProfileControl(profile, type, $this);

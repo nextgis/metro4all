@@ -5,11 +5,13 @@
         portals: {
             in: {
                 layer: null,
-                data: null
+                data: null,
+                markers: {}
             },
             out: {
                 layer: null,
-                data: null
+                data: null,
+                markers: {}
             }
         },
 
@@ -22,7 +24,7 @@
             var view = m4a.view;
             view.$metroStartInputID.val("");
             view.$metroStartInputName.val("");
-            view.$document.triggerHandler('/url/update', ['portal-start', '']);
+            view.$document.triggerHandler('/url/update', ['portal-in', '']);
             view.$document.triggerHandler('/url/update', ['stat-start', station_id]);
         },
 
@@ -31,7 +33,7 @@
             var view = m4a.view;
             view.$metroEndInputID.val("");
             view.$metroEndInputName.val("");
-            view.$document.triggerHandler('/url/update', ['portal-end', '']);
+            view.$document.triggerHandler('/url/update', ['portal-out', '']);
             view.$document.triggerHandler('/url/update', ['stat-end', station_id]);
         },
 
@@ -42,7 +44,7 @@
         },
 
 
-        updatePortalsByAjax: function (stationId, type) {
+        updatePortalsByAjax: function (stationId, type, callback) {
             var context = this;
             $.ajax({
               dataType: "json",
@@ -53,8 +55,10 @@
               }
             }).done(function(data) {
                 context.portals[type]['data'] = data;
+                context.portals[type]['markers'] = {};
                 context.updatePortalsLayer(type, data);
                 context.portalsSelected[type] = { feature: null, marker: null };
+                if (callback) { callback.f.apply(context, callback.args); }
             });
         },
 
@@ -69,34 +73,45 @@
             if (data.features.length != 0) {
                 this.portals[type]['layer'] = L.geoJson(data, {
                         pointToLayer: function (feature, latlng) {
+                            var marker;
                             if (context.isFeatureSelected(feature, type)) {
-                                return L.marker(latlng, { icon: context.buildSelectedIcon() });
+                                marker = L.marker(latlng, { icon: context.buildSelectedIcon() });
+                                context.portalsSelected[type] = { feature: feature, marker: marker };
+                            } else {
+                                marker = L.marker(latlng, { icon: context.buildIconStation(feature, type)});
                             }
-                            return L.marker(latlng, { icon: context.buildIconStation(feature, type)});
+//                            context.portals[type].markers[feature.id] = marker;
+                            return marker;
                         },
                         onEachFeature: function (feature, layer) {
-                             layer.on('click', function (e) {
-                                var view = m4a.view,
-                                    domPrefix = 'Start';
-                                if (type === 'out') { domPrefix = 'End'; }
-                                view['$metro' + domPrefix + 'InputID'].val(feature.id);
-                                view['$metro' + domPrefix + 'InputName'].val(feature.properties.name || feature.id);
-
-                                if (context.portalsSelected[type].marker && context.portalsSelected[type].feature) {
-                                    context.portalsSelected[type].marker.setIcon(
-                                        context.buildIconStation(context.portalsSelected[type].feature, type));
-                                }
-                                context.portalsSelected[type].marker = e.target;
-                                context.portalsSelected[type].feature = feature;
-                                context.portalsSelected[type].marker.setIcon(context.buildSelectedIcon());
-
-                                view.$document.triggerHandler('/url/update', ['portal-' + type, feature.id]);
+                            context.portals[type].markers[feature.id] = layer;
+                            layer.on('click', function (e) {
+                                context.selectPortal(type, feature, e.target);
                             });
                         }
                     }
                 ).addTo(m4a.viewmodel.miniMaps[type]);
                 m4a.viewmodel.miniMaps[type].fitBounds(this.portals[type]['layer'].getBounds(), {padding: [0, 10]});
             }
+        },
+
+
+        selectPortal: function(type, feature, marker) {
+            var view = m4a.view,
+                domPrefix = 'Start';
+            if (type === 'out') { domPrefix = 'End'; }
+            view['$metro' + domPrefix + 'InputID'].val(feature.id);
+            view['$metro' + domPrefix + 'InputName'].val(feature.properties.name || feature.id);
+
+            if (this.portalsSelected[type].marker && this.portalsSelected[type].feature) {
+                this.portalsSelected[type].marker.setIcon(
+                    this.buildIconStation(this.portalsSelected[type].feature, type));
+            }
+            this.portalsSelected[type].marker = marker;
+            this.portalsSelected[type].feature = feature;
+            this.portalsSelected[type].marker.setIcon(this.buildSelectedIcon());
+
+            view.$document.triggerHandler('/url/update', ['portal-' + type, feature.id]);
         },
 
 
@@ -118,6 +133,18 @@
 
         buildSelectedIcon: function() {
             return L.icon({iconUrl: '/static/img/check.png'});
+        },
+
+
+        selectPortalByFeatureId: function(id, type) {
+            if (this.portals[type].markers[id]) {
+                var feature = $.grep(this.portals[type].data.features, function(feature){ return feature.id == id; });
+                if (feature.length > 0) {
+                    this.selectPortal(type, feature[0], this.portals[type].markers[id]);
+                    return true;
+                }
+            }
+            return false;
         }
     })
 }) (jQuery, m4a)
