@@ -57,34 +57,38 @@
         parse: function () {
             var view = m4a.view,
                 stat_start = this.getURLParameter('stat-start'),
-                start = this.getURLParameter('portal-start'),
+                portalIn = this.getURLParameter('portal-in'),
                 stat_end = this.getURLParameter('stat-end'),
-                end = this.getURLParameter('portal-end'),
-                route = this.getURLParameter('route');
+                portalOut = this.getURLParameter('portal-out'),
+                route = this.getURLParameter('route'),
+                portalInSelectCallback = null,
+                portalOutSelectCallback = null;
 
             if (stat_start) {
                 this.urlParameters['stat-start'] = stat_start;
                 view.$metroStartStation.select2('val', stat_start);
-                m4a.stations.updatePortalsByAjax(stat_start, 'in');
-                if (start) {
-                    this.urlParameters['portal-start'] = start;
-                    view.$metroStartInputID.val(start);
-                    view.$metroStartInputName.val(start);
+                if (portalIn) {
+                    this.urlParameters['portal-in'] = portalIn;
+                    view.$metroStartInputID.val(portalIn);
+                    view.$metroStartInputName.val(portalIn);
+                    portalInSelectCallback = {f: m4a.stations.selectPortalByFeatureId, args: [portalIn, 'in']};
                 }
+                m4a.stations.updatePortalsByAjax(stat_start, 'in', portalInSelectCallback);
             }
 
             if (stat_end) {
                 this.urlParameters['stat-end'] = stat_end;
                 view.$metroEndStation.select2('val', stat_end);
-                m4a.stations.updatePortalsByAjax(stat_start, 'out');
-                if (end) {
-                    this.urlParameters['portal-end'] = end;
-                    view.$metroEndInputID.val(end);
-                    view.$metroEndInputName.val(end);
+                if (portalOut) {
+                    this.urlParameters['portal-out'] = portalOut;
+                    view.$metroEndInputID.val(portalOut);
+                    view.$metroEndInputName.val(portalOut);
+                    portalInSelectCallback = {f: m4a.stations.selectPortalByFeatureId, args: [portalIn, 'out']};
                 }
+                m4a.stations.updatePortalsByAjax(stat_start, 'out', portalInSelectCallback);
             }
 
-            if (stat_start && start && stat_end && end) {
+            if (stat_start && portalIn && stat_end && portalOut) {
                 $("#mainform").submit();
             }
         },
