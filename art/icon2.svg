@@ -16,9 +16,9 @@
    width="64"
    height="64"
    sodipodi:docname="icon2.svg"
-   inkscape:export-filename="D:\work\projects\android\metroaccess\art\newico_512.png"
-   inkscape:export-xdpi="720"
-   inkscape:export-ydpi="720">
+   inkscape:export-filename="D:\work\projects\android\metroaccess\art\newico_acc.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <metadata
      id="metadata2991">
     <rdf:RDF>
@@ -77,15 +77,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="988"
+     inkscape:window-width="1600"
+     inkscape:window-height="838"
      id="namedview2987"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="7.2785228"
-     inkscape:cx="30.478434"
-     inkscape:cy="33.383364"
+     inkscape:zoom="2.5429688"
+     inkscape:cx="-25.582311"
+     inkscape:cy="14.984162"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -107,14 +107,78 @@
   <text
      xml:space="preserve"
      style="font-size:39.86248398px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.8380487;font-family:Estrangelo Edessa;-inkscape-font-specification:Estrangelo Edessa"
-     x="12.243942"
-     y="38.283516"
+     x="1.5741965"
+     y="43.208771"
      id="text3026"
      sodipodi:linespacing="125%"
      transform="scale(1.120268,0.89264355)"><tspan
        sodipodi:role="line"
        id="tspan3028"
-       x="12.243942"
-       y="38.283516"
+       x="1.5741965"
+       y="43.208771"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.99656206;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Estrangelo Edessa;-inkscape-font-specification:Estrangelo Edessa">M</tspan></text>
+  <g
+     id="g3781"
+     transform="translate(0.09831029,1.5729647)">
+    <g
+       style="display:inline"
+       id="g16821"
+       display="inline"
+       transform="matrix(-0.05689803,0,0,0.05827888,53.56635,31.824376)">
+      <rect
+         transform="matrix(0.867458,0.497511,-0.497511,0.867458,0,0)"
+         ry="41.924282"
+         y="-125.37717"
+         x="-34.335274"
+         height="264.08295"
+         width="83.848564"
+         id="rect2199"
+         stroke-miterlimit="4"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1.15143204;stroke-linejoin:round;stroke-miterlimit:4" />
+      <rect
+         ry="29.424444"
+         y="67.630905"
+         x="-54.650749"
+         height="58.848888"
+         width="194.69788"
+         id="rect2204"
+         stroke-miterlimit="4"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1.15111399;stroke-linejoin:round;stroke-miterlimit:4" />
+      <rect
+         ry="28.927097"
+         y="68.131699"
+         x="80.556129"
+         height="190.70456"
+         width="58.99028"
+         id="rect4148"
+         stroke-miterlimit="4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.00971901;stroke-linejoin:round;stroke-miterlimit:4" />
+      <rect
+         y="219.90099"
+         x="80.611061"
+         height="40.380249"
+         width="59.023106"
+         id="rect4150"
+         stroke-miterlimit="4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.97689301;stroke-linejoin:round;stroke-miterlimit:4" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 138.42645,260.27423 -47.380032,-0.45679 23.537292,-11.86136 25.05667,-11.6481 23.72128,11.83069 22.3234,12.10483 -47.25861,0.0307 z"
+         id="path4265"
+         stroke-miterlimit="4"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:3.86697197;stroke-linejoin:round;stroke-miterlimit:4" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 161.43173,-141.51602 a 47.02549,47.025486 0 1 1 -94.050924,0 47.02549,47.025486 0 1 1 94.050924,0 z"
+         id="path2160"
+         stroke-miterlimit="4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.11601305;stroke-miterlimit:4" />
+    </g>
+    <path
+       sodipodi:nodetypes="cccc"
+       inkscape:connector-curvature="0"
+       id="path3011"
+       d="m 50.501699,27.943236 -4.475876,5.790551 -2.096069,-5.416743 0.448602,-1.273873"
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  </g>
 </svg>
