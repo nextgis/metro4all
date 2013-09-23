@@ -37,9 +37,10 @@ function fillBarriers(barriers) {
 function showRoute(routes, index) {
 
     // Вывод списка станций, входящих в маршрут
-    var content = "<ul class='route'>";
+    var content = "<ul class='route'>",
+        lineClass = routes[index].route && routes[index].route.length > 0 ? 'line-' + routes[index].route[0].station_line.id : '';
 
-    content += "<li class='enter'>Вход" + " &rarr; " + routes[index].route[0].station_name
+    content += '<li class="enter ' + lineClass + '">Вход' + " &rarr; " + routes[index].route[0].station_name
     if (routes[index].portals.portal_from) {
         var barriers = routes[index].portals.portal_from.barriers;
         if (barriers) {
