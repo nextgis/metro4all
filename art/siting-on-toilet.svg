@@ -1,0 +1,29 @@
+<?xml version="1.0"?><svg width="482.83014" height="482.83010999999993" xmlns="http://www.w3.org/2000/svg">
+ <title>siting on toilet</title>
+ <defs>
+  <linearGradient id="linearGradient12506">
+   <stop stop-color="#000000" stop-opacity="0.74902" offset="0" id="stop8039"/>
+   <stop stop-color="#000000" stop-opacity="0.623529" id="stop9979" offset="0.039604"/>
+   <stop stop-color="#000000" stop-opacity="0.498039" offset="0.573864" id="stop12514"/>
+   <stop stop-color="#000000" stop-opacity="0" id="stop12510" offset="1"/>
+  </linearGradient>
+ </defs>
+ <metadata id="metadata2186">image/svg+xml</metadata>
+ <g>
+  <title>Layer 1</title>
+  <g display="inline" id="layer2"/>
+  <g display="inline" id="layer1"/>
+  <path id="svg_35" fill="#020202" d="m418.510193,465.91217c30.233765,0 54.706909,-24.308289 54.706909,-54.411377l0,-347.030319c0,-30.1031 -24.473145,-54.470474 -54.706909,-54.470474l-348.510193,0c-30.233688,0 -54.706848,24.367374 -54.706848,54.470474l0,347.030319c0,30.103088 24.47316,54.411377 54.706848,54.411377l348.510193,0z"/>
+  <g id="svg_17">
+   <g transform="matrix(0.639501 0 0 0.655021 222.814 205.834)" display="inline" id="g16821">
+    <rect style="vector-effect: non-scaling-stroke; " fill="#ffffff" stroke="#ffffff" stroke-width="1.151432" stroke-linejoin="round" stroke-miterlimit="4" id="rect2199" width="83.848564" height="264.08295" x="-34.335273" y="-125.377164" ry="41.924282" transform="matrix(0.867458 0.497511 -0.497511 0.867458 0 0)"/>
+    <rect style="vector-effect: non-scaling-stroke; " fill="#ffffff" stroke="#ffffff" stroke-width="1.151114" stroke-linejoin="round" stroke-miterlimit="4" id="rect2204" width="194.69788" height="58.848888" x="-54.650751" y="67.630905" ry="29.424444"/>
+    <rect style="vector-effect: non-scaling-stroke; " fill="#ffffff" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.009719" stroke-linejoin="round" stroke-miterlimit="4" id="rect4148" width="58.99028" height="190.70456" x="80.556129" y="68.131695" ry="28.927097"/>
+    <rect style="vector-effect: non-scaling-stroke; " fill="#ffffff" fill-rule="evenodd" stroke="#ffffff" stroke-width="0.976893" stroke-linejoin="round" stroke-miterlimit="4" id="rect4150" width="59.023106" height="40.380249" x="80.611059" y="219.900985"/>
+    <path style="vector-effect: non-scaling-stroke; " fill="#ffffff" stroke="#ffffff" stroke-width="3.866972" stroke-linejoin="round" stroke-miterlimit="4" id="path4265" d="m138.426453,260.274231l-47.380035,-0.456787l23.537292,-11.861359l25.056671,-11.648102l23.721283,11.830688l22.323395,12.104828l-47.258606,0.030731z"/>
+    <path style="vector-effect: non-scaling-stroke; " fill="#ffffff" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.116013" stroke-miterlimit="4" id="path2160" d="m161.431732,-141.516022a47.02549,47.025486 0 1 1 -94.050926,0a47.02549,47.025486 0 1 1 94.050926,0z"/>
+   </g>
+   <path fill="#050505" fill-rule="evenodd" stroke="#ffffff" stroke-width="5" stroke-miterlimit="4" id="path11057" d="m154.269226,290.665344l107.245453,0c0,0 2.967224,64.259003 -71.638245,46.45752l26.281509,38.208069l0.045715,0.355621l-61.369446,0l-0.564987,-85.02121z"/>
+  </g>
+ </g>
+</svg>
