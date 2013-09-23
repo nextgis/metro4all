@@ -220,7 +220,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             }
         };		
         
-		mmoStations = new HashMap<Integer, StationItem>();
 		mmoRouteMetadata = new HashMap<Integer, JSONObject>();        
 		
 		//check for data exist
@@ -681,6 +680,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			}
 	
 			mGraph = new VariableGraph();
+			mmoStations = new HashMap<Integer, StationItem>();
 
 		    //fill with station list
 		    File station_file = new File(msRDataPath, "stations.csv");
@@ -1055,37 +1055,39 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	}	
 	
 	protected void UpdateUI(){
-    	StationItem dep_sit = mmoStations.get(mnDepartureStationId);
-    	if(dep_sit != null && mtvDepartureStationName != null){    		
-    		mtvDepartureStationName.setText(dep_sit.GetName());
-    		PortalItem pit = dep_sit.GetPortal(mnDeparturePortalId);
-    		if(pit != null && mtvDeparturePortalName != null){
-    			mtvDeparturePortalName.setText(pit.GetName());
-    		}
-    		else{
-    			mtvDeparturePortalName.setText(getString(R.string.sNotSet));  
-    		}
-    	}
-    	else{
-    		mtvDepartureStationName.setText(getString(R.string.sNotSet));
-    		mtvDeparturePortalName.setText(getString(R.string.sNotSet));    		
-    	}
-
-    	StationItem arr_sit = mmoStations.get(mnArrivalStationId);
-    	if(arr_sit != null && mtvArrivalStationName != null){
-    		mtvArrivalStationName.setText(arr_sit.GetName());
-    		PortalItem pit = arr_sit.GetPortal(mnArrivalPortalId);
-    		if(pit != null && mtvArrivalPortalName != null){
-    			mtvArrivalPortalName.setText(pit.GetName());
-    		}
-    		else{
-    			mtvArrivalPortalName.setText(getString(R.string.sNotSet));
-    		}
-    	}
-    	else{
-    		mtvArrivalStationName.setText(getString(R.string.sNotSet));
-    		mtvArrivalPortalName.setText(getString(R.string.sNotSet));    		
-    	}
+		if(mmoStations != null){
+	    	StationItem dep_sit = mmoStations.get(mnDepartureStationId);
+	    	if(dep_sit != null && mtvDepartureStationName != null){    		
+	    		mtvDepartureStationName.setText(dep_sit.GetName());
+	    		PortalItem pit = dep_sit.GetPortal(mnDeparturePortalId);
+	    		if(pit != null && mtvDeparturePortalName != null){
+	    			mtvDeparturePortalName.setText(pit.GetName());
+	    		}
+	    		else{
+	    			mtvDeparturePortalName.setText(getString(R.string.sNotSet));  
+	    		}
+	    	}
+	    	else{
+	    		mtvDepartureStationName.setText(getString(R.string.sNotSet));
+	    		mtvDeparturePortalName.setText(getString(R.string.sNotSet));    		
+	    	}
+	
+	    	StationItem arr_sit = mmoStations.get(mnArrivalStationId);
+	    	if(arr_sit != null && mtvArrivalStationName != null){
+	    		mtvArrivalStationName.setText(arr_sit.GetName());
+	    		PortalItem pit = arr_sit.GetPortal(mnArrivalPortalId);
+	    		if(pit != null && mtvArrivalPortalName != null){
+	    			mtvArrivalPortalName.setText(pit.GetName());
+	    		}
+	    		else{
+	    			mtvArrivalPortalName.setText(getString(R.string.sNotSet));
+	    		}
+	    	}
+	    	else{
+	    		mtvArrivalStationName.setText(getString(R.string.sNotSet));
+	    		mtvArrivalPortalName.setText(getString(R.string.sNotSet));    		
+	    	}
+		}
 
 	    if(mnDepartureStationId != mnArrivalStationId && mnArrivalStationId != -1 && mnArrivalStationId != -1){
 	    	if(mSearchButton != null) 
