@@ -76,9 +76,11 @@
                         },
                         onEachFeature: function (feature, layer) {
                              layer.on('click', function (e) {
-                                var view = m4a.view;
-                                view.$metroEndInputID.val(feature.id);
-                                view.$metroEndInputName.val(feature.properties.name || feature.id);
+                                var view = m4a.view,
+                                    domPrefix = 'Start';
+                                if (type === 'out') { domPrefix = 'End'; }
+                                view['$metro' + domPrefix + 'InputID'].val(feature.id);
+                                view['$metro' + domPrefix + 'InputName'].val(feature.properties.name || feature.id);
 
                                 if (context.portalsSelected[type].marker && context.portalsSelected[type].feature) {
                                     context.portalsSelected[type].marker.setIcon(
