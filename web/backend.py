@@ -2,6 +2,7 @@
 import glob
 import csv
 import networkx as nx
+import bottle
 from geojson import Feature, FeatureCollection, dumps
 from bottle import view, route, response, request, run, static_file, HTTPResponse
 from os import path
@@ -255,9 +256,10 @@ def get_routes(city, delta=5, limit=3):
 
 
 def run_fcgi():
-    from bottle import FlupFCGIServer
-    run(host='0.0.0.0', port=6543, server=FlupFCGIServer)
+    app = bottle.default_app()
+    from flup.server.fcgi import WSGIServer
+    WSGIServer(app).run()
 
 
 if __name__ == "__main__":
-    run(host='0.0.0.0', port=8087, server='waitress')
+    run(host='0.0.0.0', port=8088, server='waitress')
