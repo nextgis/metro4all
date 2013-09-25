@@ -7,6 +7,10 @@ from geojson import Feature, FeatureCollection, dumps
 from bottle import view, route, response, request, run, static_file, HTTPResponse
 from os import path
 
+# for Apache - http://bottlepy.org/docs/dev/faq.html
+# “TEMPLATE NOT FOUND” IN MOD_WSGI/MOD_PYTHON
+bottle.TEMPLATE_PATH.insert(0, '/home/karavanjow/projects/metro4all/metroaccess/web/views/')
+
 
 # Инициализация графа
 def init_graph(city):
