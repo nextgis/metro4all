@@ -44,7 +44,7 @@ def get_barriers(item):
         lift_minus_step=item['lift_minus_step'],
         min_rail_width=int(item['min_rail_width'])/10 if (item['min_rail_width'].isdigit() and item['min_rail_width'] != '0') else None,
         max_rail_width=int(item['max_rail_width'])/10 if (item['max_rail_width'].isdigit() and item['max_rail_width'] != '0') else None,
-        max_angle=int(item['max_angle'])/10 if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
+        max_angle=int(item['max_angle']) if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
     )
 
 
@@ -102,7 +102,8 @@ def main(city):
 
 @route('/static/<path:path>')
 def static(path):
-    return static_file(path, root='static')
+    import os
+    return static_file(path, root=os.path.join(os.path.dirname(__file__), 'static'))
 
 
 # Получение списка станций для выпадающих списков
