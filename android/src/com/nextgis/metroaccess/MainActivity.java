@@ -658,8 +658,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		mtvDepartureStationName.setText(getString(R.string.sNotSet));
 		mtvDeparturePortalName.setText(getString(R.string.sNotSet));   
 		mtvArrivalStationName.setText(getString(R.string.sNotSet));
-		mtvArrivalPortalName.setText(getString(R.string.sNotSet));    		
-		
+		mtvArrivalPortalName.setText(getString(R.string.sNotSet));   
 		
     	if(mSearchButton != null) 
     		mSearchButton.setEnabled(false);
@@ -1065,11 +1064,13 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    		}
 	    		else{
 	    			mtvDeparturePortalName.setText(getString(R.string.sNotSet));  
+	    			mnDeparturePortalId = -1;
 	    		}
 	    	}
 	    	else{
 	    		mtvDepartureStationName.setText(getString(R.string.sNotSet));
-	    		mtvDeparturePortalName.setText(getString(R.string.sNotSet));    		
+	    		mtvDeparturePortalName.setText(getString(R.string.sNotSet)); 
+	    		mnDepartureStationId = -1;
 	    	}
 	
 	    	StationItem arr_sit = mmoStations.get(mnArrivalStationId);
@@ -1081,15 +1082,17 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    		}
 	    		else{
 	    			mtvArrivalPortalName.setText(getString(R.string.sNotSet));
+	    			mnArrivalPortalId = -1;
 	    		}
 	    	}
 	    	else{
 	    		mtvArrivalStationName.setText(getString(R.string.sNotSet));
-	    		mtvArrivalPortalName.setText(getString(R.string.sNotSet));    		
+	    		mtvArrivalPortalName.setText(getString(R.string.sNotSet)); 
+	    		mnArrivalStationId = -1;
 	    	}
 		}
 
-	    if(mnDepartureStationId != mnArrivalStationId && mnArrivalStationId != -1 && mnArrivalStationId != -1){
+	    if(mnDepartureStationId != mnArrivalStationId && mnDepartureStationId != -1 && mnArrivalStationId != -1 && mnDeparturePortalId != -1 && mnArrivalPortalId != -1){
 	    	if(mSearchButton != null) 
 	    		mSearchButton.setEnabled(true);
     		if(mSearchMenuItem != null)
