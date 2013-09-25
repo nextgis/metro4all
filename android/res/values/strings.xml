@@ -19,7 +19,7 @@
 	<string name="sCannotReadFile">Cannot read file</string>
 	<string name="sCannotGetPath">Cannot find path</string>
 	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
-	<string name="sNoOrEmptyData">The data are upsent or invalid. Please download new routing data</string>
+	<string name="sNoOrEmptyData">The data are absent or invalid. Please download the database.</string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data updates is available</string>
