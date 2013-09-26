@@ -7,6 +7,10 @@ from geojson import Feature, FeatureCollection, dumps
 from bottle import view, route, response, request, run, static_file, HTTPResponse
 from os import path
 
+# for Apache - http://bottlepy.org/docs/dev/faq.html
+# “TEMPLATE NOT FOUND” IN MOD_WSGI/MOD_PYTHON
+bottle.TEMPLATE_PATH.insert(0, '/home/karavanjow/projects/metro4all/metroaccess/web/views/')
+
 
 # Инициализация графа
 def init_graph(city):
@@ -44,7 +48,7 @@ def get_barriers(item):
         lift_minus_step=item['lift_minus_step'],
         min_rail_width=int(item['min_rail_width'])/10 if (item['min_rail_width'].isdigit() and item['min_rail_width'] != '0') else None,
         max_rail_width=int(item['max_rail_width'])/10 if (item['max_rail_width'].isdigit() and item['max_rail_width'] != '0') else None,
-        max_angle=int(item['max_angle'])/10 if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
+        max_angle=int(item['max_angle']) if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
     )
 
 
@@ -102,7 +106,8 @@ def main(city):
 
 @route('/static/<path:path>')
 def static(path):
-    return static_file(path, root='static')
+    import os
+    return static_file(path, root=os.path.join(os.path.dirname(__file__), 'static'))
 
 
 # Получение списка станций для выпадающих списков
