@@ -122,6 +122,7 @@
     <script src="static/m4a/m4a.stations.js"></script>
     <script src="static/m4a/m4a.url.js"></script>
     <script src="static/m4a/m4a.profiles.js"></script>
+    <script src="static/m4a/m4a.routes.js"></script>
     <script src="static/m4a/inline.js"></script>
   </body>
 </html>
