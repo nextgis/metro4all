@@ -77,9 +77,11 @@ GRAPH = {
     'spb': init_graph('spb')
 }
 
+msk_schemes = [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/msk/schemes/*.png'))]
+spb_schemes = [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/spb/schemes/*.png'))]
 SCHEMAS = {
-    'msk': [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/msk/schemes/*.png'))],
-    'spb': [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/spb/schemes/*.png'))]
+    'msk': dict(zip([path.splitext(s)[0] for s in msk_schemes], msk_schemes)),
+    'spb': dict(zip([path.splitext(s)[0] for s in spb_schemes], spb_schemes))
 }
 
 
@@ -119,10 +121,13 @@ def get_stations(city):
         group = []
         for station in STATIONS[city]:
             if line['id_line'] == station['id_line']:
-                group.append(dict(
-                    id=station['id_station'],
-                    text=station['name']
-                ))
+                station_json = {
+                    'id':   station['id_station'],
+                    'text': station['name']
+                }
+                if station['id_station'] in SCHEMAS[city]:
+                    station_json['sch'] = SCHEMAS[city][station['id_station']]
+                group.append(station_json)
         group = sorted(group, key=lambda i: i['text'])
         results.append(dict(text=line['name'], children=group))
 
@@ -233,7 +238,7 @@ def get_routes(city, delta=5, limit=3):
                         name=get_line_info(line_id)['name'],
                         color=get_line_info(line_id)['color']
                     ),
-                    schema="%s.png" % station if "%s.png" % station in SCHEMAS[city] else None
+                    schema=SCHEMAS[city][str(station)] if str(station) in SCHEMAS[city] else None
                 )
 
                 if station_type == "interchange":
