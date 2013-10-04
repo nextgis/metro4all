@@ -72,7 +72,9 @@
             // Вывод списка станций, входящих в маршрут
             var context = this,
                 content = "<ul class='route'>",
-                lineClass = routes[index].route && routes[index].route.length > 0 ? ' line-' + routes[index].route[0].station_line.id : '';
+                lineClass = routes[index].route && routes[index].route.length > 0 ?
+                    ' line-' + routes[index].route[0].station_line.id : '';
+
             content += "<li class='enter" + lineClass + "'>Вход";
             if (routes[index].portals.portal_from) {
                 var barriers = routes[index].portals.portal_from.barriers;
@@ -85,18 +87,24 @@
                 content += "</ul>";
             }
             content += "</li>";
+
             $.each(routes[index].route, function (i, item) {
-                var condition = (i == 0) ? item.station_type == 'regular' : (item.station_type == 'regular' && routes[index].route[i - 1].station_type != 'interchange')
+                var condition = (i == 0) ? item.station_type == 'regular' :
+                    (item.station_type == 'regular' && routes[index].route[i - 1].station_type != 'interchange')
                 if (condition) {
                     content += "<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
                 } else if (item.station_type == 'interchange') {
-                    content += "<li class=" + "'transition from-line-" + item.station_line.id + " " + "to-line-" + routes[index].route[i + 1].station_line.id + "'>" + item.station_name + " (" + item.station_line.name + ")" + " &rarr; " + routes[index].route[i + 1].station_name + " (" + routes[index].route[i + 1].station_line.name + ")"
+                    content += "<li class=" + "'transition from-line-" + item.station_line.id + " to-line-" +
+                        routes[index].route[i + 1].station_line.id + "'>" + item.station_name +
+                        " (" + item.station_line.name + ")" + " &rarr; " + routes[index].route[i + 1].station_name +
+                        " (" + routes[index].route[i + 1].station_line.name + ")"
                     if (item.barriers) {
                         content += context.fillBarriers(item.barriers);
                     }
                     content += "</li>"
                 }
             });
+
             content += "<li class='exit'>Выход";
             if (routes[index].portals.portal_to) {
                 var barriers = routes[index].portals.portal_to.barriers;
@@ -123,7 +131,8 @@
                     item.coordinates,
                     {
                         icon: L.divIcon({
-                            className: 'marker-station marker-line-' + item.station_line.id + (i == 0 ? ' marker-enter' : (i == (routes[index].route.length - 1) ? ' marker-exit' : '')),
+                            className: 'marker-station marker-line-' + item.station_line.id +
+                                (i == 0 ? ' marker-enter' : (i == (routes[index].route.length - 1) ? ' marker-exit' : '')),
                             iconSize: [16, 16]
                         })
                     }).bindLabel(item.station_name)
