@@ -118,6 +118,7 @@
     <script src="static/leaflet-0.6.4/leaflet.js"></script>
     <script src="static/leaflet.label.js"></script>
     <script src="static/TileLayer.Grayscale.js"></script>
+    <script src="static/mustache/mustache.js"></script>
     <script src="static/m4a/m4a.loader.js"></script>
     <script src="static/m4a/m4a.stations.js"></script>
     <script src="static/m4a/m4a.url.js"></script>
