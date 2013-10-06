@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>http://metro4all.ru/ru/</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://metro4all.ru/ru/msk/</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://metro4all.ru/ru/spb/</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://metro4all.ru/ru/faq/</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://metro4all.ru/ru/about/</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://metro4all.ru/ru/news/</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://metro4all.ru/ru/feedback/</loc>
+  <changefreq>daily</changefreq>
+</url>
+</urlset>

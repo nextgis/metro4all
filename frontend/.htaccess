@@ -1,0 +1,10 @@
+AddDefaultCharset utf-8
+
+RewriteEngine On
+
+RewriteRule ^(.*)\.[\d]{10}\.(css|js)$ $1.$2 [L,NC]
+
+# RewriteRule ^$ index.php [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .*  /controller/frontController.php [L,QSA]

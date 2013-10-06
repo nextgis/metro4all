@@ -1,0 +1,110 @@
+body {
+    background-size: 100% auto;
+    background-position: 50% 0;
+    background-color: #000;
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #FFF;
+    font-family: 'Andika', Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Andika', Arial, Helvetica, sans-serif;
+}
+
+.header {
+    padding: 0 5%;
+}
+
+.title {
+    font-size: 55px;
+    color: #FFF;
+    padding: 20px 0;
+    text-shadow: 0 0 7px #000000;
+}
+
+.date {
+    font-size: 22px;
+    color: #D8A300;
+    padding: 40px 0;
+    text-shadow: 0 0 7px #000000;
+}
+
+.slogan {
+    text-align: center;
+    font-size: 22px;
+    color: #D8A300;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.nextgis-link {
+    text-align: center;
+}
+
+.footer {
+    margin-bottom: 40px;
+}
+
+.subscribe {
+    margin-bottom: 40px;
+}
+
+.subscribe-label {
+    background-image: url(../img/subscribe-label.png);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    text-align: right;
+    padding: 10px 50px 16px 30px;
+    font-size: 18px;
+    color: #000;
+}
+
+.subscribe-form {
+    padding: 20px 50px 20px 30px;
+}
+
+.btn-default {
+    background-color: #2952a4;
+    border-color: #234284;
+    color: #ffffff;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+    background-color: #3c7aed;
+    border-color: #2a51a0;
+    color: #ffffff;
+}
+
+.carousel-caption {
+    font-size: 32px;
+    left: 5%;
+    text-align: left;
+    padding-bottom: 10px;
+    text-shadow: 0 0 7px #000000;
+    right: 300px;
+}
+
+.carousel-indicators {
+    left: auto;
+    right: 10%;
+    text-align: right;
+}
+
+.carousel-control .icon-prev, .carousel-control .icon-next {
+    font-size: 64px;
+    margin-top: -60px;
+}
+
+.photo-copyright {
+    position: absolute;
+    right: 5px;
+    bottom: 2px;
+    font-size: 10px;
+    z-index: 100;
+}
