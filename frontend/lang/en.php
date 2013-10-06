@@ -42,7 +42,8 @@ $lang['en'] = array(
 	'Выберите выход:' => 'Choose exit:',
 	'Загрузить приложение' => 'Get Metro4all app',
 	'Проложить маршрут' => 'Go',
-	'Карта' => 'Map',
 	'Маршрут' => 'Route',
 	'Эта карта только для просмотра маршрута. Выбирать по ней станции пока нельзя' => 'This map is for viewing purposes only. You can\'t use it to select stations yet.',
+
+	'Адрес электронной почты' => 'E-mail',
 );
