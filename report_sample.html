@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta
+    http-equiv="Content-Type"
+    content="text/html; charset=utf-8"
+    />
+
+    <meta
+    charset="utf-8"
+    />
+
+<style>
+ <!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style>
+table {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+
+.query 
+	{
+		font-size: 10px;
+		font-color:gray;
+	}
+ .name
+	{
+		font-weight: bold;
+	}
+</style>
+
+</head>
+<body>
+
+Содержание обновляется автоматически
+<p>
+<div class="name">
+Количество выходов с различным числом эскалаторов</div>
+<table>
+<tr>
+<th>Количество эскалаторов</th><th>Количество выходов</th></tr>	<tr>
+		<td>0</td>
+		<td>554</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>497</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>36</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT escalators_count::integer AS escalators_count, COUNT(escalators_count::integer)
+FROM 
+exits
+WHERE escalators_count IS NOt NULL
+GROUP BY escalators_count::integer
+ORDER BY escalators_count
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Список станций, на которых имеется лифт</div>
+<table>
+<tr>
+<th>Название станции</th></tr>	<tr>
+		<td>Алма-Атинская</td>
+	</tr>
+	<tr>
+		<td>Борисово</td>
+	</tr>
+	<tr>
+		<td>Волоколамская</td>
+	</tr>
+	<tr>
+		<td>Достоевская</td>
+	</tr>
+	<tr>
+		<td>Зябликово</td>
+	</tr>
+	<tr>
+		<td>Кунцевская</td>
+	</tr>
+	<tr>
+		<td>Марьина роща</td>
+	</tr>
+	<tr>
+		<td>Митино</td>
+	</tr>
+	<tr>
+		<td>Новокосино</td>
+	</tr>
+	<tr>
+		<td>Пятницкое шоссе</td>
+	</tr>
+	<tr>
+		<td>Славянский бульвар</td>
+	</tr>
+	<tr>
+		<td>Строгино</td>
+	</tr>
+	<tr>
+		<td>Шипиловская</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT name
+FROM exits
+WHERE lift::integer >0
+GROUP BY stationcode1, name
+ORDER BY name
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Распределение станций по наличию лифтов</div>
+<table>
+<tr>
+<th>Есть лифт</th><th>Количество станций</th></tr>	<tr>
+		<td>1</td>
+		<td>13</td>
+	</tr>
+	<tr>
+		<td>0</td>
+		<td>184</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT lift, count(stationcode2) FROM
+(
+SELECT DISTINCT lift::integer,  stationcode2::integer
+FROM exits
+) AS sub
+GROUP BY lift
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Количество станций в системе</div>
+<table>
+<tr>
+<th>Количество станций</th></tr>	<tr>
+		<td>185</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT  count(DISTINCT stationcode2::integer) 
+FROM exits
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Список станций, на которых можно совершить высадку и посадку, используя только лестницы с аппарелями, и не используя эскалаторы, то есть можно удобно ЗАКАТИТЬ коляску. Включая те, что с короткими лестницами в 1-4 ступеньки на входе в вестибюль.</div>
+<table>
+<tr>
+<th>Название станции</th></tr>	<tr>
+		<td>Академическая</td>
+	</tr>
+	<tr>
+		<td>Алтуфьево</td>
+	</tr>
+	<tr>
+		<td>Аннино</td>
+	</tr>
+	<tr>
+		<td>Арбатская</td>
+	</tr>
+	<tr>
+		<td>Бабушкинская</td>
+	</tr>
+	<tr>
+		<td>Беговая</td>
+	</tr>
+	<tr>
+		<td>Бибирево</td>
+	</tr>
+	<tr>
+		<td>Водный Стадион</td>
+	</tr>
+	<tr>
+		<td>Волжская</td>
+	</tr>
+	<tr>
+		<td>Выхино</td>
+	</tr>
+	<tr>
+		<td>Зябликово</td>
+	</tr>
+	<tr>
+		<td>Измайловская</td>
+	</tr>
+	<tr>
+		<td>Кантемировская</td>
+	</tr>
+	<tr>
+		<td>Каширская</td>
+	</tr>
+	<tr>
+		<td>Каширская</td>
+	</tr>
+	<tr>
+		<td>Кожуховская</td>
+	</tr>
+	<tr>
+		<td>Коломенская</td>
+	</tr>
+	<tr>
+		<td>Коньково</td>
+	</tr>
+	<tr>
+		<td>Красногвардейская</td>
+	</tr>
+	<tr>
+		<td>Медведково</td>
+	</tr>
+	<tr>
+		<td>Мякинино</td>
+	</tr>
+	<tr>
+		<td>Новогиреево</td>
+	</tr>
+	<tr>
+		<td>Новые Черемушки</td>
+	</tr>
+	<tr>
+		<td>Отрадное</td>
+	</tr>
+	<tr>
+		<td>Первомайская</td>
+	</tr>
+	<tr>
+		<td>Печатники</td>
+	</tr>
+	<tr>
+		<td>Полежаевская</td>
+	</tr>
+	<tr>
+		<td>Пролетарская</td>
+	</tr>
+	<tr>
+		<td>Профсоюзная</td>
+	</tr>
+	<tr>
+		<td>Речной вокзал</td>
+	</tr>
+	<tr>
+		<td>Смоленская</td>
+	</tr>
+	<tr>
+		<td>Смоленская</td>
+	</tr>
+	<tr>
+		<td>Сокол</td>
+	</tr>
+	<tr>
+		<td>Сходненская</td>
+	</tr>
+	<tr>
+		<td>Текстильщики</td>
+	</tr>
+	<tr>
+		<td>Улица 1905 года</td>
+	</tr>
+	<tr>
+		<td>Улица Академика Янгеля</td>
+	</tr>
+	<tr>
+		<td>Шипиловская</td>
+	</tr>
+	<tr>
+		<td>Юго-западная</td>
+	</tr>
+	<tr>
+		<td>Ясенево</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT  name
+FROM exits
+WHERE min_steps_incline::integer<=4
+AND escalators_count::integer=0
+group by name, stationcode2
+order by name
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Количество станций, на которых можно совершить высадку и посадку, используя только лестницы с аппарелями, и не используя эскалаторы, то есть можно удобно ЗАКАТИТЬ коляску. Включая те, что с короткими лестницами в 1-4 ступеньки на входе в вестибюль..</div>
+<table>
+<tr>
+<th>Количество станций</th></tr>	<tr>
+		<td>Академическая</td>
+	</tr>
+	<tr>
+		<td>Алтуфьево</td>
+	</tr>
+	<tr>
+		<td>Аннино</td>
+	</tr>
+	<tr>
+		<td>Арбатская</td>
+	</tr>
+	<tr>
+		<td>Бабушкинская</td>
+	</tr>
+	<tr>
+		<td>Беговая</td>
+	</tr>
+	<tr>
+		<td>Бибирево</td>
+	</tr>
+	<tr>
+		<td>Водный Стадион</td>
+	</tr>
+	<tr>
+		<td>Волжская</td>
+	</tr>
+	<tr>
+		<td>Выхино</td>
+	</tr>
+	<tr>
+		<td>Зябликово</td>
+	</tr>
+	<tr>
+		<td>Измайловская</td>
+	</tr>
+	<tr>
+		<td>Кантемировская</td>
+	</tr>
+	<tr>
+		<td>Каширская</td>
+	</tr>
+	<tr>
+		<td>Каширская</td>
+	</tr>
+	<tr>
+		<td>Кожуховская</td>
+	</tr>
+	<tr>
+		<td>Коломенская</td>
+	</tr>
+	<tr>
+		<td>Коньково</td>
+	</tr>
+	<tr>
+		<td>Красногвардейская</td>
+	</tr>
+	<tr>
+		<td>Медведково</td>
+	</tr>
+	<tr>
+		<td>Мякинино</td>
+	</tr>
+	<tr>
+		<td>Новогиреево</td>
+	</tr>
+	<tr>
+		<td>Новые Черемушки</td>
+	</tr>
+	<tr>
+		<td>Отрадное</td>
+	</tr>
+	<tr>
+		<td>Первомайская</td>
+	</tr>
+	<tr>
+		<td>Печатники</td>
+	</tr>
+	<tr>
+		<td>Полежаевская</td>
+	</tr>
+	<tr>
+		<td>Пролетарская</td>
+	</tr>
+	<tr>
+		<td>Профсоюзная</td>
+	</tr>
+	<tr>
+		<td>Речной вокзал</td>
+	</tr>
+	<tr>
+		<td>Смоленская</td>
+	</tr>
+	<tr>
+		<td>Смоленская</td>
+	</tr>
+	<tr>
+		<td>Сокол</td>
+	</tr>
+	<tr>
+		<td>Сходненская</td>
+	</tr>
+	<tr>
+		<td>Текстильщики</td>
+	</tr>
+	<tr>
+		<td>Улица 1905 года</td>
+	</tr>
+	<tr>
+		<td>Улица Академика Янгеля</td>
+	</tr>
+	<tr>
+		<td>Шипиловская</td>
+	</tr>
+	<tr>
+		<td>Юго-западная</td>
+	</tr>
+	<tr>
+		<td>Ясенево</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT  name
+FROM exits
+WHERE min_steps_incline::integer<=4
+AND escalators_count::integer=0
+group by name, stationcode2
+order by name
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Список станций, где на посадку есть ТОЛЬКО узкие турникеты, (и ты через них не пролезешь). Взято максимальная ширина прохода со всех выходов станции</div>
+<table>
+<tr>
+<th>Количество станций</th></tr>	<tr>
+		<td>Менделеевская</td>
+		<td>530</td>
+		<td>137</td>
+	</tr>
+	<tr>
+		<td>Академическая</td>
+		<td>530</td>
+		<td>101</td>
+	</tr>
+	<tr>
+		<td>Владыкино</td>
+		<td>530</td>
+		<td>132</td>
+	</tr>
+	<tr>
+		<td>Текстильщики</td>
+		<td>540</td>
+		<td>113</td>
+	</tr>
+	<tr>
+		<td>Рязанский проспект</td>
+		<td>540</td>
+		<td>111</td>
+	</tr>
+	<tr>
+		<td>Профсоюзная</td>
+		<td>540</td>
+		<td>102</td>
+	</tr>
+	<tr>
+		<td>Краснопресненская</td>
+		<td>540</td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>Коньково</td>
+		<td>540</td>
+		<td>106</td>
+	</tr>
+	<tr>
+		<td>Измайловская</td>
+		<td>540</td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>Баррикадная</td>
+		<td>540</td>
+		<td>120</td>
+	</tr>
+	<tr>
+		<td>Беляево</td>
+		<td>550</td>
+		<td>105</td>
+	</tr>
+	<tr>
+		<td>Пионерская</td>
+		<td>550</td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>Багратионовская</td>
+		<td>550</td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>Филевский парк</td>
+		<td>550</td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>Калужская</td>
+		<td>550</td>
+		<td>104</td>
+	</tr>
+	<tr>
+		<td>Фили</td>
+		<td>550</td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>Кунцевская</td>
+		<td>550</td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>Арбатская</td>
+		<td>550</td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>Новые Черемушки</td>
+		<td>550</td>
+		<td>103</td>
+	</tr>
+	<tr>
+		<td>Теплый стан</td>
+		<td>550</td>
+		<td>107</td>
+	</tr>
+	<tr>
+		<td>Первомайская</td>
+		<td>550</td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>Смоленская</td>
+		<td>550</td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>Белорусская</td>
+		<td>550</td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>Партизанская</td>
+		<td>550</td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>Ясенево</td>
+		<td>550</td>
+		<td>108</td>
+	</tr>
+	<tr>
+		<td>Бауманская</td>
+		<td>560</td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>Полянка</td>
+		<td>560</td>
+		<td>141</td>
+	</tr>
+	<tr>
+		<td>Бабушкинская</td>
+		<td>560</td>
+		<td>87</td>
+	</tr>
+	<tr>
+		<td>Полежаевская</td>
+		<td>560</td>
+		<td>123</td>
+	</tr>
+	<tr>
+		<td>Тушинская</td>
+		<td>570</td>
+		<td>126</td>
+	</tr>
+	<tr>
+		<td>Дубровка</td>
+		<td>590</td>
+		<td>161</td>
+	</tr>
+	<tr>
+		<td>Пролетарская</td>
+		<td>590</td>
+		<td>115</td>
+	</tr>
+	<tr>
+		<td>Марьино</td>
+		<td>590</td>
+		<td>159</td>
+	</tr>
+	<tr>
+		<td>Третьяковская</td>
+		<td>590</td>
+		<td>97</td>
+	</tr>
+	<tr>
+		<td>Крестьянская Застава</td>
+		<td>590</td>
+		<td>153</td>
+	</tr>
+	<tr>
+		<td>Третьяковская</td>
+		<td>590</td>
+		<td>85</td>
+	</tr>
+	<tr>
+		<td>Ленинский проспект</td>
+		<td>600</td>
+		<td>100</td>
+	</tr>
+	<tr>
+		<td>Шаболовская</td>
+		<td>600</td>
+		<td>99</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT  name, max(min_width_pass::integer), stationcode2
+FROM exits
+where min_width_pass::integer<650
+AND direction IN ('both','in')
+group by name, stationcode2
+order by max
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Количество станций, где на посадку есть ТОЛЬКО узкие турникеты,</div>
+<table>
+<tr>
+<th>Количество станций</th></tr>	<tr>
+		<td>125</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT count(  stationcode2)
+FROM exits
+where min_width_pass::integer<650
+AND direction IN ('both','in')
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Список станций, где на ВЫСАДКУ есть ТОЛЬКО узкие турникеты, (то есть по человечески не вылезешь).</div>
+<table>
+<tr>
+<th>Количество станций</th></tr>	<tr>
+		<td>Тимирязевская</td>
+		<td>520</td>
+		<td>134</td>
+	</tr>
+	<tr>
+		<td>Варшавская</td>
+		<td>530</td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>Академическая</td>
+		<td>530</td>
+		<td>101</td>
+	</tr>
+	<tr>
+		<td>Рязанский проспект</td>
+		<td>540</td>
+		<td>111</td>
+	</tr>
+	<tr>
+		<td>Комсомольская</td>
+		<td>540</td>
+		<td>6</td>
+	</tr>
+	<tr>
+		<td>Полежаевская</td>
+		<td>540</td>
+		<td>123</td>
+	</tr>
+	<tr>
+		<td>Филевский парк</td>
+		<td>540</td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>Петровско-Разумовская</td>
+		<td>540</td>
+		<td>133</td>
+	</tr>
+	<tr>
+		<td>Комсомольская</td>
+		<td>540</td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>Кунцевская</td>
+		<td>550</td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>Каширская</td>
+		<td>550</td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>Водный Стадион</td>
+		<td>550</td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>Речной вокзал</td>
+		<td>550</td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>Владыкино</td>
+		<td>550</td>
+		<td>132</td>
+	</tr>
+	<tr>
+		<td>Смоленская</td>
+		<td>550</td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>Пионерская</td>
+		<td>550</td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>Пушкинская</td>
+		<td>550</td>
+		<td>119</td>
+	</tr>
+	<tr>
+		<td>Тверская</td>
+		<td>550</td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>Партизанская</td>
+		<td>550</td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>Щукинская</td>
+		<td>550</td>
+		<td>125</td>
+	</tr>
+	<tr>
+		<td>Калужская</td>
+		<td>550</td>
+		<td>104</td>
+	</tr>
+	<tr>
+		<td>Каширская</td>
+		<td>550</td>
+		<td>226</td>
+	</tr>
+	<tr>
+		<td>Савеловская</td>
+		<td>550</td>
+		<td>136</td>
+	</tr>
+	<tr>
+		<td>Багратионовская</td>
+		<td>560</td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>Текстильщики</td>
+		<td>560</td>
+		<td>113</td>
+	</tr>
+	<tr>
+		<td>Кутузовская</td>
+		<td>560</td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>ВДНХ</td>
+		<td>560</td>
+		<td>90</td>
+	</tr>
+	<tr>
+		<td>Фили</td>
+		<td>560</td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>Сухаревская</td>
+		<td>566</td>
+		<td>94</td>
+	</tr>
+	<tr>
+		<td>Алтуфьево</td>
+		<td>570</td>
+		<td>129</td>
+	</tr>
+	<tr>
+		<td>Студенческая</td>
+		<td>570</td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>Дмитровская</td>
+		<td>570</td>
+		<td>135</td>
+	</tr>
+	<tr>
+		<td>Бибирево</td>
+		<td>570</td>
+		<td>130</td>
+	</tr>
+	<tr>
+		<td>Павелецкая</td>
+		<td>590</td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>Павелецкая</td>
+		<td>590</td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>Орехово</td>
+		<td>590</td>
+		<td>22</td>
+	</tr>
+	<tr>
+		<td>Курская</td>
+		<td>600</td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>Ленинский проспект</td>
+		<td>600</td>
+		<td>100</td>
+	</tr>
+	<tr>
+		<td>Шаболовская</td>
+		<td>600</td>
+		<td>99</td>
+	</tr>
+	<tr>
+		<td>Чкаловская</td>
+		<td>600</td>
+		<td>151</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT  name, max(min_width_pass::integer), stationcode2
+FROM exits
+where min_width_pass::integer<650
+AND direction IN ('out')
+group by name, stationcode2
+order by max
+;
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Количество станций, где на ВЫСАДКУ есть ТОЛЬКО узкие турникеты, (то есть по человечески не вылезешь).</div>
+<table>
+<tr>
+<th>Количество станций</th></tr>	<tr>
+		<td>128</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT count(  stationcode2)
+FROM exits
+where min_width_pass::integer<650
+AND direction IN ('out')
+;
+</div>
+&nbsp;
+
+<p>
+Коллея аппарелей: от 300 до 800 или 900
+</p>
+<p>
+<div class="name">
+Количество пересадок, где не надо идти по лестнице, а только ехать на эскалаторе.</div>
+<table>
+<tr>
+<th>Количество пар пересадок</th></tr>	<tr>
+		<td>7</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT count(*)/2
+FROM interchanges
+WHERE min_steps_foot::integer=0
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Количество пересадок, где можно провести тележку по аппарелям, и нет эскалаторов</div>
+<table>
+<tr>
+<th>Количество пар пересадок</th></tr>	<tr>
+		<td>2</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT count(*)/2
+FROM interchanges
+WHERE min_steps_incline::integer=0
+AND escalators_count::integer=0
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Количество пересадок, где обязателен перенос по ступенькам.</div>
+<table>
+<tr>
+<th>Количество пар пересадок</th></tr>	<tr>
+		<td>30</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT  ceil((count(*)/2)/2::real)*2
+FROM interchanges
+WHERE min_steps_incline::integer >0
+
+
+</div>
+&nbsp;
+
+<p>
+<div class="name">
+Количество пересадок, всего</div>
+<table>
+<tr>
+<th>Количество пар пересадок</th></tr>	<tr>
+		<td>42</td>
+	</tr>
+</table>
+<div class="query">
+
+SELECT  ceil((count(*)/2)/2::real)*2
+FROM interchanges
+
+</div>
+&nbsp;
+
