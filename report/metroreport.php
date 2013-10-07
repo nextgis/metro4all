@@ -1,5 +1,5 @@
 <?php
-// Для запуска нужно ввести php -f metroreport.php, этот скрипт внутри себя записывает все echo в буфер (применено ob_start), потом делает простую запись в файл
+// Для запуска нужно ввести php -f php.php, этот скрипт внутри себя записывает все echo в буфер (применено ob_start), потом делает простую запись в файл
 
 
 //интегральный показатель
@@ -191,9 +191,9 @@ $element['table_header']=array('Количество станций');
 execute_query_for_report($element);	
 
 
-$element['text']='Список станций, где на посадку есть ТОЛЬКО узкие турникеты, (и ты через них не пролезешь). Взято максимальная ширина прохода со всех выходов станции';
+$element['text']='Список станций, где на посадку есть ТОЛЬКО узкие турникеты, (и ты через них не пролезешь). Взята максимальная ширина прохода со всех выходов станции';
 $element['sql']="
-SELECT  name, max(min_width_pass::integer), stationcode2
+SELECT  name, max(min_width_pass::integer)
 FROM exits
 where min_width_pass::integer<650
 AND direction IN ('both','in')
@@ -201,7 +201,7 @@ group by name, stationcode2
 order by max
 ;
 ";
-$element['table_header']=array('Количество станций');
+$element['table_header']=array('Название станции','Самый широкий турникет на вход');
 execute_query_for_report($element);	
 
 
@@ -220,7 +220,7 @@ execute_query_for_report($element);
 
 $element['text']='Список станций, где на ВЫСАДКУ есть ТОЛЬКО узкие турникеты, (то есть по человечески не вылезешь).';
 $element['sql']="
-SELECT  name, max(min_width_pass::integer), stationcode2
+SELECT  name, max(min_width_pass::integer)
 FROM exits
 where min_width_pass::integer<650
 AND direction IN ('out')
@@ -228,7 +228,7 @@ group by name, stationcode2
 order by max
 ;
 ";
-$element['table_header']=array('Количество станций');
+$element['table_header']=array('Название станции','Самый широкий турникет на выход');
 execute_query_for_report($element);	
 
 
