@@ -4,4 +4,4 @@
 
 Пример отчёта лежит в ветке gh-pages, и оттуда виден в интернете без авторизации по адресу http://nextgis.github.io/metroaccess/report_sample.html
 
-Записывайте предложения в offers.txt
+Записывайте предложения в вики
