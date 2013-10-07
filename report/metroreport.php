@@ -50,6 +50,33 @@ echo "</table>\n";
 <?
 
 }	
+
+
+function print_start_of_chapter($data=array())
+{
+/*
+	?>
+		<div class="chapter-content">
+        <div class='fulltext'>
+	<?
+*/
+	?>
+	<hr>
+	<a name="<?=$data['code']?>"></a> 
+	<h2><?=$data['name']?></h2>
+	<?
+}
+
+function print_end_of_chapter()
+{
+/*
+	?>
+		</div>
+		<a class="readmore" href="#">Read more..</a>
+        </div>
+	<?
+*/
+}
 	
 ?>
 <!DOCTYPE html>
@@ -62,9 +89,20 @@ echo "</table>\n";
     content="text/html; charset=utf-8"
     />
 
-    <meta
-    charset="utf-8"
-    />
+<meta charset="utf-8" />
+	
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('.fulltext').hide();
+
+    $('.chapter-content .readmore').click(function (event) {
+        event.preventDefault();
+        $(this).parent().find('.fulltext').slideToggle('fast');
+        $(this).text($(this).text() == 'Close Deals' ? 'More Deals' : 'Close Deals');
+    });
+});
+</script>
 
 <style>
  <!-- CSS goes in the document HEAD or added to your external stylesheet -->
@@ -110,8 +148,50 @@ table td {
 <?
 	
 	
+$chapters['commons']=array('name'=>'Общие показатели');
+$chapters['elevators']=array('name'=>'Станции с лифтами');
+$chapters['escalators_count']=array('name'=>'Распределение по эскалаторам');
+$chapters['turnstiles_enter']=array('name'=>'Узкие эскалаторы на входе');
+$chapters['turnstiles_exit']=array('name'=>'Узкие эскалаторы на выходе');
+$chapters['transfers_types']=array('name'=>'Удобство пересадок');
+
+
+foreach($chapters as $code => $element)
+{
+	$chapters[$code]['code']=$code;
+}
+
+
+foreach($chapters as $code => $element)
+{
+	?>
+	<li><a href="#<?=$element['code']?>"><?=$element['name']?></a>
 	
 	
+	<?
+}
+
+print_start_of_chapter($chapters['commons']);	
+$element['text']='Количество станций в системе';
+$element['sql']="
+SELECT  count(DISTINCT stationcode2::integer) 
+FROM exits
+;
+";
+$element['table_header']=array('Количество станций');
+execute_query_for_report($element);	
+
+	
+?>
+<p>
+Коллея аппарелей: от 300 до 800 или 900
+</p>
+<?	
+
+print_end_of_chapter();	
+	
+print_start_of_chapter($chapters['elevators']);	
+
 $element['text']='Количество выходов с различным числом эскалаторов';
 $element['sql']="
 SELECT escalators_count::integer AS escalators_count, COUNT(escalators_count::integer)
@@ -125,7 +205,9 @@ ORDER BY escalators_count
 $element['table_header']=array('Количество эскалаторов','Количество выходов');
 execute_query_for_report($element);	
 	
-		
+	
+
+	
 $element['text']='Список станций, на которых имеется лифт';
 $element['sql']="
 SELECT name
@@ -152,18 +234,10 @@ GROUP BY lift
 $element['table_header']=array('Есть лифт','Количество станций');
 execute_query_for_report($element);	
 
-
-$element['text']='Количество станций в системе';
-$element['sql']="
-SELECT  count(DISTINCT stationcode2::integer) 
-FROM exits
-;
-";
-$element['table_header']=array('Количество станций');
-execute_query_for_report($element);	
+print_end_of_chapter();
 
 
-
+print_start_of_chapter($chapters['escalators_count']);
 $element['text']='Список станций, на которых можно совершить высадку и посадку, используя только лестницы с аппарелями, и не используя эскалаторы, то есть можно удобно ЗАКАТИТЬ коляску. Включая те, что с короткими лестницами в 1-4 ступеньки на входе в вестибюль.';
 $element['sql']="
 SELECT  name
@@ -189,8 +263,9 @@ order by name
 ";
 $element['table_header']=array('Количество станций');
 execute_query_for_report($element);	
+print_end_of_chapter();
 
-
+print_start_of_chapter($chapters['turnstiles_enter']);
 $element['text']='Список станций, где на посадку есть ТОЛЬКО узкие турникеты, (и ты через них не пролезешь). Взята максимальная ширина прохода со всех выходов станции';
 $element['sql']="
 SELECT  name, max(min_width_pass::integer)
@@ -215,9 +290,9 @@ AND direction IN ('both','in')
 ";
 $element['table_header']=array('Количество станций');
 execute_query_for_report($element);	
-	
-	
+print_end_of_chapter();
 
+print_start_of_chapter($chapters['turnstiles_exit']);
 $element['text']='Список станций, где на ВЫСАДКУ есть ТОЛЬКО узкие турникеты, (то есть по человечески не вылезешь).';
 $element['sql']="
 SELECT  name, max(min_width_pass::integer)
@@ -242,20 +317,9 @@ AND direction IN ('out')
 ";
 $element['table_header']=array('Количество станций');
 execute_query_for_report($element);	
-	
+print_end_of_chapter();
 
-	
-	
-
-
-	
-	
-	
-?>
-<p>
-Коллея аппарелей: от 300 до 800 или 900
-</p>
-<?	
+print_start_of_chapter($chapters['transfers_types']);
 	
 	/*
 	сделать таблицу: 
@@ -264,47 +328,48 @@ execute_query_for_report($element);
 	тоолько с переносом по ступенькам
 	
 	*/
-$element['text']='Количество пересадок, где не надо идти по лестнице, а только ехать на эскалаторе.';
-$element['sql']="
-SELECT count(*)/2
-FROM interchanges
-WHERE min_steps_foot::integer=0
-";
-$element['table_header']=array('Количество пар пересадок');
-execute_query_for_report($element);	
+	$element['text']='Количество пересадок, где не надо идти по лестнице, а только ехать на эскалаторе.';
+	$element['sql']="
+	SELECT count(*)/2
+	FROM interchanges
+	WHERE min_steps_foot::integer=0
+	";
+	$element['table_header']=array('Количество пар пересадок');
+	execute_query_for_report($element);	
 
-$element['text']='Количество пересадок, где можно провести тележку по аппарелям, и нет эскалаторов';
-$element['sql']="
-SELECT count(*)/2
-FROM interchanges
-WHERE min_steps_incline::integer=0
-AND escalators_count::integer=0
-";
-$element['table_header']=array('Количество пар пересадок');
-execute_query_for_report($element);	
-	
-	
-$element['text']='Количество пересадок, где обязателен перенос по ступенькам.';
-$element['sql']="
-SELECT  ceil((count(*)/2)/2::real)*2
-FROM interchanges
-WHERE min_steps_incline::integer >0
-
-
-";
-$element['table_header']=array('Количество пар пересадок');
-execute_query_for_report($element);			
+	$element['text']='Количество пересадок, где можно провести тележку по аппарелям, и нет эскалаторов';
+	$element['sql']="
+	SELECT count(*)/2
+	FROM interchanges
+	WHERE min_steps_incline::integer=0
+	AND escalators_count::integer=0
+	";
+	$element['table_header']=array('Количество пар пересадок');
+	execute_query_for_report($element);	
+		
+		
+	$element['text']='Количество пересадок, где обязателен перенос по ступенькам.';
+	$element['sql']="
+	SELECT  ceil((count(*)/2)/2::real)*2
+	FROM interchanges
+	WHERE min_steps_incline::integer >0
 
 
-$element['text']='Количество пересадок, всего';
-$element['sql']="
-SELECT  ceil((count(*)/2)/2::real)*2
-FROM interchanges
+	";
+	$element['table_header']=array('Количество пар пересадок');
+	execute_query_for_report($element);			
 
-";
-$element['table_header']=array('Количество пар пересадок');
-execute_query_for_report($element);		
-	
+
+	$element['text']='Количество пересадок, всего';
+	$element['sql']="
+	SELECT  ceil((count(*)/2)/2::real)*2
+	FROM interchanges
+
+	";
+	$element['table_header']=array('Количество пар пересадок');
+	execute_query_for_report($element);		
+	print_end_of_chapter();
+
 	
 /*
 
