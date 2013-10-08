@@ -1,7 +1,4 @@
-var m4a = {};
 
-m4a.viewmodel = {};
-m4a.view = {};
 
 (function ($, m4a) {
     m4a.loader = {};
@@ -9,9 +6,9 @@ m4a.view = {};
     $.extend(m4a.loader, {
         init: function() {
             this.setDomOptions();
-            m4a.viewmodel.url={'proxy' : typeof ajax !== 'undefined' ? ajax : '/'};
             m4a.url.init();
             m4a.profiles.init();
+            m4a.popup.init();
         },
 
 
@@ -27,6 +24,8 @@ m4a.view = {};
             view.$metroEndStation = $('#metroEndStation');
             view.$metroEndInputName = $('#metroEndInputName');
             view.$metroEndInputID = $('#metroEndInputID');
+
+            view.$routePanel = $('#routePanel');
         }
     })
 }) (jQuery, m4a)

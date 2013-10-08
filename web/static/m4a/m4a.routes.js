@@ -19,7 +19,7 @@
                     route_index = parseInt($this.data('route-id'), 10);
                 $('.pagination li').removeClass('active');
                 $this.addClass('active');
-                $('#routePanel').empty();
+                m4a.view.$routePanel.empty();
                 context.showRoute(routes, route_index);
                 // m4a.view.$document.triggerHandler('/url/update', ['route', route_index + 1]);
             });
@@ -68,6 +68,9 @@
             return c;
         },
 
+        schemeIconTemplate: Mustache.compile('{{#schemeExists}}<span class="scheme"' +
+            ' data-img="{{img}}" data-name="{{name}}"></span>{{/schemeExists}}'),
+
         showRoute: function (routes, index) {
             // Вывод списка станций, входящих в маршрут
             var context = this,
@@ -91,13 +94,21 @@
             $.each(routes[index].route, function (i, item) {
                 var condition = (i == 0) ? item.station_type == 'regular' :
                     (item.station_type == 'regular' && routes[index].route[i - 1].station_type != 'interchange')
+
                 if (condition) {
-                    content += "<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name + "</li>"
+                    content += "<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name +
+                        context.schemeIconTemplate({ schemeExists: item.schema, img: item.schema, name: item.station_name }) +
+                        "</li>"
                 } else if (item.station_type == 'interchange') {
                     content += "<li class=" + "'transition from-line-" + item.station_line.id + " to-line-" +
                         routes[index].route[i + 1].station_line.id + "'>" + item.station_name +
                         " (" + item.station_line.name + ")" + " &rarr; " + routes[index].route[i + 1].station_name +
-                        " (" + routes[index].route[i + 1].station_line.name + ")"
+                        " (" + routes[index].route[i + 1].station_line.name + ")" +
+                        context.schemeIconTemplate({
+                            schemeExists: routes[index].route[i + 1].schema,
+                            img: routes[index].route[i + 1].schema,
+                            name: routes[index].route[i + 1].station_name
+                        })
                     if (item.barriers) {
                         content += context.fillBarriers(item.barriers);
                     }
@@ -118,7 +129,8 @@
             }
             content += "</li>";
             content += "</ul>";
-            $('#routePanel').append(content);
+            m4a.view.$routePanel.append(content);
+            this.bindRoutesEvents();
 
             // Отображение маршрута на карте
             if (typeof route !== 'undefined') {
@@ -166,6 +178,17 @@
                 [ymin, xmin],
                 [ymax, xmax]
             ]);
+        },
+
+
+        bindRoutesEvents: function() {
+            var routePanel = m4a.view.$routePanel,
+                $this;
+
+            routePanel.find('span.scheme').off('click').on('click', function() {
+                var $this = $(this);
+                m4a.popup.openImagePopup(m4a.viewmodel.pathToSchemes + $this.data('img'), $this.data('name'));
+            });
         }
     })
 })(jQuery, m4a)

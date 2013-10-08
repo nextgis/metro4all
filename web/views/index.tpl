@@ -34,7 +34,17 @@
   </head>
 
   <body>
-
+    <div id="popup">
+        <div class="wrapper"></div>
+        <div class="loader">
+            <img class="loader" src="static/img/loader.gif"/>
+            <p>Загрузка схемы...</p>
+        </div>
+        <div class="content">
+            <span class="close"></span>
+            <div class="data"></div>
+        </div>
+    </div>
     <div class="container">
     <div class="row">
 
@@ -119,11 +129,14 @@
     <script src="static/leaflet.label.js"></script>
     <script src="static/TileLayer.Grayscale.js"></script>
     <script src="static/mustache/mustache.js"></script>
+    <script src="static/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="static/m4a/m4a.config.js"></script>
     <script src="static/m4a/m4a.loader.js"></script>
     <script src="static/m4a/m4a.stations.js"></script>
     <script src="static/m4a/m4a.url.js"></script>
     <script src="static/m4a/m4a.profiles.js"></script>
     <script src="static/m4a/m4a.routes.js"></script>
+    <script src="static/m4a/m4a.popup.js"></script>
     <script src="static/m4a/inline.js"></script>
   </body>
 </html>
