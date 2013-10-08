@@ -1,0 +1,405 @@
+.route {
+    margin: 0;
+    padding: 0;
+}
+
+.route > li {
+    list-style: none;
+    padding: 0 0 10px 20px;
+    line-height: 15px;
+    background-image: url(../img/search-result-1-line.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.route > li:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    margin-right: 5px;
+    margin-left: -20px;
+}
+
+.route > li.transition:before {
+    background-image: url(../img/search-result-1-circle-from.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.route > li.exit:before {
+    background-image: url(../img/search-result-1-circle.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.route > li div {
+    padding-left: 10px;
+}
+
+/* transition */
+
+.route > li.transition.from-line-2:before,
+.route > li.exit.line-2:before {
+    background-position: 0 -16px;
+}
+
+.route > li.transition.from-line-3:before,
+.route > li.exit.line-3:before {
+    background-position: 0 -32px;
+}
+
+.route > li.transition.from-line-4:before,
+.route > li.exit.line-4:before {
+    background-position: 0 -48px;
+}
+
+.route > li.transition.from-line-5:before,
+.route > li.exit.line-5:before {
+    background-position: 0 -64px;
+}
+
+.route > li.transition.from-line-6:before,
+.route > li.exit.line-6:before {
+    background-position: 0 -80px;
+}
+
+.route > li.transition.from-line-7:before,
+.route > li.exit.line-7:before {
+    background-position: 0 -96px;
+}
+
+.route > li.transition.from-line-8:before,
+.route > li.exit.line-8:before {
+    background-position: 0 -112px;
+}
+
+.route > li.transition.from-line-9:before,
+.route > li.exit.line-9:before {
+    background-position: 0 -128px;
+}
+
+.route > li.transition.from-line-10:before,
+.route > li.exit.line-10:before {
+    background-position: 0 -144px;
+}
+
+.route > li.transition.from-line-11:before,
+.route > li.exit.line-11:before {
+    background-position: 0 -160px;
+}
+
+.route > li.transition.from-line-12:before,
+.route > li.exit.line-12:before {
+    background-position: 0 -176px;
+}
+
+/* lines */
+
+.route > li.line-2,
+.route > li.to-line-2 {
+    background-position: 0 -300px;
+}
+
+.route > li.line-3,
+.route > li.to-line-3 {
+    background-position: 0 -600px;
+}
+
+.route > li.line-4,
+.route > li.to-line-4 {
+    background-position: 0 -900px;
+}
+
+.route > li.line-5,
+.route > li.to-line-5 {
+    background-position: 0 -1200px;
+}
+
+.route > li.line-6,
+.route > li.to-line-6 {
+    background-position: 0 -1500px;
+}
+
+.route > li.line-7,
+.route > li.to-line-7 {
+    background-position: 0 -1800px;
+}
+
+.route > li.line-8,
+.route > li.to-line-8 {
+    background-position: 0 -2100px;
+}
+
+.route > li.line-9,
+.route > li.to-line-9 {
+    background-position: 0 -2400px;
+}
+
+.route > li.line-10,
+.route > li.to-line-10 {
+    background-position: 0 -2700px;
+}
+
+.route > li.line-11,
+.route > li.to-line-11 {
+    background-position: 0 -3000px;
+}
+
+.route > li.line-12,
+.route > li.to-line-12 {
+    background-position: 0 -3300px;
+}
+
+.route > li.exit {
+    background-image: none !important;
+}
+
+/* markers */
+
+.marker-station {
+    background-image: url(../img/search-result-1-circle.png);
+}
+
+.city-2 .marker-station {
+    background-image: url(../img/search-result-2-circle.png);
+}
+
+.marker-station.marker-line-2 {
+    background-position: 0 -16px;
+}
+
+.marker-station.marker-line-3 {
+    background-position: 0 -32px;
+}
+
+.marker-station.marker-line-4 {
+    background-position: 0 -48px;
+}
+
+.marker-station.marker-line-5 {
+    background-position: 0 -64px;
+}
+
+.marker-station.marker-line-6 {
+    background-position: 0 -80px;
+}
+
+.marker-station.marker-line-7 {
+    background-position: 0 -96px;
+}
+
+.marker-station.marker-line-8 {
+    background-position: 0 -112px;
+}
+
+.marker-station.marker-line-9 {
+    background-position: 0 -128px;
+}
+
+.marker-station.marker-line-10 {
+    background-position: 0 -144px;
+}
+
+.marker-station.marker-line-11 {
+    background-position: 0 -160px;
+}
+
+.marker-station.marker-line-12 {
+    background-position: 0 -176px;
+}
+
+.obstacles {
+    margin: 7px 0 10px 0;
+    padding: 0;
+}
+
+.obstacles li {
+    list-style: none;
+    font-size: 12px;
+    margin: 0 0 3px 0;
+    padding: 0;
+    width: 220px;
+    font-weight: normal;
+}
+
+.obstacles li strong {
+    font-weight: normal;
+}
+
+.obstacles li strong:after {
+    content: ':';
+}
+
+.city-2 .route > li {
+    background-image: url(../img/search-result-2-line.png);
+}
+
+.city-2 .route > li.transition:before {
+    background-image: url(../img/search-result-2-circle-from.png);
+}
+
+.city-2 .route > li.exit:before {
+    background-image: url(../img/search-result-2-circle.png);
+}
+
+/* profiles section */
+
+div.profiles {
+    margin-bottom: 3px;
+}
+
+div.profiles *:not(:first-child):not(:last-child) {
+    border-radius: 0 0 0 0;
+}
+
+div.profiles *:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+div.profiles *:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+div.profiles input {
+    min-width: 50px;
+    max-width: 100px;
+    height: 35px;
+    border: solid #aaaaaa 1px;
+    border-left: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+label.profile {
+    width: 35px;
+    height: 35px;
+    opacity: 0.5;
+}
+
+label.profile:hover {
+    opacity: 0.7;
+}
+
+label.profile.active {
+    opacity: 1.0;
+}
+
+#profile_man {
+    background: url(../img/m4a.png) no-repeat 0 -35px;
+}
+
+#profile_wheelchair {
+    background: url(../img/m4a.png) no-repeat -35px -35px;
+}
+
+#profile_trolley {
+    background: url(../img/m4a.png) no-repeat -70px -35px;
+}
+
+div.profile-descr {
+    font-size: 12px;
+    color: #aaaaaa;
+    margin-bottom: 11px;
+}
+
+#popup,
+#popup div.loader,
+#popup div.content {
+    display: none;
+}
+
+body.popup-loader #popup,
+body.popup #popup {
+    display: block;
+}
+
+body.popup-loader #popup div.loader {
+    z-index: 9999;
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -43px;
+    width: 200px;
+    height: 86px;
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid darkgray;
+}
+
+#popup div.wrapper {
+    z-index: 9997;
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    -moz-opacity: 0.7;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+}
+
+body.popup #popup div.content {
+    z-index: 9998;
+    display: inline-block;
+    position: fixed;
+    background-color: #ffffff;
+}
+
+#popup div.data {
+    overflow: auto;
+    border: 1px solid darkgray;
+}
+
+#popup div.data p {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 2px;
+    font-weight: bold;
+    background-color: #ffffff;
+    border: solid 1px darkgray;
+}
+
+#popup div.data img {
+    margin: 40px 5px 5px 5px;
+}
+
+body.popup #popup span.close {
+    z-index: 9999;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    top:-15px;
+    right: -15px;
+    background: url(../img/m4a.png) no-repeat -20px 0;
+    -moz-opacity: 0.85;
+    opacity:0.85;
+    filter: alpha(opacity=85);
+}
+
+#popup span.close:hover {
+    -moz-opacity: 1.0;
+    opacity:1.0;
+    filter: alpha(opacity=100);
+}
+
+span.scheme {
+    display: inline-block;
+    margin: 0 0 -7px 2px;
+    width: 20px;
+    height: 19px;
+    opacity: 0.6;
+    background: url(../img/m4a.png) no-repeat 0 0;
+}
+
+span.scheme:hover {
+    opacity: 1.0;
+    cursor: pointer;
+}

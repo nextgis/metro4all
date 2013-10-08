@@ -1,10 +1,14 @@
 <?php
 
-require_once('conf/Config.php');
+require_once(ROOT . 'conf/Config.php');
 
-require_once('mod/lib.util.php');
-require_once('mod/lib.string.php');
-require_once('mod/lib.time.php');
+if (file_exists(ROOT . 'conf/ConfigLocal.php')) {
+	require_once(ROOT . 'conf/ConfigLocal.php');
+}
+
+require_once(ROOT . 'mod/lib.util.php');
+require_once(ROOT . 'mod/lib.string.php');
+require_once(ROOT . 'mod/lib.time.php');
 time_init();
 timer_start();
 
@@ -12,12 +16,12 @@ $action = '';
 if(isset($_GET['action'])) $action = $_GET['action'];
 if(isset($_POST['action'])) $action = $_POST['action'];
 
-require_once('mod/lib.upload.php');
-require_once('mod/lib.image.php');
-require_once('mod/lib.mail.php');
-require_once('mod/Page.php');
-require_once('mod/Form.php');
-require_once('mod/lib.image_cache.php');
+require_once(ROOT . 'mod/lib.upload.php');
+require_once(ROOT . 'mod/lib.image.php');
+require_once(ROOT . 'mod/lib.mail.php');
+require_once(ROOT . 'mod/Page.php');
+require_once(ROOT . 'mod/Form.php');
+require_once(ROOT . 'mod/lib.image_cache.php');
 
 class Core {
 	/**
@@ -43,7 +47,7 @@ class Core {
 Core::$time = $time;
 Core::$config = &$config;
 
-require_once('lang/en.php');
+require_once(ROOT . 'lang/en.php');
 Core::$lang = &$lang;
 
 function s($str) {
@@ -54,12 +58,12 @@ function s($str) {
     } 
 }
 
-require_once('mod/lib.db.php');
-require_once('mod/lib.db_mysql.php');
+require_once(ROOT . 'mod/lib.db.php');
+require_once(ROOT . 'mod/lib.db_mysql.php');
 $sql = new db_mysql($config['database']);
 Core::$sql = $sql;
 
-require_once('mod/User.php');
+require_once(ROOT . 'mod/User.php');
 $user = new User();
 Core::$user = $user;
     

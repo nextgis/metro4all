@@ -1,9 +1,11 @@
 <?php
 
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_DEPRECATED);
 
-require_once('../Bootstrap.php');
-require_once('../class/PageCommon.php');
+define('ROOT', '../');
+
+require_once(ROOT . 'Bootstrap.php');
+require_once(ROOT . 'class/PageCommon.php');
 
 $url = $_SERVER['REQUEST_URI'];
 
@@ -205,4 +207,3 @@ if(preg_match('/^' . addcslashes(core::$config['http_root'], '\/') . '(en|ru)\/(
 }
 
 go(core::$config['http_root'].'ru/');
-
