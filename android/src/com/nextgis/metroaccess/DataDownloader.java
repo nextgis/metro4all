@@ -95,6 +95,18 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		URLConnection connetion = url.openConnection();
     		connetion.connect();
     		int lenghtOfFile = connetion.getContentLength();
+    		if(lenghtOfFile <= 0){
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
+                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
+                bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkUnreachErr));
+                
+                Message msg = new Message();
+                msg.setData(bundle);
+                if(moEventReceiver != null){
+                	moEventReceiver.sendMessage(msg);
+                }    			
+    		}
     		InputStream input = new BufferedInputStream(url.openStream());
     		OutputStream output = new FileOutputStream(msTmpOutFile);
     		byte data[] = new byte[1024];

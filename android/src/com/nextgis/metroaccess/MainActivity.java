@@ -134,6 +134,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected boolean mbDirected, mbInterfaceLoaded;
 
 	public static String sUrl = "http://metro4all.ru/data/";
+	
+	protected List<DownloadData> masDownloadData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +155,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, sUrl);
+		
+		masDownloadData = new ArrayList<DownloadData>();
 		
 		moGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -212,9 +216,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                     	//create sqlite db
                     	//Creating and saving the graph
                     }*/
-                    
-                    if(IsRoutingDataExist())
-                    	LoadInterface();
+            		
+            		if(masDownloadData.isEmpty()){                    
+	                    if(IsRoutingDataExist())
+	                    	LoadInterface();
+            		}
+            		else{
+            			OnDownloadData();
+            		}
             		break;
             	}
             }
@@ -465,6 +474,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 					new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
+					
+					masDownloadData.clear();
+					
 					for (int i = 0; i < checkedItems.length; i++) {
 						if (checkedItems[i]){
 							try {
@@ -484,8 +496,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 								if(sLocName.length() == 0){
 									sLocName = sName;
 								}
-								DataDownloader uploader = new DataDownloader(MainActivity.this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), moGetJSONHandler);
-								uploader.execute(sUrl + sPath + ".zip");
+								
+								masDownloadData.add(new DownloadData(MainActivity.this, sName, sPath, sLocName, sUrl + sPath + ".zip", nVer, bDirected, moGetJSONHandler));
 
 							} catch (JSONException e) {
 								// TODO Auto-generated catch block
@@ -493,6 +505,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 							}
 						}
 					}
+					
+					OnDownloadData();
+					
 				}
 			})
 
@@ -560,6 +575,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int id) {
+									
+									masDownloadData.clear();
+									
 									for (int i = 0; i < checkedItems.length; i++) {
 										if (checkedItems[i]){
 											try {
@@ -580,8 +598,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 												if(sLocName.length() == 0){
 													sLocName = sName;
 												}
-												DataDownloader uploader = new DataDownloader(MainActivity.this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), moGetJSONHandler);
-												uploader.execute(sUrl + sPath + ".zip");
+												
+												masDownloadData.add(new DownloadData(MainActivity.this, sName, sPath, sLocName, sUrl + sPath + ".zip", nVer, bDirected, moGetJSONHandler));
 												
 											} catch (JSONException e) {
 												// TODO Auto-generated catch block
@@ -589,6 +607,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 											}
 										}
 									}
+									OnDownloadData();
 								}
 							})
 
@@ -607,6 +626,15 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    catch (Exception e) {
 	    	Toast.makeText(MainActivity.this, R.string.sNetworkInvalidData, Toast.LENGTH_LONG).show();
 		}
+	}
+	
+	protected void OnDownloadData(){
+		if(masDownloadData.isEmpty())
+			return;
+		DownloadData data = masDownloadData.get(0);
+		masDownloadData.remove(0);
+		
+		data.OnDownload();
 	}
 	
 	protected static boolean writeToFile(File filePath, String sData){
@@ -1148,7 +1176,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		        	e.printStackTrace();
 		        }*/
 				
-				//YenTopKShortestPathsAlg
+				//YenTopKShortestPaths
 				YenTopKShortestPathsAlg yenAlg = new YenTopKShortestPathsAlg(mGraph);
 				List<Path> shortest_paths_list = yenAlg.get_shortest_paths(mGraph.get_vertex(mnDepartureStationId), mGraph.get_vertex(mnArrivalStationId), 3);
 				
@@ -1191,5 +1219,5 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 		}.start();
 
-	} 
+	}
 }

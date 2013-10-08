@@ -21,6 +21,7 @@
 package com.nextgis.metroaccess;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +37,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -69,12 +72,41 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	
 	protected List<String> aoRouteMetadata;
 	
+	protected List<DownloadData> masDownloadData;
+	protected static Handler moGetJSONHandler; 
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        
+        masDownloadData = new ArrayList<DownloadData>();
+		
+		moGetJSONHandler = new Handler() {
+            public void handleMessage(Message msg) {
+            	super.handleMessage(msg);
+            	
+            	Bundle resultData = msg.getData();
+            	boolean bHaveErr = resultData.getBoolean(MainActivity.BUNDLE_ERRORMARK_KEY);
+            	int nEventSource = resultData.getInt(MainActivity.BUNDLE_EVENTSRC_KEY);
+            	String sPayload = resultData.getString(MainActivity.BUNDLE_PAYLOAD_KEY);
+            	if(bHaveErr){
+            		Toast.makeText(PreferencesActivity.this, resultData.getString(MainActivity.BUNDLE_MSG_KEY), Toast.LENGTH_LONG).show();
+            	}
+
+            	switch(nEventSource){
+            	case 2:            		
+            		if(!masDownloadData.isEmpty()){            			
+            			OnDownloadData();
+            		}
+            		break;
+        		default:
+        			break;
+            	}
+            }
+        };
         
         addPreferencesFromResource(R.xml.preferences);
         
@@ -100,7 +132,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    //msUrl = (String) metDownloadPath.getText();
 	    //metDownloadPath.setSummary(msUrl);
 	    
-	    //TODO: add button update data
+	    //add button update data
 	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
 	    
 		File file = new File(getExternalFilesDir(null), MainActivity.REMOTE_METAFILE);
@@ -163,6 +195,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 		        		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);		
 		        		msUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.sUrl);
 		        		
+		        		masDownloadData.clear();
+		        		
 		        		for(JSONObject jsonObject : moRemoteData.values()){
 		        			if(jsonObject != null){	
 		        				    				
@@ -201,15 +235,16 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 									if(!bChecked)
 										continue;   
 		    						
-		    						
-    	    						DataDownloader uploader = new DataDownloader(PreferencesActivity.this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), null);
-		    						uploader.execute(msUrl + sPath + ".zip");
+									masDownloadData.add(new DownloadData(PreferencesActivity.this, sName, sPath, sLocName, msUrl + sPath + ".zip", nVer, bDirected, moGetJSONHandler));
+									
 		    					} catch (JSONException e) {
 		    						e.printStackTrace();
 		    					}	
 		        			}
 		        		}
 
+		        		OnDownloadData();
+		        		
 						return true;
 		        	}
 		        });
@@ -318,6 +353,11 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 						
 						DataDownloader uploader = new DataDownloader(this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), null);
 						uploader.execute(msUrl + sPath + ".zip");
+						
+
+            			
+            			aoRouteMetadata.add(sName + ";ver." + nVer);
+            			
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}			
@@ -327,6 +367,10 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 						String sPath = jsonObject.getString("path");
 						String sFullPath = getExternalFilesDir(MainActivity.ROUTE_DATA_DIR) + File.separator + sPath;
 						DeleteRecursive(new File(sFullPath));
+						
+						String sName = jsonObject.getString("name");
+						int nVer = jsonObject.getInt("ver");
+						aoRouteMetadata.remove(sName + ";ver." + nVer);
 					}
 					catch (JSONException e) {
 						e.printStackTrace();
@@ -408,5 +452,14 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 			}
 			return false;
 		}
+	}
+	
+	protected void OnDownloadData(){
+		if(masDownloadData.isEmpty())
+			return;
+		DownloadData data = masDownloadData.get(0);
+		masDownloadData.remove(0);
+		
+		data.OnDownload();
 	}
 }
