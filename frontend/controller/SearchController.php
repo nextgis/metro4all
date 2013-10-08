@@ -150,8 +150,7 @@ class SearchController
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.profiles.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.routes.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.popup.js"></script>
-    <!-- script src="http://demo.nextgis.ru:8088/static/m4a/inline.js"></script -->
-    <script src="/js/inline.js"></script>';
+    <script src="http://demo.nextgis.ru/metro4all/static/m4a/inline.js"></script>';
 
 		return $page->start() . $html . $page->stop();
 	}
