@@ -55,10 +55,15 @@ class PageCommon extends Page
 			  <li><a href="/' . Core::$config['current_language'] . '/about/">' . s('О проекте') . '</a></li>
 			  <li><a href="https://play.google.com/store/apps/details?id=com.nextgis.metroaccess" style="color:red;padding-top:9px;padding-bottom:9px;"><span style="background-image:url(/img/android.png);display:inline-block;height:32px;margin-right:5px;vertical-align:middle;width:32px;"></span> ' . s('Загрузить приложение') . '</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right navbar-social">
+			<ul class="nav navbar-nav navbar-social">
 				<li><a target="_blank" href="https://twitter.com/metro4all_ru"><img src="/img/icon-social-twitter.png" /></a></li>
 				<li><a target="_blank" href="http://vk.com/metro4all"><img src="/img/icon-social-vk.png" /></a></li>
 				<li><a target="_blank" href="https://www.facebook.com/pages/Metro4All/730617493632187"><img src="/img/icon-social-fb.png" /></a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li' . (Core::$config['current_language'] == 'ru' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'en/',  core::$config['http_root'].'ru/', $_SERVER['REQUEST_URI'])) . '">' . s('Ру') . '</a></li>
+				<li' . (Core::$config['current_language'] == 'en' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'ru/',  core::$config['http_root'].'en/', $_SERVER['REQUEST_URI'])) . '">' . s('En') . '</a></li>
+			</ul>
 		  </div>
 		</nav>
 
@@ -66,13 +71,6 @@ class PageCommon extends Page
 			<h1 class="col-md-8 title">' . s('Метро для всех') . ' <sup class="title-beta">Beta</sup></h1>
 		</div>
 ';
-
-		/*
-			<ul class="nav navbar-nav navbar-right">
-			  <li' . (Core::$config['current_language'] == 'ru' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'en/',  core::$config['http_root'].'ru/', $_SERVER['REQUEST_URI'])) . '">Ру</a></li>
-			  <li' . (Core::$config['current_language'] == 'en' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'ru/',  core::$config['http_root'].'en/', $_SERVER['REQUEST_URI'])) . '">En</a></li>
-			</ul>
-		*/
 
 		return $html;
 	}

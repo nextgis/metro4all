@@ -28,6 +28,11 @@ class SubscriptionController
 		        $jump_to = 'register_email';
 		    }
 
+		    if (! count($errors) && request_str('email') && ! filter_var(request_str('email'), FILTER_VALIDATE_EMAIL)) {
+		    	$errors []= s('Пожалуйста, укажите корректный адрес электронной почты. Например: john@gmail.com');
+		    	$jump_to = 'register_email';
+		   	}
+
 		    // if(captcha_compare(request_str('captcha_code'))) {
 			//	captcha_close();
 

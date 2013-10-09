@@ -45,5 +45,24 @@ $lang['en'] = array(
 	'Маршрут' => 'Route',
 	'Эта карта только для просмотра маршрута. Выбирать по ней станции пока нельзя' => 'This map is for viewing purposes only. You can\'t use it to select stations yet.',
 
+	'Имя' => 'Name',
 	'Адрес электронной почты' => 'E-mail',
+	'Сообщение' => 'Message',
+	'Отправить' => 'Send',
+	'Общие вопросы' => 'General question',
+	'Сообщение об ошибке' => 'Bug report',
+	'Предложение о сотрудничестве' => 'Collaboration or partership',
+	'Идея' => 'Idea',
+	'Другое' => 'Other',
+
+	'Подписаться' => 'Subscribe',
+
+	'Спасибо за подписку!' => 'Thanks for subscribing!',
+	'Ваш адрес электронной почты успешно добавлен в список рассылки.' => 'Your email was added to the newsletter list.',
+	'Вернуться на главную' => 'Go home',
+	'Пожалуйста, укажите адрес электронной почты.' => 'Please, enter your email',
+	'Спасибо за письмо' => 'Thanks for feedback',
+	'Мы обязательно ответим в течение дня.' => 'We will answer shortly.',
+	'Пожалуйста, укажите корректный адрес электронной почты. Например: john@gmail.com' => 'Please, provide correct email address. For example: john@gmail.com',
+	'Пожалуйста, укажите текст сообщения.' => 'Enter the message.',
 );
