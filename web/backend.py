@@ -5,7 +5,7 @@ import networkx as nx
 import bottle
 from geojson import Feature, FeatureCollection, dumps
 from bottle import view, route, response, request, run, static_file, HTTPResponse
-from os import path
+import os
 
 # for Apache - http://bottlepy.org/docs/dev/faq.html
 # “TEMPLATE NOT FOUND” IN MOD_WSGI/MOD_PYTHON
@@ -16,8 +16,8 @@ bottle.TEMPLATE_PATH.insert(0, '/home/karavanjow/projects/metro4all/metroaccess/
 def init_graph(city):
 
     graph = nx.Graph()
-    nodes = csv.DictReader(open(path.join(path.dirname(__file__), '../data/%s/stations.csv' % city), 'rb'), delimiter=';')
-    edges = csv.DictReader(open(path.join(path.dirname(__file__), '../data/%s/graph.csv' % city), 'rb'), delimiter=';')
+    nodes = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/%s/stations.csv' % city), 'rb'),delimiter=';')
+    edges = csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/%s/graph.csv' % city), 'rb'), delimiter=';')
 
     for node in nodes:
         graph.add_node(int(node['id_station']))
@@ -53,23 +53,23 @@ def get_barriers(item):
 
 
 LINES = {
-    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/lines.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/lines.csv'), 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/lines.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/lines.csv'), 'rb'), delimiter=';')]
 }
 
 STATIONS = {
-    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/stations.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/stations.csv'), 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/stations.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/stations.csv'), 'rb'), delimiter=';')]
 }
 
 PORTALS = {
-    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/portals.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/portals.csv'), 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/portals.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/portals.csv'), 'rb'), delimiter=';')]
 }
 
 INTERCHANGES = {
-    'msk': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/msk/interchanges.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(path.join(path.dirname(__file__), '../data/spb/interchanges.csv'), 'rb'), delimiter=';')]
+    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/interchanges.csv'), 'rb'), delimiter=';')],
+    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/interchanges.csv'), 'rb'), delimiter=';')]
 }
 
 GRAPH = {
@@ -77,11 +77,11 @@ GRAPH = {
     'spb': init_graph('spb')
 }
 
-msk_schemes = [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/msk/schemes/*.png'))]
-spb_schemes = [path.basename(n) for n in glob.glob(path.join(path.dirname(__file__), '../data/spb/schemes/*.png'))]
+msk_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/msk/schemes/*.png'))]
+spb_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/spb/schemes/*.png'))]
 SCHEMAS = {
-    'msk': dict(zip([path.splitext(s)[0] for s in msk_schemes], msk_schemes)),
-    'spb': dict(zip([path.splitext(s)[0] for s in spb_schemes], spb_schemes))
+    'msk': dict(zip([os.path.splitext(s)[0] for s in msk_schemes], msk_schemes)),
+    'spb': dict(zip([os.path.splitext(s)[0] for s in spb_schemes], spb_schemes))
 }
 
 
@@ -110,6 +110,11 @@ def main(city):
 def static(path):
     import os
     return static_file(path, root=os.path.join(os.path.dirname(__file__), 'static'))
+
+
+@route('/data/<path:path>')
+def schemes(path):
+    return static_file(path, root=os.path.join(os.path.dirname(__file__), '../data'))
 
 
 # Получение списка станций для выпадающих списков
