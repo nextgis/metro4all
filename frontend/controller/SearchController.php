@@ -33,6 +33,8 @@ class SearchController
 
 		$page->addResource('style', 'http://demo.nextgis.ru/metro4all/static/leaflet.label.css');
 
+        $page->addResource('style', 'http://demo.nextgis.ru/metro4all/static/lightbox2/css/lightbox.css');
+
 		$page->addResource('style', 'css/m4a.css');
 
 		switch ($this->currentCity)
@@ -118,18 +120,6 @@ class SearchController
       </div>
     </div>
 
-	<div id="popup">
-		<div class="wrapper"></div>
-		<div class="loader">
-			<img class="loader" src="static/img/loader.gif"/>
-			<p>Загрузка схемы...</p>
-		</div>
-		<div class="content">
-			<span class="close"></span>
-			<div class="data"></div>
-		</div>
-	</div>
-
 	<script> var ajax="http://' . Core::$config['http_domain'] .  '/ajax/"; </script>
 
 	<script>' . $globalConfig . '</script>
@@ -139,17 +129,18 @@ class SearchController
 	<script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.config.js"></script>
 
 	<script>
-		m4a.viewmodel.pathToSchemes = "/schemes/";
+		m4a.viewmodel.pathToSchemes = 'http://demo.nextgis.ru/metro4all/data/msk/schemes/';
 	</script>
 
     <script src="http://demo.nextgis.ru/metro4all/static/TileLayer.Grayscale.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/leaflet.label.js"></script>
+    <script src="http://demo.nextgis.ru/metro4all/static/lightbox2/js/lightbox.js"></script>
+
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.loader.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.stations.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.url.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.profiles.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.routes.js"></script>
-    <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.popup.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/inline.js"></script>';
 
 		return $page->start() . $html . $page->stop();
