@@ -48,7 +48,7 @@
             var context = this;
             $.ajax({
               dataType: "json",
-              url: m4a.viewmodel.url.proxy + global_config.city + "/portals/search",
+              url: m4a.viewmodel.url.proxy + global_config.language +'/' + global_config.city + "/portals/search",
               data: {
                 station: stationId,
                 direction: type

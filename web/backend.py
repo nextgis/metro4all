@@ -118,9 +118,8 @@ def schemes(path):
 
 
 # Получение списка станций для выпадающих списков
-@route('/<city>/stations')
-def get_stations(city):
-
+@route('/<lang>/<city>/stations')
+def get_stations(lang, city):
     results = []
     for line in LINES[city]:
         group = []
@@ -128,7 +127,7 @@ def get_stations(city):
             if line['id_line'] == station['id_line']:
                 station_json = {
                     'id':   station['id_station'],
-                    'text': station['name']
+                    'text': station['name'] if lang == 'ru' else station['name_' + lang]
                 }
                 if station['id_station'] in SCHEMAS[city]:
                     station_json['sch'] = SCHEMAS[city][station['id_station']]
@@ -141,8 +140,8 @@ def get_stations(city):
 
 
 # Получение списка входов для заданной станции
-@route('/<city>/portals/search')
-def get_portals(city):
+@route('/<lang>/<city>/portals/search')
+def get_portals(lang, city):
 
     id_station = request.query.station
 
@@ -171,8 +170,8 @@ def get_portals(city):
     return dumps(FeatureCollection(portals))
 
 
-@route('/<city>/routes/search')
-def get_routes(city, delta=5, limit=3):
+@route('/<lang>/<city>/routes/search')
+def get_routes(lang, city, delta=5, limit=3):
 
     station_from = int(request.query.station_from) if request.query.station_from else None
     station_to = int(request.query.station_to) if request.query.station_to else None
@@ -184,7 +183,7 @@ def get_routes(city, delta=5, limit=3):
         for station in STATIONS[city]:
             if station['id_station'] == str(station_id):
                 return dict(
-                    name=station['name'],
+                    name=station['name'] if lang == 'ru' else station['name_' + lang],
                     line=int(station['id_line']),
                     coords=(float(station['lat']), float(station['lon']))
                 )
@@ -194,7 +193,7 @@ def get_routes(city, delta=5, limit=3):
         for line in LINES[city]:
             if line['id_line'] == str(line_id):
                 return dict(
-                    name=line['name'],
+                    name=line['name'] if lang == 'ru' else line['name_' + lang],
                     color=line['color']
                 )
 

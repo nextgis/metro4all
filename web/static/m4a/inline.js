@@ -10,7 +10,7 @@ $(document).ready(function () {
     viewmodel.miniMaps.out = L.map('metroEndInput', {zoomControl: false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
 
     // Заполнение выпадающих списков
-    $.ajax(url + global_config.city + "/stations").done(function (data) {
+    $.ajax(url + global_config.language + "/" + global_config.city + "/stations").done(function (data) {
         m4a.view.$metroStartStation.select2({width: "100%", data: data});
         m4a.view.$metroEndStation.select2({width: "100%", data: data});
 
@@ -59,7 +59,7 @@ $(document).ready(function () {
                 $('#routePanel').empty();
                 $.ajax({
                     dataType: "json",
-                    url: url + global_config.city + "/routes/search",
+                    url: url + global_config.language + "/" + global_config.city + "/routes/search",
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                         m4a.routes.buildRoutes(data);
