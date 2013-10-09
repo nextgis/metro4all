@@ -129,7 +129,7 @@ class SearchController
 	<script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.config.js"></script>
 
 	<script>
-		m4a.viewmodel.pathToSchemes = 'http://demo.nextgis.ru/metro4all/data/msk/schemes/';
+		m4a.viewmodel.pathToSchemes = "http://demo.nextgis.ru/metro4all/data/msk/schemes/";
 	</script>
 
     <script src="http://demo.nextgis.ru/metro4all/static/TileLayer.Grayscale.js"></script>
