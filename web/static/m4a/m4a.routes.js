@@ -32,36 +32,37 @@
         fillBarriers: function (barriers) {
             var c = "";
             c += "<ul class='obstacles'>";
-            c += "<li><strong>Ширина коляски</strong> " + "до " + barriers['max_width'] + " см" + "</li>";
+            c += "<li><strong>" + m4a.resources.routes.wch_w + "</strong> " +
+                m4a.resources.routes.wch_w1 + barriers['max_width'] + m4a.resources.routes.wch_w2 + "</li>";
             if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
-                c += "<li class='empty'>Лестниц нет</li>";
+                c += "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
             } else {
-                c += "<li><strong>Ступенек</strong> " + barriers['min_step'] + "</li>";
-                c += "<li><strong>Из них без рельс и рамп</strong> " + barriers['min_step_ramp'] + "</li>";
+                c += "<li><strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>";
+                c += "<li><strong>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
             }
-            c += "<li>" + {true: 'Лифт есть', false: 'Лифта нет'}[barriers['lift']];
+            c += "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
 
             // Лифт
             if (barriers['lift']) {
-                c += ", экономит " + barriers['lift_minus_step'] + " ступенек";
+                c += m4a.resources.routes.elev_y_1 + barriers['lift_minus_step'] + m4a.resources.routes.elev_y_2;
             }
             c += "</li>";
 
             // Аппарели
             if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
-                c += "<li><strong>Мин-макс. расстояние между колесами</strong> "
-                    + barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + " см";
+                c += "<li><strong>" + m4a.resources.routes.min_max + "</strong> "
+                    + barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + m4a.resources.routes.cm;
             } else {
-                c += "<li class='empty'>Аппарели отсутствуют";
+                c += "<li class='empty'>" + m4a.resources.routes.no_r;
             }
             c += "</li>";
 
             // Наклонные поверхности
             if (barriers['max_angle']) {
-                c += "<li><strong>Угол наклона</strong> "
+                c += "<li><strong>" + m4a.resources.routes.slope + "</strong> "
                     + barriers['max_angle'] + "&deg;";
             } else {
-                c += "<li class='empty'>Наклонных поверхностей нет";
+                c += "<li class='empty'>" + m4a.resources.routes.no_lev_surf;
             }
             c += "</li>";
             c += "</ul>";
@@ -78,7 +79,7 @@
                 lineClass = routes[index].route && routes[index].route.length > 0 ?
                     ' line-' + routes[index].route[0].station_line.id : '';
 
-            content += "<li class='enter" + lineClass + "'>Вход";
+            content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
             if (routes[index].portals.portal_from) {
                 var barriers = routes[index].portals.portal_from.barriers;
                 if (barriers) {
@@ -86,7 +87,7 @@
                 }
             } else {
                 content += "<ul class='obstacles'>";
-                content += "<li>Препятствия не отображаются, так как не выбран вход</li>";
+                content += "<li>" + m4a.resources.routes.obt_arent_sh_en + "</li>";
                 content += "</ul>";
             }
             content += "</li>";
@@ -120,7 +121,7 @@
                 }
             });
 
-            content += "<li class='exit'>Выход";
+            content += "<li class='exit'>" + m4a.resources.routes.exit;
             if (routes[index].portals.portal_to) {
                 var barriers = routes[index].portals.portal_to.barriers;
                 if (barriers) {
@@ -128,7 +129,7 @@
                 }
             } else {
                 content += "<ul class='obstacles'>";
-                content += "<li>Препятствия не отображаются, так как не выбран выход</li>";
+                content += "<li>" + m4a.resources.routes.obt_arent_sh_ex + "</li>";
                 content += "</ul>";
             }
             content += "</li>";

@@ -51,9 +51,9 @@ $(document).ready(function () {
 
             if (start_station.length == 0 || end_station.length == 0) {
                 // todo: use bootstrap
-                alert('Не выбрана входная или выходная станция!');
+                alert(m4a.resources.inline.start_st);
             } else if (start_station == end_station) {
-                alert('Выбраны одинаковые станции!');
+                alert(m4a.resources.inline.eq_st);
             } else {
                 $('.pagination').empty();
                 $('#routePanel').empty();
