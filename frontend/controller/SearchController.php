@@ -138,6 +138,7 @@ class SearchController
     <script src="http://demo.nextgis.ru/metro4all/static/leaflet.label.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/lightbox2/js/lightbox.js"></script>
 
+    <script src="http://demo.nextgis.ru/metro4all/static/m4a/translations/m4a.' . Core::$config['current_language'] . '.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.loader.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.stations.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.url.js"></script>

@@ -1,5 +1,3 @@
-
-
 (function ($, m4a) {
     m4a.loader = {};
 
