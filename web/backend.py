@@ -133,7 +133,10 @@ def get_stations(lang, city):
                     station_json['sch'] = SCHEMAS[city][station['id_station']]
                 group.append(station_json)
         group = sorted(group, key=lambda i: i['text'])
-        results.append(dict(text=line['name'], children=group))
+        results.append({
+            'text': line['name'] if lang == 'ru' else line['name_' + lang],
+            'children': group
+        })
 
     response.content_type = 'application/json'
     return dumps(dict(results=results))
