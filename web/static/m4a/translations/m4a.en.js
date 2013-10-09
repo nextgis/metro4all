@@ -14,9 +14,9 @@
             "trl_d3": " cm wide trolley"
         },
         routes: {
-            "wch_w": "Wheelchair upto ",
+            "wch_w": "Wheelchair width upto ",
             "wch_w1": "",
-            "wch_w2": " cm wide",
+            "wch_w2": " cm",
             "n_str": "No stairs",
             "stps": "Steps",
             "n_ramp": "Out of those, not covered by ramps or rails",
