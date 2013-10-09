@@ -5,4 +5,4 @@ m4a.view = {};
 
 
 m4a.viewmodel.url={'proxy' : typeof ajax !== 'undefined' ? ajax : '/'};
-m4a.viewmodel.pathToSchemes = '/static/_dev/schemes/';
+m4a.viewmodel.pathToSchemes = '/data/msk/schemes/';

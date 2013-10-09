@@ -68,8 +68,8 @@
             return c;
         },
 
-        schemeIconTemplate: Mustache.compile('{{#schemeExists}}<span class="scheme"' +
-            ' data-img="{{img}}" data-name="{{name}}"></span>{{/schemeExists}}'),
+        schemeIconTemplate: Mustache.compile('{{#schemeExists}}<a class="scheme"' +
+            ' href="{{path}}" data-lightbox="{{schemeExists}}" title="{{name}}"></a>{{/schemeExists}}'),
 
         showRoute: function (routes, index) {
             // Вывод списка станций, входящих в маршрут
@@ -97,7 +97,11 @@
 
                 if (condition) {
                     content += "<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name +
-                        context.schemeIconTemplate({ schemeExists: item.schema, img: item.schema, name: item.station_name }) +
+                        context.schemeIconTemplate({
+                            schemeExists: item.schema,
+                            path: m4a.viewmodel.pathToSchemes + item.schema,
+                            name: item.station_name
+                        }) +
                         "</li>"
                 } else if (item.station_type == 'interchange') {
                     content += "<li class=" + "'transition from-line-" + item.station_line.id + " to-line-" +
@@ -106,7 +110,7 @@
                         " (" + routes[index].route[i + 1].station_line.name + ")" +
                         context.schemeIconTemplate({
                             schemeExists: routes[index].route[i + 1].schema,
-                            img: routes[index].route[i + 1].schema,
+                            path: m4a.viewmodel.pathToSchemes + routes[index].route[i + 1].schema,
                             name: routes[index].route[i + 1].station_name
                         })
                     if (item.barriers) {
@@ -130,7 +134,6 @@
             content += "</li>";
             content += "</ul>";
             m4a.view.$routePanel.append(content);
-            this.bindRoutesEvents();
 
             // Отображение маршрута на карте
             if (typeof route !== 'undefined') {
@@ -178,17 +181,6 @@
                 [ymin, xmin],
                 [ymax, xmax]
             ]);
-        },
-
-
-        bindRoutesEvents: function() {
-            var routePanel = m4a.view.$routePanel,
-                $this;
-
-            routePanel.find('span.scheme').off('click').on('click', function() {
-                var $this = $(this);
-                m4a.popup.openImagePopup(m4a.viewmodel.pathToSchemes + $this.data('img'), $this.data('name'));
-            });
         }
     })
 })(jQuery, m4a)

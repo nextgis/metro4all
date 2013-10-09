@@ -31,20 +31,12 @@
     <!-- m4a CSS -->
     <link href="static/css/m4a.css" rel="stylesheet">
 
+    <!-- lightbox2 styles -->
+    <link href="static/lightbox2/css/lightbox.css" rel="stylesheet">
+
   </head>
 
   <body>
-    <div id="popup">
-        <div class="wrapper"></div>
-        <div class="loader">
-            <img class="loader" src="static/img/loader.gif"/>
-            <p>Загрузка схемы...</p>
-        </div>
-        <div class="content">
-            <span class="close"></span>
-            <div class="data"></div>
-        </div>
-    </div>
     <div class="container">
     <div class="row">
 
@@ -136,7 +128,7 @@
     <script src="static/m4a/m4a.url.js"></script>
     <script src="static/m4a/m4a.profiles.js"></script>
     <script src="static/m4a/m4a.routes.js"></script>
-    <script src="static/m4a/m4a.popup.js"></script>
     <script src="static/m4a/inline.js"></script>
+    <script src="static/lightbox2/js/lightbox.js"></script>
   </body>
 </html>

@@ -8,7 +8,6 @@
             this.setDomOptions();
             m4a.url.init();
             m4a.profiles.init();
-            m4a.popup.init();
         },
 
 
