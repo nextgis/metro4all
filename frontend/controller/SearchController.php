@@ -43,7 +43,8 @@ class SearchController
 				$globalConfig = 'var global_config = {
 					  minimap: {"center": [55.75, 37.62], "zoom": 11},
 					  mainmap: {"center": [55.75, 37.62], "zoom": 10},
-					  city: "msk"
+					  city: "msk",
+					  language: "' . Core::$config['current_language'] . '"
 				}';
 				break;
 
@@ -51,7 +52,8 @@ class SearchController
 				$globalConfig = 'var global_config = {
 					  minimap: {"center": [59.95, 30.316667], "zoom": 11},
 					  mainmap: {"center": [59.95, 30.316667], "zoom": 10},
-					  city: "spb"
+					  city: "spb",
+					  language: "' . Core::$config['current_language'] . '"
 				}';
 				break;
 		}
@@ -129,7 +131,7 @@ class SearchController
 	<script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.config.js"></script>
 
 	<script>
-		m4a.viewmodel.pathToSchemes = "http://demo.nextgis.ru/metro4all/data/' . $this->currentCity . '/schemes/";
+		m4a.viewmodel.pathToSchemes = "http://demo.nextgis.ru/metro4all/data/" + global_config.city + "/schemes/";
 	</script>
 
     <script src="http://demo.nextgis.ru/metro4all/static/TileLayer.Grayscale.js"></script>
