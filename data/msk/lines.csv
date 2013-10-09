@@ -1,13 +1,13 @@
-id_line;name;color
-1;Сокольническая;#ed1b35
-2;Замоскворецкая;#44b85c
-3;Арбатско-Покровская;#0078bf
-4;Филевская;#19c1f3
-5;Кольцевая;#894e35
-6;Калужско-Рижская;#f58631
-7;Таганско-Краснопресненская;#8e479c
-8;Калининская;#ffcb31
-9;Серпуховско-Тимирязевская;#a1a2a3
-10;Люблинско-Дмитровская;#b3d445
-11;Каховская;#79cdcd
-12;Бутовская;#acbfe1
+id_line;name;name_en;color
+1;Сокольническая;Sokolnicheskaya;#ed1b35
+2;Замоскворецкая;Zamoskvoretskaya;#44b85c
+3;Арбатско-Покровская;Arbatsko-Pokrovskaya;#0078bf
+4;Филевская;Filyovskaya;#19c1f3
+5;Кольцевая;Koltsevaya (circle line);#894e35
+6;Калужско-Рижская;Kalujsko-Rijskaya;#f58631
+7;Таганско-Краснопресненская;Tagansko-Krasnopresnenskaya;#8e479c
+8;Калининская;Kalininskaya;#ffcb31
+9;Серпуховско-Тимирязевская;Serpukhovsko-Timiryazevskaya;#a1a2a3
+10;Люблинско-Дмитровская;Lyublinskaya;#b3d445
+11;Каховская;Kakhovskaya;#79cdcd
+12;Бутовская;Butovskaya;#acbfe1
