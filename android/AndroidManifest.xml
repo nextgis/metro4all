@@ -46,7 +46,7 @@
     		android:label="@string/sSchema">
 		</activity> 		      
         <activity 
-    		android:name="com.nextgis.metroaccess.SelectStationActivity">
+    		android:name="com.nextgis.metroaccess.SelectStationActivity" android:configChanges="keyboardHidden" android:windowSoftInputMode="stateHidden">
 		</activity>
         <activity 
     		android:name="com.nextgis.metroaccess.PreferencesActivity"

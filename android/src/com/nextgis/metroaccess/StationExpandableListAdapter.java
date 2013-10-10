@@ -38,10 +38,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class StationExpandableListAdapter extends BaseExpandableListAdapter {
+public class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
 	protected Context mContext;
 	protected List <StationItem> mStationList;
 	protected Map<StationItem, List<PortalItem>> mPortalCollection;
@@ -50,6 +52,8 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 	protected int mnMaxWidth, mnWheelWidth;
 	
 	protected LayoutInflater mInfalInflater;
+	protected List<StationItem> moOriginalStationList;
+	private boolean notifyChanged;
 	
 	public StationExpandableListAdapter(Context c) {
 		mContext = c;
@@ -204,4 +208,42 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter {
 		return true;
 	}
 
+	@Override
+	public Filter getFilter() {
+		return new Filter() {
+
+	        @Override
+	        protected FilterResults performFiltering(CharSequence constraint) {
+	            final FilterResults oReturn = new FilterResults();
+	            final ArrayList<StationItem> results = new ArrayList<StationItem>();
+	            if (moOriginalStationList == null)
+	            	moOriginalStationList = mStationList;
+	            if (constraint != null) {
+	                if (moOriginalStationList != null && moOriginalStationList.size() > 0) {
+	                    for (final StationItem station : moOriginalStationList) {
+	                        if (station.GetName().toLowerCase()
+	                                .contains(constraint.toString()))
+	                            results.add(station);
+	                    }
+	                }
+	                oReturn.values = results;
+	            }
+	            return oReturn;
+	        }
+
+	        @SuppressWarnings("unchecked")
+	        @Override
+	        protected void publishResults(CharSequence constraint,
+	                FilterResults results) {
+	        	mStationList = (ArrayList<StationItem>) results.values;
+	            notifyDataSetChanged();
+	        }
+	    };
+	}
+	
+	@Override
+	public void notifyDataSetChanged() {
+	    super.notifyDataSetChanged();
+	    notifyChanged = true;
+	}
 }

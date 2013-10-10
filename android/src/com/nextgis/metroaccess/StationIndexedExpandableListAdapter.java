@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.widget.Filter;
 import android.widget.SectionIndexer;
 
 public class StationIndexedExpandableListAdapter extends StationExpandableListAdapter implements SectionIndexer {
@@ -99,4 +100,5 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 	    	return left.GetName().compareTo( right.GetName() );
 	    }
 	}
+
 }

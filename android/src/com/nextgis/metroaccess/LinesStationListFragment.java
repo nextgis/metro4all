@@ -33,14 +33,19 @@ import java.util.Map;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.os.Bundle;
 
 public class LinesStationListFragment extends SherlockFragment {
+	protected static final String TAG = LinesStationListFragment.class.getSimpleName();
 	protected ExpandableListView mExpListView;
 	protected Map<Integer, String> momLines;
 	
@@ -105,7 +110,28 @@ public class LinesStationListFragment extends SherlockFragment {
                 return true;
             }
         });
-        
+        EditText stationFilterEdit = (EditText) view
+				.findViewById(R.id.etStationFilterEdit);
+		TextWatcher searchTextWatcher = new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// ignore
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// ignore
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				Log.d(TAG, "*** Search value changed: " + s.toString());
+				expListAdapter.getFilter().filter(s.toString());
+			}
+		};
+		stationFilterEdit.addTextChangedListener(searchTextWatcher);
         return view;
     }
 }
