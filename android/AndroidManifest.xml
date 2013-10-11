@@ -13,8 +13,7 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-	<supports-screens android:largeScreens="true"/>    
-	<supports-screens android:xlargeScreens="true"/>    
+	<supports-screens android:largeScreens="true" android:smallScreens="true" android:anyDensity="true" android:normalScreens="true" android:xlargeScreens="true" android:resizeable="true"/>    
 	
 	<uses-feature android:name="android.hardware.telephony" android:required="false" />
 	<uses-feature android:name="android.hardware.wifi" android:required="false" />
