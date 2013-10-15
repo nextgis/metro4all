@@ -19,6 +19,12 @@ local.properties
 android/.classpath
 android/.project
 android/lint.xml
+MetroDataCollector/bin
+MetroDataCollector/gen
+MetroDataCollector/.classpath
+MetroDataCollector/.project
+MetroDataCollector/lint.xml
+MetroDataCollector/docs
 
 #archives
 *.zip
