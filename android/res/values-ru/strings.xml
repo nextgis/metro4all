@@ -77,5 +77,6 @@
 	<string name="sPrefDataPathSummary">Ссылка для загрузки данных маршрутизации</string>
 	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
 	<string name="sPrefUpdDataSummary">Нажмите чтобы обновить данные для маршрутизации</string>
-	<string name="sPrefUpdDataTitle">Обновить данные</string>			
+	<string name="sPrefUpdDataTitle">Обновить данные</string>	
+	<string name="stationFilterHintText">Введите часть названия станции</string>		
 </resources>
