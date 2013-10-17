@@ -3,18 +3,18 @@
         {
             "name" : "Moscow",
             "name_ru" : "Москва",
-            "ver" : 22,
+            "ver" : 23,
             "path" : "msk",
-	    "directed" : false,
-            "size":1430
+            "directed" : false,
+            "size" : 1433
         },
         {
             "name" : "St.Peterburg",
             "name_ru" : "Санкт-Петербург",
-            "ver" : 4,
+            "ver" : 5,
             "path" : "spb",
-	    "directed" : false,
-	    "size" : 578
+            "directed" : false,
+            "size" : 565
         }
     ]
 }
