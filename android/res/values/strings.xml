@@ -78,5 +78,5 @@
 	<string name="sPrefDataPathTitle">Set download data URL</string>
 	<string name="sPrefUpdDataSummary">Click to update routing data</string>
 	<string name="sPrefUpdDataTitle">Update data</string>
-	<string name="stationFilterHintText">Введите часть названия станции</string>
+	<string name="stationFilterHintText">Start entering the name of the station</string>
 </resources>
