@@ -36,12 +36,18 @@ import com.actionbarsherlock.app.SherlockFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.TextView.OnEditorActionListener;
+import android.content.Context;
 import android.os.Bundle;
 
 public class LinesStationListFragment extends SherlockFragment {
@@ -132,6 +138,21 @@ public class LinesStationListFragment extends SherlockFragment {
 			}
 		};
 		stationFilterEdit.addTextChangedListener(searchTextWatcher);
+		
+		stationFilterEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				// TODO Auto-generated method stub
+				InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+				if(actionId==EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_SEARCH
+						|| actionId == EditorInfo.IME_ACTION_SEND) {
+					imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+					return true;
+				}
+				return false;
+			}
+		});
         return view;
     }
 }

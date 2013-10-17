@@ -32,7 +32,11 @@
             android:id="@+id/etStationFilterEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/stationFilterHintText">
+            android:hint="@string/stationFilterHintText"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:singleLine="true" >
+
         </EditText>
 
         <ExpandableListView
