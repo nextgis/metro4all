@@ -13,19 +13,13 @@
 local.properties
 
 # Eclipse project files
-# metro4all
-android/metro4all/.classpath
-android/metro4all/.project
-android/metro4all/lint.xml
-android/metro4all/bin/
-android/metro4all/gen/
+android/*/bin/
+android/*/gen/
+android/*/.classpath
+android/*/.project
+android/*/lint.xml
 
 # MetroDataCollector
-android/MetroDataCollector/bin
-android/MetroDataCollector/gen
-android/MetroDataCollector/.classpath
-android/MetroDataCollector/.project
-android/MetroDataCollector/lint.xml
 android/MetroDataCollector/docs
 
 #archives
