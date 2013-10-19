@@ -8,23 +8,19 @@
 # Java class files
 *.class
 
-# generated files
-android/bin/
-android/gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
 
 # Eclipse project files
-android/.classpath
-android/.project
-android/lint.xml
-MetroDataCollector/bin
-MetroDataCollector/gen
-MetroDataCollector/.classpath
-MetroDataCollector/.project
-MetroDataCollector/lint.xml
-MetroDataCollector/docs
+android/*/bin/
+android/*/gen/
+android/*/.classpath
+android/*/.project
+android/*/lint.xml
+
+# MetroDataCollector
+android/MetroDataCollector/docs
 
 #archives
 *.zip
