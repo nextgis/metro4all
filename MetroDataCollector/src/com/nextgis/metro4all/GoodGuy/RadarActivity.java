@@ -1,24 +1,30 @@
 package com.nextgis.metro4all.GoodGuy;
 
-import com.nextgis.metro4all.GoodGuy.utils.Consts;
-import com.nextgis.metro4all.GoodGuy.utils.db.DBHelper;
+import java.util.List;
 
-import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.NavUtils;
+import android.telephony.NeighboringCellInfo;
+import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
-import android.telephony.TelephonyManager;
-import android.telephony.gsm.GsmCellLocation;
+
+import com.nextgis.metro4all.GoodGuy.utils.SubLineAdapter;
+import com.nextgis.metro4all.GoodGuy.utils.SubStationAdapter;
+import com.nextgis.metro4all.GoodGuy.utils.db.DBHelper;
+import com.nextgis.metro4all.GoodGuy.utils.db.DBWrapper;
 
 public class RadarActivity extends Activity {
 
@@ -35,9 +41,13 @@ public class RadarActivity extends Activity {
 					GsmCellLocation cellLocation = (GsmCellLocation) mTelephonyManager.getCellLocation();
 					Log.d(TAG, String.format("Station id: %d network cell location: cid=%d lac=%d", mSubStation.getId_station(), cellLocation.getCid(), cellLocation.getLac()));
 					onPostRadarData(mSubStation.getId_station(), cellLocation.getCid(), cellLocation.getLac());
-					mScanningText.setText("Миссия выполнена! Сканирование завершено успешно!");
+					mScanningText.setText(String.format("Миссия выполнена! Station id: %d network cell location: %s", mSubStation.getId_station(), cellLocation.toString()));
 					mNextMissionButton.setVisibility(View.VISIBLE);
-					mRadar.setVisibility(View.INVISIBLE);
+					mRadar.setVisibility(View.GONE);
+					List<NeighboringCellInfo> neighbors = mTelephonyManager.getNeighboringCellInfo();
+					for(NeighboringCellInfo neighbor: neighbors) {
+						Log.d(TAG, String.format("Station id: %d nearest cell: %s", mSubStation.getId_station(), neighbor.toString()));
+					}
 				} else {
 					
 				}
@@ -54,19 +64,81 @@ public class RadarActivity extends Activity {
 
 	private Button mNextMissionButton;
 
-	private DBHelper mDB;
+	private DBWrapper mDB;
 
 	private SubStation mSubStation;
+
+	private Spinner radarStationSpinner;
+
+	private Spinner radarLineSpinner;
+
+	protected boolean radarLineSpinnerFromUser = false;
+
+	protected boolean radarStationSpinnerFromUser = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_radar);
 		// Show the Up button in the action bar.
+		
+		mDB = new DBWrapper(this);
+		mDB.open();
+		
 		mTelephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 		
 		
 		mRadar = (ProgressBar) findViewById(R.id.radarProgress);
 		mScanningText = (TextView) findViewById(R.id.radarTitle);
+		radarLineSpinner = (Spinner) findViewById(R.id.radarStationSpinner);
+		radarLineSpinner.setAdapter(new SubLineAdapter(this, mDB));
+		radarLineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				Cursor c = mDB.getlines(id);
+				c.moveToFirst();
+				if(c.getCount() > 0) {
+					int lineId = c.getInt(c.getColumnIndexOrThrow(DBHelper.LINES_ID_LINE_COLUMN));
+					radarStationSpinner.setAdapter(new SubStationAdapter(RadarActivity.this, mDB, lineId));
+					radarStationSpinner.setVisibility(View.VISIBLE);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				radarStationSpinner.setVisibility(View.INVISIBLE);
+				
+			}
+		});
+		radarStationSpinner = (Spinner) findViewById(R.id.radarLineSpinner);
+		radarStationSpinner.setVisibility(View.INVISIBLE);
+		radarStationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				Cursor c = mDB.getstations(id);
+				c.moveToFirst();
+				if(c.getCount() > 0) {
+					mSubStation = SubStation.fromCursor(c);
+					mNextMissionButton.setText("Сканировать...");
+					mNextMissionButton.setVisibility(View.VISIBLE);
+				} else {
+					mSubStation = null;
+				}
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				mScanningText.setText("Выберите линию метро и станцию, на которой вы сейчас находитесь...");
+				mRadar.setVisibility(View.INVISIBLE);
+			}
+		});
+		mScanningText.setText("Выберите линию метро и станцию, на которой вы сейчас находитесь...");
+		mRadar.setVisibility(View.INVISIBLE);
 		mNextMissionButton = (Button) findViewById(R.id.radarMissionButton);
 		mNextMissionButton.setVisibility(View.GONE);
 		mNextMissionButton.setOnClickListener(new View.OnClickListener() {
@@ -74,28 +146,17 @@ public class RadarActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				NavUtils.navigateUpFromSameTask(RadarActivity.this);
+				if(mSubStation == null) {
+					mScanningText.setText("Что-то пошло не так... Не могу понять что, попробуйте еще раз...");
+					mNextMissionButton.setVisibility(View.VISIBLE);
+				} else {
+					mScanningText.setText(R.string.radarTitle);
+					mRadar.setVisibility(View.VISIBLE);
+					mTelephonyHandler = new Handler();
+					mTelephonyHandler.postDelayed(mTelephonyStateRunnable, 3000);
+				}
 			}
 		});
-		Intent intent = getIntent();
-		if(intent.hasExtra(Consts.PARAM_STATION_ID)) {
-			mDB = new DBHelper(this);
-			mDB.open();
-			Cursor c = mDB.getstations(intent.getLongExtra(Consts.PARAM_STATION_ID, -1));
-			c.moveToFirst();
-			if(c.getCount() > 0) {
-				mSubStation = SubStation.fromCursor(c);
-			}
-		}
-		
-		if(mSubStation == null) {
-			mScanningText.setText("Что-то пошло не так... Не могу понять что, попробуйте еще раз...");
-			mRadar.setVisibility(View.INVISIBLE);
-			mNextMissionButton.setVisibility(View.VISIBLE);
-		} else {
-			mTelephonyHandler = new Handler();
-			mTelephonyHandler.postDelayed(mTelephonyStateRunnable, 3000);
-		}
 		setupActionBar();
 	}
 

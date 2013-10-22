@@ -52,3 +52,9 @@ Integer max_rail_width
 Integer max_angle
 ENDCLASS
 
+CLASS celldata
+Integer id_station
+Integer id_line
+Integer cell_cid;
+Integer cell_lac;
+ENDCLASS

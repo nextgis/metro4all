@@ -42,7 +42,8 @@ public class MainActivity extends Activity {
 	}
 	
 	private void startDataCollection() {
-		Intent intent = new Intent(this, MapActivity.class);
+		Intent intent = new Intent(this, RadarActivity.class);
+//		Intent intent = new Intent(this, MapActivity.class);
 		startActivity(intent);
 		finish();
 	}
