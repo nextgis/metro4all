@@ -1,13 +1,18 @@
 package com.nextgis.metro4all.GoodGuy;
 
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.ShareActionProvider;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
@@ -15,11 +20,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nextgis.metro4all.GoodGuy.utils.SubLineAdapter;
 import com.nextgis.metro4all.GoodGuy.utils.SubStationAdapter;
@@ -48,8 +55,10 @@ public class RadarActivity extends Activity {
 					for(NeighboringCellInfo neighbor: neighbors) {
 						Log.d(TAG, String.format("Station id: %d nearest cell: %s", mSubStation.getId_station(), neighbor.toString()));
 					}
+					mDB.addcelldata(Calendar.getInstance().getTime(), mSubStation.getId_station(), mSubStation.getId_line(), cellLocation.getCid(), cellLocation.getLac(), cellLocation.getPsc(), "unknown");
 				} else {
-					
+					mRadar.setVisibility(View.GONE);
+					mScanningText.setText("Миссия провалена! Не могу получить данные. Попробуйте еще раз");
 				}
 				
 			}
@@ -178,13 +187,17 @@ public class RadarActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.radar, menu);
-		return true;
+
+		MenuItem sendItem = menu.findItem(R.id.radarSendData);
+
+		MenuItemCompat.setShowAsAction(sendItem, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
+		case android.R.id.home: {
 			// This ID represents the Home or Up button. In the case of this
 			// activity, the Up button is shown. Use NavUtils to allow users
 			// to navigate up one level in the application structure. For
@@ -194,6 +207,10 @@ public class RadarActivity extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		}
+		case R.id.radarSendData : {
+			Toast.makeText(this, "Отправка данных (заглушка)", Toast.LENGTH_SHORT).show();
+		}
 		}
 		return super.onOptionsItemSelected(item);
 	}

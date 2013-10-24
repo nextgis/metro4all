@@ -14,7 +14,7 @@ import android.util.Log;
 
 import java.util.Date;
 
-public class DBHelper{
+public abstract class DBHelper{
     private static final String TAG = "DBHelper";
 
     private static final String DATABASE_NAME = "metroaccess.sqlite3";
@@ -157,6 +157,27 @@ public class DBHelper{
 
 
 
+    // -------------- CELLDATA DEFINITIONS ------------
+
+    public static final String CELLDATA_TABLE = "celldata";
+    public static final String CELLDATA_DATE_COLUMN = "date";
+    public static final int CELLDATA_DATE_COLUMN_POSITION = 1;
+    public static final String CELLDATA_ID_STATION_COLUMN = "id_station";
+    public static final int CELLDATA_ID_STATION_COLUMN_POSITION = 2;
+    public static final String CELLDATA_ID_LINE_COLUMN = "id_line";
+    public static final int CELLDATA_ID_LINE_COLUMN_POSITION = 3;
+    public static final String CELLDATA_CELL_CID_COLUMN = "cell_cid";
+    public static final int CELLDATA_CELL_CID_COLUMN_POSITION = 4;
+    public static final String CELLDATA_CELL_LAC_COLUMN = "cell_lac";
+    public static final int CELLDATA_CELL_LAC_COLUMN_POSITION = 5;
+    public static final String CELLDATA_CELL_HASH_COLUMN = "cell_hash";
+    public static final int CELLDATA_CELL_HASH_COLUMN_POSITION = 6;
+    public static final String CELLDATA_GEO_LOCATION_COLUMN = "geo_location";
+    public static final int CELLDATA_GEO_LOCATION_COLUMN_POSITION = 7;
+
+
+
+
 
 
     // -------- TABLES CREATION ----------
@@ -223,6 +244,18 @@ public class DBHelper{
 				 INTERCHANGES_MIN_RAIL_WIDTH_COLUMN + " integer  " + ", " + 
 				 INTERCHANGES_MAX_RAIL_WIDTH_COLUMN + " integer  " + ", " + 
 				 INTERCHANGES_MAX_ANGLE_COLUMN + " integer  " + ");";
+
+
+    // celldata CREATION 
+    private static final String DATABASE_CELLDATA_CREATE = "create table " + CELLDATA_TABLE + " (" + 
+				 ROW_ID + " integer primary key autoincrement" + ", " + 
+				 CELLDATA_DATE_COLUMN + " integer  " + ", " + 
+				 CELLDATA_ID_STATION_COLUMN + " integer  " + ", " + 
+				 CELLDATA_ID_LINE_COLUMN + " integer  " + ", " + 
+				 CELLDATA_CELL_CID_COLUMN + " integer  " + ", " + 
+				 CELLDATA_CELL_LAC_COLUMN + " integer  " + ", " + 
+				 CELLDATA_CELL_HASH_COLUMN + " integer  " + ", " + 
+				 CELLDATA_GEO_LOCATION_COLUMN + " text  " + ");";
 
 
 
@@ -563,6 +596,70 @@ public class DBHelper{
     	return res;
     }
 
+	// -------------- CELLDATA HELPERS ------------------
+    public long addcelldata(Date date, Integer id_station, Integer id_line, Integer cell_cid, Integer cell_lac, Integer cell_hash, String geo_location){
+     ContentValues contentValues = new ContentValues();
+       contentValues.put(CELLDATA_DATE_COLUMN, date.getTime());
+       contentValues.put(CELLDATA_ID_STATION_COLUMN, id_station);
+       contentValues.put(CELLDATA_ID_LINE_COLUMN, id_line);
+       contentValues.put(CELLDATA_CELL_CID_COLUMN, cell_cid);
+       contentValues.put(CELLDATA_CELL_LAC_COLUMN, cell_lac);
+       contentValues.put(CELLDATA_CELL_HASH_COLUMN, cell_hash);
+       contentValues.put(CELLDATA_GEO_LOCATION_COLUMN, geo_location);
+       return mDb.insert(CELLDATA_TABLE, null, contentValues);
+    
+    }
+
+    public long updatecelldata(long rowIndex, Date date, Integer id_station, Integer id_line, Integer cell_cid, Integer cell_lac, Integer cell_hash, String geo_location){
+       String where = ROW_ID + " = " + rowIndex;
+     ContentValues contentValues = new ContentValues();
+       contentValues.put(CELLDATA_DATE_COLUMN, date.getTime());
+       contentValues.put(CELLDATA_ID_STATION_COLUMN, id_station);
+       contentValues.put(CELLDATA_ID_LINE_COLUMN, id_line);
+       contentValues.put(CELLDATA_CELL_CID_COLUMN, cell_cid);
+       contentValues.put(CELLDATA_CELL_LAC_COLUMN, cell_lac);
+       contentValues.put(CELLDATA_CELL_HASH_COLUMN, cell_hash);
+       contentValues.put(CELLDATA_GEO_LOCATION_COLUMN, geo_location);
+       return mDb.update(CELLDATA_TABLE, contentValues, where, null);
+    
+    }
+
+    public boolean removecelldata(long rowIndex){
+       return mDb.delete(CELLDATA_TABLE, ROW_ID + " = " + rowIndex, null) > 0;
+    }
+
+    public boolean removeAllcelldata(){
+       return mDb.delete(CELLDATA_TABLE, null, null) > 0;
+    }
+
+    public Cursor getAllcelldata(){
+    	return mDb.query(CELLDATA_TABLE, new String[] {
+                  ROW_ID,
+                    CELLDATA_DATE_COLUMN,
+                    CELLDATA_ID_STATION_COLUMN,
+                    CELLDATA_ID_LINE_COLUMN,
+                    CELLDATA_CELL_CID_COLUMN,
+                    CELLDATA_CELL_LAC_COLUMN,
+                    CELLDATA_CELL_HASH_COLUMN,
+                    CELLDATA_GEO_LOCATION_COLUMN}, null, null, null, null, null);
+    }
+
+    public Cursor getcelldata(long rowIndex){
+    	Cursor res = mDb.query(CELLDATA_TABLE, new String[] {
+                  ROW_ID,
+                    CELLDATA_DATE_COLUMN,
+                    CELLDATA_ID_STATION_COLUMN,
+                    CELLDATA_ID_LINE_COLUMN,
+                    CELLDATA_CELL_CID_COLUMN,
+                    CELLDATA_CELL_LAC_COLUMN,
+                    CELLDATA_CELL_HASH_COLUMN,
+                    CELLDATA_GEO_LOCATION_COLUMN}, ROW_ID + " = " + rowIndex, null, null, null, null);
+    	if(res != null){
+    		res.moveToFirst();
+    	}
+    	return res;
+    }
+
 
 
 
@@ -576,11 +673,12 @@ public class DBHelper{
         // to create a new one. 
         @Override
         public void onCreate(SQLiteDatabase db) {      
-//            db.execSQL(DATABASE_LINES_CREATE);
-//			db.execSQL(DATABASE_STATIONS_CREATE);
-//			db.execSQL(DATABASE_PORTALS_CREATE);
-//			db.execSQL(DATABASE_GRAPH_CREATE);
-//			db.execSQL(DATABASE_INTERCHANGES_CREATE);
+            //db.execSQL(DATABASE_LINES_CREATE);
+			//db.execSQL(DATABASE_STATIONS_CREATE);
+			//db.execSQL(DATABASE_PORTALS_CREATE);
+			//db.execSQL(DATABASE_GRAPH_CREATE);
+			//db.execSQL(DATABASE_INTERCHANGES_CREATE);
+			db.execSQL(DATABASE_CELLDATA_CREATE);
 			
         }
 
@@ -598,11 +696,12 @@ public class DBHelper{
             // values.
 
             // The simplest case is to drop the old table and create a new one.
-//            db.execSQL("DROP TABLE IF EXISTS " + LINES_TABLE + ";");
-//			db.execSQL("DROP TABLE IF EXISTS " + STATIONS_TABLE + ";");
-//			db.execSQL("DROP TABLE IF EXISTS " + PORTALS_TABLE + ";");
-//			db.execSQL("DROP TABLE IF EXISTS " + GRAPH_TABLE + ";");
-//			db.execSQL("DROP TABLE IF EXISTS " + INTERCHANGES_TABLE + ";");
+            //db.execSQL("DROP TABLE IF EXISTS " + LINES_TABLE + ";");
+			//db.execSQL("DROP TABLE IF EXISTS " + STATIONS_TABLE + ";");
+			//db.execSQL("DROP TABLE IF EXISTS " + PORTALS_TABLE + ";");
+			//db.execSQL("DROP TABLE IF EXISTS " + GRAPH_TABLE + ";");
+			//db.execSQL("DROP TABLE IF EXISTS " + INTERCHANGES_TABLE + ";");
+			db.execSQL("DROP TABLE IF EXISTS " + CELLDATA_TABLE + ";");
 			
             // Create a new one.
             onCreate(db);

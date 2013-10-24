@@ -53,8 +53,11 @@ Integer max_angle
 ENDCLASS
 
 CLASS celldata
+Date date
 Integer id_station
 Integer id_line
-Integer cell_cid;
-Integer cell_lac;
+Integer cell_cid
+Integer cell_lac
+Integer cell_hash
+String geo_location
 ENDCLASS
