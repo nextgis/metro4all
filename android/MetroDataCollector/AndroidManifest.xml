@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nextgis.metro4all.GoodGuy"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0" android:installLocation="preferExternal">
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -58,7 +58,7 @@
             android:parentActivityName="org.osmdroid.MapActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.osmdroid.MapActivity" />
+                android:value="com.nextgis.metro4all.GoodGuy.MinActivity" />
         </activity>
     </application>
 

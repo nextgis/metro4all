@@ -143,8 +143,12 @@ public class CitySelectionActivity extends ActionBarActivity implements
 		// 
 		Location mCurrentLocation;
 		mCurrentLocation = locationClient.getLastLocation();
-		GetAddressTask locationEncoderTask = new GetAddressTask();
-		locationEncoderTask.execute(mCurrentLocation);
+		if(mCurrentLocation != null) {
+			GetAddressTask locationEncoderTask = new GetAddressTask();
+			locationEncoderTask.execute(mCurrentLocation);
+		} else {
+			locationUpdateFailed();
+		}
 	}
 
 	@Override

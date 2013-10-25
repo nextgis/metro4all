@@ -11,7 +11,7 @@ import org.osmdroid.views.overlay.OverlayItem.HotspotPlace;
 import org.osmdroid.views.safecanvas.ISafeCanvas;
 
 import com.nextgis.metro4all.GoodGuy.SubStationOverlayItem.ISubStationOverlayItemListener;
-import com.nextgis.metro4all.GoodGuy.utils.db.DBHelper;
+import com.nextgis.metro4all.GoodGuy.utils.db.DBWrapper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,7 +33,7 @@ public class SubStationsOverlay extends ItemizedOverlay<SubStationOverlayItem>
 	private boolean mFocusChanged = false;
 	private View mPopupView = null;
 	private Context mContext;
-	private DBHelper mDB;
+	private DBWrapper mDB;
 	private Cursor stationCursor;
 	private SubStationsOverlayListener mListener;
 
@@ -45,7 +45,7 @@ public class SubStationsOverlay extends ItemizedOverlay<SubStationOverlayItem>
 			this.mListener = (SubStationsOverlayListener)listener;
 		else 
 			throw new IllegalStateException(String.format("Activity %s must implement SubStationsOverlayListener interface", listener.getClass().getSimpleName()));
-		mDB = new DBHelper(mContext);
+		mDB = new DBWrapper(mContext);
 		mDB.open();
 		populate();
 		setOnFocusChangeListener(this);
