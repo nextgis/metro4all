@@ -137,6 +137,7 @@ public class CitySelectionActivity extends ActionBarActivity implements
 
 			}
 		});
+		findViewById(R.id.cityGoNext).setVisibility(View.VISIBLE);
 	}
 
 	private void updateLocation() {

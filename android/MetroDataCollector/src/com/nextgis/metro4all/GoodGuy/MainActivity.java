@@ -1,17 +1,22 @@
 package com.nextgis.metro4all.GoodGuy;
 
+import java.io.File;
+
 import com.nextgis.metro4all.GoodGuy.utils.Consts;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -37,6 +42,32 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.mainSendData : {
+			new CellDataExportTask(this, new CellDataExportTask.CellDataExportListener() {
+				
+				@Override
+				public void onCellDataExportFinished(String csvFile) {
+					// TODO Auto-generated method stub
+					Intent shareIntent = new Intent();
+					shareIntent.setAction(Intent.ACTION_SEND);
+
+					shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(csvFile)));
+//					shareIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"suntehnik@gmail.com"});
+					shareIntent.putExtra(Intent.EXTRA_SUBJECT, "CellInfo CSV Data");
+					shareIntent.setType("text/plain");
+					startActivity(Intent.createChooser(shareIntent, getString(R.string.send_to)));
+				}
+			}).execute();
+			break;
+		}
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	
 	private void startDBPrepareActivity() {
 		Intent intent = new Intent(this, CitySelectionActivity.class);
@@ -77,6 +108,7 @@ public class MainActivity extends Activity {
 
 		MenuItemCompat.setShowAsAction(sendItem, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 		return super.onCreateOptionsMenu(menu);
+
 	}
 
 }
