@@ -1,12 +1,15 @@
 package com.nextgis.metro4all.GoodGuy;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
@@ -209,7 +212,22 @@ public class RadarActivity extends Activity {
 			return true;
 		}
 		case R.id.radarSendData : {
-			Toast.makeText(this, "Отправка данных (заглушка)", Toast.LENGTH_SHORT).show();
+			new CellDataExportTask(this, new CellDataExportTask.CellDataExportListener() {
+				
+				@Override
+				public void onCellDataExportFinished(String csvFile) {
+					// TODO Auto-generated method stub
+					Intent shareIntent = new Intent();
+					shareIntent.setAction(Intent.ACTION_SEND);
+
+					shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(csvFile)));
+//					shareIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"suntehnik@gmail.com"});
+					shareIntent.putExtra(Intent.EXTRA_SUBJECT, "CellInfo CSV Data");
+					shareIntent.setType("text/plain");
+					startActivity(Intent.createChooser(shareIntent, getString(R.string.send_to)));
+				}
+			}).execute();
+			break;
 		}
 		}
 		return super.onOptionsItemSelected(item);

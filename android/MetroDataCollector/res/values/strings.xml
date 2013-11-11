@@ -27,5 +27,6 @@
     <string name="radarMission">Хочу еще помочь...</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="radar_send_data">Отправить данные</string>
+    <string name="send_to">Отправить...</string>
 
 </resources>

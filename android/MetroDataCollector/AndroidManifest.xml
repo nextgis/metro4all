@@ -55,10 +55,10 @@
         <activity
             android:name="com.nextgis.metro4all.GoodGuy.RadarActivity"
             android:label="@string/title_activity_radar"
-            android:parentActivityName="org.osmdroid.MapActivity" >
+            android:parentActivityName="com.nextgis.metro4all.GoodGuy.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nextgis.metro4all.GoodGuy.MinActivity" />
+                android:value="com.nextgis.metro4all.GoodGuy.MainActivity" />
         </activity>
     </application>
 
