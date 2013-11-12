@@ -59,5 +59,9 @@ Integer id_line
 Integer cell_cid
 Integer cell_lac
 Integer cell_hash
-String geo_location
+String  cell_name
+Integer cell_signal
+Integer cell_neighbors_count
+String  cell_neighbors_data
+String  cell_geo_location
 ENDCLASS

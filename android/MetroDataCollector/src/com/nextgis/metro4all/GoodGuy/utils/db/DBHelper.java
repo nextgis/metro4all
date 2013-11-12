@@ -14,7 +14,7 @@ import android.util.Log;
 
 import java.util.Date;
 
-public abstract class DBHelper{
+public class DBHelper{
     private static final String TAG = "DBHelper";
 
     private static final String DATABASE_NAME = "metroaccess.sqlite3";
@@ -172,8 +172,16 @@ public abstract class DBHelper{
     public static final int CELLDATA_CELL_LAC_COLUMN_POSITION = 5;
     public static final String CELLDATA_CELL_HASH_COLUMN = "cell_hash";
     public static final int CELLDATA_CELL_HASH_COLUMN_POSITION = 6;
-    public static final String CELLDATA_GEO_LOCATION_COLUMN = "geo_location";
-    public static final int CELLDATA_GEO_LOCATION_COLUMN_POSITION = 7;
+    public static final String CELLDATA_CELL_NAME_COLUMN = "cell_name";
+    public static final int CELLDATA_CELL_NAME_COLUMN_POSITION = 7;
+    public static final String CELLDATA_CELL_SIGNAL_COLUMN = "cell_signal";
+    public static final int CELLDATA_CELL_SIGNAL_COLUMN_POSITION = 8;
+    public static final String CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN = "cell_neighbors_count";
+    public static final int CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN_POSITION = 9;
+    public static final String CELLDATA_CELL_NEIGHBORS_DATA_COLUMN = "cell_neighbors_data";
+    public static final int CELLDATA_CELL_NEIGHBORS_DATA_COLUMN_POSITION = 10;
+    public static final String CELLDATA_CELL_GEO_LOCATION_COLUMN = "cell_geo_location";
+    public static final int CELLDATA_CELL_GEO_LOCATION_COLUMN_POSITION = 11;
 
 
 
@@ -255,7 +263,11 @@ public abstract class DBHelper{
 				 CELLDATA_CELL_CID_COLUMN + " integer  " + ", " + 
 				 CELLDATA_CELL_LAC_COLUMN + " integer  " + ", " + 
 				 CELLDATA_CELL_HASH_COLUMN + " integer  " + ", " + 
-				 CELLDATA_GEO_LOCATION_COLUMN + " text  " + ");";
+				 CELLDATA_CELL_NAME_COLUMN + " text  " + ", " + 
+				 CELLDATA_CELL_SIGNAL_COLUMN + " integer  " + ", " + 
+				 CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN + " integer  " + ", " + 
+				 CELLDATA_CELL_NEIGHBORS_DATA_COLUMN + " text  " + ", " + 
+				 CELLDATA_CELL_GEO_LOCATION_COLUMN + " text  " + ");";
 
 
 
@@ -597,7 +609,7 @@ public abstract class DBHelper{
     }
 
 	// -------------- CELLDATA HELPERS ------------------
-    public long addcelldata(Date date, Integer id_station, Integer id_line, Integer cell_cid, Integer cell_lac, Integer cell_hash, String geo_location){
+    public long addcelldata(Date date, Integer id_station, Integer id_line, Integer cell_cid, Integer cell_lac, Integer cell_hash, String cell_name, Integer cell_signal, Integer cell_neighbors_count, String cell_neighbors_data, String cell_geo_location){
      ContentValues contentValues = new ContentValues();
        contentValues.put(CELLDATA_DATE_COLUMN, date.getTime());
        contentValues.put(CELLDATA_ID_STATION_COLUMN, id_station);
@@ -605,12 +617,16 @@ public abstract class DBHelper{
        contentValues.put(CELLDATA_CELL_CID_COLUMN, cell_cid);
        contentValues.put(CELLDATA_CELL_LAC_COLUMN, cell_lac);
        contentValues.put(CELLDATA_CELL_HASH_COLUMN, cell_hash);
-       contentValues.put(CELLDATA_GEO_LOCATION_COLUMN, geo_location);
+       contentValues.put(CELLDATA_CELL_NAME_COLUMN, cell_name);
+       contentValues.put(CELLDATA_CELL_SIGNAL_COLUMN, cell_signal);
+       contentValues.put(CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN, cell_neighbors_count);
+       contentValues.put(CELLDATA_CELL_NEIGHBORS_DATA_COLUMN, cell_neighbors_data);
+       contentValues.put(CELLDATA_CELL_GEO_LOCATION_COLUMN, cell_geo_location);
        return mDb.insert(CELLDATA_TABLE, null, contentValues);
     
     }
 
-    public long updatecelldata(long rowIndex, Date date, Integer id_station, Integer id_line, Integer cell_cid, Integer cell_lac, Integer cell_hash, String geo_location){
+    public long updatecelldata(long rowIndex, Date date, Integer id_station, Integer id_line, Integer cell_cid, Integer cell_lac, Integer cell_hash, String cell_name, Integer cell_signal, Integer cell_neighbors_count, String cell_neighbors_data, String cell_geo_location){
        String where = ROW_ID + " = " + rowIndex;
      ContentValues contentValues = new ContentValues();
        contentValues.put(CELLDATA_DATE_COLUMN, date.getTime());
@@ -619,7 +635,11 @@ public abstract class DBHelper{
        contentValues.put(CELLDATA_CELL_CID_COLUMN, cell_cid);
        contentValues.put(CELLDATA_CELL_LAC_COLUMN, cell_lac);
        contentValues.put(CELLDATA_CELL_HASH_COLUMN, cell_hash);
-       contentValues.put(CELLDATA_GEO_LOCATION_COLUMN, geo_location);
+       contentValues.put(CELLDATA_CELL_NAME_COLUMN, cell_name);
+       contentValues.put(CELLDATA_CELL_SIGNAL_COLUMN, cell_signal);
+       contentValues.put(CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN, cell_neighbors_count);
+       contentValues.put(CELLDATA_CELL_NEIGHBORS_DATA_COLUMN, cell_neighbors_data);
+       contentValues.put(CELLDATA_CELL_GEO_LOCATION_COLUMN, cell_geo_location);
        return mDb.update(CELLDATA_TABLE, contentValues, where, null);
     
     }
@@ -641,7 +661,11 @@ public abstract class DBHelper{
                     CELLDATA_CELL_CID_COLUMN,
                     CELLDATA_CELL_LAC_COLUMN,
                     CELLDATA_CELL_HASH_COLUMN,
-                    CELLDATA_GEO_LOCATION_COLUMN}, null, null, null, null, null);
+                    CELLDATA_CELL_NAME_COLUMN,
+                    CELLDATA_CELL_SIGNAL_COLUMN,
+                    CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN,
+                    CELLDATA_CELL_NEIGHBORS_DATA_COLUMN,
+                    CELLDATA_CELL_GEO_LOCATION_COLUMN}, null, null, null, null, null);
     }
 
     public Cursor getcelldata(long rowIndex){
@@ -653,7 +677,11 @@ public abstract class DBHelper{
                     CELLDATA_CELL_CID_COLUMN,
                     CELLDATA_CELL_LAC_COLUMN,
                     CELLDATA_CELL_HASH_COLUMN,
-                    CELLDATA_GEO_LOCATION_COLUMN}, ROW_ID + " = " + rowIndex, null, null, null, null);
+                    CELLDATA_CELL_NAME_COLUMN,
+                    CELLDATA_CELL_SIGNAL_COLUMN,
+                    CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN,
+                    CELLDATA_CELL_NEIGHBORS_DATA_COLUMN,
+                    CELLDATA_CELL_GEO_LOCATION_COLUMN}, ROW_ID + " = " + rowIndex, null, null, null, null);
     	if(res != null){
     		res.moveToFirst();
     	}
@@ -696,7 +724,7 @@ public abstract class DBHelper{
             // values.
 
             // The simplest case is to drop the old table and create a new one.
-            //db.execSQL("DROP TABLE IF EXISTS " + LINES_TABLE + ";");
+//            db.execSQL("DROP TABLE IF EXISTS " + LINES_TABLE + ";");
 			//db.execSQL("DROP TABLE IF EXISTS " + STATIONS_TABLE + ";");
 			//db.execSQL("DROP TABLE IF EXISTS " + PORTALS_TABLE + ";");
 			//db.execSQL("DROP TABLE IF EXISTS " + GRAPH_TABLE + ";");

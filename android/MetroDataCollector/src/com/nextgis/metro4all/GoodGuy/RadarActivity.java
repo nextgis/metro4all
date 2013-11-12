@@ -1,8 +1,13 @@
 package com.nextgis.metro4all.GoodGuy;
 
 import java.io.File;
+import java.io.StringWriter;
 import java.util.Calendar;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -16,7 +21,10 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.ShareActionProvider;
+import android.telephony.CellLocation;
 import android.telephony.NeighboringCellInfo;
+import android.telephony.PhoneStateListener;
+import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
@@ -48,6 +56,7 @@ public class RadarActivity extends Activity {
 					// check we are connected to the network...
 					mTelephonyManager.getNetworkOperatorName() != null) {
 				if(mTelephonyManager.getCellLocation() instanceof GsmCellLocation) {
+					
 					GsmCellLocation cellLocation = (GsmCellLocation) mTelephonyManager.getCellLocation();
 					Log.d(TAG, String.format("Station id: %d network cell location: cid=%d lac=%d", mSubStation.getId_station(), cellLocation.getCid(), cellLocation.getLac()));
 					onPostRadarData(mSubStation.getId_station(), cellLocation.getCid(), cellLocation.getLac());
@@ -58,7 +67,22 @@ public class RadarActivity extends Activity {
 					for(NeighboringCellInfo neighbor: neighbors) {
 						Log.d(TAG, String.format("Station id: %d nearest cell: %s", mSubStation.getId_station(), neighbor.toString()));
 					}
-					mDB.addcelldata(Calendar.getInstance().getTime(), mSubStation.getId_station(), mSubStation.getId_line(), cellLocation.getCid(), cellLocation.getLac(), cellLocation.getPsc(), "unknown");
+					JSONArray neighborInfo = new JSONArray();
+					for(NeighboringCellInfo info: mTelephonyManager.getNeighboringCellInfo()) {
+						JSONObject neighbor = new JSONObject();
+						try {
+							neighbor.put("neighbor_cell_cid", info.getCid());
+							neighbor.put("neighbor_cell_lac", info.getLac());
+							neighbor.put("neighbor_cell_psc", info.getPsc());
+							neighbor.put("neighbor_network_type", info.getNetworkType());
+							neighborInfo.put(neighborInfo.length(), neighbor);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					mDB.addcelldata(Calendar.getInstance().getTime(), mSubStation.getId_station(), mSubStation.getId_line(), cellLocation.getCid(), cellLocation.getLac(), cellLocation.getPsc(), mTelephonyManager.getSimOperator(), signalStrength, mTelephonyManager.getNeighboringCellInfo().size(), neighborInfo.toString(),  "unknown");
 				} else {
 					mRadar.setVisibility(View.GONE);
 					mScanningText.setText("Миссия провалена! Не могу получить данные. Попробуйте еще раз");
@@ -87,6 +111,10 @@ public class RadarActivity extends Activity {
 	protected boolean radarLineSpinnerFromUser = false;
 
 	protected boolean radarStationSpinnerFromUser = false;
+
+	public int signalStrength = -1;
+
+	private MyPhoneStateListener mSignalListener;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +197,20 @@ public class RadarActivity extends Activity {
 				}
 			}
 		});
+		mSignalListener = new MyPhoneStateListener();
 		setupActionBar();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		((TelephonyManager )getSystemService(Context.TELEPHONY_SERVICE)).listen(mSignalListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		((TelephonyManager )getSystemService(Context.TELEPHONY_SERVICE)).listen(mSignalListener, PhoneStateListener.LISTEN_NONE);
 	}
 
 	protected void onPostRadarData(int id_station, int cid, int lac) {
@@ -233,6 +274,33 @@ public class RadarActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private void onCellLocationChanged(CellLocation location) {
+		if(location instanceof GsmCellLocation) {
+			GsmCellLocation cellLocation = (GsmCellLocation) location;
+			Cursor c = mDB.getCellDataByLocation(cellLocation.getCid(), cellLocation.getLac());
+			if(c.getCount() > 0) {
+				// take the first item from the available
+				int lineId = c.getInt(c.getColumnIndexOrThrow(DBWrapper.CELLDATA_ID_LINE_COLUMN));
+				int stationId = c.getInt(c.getColumnIndexOrThrow(DBWrapper.CELLDATA_ID_LINE_COLUMN));
+//				radarLineSpinner.setSelection(position);
+			}
+		}
+	}
 	
+	private class MyPhoneStateListener extends PhoneStateListener
+    {
+      /* Get the Signal strength from the provider, each tiome there is an update */
+      @Override
+      public void onSignalStrengthsChanged(SignalStrength signal)
+      {
+         super.onSignalStrengthsChanged(signal);
+         signalStrength  = signal.getGsmSignalStrength();
+      }
+
+      public void onCellLocationChanged(CellLocation location) {
+    	  super.onCellLocationChanged(location);
+    	  RadarActivity.this.onCellLocationChanged(location);
+      }
+    };
 
 }

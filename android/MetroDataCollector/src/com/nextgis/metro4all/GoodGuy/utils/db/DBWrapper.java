@@ -42,4 +42,25 @@ public class DBWrapper extends DBHelper {
 		return res;
 	}
 
+	public Cursor getCellDataByLocation(int cid, int lac) {
+		Cursor res = mDb.query(CELLDATA_TABLE, new String [] {
+				ROW_ID,
+                CELLDATA_DATE_COLUMN,
+                CELLDATA_ID_STATION_COLUMN,
+                CELLDATA_ID_LINE_COLUMN,
+                CELLDATA_CELL_CID_COLUMN,
+                CELLDATA_CELL_LAC_COLUMN,
+                CELLDATA_CELL_HASH_COLUMN,
+                CELLDATA_CELL_NAME_COLUMN,
+                CELLDATA_CELL_SIGNAL_COLUMN,
+                CELLDATA_CELL_NEIGHBORS_COUNT_COLUMN,
+                CELLDATA_CELL_NEIGHBORS_DATA_COLUMN,
+                CELLDATA_CELL_GEO_LOCATION_COLUMN
+		}, CELLDATA_CELL_CID_COLUMN + "=" + cid + " AND " + DBHelper.CELLDATA_CELL_LAC_COLUMN + "=" + lac, null, null, null, null);
+		if(res != null) {
+			res.moveToFirst();
+		}
+		return res;
+	}
+
 }
