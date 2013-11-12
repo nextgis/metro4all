@@ -3,10 +3,10 @@
         {
             "name" : "Moscow",
             "name_ru" : "Москва",
-            "ver" : 23,
+            "ver" : 24,
             "path" : "msk",
             "directed" : false,
-            "size" : 1433
+            "size" : 1527
         },
         {
             "name" : "St.Peterburg",
