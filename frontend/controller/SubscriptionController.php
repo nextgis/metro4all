@@ -37,14 +37,12 @@ class SubscriptionController
 			//	captcha_close();
 
  				if (! count($errors)) {
-					/*
-					file_put_contents('data/subscription.txt', "\r\n" . request_str('email'), FILE_APPEND | LOCK_EX);
+					// file_put_contents('data/subscription.txt', "\r\n" . request_str('email'), FILE_APPEND | LOCK_EX);
 
 					core::$sql->insert(array(
 						'email' => core::$sql->s(request_str('email')),
 						'insert_stamp' => core::$sql->i(time()),
 					), DB . 'subscription');
-					*/
 
 					/*
 			        switch (request_int('language_id')) {
