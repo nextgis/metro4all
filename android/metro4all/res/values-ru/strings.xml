@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Metro4All</string>
+    <string name="sHomepage">http://nextgis.ru</string>
+    <string name="sDetailpage">http://metro4all.ru</string>
+    
+    <string name="about_app">Это приложение расчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. Вы можете выбрать более оптимальный маршрут. \n\nПодробнее:</string>
+
+	<string name="sSettings">Настройки</string>
+	<string name="sAbout">О программе</string>
+	<string name="sNetworkGetErr">Ошибка получения данных</string>
+	<string name="sNetworkUnreachErr">Отсутствует подключение к сети</string>
+    <string name="sDownLoading">Загружается &#8230;</string>    
+    <string name="sSearching">Поиск &#8230;</string>
+    <string name="sZipExtractionProcess">Распаковка &#8230;</string>
+	<string name="sNetworkInvalidData">Ошибка в данных</string>
+	<string name="sFileNotFound">Файл не найден</string>
+	<string name="sCannotReadFile">Не могу прочитать файл</string>
+	<string name="sCannotGetPath">Не найден путь</string>
+	<string name="sInvalidCSVData">Некорректные данные в csv, неправильное число полей. Файл: </string>
+	<string name="sNoOrEmptyData">Отсутствуют данные для построения маршрутов или данные повреждены. Обновите данные</string>
+		
+	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
+	<string name="sUpdateAvaliable">Имеется обновление данных</string>
+	<string name="sDownload">Загрузить</string>
+	<string name="sDelete">Удалить</string>
+	<string name="sCancel">Отмена</string>
+	<string name="sSearch">Проложить маршрут</string>
+	<string name="sFromStation">Откуда</string>
+	<string name="sToStation">Куда</string>
+	<string name="sRoute">Вариант</string>
+	<string name="sSchema">Схема</string>
+	<string name="sStationName">Станция: </string>
+	<string name="sEntranceName">Вход</string>
+	<string name="sExitName">Выход</string>		
+	<string name="sNotSet">Не назначено</string>	
+	<string name="sSelFromStation">Выберите станцию</string>
+	<string name="sSelToStation">Выберите станцию</string>
+	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
+	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
+	<string name="sMaxWCWidth">Макс. ширина коляски</string>
+	<string name="sStairsCount">Ступенек</string>
+	<string name="sStairsWORails">Из них без аппарелей или рамп</string>
+	<string name="sLift">Лифт</string>
+	<string name="sLiftEconomy">Лифт экономит ступенек</string>
+	<string name="sCM">см</string>
+	<string name="sNo">Нет</string>
+	<string name="sMinRailWidth">Мин. ширина аппарели</string>
+	<string name="sMaxRailWidth">Макс. ширина аппарели</string>
+	<string name="sMaxAngle">Угол наклона</string>
+	<string name="sDownloadData">Загрузить данные по маршрутам?</string>
+	<string name="sDeleteData">Удалить данные по маршрутам?</string>	
+	<string name="sConflictNotes">Входы конфликтующие с вашими ограничениями отмечены красным</string>
+	<string name="sLimits">Мои ограничения</string>		
+	<string name="sLimitsSet">Установить мои ограничения</string>
+	<string name="sSummary">Сводка по маршруту</string>
+	<string name="sSummaryClick">Выберите для просмотра деталей</string>	
+		<!-- tabs -->
+	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
+	<string name="sSelLinesTab">Линии</string>
+	<string name="sSelRecentTab">Недавние</string>	
+	<!-- dialogs -->
+	<string name="sPrefTitle">Настройки</string>
+	<string name="sPrefCatMain">Основные</string>
+	<string name="sPrefCatData">Данные</string>
+	<string name="sPrefNaviType">Тип навигации</string>
+	<string name="sPrefNaviTypeSummary">Navigation type affects on routing</string>
+	<string name="sPrefNaviTypeTitle">Select navigation type</string>
+	<string name="sPrefWheelBaseSize">Ширина колесной базы</string>
+	<string name="sPrefWheelBaseSizeSummary">Расстояние между колесами (см)</string>
+	<string name="sPrefWheelBaseSizeTitle">Введите расстояние между колесами</string>		
+	<string name="sPrefCarriageSize">Максимальная ширина коляски</string>
+	<string name="sPrefCarriageSizeSummary">Максимальная ширина коляски (см)</string>
+	<string name="sPrefCarriageSizeTitle">Введите максимальную ширину коляски</string>	
+	<string name="sPrefDataPath">Загружать данные по ссылке</string>
+	<string name="sPrefDataPathSummary">Ссылка для загрузки данных маршрутизации</string>
+	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
+	<string name="sPrefUpdDataSummary">Нажмите чтобы обновить данные для маршрутизации</string>
+	<string name="sPrefUpdDataTitle">Обновить данные</string>	
+	<string name="stationFilterHintText">Введите часть названия станции</string>		
+</resources>

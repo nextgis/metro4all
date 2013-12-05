@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Хорошие дела</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="about_title">About app</string>
+    <string name="about">About</string>
+    <string name="title_activity_city_selection">CitySelectionActivity</string>
+    <string name="cityWelcomeText">Дай я угадаю из какого ты города...</string>
+    <string name="cityUnknown">дер. Неизвестная</string>
+    <string name="cityWelcomeNotFound">Угадать не получилось, выбери город самостоятельно:</string>
+    <string name="cityGoNext">Далее...</string>
+    <string name="cityAlertErrorMsg">Не удалось подготовить приложение к работе. Дождитесь обновления и повторите попытку.</string>
+    <string name="ok">OK</string>
+    <string name="title_activity_main">Хорошие дела</string>
+    <string name="mainGoNext">Сделать доброе дело...</string>
+    <string name="stationInfoActionTitle">Дополнительно...</string>
+    <string name="escalatorDescription">Эскалатор</string>
+    <string name="stairsDescription">Ступени</string>
+    <string name="zero">0</string>
+    <string name="title_activity_good_deed">GoodDeedActivity</string>
+    <string name="goodTask">Задание: спуститься в станцию %1$s, %2$s линия...</string>
+    <string name="goodGoNextButton">Я уже здесь...</string>
+    <string name="title_activity_radar">Радар</string>
+    <string name="radarTitle">Сканирую...</string>
+    <string name="radarMission">Хочу еще помочь...</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="radar_send_data">Отправить данные</string>
+    <string name="send_to">Отправить...</string>
+
+</resources>

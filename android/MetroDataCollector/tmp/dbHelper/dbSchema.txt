@@ -1,0 +1,63 @@
+CLASS lines 
+Integer id_line
+String name
+String name_en
+String color
+ENDCLASS 
+
+CLASS stations 
+Integer id_station
+Integer id_line
+String name
+String name_en
+Float lat
+Float lon
+ENDCLASS
+
+CLASS portals 
+Integer id_entrance
+String name
+Integer id_station
+String direction
+Float lat
+Float lon
+Integer max_width
+Integer min_step
+Integer min_step_ramp
+Integer lift
+Integer lift_minus_step
+Integer min_rail_width 
+Integer max_rail_width
+Integer max_angle
+ENDCLASS 
+
+CLASS graph
+Integer id_from
+Integer id_to
+String name_from
+String name_to
+Integer cost
+ENDCLASS
+
+CLASS interchanges 
+String station_from
+String station_to
+Integer max_width
+Integer min_step
+Integer min_step_ramp
+Integer lift
+Integer lift_minus_step
+Integer min_rail_width 
+Integer max_rail_width 
+Integer max_angle
+ENDCLASS
+
+CLASS celldata
+Date date
+Integer id_station
+Integer id_line
+Integer cell_cid
+Integer cell_lac
+Integer cell_hash
+String geo_location
+ENDCLASS

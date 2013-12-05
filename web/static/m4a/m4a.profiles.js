@@ -35,7 +35,6 @@
                 var $this = $(this),
                     profile = $this.data('profile'),
                     type = $this.data('type');
-//                m4a.url.updateUrl('profile', profile);
                 m4a.viewmodel.profile.name = profile;
                 m4a.viewmodel.profile.values = null;
                 context.buildProfileControl(profile, type, $this);
@@ -45,21 +44,21 @@
 
         profileControls: {
             man: {
-                description: 'Без ограничений'
+                description: m4a.resources.profiles.man_d
             },
             wheelchair: {
-                html: '<input type="input" value="60" title="Ширина коляски в см">',
+                html: '<input type="input" value="60" title="' + m4a.resources.profiles.wch_html + '">',
                 description: function (value) {
-                    if (value === '') { return 'Я на коляске'; }
-                    return 'Я на коляске шириной ' + value + ' см';
+                    if (value === '') { return m4a.resources.profiles.wch_d; }
+                    return m4a.resources.profiles.wch_d2 + value + m4a.resources.profiles.wch_d3;
                 },
                 values: {width: 0}
             },
             trolley : {
-                html: '<input type="input" value="60" title="Ширина тележки в см">',
+                html: '<input type="input" value="60" title="' + m4a.resources.profiles.trl_html + '">',
                 description: function (value) {
-                    if (value === '') { return 'Я c тележкой'; }
-                    return 'Я c тележкой шириной ' + value + ' см';
+                    if (value === '') { return m4a.resources.profiles.trl_d; }
+                    return m4a.resources.profiles.trl_d2 + value + m4a.resources.profiles.trl_d3;
                 },
                 values: {width: 0}
             }

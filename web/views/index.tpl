@@ -110,7 +110,8 @@
         var global_config = {
           minimap: {'center': {{config['minimap']['center']}}, 'zoom': {{config['minimap']['zoom']}}},
           mainmap: {'center': {{config['mainmap']['center']}}, 'zoom': {{config['mainmap']['zoom']}}},
-          city: "{{config['city']}}"
+          city: "{{config['city']}}",
+          language: "ru"
         }
     </script>
     <script src="static/bootstrap-3.0.0/assets/js/jquery.js"></script>
@@ -123,6 +124,7 @@
     <script src="static/mustache/mustache.js"></script>
     <script src="static/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="static/m4a/m4a.config.js"></script>
+    <script src="static/m4a/translations/m4a.ru.js"></script>
     <script src="static/m4a/m4a.loader.js"></script>
     <script src="static/m4a/m4a.stations.js"></script>
     <script src="static/m4a/m4a.url.js"></script>

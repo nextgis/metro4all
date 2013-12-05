@@ -1,0 +1,54 @@
+CREATE TABLE lines (
+ _id INTEGER PRIMARY KEY, 
+id_line TEXT,
+name TEXT,
+name_en TEXT,
+color TEXT
+);
+CREATE TABLE stations (
+ _id INTEGER PRIMARY KEY, 
+id_station TEXT,
+id_line TEXT,
+name TEXT,
+name_en TEXT,
+lat TEXT,
+lon TEXT
+);
+CREATE TABLE portals (
+ _id INTEGER PRIMARY KEY, 
+id_entrance TEXT,
+name TEXT,
+id_station TEXT,
+direction TEXT,
+lat TEXT,
+lon TEXT,
+max_width TEXT,
+min_step TEXT,
+min_step_ramp TEXT,
+lift TEXT,
+lift_minus_step TEXT,
+min_rail_width TEXT,
+max_rail_width TEXT,
+max_angle TEXT
+);
+CREATE TABLE graph (
+ _id INTEGER PRIMARY KEY, 
+id_from TEXT,
+id_to TEXT,
+name_from TEXT,
+name_to TEXT,
+cost TEXT
+);
+CREATE TABLE interchanges (
+ _id INTEGER PRIMARY KEY, 
+station_from TEXT,
+station_to TEXT,
+max_width TEXT,
+min_step TEXT,
+min_step_ramp TEXT,
+lift TEXT,
+lift_minus_step TEXT,
+min_rail_width TEXT,
+max_rail_width TEXT,
+max_angle TEXT
+);
