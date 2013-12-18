@@ -11,7 +11,7 @@ csv_path = sys.argv[1]
 fieldmap = (
     ('id2', 'id_entrance'),
     ('Название выхода', 'name'),
-    ('Код станции2', 'id_station'),
+    ('Код станции', 'id_station'),
     ('Направление', 'direction'),
     ('0_y', 'lat'),
     ('0_x', 'lon'),
