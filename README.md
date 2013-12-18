@@ -22,5 +22,5 @@ metroaccess
 Обновление схем:
 --------
 Схемы загружаются простым копированием в директории проекта:
-    * metroaccess/data/msk/schemes - для Москвы
-    * metroaccess/data/spb/schemes - для Санкт-Петербурга
+  * metroaccess/data/msk/schemes - для Москвы
+  * metroaccess/data/spb/schemes - для Санкт-Петербурга
