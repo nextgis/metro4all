@@ -53,7 +53,7 @@ class PageCommon extends Page
 			  <li class="metro-logo metro-logo-spb"><a href="/' . Core::$config['current_language'] . '/spb/">' . s('Санкт-Петербург') . '</a></li>
 			  <li><a href="/' . Core::$config['current_language'] . '/faq/">' . s('Вопросы и ответы') . '</a></li>
 			  <li><a href="/' . Core::$config['current_language'] . '/about/">' . s('О проекте') . '</a></li>
-			  <li><a href="https://play.google.com/store/apps/details?id=com.nextgis.metroaccess" style="color:red;padding-top:9px;padding-bottom:9px;"><span style="background-image:url(/img/android.png);display:inline-block;height:32px;margin-right:5px;vertical-align:middle;width:32px;"></span> ' . s('Загрузить приложение') . '</a></li>
+			  <li><a href="https://play.google.com/store/apps/details?id=com.nextgis.metroaccess" style="color:red;padding-top:9px;padding-bottom:9px;"><span style="background-image:url(/img/android.png);display:inline-block;height:32px;margin-right:5px;vertical-align:middle;width:32px;"></span></a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-social">
 				<li><a target="_blank" href="https://twitter.com/metro4all_ru"><img src="/img/icon-social-twitter.png" /></a></li>
@@ -68,7 +68,8 @@ class PageCommon extends Page
 		</nav>
 
 		<div class="header">
-			<h1 class="col-md-8 title">' . s('Метро для всех') . ' <sup class="title-beta">Beta</sup></h1>
+			<h1 class="col-md-11 title">' . s('Метро для всех') . ' <sup class="title-beta">Beta</sup></h1>
+			<div class="col-md-1"><a class="btn btn-danger" style="margin-top:20px" href="http://forum.metro4all.ru/">' . s('Форум') . '</a></div>
 		</div>
 ';
 
