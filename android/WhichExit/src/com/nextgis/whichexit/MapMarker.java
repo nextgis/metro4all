@@ -4,36 +4,34 @@ import android.graphics.Bitmap;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapMarker {
 
 	
 	public LatLng mCoordinates;
-	public Bitmap mBitmap;
 	public Marker mMarker;
+	private SubStationExit mSubstationExit;
+	private SubStation mSubStation;
 	
 	/**
-	 * @param mCoordinates
-	 * @param mBitmap
+	 * @return the mSubstationExit
 	 */
-	public MapMarker(LatLng pCoordinates, Bitmap pBitmap) {
+	public SubStationExit getSubstationExit() {
+		return mSubstationExit;
+	}
+
+	/**
+	 * @param mSubstationExit the mSubstationExit to set
+	 */
+	public void setSubstationExit(SubStationExit mSubstationExit) {
+		this.mSubstationExit = mSubstationExit;
+	}
+
+	public MapMarker(LatLng pCoordinates, SubStation pStation, SubStationExit pExit) {
 		super();
 		this.mCoordinates = pCoordinates;
-		this.mBitmap = pBitmap;
-	}
-	
-	/**
-	 * @return the mBitmap
-	 */
-	public Bitmap getmBitmap() {
-		return mBitmap;
-	}
-	/**
-	 * @param mBitmap the mBitmap to set
-	 */
-	public void setmBitmap(Bitmap mBitmap) {
-		this.mBitmap = mBitmap;
+		mSubStation = pStation;
+		mSubstationExit = pExit;
 	}
 	
 	public boolean compareWith(MapMarker pCandidate) {

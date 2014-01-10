@@ -11,5 +11,6 @@
     <string name="ok">OK</string>
     <string name="map">Карта</string>
     <string name="poi_list">Точки</string>
+    <string name="exits">Выходы</string>
 
 </resources>

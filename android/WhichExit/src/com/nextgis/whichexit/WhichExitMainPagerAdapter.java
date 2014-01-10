@@ -2,39 +2,47 @@ package com.nextgis.whichexit;
 
 import java.util.Locale;
 
+import com.google.android.gms.maps.SupportMapFragment;
+
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 
 public class WhichExitMainPagerAdapter extends FragmentPagerAdapter {
 
 	Context mContext;
+	SparseArray<Fragment> fragmentCache;
 	
 	public WhichExitMainPagerAdapter(Context pContext) {
 		super(((FragmentActivity) pContext).getSupportFragmentManager());
 		mContext = pContext;
-		// TODO Auto-generated constructor stub
+		fragmentCache = new SparseArray<Fragment>(getCount());
 	}
 
 	@Override
 	public Fragment getItem(int position) {
-		// getItem is called to instantiate the fragment for the given page.
-		// Return a DummySectionFragment (defined as a static inner class
-		// below) with the page number as its lone argument.
-		
+
+		if(fragmentCache.get(position) != null) {
+			return fragmentCache.get(position);
+		}
+
 		switch(position) {
 		case 0: {
-//			GoogleMapOptions options = new GoogleMapOptions();
-//			options.compassEnabled(false)
-//			.rotateGesturesEnabled(false)
-//			.tiltGesturesEnabled(false);
-			MapFragment mf = new MapFragment();
+			Fragment mf = new SupportMapFragment();
+			fragmentCache.put(position, mf);
 			return mf;
 		}
 		case 1: {
-			Fragment fragment = new Fragment();
+			Fragment fragment = new PoiListFragment();
+			fragmentCache.put(position, fragment);
+			return fragment;
+		}
+		case 2: {
+			Fragment fragment = new NearestExitsListFragment();
+			fragmentCache.put(position, fragment);
 			return fragment;
 		}
 		default: {
@@ -46,8 +54,7 @@ public class WhichExitMainPagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		// Show 3 total pages.
-		return 2;
+		return 3;
 	}
 
 	@Override
@@ -58,6 +65,8 @@ public class WhichExitMainPagerAdapter extends FragmentPagerAdapter {
 			return mContext.getString(R.string.map).toUpperCase(l);
 		case 1:
 			return mContext.getString(R.string.poi_list).toUpperCase(l);
+		case 2:
+			return mContext.getString(R.string.exits).toUpperCase(l);
 		}
 		return null;
 	}
