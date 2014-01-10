@@ -77,7 +77,7 @@ class IndexController
 				<ul>
 ';
 
-		foreach (Core::$sql->get('*', DB . 'news order by datetime_stamp desc') as $row)
+		foreach (Core::$sql->get('*', DB . 'news order by datetime_stamp desc limit 3') as $row)
 		{
 			$html .= '<li><div class="item-date">' . time_format_date($row['datetime_stamp']) . '</div>'
 				. '<h3><a href="news/#' . $row['id'] . '">' . $row['title_' . Core::$config['current_language']] . '</a></h3>'

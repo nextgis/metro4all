@@ -9,10 +9,10 @@ import sys
 csv_path = sys.argv[1]
 
 fieldmap = (
-    ('Код станции откуда2', 'station_from'),
-    ('Код станции куда2', 'station_to'),
+    ('Код станции откуда', 'station_from'),
+    ('Код станции куда', 'station_to'),
     ('Мин. ширина', 'max_width'),
-    ('Мин. Ступенек пешком', 'min_step'),
+    ('Мин. ступенек пешком', 'min_step'),
     ('Мин. ступенек по рельсам и рампам', 'min_step_ramp'),
     ('Лифт', 'lift'),
     ('Лифт отнимает ступенек', 'lift_minus_step'),

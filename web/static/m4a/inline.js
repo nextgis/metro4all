@@ -57,12 +57,16 @@ $(document).ready(function () {
             } else {
                 $('.pagination').empty();
                 $('#routePanel').empty();
+
+                // Блокируем кнопку прокладки маршрута, см. #50
+                $("#mainform :submit").prop("disabled", true);
                 $.ajax({
                     dataType: "json",
                     url: url + global_config.language + "/" + global_config.city + "/routes/search",
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                         m4a.routes.buildRoutes(data);
+                        $("#mainform :submit").prop("disabled", false);
                 });
             }
             return false;
