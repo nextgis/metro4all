@@ -1,7 +1,10 @@
 package com.nextgis.whichexit;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -11,29 +14,34 @@ import android.content.Context;
 import android.database.Cursor;
 import android.location.Address;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
  * contain this fragment must implement the
- * {@link NearestExitsListFragment.OnExitSelectedListener} interface to
- * handle interaction events. Use the
- * {@link NearestExitsListFragment#newInstance} factory method to create an
- * instance of this fragment.
+ * {@link NearestExitsListFragment.OnExitSelectedListener} interface to handle
+ * interaction events. Use the {@link NearestExitsListFragment#newInstance}
+ * factory method to create an instance of this fragment.
  * 
  */
 public class NearestExitsListFragment extends Fragment {
 
 	SparseArray<SubStation> mSubStations;
-//	ArrayList<SubStation> mSubStations;
+	// ArrayList<SubStation> mSubStations;
 	SparseArray<SubStationExit> mExits;
 
 	private OnExitSelectedListener mListener;
+	private ListView mListView;
+	private Address mCurrentPoi;
 
 	public NearestExitsListFragment() {
 	}
@@ -47,13 +55,26 @@ public class NearestExitsListFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_nearest_exits_list,
+		View result = inflater.inflate(R.layout.fragment_nearest_exits_list,
 				container, false);
+
+		mListView = (ListView) result.findViewById(R.id.stationList);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> listView, View senderView,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				mListener.onExitSelected(mExits.get((int) id), mCurrentPoi);
+			}
+		});
+		init(getActivity());
+		return result;
 	}
 
 	@Override
 	public void onAttach(Activity activity) {
-		init(activity);
+		
 		super.onAttach(activity);
 		try {
 			mListener = (OnExitSelectedListener) activity;
@@ -65,25 +86,31 @@ public class NearestExitsListFragment extends Fragment {
 
 	private void init(Context context) {
 		// TODO Auto-generated method stub
-		if(mExits != null)
+		if (mExits != null)
 			return;
 		mSubStations = new SparseArray<SubStation>();
 		DBWrapper mDB = new DBWrapper(context);
+		mDB.open();
 		Cursor c = mDB.getAllstations();
 		c.moveToFirst();
-		while(!c.isAfterLast()) {
+		while (!c.isAfterLast()) {
 			SubStation station = SubStation.fromCursor(c);
 			mSubStations.append(station.getId_station(), station);
 			c.moveToNext();
 		}
-		
+
 		c = mDB.getAllportals();
 		mExits = new SparseArray<SubStationExit>();
 		c.moveToFirst();
-		while(!c.isAfterLast()) {
+		while (!c.isAfterLast()) {
 			SubStationExit exit = new SubStationExit(c);
+			exit.setStation(mSubStations.get(exit.id_station));
 			mExits.append(exit.id_entrance, exit);
 			c.moveToNext();
+		}
+		if (mCurrentPoi != null) {
+			SortPoiTask task = new SortPoiTask();
+			task.execute(mCurrentPoi);
 		}
 	}
 
@@ -104,7 +131,9 @@ public class NearestExitsListFragment extends Fragment {
 	 */
 	public interface OnExitSelectedListener {
 		// TODO: Update argument type and name
-		public void onExitSelected(SubStationExit exit);
+		public void onExitSelected(SubStationExit exit, Address mCurrentPoi);
+
+		public void onNearestExitsListFragmentCreated(NearestExitsListFragment f);
 	}
 
 	private double distance(LatLng point1, LatLng point2) {
@@ -138,18 +167,71 @@ public class NearestExitsListFragment extends Fragment {
 	}
 
 	public void showExits(Address poi) {
+		mCurrentPoi = poi;
+		if (mExits != null) {
+			SortPoiTask task = new SortPoiTask();
+			task.execute(poi);
+		}
+	}
+
+	private List<SubStationExit> sortExits(Address poi) {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-//		LatLng poiCoordinates = new LatLng(poi.getLatitude(),
-//				poi.getLongitude());
-//		double bestDistance = 10000d;
-//		MapMarker bestMarker = mSubExitMarkers.get(0);
-//		bestDistance = distance(bestMarker.mCoordinates, poiCoordinates);
-//		for (MapMarker marker : mSubExitMarkers) {
-//			if (distance(marker.mCoordinates, poiCoordinates) < bestDistance) {
-//				bestMarker = marker;
-//				bestDistance = distance(marker.mCoordinates, poiCoordinates);
-//			}
-//		}
+		return null;
+	}
+
+	public class PoiDistance {
+		public double distance;
+		public int exitId;
+
+		public PoiDistance(int exit, double d) {
+			this.distance = d;
+			this.exitId = exit;
+		}
+	}
+
+	private class SortPoiTask extends
+			AsyncTask<Address, Void, SparseArray<SubStationExit>> {
+
+		ArrayList<PoiDistance> exitDistances = new ArrayList<PoiDistance>();
+
+		@Override
+		protected SparseArray<SubStationExit> doInBackground(Address... addr) {
+			// TODO Auto-generated method stub
+			for (int i = 0; i < mExits.size(); i++) {
+				SubStationExit exit = mExits.get(mExits.keyAt(i));
+				if (exit.direction.equals("out")
+						|| exit.direction.equals("both")) {
+					PoiDistance distance = new PoiDistance(exit.id_entrance,
+							distance(exit.latlng.latitude,
+									exit.latlng.longitude,
+									addr[0].getLatitude(),
+									addr[0].getLongitude()));
+					exitDistances.add(distance);
+				}
+			}
+			Collections.sort(exitDistances, new Comparator<PoiDistance>() {
+
+				@Override
+				public int compare(PoiDistance lhs, PoiDistance rhs) {
+					// TODO Auto-generated method stub
+					return (lhs.distance < rhs.distance) ? -1
+							: (lhs.distance > rhs.distance) ? 1 : 0;
+				}
+			});
+
+			SparseArray<SubStationExit> newarestExits = new SparseArray<SubStationExit>();
+			int total = exitDistances.size();
+			for (int i = 0; i < 10; i++) {
+				newarestExits.append(exitDistances.get(i).exitId,
+						mExits.get(exitDistances.get(i).exitId));
+			}
+			return newarestExits;
+		}
+
+		@Override
+		protected void onPostExecute(SparseArray<SubStationExit> nearestExits) {
+			mListView.setAdapter(new NearestExitsAdapter(getActivity(),
+					nearestExits, exitDistances));
+		}
 	}
 }

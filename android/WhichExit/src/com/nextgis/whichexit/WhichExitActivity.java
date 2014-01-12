@@ -13,6 +13,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.nextgis.whichexit.MapController.MapControllerListener;
 import com.nextgis.whichexit.NearestExitsListFragment.OnExitSelectedListener;
 import com.nextgis.whichexit.PoiListFragment.OnPOISelectedListener;
 import com.testflightapp.lib.TestFlight;
@@ -23,6 +24,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.inputmethodservice.InputMethodService;
 import android.location.Address;
 import android.os.AsyncTask;
@@ -45,7 +47,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 public class WhichExitActivity extends FragmentActivity implements
-		OnPOISelectedListener, OnExitSelectedListener {
+		OnPOISelectedListener, OnExitSelectedListener, MapControllerListener {
 
 	public static final String PREFS_DB_EXTRACTED_OK = "db_extracted";
 
@@ -72,28 +74,37 @@ public class WhichExitActivity extends FragmentActivity implements
 
 	private EditText mSearchText;
 
-	private PoiListFragment poiListFragment;
-	
-	private NearestExitsListFragment newarestExitsListFragment;
+	private PoiListFragment mPoiListFragment;
 
 	private NearestExitsListFragment mExitListFragment;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TestFlight.takeOff(getApplication(), "ea4fc362-3bca-4aee-8c74-41e0fee92394");
+		TestFlight.takeOff(getApplication(),
+				"ea4fc362-3bca-4aee-8c74-41e0fee92394");
+		Log.d(TAG,
+				String.format("%s.onCreate()", this.getClass().getSimpleName()));
 		setContentView(R.layout.activity_which_exit);
 
+		initViews();
+		prefs = getSharedPreferences(TAG, Context.MODE_PRIVATE);
+	}
+
+	/**
+	 * 
+	 */
+	private void initViews() {
+		mPoiListFragment = null;
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new WhichExitMainPagerAdapter(this);
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager.setOffscreenPageLimit(3);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-		
 		mSearchText = (EditText) findViewById(R.id.mapSearchText);
 		mSearchText.addTextChangedListener(new TextWatcher() {
 
@@ -116,15 +127,9 @@ public class WhichExitActivity extends FragmentActivity implements
 				// TODO Auto-generated method stub
 				if (s.length() > 0) {
 					mViewPager.setCurrentItem(1);
-					if (poiListFragment == null) {
-						Fragment f = mSectionsPagerAdapter.getItem(1);
-						if (f != null && f instanceof PoiListFragment) {
-							poiListFragment = (PoiListFragment) f;
-						} else {
-							return;
-						}
+					if (mPoiListFragment != null) {
+						mPoiListFragment.onTextChanged(s, start, before, count);
 					}
-					poiListFragment.onTextChanged(s, start, before, count);
 				}
 			}
 
@@ -139,32 +144,27 @@ public class WhichExitActivity extends FragmentActivity implements
 						|| actionId == EditorInfo.IME_ACTION_SEND
 						|| keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 					hideKeyboard(textView);
-					
-					if (poiListFragment == null) {
-						Fragment f = mSectionsPagerAdapter.getItem(1);
-						if (f != null && f instanceof PoiListFragment) {
-							poiListFragment = (PoiListFragment) f;
-						} else {
-							return false;
-						}
+
+					if (mPoiListFragment != null) {
+						mPoiListFragment.startPOISearch();
 					}
-					poiListFragment.startPOISearch();
 					return true;
 				}
 				return false;
 			}
 		});
 
-		((ImageView)findViewById(R.id.clearSearch)).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				mSearchText.setText("");
-			}
-		});
-		prefs = getSharedPreferences(TAG, Context.MODE_PRIVATE);
+		((ImageView) findViewById(R.id.clearSearch))
+				.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						mSearchText.setText("");
+					}
+				});
 	}
+
 
 	@Override
 	public void onResume() {
@@ -185,6 +185,13 @@ public class WhichExitActivity extends FragmentActivity implements
 		}
 	}
 
+	@Override
+	public void onStop() {
+		super.onStop();
+		mPoiListFragment = null;
+		mExitListFragment = null;
+	}
+
 	public void setupMapController() {
 		if (mMapController == null) {
 			// TODO Auto-generated method stub
@@ -192,12 +199,9 @@ public class WhichExitActivity extends FragmentActivity implements
 			if (f != null && f instanceof SupportMapFragment) {
 				SupportMapFragment mMapFragment = (SupportMapFragment) f;
 				GoogleMap map = mMapFragment.getMap();
-				this.mMapController = new MapController(this, map);
-				map.setOnCameraChangeListener(mMapController);
-				map.setOnMapLoadedCallback(mMapController);
-				map.setMyLocationEnabled(true);
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-						55.751667, 37.617778), 9.5f));
+				if (map != null)
+					this.mMapController = new MapController(this, map, this);
+
 			}
 		}
 	}
@@ -316,7 +320,7 @@ public class WhichExitActivity extends FragmentActivity implements
 										setResult(RESULT_CANCELED, getIntent());
 										finish();
 									}
-				});
+								});
 			}
 		}
 	}
@@ -325,10 +329,10 @@ public class WhichExitActivity extends FragmentActivity implements
 	public void onPOISelected(Address poi) {
 		hideKeyboard(mSearchText);
 		mViewPager.setCurrentItem(2);
-		if(mExitListFragment == null) {
-			mExitListFragment = (NearestExitsListFragment) this.mSectionsPagerAdapter.getItem(2);
+		if (mExitListFragment == null) {
+			mExitListFragment = (NearestExitsListFragment) mSectionsPagerAdapter.getItem(2);
 		}
-		mExitListFragment.showExits(poi);
+			mExitListFragment.showExits(poi);
 	}
 
 	/**
@@ -336,14 +340,37 @@ public class WhichExitActivity extends FragmentActivity implements
 	 */
 	private void hideKeyboard(TextView textView) {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(textView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		imm.hideSoftInputFromWindow(textView.getWindowToken(),
+				InputMethodManager.HIDE_NOT_ALWAYS);
 	}
 
 	@Override
-	public void onExitSelected(SubStationExit exit) {
-		// TODO Auto-generated method stub
+	public void onExitSelected(SubStationExit exit, Address poi) {
+		mViewPager.setCurrentItem(0);
+		mMapController.showExit(exit, poi);
+	}
 
-		mMapController.showExit(exit);
+	@Override
+	public void onPOIFragmentCreated(PoiListFragment f) {
+		mPoiListFragment = f;
+		
+	}
+
+	@Override
+	public void onNearestExitsListFragmentCreated(NearestExitsListFragment f) {
+		mExitListFragment = f;
+	}
+
+	@Override
+	public void onSubStationExitMarkerClick(SubStationExit exit) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onSubStationMarkerClick(SubStation station) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

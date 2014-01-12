@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
+import android.view.View;
 
 
 public class WhichExitMainPagerAdapter extends FragmentPagerAdapter {
@@ -26,17 +27,20 @@ public class WhichExitMainPagerAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int position) {
 
 		if(fragmentCache.get(position) != null) {
-			return fragmentCache.get(position);
+			Fragment f = fragmentCache.get(position);
+			return f;
 		}
 
 		switch(position) {
 		case 0: {
-			Fragment mf = new SupportMapFragment();
-			fragmentCache.put(position, mf);
-			return mf;
+			Fragment fragment = new SupportMapFragment();
+			fragment.setRetainInstance(true);
+			fragmentCache.put(position, fragment);
+			return fragment;
 		}
 		case 1: {
 			Fragment fragment = new PoiListFragment();
+			fragment.setRetainInstance(true);
 			fragmentCache.put(position, fragment);
 			return fragment;
 		}
@@ -69,6 +73,12 @@ public class WhichExitMainPagerAdapter extends FragmentPagerAdapter {
 			return mContext.getString(R.string.exits).toUpperCase(l);
 		}
 		return null;
+	}
+	
+	@Override
+	public void destroyItem(View container, int position, Object object) {
+	    super.destroyItem(container, position, object);
+	    fragmentCache.remove(position);
 	}
 
 }

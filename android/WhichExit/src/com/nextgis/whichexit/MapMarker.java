@@ -37,5 +37,10 @@ public class MapMarker {
 	public boolean compareWith(MapMarker pCandidate) {
 		return this.mCoordinates.latitude == pCandidate.mCoordinates.latitude && this.mCoordinates.longitude == pCandidate.mCoordinates.longitude;
 	}
+
+	public SubStation getSubStation() {
+		// TODO Auto-generated method stub
+		return mSubStation;
+	}
 	
 }

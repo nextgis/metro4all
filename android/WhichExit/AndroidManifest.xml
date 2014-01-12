@@ -27,7 +27,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.nextgis.whichexit.WhichExitActivity"
-            android:label="@string/app_name" android:configChanges="keyboard|orientation" android:windowSoftInputMode="stateHidden">
+            android:label="@string/app_name" android:configChanges="orientation|screenSize" android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

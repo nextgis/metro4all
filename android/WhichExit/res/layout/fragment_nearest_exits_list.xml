@@ -6,9 +6,12 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
+    <ListView
+        android:id="@+id/stationList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/exit_listview_item_layout" >
+
+    </ListView>
 
 </FrameLayout>

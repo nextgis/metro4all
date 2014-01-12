@@ -94,6 +94,7 @@ public class PoiListFragment extends Fragment implements TextWatcher {
 						getActivity()));
 		mSearchResults = new ArrayList<Address>();
 		mGeocoder = new Geocoder(getActivity(), Locale.getDefault());
+		mListener.onPOIFragmentCreated(this);
 		return rootView;
 	}
 
@@ -128,6 +129,7 @@ public class PoiListFragment extends Fragment implements TextWatcher {
 	public interface OnPOISelectedListener {
 		// TODO: Update argument type and name
 		public void onPOISelected(Address address);
+		public void onPOIFragmentCreated(PoiListFragment f);
 	}
 
 	@Override
@@ -170,18 +172,10 @@ public class PoiListFragment extends Fragment implements TextWatcher {
 		protected List<Address> doInBackground(String... args) {
 			List<Address> results = null;
 			try {
-				results = mGeocoder.getFromLocationName(args[0], 10);
+				results = mGeocoder.getFromLocationName(args[0], 10, 55.25671321180309, 36.91861253231764, 56.24041928480459, 38.31694297492504);
 				List<Address> intersection = new ArrayList<Address>();
 				if (results != null && results.size() > 0) {
-//					for (Address found : results) {
-//						for (Address address : mSearchResults) {
-//							if (found.equals(address)) {
-//								intersection.add(address);
-//							}
-//						}
-//					}
 					synchronized (mSearchResultsLock) {
-//						mSearchResults.removeAll(intersection);
 						mSearchResults.clear();
 						mSearchResults.addAll(results);
 					}
