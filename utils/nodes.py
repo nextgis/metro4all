@@ -10,7 +10,7 @@ import numpy as np
 
 filePath = sys.argv[1]
 
-sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['node_id', 'transfer_id', 'element_id', 'node_name', 'element', 'stairs', 'stairs_with_railing', 'couple_stairs', 'railing', 'width', 'min_width', 'max_width', 'angle', 'slope', 'lift_class', 'working_status'])
+sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['node_id', 'transfer_id', 'element_id', 'node_name', 'element', 'stairs', 'stairs_with_railing', 'couple_stairs', 'railing', 'width', 'min_width', 'max_width', 'angle', 'slope', 'lift_class', 'working_status', 'pandusAvailability'])
 '''
 sourceDf['liftSurfaceToTrain'] = (sourceDf['lift_class'] == 3) * 1
 sourceDf['liftHallToTrain'] = (sourceDf['lift_class'] == 2) * 1
@@ -27,7 +27,7 @@ sourceDf['stairs_with_railing'] = sourceDf['stairs'] * (sourceDf['railing] == 1)
 sourceDf['slope'] = np.tan(np.radians(sourceDf['max_angle'])) * 100
 '''
 # nodes
-#['node_id', 'transfer_id', 'element_id', 'node_name', 'element', 'stairs', 'stairs_with_railing', 'couple_stairs', 'railing', 'width', 'min_width', 'max_width', 'angle', 'slope', 'lift_class', 'working_status']
+#['node_id', 'transfer_id', 'element_id', 'node_name', 'element', 'stairs', 'stairs_with_railing', 'couple_stairs', 'railing', 'width', 'min_width', 'max_width', 'angle', 'slope', 'lift_class', 'working_status', 'pandusAvailability']
 
 # Create index == nodeId
 nodeId = sourceDf['node_id'].unique()
@@ -67,6 +67,8 @@ minLiftWidth = pd.DataFrame({'minLiftWidth' : elementsWidthMin[u'лифт']})
 maxLiftWidth = pd.DataFrame({'maxLiftWidth' : elementsWidthMax[u'лифт']})
 pandusAmount = pd.DataFrame({'pandusAmount' : elementsAmount[u'пандус']})
 #pandus = (pandusAmount > 0) * 1
+pandusAvailableAmount = pd.DataFrame({'pandusAvailableAmount' : sourceDf.groupby(by='node_id')['pandusAvailability'].sum()})
+#pandusAvailable = (pandusAvailableAmount > 0) * 1
 pandusRailing = pd.DataFrame({'pandusRailing' : elementsRailingAmount[u'пандус']})
 pandusMaxAngle = pd.DataFrame({'pandusMaxAngle' : elementsMaxSlope[u'пандус']})
 stairsAmount = pd.DataFrame({'stairsAmount' : elementsAmount[u'лестница'] + elementsAmount[u'лестница с аппарелью']})
@@ -113,6 +115,8 @@ result = result.join(maxLiftWidth, how='inner', sort=False)
 result = result.join(pandusAmount, how='inner', sort=False)
 #result = result.join(pandus, how='inner', sort=False)
 result['pandus'] = (pandusAmount > 0) * 1
+result = result.join(pandusAvailableAmount, how='inner', sort=False)
+result['pandusAvailable'] = (pandusAvailableAmount > 0) * 1
 result = result.join(pandusRailing, how='inner', sort=False)
 result = result.join(pandusMaxAngle, how='inner', sort=False)
 result = result.join(stairsAmount, how='inner', sort=False)
