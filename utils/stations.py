@@ -11,19 +11,21 @@ import numpy as np
 vocabPath = sys.argv[1]
 filePath = sys.argv[2]
 
-vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=0, names=['stationId', 'stationName', 'lineName', 'lineId', 'nodeId'])
-sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'entrance_name', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
+vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=3, names=['stationName', 'stationName_en', 'lineName', 'stationId', 'lineId', 'nodeId', 'lat', 'lon'])
+del vocabDf['lat']
+del vocabDf['lon']
+sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'entrance_name', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
 
 ''' Calculated columns
 sourceDf['max_slope'] = np.tan(np.radians(sourceDf['max_angle'])) * 100
-sourceDf['wheelchairFriendlyRoutes'] = ((sourceDf['min_lift_steps'] == 0 ) | (sourceDf['min_rail_steps'] == 0) | (sourceDf['min_rail_steps'] - sourceDf['lift_minus_steps'] <= 0) & (sourceDf['stairways'] == 0) & (sourceDf['min_width'] >= 740) & (sourceDf['max_slope'] <= 15)) * 1
+sourceDf['wheelchairFriendlyRoutes'] = ((sourceDf['min_lift_steps'] == 0 ) | (sourceDf['min_rail_steps'] == 0) | (sourceDf['min_rail_steps'] - sourceDf['lift_minus_steps'] <= 0) & (sourceDf['stairways'] == 0) & (sourceDf['min_width'] >= 740) & (sourceDf['max_slope'] <= 15) & (sourceDf['pandusUnavailable'] == 0)) * 1
 sourceDf['handicappedFriendlyRoutes'] = ((sourceDf['min_lift_steps'] < 3) | (sourceDf['min_rail_steps'] < 3) | (sourceDf['min_rail_steps'] - sourceDf['lift_minus_steps'] <= 3) & (sourceDf['max_slope'] <= 15)) * 1
 sourceDf['luggageFriendlyRoutes'] = ((sourceDf['min_lift_steps'] < 3) | (sourceDf['min_rail_steps'] < 3) | (sourceDf['min_rail_steps'] - sourceDf['lift_minus_steps'] <= 3) & (sourceDf['min_width'] >= 700)) * 1
 '''
 
 # stations
 # ['id', 'id2', 'station', 'line', 'entrance_name', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment']
-
+# ['stationName', 'stationName_en', 'lineName', 'stationId', 'lineId', 'nodeId', 'lat', 'lon']
 # Calculating all stuff
 
 #stationId
@@ -51,17 +53,17 @@ minStairways = pd.DataFrame({'minStairways' : sourceDf.groupby(by='station_id').
 maxStairways = pd.DataFrame({'maxStairways' : sourceDf.groupby(by='station_id').max()['stairways']})
 
 
-wheelchairFriendlyRoutes = pd.DataFrame({'wheelchairFriendlyRoutes' : sourceDf.groupby(by='station_id')['wheelchairFriendlyRoutes'].sum()})
+wheelchairFriendlyRoutesAmount = pd.DataFrame({'wheelchairFriendlyRoutesAmount' : sourceDf.groupby(by='station_id')['wheelchairFriendlyRoutes'].sum()})
 wheelchairFriendlyRoutesAll = pd.pivot_table(sourceDf, values='wheelchairFriendlyRoutes', rows='station_id', cols='direction', fill_value=0, aggfunc = 'sum')
 wheelchairFriendlyRoutesIn = pd.DataFrame({'wheelchairFriendlyRoutesIn' : wheelchairFriendlyRoutesAll['in'] + wheelchairFriendlyRoutesAll['both']})
 wheelchairFriendlyRoutesOut = pd.DataFrame({'wheelchairFriendlyRoutesOut' : wheelchairFriendlyRoutesAll['out'] + wheelchairFriendlyRoutesAll['both']})
 
-handicappedFriendlyRoutes = pd.DataFrame({'handicappedFriendlyRoutes' : sourceDf.groupby(by='station_id')['handicappedFriendlyRoutes'].sum()})
+handicappedFriendlyRoutesAmount = pd.DataFrame({'handicappedFriendlyRoutesAmount' : sourceDf.groupby(by='station_id')['handicappedFriendlyRoutes'].sum()})
 handicappedFriendlyRoutesAll = pd.pivot_table(sourceDf, values='handicappedFriendlyRoutes', rows='station_id', cols='direction', fill_value=0, aggfunc = 'sum')
 handicappedFriendlyRoutesIn = pd.DataFrame({'handicappedFriendlyRoutesIn' : handicappedFriendlyRoutesAll['in'] + handicappedFriendlyRoutesAll['both']})
 handicappedFriendlyRoutesOut = pd.DataFrame({'handicappedFriendlyRoutesOut' : handicappedFriendlyRoutesAll['out'] + handicappedFriendlyRoutesAll['both']})
 
-luggageFriendlyRoutes = pd.DataFrame({'luggageFriendlyRoutes' : sourceDf.groupby(by='station_id')['luggageFriendlyRoutes'].sum()})
+luggageFriendlyRoutesAmount = pd.DataFrame({'luggageFriendlyRoutesAmount' : sourceDf.groupby(by='station_id')['luggageFriendlyRoutes'].sum()})
 luggageFriendlyRoutesAll = pd.pivot_table(sourceDf, values='luggageFriendlyRoutes', rows='station_id', cols='direction', fill_value=0, aggfunc = 'sum')
 luggageFriendlyRoutesIn = pd.DataFrame({'luggageFriendlyRoutesIn' : luggageFriendlyRoutesAll['in'] + luggageFriendlyRoutesAll['both']})
 luggageFriendlyRoutesOut = pd.DataFrame({'luggageFriendlyRoutesOut' : luggageFriendlyRoutesAll['out'] + luggageFriendlyRoutesAll['both']})
@@ -87,13 +89,16 @@ result = result.join(maxLiftStairs, how='inner', sort=False)
 result = result.join(minStairways, how='inner', sort=False)
 result = result.join(maxStairways, how='inner', sort=False)
 
-result = result.join(wheelchairFriendlyRoutes, how='inner', sort=False)
+result['wheelchairFriendlyRoutes'] = (wheelchairFriendlyRoutesAmount > 0) * 1
+result = result.join(wheelchairFriendlyRoutesAmount, how='inner', sort=False)
 result = result.join(wheelchairFriendlyRoutesIn, how='inner', sort=False)
 result = result.join(wheelchairFriendlyRoutesOut, how='inner', sort=False)
-result = result.join(handicappedFriendlyRoutes, how='inner', sort=False)
+result['handicappedFriendlyRoutes'] = (handicappedFriendlyRoutesAmount > 0) * 1
+result = result.join(handicappedFriendlyRoutesAmount, how='inner', sort=False)
 result = result.join(handicappedFriendlyRoutesIn, how='inner', sort=False)
 result = result.join(handicappedFriendlyRoutesOut, how='inner', sort=False)
-result = result.join(luggageFriendlyRoutes, how='inner', sort=False)
+result['luggageFriendlyRoutes'] = (luggageFriendlyRoutesAmount > 0) * 1
+result = result.join(luggageFriendlyRoutesAmount, how='inner', sort=False)
 result = result.join(luggageFriendlyRoutesIn, how='inner', sort=False)
 result = result.join(luggageFriendlyRoutesOut, how='inner', sort=False)
 
