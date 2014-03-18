@@ -10,7 +10,7 @@ import numpy as np
 
 filePath = sys.argv[1]
 
-sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['fromStation', 'toStation', 'transferId', 'fromId', 'toId', 'nodeId', 'minWidth', 'minStairs', 'minRailsStairs', 'lift', 'liftStairsEconomy', 'minRailsWidth', 'maxRailsWidth', 'maxAngle', 'maxSlope', 'minStairways'])
+sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['fromStation', 'toStation', 'transferId', 'fromId', 'toId', 'nodeId', 'minWidth', 'minStairs', 'minRailsStairs', 'lift', 'liftStairsEconomy', 'minRailsWidth', 'maxRailsWidth', 'maxAngle', 'maxSlope', 'minStairways','wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes'])
 
 ''' Calculated columns
 sourceDf['maxSlope'] = np.tan(np.radians(sourceDf['maxAngle'])) * 100
