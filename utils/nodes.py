@@ -55,7 +55,14 @@ stairwaysAmount = pd.DataFrame({'stairwaysAmount' : elementsAmount[u'эскал�
 #stairway = pd.DataFrame({'stairway' : (stairwaysAmount > 0) * 1})
 minStairwayWidth = pd.DataFrame({'minStairwayWidth' : elementsWidthMin[u'эскалатор']})
 maxStairwayWidth = pd.DataFrame({'maxStairwayWidth' : elementsWidthMax[u'эскалатор']})
+
 doorsAmount = pd.DataFrame({'doorsAmount' : elementsAmount[u'дверь']})
+minDoorWidth = pd.DataFrame({'minDoorWidth' : elementsWidthMin[u'дверь']})
+maxDoorWidth = pd.DataFrame({'maxDoorWidth' : elementsWidthMax[u'дверь']})
+turnstilesAmount = pd.DataFrame({'turnstilesAmount' : elementsAmount[u'турникет']})
+minturnstileWidth = pd.DataFrame({'minturnstileWidth' : elementsWidthMin[u'турникет']})
+maxturnstileWidth = pd.DataFrame({'maxturnstileWidth' : elementsWidthMax[u'турникет']})
+
 liftAmount = pd.DataFrame({'liftAmount' : elementsAmount[u'лифт']})
 #lift = (liftAmount > 0) * 1
 
@@ -70,7 +77,8 @@ pandusAmount = pd.DataFrame({'pandusAmount' : elementsAmount[u'пандус']})
 pandusAvailableAmount = pd.DataFrame({'pandusAvailableAmount' : sourceDf.groupby(by='node_id')['pandusAvailability'].sum()})
 #pandusAvailable = (pandusAvailableAmount > 0) * 1
 pandusRailing = pd.DataFrame({'pandusRailing' : elementsRailingAmount[u'пандус']})
-pandusMaxAngle = pd.DataFrame({'pandusMaxAngle' : elementsMaxSlope[u'пандус']})
+pandusMinSlope = pd.DataFrame({'pandusMinSlope' : elementsMinSlope[u'пандус']})
+pandusMaxSlope = pd.DataFrame({'pandusMaxSlope' : elementsMaxSlope[u'пандус']})
 stairsAmount = pd.DataFrame({'stairsAmount' : elementsAmount[u'лестница'] + elementsAmount[u'лестница с аппарелью']})
 #stairs = (stairsAmount > 0) * 1
 coupleStairsAmount = pd.DataFrame({'coupleStairsAmount' : sourceDf.groupby(by='node_id')['couple_stairs'].sum()})
@@ -92,12 +100,21 @@ noRailingStairsLength = pd.DataFrame({'noRailingStairsLength' : elementsStairsSu
 #DataFrame.merge(right, how='inner', on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=('_x', '_y'), copy=True)
 
 result = nodeName.join(totalElements, how='inner', sort=False)
+
 result = result.join(stairwaysAmount, how='inner', sort=False)
 #result = result.join(stairway, how='inner', sort=False)
 result['stairway'] = (stairwaysAmount > 0) * 1
 result = result.join(minStairwayWidth, how='inner', sort=False)
 result = result.join(maxStairwayWidth, how='inner', sort=False)
+
 result = result.join(doorsAmount, how='inner', sort=False)
+result = result.join(minDoorWidth, how='inner', sort=False)
+result = result.join(maxDoorWidth, how='inner', sort=False)
+
+result = result.join(turnstilesAmount, how='inner', sort=False)
+result = result.join(minturnstileWidth, how='inner', sort=False)
+result = result.join(maxturnstileWidth, how='inner', sort=False)
+
 result = result.join(liftAmount, how='inner', sort=False)
 #result = result.join(lift, how='inner', sort=False)
 result['lift'] = (liftAmount > 0) * 1
@@ -118,7 +135,9 @@ result['pandus'] = (pandusAmount > 0) * 1
 result = result.join(pandusAvailableAmount, how='inner', sort=False)
 result['pandusAvailable'] = (pandusAvailableAmount > 0) * 1
 result = result.join(pandusRailing, how='inner', sort=False)
-result = result.join(pandusMaxAngle, how='inner', sort=False)
+result = result.join(pandusMinSlope, how='inner', sort=False)
+result = result.join(pandusMaxSlope, how='inner', sort=False)
+
 result = result.join(stairsAmount, how='inner', sort=False)
 #result = result.join(stairs, how='inner', sort=False)
 result['stairs'] = (stairsAmount > 0) * 1
@@ -136,7 +155,8 @@ result = result.join(minRailsSlope, how='inner', sort=False)
 result = result.join(maxRailsSlope, how='inner', sort=False)
 result = result.join(railingAmount, how='inner', sort=False)
 #result = result.join(railing, how='inner', sort=False)
-result['railing'] = (railingAmount > 0) * 1
+result['noRailing'] = (noRailingStairsLength > 0) * 1
+result['noRailingAmount'] = result['stairsAmount'] - result['railingAmount']
 result = result.join(railingStairsLength, how='inner', sort=False)
 result = result.join(noRailingStairsLength, how='inner', sort=False)
 
