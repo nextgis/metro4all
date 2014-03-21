@@ -18,6 +18,7 @@ sourceDf['wheelchairFriendlyRoutes'] = ((sourceDf['minLiftStairs'] == 0 ) | (sou
 sourceDf['handicappedFriendlyRoutes'] = ((sourceDf['minLiftStairs'] < 3) | (sourceDf['minRailsStairs'] < 3) | (sourceDf['minRailsStairs'] - sourceDf['liftStairsEconomy'] <= 3) & (sourceDf['maxSlope'] <= 15)) * 1
 sourceDf['luggageFriendlyRoutes'] = ((sourceDf['minLiftStairs'] < 3) | (sourceDf['minRailsStairs'] < 3) | (sourceDf['minRailsStairs'] - sourceDf['liftStairsEconomy'] <= 3) & (sourceDf['minWidth'] >= 700)) * 1
 '''
+sourceDf['minLiftStairs'] = sourceDf['minStairs'] - sourceDf['liftStairsEconomy']
 # transfers
 #['fromStation', 'toStation', 'transferId', 'fromId', 'toId', 'nodeId', 'minWidth', 'minStairs', 'minRailsStairs', 'lift', 'liftStairsEconomy', 'minRailsWidth', 'maxRailsWidth', 'maxAngle', 'maxSlope', 'minStairways']
 
