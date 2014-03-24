@@ -35,13 +35,13 @@ nodeName = pd.DataFrame({'nodeName' : sourceDf['node_name'].unique()}, index=nod
 
 # Pivots
 elementsAmount = pd.pivot_table(sourceDf, values='element_id', rows='node_id', cols='element', fill_value=0, aggfunc = 'count')
-elementsMinSlope = pd.pivot_table(sourceDf, values='slope', rows='node_id', cols='element', fill_value=0, aggfunc = 'min')
-elementsMaxSlope = pd.pivot_table(sourceDf, values='slope', rows='node_id', cols='element', fill_value=0, aggfunc = 'max')
+elementsMinSlope = pd.pivot_table(sourceDf, values='slope', rows='node_id', cols='element', fill_value=None, aggfunc = 'min')
+elementsMaxSlope = pd.pivot_table(sourceDf, values='slope', rows='node_id', cols='element', fill_value=None, aggfunc = 'max')
 elementsStairsSum = pd.pivot_table(sourceDf, values='stairs', rows='node_id', cols='element', fill_value=0, aggfunc = 'sum')
-elementsMinWidth = pd.pivot_table(sourceDf, values='min_width', rows='node_id', cols='element', fill_value=0, aggfunc = 'min')
-elementsMaxWidth = pd.pivot_table(sourceDf, values='max_width', rows='node_id', cols='element', fill_value=0, aggfunc = 'max')
-elementsWidthMin = pd.pivot_table(sourceDf, values='width', rows='node_id', cols='element', fill_value=0, aggfunc = 'min')
-elementsWidthMax = pd.pivot_table(sourceDf, values='width', rows='node_id', cols='element', fill_value=0, aggfunc = 'max')
+elementsMinWidth = pd.pivot_table(sourceDf, values='min_width', rows='node_id', cols='element', fill_value=None, aggfunc = 'min')
+elementsMaxWidth = pd.pivot_table(sourceDf, values='max_width', rows='node_id', cols='element', fill_value=None, aggfunc = 'max')
+elementsWidthMin = pd.pivot_table(sourceDf, values='width', rows='node_id', cols='element', fill_value=None, aggfunc = 'min')
+elementsWidthMax = pd.pivot_table(sourceDf, values='width', rows='node_id', cols='element', fill_value=None, aggfunc = 'max')
 # If railing inicator use sum else remove zeros and use count
 elementsRailingAmount = pd.pivot_table(sourceDf, values='railing', rows='node_id', cols='element', fill_value=0, aggfunc = 'sum')
 elementsRailingStairsSum = pd.pivot_table(sourceDf, values='stairs_with_railing', rows='node_id', cols='element', fill_value=0, aggfunc = 'sum')
@@ -57,8 +57,13 @@ minStairwayWidth = pd.DataFrame({'minStairwayWidth' : elementsWidthMin[u'эск�
 maxStairwayWidth = pd.DataFrame({'maxStairwayWidth' : elementsWidthMax[u'эскалатор']})
 
 doorsAmount = pd.DataFrame({'doorsAmount' : elementsAmount[u'дверь']})
+tapersAmount = pd.DataFrame({'tapersAmount' : elementsAmount[u'сужение']})
+doorsAndTapersAmount = pd.DataFrame({'doorsAndTapersAmount' : elementsAmount[u'дверь'] + elementsAmount[u'сужение']})
 minDoorWidth = pd.DataFrame({'minDoorWidth' : elementsWidthMin[u'дверь']})
+minTaperWidth = pd.DataFrame({'minTaperWidth' : elementsWidthMin[u'сужение']})
 maxDoorWidth = pd.DataFrame({'maxDoorWidth' : elementsWidthMax[u'дверь']})
+maxTaperWidth = pd.DataFrame({'maxTaperWidth' : elementsWidthMax[u'сужение']})
+
 turnstilesAmount = pd.DataFrame({'turnstilesAmount' : elementsAmount[u'турникет']})
 minturnstileWidth = pd.DataFrame({'minturnstileWidth' : elementsWidthMin[u'турникет']})
 maxturnstileWidth = pd.DataFrame({'maxturnstileWidth' : elementsWidthMax[u'турникет']})
@@ -110,6 +115,14 @@ result = result.join(maxStairwayWidth, how='inner', sort=False)
 result = result.join(doorsAmount, how='inner', sort=False)
 result = result.join(minDoorWidth, how='inner', sort=False)
 result = result.join(maxDoorWidth, how='inner', sort=False)
+
+result = result.join(tapersAmount, how='inner', sort=False)
+result = result.join(minTaperWidth, how='inner', sort=False)
+result = result.join(maxTaperWidth, how='inner', sort=False)
+
+result = result.join(doorsAndTapersAmount, how='inner', sort=False)
+result['minDoorAndTaperWidth'] = result[['minDoorWidth', 'minTaperWidth']].min(1)
+result['maxDoorAndTaperWidth'] = result[['maxDoorWidth', 'maxTaperWidth']].max(1)
 
 result = result.join(turnstilesAmount, how='inner', sort=False)
 result = result.join(minturnstileWidth, how='inner', sort=False)
