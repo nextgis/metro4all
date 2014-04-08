@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<style>
+
+body {
+  font: 10px Arial;
+}
+
+text {
+  font: 10px Arial;  
+}
+
+.bar rect {
+  fill: #0101DF;
+  /*#7401DF*/
+  shape-rendering: crispEdges;
+  /*stroke: #ccc;*/
+
+}
+
+.barLabel {
+  fill: #000;
+}
+
+.lighten {
+  opacity: 0.3;
+}
+
+.title {
+  fill: #000;
+  font: bold 12px Arial;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+<body>
+  <div id='rasterPreview'></div>
+<script src='libs/d3.min.js'></script>
+<script src='libs/queue.v1.min.js'></script>
+<script>
+
+// A formatter for counts.
+var formatCount = d3.format(',.0f'),
+    formatPercent = d3.format('.1%');
+
+var margin = {top: 50, right: 30, bottom: 50, left: 30},
+    width = 700 - margin.left - margin.right,
+    height = 350 - margin.top - margin.bottom;
+
+queue()
+.defer(d3.csv, 'stairsLength.csv')
+.defer(d3.csv, 'minRailsWidth.csv')
+.defer(d3.csv, 'maxRailsWidth.csv')
+.defer(d3.csv, 'railsSlope.csv')
+.defer(d3.csv, 'pandusSlope.csv')
+.defer(d3.csv, 'turnstileWidth.csv')
+.defer(d3.csv, 'doorWidth.csv')
+//.defer(d3.csv, 'taperWidth.csv')
+//.defer(d3.csv, 'doorAndTaperWidth.csv')
+.defer(d3.csv, 'stairwayWidth.csv')
+
+.defer(d3.csv, 'liftWidth.csv')
+//.defer(d3.csv, 'cabinWidth.csv')
+.defer(d3.csv, 'cabinDepth.csv')
+
+.defer(d3.csv, 'minTaperTransfers.csv')
+.defer(d3.csv, 'minStepsTransfers.csv')
+.defer(d3.csv, 'minRailStepsTransfers.csv')
+.defer(d3.csv, 'minLiftStepsTransfers.csv')
+
+.defer(d3.csv, 'minTaperStations.csv')
+.defer(d3.csv, 'minStepsStations.csv')
+.defer(d3.csv, 'minRailStepsStations.csv')
+.defer(d3.csv, 'minLiftStepsStations.csv')
+
+.defer(d3.csv, 'routesByLine.csv')
+.await(ready);
+
+function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pandusSlope, turnstileWidth, doorWidth, stairwayWidth, liftWidth, cabinDepth, minTaperTransfers, minStepsTransfers, minRailStepsTransfers, minLiftStepsTransfers, minTaperStations, minStepsStations, minRailStepsStations, minLiftStepsStations, routesByLine) {
+  
+
+  cabinDepthFreq = frequencyData(cabinDepth, [[1250, 1350], [1400, 1500], [2200, 5000]]);
+  minTaperTransfersFreq = frequencyData(minTaperTransfers, [[800, 890], [900, 990], [1000, 5000]]);
+
+  drawBarplot(cabinDepthFreq, 'Глубина кабины лифтов');
+  drawBarplot(minTaperTransfersFreq, 'Самое узкое место на переходе');
+
+  /* My variant
+  plotHist(stairsLength, [0, 3, 6, 12, 20, 25, 35, 45, 55], 'Длина лестниц', 'Длина (ступени)');
+  plotHist(minRailsWidth, [200, 250, 300, 350, 400, 450, 500, 600], 'Минимальная ширина рельс', 'Ширина (мм)');
+  plotHist(maxRailsWidth, [300, 500, 600, 700, 800, 900, 1000, 1200], 'Максимальная ширина рельс', 'Ширина (мм)');
+  plotHist(railsSlope, [10, 20, 30, 35, 40, 45, 50], 'Уклон рельс', 'Уклон (%)');
+  plotHist(pandusSlope, [0, 5, 8, 12, 20, 50], 'Уклон пандусов', 'Уклон (%)');
+  plotHist(turnstileWidth, [500, 600, 800, 1000, 1500, 1800], 'Ширина турникетов', 'Ширина (мм)');
+  plotHist(doorAndTaperWidth, [500, 700, 800, 900, 1000, 1500, 1800], 'Ширина дверей и сужений', 'Ширина (мм)');
+  plotHist(stairwayWidth, [900, 950, 1000], 'Ширина эскалаторов', 'Ширина (мм)');
+  plotHist(liftWidth, [800, 850, 900, 950], 'Ширина дверей лифтов', 'Ширина (мм)');
+  plotHist(liftDepth, [1350, 1500, 2200], 'Глубина кабины лифтов', 'Глубина (мм)');
+  */
+  //Ann's choise
+  plotHist(stairsLength, [0, 3, 6, 12, 20, 25, 35, 45, 50], 'Длина лестниц', 'Длина (ступени)');
+  plotHist(minRailsWidth, [250, 300, 350, 400, 450, 500], 'Минимальная ширина рельс', 'Ширина (мм)');
+  plotHist(maxRailsWidth, [500, 600, 700, 800, 900, 1000, 1200], 'Максимальная ширина рельс', 'Ширина (мм)');
+  plotHist(railsSlope, [20, 30, 35, 40, 45, 50], 'Уклон рельс', 'Уклон (%)');
+  plotHist(pandusSlope, [0, 5, 8, 12, 20, 50], 'Уклон пандусов', 'Уклон (%)');
+  plotHist(turnstileWidth, [500, 600, 800, 1000, 1500], 'Ширина турникетов', 'Ширина (мм)');
+  plotHist(doorWidth, [700, 800, 900, 1000, 1500], 'Ширина дверей', 'Ширина (мм)');
+  plotHist(stairwayWidth, [900, 950, 1000, 1050], 'Ширина эскалаторов', 'Ширина (мм)');
+  plotHist(liftWidth, [800, 850, 900, 950, 1000], 'Ширина дверей лифтов', 'Ширина (мм)');
+  plotHist(cabinDepth, [1250, 1350, 1550, 2250], 'Глубина кабины лифтов', 'Глубина (мм)');
+
+  plotHist(minTaperTransfers, [850, 950, 1000], 'Самое узкое место на переходе', 'Ширина (мм)');
+  plotHist(minStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 105], 'Длина лестниц на переходе', 'Длина (ступени)');
+  plotHist(minRailStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 105], 'Длина лестниц на переходе c учетом рельс и пандусов', 'Длина (ступени)');
+  plotHist(minLiftStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 105], 'Длина лестниц на переходе c учетом лифтов', 'Длина (ступени)');
+  plotHist(minTaperStations, [500, 750, 1000, 1500, 2000], 'Самое узкое место на маршрутах', 'Ширина (мм)');
+  plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах', 'Длина (ступени)');
+  plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом рельс и пандусов', 'Длина (ступени)');
+  plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом лифтов', 'Длина (ступени)');
+
+  drawStackedBarplot(routesByLine, ['routesInByLine', 'Null'], 'Маршрутов на вход по линиям');
+  drawStackedBarplot(routesByLine, ['routesOutByLine', 'Null'], 'Маршрутов на выход по линиям');
+  drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesInByLine', 'wheelchairNotFriendlyRoutesInByLine'],
+   'Доступность маршрутов на вход для инвалидов-колясочников');
+  drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesOutByLine', 'wheelchairNotFriendlyRoutesOutByLine'],
+   'Доступность маршрутов на выход для инвалидов-колясочников');
+  drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesInByLine', 'handicappedNotFriendlyRoutesInByLine'],
+   'Доступность маршрутов на вход для людей с затруднениями передвижения');
+  drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesOutByLine', 'handicappedNotFriendlyRoutesOutByLine'],
+   'Доступность маршрутов на выход для людей с затруднениями передвижения');
+  drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesInByLine', 'luggageNotFriendlyRoutesInByLine'],
+   'Доступность маршрутов на вход для людей с детскими колясками и габаритным багажом');
+  drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesOutByLine', 'luggageNotFriendlyRoutesOutByLine'],
+   'Доступность маршрутов на выход для людей с детскими колясками и габаритным багажом');
+  drawStackedBarplot(routesByLine, ['stairwayAvailableRoutesByLine', 'stairwayUnavailableRoutesByLine'],
+    'Маршруты с эскалаторами и без');
+  drawStackedBarplot(routesByLine, ['liftAvailableRoutesByLine', 'liftUnavailableRoutesByLine'],
+    'Маршруты с лифтами и без');
+
+  drawStackedBarplot(routesByLine, ['transfersByLine', 'Null'], 'Переходы по линиям');
+  drawStackedBarplot(routesByLine, ['stairwayAvailableTransfersByLine', 'stairwayUnavailableTransfersByLine'],
+    'Переходы с эскалаторами и без');
+  drawStackedBarplot(routesByLine, ['wheelchairFriendlyTransfersByLine', 'wheelchairNotFriendlyTransfersByLine'],
+    'Доступность переходов для инвалидов-колясочников');
+  drawStackedBarplot(routesByLine, ['handicappedFriendlyTransfersByLine', 'handicappedNotFriendlyTransfersByLine'],
+    'Доступность переходов для людей с затруднениями передвижения');
+  drawStackedBarplot(routesByLine, ['luggageFriendlyTransfersByLine', 'luggageNotFriendlyTransfersByLine'],
+    'Доступность переходов для людей с детскими колясками и габаритным багажом');
+};
+
+function plotHist(histData, bins, title, xAxisLabel) {
+  // Generate a histogram using twenty uniformly-spaced bins.
+  var data = d3.layout.histogram()
+      //.bins(5)
+      .bins(bins)
+      (histData.map(function(d) {return +d.value}));
+
+  console.log(d3.min(histData, function(d) { return (+d.value); }) + ' - ' 
+    + d3.max(histData, function(d) { return (+d.value); }));
+
+  var minThreshold = d3.min(data, function(d) { return d.x; }),
+      maxThreshold = d3.max(data, function(d) { return (d.x + d.dx); }),
+      total = d3.sum(data, function(d) { return d.y; });
+
+  var x = d3.scale.linear()
+      .domain([minThreshold, maxThreshold])
+      .range([0, width]);
+
+  var y = d3.scale.linear()
+      .domain([0, d3.max(data, function(d) { return d.y; })])
+      .range([height, 0]);
+  
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .tickValues(bins)
+      .orient('bottom');
+
+  var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      //.attr('id', title)
+      .call(xmlnsFix)
+    .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  //svg.on('click', generateRaster);
+  
+  var bar = svg.selectAll('.bar')
+      .data(data)
+    .enter().append('g')
+      .attr('class', 'bar')
+      .attr('transform', function(d) { return 'translate(' + x(d.x) + ',' + y(d.y) + ')'; });
+  
+  bar.append('rect')
+      .attr('x', 1)
+      .attr('width', function(d, i) { return x(data[i].dx + minThreshold) - 1; })
+      .attr('height', function(d) { return height - y(d.y); });
+  
+  bar.append('text')
+      .attr('class', 'barLabel')
+      .attr('dy', '.75em')
+      .attr('y', -15)
+      .attr('x', function(d, i) { return x(data[i].dx + minThreshold) / 2; })
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.y > 0 ? formatCount(d.y) + ' (' + formatPercent(d.y/total) +') ' : ''; });
+  
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis)
+    .append('text')
+      .attr('transform', 'translate(' + width/2 + ',' + 2 * margin.bottom/3 + ')')
+      .attr('dx', '0.35em')
+      .style('text-anchor', 'middle')
+      .text(xAxisLabel);
+
+  svg.append('g')
+      .attr('class', 'y axis')
+      //.call(yAxis)
+    .append('text')
+      //.attr('transform', 'translate(' + 0 + ',' + (-margin.top/2) + ')')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height/3)
+      .attr('y', -margin.left/2)
+      //.attr('dy', '1.21em')
+      .style('text-anchor', 'middle')
+      .text('Количество');
+
+  svg.append('g')
+      .attr('class', 'title')
+      .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
+    .append('text')
+      .style('text-anchor', 'middle')
+      .style('font', 'bold 12px Arial')
+      .text(title);
+};
+
+function drawStackedBarplot(data, stackLevels, title) {
+  var x = d3.scale.ordinal()
+      .rangeRoundBands([0, width], .1);
+  
+  var y = d3.scale.linear()
+      .rangeRound([height, 0]);
+  
+  var color = d3.scale.ordinal()
+      .range(['#3770c8', '#afc6e9', '#00aa44', '#ffd42a',
+              '#ff7f2a', '#37c8ab', '#803200', '#abc837',
+              '#b3b3b3', '#ff2a2a', '#bc5fd3', '#55ddff']);
+  
+      /*
+      Арбатско-Покровская - #3770c8
+      Бутовская - #afc6e9
+      Замоскворецкая - #00aa44
+      Калининско-Солнцевская - #ffd42a
+      Калужско-Рижская - #ff7f2a
+      Каховская - #37c8ab
+      Кольцевая - #803200
+      Люблинско-Дмитровская - #abc837
+      Серпуховско-Тимирязевская - #b3b3b3
+      Сокольническая - #ff2a2a
+      Таганско-Краснопресненская - #bc5fd3
+      Филевская - #55ddff
+      */
+  
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .tickValues(['АПЛ', 'БЛ', 'ЗЛ', 'КСЛ', 'КРЛ', 'КХЛ', 'КЛ', 'ЛДЛ', 'СТЛ', 'СЛ', 'ТКЛ', 'ФЛ']) // <-- Remove|Comment to show xAxis ticks
+      .tickPadding(10)
+      .orient('bottom');
+  
+  /*var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient('left');*/
+
+  var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      //.attr('id', title)
+      .call(xmlnsFix)
+    .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  color.domain(data.map(function(d) { return d.lineName}));
+
+  //svg.on('click', generateRaster);
+
+  data.forEach(function(d) {
+    var y0 = 0;
+    //d.routes = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+    d.routes = stackLevels.map(function(name) { return {name: name, line: d.lineName, y0: y0, y1: y0 += +d[name] } });
+    d.total = d.routes[d.routes.length - 1].y1;
+  });
+
+  x.domain(data.map(function(d) { return d.lineName; }));
+  y.domain([0, d3.max(data, function(d) { return d.total; })]);
+
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis);
+
+  svg.append('g')
+      .attr('class', 'y axis')
+      //.call(yAxis)
+    .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height/3)
+      .attr('y', -margin.left/2)
+      //.attr('dy', '1.21em')
+      .style('text-anchor', 'end')
+      .text('Количество');
+
+  var line = svg.selectAll('.line')
+      .data(data)
+    .enter().append('g')
+      .attr('class', 'line')
+      .attr('transform', function(d) { return 'translate(' + x(d.lineName) + ',0)'; });
+
+  var bar = line.selectAll('.bar')
+      .data(function(d) { return d.routes; })
+    .enter().append('g')
+      .attr('class', 'bar');
+      //.attr('transform', function(d) { return 'translate(' + y(d.y1) + ',0)'; });
+
+  bar.append('rect')
+      .attr('class', function(d) { return d.name == stackLevels[0] ? 'bright' : 'lighten'; })
+      .attr('width', x.rangeBand())
+      .attr('y', function(d) { return y(d.y1); })
+      .attr('height', function(d) { return y(d.y0) - y(d.y1); })
+      .style('fill', function(d) { return color(d.line);});
+
+  bar.append('text')
+      .attr('class', 'barLabel')
+      .attr('dy', '.75em')
+      .attr('y', function(d) { return y(d.y1) - 11; })
+      .attr('x', x.rangeBand() / 2)
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });  
+
+  svg.append('g')
+    .attr('class', 'title')
+    .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
+  .append('text')
+    .style('text-anchor', 'middle')
+    .style('font', 'bold 12px Arial')
+    .text(title);
+
+  /*line.append('rect')
+      .attr('width', x.rangeBand())
+      .attr('y', function(d) { return y(d.routes.y1); })
+      .attr('height', function(d) { return y(d.routes.y0) - y(d.routes.y1); })
+      .style('fill', function(d) { return color(d.lineName); console.log(d.lineName);});*/
+
+  /*
+  var legend = svg.selectAll('.legend')
+      .data(color.domain().slice().reverse())
+    .enter().append('g')
+      .attr('class', 'legend')
+      .attr('transform', function(d, i) { return 'translate(0,' + i * 20 + ')'; });
+
+  legend.append('rect')
+      .attr('x', width - 18)
+      .attr('width', 18)
+      .attr('height', 18)
+      .style('fill', color);
+
+  legend.append('text')
+      .attr('x', width - 24)
+      .attr('y', 9)
+      .attr('dy', '.35em')
+      .style('text-anchor', 'end')
+      .text(function(d) { return d; });
+  */
+
+};
+
+function drawBarplot(data, title) {
+  var x = d3.scale.ordinal()
+      .rangeRoundBands([0, width], .1);
+  
+  var y = d3.scale.linear()
+      .rangeRound([height, 0]);
+  
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      //.tickValues() // <-- Remove|Comment to show xAxis ticks
+      .tickPadding(10)
+      .orient('bottom');
+  
+  /*var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient('left');*/
+
+  var total = d3.sum(data, function(d) { return d.frequency; });
+
+  var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      //.attr('id', title)
+      .call(xmlnsFix)
+    .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  //svg.on('click', generateRaster);
+
+  x.domain(data.map(function(d) { return d.range; }));
+  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis);
+
+  svg.append('g')
+      .attr('class', 'y axis')
+      //.call(yAxis)
+    .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height/3)
+      .attr('y', -margin.left/2)
+      //.attr('dy', '1.21em')
+      .style('text-anchor', 'end')
+      .text('Количество');
+
+  var bar = svg.selectAll('.bar')
+      .data(data)
+    .enter().append('g')
+      .attr('class', 'bar')
+      .attr('transform', function(d) { return 'translate(' + x(d.range) + ',0)'; });
+
+  bar.append('rect')
+      .attr('width', x.rangeBand())
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("height", function(d) { return height - y(d.frequency); });
+
+  bar.append('text')
+      .attr('class', 'barLabel')
+      .attr('dy', '.75em')
+      .attr('y', function(d) { return y(d.frequency) - 11; })
+      .attr('x', x.rangeBand() / 2)
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.frequency > 0 ? formatCount(d.frequency) + ' (' + formatPercent(d.frequency/total) +') ' : ''; }); 
+
+  svg.append('g')
+    .attr('class', 'title')
+    .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
+  .append('text')
+    .style('text-anchor', 'middle')
+    .style('font', 'bold 12px Arial')
+    .text(title);
+
+};
+
+function frequencyData(data, ranges) {
+  var freqData = [];
+  //Nest data by values(groupping)
+  var nest = d3.nest()
+      .key(function(d) { return +d.value; }).sortKeys(d3.ascending)
+      .rollup(function(leaves) { return leaves.length; })
+      .entries(data);
+
+  //Calculate frequency for range
+  function frequency(nest, range) {
+    var result = {range: range[0] + ' - ' + range[1], frequency: 0};
+    nest.forEach(function(d) {
+      if ((Number(d.key) >= range[0]) && (Number(d.key) < range[1])) {
+        result.frequency += d.values;
+      };
+    });
+    return result;
+  };
+
+  //Push ranges and frequency to array
+  ranges.forEach(function(d) { freqData.push(frequency(nest, d)); });
+  //Sorting ranges
+  freqData.sort(function(a, b) {
+    return a.range.split('-')[0] - b.range.split('-')[0];
+  });
+  return freqData;
+};
+
+function xmlnsFix(svg) {
+  // removing attributes so they aren't doubled up
+  svg.node().removeAttribute('xmlns');
+  svg.node().removeAttribute('xlink');
+
+  // These are needed for for valid SVG 1.1
+  if (!svg.node().hasAttributeNS(d3.ns.prefix.xmlns, 'xmlns')) {
+    svg.node().setAttributeNS(d3.ns.prefix.xmlns, 'xmlns', d3.ns.prefix.svg);
+  }
+
+  if (!svg.node().hasAttributeNS(d3.ns.prefix.xmlns, 'xmlns:xlink')) {
+    svg.node().setAttributeNS(d3.ns.prefix.xmlns, 'xmlns:xlink', d3.ns.prefix.xlink);
+  }
+};
+/*
+function generateRaster() {
+  var doctype = '<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>',
+      svg = d3.select(this);
+      //id = svg.attr('id');
+      //console.log(svg);
+
+  //xmlnsFix(svg);
+
+  console.log(svg);
+
+  var source = (new XMLSerializer()).serializeToString(svg.node()),
+      url = window.URL.createObjectURL(new Blob([doctype + source], { 'type' : 'image\/svg+xml' }));
+
+      //console.log(source);
+
+  var canvas = d3.select('#rasterPreview').append('canvas')
+        .attr('overflow', 'hidden')
+        //.attr('id', 'График.png')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height',  height + margin.top + margin.bottom);
+
+  var context = canvas.node().getContext('2d');
+  
+  canvas
+    .on('click', saveAsPNG);
+  
+  var image = new Image;
+  image.src = url;
+  image.onload = function() {
+    context.drawImage(image, 0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom);
+  };
+
+  setTimeout(function() {
+    window.URL.revokeObjectURL(url);
+  }, 10);
+  //canvas.call(saveAsPNG);
+};
+
+function saveAsPNG() {
+  var svg = d3.select(this);
+
+  var a = d3.select('body')
+        .append('a')
+        .attr('class', 'mapIcon-generator')
+        .attr('download', 'График.png')
+        .attr('href', this.toDataURL('image/png'))
+        .style('display', 'none');
+
+  a.node().click();
+
+  setTimeout(function() {
+    a.remove();
+    d3.select(this).remove();
+  }, 100);
+};
+*/
+</script>
+</body>
