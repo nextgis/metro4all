@@ -159,7 +159,7 @@ def get_portals(lang, city):
                 id=portal['id_entrance'],
                 geometry=dict(
                     type='Point',
-                    coordinates=[portal['lon'], portal['lat']]
+                    coordinates=[float(portal['lon']), float(portal['lat'])]
                 ),
                 properties=dict(
                     name=portal['name'],
@@ -188,7 +188,8 @@ def get_routes(lang, city, delta=5, limit=3):
                 return dict(
                     name=station['name'] if lang == 'ru' else station['name_' + lang],
                     line=int(station['id_line']),
-                    coords=(float(station['lat']), float(station['lon']))
+                    coords=(float(station['lat']), float(station['lon'])),
+                    node_id=station['id_node']
                 )
 
     # Извлечение информации о линии
@@ -230,22 +231,24 @@ def get_routes(lang, city, delta=5, limit=3):
         for index in range(min(limit, len(simple_paths_list))):
             route = []
             for station in simple_paths_list_sorted[index]:
-                line_id = get_station_info(station)['line']
+                station_info = get_station_info(station)
+                line_id = station_info['line']
                 same_line = check_the_same_line(station, get_next_item(simple_paths_list_sorted[index], station))
 
                 station_type = "regular" if same_line else "interchange"
+                node_id=station_info['node_id']
 
                 unit = dict(
                     station_type=station_type,
                     station_id=station,
-                    station_name=get_station_info(station)['name'],
-                    coordinates=get_station_info(station)['coords'],
+                    station_name=station_info['name'],
+                    coordinates=station_info['coords'],
                     station_line=dict(
                         id=line_id,
                         name=get_line_info(line_id)['name'],
                         color=get_line_info(line_id)['color']
                     ),
-                    schema=SCHEMAS[city][str(station)] if str(station) in SCHEMAS[city] else None
+                    schema=SCHEMAS[city][str(node_id)] if str(node_id) in SCHEMAS[city] else None
                 )
 
                 if station_type == "interchange":
