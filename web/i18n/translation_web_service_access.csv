@@ -1,0 +1,24 @@
+ru,en
+Без ограничений,No limitations
+Ширина коляски в см,"Wheelchair width, cm"
+Я на коляске,I'm in a wheelchair
+Я на коляске шириной N см,I'm in a N cm wide wheelchair
+Ширина тележки в см,"Trolley width, cm"
+Я c тележкой,I am with a trolley
+Я c тележкой шириной,I am with a N cm wide trolley
+Ширина коляски,Wheelchair width
+Лестниц нет,No stairs
+Ступенек,Steps
+Из них без рельс и рамп,"Out of those, not covered by ramps or rails"
+"Лифт есть, экономит N ступенек","Elevator: yes, saves N steps"
+Лифта нет,No elevator
+Мин-макс. расстояние между колесами,Min-max distance between wheels
+Аппарели отсутствуют,No rails
+Угол наклона,Slope
+Наклонных поверхностей нет,No leveled surfaces
+Вход,Entrance
+"Препятствия не отображаются, так как не выбран вход",Obstacles aren't shown as the entrance is not selected
+Выход,Exit
+"Препятствия не отображаются, так как не выбран выход",Obstacles aren't shown as the exit is not selected
+Не выбрана входная или выходная станция!,Please select starting or destination station
+Выбраны одинаковые станции!,From station is equal to destination station
