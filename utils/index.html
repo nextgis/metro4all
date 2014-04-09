@@ -18,6 +18,20 @@ text {
 
 }
 
+.bar0 rect, .legend .bar0 {
+  fill: #00CC00;
+  shape-rendering: crispEdges;
+  opacity: 0.6;
+  /*stroke: #ccc;*/
+}
+
+.bar1 rect, .legend .bar1 {
+  fill: #0000FF;
+  shape-rendering: crispEdges;
+  opacity: 0.6;
+  /*stroke: #ccc;*/
+}
+
 .barLabel {
   fill: #000;
 }
@@ -49,8 +63,8 @@ var formatCount = d3.format(',.0f'),
     formatPercent = d3.format('.1%');
 
 var margin = {top: 50, right: 30, bottom: 50, left: 30},
-    width = 700 - margin.left - margin.right,
-    height = 350 - margin.top - margin.bottom;
+    width = 750 - margin.left - margin.right,
+    height = 375 - margin.top - margin.bottom;
 
 queue()
 .defer(d3.csv, 'stairsLength.csv')
@@ -120,7 +134,9 @@ function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pa
   plotHist(minLiftStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 105], 'Длина лестниц на переходе c учетом лифтов', 'Длина (ступени)');
   plotHist(minTaperStations, [500, 750, 1000, 1500, 2000], 'Самое узкое место на маршрутах', 'Ширина (мм)');
   plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах', 'Длина (ступени)');
+  plotDoubleHist(minStepsStations, minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом рельс и пандусов', 'Длина (ступени)');
   plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом рельс и пандусов', 'Длина (ступени)');
+  plotDoubleHist(minStepsStations, minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом лифтов', 'Длина (ступени)');
   plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом лифтов', 'Длина (ступени)');
 
   drawStackedBarplot(routesByLine, ['routesInByLine', 'Null'], 'Маршрутов на вход по линиям');
@@ -178,6 +194,7 @@ function plotHist(histData, bins, title, xAxisLabel) {
   var xAxis = d3.svg.axis()
       .scale(x)
       .tickValues(bins)
+      .tickPadding(10)
       .orient('bottom');
 
   var svg = d3.select('body').append('svg')
@@ -238,6 +255,171 @@ function plotHist(histData, bins, title, xAxisLabel) {
       .style('text-anchor', 'middle')
       .style('font', 'bold 12px Arial')
       .text(title);
+};
+
+function plotDoubleHist(histData, histData2, bins, title, xAxisLabel) {
+  // Generate a histogram using twenty uniformly-spaced bins.
+  var data = d3.layout.histogram()
+      //.bins(5)
+      .bins(bins)
+      (histData.map(function(d) {return +d.value}));
+
+  var data2 = d3.layout.histogram()
+      //.bins(5)
+      .bins(bins)
+      (histData2.map(function(d) {return +d.value}));
+
+  console.log(d3.min(histData, function(d) { return (+d.value); }) + ' - ' 
+    + d3.max(histData, function(d) { return (+d.value); }));
+  console.log(d3.min(histData2, function(d) { return (+d.value); }) + ' - ' 
+    + d3.max(histData2, function(d) { return (+d.value); }));
+
+  var minThreshold = d3.min([d3.min(data, function(d) { return d.x; }), d3.min(data2, function(d) { return d.x; })]),
+      maxThreshold = d3.max([d3.max(data, function(d) { return (d.x + d.dx); }), d3.max(data2, function(d) { return (d.x + d.dx); })]),
+      maxFreq = d3.max([d3.max(data, function(d) { return d.y; }), d3.max(data2, function(d) { return d.y; })]);
+      //total = d3.sum(data, function(d) { return d.y; });
+
+  var x = d3.scale.linear()
+      .domain([minThreshold, maxThreshold])
+      .range([0, width]);
+
+  var y = d3.scale.linear()
+      .domain([0, maxFreq])
+      .range([height, 0]);
+  
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .tickValues(bins)
+      .tickPadding(10)
+      .orient('bottom');
+
+  var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      //.attr('id', title)
+      .call(xmlnsFix)
+    .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  //svg.on('click', generateRaster);
+  
+  var bar = svg.selectAll('.bar0')
+      .data(data)
+    .enter().append('g')
+      .attr('class', 'bar0')
+      //.attr('class', 'lighten')
+      .attr('transform', function(d) { return 'translate(' + x(d.x) + ',' + y(d.y) + ')'; });
+  
+  bar.append('rect')
+      .attr('x', 1)
+      //.attr('class', 'lighten')
+      .attr('width', function(d, i) { return x(data[i].dx + minThreshold) - 1; })
+      .attr('height', function(d) { return height - y(d.y); });
+  
+  bar.append('text')
+      .attr('class', 'barLabel')
+      .attr('dy', '.75em')
+      .attr('y', -20)
+      .attr('x', function(d, i) { return x(data[i].dx + minThreshold) / 2; })
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.y > 0 ? formatCount(d.y) : ''; });
+
+  var bar2 = svg.selectAll('.bar1')
+      .data(data2)
+    .enter().append('g')
+      .attr('class', 'bar1')
+      .attr('transform', function(d) { return 'translate(' + x(d.x) + ',' + y(d.y) + ')'; });
+  
+  bar2.append('rect')
+      .attr('x', 1)
+      .attr('width', function(d, i) { return x(data2[i].dx + minThreshold) - 1; })
+      .attr('height', function(d) { return height - y(d.y); });
+  
+  bar2.append('text')
+      .attr('class', 'barLabel')
+      .attr('dy', '.75em')
+      .attr('y', -10)
+      .attr('x', function(d, i) { return x(data2[i].dx + minThreshold) / 2; })
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.y > 0 ? formatCount(d.y) : ''; });
+  
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis);
+    /*.append('text')
+      .attr('transform', 'translate(' + width/2 + ',' + 2 * margin.bottom/3 + ')')
+      .attr('dx', '0.35em')
+      .style('text-anchor', 'middle')
+      .text(xAxisLabel);*/
+
+  svg.append('g')
+      .attr('class', 'y axis')
+      //.call(yAxis)
+    .append('text')
+      //.attr('transform', 'translate(' + 0 + ',' + (-margin.top/2) + ')')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height/3)
+      .attr('y', -margin.left/2)
+      //.attr('dy', '1.21em')
+      .style('text-anchor', 'middle')
+      .text('Количество');
+
+  svg.append('g')
+      .attr('class', 'title')
+      .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
+    .append('text')
+      .style('text-anchor', 'middle')
+      .style('font', 'bold 12px Arial')
+      .text(title);
+
+  //Adding legend
+  var legend = svg.append('g')
+      .attr('class', 'legend')
+      .attr('transform', 'translate(0' + ',' + (height + margin.bottom/2) + ')');
+
+  legend.append('rect')
+    .attr('class', 'bar0')
+    //.attr('x', width - 18)
+    .attr('width', 12)
+    .attr('height', 12);
+
+  legend.append('rect')
+    .attr('class', 'bar1')
+    //.attr('x', width - 18)
+    .attr('width', 24)
+    .attr('height', 12);
+
+  legend.append('text')
+    .attr('x', 28)
+    .attr('y', 9)
+    //.attr('dy', '.35em')
+    .style('text-anchor', 'start')
+    .text('- ' + title);
+
+  var legend2 = svg.append('g')
+      .attr('class', 'legend')
+      .attr('transform', 'translate(' + width/2 + ',' + (height + margin.bottom/2) + ')');
+
+  legend2.append('rect')
+    .attr('class', 'bar0')
+    //.attr('x', width - 18)
+    .attr('width', 24)
+    .attr('height', 12);
+
+  legend2.append('rect')
+    .attr('class', 'bar1')
+    //.attr('x', width - 18)
+    .attr('width', 12)
+    .attr('height', 12);
+
+  legend2.append('text')
+    .attr('x', 28)
+    .attr('y', 9)
+    //.attr('dy', '.35em')
+    .style('text-anchor', 'start')
+    .text('- Длина лестниц на маршрутах');
+
 };
 
 function drawStackedBarplot(data, stackLevels, title) {
@@ -348,33 +530,6 @@ function drawStackedBarplot(data, stackLevels, title) {
     .style('text-anchor', 'middle')
     .style('font', 'bold 12px Arial')
     .text(title);
-
-  /*line.append('rect')
-      .attr('width', x.rangeBand())
-      .attr('y', function(d) { return y(d.routes.y1); })
-      .attr('height', function(d) { return y(d.routes.y0) - y(d.routes.y1); })
-      .style('fill', function(d) { return color(d.lineName); console.log(d.lineName);});*/
-
-  /*
-  var legend = svg.selectAll('.legend')
-      .data(color.domain().slice().reverse())
-    .enter().append('g')
-      .attr('class', 'legend')
-      .attr('transform', function(d, i) { return 'translate(0,' + i * 20 + ')'; });
-
-  legend.append('rect')
-      .attr('x', width - 18)
-      .attr('width', 18)
-      .attr('height', 18)
-      .style('fill', color);
-
-  legend.append('text')
-      .attr('x', width - 24)
-      .attr('y', 9)
-      .attr('dy', '.35em')
-      .style('text-anchor', 'end')
-      .text(function(d) { return d; });
-  */
 
 };
 
@@ -497,62 +652,5 @@ function xmlnsFix(svg) {
     svg.node().setAttributeNS(d3.ns.prefix.xmlns, 'xmlns:xlink', d3.ns.prefix.xlink);
   }
 };
-/*
-function generateRaster() {
-  var doctype = '<?xml version='1.0' standalone='no'?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>',
-      svg = d3.select(this);
-      //id = svg.attr('id');
-      //console.log(svg);
-
-  //xmlnsFix(svg);
-
-  console.log(svg);
-
-  var source = (new XMLSerializer()).serializeToString(svg.node()),
-      url = window.URL.createObjectURL(new Blob([doctype + source], { 'type' : 'image\/svg+xml' }));
-
-      //console.log(source);
-
-  var canvas = d3.select('#rasterPreview').append('canvas')
-        .attr('overflow', 'hidden')
-        //.attr('id', 'График.png')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height',  height + margin.top + margin.bottom);
-
-  var context = canvas.node().getContext('2d');
-  
-  canvas
-    .on('click', saveAsPNG);
-  
-  var image = new Image;
-  image.src = url;
-  image.onload = function() {
-    context.drawImage(image, 0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom);
-  };
-
-  setTimeout(function() {
-    window.URL.revokeObjectURL(url);
-  }, 10);
-  //canvas.call(saveAsPNG);
-};
-
-function saveAsPNG() {
-  var svg = d3.select(this);
-
-  var a = d3.select('body')
-        .append('a')
-        .attr('class', 'mapIcon-generator')
-        .attr('download', 'График.png')
-        .attr('href', this.toDataURL('image/png'))
-        .style('display', 'none');
-
-  a.node().click();
-
-  setTimeout(function() {
-    a.remove();
-    d3.select(this).remove();
-  }, 100);
-};
-*/
 </script>
 </body>
