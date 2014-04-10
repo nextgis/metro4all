@@ -3,24 +3,39 @@ metroaccess
 
 Доступность метрополитена для людей с ограниченными возможностями
 
+Рабочие таблицы хранятся в Google Docs в папках по городам.
 
-Обновление данных:
+На Github данные лежат также в папках по городам:
+
+  * metroaccess/data/msk - Москва
+  * metroaccess/data/spb - Санкт-Петербург
+  * metroaccess/data/kzn - Казань
+
+На сервере сервис и данные расположены здесь:
+
+  * /home/karavanjow/projects/metroaccess/metro4all 
+
+Процесс обновления (действия производятся локально):
 --------
-1. Скачать в формате .csv документы из Metro4All => msk => data
-  * данные по переходам - это interchanges.csv
-  * данные по выходам - это portals.csv
 
-2. Запустить
-  * python prepare_interchanges_data.py interchanges.csv
-  * python prepare_portals_data.py portals.csv
+1. Скачать в формате .csv документы из Google Docs Metro4All => [город] => data
+  * данные по станциям - stations.csv 
+  * данные по переходам - interchanges.csv
+  * данные по выходам - portals.csv
 
-3. Заменить interchanges.csv и portals.csv в папке metroaccess/data/msk
+2. Запустить инструменты подготовки для приведения CSV к формальному виду (названия полей и т.п.):
+  * python utils/prepare_stations_data.py stations.csv
+  * python utils/prepare_interchanges_data.py interchanges.csv
+  * python utils/prepare_portals_data.py portals.csv
 
-4. Закоммитать изменения и загрузить на сервер.
+3. Заменить обновленные файлы в папке metroaccess/data/[город]
 
+4. Обновить схемы в папке [город]/schemes 
 
-Обновление схем:
---------
-Схемы загружаются простым копированием в директории проекта:
-  * metroaccess/data/msk/schemes - для Москвы
-  * metroaccess/data/spb/schemes - для Санкт-Петербурга
+5. Повторить, если нужно для других городов
+
+6. Закоммитить обновленные файлы в репозиторий и загрузить на сервер.
+
+7. Перезапустить сервис:
+  
+  * supervisorctl -c /home/karavanjow/supervisor/supervisor.conf restart metro4all:*
