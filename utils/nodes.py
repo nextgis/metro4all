@@ -16,9 +16,9 @@ sourceDf['liftSurfaceToTrain'] = (sourceDf['lift_class'] == 3) * 1
 sourceDf['liftHallToTrain'] = (sourceDf['lift_class'] == 2) * 1
 sourceDf['liftSurfaceToHall'] = (sourceDf['lift_class'] == 1) * 1
 '''
-sourceDf['surfaceLevelLifts'] = ((sourceDf['lift_class'] == 3) | (sourceDf['lift_class'] == 1)) * 1
-sourceDf['hallLevelLifts'] = ((sourceDf['lift_class'] == 2) | (sourceDf['lift_class'] == 1)) * 1
-sourceDf['trainLevelLifts'] = ((sourceDf['lift_class'] == 2) | (sourceDf['lift_class'] == 3)) * 1
+sourceDf['surfaceLevelLifts'] = ((sourceDf['lift_class'] == 3) or (sourceDf['lift_class'] == 1)) * 1
+sourceDf['hallLevelLifts'] = ((sourceDf['lift_class'] == 2) or (sourceDf['lift_class'] == 1)) * 1
+sourceDf['trainLevelLifts'] = ((sourceDf['lift_class'] == 2) or (sourceDf['lift_class'] == 3)) * 1
 
 
 ''' Calculated columns
