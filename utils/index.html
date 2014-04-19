@@ -10,39 +10,124 @@ text {
   font: 12px Arial;  
 }
 
-.bar rect {
-  fill: #0101DF;
-  /*#7401DF*/
-  shape-rendering: crispEdges;
-  /*stroke: #ccc;*/
-
-}
-
-.bar0 rect, .legend .bar0 {
-  fill: #00CC00;
-  shape-rendering: crispEdges;
-  opacity: 0.6;
-  /*stroke: #ccc;*/
-}
-
-.bar1 rect, .legend .bar1 {
-  fill: #0000FF;
-  shape-rendering: crispEdges;
-  opacity: 0.6;
-  /*stroke: #ccc;*/
-}
-
-.barLabel {
-  fill: #000;
-}
-
 .lighten {
   opacity: 0.3;
 }
 
-.title {
+/* Histogram styling*/
+
+.histPlot .title text {
   fill: #000;
-  font: bold 16px Arial;
+  font: bold 16px Arial Narrow;
+}
+
+.histPlot .axis .axisLabel {
+  fill: #000;
+  font: bold 14px Arial Narrow; 
+}
+
+.histPlot .x.axis .tick.major text {
+  fill: #000;
+  font: bold 12px Arial Narrow;  
+}
+
+.histPlot .barLabel {
+  fill: #000;
+  font: bold 16px Arial Narrow; 
+}
+
+.histPlot .bar rect {
+  fill: #ecb525;
+  shape-rendering: crispEdges;
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+/* Barplot styling*/
+
+.barPlot .title text {
+  fill: #000;
+  font: bold 16px Arial Narrow;
+}
+
+.barPlot .axis .axisLabel {
+  fill: #000;
+  font: bold 14px Arial Narrow; 
+}
+
+.barPlot .x.axis .tick.major text {
+  fill: #000;
+  font: bold 12px Arial Narrow;  
+}
+
+.barPlot .barLabel {
+  fill: #000;
+  font: bold 16px Arial Narrow; 
+}
+
+.barPlot .bar rect {
+  fill: #ecb525;
+  shape-rendering: crispEdges;
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+/* Double Barplot styling*/
+
+.doubleBarPlot .title text {
+  fill: #000;
+  font: bold 16px Arial Narrow;
+}
+
+.doubleBarPlot .axis .axisLabel {
+  fill: #000;
+  font: bold 12px Arial Narrow; 
+}
+
+.doubleBarPlot .x.axis .tick.major text {
+  fill: #000;
+  font: bold 12px Arial Narrow;  
+}
+
+.doubleBarPlot .barLabel {
+  fill: #000;
+  font: bold 14px Arial Narrow; 
+}
+
+.doubleBarPlot .bar0 rect {
+  fill: #ecb525;
+  shape-rendering: crispEdges;
+}
+
+.doubleBarPlot .bar1 rect {
+  fill: #5228ff;
+  shape-rendering: crispEdges;
+}
+
+/* Stacked Barplot styling*/
+
+.stackedBarPlot .title text {
+  fill: #000;
+  font: bold 16px Arial Narrow;
+}
+
+.stackedBarPlot .axis .axisLabel {
+  fill: #000;
+  font: bold 14px Arial Narrow; 
+}
+
+.stackedBarPlot .x.axis .tick.major text {
+  fill: #000;
+  font: bold 10px Arial Narrow;  
+}
+
+.stackedBarPlot .barLabel {
+  fill: #000;
+  font: bold 16px Arial Narrow; 
+}
+
+.stackedBarPlot .bar rect {
+  shape-rendering: crispEdges;
 }
 
 .axis path, .axis line {
@@ -50,7 +135,6 @@ text {
   stroke: #000;
   shape-rendering: crispEdges;
 }
-
 </style>
 <body>
   <div id='rasterPreview'></div>
@@ -62,9 +146,9 @@ text {
 var formatCount = d3.format(',.0f'),
     formatPercent = d3.format('.1%');
 
-var margin = {top: 50, right: 30, bottom: 50, left: 30},
+var margin = {top: 75, right: 30, bottom: 150, left: 30},
     width = 750 - margin.left - margin.right,
-    height = 375 - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;
 
 queue()
 .defer(d3.csv, 'stairsLength.csv')
@@ -98,25 +182,20 @@ queue()
 function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pandusSlope, turnstileWidth, doorWidth, stairwayWidth, liftWidth, cabinDepth, minTaperTransfers, minStepsTransfers, minRailStepsTransfers, minLiftStepsTransfers, minTaperStations, minStepsStations, minRailStepsStations, minLiftStepsStations, routesByLine) {
   
 
+  // Calculating frequences
   cabinDepthFreq = frequencyData(cabinDepth, [[1250, 1400], [1400, 1550], [2200, 2250]]);
   minTaperTransfersFreq = frequencyData(minTaperTransfers, [[800, 900], [900, 1000], [1000, 1100]]);
+  minStepsTransfersFreq = frequencyData(minStepsTransfers, [[20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90]]);
+  minRailStepsTransfersFreq = frequencyData(minRailStepsTransfers, [[20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90]]);
+  minLiftStepsTransfersFreq = frequencyData(minLiftStepsTransfers, [[20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90]]);
+
+  minStepsStationsFreq = frequencyData(minStepsStations, [[0, 10], [10, 20], [20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90], [90, 100]]);
+  minRailStepsStationsFreq = frequencyData(minRailStepsStations, [[0, 10], [10, 20], [20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90], [90, 100]]);
+  minLiftStepsStationsFreq = frequencyData(minLiftStepsStations, [[0, 10], [10, 20], [20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90], [90, 100]]);
 
   drawBarplot(cabinDepthFreq, 'Глубина кабины лифтов');
   drawBarplot(minTaperTransfersFreq, 'Самое узкое место на переходе');
 
-  /* My variant
-  plotHist(stairsLength, [0, 3, 6, 12, 20, 25, 35, 45, 55], 'Длина лестниц', 'Длина (ступени)');
-  plotHist(minRailsWidth, [200, 250, 300, 350, 400, 450, 500, 600], 'Минимальная ширина рельс', 'Ширина (мм)');
-  plotHist(maxRailsWidth, [300, 500, 600, 700, 800, 900, 1000, 1200], 'Максимальная ширина рельс', 'Ширина (мм)');
-  plotHist(railsSlope, [10, 20, 30, 35, 40, 45, 50], 'Уклон рельс', 'Уклон (%)');
-  plotHist(pandusSlope, [0, 5, 8, 12, 20, 50], 'Уклон пандусов', 'Уклон (%)');
-  plotHist(turnstileWidth, [500, 600, 800, 1000, 1500, 1800], 'Ширина турникетов', 'Ширина (мм)');
-  plotHist(doorAndTaperWidth, [500, 700, 800, 900, 1000, 1500, 1800], 'Ширина дверей и сужений', 'Ширина (мм)');
-  plotHist(stairwayWidth, [900, 950, 1000], 'Ширина эскалаторов', 'Ширина (мм)');
-  plotHist(liftWidth, [800, 850, 900, 950], 'Ширина дверей лифтов', 'Ширина (мм)');
-  plotHist(liftDepth, [1350, 1500, 2200], 'Глубина кабины лифтов', 'Глубина (мм)');
-  */
-  //Ann's choise
   plotHist(stairsLength, [0, 3, 10, 15, 20, 25, 30, 35, 40, 45, 50], 'Длина лестниц', 'Количество ступеней (шт.)');
   plotHist(minRailsWidth, [250, 300, 350, 400, 450, 500], 'Минимальная ширина рельс', 'Миллиметры (мм)');
   plotHist(maxRailsWidth, [500, 600, 700, 800, 900, 1000, 1100, 1200], 'Максимальная ширина рельс', 'Миллиметры (мм)');
@@ -131,9 +210,9 @@ function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pa
   plotHist(minLiftStepsTransfers, [20, 30, 40, 50, 60, 70, 80, 90], 'Длина лестниц на переходах c учетом лифтов', 'Количество ступеней (шт.)');
   plotHist(minTaperStations, [500, 600, 700, 800, 900, 1000], 'Самое узкое место на маршрутах', 'Миллиметры (мм)');
   plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах', 'Количество ступеней (шт.)');
-  plotDoubleHist(minStepsStations, minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом рельс и пандусов', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsStationsFreq, minRailStepsStationsFreq, 'Длина лестниц на маршрутах c учетом рельс и пандусов');
   plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц, не дублированных рельсами и пандусами, на маршрутах', 'Количество ступеней (шт.)');
-  plotDoubleHist(minStepsStations, minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах c учетом лифтов', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsStationsFreq, minLiftStepsStationsFreq, 'Длина лестниц на маршрутах c учетом лифтов');
   plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц, не дублированных лифтами, на маршрутах', 'Количество ступеней (шт.)');
 
   drawStackedBarplot(routesByLine, ['routesInByLine', 'Null'], 'Количество маршрутов на вход');
@@ -200,9 +279,9 @@ function plotHist(histData, bins, title, xAxisLabel) {
       //.attr('id', title)
       .call(xmlnsFix)
     .append('g')
+      .attr('class', 'histPlot')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  //svg.on('click', generateRaster);
   
   var bar = svg.selectAll('.bar')
       .data(data)
@@ -211,17 +290,26 @@ function plotHist(histData, bins, title, xAxisLabel) {
       .attr('transform', function(d) { return 'translate(' + x(d.x) + ',' + y(d.y) + ')'; });
   
   bar.append('rect')
-      .attr('x', 1)
-      .attr('width', function(d, i) { return x(data[i].dx + minThreshold) - 1; })
+      //.attr('x', 1)
+      .attr('width', function(d, i) { return x(data[i].dx + minThreshold); })
       .attr('height', function(d) { return height - y(d.y); });
   
   bar.append('text')
       .attr('class', 'barLabel')
-      .attr('dy', '.75em')
-      .attr('y', -15)
+      //.attr('dy', '.75em')
+      .attr('y', -26)
       .attr('x', function(d, i) { return x(data[i].dx + minThreshold) / 2; })
       .attr('text-anchor', 'middle')
-      .text(function(d) { return d.y > 0 ? formatCount(d.y) + ' (' + formatPercent(d.y/total) +') ' : ''; });
+      .text(function(d) { return d.y > 0 ? formatCount(d.y) : ''; });
+      //.text(function(d) { return d.y > 0 ? formatCount(d.y) + ' (' + formatPercent(d.y/total) +') ' : ''; });
+
+  bar.append('text')
+      .attr('class', 'barLabel')
+      //.attr('dy', '.75em')
+      .attr('y', -7)
+      .attr('x', function(d, i) { return x(data[i].dx + minThreshold) / 2; })
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.y > 0 ? formatPercent(d.y/total) : ''; });
   
   svg.append('g')
       .attr('class', 'x axis')
@@ -229,7 +317,9 @@ function plotHist(histData, bins, title, xAxisLabel) {
       .call(xAxis)
     .append('text')
       .attr('transform', 'translate(' + width/2 + ',' + 2 * margin.bottom/3 + ')')
-      .attr('dx', '0.35em')
+      //.attr('dx', '0.35em')
+      .attr('class', 'axisLabel')
+      //.style('font', 'bold 10px Arial') // <- X axis title
       .style('text-anchor', 'middle')
       .text(xAxisLabel);
 
@@ -237,6 +327,7 @@ function plotHist(histData, bins, title, xAxisLabel) {
       .attr('class', 'y axis')
       //.call(yAxis)
     .append('text')
+      .attr('class', 'axisLabel')
       //.attr('transform', 'translate(' + 0 + ',' + (-margin.top/2) + ')')
       .attr('transform', 'rotate(-90)')
       .attr('x', -height/3)
@@ -247,176 +338,10 @@ function plotHist(histData, bins, title, xAxisLabel) {
 
   svg.append('g')
       .attr('class', 'title')
-      .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
+      .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/1.5) + ')')
     .append('text')
       .style('text-anchor', 'middle')
-      .style('font', 'bold 12px Arial')
       .text(title);
-};
-
-function plotDoubleHist(histData, histData2, bins, title, xAxisLabel) {
-  // Generate a histogram using twenty uniformly-spaced bins.
-  var data = d3.layout.histogram()
-      //.bins(5)
-      .bins(bins)
-      (histData.map(function(d) {return +d.value}));
-
-  var data2 = d3.layout.histogram()
-      //.bins(5)
-      .bins(bins)
-      (histData2.map(function(d) {return +d.value}));
-
-  console.log(d3.min(histData, function(d) { return (+d.value); }) + ' - ' 
-    + d3.max(histData, function(d) { return (+d.value); }));
-  console.log(d3.min(histData2, function(d) { return (+d.value); }) + ' - ' 
-    + d3.max(histData2, function(d) { return (+d.value); }));
-
-  var minThreshold = d3.min([d3.min(data, function(d) { return d.x; }), d3.min(data2, function(d) { return d.x; })]),
-      maxThreshold = d3.max([d3.max(data, function(d) { return (d.x + d.dx); }), d3.max(data2, function(d) { return (d.x + d.dx); })]),
-      maxFreq = d3.max([d3.max(data, function(d) { return d.y; }), d3.max(data2, function(d) { return d.y; })]);
-      //total = d3.sum(data, function(d) { return d.y; });
-
-  var x = d3.scale.linear()
-      .domain([minThreshold, maxThreshold])
-      .range([0, width]);
-
-  var y = d3.scale.linear()
-      .domain([0, maxFreq])
-      .range([height, 0]);
-  
-  var xAxis = d3.svg.axis()
-      .scale(x)
-      .tickValues(bins)
-      .tickPadding(10)
-      .orient('bottom');
-
-  var svg = d3.select('body').append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      //.attr('id', title)
-      .call(xmlnsFix)
-    .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-  //svg.on('click', generateRaster);
-  
-  var bar = svg.selectAll('.bar0')
-      .data(data)
-    .enter().append('g')
-      .attr('class', 'bar0')
-      //.attr('class', 'lighten')
-      .attr('transform', function(d) { return 'translate(' + x(d.x) + ',' + y(d.y) + ')'; });
-  
-  bar.append('rect')
-      .attr('x', 1)
-      //.attr('class', 'lighten')
-      .attr('width', function(d, i) { return x(data[i].dx + minThreshold) - 1; })
-      .attr('height', function(d) { return height - y(d.y); });
-  
-  bar.append('text')
-      .attr('class', 'barLabel')
-      .attr('dy', '.75em')
-      .attr('y', -20)
-      .attr('x', function(d, i) { return x(data[i].dx + minThreshold) / 2; })
-      .attr('text-anchor', 'middle')
-      .text(function(d) { return d.y > 0 ? formatCount(d.y) : ''; });
-
-  var bar2 = svg.selectAll('.bar1')
-      .data(data2)
-    .enter().append('g')
-      .attr('class', 'bar1')
-      .attr('transform', function(d) { return 'translate(' + x(d.x) + ',' + y(d.y) + ')'; });
-  
-  bar2.append('rect')
-      .attr('x', 1)
-      .attr('width', function(d, i) { return x(data2[i].dx + minThreshold) - 1; })
-      .attr('height', function(d) { return height - y(d.y); });
-  
-  bar2.append('text')
-      .attr('class', 'barLabel')
-      .attr('dy', '.75em')
-      .attr('y', -10)
-      .attr('x', function(d, i) { return x(data2[i].dx + minThreshold) / 2; })
-      .attr('text-anchor', 'middle')
-      .text(function(d) { return d.y > 0 ? formatCount(d.y) : ''; });
-  
-  svg.append('g')
-      .attr('class', 'x axis')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis);
-    /*.append('text')
-      .attr('transform', 'translate(' + width/2 + ',' + 2 * margin.bottom/3 + ')')
-      .attr('dx', '0.35em')
-      .style('text-anchor', 'middle')
-      .text(xAxisLabel);*/
-
-  svg.append('g')
-      .attr('class', 'y axis')
-      //.call(yAxis)
-    .append('text')
-      //.attr('transform', 'translate(' + 0 + ',' + (-margin.top/2) + ')')
-      .attr('transform', 'rotate(-90)')
-      .attr('x', -height/3)
-      .attr('y', -margin.left/2)
-      //.attr('dy', '1.21em')
-      .style('text-anchor', 'middle')
-      .text('Количество');
-
-  svg.append('g')
-      .attr('class', 'title')
-      .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
-    .append('text')
-      .style('text-anchor', 'middle')
-      .style('font', 'bold 12px Arial')
-      .text(title);
-
-  //Adding legend
-  var legend = svg.append('g')
-      .attr('class', 'legend')
-      .attr('transform', 'translate(0' + ',' + (height + margin.bottom/2) + ')');
-
-  legend.append('rect')
-    .attr('class', 'bar0')
-    //.attr('x', width - 18)
-    .attr('width', 12)
-    .attr('height', 12);
-
-  legend.append('rect')
-    .attr('class', 'bar1')
-    //.attr('x', width - 18)
-    .attr('width', 24)
-    .attr('height', 12);
-
-  legend.append('text')
-    .attr('x', 28)
-    .attr('y', 9)
-    //.attr('dy', '.35em')
-    .style('text-anchor', 'start')
-    .text('- ' + title);
-
-  var legend2 = svg.append('g')
-      .attr('class', 'legend')
-      .attr('transform', 'translate(' + width/2 + ',' + (height + margin.bottom/2) + ')');
-
-  legend2.append('rect')
-    .attr('class', 'bar0')
-    //.attr('x', width - 18)
-    .attr('width', 24)
-    .attr('height', 12);
-
-  legend2.append('rect')
-    .attr('class', 'bar1')
-    //.attr('x', width - 18)
-    .attr('width', 12)
-    .attr('height', 12);
-
-  legend2.append('text')
-    .attr('x', 28)
-    .attr('y', 9)
-    //.attr('dy', '.35em')
-    .style('text-anchor', 'start')
-    .text('- Длина лестниц на маршрутах');
-
 };
 
 function drawStackedBarplot(data, stackLevels, title) {
@@ -448,7 +373,7 @@ function drawStackedBarplot(data, stackLevels, title) {
   
   var xAxis = d3.svg.axis()
       .scale(x)
-      .tickValues(['АПЛ', 'БЛ', 'ЗЛ', 'КСЛ', 'КРЛ', 'КХЛ', 'КЛ', 'ЛДЛ', 'СТЛ', 'СЛ', 'ТКЛ', 'ФЛ']) // <-- Remove|Comment to show xAxis ticks
+      //.tickValues(['АПЛ', 'БЛ', 'ЗЛ', 'КСЛ', 'КРЛ', 'КХЛ', 'КЛ', 'ЛДЛ', 'СТЛ', 'СЛ', 'ТКЛ', 'ФЛ']) // <-- Remove|Comment to show xAxis ticks
       .tickPadding(10)
       .orient('bottom');
   
@@ -462,10 +387,11 @@ function drawStackedBarplot(data, stackLevels, title) {
       //.attr('id', title)
       .call(xmlnsFix)
     .append('g')
+      .attr('class', 'stackedBarPlot')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
   color.domain(data.map(function(d) { return d.lineName}));
 
-  //svg.on('click', generateRaster);
 
   data.forEach(function(d) {
     var y0 = 0;
@@ -480,13 +406,22 @@ function drawStackedBarplot(data, stackLevels, title) {
   svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")  
+        .style("text-anchor", "end")
+        .attr('x', -10)
+        .attr('y', - 6)
+        //.attr("dx", "-.8em")
+        //.attr("dy", ".15em")
+        .attr("transform", function(d) { return "rotate(-90)";});
+
 
   svg.append('g')
       .attr('class', 'y axis')
       //.call(yAxis)
     .append('text')
       .attr('transform', 'rotate(-90)')
+      .attr('class', 'axisLabel')
       .attr('x', -height/3)
       .attr('y', -margin.left/2)
       //.attr('dy', '1.21em')
@@ -514,7 +449,7 @@ function drawStackedBarplot(data, stackLevels, title) {
 
   bar.append('text')
       .attr('class', 'barLabel')
-      .attr('dy', '.75em')
+      //.attr('dy', '.75em')
       .attr('y', function(d) { return y(d.y1) - 11; })
       .attr('x', x.rangeBand() / 2)
       .attr('text-anchor', 'middle')
@@ -525,7 +460,6 @@ function drawStackedBarplot(data, stackLevels, title) {
     .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
   .append('text')
     .style('text-anchor', 'middle')
-    .style('font', 'bold 12px Arial')
     .text(title);
 
 };
@@ -555,9 +489,8 @@ function drawBarplot(data, title) {
       //.attr('id', title)
       .call(xmlnsFix)
     .append('g')
+      .attr('class', 'barPlot')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-  //svg.on('click', generateRaster);
 
   x.domain(data.map(function(d) { return d.range; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
@@ -572,6 +505,7 @@ function drawBarplot(data, title) {
       //.call(yAxis)
     .append('text')
       .attr('transform', 'rotate(-90)')
+      .attr('class', 'axisLabel')
       .attr('x', -height/3)
       .attr('y', -margin.left/2)
       //.attr('dy', '1.21em')
@@ -591,7 +525,7 @@ function drawBarplot(data, title) {
 
   bar.append('text')
       .attr('class', 'barLabel')
-      .attr('dy', '.75em')
+      //.attr('dy', '.75em')
       .attr('y', function(d) { return y(d.frequency) - 11; })
       .attr('x', x.rangeBand() / 2)
       .attr('text-anchor', 'middle')
@@ -602,7 +536,105 @@ function drawBarplot(data, title) {
     .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
   .append('text')
     .style('text-anchor', 'middle')
-    .style('font', 'bold 12px Arial')
+    .text(title);
+
+};
+
+function drawDoubleBarplot(data, data2, title) {
+  var x = d3.scale.ordinal()
+      .rangeRoundBands([0, width], .1);
+  
+  var y = d3.scale.linear()
+      .rangeRound([height, 0]);
+  
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      //.tickValues() // <-- Remove|Comment to show xAxis ticks
+      .tickPadding(10)
+      .orient('bottom');
+  
+  /*var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient('left');*/
+
+  var total = d3.sum(data, function(d) { return d.frequency; });
+
+  var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      //.attr('id', title)
+      .call(xmlnsFix)
+    .append('g')
+      .attr('class', 'doubleBarPlot')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  var maxFreq = d3.max([d3.max(data, function(d) { return d.frequency; }), d3.max(data2, function(d) { return d.frequency; })]);
+
+  x.domain(data.map(function(d) { return d.range; }));
+  y.domain([0, maxFreq]);
+  //y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis);
+
+  svg.append('g')
+      .attr('class', 'y axis')
+      //.call(yAxis)
+    .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('class', 'axisLabel')
+      .attr('x', -height/3)
+      .attr('y', -margin.left/2)
+      //.attr('dy', '1.21em')
+      .style('text-anchor', 'end')
+      .text('Количество');
+
+  var bar0 = svg.selectAll('.bar0')
+      .data(data)
+    .enter().append('g')
+      .attr('class', 'bar0')
+      .attr('transform', function(d) { return 'translate(' + x(d.range) + ',0)'; });
+
+  bar0.append('rect')
+      .attr('width', x.rangeBand()/2)
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("height", function(d) { return height - y(d.frequency); });
+
+  bar0.append('text')
+      .attr('class', 'barLabel')
+      //.attr('dy', '.75em')
+      .attr('y', function(d) { return y(d.frequency) - 11; })
+      .attr('x', x.rangeBand() / 4)
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.frequency > 0 ? formatCount(d.frequency) : ''; });
+
+  var bar1 = svg.selectAll('.bar1')
+      .data(data2)
+    .enter().append('g')
+      .attr('class', 'bar1')
+      .attr('transform', function(d) { return 'translate(' + x(d.range) + ',0)'; });
+
+  bar1.append('rect')
+      .attr('width', x.rangeBand()/2)
+      .attr("x", x.rangeBand()/2)
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("height", function(d) { return height - y(d.frequency); });
+
+  bar1.append('text')
+      .attr('class', 'barLabel')
+      //.attr('dy', '.75em')
+      .attr('y', function(d) { return y(d.frequency) - 11; })
+      .attr('x', 3 * x.rangeBand() / 4)
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.frequency > 0 ? formatCount(d.frequency) : ''; });
+
+  svg.append('g')
+    .attr('class', 'title')
+    .attr('transform', 'translate(' + width/2 + ',' + (-margin.top/2) + ')')
+  .append('text')
+    .style('text-anchor', 'middle')
     .text(title);
 
 };
