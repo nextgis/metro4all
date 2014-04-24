@@ -170,6 +170,14 @@ if(preg_match('/^' . addcslashes(core::$config['http_root'], '\/') . '(en|ru|pl)
 		die();
 	}
 
+	if (preg_match('/^warsaw\/(|\?.*)$/Uu', $url, $matches)) {
+		require_once('SearchController.php');
+		$controller = new SearchController();
+		$controller->setCity(3);
+		echo $controller->actions();
+		die();
+	}
+
 	if (preg_match('/^faq\/(|\?.*)$/Uu', $url, $matches)) {
 		require_once('QaController.php');
 		$controller = new QaController();

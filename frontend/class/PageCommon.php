@@ -51,6 +51,7 @@ class PageCommon extends Page
 			  <li><a href="/' . Core::$config['current_language'] . '/"><span class="glyphicon glyphicon-home"></span></a><//li>
 			  <li class="metro-logo metro-logo-msk"><a href="/' . Core::$config['current_language'] . '/msk/">' . s('Москва') . '</a></li>
 			  <li class="metro-logo metro-logo-spb"><a href="/' . Core::$config['current_language'] . '/spb/">' . s('Санкт-Петербург') . '</a></li>
+			  <li class="metro-logo metro-logo-warsaw"><a href="/' . Core::$config['current_language'] . '/warsaw/">' . s('Варшава') . '</a></li>
 			  <li><a href="/' . Core::$config['current_language'] . '/faq/">' . s('Вопросы и ответы') . '</a></li>
 			  <li><a href="/' . Core::$config['current_language'] . '/about/">' . s('О проекте') . '</a></li>
 			  <li><a href="https://play.google.com/store/apps/details?id=com.nextgis.metroaccess" style="color:red;padding-top:9px;padding-bottom:9px;"><span style="background-image:url(/img/android.png);display:inline-block;height:32px;margin-right:5px;vertical-align:middle;width:32px;"></span></a></li>
@@ -61,9 +62,9 @@ class PageCommon extends Page
 				<li><a target="_blank" href="https://www.facebook.com/pages/Metro4All/730617493632187"><img src="/img/icon-social-fb.png" /></a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li' . (Core::$config['current_language'] == 'ru' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'en/',  core::$config['http_root'].'ru/', $_SERVER['REQUEST_URI'])) . '">' . s('Ру') . '</a></li>
-				<li' . (Core::$config['current_language'] == 'en' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'ru/',  core::$config['http_root'].'en/', $_SERVER['REQUEST_URI'])) . '">' . s('En') . '</a></li>
-				<li' . (Core::$config['current_language'] == 'pl' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'pl/',  core::$config['http_root'].'pl/', $_SERVER['REQUEST_URI'])) . '">' . s('Pl') . '</a></li>
+				<li' . (Core::$config['current_language'] == 'ru' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/',  core::$config['http_root'].'ru/', $_SERVER['REQUEST_URI'])) . '">' . s('Ру') . '</a></li>
+				<li' . (Core::$config['current_language'] == 'en' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/',  core::$config['http_root'].'en/', $_SERVER['REQUEST_URI'])) . '">' . s('En') . '</a></li>
+				<li' . (Core::$config['current_language'] == 'pl' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/',  core::$config['http_root'].'pl/', $_SERVER['REQUEST_URI'])) . '">' . s('Pl') . '</a></li>
 			</ul>
 		  </div>
 		</nav>

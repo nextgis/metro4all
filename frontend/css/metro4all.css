@@ -124,6 +124,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-left: 50px !important;
 }
 
+.metro-logo-warsaw a {
+    background-image: url(../img/metro-logo-warsaw.png);
+    padding-left: 50px !important;
+}
+
 .route > li.enter:before {
     background-image: url(../static/img/in.png) !important;
 }
