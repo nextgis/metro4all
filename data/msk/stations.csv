@@ -1,4 +1,4 @@
-id_station;id_line;id_node;name;name_en;lat;lon
+id_station;id_line;id_node;name_ru;name_en;lat;lon
 1;1;126;Улица Подбельского;Ulitsa Podbelskogo;55.814444;37.733889
 2;1;127;Черкизовская;Cherkizovskaya;55.802778;37.744819
 3;1;128;Преображенская площадь;Preobrajenskaya ploschad;55.796111;37.715556
