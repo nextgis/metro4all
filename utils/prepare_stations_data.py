@@ -18,7 +18,7 @@ fieldmap = (
     ('lon', 'lon')
 )
 
-input_f = csv.DictReader(open(csv_path, 'rb'), delimiter=',')
+input_f = csv.DictReader(open(csv_path, 'rb'), delimiter=';')
 output_f = csv.DictWriter(open(os.path.join(os.path.dirname(csv_path), 'stations.csv'), 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
 
 output_f.writeheader()
