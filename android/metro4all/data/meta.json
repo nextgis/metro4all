@@ -11,6 +11,12 @@
             "name_ru" : "Санкт-Петербург",
             "ver" : 0,
             "path" : "spb"
+        },
+        {
+            "name" : "Warsaw",
+            "name_ru" : "Варшава",
+            "ver" : 0,
+            "path" : "waw"
         }
     ]
 }
