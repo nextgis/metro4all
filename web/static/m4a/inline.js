@@ -4,10 +4,8 @@ $(document).ready(function () {
     var url = m4a.viewmodel.url.proxy,
         viewmodel = m4a.viewmodel,
         view = m4a.view;
+    
     viewmodel.mainMap = L.map('mainMap').setView(global_config.mainmap.center, global_config.mainmap.zoom);
-    viewmodel.miniMaps = {}
-    viewmodel.miniMaps.in = L.map('metroStartInput', {zoomControl: false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
-    viewmodel.miniMaps.out = L.map('metroEndInput', {zoomControl: false, attributionControl: false}).setView(global_config.minimap.center, global_config.minimap.zoom);
 
     // Заполнение выпадающих списков
     $.ajax(url + global_config.language + "/" + global_config.city + "/stations").done(function (data) {
@@ -26,20 +24,8 @@ $(document).ready(function () {
             m4a.stations.updatePortalsByAjax(this.value, 'out');
         });
 
-        // Карта для выбора входов
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
-            maxZoom: 18
-        }).addTo(m4a.viewmodel.miniMaps.in);
-
-        // Карта для выбора выходов
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
-            maxZoom: 18
-        }).addTo(m4a.viewmodel.miniMaps.out);
-
         // Карта для отображения маршрутов
-        L.tileLayer.grayscale('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
             maxZoom: 18
         }).addTo(m4a.viewmodel.mainMap);
