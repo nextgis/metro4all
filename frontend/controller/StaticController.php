@@ -23,11 +23,11 @@ class StaticController
 	{
 		$item = Core::$sql->row('*', DB . 'content', 'id=' . Core::$sql->s($this->id));
 
-		$page = new PageCommon($item['title_' . Core::$config['current_language']]);
+		$page = new PageCommon($item['title_' . Core::$config['current_language']] ? $item['title_' . Core::$config['current_language']] : $item['title_en']);
 
 		$html = '<div class="row"><div class="col-md-offset-1 col-md-7">'
-			. '<h1>' . escape($item['title_' . Core::$config['current_language']]) . '</h1>'
-			. $item['description_' . Core::$config['current_language']] . '</div></div>';
+			. '<h1>' . escape($item['title_' . Core::$config['current_language']] ? $item['title_' . Core::$config['current_language']] : $item['title_en']) . '</h1>'
+			. ($item['description_' . Core::$config['current_language']] ? $item['description_' . Core::$config['current_language']] : $item['title_en']) . '</div></div>';
 
 		return $page->start() . $html . $page->stop();
 	}

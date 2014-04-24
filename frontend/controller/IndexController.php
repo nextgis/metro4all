@@ -80,8 +80,8 @@ class IndexController
 		foreach (Core::$sql->get('*', DB . 'news order by datetime_stamp desc limit 3') as $row)
 		{
 			$html .= '<li><div class="item-date">' . time_format_date($row['datetime_stamp']) . '</div>'
-				. '<h3><a href="news/#' . $row['id'] . '">' . $row['title_' . Core::$config['current_language']] . '</a></h3>'
-				. '<p>' . $row['description_' . Core::$config['current_language']] . '</p>'
+				. '<h3><a href="news/#' . $row['id'] . '">' . ($row['title_' . Core::$config['current_language']] ? $row['title_' . Core::$config['current_language']] : $row['title_en']) . '</a></h3>'
+				. '<p>' . ($row['description_' . Core::$config['current_language']] ? $row['description_' . Core::$config['current_language']] : $row['title_en']) . '</p>'
 				. '</li>';
 		}
 
