@@ -5,35 +5,35 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
-  <loc>http://metro4all.ru/ru/</loc>
+  <loc>http://metro4all.org/ru/</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>http://metro4all.ru/ru/msk/</loc>
+  <loc>http://metro4all.org/ru/msk/</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>http://metro4all.ru/ru/spb/</loc>
+  <loc>http://metro4all.org/ru/spb/</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>http://metro4all.ru/ru/waw/</loc>
+  <loc>http://metro4all.org/ru/waw/</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>http://metro4all.ru/ru/faq/</loc>
+  <loc>http://metro4all.org/ru/faq/</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>http://metro4all.ru/ru/about/</loc>
+  <loc>http://metro4all.org/ru/about/</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>http://metro4all.ru/ru/news/</loc>
+  <loc>http://metro4all.org/ru/news/</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>http://metro4all.ru/ru/feedback/</loc>
+  <loc>http://metro4all.org/ru/feedback/</loc>
   <changefreq>daily</changefreq>
 </url>
 </urlset>

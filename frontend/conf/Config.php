@@ -3,12 +3,12 @@
 date_default_timezone_set('Europe/Moscow');
 
 $config['http_root'] = '/';
-$config['http_domain'] = 'metro4all.ru';
+$config['http_domain'] = 'metro4all.org';
 
 $config['site'] = array(
-	'url' => 'http://metro4all.ru/',
-	'title' => 'metro4all.ru',
-	'email_title' => 'metro4all.ru',
+	'url' => 'http://metro4all.org/',
+	'title' => 'metro4all.org',
+	'email_title' => 'metro4all.org',
 	'email' => 'info@metro4all.ru',
 );
 

@@ -72,9 +72,9 @@ class FeedbackController
 
 				require_once('../mod/lib.mail.php');
 
-				foreach (array('info@metro4all.ru', 'keliones@yandex.ru') as $email) {
+				foreach (array('info@metro4all.ru') as $email) {
 					mail_send(request_str('name'), request_str('email'), $email,
-						'Metro4all.ru - ' . $subjects[request_int('subject_id')]['title'], $message, false);
+						'Metro4all.org - ' . $subjects[request_int('subject_id')]['title'], $message, false);
 				}
 
 				go(Core::$config['http_home'] . 'feedback/?action=ok');
