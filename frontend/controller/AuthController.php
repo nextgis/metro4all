@@ -161,6 +161,7 @@ class AuthController
 			    	array('id' => 0, 'title' => '—'),
 			    	array('id' => 1, 'title' => s('Русский')),
 			    	array('id' => 2, 'title' => s('English')),
+			    	array('id' => 3, 'title' => s('Polski')),
 			    )))
 			// . $form->add_captcha('Код на картинке', array('style' => 'width:300px;'))
 //			. '<p>' . s('Вы будете подписаны на рассылку новости конференции о чем вам придет уведомление.') . '</p>'

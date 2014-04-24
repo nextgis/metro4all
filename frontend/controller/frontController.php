@@ -23,7 +23,7 @@ if (preg_match('/^([^?]*[^\/?]+)$/Uui', $url)) {
 	go(preg_replace('/^([^?]*[^\/?]+)$/Uui', '$1/', $url));
 }
 
-if(preg_match('/^' . addcslashes(core::$config['http_root'], '\/') . '(en|ru)\/(.*)$/Uu', $url, $matches)) {
+if(preg_match('/^' . addcslashes(core::$config['http_root'], '\/') . '(en|ru|pl)\/(.*)$/Uu', $url, $matches)) {
     Core::$config['current_language'] = $matches[1];
     $url = $matches[2];
 

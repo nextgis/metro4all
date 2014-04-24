@@ -63,6 +63,7 @@ class PageCommon extends Page
 			<ul class="nav navbar-nav navbar-right">
 				<li' . (Core::$config['current_language'] == 'ru' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'en/',  core::$config['http_root'].'ru/', $_SERVER['REQUEST_URI'])) . '">' . s('Ру') . '</a></li>
 				<li' . (Core::$config['current_language'] == 'en' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'ru/',  core::$config['http_root'].'en/', $_SERVER['REQUEST_URI'])) . '">' . s('En') . '</a></li>
+				<li' . (Core::$config['current_language'] == 'pl' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'].'pl/',  core::$config['http_root'].'pl/', $_SERVER['REQUEST_URI'])) . '">' . s('Pl') . '</a></li>
 			</ul>
 		  </div>
 		</nav>

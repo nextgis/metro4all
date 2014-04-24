@@ -55,6 +55,14 @@ class QaController
 						. ' order by group_title_en, title_en'
 				);
 				break;
+
+			case 'pl':
+				$data = core::$sql->get('id, title_en as title, group_title_en as group_title, description_en as description'
+						, DB . 'qa'
+						, 'title_pl <> "" and group_title_pl <> "" and description_pl <> ""'
+						. ' order by group_title_pl, title_pl'
+				);
+				break;
 		}
 		
 		if (count($data)) {
