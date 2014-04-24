@@ -61,7 +61,7 @@ class SearchController
 				$globalConfig = 'var global_config = {
 					  minimap: {"center": [52.233333, 21.016667], "zoom": 11},
 					  mainmap: {"center": [52.233333, 21.016667], "zoom": 10},
-					  city: "warsaw",
+					  city: "waw",
 					  language: "' . Core::$config['current_language'] . '"
 				}';
 				break;

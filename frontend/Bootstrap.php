@@ -48,6 +48,7 @@ Core::$time = $time;
 Core::$config = &$config;
 
 require_once(ROOT . 'lang/en.php');
+require_once(ROOT . 'lang/pl.php');
 Core::$lang = &$lang;
 
 function s($str) {
