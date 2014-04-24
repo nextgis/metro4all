@@ -1,4 +1,4 @@
-id_station;id_line;id_node;name;name_en;lat;lon
+id_station;id_line;id_node;name_ru;name_en;lat;lon
 1;1;1;Авиастроительная;Aviastroitelnaya;49.0843906174;55.8562140511
 2;1;2;Северный вокзал;Severny vokzal;49.081983215;55.8419662627
 3;1;3;Яшьлек;Yash'lek;49.0823414846;55.8284813819
