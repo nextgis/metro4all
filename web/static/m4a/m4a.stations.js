@@ -64,10 +64,11 @@
 
 
         updatePortalsLayer: function (type, data) {
+            //debugger;
             var context = this;
 
             if (this.portals[type]['layer']) { // Очищаем слой выходов
-                m4a.viewmodel.miniMaps[type].removeLayer(this.portals[type]['layer']);
+                m4a.viewmodel.mainMap.removeLayer(this.portals[type]['layer']);
             }
 
             if (data.features.length != 0) {
@@ -90,8 +91,8 @@
                             });
                         }
                     }
-                ).addTo(m4a.viewmodel.miniMaps[type]);
-                m4a.viewmodel.miniMaps[type].fitBounds(this.portals[type]['layer'].getBounds(), {padding: [0, 10]});
+                ).addTo(m4a.viewmodel.mainMap);
+                m4a.viewmodel.mainMap.fitBounds(this.portals[type]['layer'].getBounds(), {padding: [0, 10]});
             }
         },
 
