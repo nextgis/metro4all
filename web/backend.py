@@ -88,7 +88,7 @@ waw_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirna
 SCHEMAS = {
     'msk': dict(zip([os.path.splitext(s)[0] for s in msk_schemes], msk_schemes)),
     'spb': dict(zip([os.path.splitext(s)[0] for s in spb_schemes], spb_schemes)),
-    'waw': dict(zip([os.path.splitext(s)[0] for s in spb_schemes], spb_schemes))
+    'waw': dict(zip([os.path.splitext(s)[0] for s in waw_schemes], waw_schemes))
 }
 
 
