@@ -125,7 +125,7 @@ def get_stations(lang, city):
             if line['id_line'] == station['id_line']:
                 station_json = {
                     'id':   station['id_station'],
-                    'text': station['name'] if lang == 'ru' else station['name_' + lang]
+                    'text': station['name_' + lang]
                 }
                 if station['id_station'] in SCHEMAS[city]:
                     station_json['sch'] = SCHEMAS[city][station['id_station']]
@@ -184,7 +184,7 @@ def get_routes(lang, city, delta=5, limit=3):
         for station in STATIONS[city]:
             if station['id_station'] == str(station_id):
                 return dict(
-                    name=station['name'] if lang == 'ru' else station['name_' + lang],
+                    name=station['name_' + lang],
                     line=int(station['id_line']),
                     coords=(float(station['lat']), float(station['lon'])),
                     node_id=station['id_node']
