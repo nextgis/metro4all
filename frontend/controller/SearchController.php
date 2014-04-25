@@ -85,7 +85,6 @@ class SearchController
           </label>
         </div>
         <div class="profile-descr"></div>
-        <button type="submit" class="btn btn-primary">' . s('Проложить маршрут') . '</button>
       </div>
       <div class="col-md-4">
         <legend>' . s('Откуда') . '</legend>
@@ -147,7 +146,8 @@ class SearchController
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.url.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.profiles.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.routes.js"></script>
-    <script src="http://demo.nextgis.ru/metro4all/static/m4a/inline.js"></script>';
+    <script src="http://demo.nextgis.ru/metro4all/static/m4a/inline.js"></script>
+    <script src="http://demo.nextgis.ru/metro4all/static/blockui/jquery.blockUI.js"></script>';
 
 		return $page->start() . $html . $page->stop();
 	}
