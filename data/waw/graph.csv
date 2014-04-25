@@ -1,0 +1,21 @@
+id_from;id_to;name_from;name_to;cost
+1;2;Młociny;Wawrzyszew;3
+2;3;Wawrzyszew;Stare Bielany;3
+3;4;Stare Bielany;Słodowiec;3
+4;5;Słodowiec;Marymont;3
+5;6;Marymont;Plac Wilsona;3
+6;7;Plac Wilsona;Dworzec Gdański;3
+7;8;Dworzec Gdański;Ratusz Arsenał;3
+8;9;Ratusz Arsenał;Świętokrzyska;3
+9;10;Świętokrzyska;Centrum;3
+10;11;Centrum;Politechnika;3
+11;12;Politechnika;Pole Mokotowskie;3
+12;13;Pole Mokotowskie;Racławicka;3
+13;14;Racławicka;Wierzbno;3
+14;15;Wierzbno;Wilanowska;3
+15;16;Wilanowska;Służew;3
+16;17;Służew;Ursynów;3
+17;18;Ursynów;Stokłosy;3
+18;19;Stokłosy;Imielin;3
+19;20;Imielin;Natolin;3
+20;21;Natolin;Kabaty;3
