@@ -44,12 +44,14 @@ $(document).ready(function () {
                 $('.pagination').empty();
                 $('#routePanel').empty();
 
+                $.blockUI({ message: 'Processing...' });
                 $.ajax({
                     dataType: "json",
                     url: url + global_config.language + "/" + global_config.city + "/routes/search",
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                     m4a.routes.buildRoutes(data);
+                    $.unblockUI();
                 });
             }
             return false;
