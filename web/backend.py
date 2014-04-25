@@ -132,7 +132,7 @@ def get_stations(lang, city):
                 group.append(station_json)
         group = sorted(group, key=lambda i: i['text'])
         results.append({
-            'text': line['name'] if lang == 'ru' else line['name_' + lang],
+            'text': line['name_' + lang],
             'children': group
         })
 
@@ -195,7 +195,7 @@ def get_routes(lang, city, delta=5, limit=3):
         for line in LINES[city]:
             if line['id_line'] == str(line_id):
                 return dict(
-                    name=line['name'] if lang == 'ru' else line['name_' + lang],
+                    name=line['name_' + lang],
                     color=line['color']
                 )
 
