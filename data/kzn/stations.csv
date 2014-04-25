@@ -1,11 +1,11 @@
-id_station;id_line;id_node;name_ru;name_en;lat;lon
-1;1;1;Авиастроительная;Aviastroitelnaya;49.0843906174;55.8562140511
-2;1;2;Северный вокзал;Severny vokzal;49.081983215;55.8419662627
-3;1;3;Яшьлек;Yash'lek;49.0823414846;55.8284813819
-4;1;4;Козья слобода;Koz'ya sloboda;49.0985017656;55.8171644309
-5;1;5;Кремлёвская;Kremlyovskaya;49.1061415233;55.7957472603
-6;1;6;Площадь Тукая;Ploschad Tukaya;49.1247303099;55.7857208252
-7;1;7;Суконная слобода;Sukonnaya sloboda;49.1435480574;55.7765418055
-8;1;8;Аметьево;Amet'evo;49.1665167511;55.7651262483
-9;1;9;Горки;Gorki;49.1917378945;55.7599885079
-10;1;10;Проспект победы;Prospect pobedy;49.208784693;55.7496513984
+id_station;id_line;id_node;name_ru;name_en;name_pl;lat;lon
+1;1;1;Авиастроительная;Aviastroitelnaya;Aviastroitelnaya;49.0843906174;55.8562140511
+2;1;2;Северный вокзал;Severny vokzal;Severny vokzal;49.081983215;55.8419662627
+3;1;3;Яшьлек;Yash'lek;Yash'lek;49.0823414846;55.8284813819
+4;1;4;Козья слобода;Koz'ya sloboda;Koz'ya sloboda;49.0985017656;55.8171644309
+5;1;5;Кремлёвская;Kremlyovskaya;Kremlyovskaya;49.1061415233;55.7957472603
+6;1;6;Площадь Тукая;Ploschad Tukaya;Ploschad Tukaya;49.1247303099;55.7857208252
+7;1;7;Суконная слобода;Sukonnaya sloboda;Sukonnaya sloboda;49.1435480574;55.7765418055
+8;1;8;Аметьево;Amet'evo;Amet'evo;49.1665167511;55.7651262483
+9;1;9;Горки;Gorki;Gorki;49.1917378945;55.7599885079
+10;1;10;Проспект победы;Prospect pobedy;Prospect pobedy;49.208784693;55.7496513984
