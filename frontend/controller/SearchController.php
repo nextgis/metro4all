@@ -41,37 +41,37 @@ class SearchController
 		{
 			case 1:
 				$globalConfig = 'var global_config = {
-					  minimap: {"center": [55.75, 37.62], "zoom": 11},
 					  mainmap: {"center": [55.75, 37.62], "zoom": 10},
 					  city: "msk",
+					  route_css_class: "city-1",
 					  language: "' . Core::$config['current_language'] . '"
 				}';
 				break;
 
 			case 2:
 				$globalConfig = 'var global_config = {
-					  minimap: {"center": [59.95, 30.316667], "zoom": 11},
 					  mainmap: {"center": [59.95, 30.316667], "zoom": 10},
 					  city: "spb",
+					  route_css_class: "city-2",
 					  language: "' . Core::$config['current_language'] . '"
 				}';
 				break;
 
 			case 3:
 				$globalConfig = 'var global_config = {
-					  minimap: {"center": [52.233333, 21.016667], "zoom": 11},
 					  mainmap: {"center": [52.233333, 21.016667], "zoom": 10},
 					  city: "waw",
+                      route_css_class: "city-3",
 					  language: "' . Core::$config['current_language'] . '"
 				}';
 				break;
 		}
 
 		$html = '
-	<div class="row">
-      <!-- Left panel -->
-      <div class="col-md-3">
+    <div class="row">
+      <div class="col-md-9">
       <form id="mainform" role="form">
+        <div class="col-md-4">
         <legend>' . s('Ограничения') . '</legend>
         <div class="btn-group profiles" data-toggle="buttons">
           <label id="profile_man" class="btn btn-default profile" data-profile="man" data-type="sample" title="' . s('Я просто иду') . '">
@@ -85,47 +85,40 @@ class SearchController
           </label>
         </div>
         <div class="profile-descr"></div>
-        <legend>2. ' . s('Откуда') . '</legend>
+      </div>
+      <div class="col-md-4">
+        <legend>' . s('Откуда') . '</legend>
         <div class="form-group">
-          <label for="metroStartStation">' . s('Выберите станцию:') . '</label>
           <div>
             <input id="metroStartStation" name="station_from" type="hidden">
           </div>
         </div>
         <div class="form-group">
-          <label for="metroStartInputID">' . s('Выберите вход:') . '</label>
-          <input style="display: none;" class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
+          <input class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
           <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
-          <div id="metroStartInput" style="height: 150px;"></div>
-          <em>' . s('Нажмите на значок входа, чтобы его выбрать') . '</em>
         </div>
-        <legend>3. ' . s('Куда') . '</legend>
+      </div>
+      <div class="col-md-4">
+        <legend>Куда</legend>
         <div class="form-group">
-          <label for="metroEndStation">' . s('Выберите станцию:') . '</label>
           <div>
             <input id="metroEndStation" name="station_to" type="hidden">
           </div>
         </div>
         <div class="form-group">
-          <label for="metroEndInputID">' . s('Выберите выход:') . '</label>
-          <input style="display: none;" class="form-control" id="metroEndInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
+          <input class="form-control" id="metroEndInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
           <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
-          <div id="metroEndInput" style="height: 150px;"></div>
-          <em>' . s('Нажмите на значок выхода, чтобы его выбрать') . '</em>
         </div>
-        <button type="submit" class="btn btn-primary">' . s('Проложить маршрут') . '</button>
+      </div>
       </form>
+      <div class="clearfix"></div>
+      <span>&nbsp;</spn>
+      <div id="map">
+          <div id="mainMap" style="height: 480px;"></div>
       </div>
-
-      <div id="map" class="col-md-6">
-          <legend>4. ' . s('Карта') . '</legend>
-          <div id="mainMap" style="height: 480px;" class="city-' . $this->currentCity . '"></div>
-          <p class="font-size:11px;">' . s('Эта карта только для просмотра маршрута. Выбирать по ней станции пока нельзя') . '</p>
       </div>
-
-      <!-- Right panel -->
       <div class="col-md-3">
-        <legend>5. ' . s('Маршрут') . '</legend>
+        <legend>' . s('Маршрут') . '</legend>
         <ul class="route-paging pagination pagination-sm"></ul>
         <div id="routePanel" class="city-' . $this->currentCity . '"></div>
       </div>
@@ -153,7 +146,8 @@ class SearchController
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.url.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.profiles.js"></script>
     <script src="http://demo.nextgis.ru/metro4all/static/m4a/m4a.routes.js"></script>
-    <script src="http://demo.nextgis.ru/metro4all/static/m4a/inline.js"></script>';
+    <script src="http://demo.nextgis.ru/metro4all/static/m4a/inline.js"></script>
+    <script src="http://demo.nextgis.ru/metro4all/static/blockui/jquery.blockUI.js"></script>';
 
 		return $page->start() . $html . $page->stop();
 	}
