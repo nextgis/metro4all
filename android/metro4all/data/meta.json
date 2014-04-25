@@ -4,19 +4,25 @@
             "name" : "Moscow",
             "name_ru" : "Москва",
             "ver" : 0,
-            "path" : "msk"
+            "path" : "msk",
+	        "directed" : false,
+            "size":1430
         },
         {
             "name" : "St.Peterburg",
             "name_ru" : "Санкт-Петербург",
             "ver" : 0,
-            "path" : "spb"
+            "path" : "spb",
+	        "directed" : false,
+            "size":1430
         },
         {
             "name" : "Warsaw",
             "name_ru" : "Варшава",
             "ver" : 0,
-            "path" : "waw"
+            "path" : "waw",
+	        "directed" : false,
+            "size":1430
         }
     ]
 }
