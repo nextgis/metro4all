@@ -1,6 +1,6 @@
-id_line;name;color
-1;Кировско-Выборгская;#d6083b
-2;Московско-Петроградская;#0078c9
-3;Невско-Василеостровская;#009a49
-4;Правобережная;#ea7125
-5;Фрунзенско-Приморская;#702785
+id_line;name_ru;name_en;name_pl;color
+1;Кировско-Выборгская;Kirovsko-Vyborgskaya;Kirovsko-Vyborgskaya;#d6083b
+2;Московско-Петроградская;Moskovsko-Petrogradskaya;Moskovsko-Petrogradskaya;#0078c9
+3;Невско-Василеостровская;Nevsko-Vasileostrovskaya;Nevsko-Vasileostrovskaya;#009a49
+4;Правобережная;Pravoberezhnaya;Pravoberezhnaya;#ea7125
+5;Фрунзенско-Приморская;Frunzensko-Primorskaya;Frunzensko-Primorskaya;#702785
