@@ -64,7 +64,6 @@
 
 
         updatePortalsLayer: function (type, data) {
-            //debugger;
             var context = this;
 
             if (this.portals[type]['layer']) { // Очищаем слой выходов
@@ -88,6 +87,7 @@
                             context.portals[type].markers[feature.id] = layer;
                             layer.on('click', function (e) {
                                 context.selectPortal(type, feature, e.target);
+                                m4a.url.parse();
                             });
                         }
                     }

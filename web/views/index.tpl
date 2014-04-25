@@ -55,7 +55,6 @@
           </label>
         </div>
         <div class="profile-descr"></div>
-        <button type="submit" class="btn btn-primary">Проложить маршрут</button>
       </div>
       <div class="col-md-4">
         <legend>Откуда</legend>
