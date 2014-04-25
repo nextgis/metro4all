@@ -5,7 +5,7 @@
             "name_ru" : "Москва",
             "ver" : 0,
             "path" : "msk",
-	        "directed" : false,
+            "directed" : false,
             "size":1430
         },
         {
@@ -13,7 +13,7 @@
             "name_ru" : "Санкт-Петербург",
             "ver" : 0,
             "path" : "spb",
-	        "directed" : false,
+	    "directed" : false,
             "size":1430
         },
         {
@@ -21,7 +21,7 @@
             "name_ru" : "Варшава",
             "ver" : 0,
             "path" : "waw",
-	        "directed" : false,
+	    "directed" : false,
             "size":1430
         }
     ]
