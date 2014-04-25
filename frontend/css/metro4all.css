@@ -202,3 +202,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .route-paging {
     margin-top: 0;
 }
+
+.dropdown-menu > li > a {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}

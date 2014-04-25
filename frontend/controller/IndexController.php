@@ -69,7 +69,9 @@ class IndexController
 			<span class="icon-next"></span>
 		</a>
 	</div>
-
+';
+        /*
+$html .= '
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="news">
@@ -90,7 +92,10 @@ $html .= '
 			</div>
 		</div>
 	</div>
+';
+        */
 
+$html .= '
 <script type="text/javascript">
 
 	$(document).ready(function () {
