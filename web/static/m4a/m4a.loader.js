@@ -22,6 +22,9 @@
             view.$metroEndInputName = $('#metroEndInputName');
             view.$metroEndInputID = $('#metroEndInputID');
 
+            view.$metroStartStationExtent = $('#metroStartStationExtent');
+            view.$metroEndStationExtent = $('#metroEndStationExtent');
+
             view.$routePanel = $('#routePanel');
         }
     })

@@ -41,7 +41,33 @@
     <div class="row">
       <div class="col-md-9">
       <form id="mainform" role="form">
-        <div class="col-md-4">
+      <div class="col-md-4">
+        <legend>Откуда</legend>
+        <div class="form-group">
+          <div>
+            <input id="metroStartStation" name="station_from" type="hidden">
+            <button id="metroStartStationExtent" type="button" class="btn btn-primary" disabled>Перейти</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <input class="form-control" id="metroStartInputName" type="text" placeholder="Выберите выход на карте..." disabled>
+          <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <legend>Куда</legend>
+        <div class="form-group">
+          <div>
+            <input id="metroEndStation" name="station_to" type="hidden">
+            <button id="metroEndStationExtent" type="button" class="btn btn-primary" disabled>Перейти</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <input class="form-control" id="metroEndInputName" type="text" placeholder="Выберите выход на карте..." disabled>
+          <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
+        </div>
+      </div>
+              <div class="col-md-4">
         <legend>Ограничения</legend>
         <div class="btn-group profiles" data-toggle="buttons">
           <label id="profile_man" class="btn btn-default profile" data-profile="man" data-type="sample" title="Я просто иду">
@@ -55,30 +81,6 @@
           </label>
         </div>
         <div class="profile-descr"></div>
-      </div>
-      <div class="col-md-4">
-        <legend>Откуда</legend>
-        <div class="form-group">
-          <div>
-            <input id="metroStartStation" name="station_from" type="hidden">
-          </div>
-        </div>
-        <div class="form-group">
-          <input class="form-control" id="metroStartInputName" type="text" placeholder="Выберите выход на карте..." disabled>
-          <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
-        </div>
-      </div>
-      <div class="col-md-4">
-        <legend>Куда</legend>
-        <div class="form-group">
-          <div>
-            <input id="metroEndStation" name="station_to" type="hidden">
-          </div>
-        </div>
-        <div class="form-group">
-          <input class="form-control" id="metroEndInputName" type="text" placeholder="Выберите выход на карте..." disabled>
-          <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
-        </div>
       </div>
       </form>
       <div class="clearfix"></div>
