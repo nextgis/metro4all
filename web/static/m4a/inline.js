@@ -9,19 +9,33 @@ $(document).ready(function () {
 
     // Заполнение выпадающих списков
     $.ajax(url + global_config.language + "/" + global_config.city + "/stations").done(function (data) {
-        m4a.view.$metroStartStation.select2({width: "100%", data: data});
-        m4a.view.$metroEndStation.select2({width: "100%", data: data});
+        m4a.view.$metroStartStation.select2({width: "100%", data: data, placeholder: 'Выберите станцию'});
+        m4a.view.$metroEndStation.select2({width: "100%", data: data, placeholder: 'Выберите станцию'});
 
         // Поле выбора станции входа
         view.$metroStartStation.on("change", function () {
             m4a.stations.setStartStation(this.value);
             m4a.stations.updatePortalsByAjax(this.value, 'in');
+            view.$metroStartStationExtent.prop("disabled", false);
+            m4a.url.parse();
         });
 
         // Поле выбора станции выхода
         view.$metroEndStation.on("change", function () {
             m4a.stations.setEndStation(this.value);
             m4a.stations.updatePortalsByAjax(this.value, 'out');
+            view.$metroEndStationExtent.prop("disabled", false);
+            m4a.url.parse();
+        });
+
+        // Кнопка перехода к охвату станции входа
+        view.$metroStartStationExtent.on("click", function () {
+            m4a.viewmodel.mainMap.fitBounds(m4a.stations.portals['in']['layer'].getBounds());
+        });
+
+        // Кнопка перехода к охвату станции выхода
+        view.$metroEndStationExtent.on("click", function () {
+            m4a.viewmodel.mainMap.fitBounds(m4a.stations.portals['out']['layer'].getBounds());
         });
 
         // Карта для отображения маршрутов

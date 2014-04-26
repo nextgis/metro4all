@@ -61,6 +61,7 @@
         <div class="form-group">
           <div>
             <input id="metroStartStation" name="station_from" type="hidden">
+            <button id="metroStartStationExtent" type="button" class="btn btn-primary" disabled>Перейти</button>
           </div>
         </div>
         <div class="form-group">
@@ -73,6 +74,7 @@
         <div class="form-group">
           <div>
             <input id="metroEndStation" name="station_to" type="hidden">
+            <button id="metroEndStationExtent" type="button" class="btn btn-primary" disabled>Перейти</button>
           </div>
         </div>
         <div class="form-group">
