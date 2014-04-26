@@ -14,16 +14,16 @@ import ftplib
 import urllib2
 
 
-def split_stations(stations_csv_in):
+def split_stations(csv_in):
 
     langs = ("ru","en","pl")
 
     for lang in langs:
-        input_f = csv.DictReader(open(stations_csv_in, 'rb'), delimiter=';')
+        input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
         if 'name_' + lang in input_f.fieldnames:
             stations_csv_out = "temp/" + "stations_" + lang + ".csv"
 
-            stations_fieldmap = (
+            fieldmap = (
                 ('id_station', 'id_station'),
                 ('id_line', 'id_line'),
                 ('id_node', 'id_node'),
@@ -32,18 +32,85 @@ def split_stations(stations_csv_in):
                 ('lon', 'lon')
             )
 
-            output_f = csv.DictWriter(open(stations_csv_out, 'wb'), [target_name for source_name, target_name in stations_fieldmap], delimiter=';')
+            output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
 
             output_f.writeheader()
 
             for row in input_f:
-                station = dict()
-                for source_name, target_name in stations_fieldmap:
+                item = dict()
+                for source_name, target_name in fieldmap:
                     if source_name in row.keys():
-                        station[target_name] = row[source_name]
+                        item[target_name] = row[source_name]
                     else:
-                        station[target_name] = ''
-                output_f.writerow(station)
+                        item[target_name] = ''
+                output_f.writerow(item)
+
+def split_lines(csv_in):
+
+    langs = ("ru","en","pl")
+
+    for lang in langs:
+        input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
+        if 'name_' + lang in input_f.fieldnames:
+            lines_csv_out = "temp/" + "lines_" + lang + ".csv"
+
+            fieldmap = (
+                ('id_line', 'id_line'),
+                ('name_' + lang, 'name')
+            )
+
+            output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
+
+            output_f.writeheader()
+
+            for row in input_f:
+                item = dict()
+                for source_name, target_name in fieldmap:
+                    if source_name in row.keys():
+                        item[target_name] = row[source_name]
+                    else:
+                        item[target_name] = ''
+                output_f.writerow(item)
+
+def split_portals(csv_in):
+
+    langs = ("ru","en","pl")
+
+    for lang in langs:
+        input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
+        if 'name_' + lang in input_f.fieldnames:
+            csv_out = "temp/" + "portals_" + lang + ".csv"
+
+            fieldmap = (
+                ('id2', 'id_entrance'),
+                ('name_' + lang, 'name'),
+                ('Код станции', 'id_station'),
+                ('Направление', 'direction'),
+                ('0_y', 'lat'),
+                ('0_x', 'lon'),
+                ('Мин. ширина', 'max_width'),
+                ('Мин. Ступенек пешком', 'min_step'),
+                ('Мин. ступенек по рельсам и рампам', 'min_step_ramp'),
+                ('Лифт', 'lift'),
+                ('Лифт отнимает ступенек', 'lift_minus_step'),
+                ('Мин. ширина рельс', 'min_rail_width'),
+                ('Макс. ширина рельс', 'max_rail_width'),
+                ('Макс. угол', 'max_angle')
+            )
+
+            output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
+
+            output_f.writeheader()
+
+            for row in input_f:
+                item = dict()
+                for source_name, target_name in fieldmap:
+                    if source_name in row.keys():
+                        item[target_name] = row[source_name]
+                    else:
+                        item[target_name] = ''
+                output_f.writerow(item)
+
 
 def get_meta():
     u = urllib2.urlopen("http://metro4all.org/data/v2/meta.json")
@@ -75,15 +142,11 @@ def copyfiles():
     
     graph = "data/" + city + "/graph.csv"
     interchanges = "data/" + city + "/interchanges.csv"
-    lines = "data/" + city + "/lines.csv"
-    portals = "data/" + city + "/portals.csv"
     schemes = "data/" + city + "/schemes/"
     icons = "data/" + city + "/icons/"
 
     shutil.copy(graph,"temp/graph.csv")
     shutil.copy(interchanges,"temp/interchanges.csv")
-    shutil.copy(lines,"temp/lines.csv")
-    shutil.copy(portals,"temp/portals.csv")
     shutil.copytree(schemes,"temp/schemes")
     shutil.copytree(icons,"temp/icons")
 
@@ -140,12 +203,14 @@ if __name__ == '__main__':
     PASSWORD = sys.argv[3]
 
     stations_csv_in = "data/" + city + "/" + "stations.csv"
+    stations_csv_in = "data/" + city + "/" + "portals.csv"
 
     split_stations(stations_csv_in)
+    split_portals(portals_csv_in)
     copyfiles()
     createzip(city)
     get_meta()
     ver = update_meta(city)
-    upload(city,ver,USERNAME,PASSWORD)
+    #upload(city,ver,USERNAME,PASSWORD)
 
 
