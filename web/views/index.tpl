@@ -41,21 +41,6 @@
     <div class="row">
       <div class="col-md-9">
       <form id="mainform" role="form">
-        <div class="col-md-4">
-        <legend>Ограничения</legend>
-        <div class="btn-group profiles" data-toggle="buttons">
-          <label id="profile_man" class="btn btn-default profile" data-profile="man" data-type="sample" title="Я просто иду">
-            <input type="radio" name="options" id="option1">
-          </label>
-          <label id="profile_wheelchair" class="btn btn-default profile" data-profile="wheelchair" data-type="input" title="Я на коляске">
-            <input type="radio" name="options" id="option2">
-          </label>
-          <label id="profile_trolley" class="btn btn-default profile" data-profile="trolley" data-type="input" title="Я с тележкой">
-            <input type="radio" name="options" id="option3">
-          </label>
-        </div>
-        <div class="profile-descr"></div>
-      </div>
       <div class="col-md-4">
         <legend>Откуда</legend>
         <div class="form-group">
@@ -81,6 +66,21 @@
           <input class="form-control" id="metroEndInputName" type="text" placeholder="Выберите выход на карте..." disabled>
           <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
         </div>
+      </div>
+              <div class="col-md-4">
+        <legend>Ограничения</legend>
+        <div class="btn-group profiles" data-toggle="buttons">
+          <label id="profile_man" class="btn btn-default profile" data-profile="man" data-type="sample" title="Я просто иду">
+            <input type="radio" name="options" id="option1">
+          </label>
+          <label id="profile_wheelchair" class="btn btn-default profile" data-profile="wheelchair" data-type="input" title="Я на коляске">
+            <input type="radio" name="options" id="option2">
+          </label>
+          <label id="profile_trolley" class="btn btn-default profile" data-profile="trolley" data-type="input" title="Я с тележкой">
+            <input type="radio" name="options" id="option3">
+          </label>
+        </div>
+        <div class="profile-descr"></div>
       </div>
       </form>
       <div class="clearfix"></div>
