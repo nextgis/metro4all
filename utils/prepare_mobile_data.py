@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-#prepare data for mobile app, see https://github.com/nextgis/metro4all/issues/58
-
+# prepare data for mobile app, see https://github.com/nextgis/metro4all/issues/58
+# run from util folder
 # example: python prepare_mobile_data.py city USERNAME PASSWORD
 
 import csv
