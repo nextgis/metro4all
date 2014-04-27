@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 # prepare data for mobile app, see https://github.com/nextgis/metro4all/issues/58
 # run from util folder
+# Data will be put here: /usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/
+#                    or: metro4all.org/data/v2/
 # example: python prepare_mobile_data.py city USERNAME PASSWORD
 
 import csv
@@ -12,6 +14,7 @@ import shutil
 import zipfile
 import ftplib
 import urllib2
+import paramiko
 
 def cleanup(val):
     if val == '':
@@ -196,7 +199,7 @@ def upload_ftp(city,ver,USERNAME,PASSWORD):
     file = open("temp/" + city + ".zip",'rb')
     session.storbinary('STOR ' + city + ".zip", file)
     file.close()
-
+    
     session.cwd('archive')
     file = open("temp/" + city + ".zip",'rb')
     session.storbinary('STOR ' + city + "_" + str(ver) + ".zip", file)
@@ -211,8 +214,11 @@ def upload_sftp(city,ver,USERNAME,PASSWORD):
     transport.connect(username = USERNAME, password = PASSWORD)
     sftp = paramiko.SFTPClient.from_transport(transport)
 
+    sftp.put("temp/meta.json","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/meta.json")
     sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/" + city + ".zip")
-    sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/archive" + city + "_" + str(ver) + ".zip")
+    
+    print "Uploading: archive/" + city + "_" + str(val) + ".zip"
+    sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/archive/" + city + "_" + str(ver) + ".zip")
 
     sftp.close()
     transport.close()
@@ -237,10 +243,11 @@ if __name__ == '__main__':
     split_lines("data/" + city + "/" + "lines.csv")
     copyfiles()
     createzip(city)
-    #get_meta()
-    shutil.copy("/home/sim/work/meta.json","/home/sim/work/metro4all/repo/temp/meta.json")
+    get_meta()
+    #shutil.copy("/home/sim/work/meta.json","/home/sim/work/metro4all/repo/temp/meta.json")
 
     ver = update_meta(city)
-    #upload(city,ver,USERNAME,PASSWORD)
-
-
+    upload_sftp(city,ver,USERNAME,PASSWORD)
+    
+    #clean up everything
+    shutil.rmtree("temp/")
