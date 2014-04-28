@@ -9,21 +9,21 @@ import sys
 csv_path = sys.argv[1]
 
 fieldmap = (
-    ('id2', 'id_entrance'),
+    ('id_entrance', 'id_entrance'),
     ('name_ru', 'name_ru'),
     ('name_en', 'name_en'),
-    ('Код станции', 'id_station'),
-    ('Направление', 'direction'),
-    ('0_y', 'lat'),
-    ('0_x', 'lon'),
-    ('Мин. ширина', 'max_width'),
-    ('Мин. Ступенек пешком', 'min_step'),
-    ('Мин. ступенек по рельсам и рампам', 'min_step_ramp'),
-    ('Лифт', 'lift'),
-    ('Лифт отнимает ступенек', 'lift_minus_step'),
-    ('Мин. ширина рельс', 'min_rail_width'),
-    ('Макс. ширина рельс', 'max_rail_width'),
-    ('Макс. угол', 'max_angle')
+    ('id_station', 'id_station'),
+    ('direction', 'direction'),
+    ('lat', 'lat'),
+    ('lon', 'lon'),
+    ('max_width', 'max_width'),
+    ('min_step', 'min_step'),
+    ('min_step_ramp', 'min_step_ramp'),
+    ('lift', 'lift'),
+    ('lift_minus_step', 'lift_minus_step'),
+    ('min_rail_width', 'min_rail_width'),
+    ('max_rail_width', 'max_rail_width'),
+    ('max_angle', 'max_angle')
 )
 
 input_f = csv.DictReader(open(csv_path, 'rb'), delimiter=',')
@@ -38,4 +38,5 @@ for row in input_f:
             portal[target_name] = row[source_name]
         else:
             portal[target_name] = ''
-    output_f.writerow(portal)
+    if portal['lat'] != '':
+        output_f.writerow(portal)
