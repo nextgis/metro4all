@@ -12,8 +12,9 @@ fieldmap = (
     ('id_station', 'id_station'),
     ('id_line', 'id_line'),
     ('id_node', 'id_node'),
-    ('name', 'name'),
     ('name_en', 'name_en'),
+    ('name_ru', 'name_ru'),
+    ('name_pl', 'name_pl'),
     ('lat', 'lat'),
     ('lon', 'lon')
 )
@@ -29,5 +30,8 @@ for row in input_f:
         if source_name in row.keys():
             station[target_name] = row[source_name]
         else:
-            station[target_name] = ''
+            if source_name.startswith('name'):
+                station[target_name] = row['name_en']
+            else:
+                station[target_name] = ''
     output_f.writerow(station)
