@@ -38,9 +38,7 @@ Metro4All
 6. Закоммитить обновленные файлы в репозиторий и загрузить на сервер.
 
 7. Перезапустить сервис:
-  
   * supervisorctl -c /home/karavanjow/supervisor/supervisor.conf restart metro4all:*
 
 8. Сформировать пакеты для мобильного приложения
-  
   * python utils/prepare_mobile_data.py
