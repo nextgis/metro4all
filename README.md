@@ -41,4 +41,4 @@ Metro4All
   * supervisorctl -c /home/karavanjow/supervisor/supervisor.conf restart metro4all:*
 
 8. Сформировать пакеты для мобильного приложения
-  * python utils/prepare_mobile_data.py
+  * python utils/prepare_mobile_data.py city USERNAME PASSWORD
