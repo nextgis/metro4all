@@ -15,8 +15,9 @@ Metro4All
 
   * /home/karavanjow/projects/metroaccess/metro4all 
 
-Процесс обновления (действия производятся локально):
+Процесс обновления:
 --------
+Действия 1-5,8 производятся локально, 6 и 7 на сервере, где нужны соответствующие права.
 
 1. Скачать в формате .csv документы из Google Docs Metro4All => [город] => data
   * данные по станциям - stations.csv 
@@ -42,4 +43,4 @@ Metro4All
 
 8. Сформировать пакеты для мобильного приложения
   
-  python utils/prepare_mobile_data.py
+  * python utils/prepare_mobile_data.py
