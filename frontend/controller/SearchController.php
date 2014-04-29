@@ -80,7 +80,7 @@ class SearchController
           </div>
         </div>
         <div class="form-group">
-          <input class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
+          <input class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Выберите вход на карте...') . '" disabled>
           <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
         </div>
       </div>
