@@ -8,6 +8,10 @@ $lang['en'] = array(
 	'О проекте' => 'About',
 	'Города' => 'Cities',
 	'Варшава' => 'Warsaw',
+	'Выберите выход на карте...' => 'Choose prefered exit on the map',
+        'Я просто иду' => 'I am walking',
+        'Я на коляске' => 'I am on a wheelchair',
+        'Я с тележкой' => 'I am with a cart',
 
 	'Вход' => 'Sign In',
 	'Выход' => 'Logout',
