@@ -74,9 +74,9 @@ class SearchController
       <div class="col-md-4">
         <legend>' . s('Откуда') . '</legend>
         <div class="form-group">
-          <div>
-            <input id="metroStartStation" name="station_from" type="hidden">
-            <button id="metroStartStationExtent" type="button" class="btn btn-primary" disabled>' . s('Перейти') .'</button>
+          <div style="white-space:nowrap">
+            <input id="metroStartStation" name="station_from" type="hidden" style="max-width: 87%;">
+            <button id="metroStartStationExtent" type="button" class="btn" title="' . s('Перейти') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
           </div>
         </div>
         <div class="form-group">
@@ -87,9 +87,9 @@ class SearchController
       <div class="col-md-4">
         <legend>' . s('Куда') . '</legend>
         <div class="form-group">
-          <div>
-            <input id="metroEndStation" name="station_to" type="hidden">
-            <button id="metroEndStationExtent" type="button" class="btn btn-primary" disabled>' . s('Перейти') . '</button>
+          <div style="white-space:nowrap">
+            <input id="metroEndStation" name="station_to" type="hidden" style="max-width: 87%;">
+            <button id="metroEndStationExtent" type="button" class="btn" title="' . s('Перейти') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
           </div>
         </div>
         <div class="form-group">
