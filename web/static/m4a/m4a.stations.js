@@ -125,9 +125,9 @@
 
         buildIconStation: function(station, type) {
             if (m4a.profiles.validateStation(station)) {
-                return L.icon({ iconUrl: '/static/img/' + type + '.png' });
+                return L.icon({ iconUrl: '/static/img/' + type + '.png', iconAnchor: [8, 8]});
             } else {
-                return L.icon({ iconUrl: '/static/img/invalid.png' });
+                return L.icon({ iconUrl: '/static/img/invalid.png', iconAnchor: [8, 8]});
             }
         },
 
