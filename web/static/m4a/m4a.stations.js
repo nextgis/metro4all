@@ -133,7 +133,7 @@
 
 
         buildSelectedIcon: function() {
-            return L.icon({iconUrl: '/static/img/check.png'});
+            return L.icon({iconUrl: '/static/img/check.png', iconAnchor: [8, 8]});
         },
 
 
