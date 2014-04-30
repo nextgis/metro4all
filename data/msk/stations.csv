@@ -1,195 +1,195 @@
 id_station;id_line;id_node;name_en;name_ru;name_pl;lat;lon
-212;3;1;Pyatnitskoye Shosse;Пятницкое шоссе;Pyatnitskoye Shosse;55.853634;37.353108
-213;3;2;Mitino;Митино;Mitino;55.845556;37.361944
-214;3;3;Volokolamskaya;Волоколамская;Volokolamskaya;55.835278;37.382222
-215;3;4;Myakinino;Мякинино;Myakinino;55.825556;37.385833
-211;3;5;Strogino;Строгино;Strogino;55.803889;37.402778
-66;3;6;Krilatskoye;Крылатское;Krilatskoye;55.756667;37.407778
-65;3;7;Molodyojnaya;Молодежная;Molodyojnaya;55.740833;37.416667
-64;4;8;Kuntsevskaya;Кунцевская;Kuntsevskaya;55.730833;37.445833
-210;3;8;Kuntsevskaya;Кунцевская;Kuntsevskaya;55.730833;37.445833
-216;3;9;Slavyansky Bulvar;Славянский бульвар;Slavyansky Bulvar;55.729722;37.471389
-165;3;10;Park Pobedy;Парк Победы;Park Pobedy;55.736111;37.516667
-233;8;10;Park Pobedy;Парк Победы;Park Pobedy;55.736111;37.516667
-42;3;11;Kievskaya;Киевская;Kievskaya;55.743889;37.565
-57;4;11;Kievskaya;Киевская;Kievskaya;55.743333;37.565278
-77;5;11;Kievskaya;Киевская;Kievskaya;55.7437;37.5672
-43;3;12;Smolenskaya;Смоленская;Smolenskaya;55.747778;37.581944
-11;1;13;Biblioteka imeni Lenina;Библиотека им. Ленина;Biblioteka imeni Lenina;55.751389;37.609722
-44;3;13;Arbatskaya;Арбатская;Arbatskaya;55.752222;37.606111
-54;4;13;Aleksandrovsky Sad;Александровский сад;Aleksandrovsky Sad;55.7525;37.6075
-140;9;13;Borovitskaya;Боровицкая;Borovitskaya;55.751111;37.607222
-10;1;14;Okhotny Ryad;Охотный ряд;Okhotny Ryad;55.757778;37.616667
-32;2;14;Teatralnaya;Театральная;Teatralnaya;55.757778;37.618611
-45;3;14;Ploschad Revolyutsii;Площадь Революции;Ploschad Revolyutsii;55.756389;37.621389
-46;3;15;Kurskaya;Курская;Kurskaya;55.759167;37.660833
-71;5;15;Kurskaya;Курская;Kurskaya;55.758333;37.659167
-151;10;15;Chkalovskaya;Чкаловская;Chkalovskaya;55.756111;37.658889
-47;3;16;Baumanskaya;Бауманская;Baumanskaya;55.772361;37.679028
-48;3;17;Elektrozavodskaya;Электрозаводская;Elektrozavodskaya;55.781944;37.7025
-49;3;18;Semyonovskaya;Семеновская;Semyonovskaya;55.783056;37.722222
-50;3;19;Partizanskaya;Партизанская;Partizanskaya;55.788056;37.752222
-51;3;20;Izmaylovskaya;Измайловская;Izmaylovskaya;55.787778;37.781667
-52;3;21;Pervomayskaya;Первомайская;Pervomayskaya;55.794444;37.799444
-53;3;22;Schyolkovskaya;Щелковская;Schyolkovskaya;55.809444;37.798611
-63;4;23;Pionerskaya;Пионерская;Pionerskaya;55.736111;37.466944
-62;4;24;Filyovsky Park;Филевский парк;Filyovsky Park;55.739444;37.483333
-61;4;25;Bagrationovskaya;Багратионовская;Bagrationovskaya;55.743889;37.4975
-60;4;26;Fili;Фили;Fili;55.746111;37.514444
-59;4;27;Kutuzovskaya;Кутузовская;Kutuzovskaya;55.74;37.535
-58;4;28;Studencheskaya;Студенческая;Studencheskaya;55.738889;37.548333
-56;4;29;Smolenskaya;Смоленская;Smolenskaya;55.748611;37.582778
-55;4;30;Arbatskaya;Арбатская;Arbatskaya;55.751944;37.600556
-189;4;31;Mejdunarodnaya;Международная;Mejdunarodnaya;55.748056;37.532778
-188;4;32;Vistavochnaya;Выставочная;Vistavochnaya;55.748611;37.538056
-230;8;32;Delovoi Centr;Деловой Центр;Delovoi Centr;55.7492172767;37.5396267048
-164;9;33;Bulvar Dmitiya Donskogo;Бульвар Дмитрия Донского;Bulvar Dmitiya Donskogo;55.569722;37.576111
-191;12;33;Ulitsa Starokachalovskaya;Улица Старокачаловская;Ulitsa Starokachalovskaya;55.569722;37.576111
-192;12;34;Ulitsa Skobelevskaya;Улица Скобелевская;Ulitsa Skobelevskaya;55.548056;37.554444
-193;12;35;Bulvar Admirala Ushakova;Бульвар адмирала Ушакова;Bulvar Admirala Ushakova;55.545556;37.543056
-194;12;36;Ulitsa Gorchakova;Улица Горчакова;Ulitsa Gorchakova;55.541667;37.530556
-195;12;37;Buninskaya Alleya;Бунинская аллея;Buninskaya Alleya;55.538056;37.515833
-41;2;38;Rechnoy Vokzal;Речной вокзал;Rechnoy Vokzal;55.854722;37.476111
-40;2;39;Vodny Stadion;Водный стадион;Vodny Stadion;55.839722;37.486389
-39;2;40;Voykovskaya;Войковская;Voykovskaya;55.819167;37.4975
-38;2;41;Sokol;Сокол;Sokol;55.804722;37.515278
-37;2;42;Aeroport;Аэропорт;Aeroport;55.8;37.532222
-36;2;43;Dinamo;Динамо;Dinamo;55.789722;37.558056
-35;2;44;Belorusskaya;Белорусская;Belorusskaya;55.776944;37.583889
-67;5;44;Belorusskaya;Белорусская;Belorusskaya;55.776944;37.583889
-34;2;45;Mayakovskaya;Маяковская;Mayakovskaya;55.769167;37.596389
-33;2;46;Tverskaya;Тверская;Tverskaya;55.765;37.605556
-119;7;46;Pushkinskaya;Пушкинская;Pushkinskaya;55.76544;37.606687
-139;9;46;Chekhovskaya;Чеховская;Chekhovskaya;55.765833;37.608333
-31;2;47;Novokuznetskaya;Новокузнецкая;Novokuznetskaya;55.741111;37.629444
-85;8;47;Tretyakovskaya;Третьяковская;Tretyakovskaya;55.740833;37.6275
-97;6;47;Tretyakovskaya;Третьяковская;Tretyakovskaya;55.740833;37.6275
-30;2;48;Paveletskaya;Павелецкая;Paveletskaya;55.730556;37.636389
-73;5;48;Paveletskaya;Павелецкая;Paveletskaya;55.730556;37.636389
-29;2;49;Avtozavodskaya;Автозаводская;Avtozavodskaya;55.707222;37.6575
-28;2;50;Kolomenskaya;Коломенская;Kolomenskaya;55.678056;37.663889
-25;11;51;Kashirskaya;Каширская;Kashirskaya;55.655;37.648611
-226;2;51;Kashirskaya;Каширская;Kashirskaya;55.655;37.648611
-24;2;52;Kantemirovskaya;Кантемировская;Kantemirovskaya;55.635833;37.656111
-23;2;53;Tsaritsino;Царицыно;Tsaritsino;55.621667;37.669167
-22;2;54;Orekhovo;Орехово;Orekhovo;55.613056;37.694722
-21;2;55;Domodedovskaya;Домодедовская;Domodedovskaya;55.610833;37.719722
-20;2;56;Krasnogvardeyskaya;Красногвардейская;Krasnogvardeyskaya;55.613889;37.745
-222;10;56;Zyablikovo;Зябликово;Zyablikovo;55.611944;37.745278
-225;2;57;Alma-Atinskaya;Алма-Атинская;Alma-Atinskaya;55.632778;37.766111
-186;8;58;Novokosino;Новокосино;Novokosino;55.7452;37.864
-79;8;59;Novogireevo;Новогиреево;Novogireevo;55.751667;37.817222
-80;8;60;Perovo;Перово;Perovo;55.751111;37.786667
-81;8;61;Shosse Entuziastov;Шоссе Энтузиастов;Shosse Entuziastov;55.758056;37.749722
-82;8;62;Aviamotornaya;Авиамоторная;Aviamotornaya;55.751944;37.719444
-83;8;63;Ploschad Ilyicha;Площадь Ильича;Ploschad Ilyicha;55.746944;37.683056
-152;10;63;Rimskaya;Римская;Rimskaya;55.746233;37.682317
-72;5;64;Taganskaya;Таганская;Taganskaya;55.741667;37.655556
-84;8;64;Marksistskaya;Марксистская;Marksistskaya;55.741667;37.655556
-116;7;64;Taganskaya;Таганская;Taganskaya;55.741667;37.655556
-86;6;65;Medvedkovo;Медведково;Medvedkovo;55.887222;37.661389
-87;6;66;Babushkinskaya;Бабушкинская;Babushkinskaya;55.869444;37.664444
-88;6;67;Sviblobo;Свиблово;Sviblobo;55.855278;37.652778
-89;6;68;Botanichesky Sad;Ботанический сад;Botanichesky Sad;55.845;37.638611
-90;6;69;V.D.N.Ha;ВДНХ;V.D.N.Ha;55.822283;37.641494
-91;6;70;Alekseevskaya;Алексеевская;Alekseevskaya;55.807778;37.638611
-92;6;71;Rijskaya;Рижская;Rijskaya;55.792508;37.636186
-69;5;72;Prospekt Mira;Проспект Мира;Prospekt Mira;55.779608;37.633626
-93;6;72;Prospekt Mira;Проспект Мира;Prospekt Mira;55.780833;37.6325
-94;6;73;Sukharevskaya;Сухаревская;Sukharevskaya;55.773056;37.632778
-8;1;74;Chistye Prudy;Чистые пруды;Chistye Prudy;55.764844;37.638325
-95;6;74;Turgenevskaya;Тургеневская;Turgenevskaya;55.765833;37.637778
-219;10;74;Sretensky Bulvar;Сретенский бульвар;Sretensky Bulvar;55.765783;37.636714
-96;6;75;Kitay-Gorod;Китай-город;Kitay-Gorod;55.755556;37.6325
-227;7;75;Kitay-Gorod;Китай-город;Kitay-Gorod;55.755556;37.6325
-75;5;76;Oktyabrskaya;Октябрьская;Oktyabrskaya;55.729327;37.611183
-98;6;76;Oktyabrskaya;Октябрьская;Oktyabrskaya;55.730278;37.611944
-99;6;77;Shabolovskaya;Шаболовская;Shabolovskaya;55.718611;37.607778
-100;6;78;Leninsky Prospekt;Ленинский проспект;Leninsky Prospekt;55.7075;37.586389
-101;6;79;Akademicheskaya;Академическая;Akademicheskaya;55.687778;37.573333
-102;6;80;Profsoyuznaya;Профсоюзная;Profsoyuznaya;55.678056;37.562778
-103;6;81;Novye Cheremushki;Новые Черемушки;Novye Cheremushki;55.670278;37.554444
-104;6;82;Kalujskaya;Калужская;Kalujskaya;55.657222;37.540278
-105;6;83;Belyayevo;Беляево;Belyayevo;55.642778;37.526111
-106;6;84;Konkovo;Коньково;Konkovo;55.633333;37.519167
-107;6;85;Tyoply Stan;Теплый Стан;Tyoply Stan;55.618889;37.507778
-108;6;86;Yasenevo;Ясенево;Yasenevo;55.606111;37.533056
-109;6;87;Novoyasenevskaya;Новоясеневская;Novoyasenevskaya;55.601111;37.554167
-232;12;87;Bitsevsky Park;Битцевский парк;Bitsevsky Park;55.6000610313;37.5564344878
-27;11;88;Varshavskaya;Варшавская;Varshavskaya;55.653333;37.619444
-26;11;89;Kakhovskaya;Каховская;Kakhovskaya;55.653056;37.598333
-147;9;89;Sevastopolskaya;Севастопольская;Sevastopolskaya;55.651433;37.598406
-68;5;90;Novoslobodskaya;Новослободская;Novoslobodskaya;55.779517;37.601167
-137;9;90;Mendeleevskaya;Менделеевская;Mendeleevskaya;55.782058;37.598794
-6;1;91;Komsomolskaya;Комсомольская;Komsomolskaya;55.776111;37.658889
-70;5;91;Komsomolskaya;Комсомольская;Komsomolskaya;55.776486;37.656169
-74;5;92;Dobryninskaya;Добрынинская;Dobryninskaya;55.728983;37.622508
-142;9;92;Serpukhovskaya;Серпуховская;Serpukhovskaya;55.728056;37.624444
-13;1;93;Park Kultury;Парк культуры;Park Kultury;55.73558;37.594013
-76;5;93;Park Kultury;Парк культуры;Park Kultury;55.735556;37.594167
-78;5;94;Krasnopresnenskaya;Краснопресненская;Krasnopresnenskaya;55.760205;37.577244
-120;7;94;Barrikadnaya;Баррикадная;Barrikadnaya;55.760556;37.581111
-217;10;95;Maryina Roscha;Марьина Роща;Maryina Roscha;55.793517;37.616223
-218;10;96;Dostoevskaya;Достоевская;Dostoevskaya;55.781667;37.613889
-138;9;97;Tsvetnoy Bulvar;Цветной бульвар;Tsvetnoy Bulvar;55.771667;37.620556
-166;10;97;Trubnaya;Трубная;Trubnaya;55.7675;37.621667
-115;7;98;Proletarskaya;Пролетарская;Proletarskaya;55.731944;37.665833
-153;10;98;Krestyanskaya Zastava;Крестьянская застава;Krestyanskaya Zastava;55.732222;37.665833
-161;10;99;Dubrovka;Дубровка;Dubrovka;55.718056;37.676667
-154;10;100;Kojukhovskaya;Кожуховская;Kojukhovskaya;55.706111;37.685278
-155;10;101;Pechatniki;Печатники;Pechatniki;55.6925;37.727778
-156;10;102;Voljskaya;Волжская;Voljskaya;55.690556;37.755556
-157;10;103;Lyublino;Люблино;Lyublino;55.675556;37.761667
-158;10;104;Bratislavskaya;Братиславская;Bratislavskaya;55.659722;37.750556
-159;10;105;Maryino;Марьино;Maryino;55.648889;37.743889
-220;10;106;Borisovo;Борисово;Borisovo;55.633056;37.743333
-221;10;107;Shipilovskaya;Шипиловская;Shipilovskaya;55.621667;37.743611
-129;9;108;Altufyevo;Алтуфьево;Altufyevo;55.897778;37.586944
-130;9;109;Bibirevo;Бибирево;Bibirevo;55.884167;37.603056
-131;9;110;Otradnoye;Отрадное;Otradnoye;55.863056;37.604722
-132;9;111;Vladykino;Владыкино;Vladykino;55.847222;37.589722
-133;9;112;Petrovsko-Razumovskaya;Петровско-Разумовская;Petrovsko-Razumovskaya;55.836944;37.574444
-134;9;113;Timiryazevskaya;Тимирязевская;Timiryazevskaya;55.818056;37.576667
-135;9;114;Dmitrovskaya;Дмитровская;Dmitrovskaya;55.806389;37.581667
-136;9;115;Savelovskaya;Савеловская;Savelovskaya;55.793611;37.5875
-141;9;116;Polyanka;Полянка;Polyanka;55.737778;37.618333
-143;9;117;Tulskaya;Тульская;Tulskaya;55.708611;37.6225
-144;9;118;Nagatinskaya;Нагатинская;Nagatinskaya;55.683333;37.6225
-145;9;119;Nagornaya;Нагорная;Nagornaya;55.672778;37.610556
-146;9;120;Nakhimovsky Prospect;Нахимовский проспект;Nakhimovsky Prospect;55.662778;37.605556
-148;9;121;Chertanovskaya;Чертановская;Chertanovskaya;55.640833;37.605833
-149;9;122;Yujnaya;Южная;Yujnaya;55.622222;37.608611
-150;9;123;Prajskaya;Пражская;Prajskaya;55.612222;37.603889
-162;9;124;Ulitsa Akademika Yangelya;Улица Академика Янгеля;Ulitsa Akademika Yangelya;55.595;37.601667
-163;9;125;Annino;Аннино;Annino;55.582778;37.596667
-1;1;126;Ulitsa Podbelskogo;Улица Подбельского;Ulitsa Podbelskogo;55.814444;37.733889
-2;1;127;Cherkizovskaya;Черкизовская;Cherkizovskaya;55.802778;37.744819
-3;1;128;Preobrajenskaya ploschad;Преображенская площадь;Preobrajenskaya ploschad;55.796111;37.715556
-4;1;129;Sokolniki;Сокольники;Sokolniki;55.789236;37.679661
-5;1;130;Krasnoselskaya;Красносельская;Krasnoselskaya;55.779978;37.666036
-7;1;131;Krasnye Vorota;Красные ворота;Krasnye Vorota;55.768611;37.65
-9;1;132;Lubyanka;Лубянка;Lubyanka;55.759167;37.627222
-118;7;132;Kuznetsky Most;Кузнецкий мост;Kuznetsky Most;55.760575;37.625812
-12;1;133;Kropotkinskaya;Кропоткинская;Kropotkinskaya;55.744975;37.6015
-14;1;134;Frunzenskaya;Фрунзенская;Frunzenskaya;55.725833;37.578611
-15;1;135;Sportivnaya;Спортивная;Sportivnaya;55.723056;37.563611
-16;1;136;Vorobyovy Gory;Воробьёвы горы;Vorobyovy Gory;55.710333;37.559208
-17;1;137;Universitet;Университет;Universitet;55.692222;37.532778
-18;1;138;Prospekt Vernadskogo;Проспект Вернадского;Prospekt Vernadskogo;55.676944;37.506111
-19;1;139;Yugo-Zapadnaya;Юго-Западная;Yugo-Zapadnaya;55.663611;37.482778
-128;7;140;Planernaya;Планерная;Planernaya;55.861748;37.435977
-127;7;141;Skhodnenskaya;Сходненская;Skhodnenskaya;55.851511;37.438885
-126;7;142;Tushinskaya;Тушинская;Tushinskaya;55.828611;37.438056
-125;7;143;Schukinskaya;Щукинская;Schukinskaya;55.808611;37.464167
-124;7;144;Oktyabrskoye Pole;Октябрьское поле;Oktyabrskoye Pole;55.79342;37.49384
-123;7;145;Polejaevskaya;Полежаевская;Polejaevskaya;55.777553;37.519211
-122;7;146;Begovaya;Беговая;Begovaya;55.773611;37.547064
-121;7;147;Ultsa 1905 Goda;Улица 1905 года;Ultsa 1905 Goda;55.7652;37.5609
-114;7;148;Volgogradsky Prospekt;Волгоградский проспект;Volgogradsky Prospekt;55.725278;37.686389
-113;7;149;Tekstilschiki;Текстильщики;Tekstilschiki;55.708889;37.73
-112;7;150;Kuzminki;Кузьминки;Kuzminki;55.705278;37.765556
-111;7;151;Ryazansky Prospekt;Рязанский проспект;Ryazansky Prospekt;55.716457;37.792808
-110;7;152;Vykhino;Выхино;Vykhino;55.716275;37.817194
-228;7;153;Lermontovsky prospect;Лермонтовский проспект;Lermontovsky prospect;55.7014451834;37.8518748656
-229;7;154;Zhulebino;Жулебино;Zhulebino;55.6853816191;37.8561661505
-231;12;155;Lesoparkovaya;Лесопарковая;Lesoparkovaya;55.5820922924;37.5775136658
+212;3;1;Pyatnitskoye Shosse;Пятницкое шоссе;Pyatnitskoye Shosse;55.8565309095;37.3546269201
+213;3;2;Mitino;Митино;Mitino;55.8458613499;37.3622376057
+214;3;3;Volokolamskaya;Волоколамская;Volokolamskaya;55.8356538153;37.3819127353
+215;3;4;Myakinino;Мякинино;Myakinino;55.8250862309;37.3852653623
+211;3;5;Strogino;Строгино;Strogino;55.803646286;37.4031342416
+66;3;6;Krilatskoye;Крылатское;Krilatskoye;55.7568157602;37.4082360249
+65;3;7;Molodyojnaya;Молодежная;Molodyojnaya;55.7408251705;37.4169057993
+64;4;8;Kuntsevskaya;Кунцевская;Kuntsevskaya;55.7306764103;37.4460326519
+210;3;8;Kuntsevskaya;Кунцевская;Kuntsevskaya;55.7306764103;37.4460326519
+216;3;9;Slavyansky Bulvar;Славянский бульвар;Slavyansky Bulvar;55.7295810693;37.470735238
+165;3;10;Park Pobedy;Парк Победы;Park Pobedy;55.736095341;37.5184795258
+233;8;10;Park Pobedy;Парк Победы;Park Pobedy;55.736095341;37.5184795258
+42;3;11;Kievskaya;Киевская;Kievskaya;55.7437735151;37.5663114388
+57;4;11;Kievskaya;Киевская;Kievskaya;55.7437735151;37.5663114388
+77;5;11;Kievskaya;Киевская;Kievskaya;55.7437735151;37.5663114388
+43;3;12;Smolenskaya;Смоленская;Smolenskaya;55.7473238899;37.5824294281
+11;1;13;Biblioteka imeni Lenina;Библиотека им. Ленина;Biblioteka imeni Lenina;55.751114968;37.6099705862
+44;3;13;Arbatskaya;Арбатская;Arbatskaya;55.7521241314;37.606817611
+54;4;13;Aleksandrovsky Sad;Александровский сад;Aleksandrovsky Sad;55.7524412789;37.6088290551
+140;9;13;Borovitskaya;Боровицкая;Borovitskaya;55.7508722007;37.6066641492
+10;1;14;Okhotny Ryad;Охотный ряд;Okhotny Ryad;55.7577075346;37.6161756998
+32;2;14;Teatralnaya;Театральная;Teatralnaya;55.7577349378;37.6192510604
+45;3;14;Ploschad Revolyutsii;Площадь Революции;Ploschad Revolyutsii;55.756663032;37.6219625098
+46;3;15;Kurskaya;Курская;Kurskaya;55.7581372629;37.6580747868
+71;5;15;Kurskaya;Курская;Kurskaya;55.757252531;37.6591161083
+151;10;15;Chkalovskaya;Чкаловская;Chkalovskaya;55.7571053446;37.6565597282
+47;3;16;Baumanskaya;Бауманская;Baumanskaya;55.7729716998;37.6801945933
+48;3;17;Elektrozavodskaya;Электрозаводская;Elektrozavodskaya;55.7820457833;37.7038682025
+49;3;18;Semyonovskaya;Семеновская;Semyonovskaya;55.7830638295;37.7207696305
+50;3;19;Partizanskaya;Партизанская;Partizanskaya;55.7884944512;37.7507304831
+51;3;20;Izmaylovskaya;Измайловская;Izmaylovskaya;55.7877153641;37.7815926199
+52;3;21;Pervomayskaya;Первомайская;Pervomayskaya;55.7946632256;37.7994714032
+53;3;22;Schyolkovskaya;Щелковская;Schyolkovskaya;55.8093187282;37.7986560195
+63;4;23;Pionerskaya;Пионерская;Pionerskaya;55.7359270071;37.4671906288
+62;4;24;Filyovsky Park;Филевский парк;Filyovsky Park;55.7394557442;37.4834122735
+61;4;25;Bagrationovskaya;Багратионовская;Bagrationovskaya;55.7436913055;37.4978415613
+60;4;26;Fili;Фили;Fili;55.7460933837;37.5148795151
+59;4;27;Kutuzovskaya;Кутузовская;Kutuzovskaya;55.7400234885;37.5343883215
+58;4;28;Studencheskaya;Студенческая;Studencheskaya;55.7388341936;37.5483711687
+56;4;29;Smolenskaya;Смоленская;Smolenskaya;55.7487715044;37.5826321758
+55;4;30;Arbatskaya;Арбатская;Arbatskaya;55.7518285151;37.6007488011
+189;4;31;Mejdunarodnaya;Международная;Mejdunarodnaya;55.7483124156;37.5343801084
+188;4;32;Vistavochnaya;Выставочная;Vistavochnaya;55.7498793766;37.5410683944
+230;8;32;Delovoi Centr;Деловой Центр;Delovoi Centr;55.7492765062;37.5397178082
+164;9;33;Bulvar Dmitiya Donskogo;Бульвар Дмитрия Донского;Bulvar Dmitiya Donskogo;55.5691289165;37.5768724174
+191;12;33;Ulitsa Starokachalovskaya;Улица Старокачаловская;Ulitsa Starokachalovskaya;55.5688431403;37.5763752451
+192;12;34;Ulitsa Skobelevskaya;Улица Скобелевская;Ulitsa Skobelevskaya;55.5480520853;37.5544410639
+193;12;35;Bulvar Admirala Ushakova;Бульвар Адмирала Ушакова;Bulvar Admirala Ushakova;55.5453759218;37.5430139165
+194;12;36;Ulitsa Gorchakova;Улица Горчакова;Ulitsa Gorchakova;55.5416865737;37.530711611
+195;12;37;Buninskaya Alleya;Бунинская аллея;Buninskaya Alleya;55.5380990622;37.5163918295
+41;2;38;Rechnoy Vokzal;Речной вокзал;Rechnoy Vokzal;55.8548335702;37.4763312043
+40;2;39;Vodny Stadion;Водный стадион;Vodny Stadion;55.8399842878;37.4867599219
+39;2;40;Voykovskaya;Войковская;Voykovskaya;55.8192452949;37.4978435187
+38;2;41;Sokol;Сокол;Sokol;55.8050762842;37.5148268259
+37;2;42;Aeroport;Аэропорт;Aeroport;55.8002290124;37.5324148011
+36;2;43;Dinamo;Динамо;Dinamo;55.7897102558;37.5581607194
+35;2;44;Belorusskaya;Белорусская;Belorusskaya;55.7766719254;37.5838880213
+67;5;44;Belorusskaya;Белорусская;Belorusskaya;55.7766719254;37.5838880213
+34;2;45;Mayakovskaya;Маяковская;Mayakovskaya;55.7701163251;37.595785151
+33;2;46;Tverskaya;Тверская;Tverskaya;55.7656713784;37.60521346
+119;7;46;Pushkinskaya;Пушкинская;Pushkinskaya;55.7652916483;37.6060433855
+139;9;46;Chekhovskaya;Чеховская;Chekhovskaya;55.7649658845;37.609706096
+31;2;47;Novokuznetskaya;Новокузнецкая;Novokuznetskaya;55.7414124352;37.6294890195
+85;8;47;Tretyakovskaya;Третьяковская;Tretyakovskaya;55.7408878064;37.6270595915
+97;6;47;Tretyakovskaya;Третьяковская;Tretyakovskaya;55.7408878064;37.6270595915
+30;2;48;Paveletskaya;Павелецкая;Paveletskaya;55.7304228988;37.6374127052
+73;5;48;Paveletskaya;Павелецкая;Paveletskaya;55.7317656555;37.6376789077
+29;2;49;Avtozavodskaya;Автозаводская;Avtozavodskaya;55.7071202167;37.6577329272
+28;2;50;Kolomenskaya;Коломенская;Kolomenskaya;55.6783104583;37.6638596394
+25;11;51;Kashirskaya;Каширская;Kashirskaya;55.6550861243;37.6488595862
+226;2;51;Kashirskaya;Каширская;Kashirskaya;55.6550861243;37.6488595862
+24;2;52;Kantemirovskaya;Кантемировская;Kantemirovskaya;55.6358055968;37.6565514085
+23;2;53;Tsaritsino;Царицыно;Tsaritsino;55.6218392487;37.6691611279
+22;2;54;Orekhovo;Орехово;Orekhovo;55.6132321634;37.6947826785
+21;2;55;Domodedovskaya;Домодедовская;Domodedovskaya;55.6109504423;37.7193285684
+20;2;56;Krasnogvardeyskaya;Красногвардейская;Krasnogvardeyskaya;55.613767643;37.7441054813
+222;10;56;Zyablikovo;Зябликово;Zyablikovo;55.6123041563;37.7451781741
+225;2;57;Alma-Atinskaya;Алма-Атинская;Alma-Atinskaya;55.6327740853;37.7662734618
+186;8;58;Novokosino;Новокосино;Novokosino;55.7450590693;37.8641624618
+79;8;59;Novogireevo;Новогиреево;Novogireevo;55.7518020586;37.8163999041
+80;8;60;Perovo;Перово;Perovo;55.7512617176;37.7864766456
+81;8;61;Shosse Entuziastov;Шоссе Энтузиастов;Shosse Entuziastov;55.7572270533;37.7498526545
+82;8;62;Aviamotornaya;Авиамоторная;Aviamotornaya;55.7520066359;37.7200331688
+83;8;63;Ploschad Ilyicha;Площадь Ильича;Ploschad Ilyicha;55.7465838437;37.6819031083
+152;10;63;Rimskaya;Римская;Rimskaya;55.7459261669;37.682212373
+72;5;64;Taganskaya;Таганская;Taganskaya;55.7415710888;37.6507604403
+84;8;64;Marksistskaya;Марксистская;Marksistskaya;55.7413792664;37.6526590905
+116;7;64;Taganskaya;Таганская;Taganskaya;55.7415710888;37.6507604403
+86;6;65;Medvedkovo;Медведково;Medvedkovo;55.8871397904;37.661441849
+87;6;66;Babushkinskaya;Бабушкинская;Babushkinskaya;55.8696045044;37.6642463055
+88;6;67;Sviblobo;Свиблово;Sviblobo;55.855125325;37.6526703446
+89;6;68;Botanichesky Sad;Ботанический сад;Botanichesky Sad;55.8452975204;37.6383545844
+90;6;69;V.D.N.Ha;ВДНХ;V.D.N.Ha;55.8211007477;37.6412101812
+91;6;70;Alekseevskaya;Алексеевская;Alekseevskaya;55.8086000959;37.6387147407
+92;6;71;Rijskaya;Рижская;Rijskaya;55.7933261812;37.6363288881
+69;5;72;Prospekt Mira;Проспект Мира;Prospekt Mira;55.7797489307;37.6332012504
+93;6;72;Prospekt Mira;Проспект Мира;Prospekt Mira;55.781075714;37.6324275773
+94;6;73;Sukharevskaya;Сухаревская;Sukharevskaya;55.772797627;37.632024412
+8;1;74;Chistye Prudy;Чистые пруды;Chistye Prudy;55.7658735773;37.6390864174
+95;6;74;Turgenevskaya;Тургеневская;Turgenevskaya;55.7660771439;37.6374383108
+219;10;74;Sretensky Bulvar;Сретенский бульвар;Sretensky Bulvar;55.7668086626;37.6398320925
+96;6;75;Kitay-Gorod;Китай-город;Kitay-Gorod;55.7554992362;37.6331615915
+227;7;75;Kitay-Gorod;Китай-город;Kitay-Gorod;55.7554992362;37.6331615915
+75;5;76;Oktyabrskaya;Октябрьская;Oktyabrskaya;55.7300570995;37.6118220817
+98;6;76;Oktyabrskaya;Октябрьская;Oktyabrskaya;55.7300570995;37.6118220817
+99;6;77;Shabolovskaya;Шаболовская;Shabolovskaya;55.7194604991;37.6079169734
+100;6;78;Leninsky Prospekt;Ленинский проспект;Leninsky Prospekt;55.7077074814;37.5859838241
+101;6;79;Akademicheskaya;Академическая;Akademicheskaya;55.6878171474;37.573538524
+102;6;80;Profsoyuznaya;Профсоюзная;Profsoyuznaya;55.6779424725;37.5629796092
+103;6;81;Novye Cheremushki;Новые Черемушки;Novye Cheremushki;55.6702897442;37.5547473926
+104;6;82;Kalujskaya;Калужская;Kalujskaya;55.6572141705;37.5405970515
+105;6;83;Belyayevo;Беляево;Belyayevo;55.642488309;37.5261990817
+106;6;84;Konkovo;Коньково;Konkovo;55.6330824565;37.519082833
+107;6;85;Tyoply Stan;Теплый Стан;Tyoply Stan;55.6186893481;37.5080931368
+108;6;86;Yasenevo;Ясенево;Yasenevo;55.6062010391;37.5337195489
+109;6;87;Novoyasenevskaya;Новоясеневская;Novoyasenevskaya;55.6008839449;37.5542942291
+232;12;87;Bitsevsky Park;Битцевский парк;Bitsevsky Park;55.6000571166;37.5564364452
+27;11;88;Varshavskaya;Варшавская;Varshavskaya;55.6532899378;37.6191954138
+26;11;89;Kakhovskaya;Каховская;Kakhovskaya;55.6529424725;37.5981783677
+147;9;89;Sevastopolskaya;Севастопольская;Sevastopolskaya;55.6520476146;37.598337492
+68;5;90;Novoslobodskaya;Новослободская;Novoslobodskaya;55.7795130853;37.6020713055
+137;9;90;Mendeleevskaya;Менделеевская;Mendeleevskaya;55.7809305541;37.6011800356
+6;1;91;Komsomolskaya;Комсомольская;Komsomolskaya;55.7749874689;37.6547149057
+70;5;91;Komsomolskaya;Комсомольская;Komsomolskaya;55.77542592;37.6565078578
+74;5;92;Dobryninskaya;Добрынинская;Dobryninskaya;55.728708968;37.6221263126
+142;9;92;Serpukhovskaya;Серпуховская;Serpukhovskaya;55.7274374707;37.6248413464
+13;1;93;Park Kultury;Парк культуры;Park Kultury;55.7355839147;37.5943751137
+76;5;93;Park Kultury;Парк культуры;Park Kultury;55.7355839147;37.5943751137
+78;5;94;Krasnopresnenskaya;Краснопресненская;Krasnopresnenskaya;55.7608548473;37.5772655311
+120;7;94;Barrikadnaya;Баррикадная;Barrikadnaya;55.7610218544;37.5799150461
+217;10;95;Maryina Roscha;Марьина Роща;Maryina Roscha;55.7950241759;37.6161466625
+218;10;96;Dostoevskaya;Достоевская;Dostoevskaya;55.7813381616;37.6150516786
+138;9;97;Tsvetnoy Bulvar;Цветной бульвар;Tsvetnoy Bulvar;55.771118936;37.6188844049
+166;10;97;Trubnaya;Трубная;Trubnaya;55.7685374068;37.6202890106
+115;7;98;Proletarskaya;Пролетарская;Proletarskaya;55.7318578757;37.6660894156
+153;10;98;Krestyanskaya Zastava;Крестьянская застава;Krestyanskaya Zastava;55.7329697158;37.6669780622
+161;10;99;Dubrovka;Дубровка;Dubrovka;55.717918984;37.6764340728
+154;10;100;Kojukhovskaya;Кожуховская;Kojukhovskaya;55.7075359663;37.6850685613
+155;10;101;Pechatniki;Печатники;Pechatniki;55.6933455844;37.72709292
+156;10;102;Voljskaya;Волжская;Voljskaya;55.6907673961;37.7534929306
+157;10;103;Lyublino;Люблино;Lyublino;55.6754307282;37.7619684352
+158;10;104;Bratislavskaya;Братиславская;Bratislavskaya;55.6600664973;37.750677357
+159;10;105;Maryino;Марьино;Maryino;55.6498128793;37.7433761687
+220;10;106;Borisovo;Борисово;Borisovo;55.6331577833;37.7433290853
+221;10;107;Shipilovskaya;Шипиловская;Shipilovskaya;55.621134595;37.7437793339
+129;9;108;Altufyevo;Алтуфьево;Altufyevo;55.8982555986;37.5874098544
+130;9;109;Bibirevo;Бибирево;Bibirevo;55.883618936;37.6027545648
+131;9;110;Otradnoye;Отрадное;Otradnoye;55.8634553037;37.6048198686
+132;9;111;Vladykino;Владыкино;Vladykino;55.8471437051;37.5899138224
+133;9;112;Petrovsko-Razumovskaya;Петровско-Разумовская;Petrovsko-Razumovskaya;55.8346969377;37.5740407815
+134;9;113;Timiryazevskaya;Тимирязевская;Timiryazevskaya;55.8182047602;37.5756765701
+135;9;114;Dmitrovskaya;Дмитровская;Dmitrovskaya;55.8074068331;37.5811854867
+136;9;115;Savelovskaya;Савеловская;Savelovskaya;55.792835881;37.5878249236
+141;9;116;Polyanka;Полянка;Polyanka;55.7381616448;37.6175774547
+143;9;117;Tulskaya;Тульская;Tulskaya;55.7092882505;37.6247040001
+144;9;118;Nagatinskaya;Нагатинская;Nagatinskaya;55.6829062931;37.622826881
+145;9;119;Nagornaya;Нагорная;Nagornaya;55.6722495097;37.6103896234
+146;9;120;Nakhimovsky Prospect;Нахимовский проспект;Nakhimovsky Prospect;55.6626918757;37.605677357
+148;9;121;Chertanovskaya;Чертановская;Chertanovskaya;55.6405981154;37.6063301723
+149;9;122;Yujnaya;Южная;Yujnaya;55.6222533179;37.6091629787
+150;9;123;Prajskaya;Пражская;Prajskaya;55.612464714;37.6041356288
+162;9;124;Ulitsa Akademika Yangelya;Улица Академика Янгеля;Ulitsa Akademika Yangelya;55.5947729449;37.6008723073
+163;9;125;Annino;Аннино;Annino;55.582535286;37.5964282007
+1;1;126;Ulitsa Podbelskogo;Улица Подбельского;Ulitsa Podbelskogo;55.8145927602;37.7344292345
+2;1;127;Cherkizovskaya;Черкизовская;Cherkizovskaya;55.803964167;37.7447700657
+3;1;128;Preobrajenskaya ploschad;Преображенская площадь;Preobrajenskaya ploschad;55.7962871634;37.7152173748
+4;1;129;Sokolniki;Сокольники;Sokolniki;55.7889149911;37.6801366412
+5;1;130;Krasnoselskaya;Красносельская;Krasnoselskaya;55.7791206714;37.665466405
+7;1;131;Krasnye Vorota;Красные ворота;Krasnye Vorota;55.7689124352;37.6484282308
+9;1;132;Lubyanka;Лубянка;Lubyanka;55.7597424672;37.6274353535
+118;7;132;Kuznetsky Most;Кузнецкий мост;Kuznetsky Most;55.7609038384;37.6259744618
+12;1;133;Kropotkinskaya;Кропоткинская;Kropotkinskaya;55.7449984885;37.6032283589
+14;1;134;Frunzenskaya;Фрунзенская;Frunzenskaya;55.7268469183;37.5794820302
+15;1;135;Sportivnaya;Спортивная;Sportivnaya;55.7232869698;37.5638086945
+16;1;136;Vorobyovy Gory;Воробьёвы горы;Vorobyovy Gory;55.7104347833;37.5594605009
+17;1;137;Universitet;Университет;Universitet;55.6921515346;37.5340639929
+18;1;138;Prospekt Vernadskogo;Проспект Вернадского;Prospekt Vernadskogo;55.6767169449;37.5064183073
+19;1;139;Yugo-Zapadnaya;Юго-Западная;Yugo-Zapadnaya;55.663595341;37.4832340675
+128;7;140;Planernaya;Планерная;Planernaya;55.8606597016;37.4365191919
+127;7;141;Skhodnenskaya;Сходненская;Skhodnenskaya;55.8503013445;37.4398069219
+126;7;142;Tushinskaya;Тушинская;Tushinskaya;55.8271703747;37.4408139362
+125;7;143;Schukinskaya;Щукинская;Schukinskaya;55.8085718526;37.464288357
+124;7;144;Oktyabrskoye Pole;Октябрьское поле;Oktyabrskoye Pole;55.7933103872;37.4937108135
+123;7;145;Polejaevskaya;Полежаевская;Polejaevskaya;55.7774903641;37.5194106519
+122;7;146;Begovaya;Беговая;Begovaya;55.7734857282;37.5464415559
+121;7;147;Ultsa 1905 Goda;Улица 1905 года;Ultsa 1905 Goda;55.7644718579;37.561553762
+114;7;148;Volgogradsky Prospekt;Волгоградский проспект;Volgogradsky Prospekt;55.725278;37.686784389
+113;7;149;Tekstilschiki;Текстильщики;Tekstilschiki;55.7087872167;37.7310608952
+112;7;150;Kuzminki;Кузьминки;Kuzminki;55.7055442025;37.7661471261
+111;7;151;Ryazansky Prospekt;Рязанский проспект;Ryazansky Prospekt;55.7166762256;37.7931250942
+110;7;152;Vykhino;Выхино;Vykhino;55.7161418988;37.8173545044
+228;7;153;Lermontovsky prospect;Лермонтовский проспект;Lermontovsky prospect;55.7013982065;37.852082347
+229;7;154;Zhulebino;Жулебино;Zhulebino;55.6852485179;37.8560134755
+231;12;155;Lesoparkovaya;Лесопарковая;Lesoparkovaya;55.5821001219;37.5775097511
