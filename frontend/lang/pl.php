@@ -12,7 +12,7 @@ $lang['pl'] = array(
     'Санкт-Петербург' => 'Petersburg',
     'Варшава' => 'Warszawa',
     
-	'сентября' => 'wrzesień',
+	'сентября' => 'września',
 	'Карта' => 'Mapa',
 	'Города' => 'Miasta',
 	'Выберите вход на карте...' => 'Wybierz wejście na mapie...',
