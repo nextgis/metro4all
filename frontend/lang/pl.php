@@ -5,7 +5,7 @@ $lang['pl'] = array(
 	'Вопросы и ответы' => 'Pytania i odpowiedzi',
 	'О проекте' => 'О projekcie',
 	'Обратная связь' => 'Sprzężenie zwrotne',
-	'Подписка на новости' => 'Subskrybuj nowości',
+	'Подписка на новости' => 'Subskrybuj aktualności',
 	'Новости' => 'Aktualności',
 
     'Москва' => 'Moskwa',
