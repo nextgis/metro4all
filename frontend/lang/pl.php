@@ -31,7 +31,7 @@ $lang['pl'] = array(
 	'Мы обошли все станции метро Москвы и Санкт-Петербурга' => 'Odwiedziliśmy wszystkie stacje metra w Moskwie i Sankt Petersburgu',//'',
 	'...и измерили все элементы инфраструктуры важные для перемещения людей...' => '...zmierzyliśmy wszystkie istotne elementy infrastruktury dla przemieszczania się ludzi...',//'',
 	'...в том числе для людей с особенными потребностями...' => '...w tym dla osób niepełnosprawnych...'//'',
-	'...начните использовать прямо сейчас...' => '...rozpocznij uzywac juz teraz...',//'',
+	'...начните использовать прямо сейчас...' => '...zacznij korzystać sie już teraz...',//'',
 
 	'Ограничения' => 'Ograniczenia',
 	'Откуда' => 'Od',//'Z',
