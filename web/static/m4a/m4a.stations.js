@@ -46,7 +46,7 @@
 
         updatePortalsByAjax: function (stationId, type, callback) {
             var context = this;
-            $.ajax({
+            return $.ajax({
               dataType: "json",
               url: m4a.viewmodel.url.proxy + global_config.language +'/' + global_config.city + "/portals/search",
               data: {
@@ -87,12 +87,11 @@
                             context.portals[type].markers[feature.id] = layer;
                             layer.on('click', function (e) {
                                 context.selectPortal(type, feature, e.target);
-                                m4a.url.parse();
+                                $("#mainform").submit();
                             });
                         }
                     }
                 ).addTo(m4a.viewmodel.mainMap);
-                m4a.viewmodel.mainMap.fitBounds(this.portals[type]['layer'].getBounds(), {padding: [0, 10]});
             }
         },
 

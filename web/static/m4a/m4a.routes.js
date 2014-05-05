@@ -14,18 +14,18 @@
             });
 
             // Обработчики нажатия кнопок
-            $('.pagination li').click(function () {
+            $('.pagination li').click(function (event, zoom) {
                 var $this = $(this),
                     route_index = parseInt($this.data('route-id'), 10);
                 $('.pagination li').removeClass('active');
                 $this.addClass('active');
                 m4a.view.$routePanel.empty();
                 context.showRoute(routes, route_index);
+                if (zoom === undefined) {
+                    context.zoomRoute(routes[route_index].route);
+                }
                 // m4a.view.$document.triggerHandler('/url/update', ['route', route_index + 1]);
             });
-
-            // Активируем первый маршрут
-            $('.pagination li').first().trigger('click');
         },
 
 
@@ -71,6 +71,24 @@
 
         schemeIconTemplate: Mustache.compile('{{#schemeExists}}<a class="scheme"' +
             ' href="{{path}}" data-lightbox="{{schemeExists}}" title="{{name}}"></a>{{/schemeExists}}'),
+
+        zoomRoute: function(route) {
+            // Охват на маршрут
+            var xmin = route[0].coordinates[1],
+                ymin = route[0].coordinates[0],
+                xmax = route[0].coordinates[1],
+                ymax = route[0].coordinates[0];
+            $.each(route, function (i, item) {
+                xmin = (item.coordinates[1]) < xmin ? item.coordinates[1] : xmin;
+                ymin = (item.coordinates[0]) < ymin ? item.coordinates[0] : ymin;
+                xmax = (item.coordinates[1]) > xmax ? item.coordinates[1] : xmax;
+                ymax = (item.coordinates[0]) > ymax ? item.coordinates[0] : ymax;
+            });
+            m4a.viewmodel.mainMap.fitBounds([
+                [ymin, xmin],
+                [ymax, xmax]
+            ]);
+        },
 
         showRoute: function (routes, index) {
             // Вывод списка станций, входящих в маршрут
@@ -166,22 +184,6 @@
                     ).addTo(m4a.viewmodel.mainMap);
                 }
             });
-
-            // Охват на маршрут
-            var xmin = routes[index].route[0].coordinates[1],
-                ymin = routes[index].route[0].coordinates[0],
-                xmax = routes[index].route[0].coordinates[1],
-                ymax = routes[index].route[0].coordinates[0];
-            $.each(routes[index].route, function (i, item) {
-                xmin = (item.coordinates[1]) < xmin ? item.coordinates[1] : xmin;
-                ymin = (item.coordinates[0]) < ymin ? item.coordinates[0] : ymin;
-                xmax = (item.coordinates[1]) > xmax ? item.coordinates[1] : xmax;
-                ymax = (item.coordinates[0]) > ymax ? item.coordinates[0] : ymax;
-            });
-            m4a.viewmodel.mainMap.fitBounds([
-                [ymin, xmin],
-                [ymax, xmax]
-            ]);
         }
     })
 })(jQuery, m4a)

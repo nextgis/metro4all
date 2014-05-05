@@ -15,17 +15,23 @@ $(document).ready(function () {
         // Поле выбора станции входа
         view.$metroStartStation.on("change", function () {
             m4a.stations.setStartStation(this.value);
-            m4a.stations.updatePortalsByAjax(this.value, 'in');
+            m4a.stations.updatePortalsByAjax(this.value, 'in')
+                .done(function(data){
+                    view.$metroStartStationExtent.trigger('click');
+                });
             view.$metroStartStationExtent.prop("disabled", false);
-            m4a.url.parse();
+            $("#mainform").submit();
         });
 
         // Поле выбора станции выхода
         view.$metroEndStation.on("change", function () {
             m4a.stations.setEndStation(this.value);
-            m4a.stations.updatePortalsByAjax(this.value, 'out');
+            m4a.stations.updatePortalsByAjax(this.value, 'out')
+                .done(function(data){
+                    view.$metroEndStationExtent.trigger('click');
+                });
             view.$metroEndStationExtent.prop("disabled", false);
-            m4a.url.parse();
+            $("#mainform").submit();
         });
 
         // Кнопка перехода к охвату станции входа
@@ -44,16 +50,18 @@ $(document).ready(function () {
             maxZoom: 18
         }).addTo(m4a.viewmodel.mainMap);
 
-        $("#mainform").submit(function () {
+        $("#mainform").submit(function (from_url) {
             var view = m4a.view,
                 start_station = view.$metroStartStation.val(),
                 end_station = view.$metroEndStation.val();
+                portal_in = view.$metroStartInputID.val();
+                portal_out = view.$metroEndInputID.val();
 
             if (start_station.length == 0 || end_station.length == 0) {
                 // todo: use bootstrap
-                alert(m4a.resources.inline.start_st);
+                console.log(m4a.resources.inline.start_st);
             } else if (start_station == end_station) {
-                alert(m4a.resources.inline.eq_st);
+                console.log(m4a.resources.inline.eq_st);
             } else {
                 $('.pagination').empty();
                 $('#routePanel').empty();
@@ -65,6 +73,14 @@ $(document).ready(function () {
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                     m4a.routes.buildRoutes(data);
+
+                    // Активируем первый маршрут
+                    if (start_station && end_station && !(portal_in || portal_out)){
+                        $('.pagination li').first().trigger('click');
+                    } else {
+                        $('.pagination li').first().trigger('click', [false]);
+                    }
+
                     $.unblockUI();
                 });
             }
