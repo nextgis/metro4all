@@ -64,9 +64,12 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 15042;К центру, Алтуфьевское шоссе восточная сторна;K centru, Altuf'evskoe shosse vostochnaja storna;K centru, Altuf'evskoe shosse vostochnaja storna;129;both;55.8966143829;37.5878100353;740;62;37;0;0;300;780;22
 15050;К области, улица Лескова;K oblasti, ulica Leskova;K oblasti, ulica Leskova;129;both;55.8987436089;37.5878413014;740;67;37;0;0;300;770;22
 15052;К области, Алтуфьевское шоссе восточная сторона;K oblasti, Altuf'evskoe shosse vostochnaja storona;K oblasti, Altuf'evskoe shosse vostochnaja storona;129;both;55.8992313611;37.5878569345;740;71;1;0;0;390;770;22
-15060;К центру на север;K centru na sever;K centru na sever;163;both;55.58378375;37.59656057;800;40;0;0;0;410;890;20
-15062;К центру, к пешеходному переходу на восток;K centru, k peshehodnomu perehodu na vostok;K centru, k peshehodnomu perehodu na vostok;163;both;55.5834835962;37.5971640043;800;35;0;0;0;410;870;20
-15070;К области, к перехватывающей парковке, ГАИ;K oblasti, k perehvatyvajushhej parkovke, GAI;K oblasti, k perehvatyvajushhej parkovke, GAI;163;both;55.5814559495;37.5961940092;800;66;0;0;0;370;950;25
+15060;К центру на север;K centru na sever;K centru na sever;163;both;55.58378375;37.59656057;740;39;0;0;0;420;870;20
+15062;К центру, к пешеходному переходу на восток;K centru, k peshehodnomu perehodu na vostok;K centru, k peshehodnomu perehodu na vostok;163;both;55.5834835962;37.5971640043;740;36;1;0;0;410;870;20
+15070;К области, к перехватывающей парковке, ГАИ;K oblasti, k perehvatyvajushhej parkovke, GAI;K oblasti, k perehvatyvajushhej parkovke, GAI;163;both;55.5814559495;37.5961940092;800;66;2;0;0;370;940;23
+15072;К центру, на восточную сторону Варшавского шоссе;K centru, na vostoсhnuju storonu Varshavskogo shosse;K centru, na vostoсhnuju storonu Varshavskogo shosse;163;both;55.5836992732;37.5978924977;740;31;31;0;0;0;0;0
+15074;К центру, на Варшавское шоссе, по пандусу;K centru, na Varshavskoje shosse, po pandusu;K centru, na Varshavskoje shosse, po pandusu;163;both;55.583634881;37.5975598046;740;0;0;0;0;0;0;5
+15076;К центру, на восточную сторону Варшавского шоссе, по пандусу;K centru, na vostoсhnuju storonu Varshavskogo shosse, po pandusu;K centru, na vostoсhnuju storonu Varshavskogo shosse, po pandusu;163;both;55.5835168287;37.5978603016;740;1;1;0;0;0;0;5
 15080;улица Воздвиженка, Генштаб;ulica Vozdvizhenka, Genshtab;ulica Vozdvizhenka, Genshtab;44;both;55.7524138022;37.6033981675;735;0;0;0;0;0;0;0
 15090;кинотеатр Художественный;kinoteatr Hudozhestvennyj;kinoteatr Hudozhestvennyj;55;both;55.7521439397;37.6017436358;550;65;65;0;0;0;0;0
 15100;В сторону области, у турникетов налево, из стеклянных дверей налево. На юг, к финансовой академии.;V storonu oblasti, u turniketov nalevo, iz stekljannyh dverej nalevo. Na jug, k finansovoj akademii.;V storonu oblasti, u turniketov nalevo, iz stekljannyh dverej nalevo. Na jug, k finansovoj akademii.;37;out;55.8004353056;37.5306640955;720;49;21;0;0;300;620;20
@@ -1052,19 +1055,19 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 19740;Главный вход;Glavnyj vhod;Glavnyj vhod;194;both;55.5421835486;37.5320875809;800;3;0;1;0;0;0;1
 19750;К области, к Большой Декабрьской улице;K oblasti, k Bol'shoj Dekabr'skoj ulice;K oblasti, k Bol'shoj Dekabr'skoj ulice;121;both;55.7653815343;37.5604636964;720;60;36;0;0;310;760;25
 19760;К области на улицу 1905 года;K oblasti na ulicu 1905 goda;K oblasti na ulicu 1905 goda;121;both;55.7656879427;37.5601885542;720;58;0;0;0;310;760;25
-19770;К области, на автобусы по Варшавскому шоссе на юг;K oblasti, na avtobusy po Varshavskomu shosse na jug;K oblasti, na avtobusy po Varshavskomu shosse na jug;162;both;55.594279564;37.6010866122;800;35;4;0;0;300;800;28
+19770;К области, на автобусы по Варшавскому шоссе на юг;K oblasti, na avtobusy po Varshavskomu shosse na jug;K oblasti, na avtobusy po Varshavskomu shosse na jug;162;both;55.594279564;37.6010866122;740;37;1;0;0;420;860;23
 19780;7-й проезд Подбельского, Ивантеевская улица;7-j proezd Podbel'skogo, Ivanteevskaja ulica;7-j proezd Podbel'skogo, Ivanteevskaja ulica;1;both;55.8150468159;37.7320865333;740;52;26;0;0;420;985;18
 19790;7-й проезд Подбельского, Ивантеевская улица;7-j proezd Podbel'skogo, Ivanteevskaja ulica;7-j proezd Podbel'skogo, Ivanteevskaja ulica;1;both;55.8153541217;37.7329544962;740;63;23;0;0;420;985;18
 19800;Открытое шоссе, Ивантеевская улица;Otkrytoe shosse, Ivanteevskaja ulica;Otkrytoe shosse, Ivanteevskaja ulica;1;both;55.813252244;37.7351666287;740;37;33;0;0;420;985;20
 19810;Открытое шоссе, Ивантеевская улица;Otkrytoe shosse, Ivanteevskaja ulica;Otkrytoe shosse, Ivanteevskaja ulica;1;both;55.8135032494;37.7351478619;740;34;0;0;0;420;985;20
 19820;Выход к центру;Vyhod k centru;Vyhod k centru;121;out;55.7640808617;37.5624959973;740;0;0;0;0;0;0;0
 19821;Вход с площади Краснопресненской заставы;Vhod s ploshhadi Krasnopresnenskoj zastavy;Vhod s ploshhadi Krasnopresnenskoj zastavy;121;in;55.7638932647;37.5621583227;740;0;0;0;0;0;0;0
-19850;На улицу Академика Янгеля;Na ulicu Akademika Jangelja;Na ulicu Akademika Jangelja;162;both;55.5958115992;37.6001611379;800;67;67;0;0;0;0;0
-19860;К облсти, на дублёр Варшавки, восточная сторона;K oblsti, na dubljor Varshavki, vostochnaja storona;K oblsti, na dubljor Varshavki, vostochnaja storona;162;both;55.5945046794;37.6004362789;800;39;4;0;0;370;1020;20
-19870;К центру, на северо-запад;K centru, na severo-zapad;K centru, na severo-zapad;162;both;55.5961992979;37.6012429424;800;64;26;0;0;410;880;20
-19880;К области, на юго-восток;K oblasti, na jugo-vostok;K oblasti, na jugo-vostok;162;both;55.5941920191;37.6018495033;800;24;24;0;0;0;0;0
-19890;К центру, на троллейбусную остановку из центра;K centru, na trollejbusnuju ostanovku iz centra;K centru, na trollejbusnuju ostanovku iz centra;162;both;55.5961242595;37.6019558078;800;62;26;0;0;280;860;20
-19892;"К ТЦ ""Меримис""";"K TC ""Merimis""";"K TC ""Merimis""";162;both;55.5960297433;37.6027269213;800;62;26;0;0;280;860;20
+19850;На улицу Академика Янгеля;Na ulicu Akademika Jangelja;Na ulicu Akademika Jangelja;162;both;55.5958115992;37.6001611379;740;69;28;0;0;320;800;20
+19860;К облсти, на дублёр Варшавки, восточная сторона;K oblsti, na dubljor Varshavki, vostochnaja storona;K oblsti, na dubljor Varshavki, vostochnaja storona;162;both;55.5945046794;37.6004362789;740;39;4;0;0;370;980;23
+19870;К центру, на северо-запад;K centru, na severo-zapad;K centru, na severo-zapad;162;both;55.5961992979;37.6012429424;740;64;28;0;0;420;880;20
+19880;К области, на юго-восток;K oblasti, na jugo-vostok;K oblasti, na jugo-vostok;162;both;55.5941920191;37.6018495033;740;25;25;0;0;0;0;0
+19890;К центру, на троллейбусную остановку из центра;K centru, na trollejbusnuju ostanovku iz centra;K centru, na trollejbusnuju ostanovku iz centra;162;both;55.5961242595;37.6019558078;740;63;27;0;0;280;820;20
+19892;"К ТЦ ""Меримис""";"K TC ""Merimis""";"K TC ""Merimis""";162;both;55.5960297433;37.6027269213;740;62;29;0;0;400;600;20
 19910;Открытое шоссе, Ивантеевская улица;Otkrytoe shosse, Ivanteevskaja ulica;Otkrytoe shosse, Ivanteevskaja ulica;1;both;55.8141507028;37.7356498729;740;39;0;0;0;420;985;18
 19930;К области;K oblasti;K oblasti;192;both;55.5477304329;37.5531353474;800;0;0;0;0;0;0;0
 19940;К области, на запад;K oblasti, na zapad;K oblasti, na zapad;164;both;55.5687039185;37.5752637694;740;66;59;0;0;410;900;18
