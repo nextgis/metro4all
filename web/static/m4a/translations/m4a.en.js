@@ -36,7 +36,9 @@
         },
         inline: {
             "start_st": "Please select starting or destination station",
-            "eq_st": "From station is equal to destination station"
+            "eq_st": "From station is equal to destination station",
+            "st_st": "Choose start station",
+            "end_st": "Choose destionation station"
         }
     })
 })(jQuery, m4a)
