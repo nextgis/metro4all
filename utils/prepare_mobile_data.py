@@ -170,12 +170,12 @@ def createzip(city):
     zf.write("interchanges.csv")
 
     for dirname, subdirs, files in os.walk("schemes"):
-        zf.write("schemes")
+        #zf.write("schemes")
         for filename in files:
             zf.write(os.path.join(dirname, filename))
 
     for dirname, subdirs, files in os.walk("icons"):
-        zf.write("schemes")
+        #zf.write("icons")
         for filename in files:
             zf.write(os.path.join(dirname, filename))
 
