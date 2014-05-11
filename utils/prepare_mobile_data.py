@@ -214,11 +214,13 @@ def upload_sftp(city,ver,USERNAME,PASSWORD):
     transport.connect(username = USERNAME, password = PASSWORD)
     sftp = paramiko.SFTPClient.from_transport(transport)
 
-    sftp.put("temp/meta.json","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/meta.json")
     sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/" + city + ".zip")
     
-    print "Uploading: archive/" + city + "_" + str(val) + ".zip"
+    print "Uploading: archive/" + city + "_" + str(ver) + ".zip"
     sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/archive/" + city + "_" + str(ver) + ".zip")
+
+    print "Uploading: meta.json"
+    sftp.put("temp/meta.json","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/meta.json")
 
     sftp.close()
     transport.close()
