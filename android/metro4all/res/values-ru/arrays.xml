@@ -30,4 +30,14 @@
 		<item>2</item>
 		<item>3</item>
 	</string-array>
+		<string-array name="locales">
+	    <item>Английский</item>
+		<item>Русский</item>
+		<item>Польский</item>
+	</string-array>	
+	<string-array name="locales_val">
+	    <item>en</item>
+		<item>ru</item>
+		<item>pl</item>
+	</string-array>		
 </resources>

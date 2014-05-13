@@ -277,6 +277,9 @@ public class MainActivity extends SherlockActivity{
     	if(!m_oGraph.IsValid()){
     		Toast.makeText(this, m_oGraph.GetLastError(), Toast.LENGTH_SHORT).show();
     	}
+    	else{
+    		UpdateUI();
+    	}
 
 	}
 

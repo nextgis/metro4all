@@ -45,6 +45,8 @@
 	<string name="sLift">Лифт</string>
 	<string name="sLiftEconomy">Лифт экономит ступенек</string>
 	<string name="sCM">см</string>
+	<string name="sKB">Кб</string>
+	<string name="sMB">Мб</string>
 	<string name="sNo">Нет</string>
 	<string name="sMinRailWidth">Мин. ширина аппарели</string>
 	<string name="sMaxRailWidth">Макс. ширина аппарели</string>
@@ -54,6 +56,7 @@
 	<string name="sConflictNotes">Входы конфликтующие с вашими ограничениями отмечены красным</string>
 	<string name="sLimits">Мои ограничения</string>		
 	<string name="sLimitsSet">Установить мои ограничения</string>
+	<string name="sLimitsHave">Учитывать ограничения</string>
 	<string name="sSummary">Сводка по маршруту</string>
 	<string name="sSummaryClick">Выберите для просмотра деталей</string>	
 		<!-- tabs -->
@@ -78,5 +81,13 @@
 	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
 	<string name="sPrefUpdDataSummary">Нажмите чтобы обновить данные для маршрутизации</string>
 	<string name="sPrefUpdDataTitle">Обновить данные</string>	
+	<string name="sPrefChangeCityBasesTitle">Изменить состав баз</string>
+	<string name="sPrefChangeCityBasesSummary">Нажмите чтобы изменить состав загруженных баз данных по метро</string>
+	<string name="sPrefCity">Метро</string>
+	<string name="sPrefCitySummary">Выберите метрополитен</string>
+	<string name="sPrefCityTitle">Выберите метрополитен из списка</string>
+	<string name="sPrefCityLoc">Выбор языка</string>
+	<string name="sPrefCityLocSummary">Выбор языка для данных о метрополитене</string>
+	<string name="sPrefCityLocTitle">Выберите язык для данных о метрополитене</string>
 	<string name="stationFilterHintText">Введите часть названия станции</string>		
 </resources>

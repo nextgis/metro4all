@@ -48,6 +48,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	protected int mnMaxWidth, mnWheelWidth;	
 	protected ExpandableListView mExpListView;
 	protected int mnPathCount, mnDeparturePortalId, mnArrivalPortalId;
+	protected boolean m_bHaveLimits;
     
 	protected Map<Integer, StationItem> mmoStations;
 	protected Map<String, int[]> mmoCrosses;
@@ -69,7 +70,9 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
-		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	        
+		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	
+		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
+		 
 
 	    Bundle extras = getIntent().getExtras(); 
 	    if(extras != null) {
@@ -269,7 +272,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 
 	protected void FillWithData(int[] naBarriers, RouteItem it, boolean bWithZeroes){
 		if(bWithZeroes || naBarriers[0] > 0){//max_width
-			boolean bProblem = naBarriers[0] < mnMaxWidth;
+			boolean bProblem = naBarriers[0] < mnMaxWidth && m_bHaveLimits;
 			String sName = getString(R.string.sMaxWCWidth) + ": " + naBarriers[0] / 10 + " " + getString(R.string.sCM);
 			BarrierItem bit = new BarrierItem(0, sName, bProblem, naBarriers[0]);
 			it.AddBarrier(bit);
@@ -302,12 +305,16 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		if(bWithZeroes || naBarriers[5] > 0){//min_rail_width
 			String sName = getString(R.string.sMinRailWidth) + ": " + naBarriers[5] / 10 + " " + getString(R.string.sCM);
 			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
+			if(!bCanRoll && !m_bHaveLimits)
+				bCanRoll = true;
 			BarrierItem bit = new BarrierItem(5, sName, !bCanRoll, naBarriers[5]);
 			it.AddBarrier(bit);
 		}
 		if(bWithZeroes || naBarriers[6] > 0){//max_rail_width
 			String sName = getString(R.string.sMaxRailWidth) + ": " + naBarriers[6] / 10 + " " + getString(R.string.sCM);
 			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
+			if(!bCanRoll && !m_bHaveLimits)
+				bCanRoll = true;
 			BarrierItem bit = new BarrierItem(6, sName, !bCanRoll, naBarriers[6]);
 			it.AddBarrier(bit);
 		}

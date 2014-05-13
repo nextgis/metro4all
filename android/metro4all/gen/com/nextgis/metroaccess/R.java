@@ -9,6 +9,8 @@ package com.nextgis.metroaccess;
 
 public final class R {
     public static final class array {
+        public static final int locales=0x7f0c0002;
+        public static final int locales_val=0x7f0c0003;
         public static final int navi_type=0x7f0c0000;
         public static final int navi_type_val=0x7f0c0001;
     }
@@ -1099,53 +1101,64 @@ containing a value of this type.
         public static final int sCancel=0x7f0a0022;
         public static final int sCannotGetPath=0x7f0a001b;
         public static final int sCannotReadFile=0x7f0a001a;
-        public static final int sConflictNotes=0x7f0a003c;
+        public static final int sConflictNotes=0x7f0a003e;
         public static final int sDelete=0x7f0a0021;
-        public static final int sDeleteData=0x7f0a003b;
+        public static final int sDeleteData=0x7f0a003d;
         public static final int sDetailpage=0x7f0a000f;
         public static final int sDownLoading=0x7f0a0015;
         public static final int sDownload=0x7f0a0020;
-        public static final int sDownloadData=0x7f0a003a;
+        public static final int sDownloadData=0x7f0a003c;
         public static final int sEntranceName=0x7f0a0029;
         public static final int sExitName=0x7f0a002a;
         public static final int sFileNotFound=0x7f0a0019;
         public static final int sFromStation=0x7f0a0024;
         public static final int sHomepage=0x7f0a000e;
         public static final int sInvalidCSVData=0x7f0a001c;
+        public static final int sKB=0x7f0a0036;
         public static final int sLift=0x7f0a0033;
         public static final int sLiftEconomy=0x7f0a0034;
-        public static final int sLimits=0x7f0a003d;
-        public static final int sLimitsSet=0x7f0a003e;
-        public static final int sMaxAngle=0x7f0a0039;
-        public static final int sMaxRailWidth=0x7f0a0038;
+        public static final int sLimits=0x7f0a003f;
+        public static final int sLimitsHave=0x7f0a0041;
+        public static final int sLimitsSet=0x7f0a0040;
+        public static final int sMB=0x7f0a0037;
+        public static final int sMaxAngle=0x7f0a003b;
+        public static final int sMaxRailWidth=0x7f0a003a;
         public static final int sMaxWCWidth=0x7f0a0030;
-        public static final int sMinRailWidth=0x7f0a0037;
+        public static final int sMinRailWidth=0x7f0a0039;
         public static final int sNetworkGetErr=0x7f0a0013;
         public static final int sNetworkInvalidData=0x7f0a0018;
         public static final int sNetworkUnreachErr=0x7f0a0014;
-        public static final int sNo=0x7f0a0036;
+        public static final int sNo=0x7f0a0038;
         public static final int sNoOrEmptyData=0x7f0a001d;
         public static final int sNotSet=0x7f0a002b;
-        public static final int sPrefCarriageSize=0x7f0a004d;
-        public static final int sPrefCarriageSizeSummary=0x7f0a004e;
-        public static final int sPrefCarriageSizeTitle=0x7f0a004f;
-        public static final int sPrefCatData=0x7f0a0046;
-        public static final int sPrefCatMain=0x7f0a0045;
-        public static final int sPrefDataPath=0x7f0a0050;
-        public static final int sPrefDataPathSummary=0x7f0a0051;
-        public static final int sPrefDataPathTitle=0x7f0a0052;
-        public static final int sPrefNaviType=0x7f0a0047;
-        public static final int sPrefNaviTypeSummary=0x7f0a0048;
-        public static final int sPrefNaviTypeTitle=0x7f0a0049;
+        public static final int sPrefCarriageSize=0x7f0a0050;
+        public static final int sPrefCarriageSizeSummary=0x7f0a0051;
+        public static final int sPrefCarriageSizeTitle=0x7f0a0052;
+        public static final int sPrefCatData=0x7f0a0049;
+        public static final int sPrefCatMain=0x7f0a0048;
+        public static final int sPrefChangeCityBasesSummary=0x7f0a0059;
+        public static final int sPrefChangeCityBasesTitle=0x7f0a0058;
+        public static final int sPrefCity=0x7f0a005a;
+        public static final int sPrefCityLoc=0x7f0a005d;
+        public static final int sPrefCityLocSummary=0x7f0a005e;
+        public static final int sPrefCityLocTitle=0x7f0a005f;
+        public static final int sPrefCitySummary=0x7f0a005b;
+        public static final int sPrefCityTitle=0x7f0a005c;
+        public static final int sPrefDataPath=0x7f0a0053;
+        public static final int sPrefDataPathSummary=0x7f0a0054;
+        public static final int sPrefDataPathTitle=0x7f0a0055;
+        public static final int sPrefNaviType=0x7f0a004a;
+        public static final int sPrefNaviTypeSummary=0x7f0a004b;
+        public static final int sPrefNaviTypeTitle=0x7f0a004c;
         /**  dialogs 
  dialogs 
          */
-        public static final int sPrefTitle=0x7f0a0044;
-        public static final int sPrefUpdDataSummary=0x7f0a0053;
-        public static final int sPrefUpdDataTitle=0x7f0a0054;
-        public static final int sPrefWheelBaseSize=0x7f0a004a;
-        public static final int sPrefWheelBaseSizeSummary=0x7f0a004b;
-        public static final int sPrefWheelBaseSizeTitle=0x7f0a004c;
+        public static final int sPrefTitle=0x7f0a0047;
+        public static final int sPrefUpdDataSummary=0x7f0a0056;
+        public static final int sPrefUpdDataTitle=0x7f0a0057;
+        public static final int sPrefWheelBaseSize=0x7f0a004d;
+        public static final int sPrefWheelBaseSizeSummary=0x7f0a004e;
+        public static final int sPrefWheelBaseSizeTitle=0x7f0a004f;
         public static final int sRoute=0x7f0a0026;
         public static final int sSchema=0x7f0a0027;
         public static final int sSearch=0x7f0a0023;
@@ -1153,22 +1166,22 @@ containing a value of this type.
         /**  tabs 
  tabs 
          */
-        public static final int sSelAlphabeticalTab=0x7f0a0041;
+        public static final int sSelAlphabeticalTab=0x7f0a0044;
         public static final int sSelFromStation=0x7f0a002c;
-        public static final int sSelLinesTab=0x7f0a0042;
-        public static final int sSelRecentTab=0x7f0a0043;
+        public static final int sSelLinesTab=0x7f0a0045;
+        public static final int sSelRecentTab=0x7f0a0046;
         public static final int sSelToStation=0x7f0a002d;
         public static final int sSelectDataToDownload=0x7f0a001e;
         public static final int sSettings=0x7f0a0011;
         public static final int sStairsCount=0x7f0a0031;
         public static final int sStairsWORails=0x7f0a0032;
         public static final int sStationName=0x7f0a0028;
-        public static final int sSummary=0x7f0a003f;
-        public static final int sSummaryClick=0x7f0a0040;
+        public static final int sSummary=0x7f0a0042;
+        public static final int sSummaryClick=0x7f0a0043;
         public static final int sToStation=0x7f0a0025;
         public static final int sUpdateAvaliable=0x7f0a001f;
         public static final int sZipExtractionProcess=0x7f0a0016;
-        public static final int stationFilterHintText=0x7f0a0055;
+        public static final int stationFilterHintText=0x7f0a0060;
     }
     public static final class style {
         /** 
@@ -2339,7 +2352,7 @@ containing a value of this type.
          */
         public static final int[] SherlockSpinner = {
             0x010100af, 0x01010175, 0x01010176, 0x0101017b,
-            0x01010262, 0x010102ac, 0x010102ad, 0x0101041f
+            0x01010262, 0x010102ac, 0x010102ad, 0x0101043a
         };
         /**
           <p>

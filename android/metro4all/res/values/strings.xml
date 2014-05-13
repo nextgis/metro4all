@@ -45,6 +45,8 @@
 	<string name="sLift">Elevator</string>
 	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
 	<string name="sCM">cm</string>
+	<string name="sKB">Kb</string>
+	<string name="sMB">Mb</string>
 	<string name="sNo">No</string>
 	<string name="sMinRailWidth">Min rail width</string>
 	<string name="sMaxRailWidth">Max rail width</string>
@@ -54,6 +56,7 @@
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
 	<string name="sLimits">My limitations</string>	
 	<string name="sLimitsSet">Set my limitations</string>
+	<string name="sLimitsHave">Have limitations</string>
 	<string name="sSummary">Trip summary</string>		
 	<string name="sSummaryClick">Press to show details</string>		
 	<!-- tabs -->
@@ -78,5 +81,13 @@
 	<string name="sPrefDataPathTitle">Set download data URL</string>
 	<string name="sPrefUpdDataSummary">Click to update routing data</string>
 	<string name="sPrefUpdDataTitle">Update data</string>
+	<string name="sPrefChangeCityBasesTitle">Change metro bases</string>
+	<string name="sPrefChangeCityBasesSummary">Change the downloaded metro bases list</string>
+	<string name="sPrefCity">Metro</string>
+	<string name="sPrefCitySummary">Choose metro</string>
+	<string name="sPrefCityTitle">Choose metro from the list</string>
+	<string name="sPrefCityLoc">Select locale</string>
+	<string name="sPrefCityLocSummary">Select metro data locale</string>
+	<string name="sPrefCityLocTitle">Choose the locale for metro data</string>
 	<string name="stationFilterHintText">Start entering the name of the station</string>
 </resources>

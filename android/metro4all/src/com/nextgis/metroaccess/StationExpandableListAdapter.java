@@ -53,6 +53,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	
 	protected int mnType;
 	protected int mnMaxWidth, mnWheelWidth;
+	protected boolean m_bHaveLimits;
 	
 	protected LayoutInflater mInfalInflater;
 	protected List<StationItem> moOriginalStationList;
@@ -65,7 +66,8 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
-		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	
+		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
+		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
     }
 	
 	protected void FillArrays(){
@@ -142,8 +144,11 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		if(mnType > 1){
 			boolean bSmallWidth = entry.GetDetailes()[0] < mnMaxWidth;
 			boolean bCanRoll = entry.GetDetailes()[5] < mnWheelWidth && entry.GetDetailes()[6] > mnWheelWidth;
-			if(bSmallWidth || !bCanRoll){
+			if(m_bHaveLimits && (bSmallWidth || !bCanRoll)){
 				item.setTextColor(Color.RED);
+			}
+			else{
+				item.setTextColor(Color.WHITE);
 			}
 		}
 		//
@@ -253,6 +258,12 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	}
 	
 	public void Update(){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
+		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
+		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
+		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
+		
 		FillArrays();
 	}
 }
