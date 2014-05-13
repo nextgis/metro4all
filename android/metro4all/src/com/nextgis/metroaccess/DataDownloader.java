@@ -3,7 +3,7 @@
  * Purpose:  Routing in subway for disabled.
  * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -37,6 +37,8 @@ import java.util.zip.ZipFile;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.nextgis.metroaccess.data.GraphDataItem;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -47,44 +49,36 @@ import android.os.Message;
 
 
 public class DataDownloader extends AsyncTask<String, String, String> {
-    private Context moContext;
-    private boolean mbSucces = true;
-    private ProgressDialog moDownloadDialog;
-    private String msDownloadDialogMsg;
-    private Handler moEventReceiver;
-    private String  msTmpOutFile;
-    private String  msSubPath;
-    private String  msName;
-    private String  msLocName;
-    private int mnVer;
-    private boolean mbDirected;
+    private Context m_oContext;
+    private boolean m_bSucces = true;
+    private ProgressDialog m_oDownloadDialog;
+    private String m_sDownloadDialogMsg;
+    private Handler m_oEventReceiver;
+    private String  m_sTmpOutFile;
+    private GraphDataItem  m_oItem;
 	
-    public DataDownloader(Context c, String sSubPath, String sName, String sLocName, int nVer, boolean bDirected, String sMsg, Handler eventReceiver) {        
+    public DataDownloader(Context c, GraphDataItem oItem, String sMsg, Handler eventReceiver) {        
         super();
-        moContext = c;
-       	moDownloadDialog = null;
-        moEventReceiver = eventReceiver;
-        msDownloadDialogMsg = sMsg;  
-        msSubPath = sSubPath;
-        msName = sName;
-        msLocName = sLocName;
-        mnVer = nVer;
-        mbDirected = bDirected;
+        m_oContext = c;
+       	m_oDownloadDialog = null;
+        m_oEventReceiver = eventReceiver;
+        m_sDownloadDialogMsg = sMsg;  
+        m_oItem = oItem;
         
-        File dir = moContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        File zipFile = new File(dir, sSubPath + ".zip");		
+        File dir = m_oContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        File zipFile = new File(dir, m_oItem.GetPath() + ".zip");		
 
-        msTmpOutFile = zipFile.getAbsolutePath();
+        m_sTmpOutFile = zipFile.getAbsolutePath();
     }
     
     @Override
     protected void onPreExecute() {
     	super.onPreExecute();
-		moDownloadDialog = new ProgressDialog(moContext);
-		moDownloadDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		moDownloadDialog.setMessage(msDownloadDialogMsg);
-		moDownloadDialog.setCancelable(false);
-		moDownloadDialog.show();
+		m_oDownloadDialog = new ProgressDialog(m_oContext);
+		m_oDownloadDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		m_oDownloadDialog.setMessage(m_sDownloadDialogMsg);
+		m_oDownloadDialog.setCancelable(false);
+		m_oDownloadDialog.show();
     } 
     
     @Override
@@ -99,16 +93,16 @@ public class DataDownloader extends AsyncTask<String, String, String> {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
                 bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
-                bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkUnreachErr));
+                bundle.putString(MainActivity.BUNDLE_MSG_KEY, m_oContext.getString(R.string.sNetworkUnreachErr));
                 
                 Message msg = new Message();
                 msg.setData(bundle);
-                if(moEventReceiver != null){
-                	moEventReceiver.sendMessage(msg);
+                if(m_oEventReceiver != null){
+                	m_oEventReceiver.sendMessage(msg);
                 }    			
     		}
     		InputStream input = new BufferedInputStream(url.openStream());
-    		OutputStream output = new FileOutputStream(msTmpOutFile);
+    		OutputStream output = new FileOutputStream(m_sTmpOutFile);
     		byte data[] = new byte[1024];
     		long total = 0;
     		while ((count = input.read(data)) != -1) {
@@ -119,7 +113,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		output.close();
     		input.close();
     	} catch (Exception e) {
-    		mbSucces = false;
+    		m_bSucces = false;
     		
             Bundle bundle = new Bundle();
             bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
@@ -128,23 +122,22 @@ public class DataDownloader extends AsyncTask<String, String, String> {
             
             Message msg = new Message();
             msg.setData(bundle);
-            if(moEventReceiver != null){
-            	moEventReceiver.sendMessage(msg);
-            }
-    		
+            if(m_oEventReceiver != null){
+            	m_oEventReceiver.sendMessage(msg);
+            } 		
     		
     	}
     	return null;
 	}
     
     protected void onProgressUpdate(String... progress) {
-    	moDownloadDialog.setProgress(Integer.parseInt(progress[0]));
+    	m_oDownloadDialog.setProgress(Integer.parseInt(progress[0]));
     }
     
     @Override
     protected void onPostExecute(String unused) {
-    	moDownloadDialog.dismiss();
-    	if(mbSucces){
+    	m_oDownloadDialog.dismiss();
+    	if(m_bSucces){
     		try {
     			unzip();                	
     		} catch (IOException e) {
@@ -157,36 +150,30 @@ public class DataDownloader extends AsyncTask<String, String, String> {
                 
                 Message msg = new Message();
                 msg.setData(bundle);
-                if(moEventReceiver != null){
-                	moEventReceiver.sendMessage(msg);
+                if(m_oEventReceiver != null){
+                	m_oEventReceiver.sendMessage(msg);
                 }    			
     		}
     	}
 	}
     
     public void unzip() throws IOException {
-    	moDownloadDialog = new ProgressDialog(moContext);
-    	moDownloadDialog.setMessage(moContext.getResources().getString(R.string.sZipExtractionProcess));
-    	moDownloadDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-    	moDownloadDialog.setCancelable(false);
-    	moDownloadDialog.show();
-    	new UnZipTask(msName, msLocName, moContext.getExternalFilesDir(MainActivity.ROUTE_DATA_DIR) + File.separator + msSubPath, mnVer, mbDirected).execute(msTmpOutFile);
+    	m_oDownloadDialog = new ProgressDialog(m_oContext);
+    	m_oDownloadDialog.setMessage(m_oContext.getResources().getString(R.string.sZipExtractionProcess));
+    	m_oDownloadDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    	m_oDownloadDialog.setCancelable(false);
+    	m_oDownloadDialog.show();
+    	new UnZipTask(m_oItem, m_oContext.getExternalFilesDir(MainActivity.GetRouteDataDir()) + File.separator + m_oItem.GetPath()).execute(m_sTmpOutFile);
     }
     
     private class UnZipTask extends AsyncTask<String, Void, Boolean> {
-    	private String msName;
-    	private String msLocName;
+    	private GraphDataItem  m_oItem;
     	private String msPath;
-    	private int mnVer;
-    	private boolean mbDirected;
     	
-        public UnZipTask(String sName, String sLocName, String sSubPath, int nVer, boolean bDirected) {        
+        public UnZipTask(GraphDataItem oItem, String sSubPath) {        
             super();
-            msName = sName;
-            msLocName = sLocName;
+            m_oItem = oItem;
             msPath = sSubPath;
-            mnVer = nVer;
-            mbDirected = bDirected;
         }
         
     	@Override
@@ -209,13 +196,13 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		
     			JSONObject oJSONRoot = new JSONObject();
 
-            	oJSONRoot.put("name", msName);
-				oJSONRoot.put("name_" + Locale.getDefault().getLanguage(), msLocName);
-				oJSONRoot.put("ver", mnVer);
-				oJSONRoot.put("directed", mbDirected);            
+            	oJSONRoot.put("name", m_oItem.GetName());
+				oJSONRoot.put("name_" + Locale.getDefault().getLanguage(), m_oItem.GetLocaleName());
+				oJSONRoot.put("ver", m_oItem.GetVersion());
+				oJSONRoot.put("directed", m_oItem.GetDirected());            
             
 	            String sJSON = oJSONRoot.toString();
-	            File file = new File(msPath, MainActivity.META);
+	            File file = new File(msPath, MainActivity.GetMetaFileName());
 	            if(MainActivity.writeToFile(file, sJSON)){
 	            	//store data
 	            	//create sqlite db
@@ -232,6 +219,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
 				e.printStackTrace();
 	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
 				bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+				return false;
 			}
 			catch (Exception e) {
 	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
@@ -241,15 +229,15 @@ public class DataDownloader extends AsyncTask<String, String, String> {
                   
             Message msg = new Message();
             msg.setData(bundle);
-            if(moEventReceiver != null){
-            	moEventReceiver.sendMessage(msg);
+            if(m_oEventReceiver != null){
+            	m_oEventReceiver.sendMessage(msg);
             }   		
     		return true;
     	}
     	
     	@Override
     	protected void onPostExecute(Boolean result) {
-    		moDownloadDialog.dismiss();
+    		m_oDownloadDialog.dismiss();
     	}
     	
     	private void unzipEntry(ZipFile zipfile, ZipEntry entry, String outputDir) throws IOException {

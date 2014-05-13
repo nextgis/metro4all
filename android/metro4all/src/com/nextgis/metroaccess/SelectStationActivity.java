@@ -40,6 +40,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
 
 public class SelectStationActivity extends SherlockFragmentActivity {
 	private static final int NUM_ITEMS = 3;
@@ -51,10 +53,9 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	protected static LinesStationListFragment mLinesStListFragment;
 	protected static RecentStationListFragment mRecentStListFragment;
 	
-	protected boolean mbIn;
-	protected List<StationItem> mStationList;
-	protected Map<StationItem, List<PortalItem>> mPortalCollection;
-	protected Map<Integer, StationItem> mmoStations;
+	protected boolean m_bIn;
+	protected List<StationItem> m_aoStationList;
+	protected Map<StationItem, List<PortalItem>> m_moPortalCollection;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,9 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.select_station);
+        
+    	m_aoStationList = new ArrayList<StationItem>();
+    	m_moPortalCollection = new HashMap<StationItem, List<PortalItem>>();
 
        // setup action bar for tabs
         final ActionBar actionBar = getSupportActionBar();
@@ -106,7 +110,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         Bundle extras = getIntent().getExtras();  
         if(extras != null){
         	int nType = extras.getInt(MainActivity.BUNDLE_EVENTSRC_KEY);
-        	mbIn = extras.getBoolean(MainActivity.BUNDLE_ENTRANCE_KEY);
+        	m_bIn = extras.getBoolean(MainActivity.BUNDLE_ENTRANCE_KEY);
         	switch(nType){
         	case MainActivity.DEPARTURE_RESULT:
         		setTitle(R.string.sFromStation);
@@ -115,31 +119,32 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         		setTitle(R.string.sToStation);
         		break;
         	}
-        	mmoStations = (Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
-        	
-        	mStationList = new ArrayList<StationItem>();
-        	mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
-        	for(StationItem it : mmoStations.values()){
-        		mStationList.add(it); 
-        		mPortalCollection.put(it, it.GetPortals(mbIn));
-        	}          	
+
+        	FillArrays();        	
         }        
     }
     
-	public Map<Integer, StationItem> GetStations(){
-		return mmoStations;
-	}
-
+    public void FillArrays(){
+    	m_aoStationList.clear();
+    	m_moPortalCollection.clear();
+        Map<Integer, StationItem> moStations = MainActivity.GetGraph().GetStations();
+   	
+    	for(StationItem it : moStations.values()){
+    		m_aoStationList.add(it); 
+    		m_moPortalCollection.put(it, it.GetPortals(m_bIn));
+    	}  
+    }
+    
 	public boolean IsIn(){
-		return mbIn;
+		return m_bIn;
 	}
 
 	public List<StationItem> GetStationList(){
-		return mStationList;
+		return m_aoStationList;
 	}
 	
 	public Map<StationItem, List<PortalItem>> GetPortalCollection(){
-		return mPortalCollection;
+		return m_moPortalCollection;
 	}
 
     public static class TabListener<T extends SherlockFragment> implements ActionBar.TabListener {
@@ -226,9 +231,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
            return false;
        case MainActivity.MENU_SETTINGS:
            // app icon in action bar clicked; go home
-           Intent intentSet = new Intent(this, PreferencesActivity.class);
-           intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-           startActivity(intentSet);
+           onSettings();
            return true;
        case MainActivity.MENU_ABOUT:
            Intent intentAbout = new Intent(this, AboutActivity.class);
@@ -247,4 +250,27 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     	finish();
 		   
 	} 
+	
+	@Override
+	  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		//update fragments to new data
+	    switch(requestCode){
+	    case MainActivity.PREF_RESULT:
+	    	FillArrays(); 
+	    	if(mAlphaStListFragment != null)
+	    		mAlphaStListFragment.Update();
+	    	if(mLinesStListFragment != null)
+	    		mLinesStListFragment.Update();
+	    	if(mRecentStListFragment != null)
+	    		mRecentStListFragment.Update();
+	    	break;
+    	default:
+    		break;
+	    }
+	}
+	
+	protected void onSettings() {
+        Intent intentSet = new Intent(this, PreferencesActivity.class);
+        startActivityForResult(intentSet, MainActivity.PREF_RESULT);		
+	}
 }

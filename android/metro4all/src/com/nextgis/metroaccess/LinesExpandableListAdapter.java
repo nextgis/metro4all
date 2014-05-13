@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
+
 import android.content.Context;
 
 public class LinesExpandableListAdapter extends StationIndexedExpandableListAdapter {
@@ -53,7 +56,7 @@ public class LinesExpandableListAdapter extends StationIndexedExpandableListAdap
 				mDigitIndexer.put(ch, x);
 
 				String sName = ""+ ch + ". " + momLines.get(ch);
-				StationItem sit = new StationItem(-1, sName, -1, -1);
+				StationItem sit = new StationItem(-1, sName, -1, -1, -1);
 				mStationList.add(x, sit);
 			}     
 		}  

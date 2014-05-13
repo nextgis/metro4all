@@ -37,6 +37,10 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.view.MenuItem;
+import com.nextgis.metroaccess.data.BarrierItem;
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.RouteItem;
+import com.nextgis.metroaccess.data.StationItem;
 
 public class StationListView extends SherlockActivity implements OnNavigationListener{
 	
@@ -73,8 +77,8 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	    	mnArrivalPortalId = extras.getInt("arr_" + MainActivity.BUNDLE_PORTALID_KEY);
 	    	
 	    	mnPathCount = extras.getInt(MainActivity.BUNDLE_PATHCOUNT_KEY);
-	    	mmoStations = (Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
-	    	mmoCrosses = (Map<String, int[]>) extras.getSerializable(MainActivity.BUNDLE_CROSSESMAP_KEY);
+	    	mmoStations = MainActivity.GetGraph().GetStations();//(Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
+	    	mmoCrosses = MainActivity.GetGraph().GetCrosses();//(Map<String, int[]>) extras.getSerializable(MainActivity.BUNDLE_CROSSESMAP_KEY);
 
 	    	String[] data = new String[mnPathCount];
 	    	for(int i = 0; i < mnPathCount; i++){
@@ -119,7 +123,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
     			
 			//add entrance
 	   		List<RouteItem> routeList = new ArrayList<RouteItem>();
-	   		RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName), list.get(0), 6);
+	   		RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName), list.get(0), -1, 6);
 	   		routeList.add(FillBarriersForEntrance(oEntrance, list.get(0)));	    		
 	    			
 		    for(int i = 0; i < list.size(); i++){
@@ -159,7 +163,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 				}
 				
 	    		StationItem entry = mmoStations.get(nId);
-				RouteItem oSta = new RouteItem(entry.GetId(), entry.GetName(), entry.GetLine(), nType);
+				RouteItem oSta = new RouteItem(entry.GetId(), entry.GetName(), entry.GetLine(), entry.GetNode(), nType);
 				if(i == list.size() - 1){
 					routeList.add(FillBarriersForExit(oSta, mnArrivalPortalId));
 				}
@@ -170,7 +174,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		    		
 		    //add exit
 		    StationItem sit = mmoStations.get(list.get(list.size() - 1));
-			RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), sit.GetLine(), 7);
+			RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), sit.GetLine(), -1, 7);
 			routeList.add(oExit);
 			
 			int[] naBarriers = {0,0,0,0,0,0,0,0};
@@ -217,7 +221,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 				}
 			}
 			
-			RouteItem oSumm = new RouteItem(-1, getString(R.string.sSummary), 0, 0);
+			RouteItem oSumm = new RouteItem(-1, getString(R.string.sSummary), 0, 0, 0);
 			FillWithData(naBarriers, oSumm, false);	    		
 			routeList.add(0, oSumm);
 			
@@ -245,8 +249,8 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			if(pit != null){
 				FillWithData(pit.GetDetailes(), it, false);		
 			}
-		}
-		it.SetLine(sit.GetLine());
+			it.SetLine(sit.GetLine());
+		}		
 		return it;
 	}	
 	
@@ -257,8 +261,9 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			if(pit != null){
 				FillWithData(pit.GetDetailes(), it, false);		
 			}
+			it.SetLine(sit.GetLine());
 		}
-		it.SetLine(sit.GetLine());
+		
 		return it;
 	}
 

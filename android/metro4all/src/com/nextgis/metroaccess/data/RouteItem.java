@@ -3,7 +3,7 @@
  * Purpose:  Routing in subway for disabled.
  * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -18,29 +18,29 @@
 *    You should have received a copy of the GNU General Public License
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-package com.nextgis.metroaccess;
+package com.nextgis.metroaccess.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class StationItem implements Parcelable {
+public class RouteItem implements Parcelable {
 	private String sName;
-	private int nType;// 1 - src, 2 - dest, 3 - cross from, 4 - cross to, 5 - transit
+	private int nType;// 1 - src, 2 - dest, 3 - cross from, 4 - cross to, 5 - transit, 6 - entrance; 7 - exit
 	private int nId;
 	private int nLine;
-	private Map<Integer, PortalItem> maoPortals;
+	private int nNode;
+	private List<BarrierItem> astBarriers;
 	
-	public StationItem(int nId, String sName, int nLine, int nType) {
-		this.maoPortals = new HashMap<Integer, PortalItem>();
+	public RouteItem(int nId, String sName, int nLine, int nNode, int nType) {
+		this.astBarriers = new ArrayList<BarrierItem>();
 		this.sName = sName;
 		this.nId = nId;
 		this.nType = nType;
 		this.nLine = nLine;
+		this.nNode = nNode;
 	}		
 	
 	public String GetName(){
@@ -59,45 +59,55 @@ public class StationItem implements Parcelable {
 		return nLine;
 	}
 	
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int GetNode(){
+		return nNode;
 	}
-
+	
+	public void AddBarrier(BarrierItem bit){
+		astBarriers.add(bit);
+	}
+	
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeString(sName);
 		out.writeInt(nId);
 		out.writeInt(nLine);
+		out.writeInt(nNode);
 		out.writeInt(nType);
 		//
-		out.writeInt(maoPortals.size());
-		for(PortalItem it : maoPortals.values()){
+		out.writeInt(astBarriers.size());
+		for(BarrierItem it : astBarriers){
 			out.writeValue(it);
 		}
+
 	}	
 	
-	public static final Parcelable.Creator<StationItem> CREATOR
-    = new Parcelable.Creator<StationItem>() {
-	    public StationItem createFromParcel(Parcel in) {
-	        return new StationItem(in);
+	public List<BarrierItem> GetProblems(){
+		return astBarriers;
+	}
+	
+	public static final Parcelable.Creator<RouteItem> CREATOR
+    = new Parcelable.Creator<RouteItem>() {
+	    public RouteItem createFromParcel(Parcel in) {
+	        return new RouteItem(in);
 	    }
 	
-	    public StationItem[] newArray(int size) {
-	        return new StationItem[size];
+	    public RouteItem[] newArray(int size) {
+	        return new RouteItem[size];
 	    }
 	};
 	
-	private StationItem(Parcel in) {
+	private RouteItem(Parcel in) {
 		sName = in.readString();
 		nId = in.readInt();
 		nLine = in.readInt();
+		nNode = in.readInt();
 		nType = in.readInt();
-		
-		maoPortals = new HashMap<Integer, PortalItem>();
+
+		astBarriers = new ArrayList<BarrierItem>();
 		int nSize = in.readInt();
 		for(int i = 0; i < nSize; i++){
-			PortalItem it = (PortalItem) in.readValue(PortalItem.class.getClassLoader());
-			maoPortals.put(it.GetId(), it);
+			BarrierItem it = (BarrierItem) in.readValue(BarrierItem.class.getClassLoader());
+			astBarriers.add(it);
 		}
 	}
 
@@ -109,25 +119,19 @@ public class StationItem implements Parcelable {
 	public void SetType(int nType) {
 		this.nType = nType;
 	}
-	
-	public List<PortalItem> GetPortals(boolean bIn){
-		List<PortalItem> ret = new ArrayList<PortalItem>();
-		for(PortalItem pit : maoPortals.values()){
-			if(bIn && (pit.GetDirection() == 1 || pit.GetDirection() == 3)){
-				ret.add(pit);
-			}
-			else if(!bIn && (pit.GetDirection() == 2 || pit.GetDirection() == 3)){
-				ret.add(pit);
-			}
-		}
-		return ret;
-	}
-	
-	public void AddPortal(PortalItem it){
-		maoPortals.put(it.GetId(), it);
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public PortalItem GetPortal(int nPortalId) {
-		return maoPortals.get(nPortalId);
+	public void SetLine(int nLine) {
+		this.nLine = nLine;		
+	}
+	
+
+	public void SetNode(int nNode) {
+		this.nNode = nNode;		
 	}
 }

@@ -28,6 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
+
 import android.content.Context;
 import android.widget.SectionIndexer;
 
@@ -46,14 +49,12 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 		//mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
 		//mPortalCollection.putAll(portalCollection);
 		mPortalCollection = portalCollection;
-
+		mAlphaIndexer = new HashMap<String, Integer>();
 	}
 	
 	@Override
 	protected void onInit(){
     	Collections.sort(mStationList, new StationItemComparator()); 
-
-		mAlphaIndexer = new HashMap<String, Integer>();
 
 		for (int x = 0; x < mStationList.size(); x++) {  
 			String s = mStationList.get(x).GetName();  
@@ -62,7 +63,7 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 			if (!mAlphaIndexer.containsKey(ch)){
 				mAlphaIndexer.put(ch, x);
 
-				StationItem sit = new StationItem(-1, ch, -1, -1);
+				StationItem sit = new StationItem(-1, ch, -1, -1, -1);
 				mStationList.add(x, sit);
 				//mPortalCollection.put(sit, null);
 
@@ -98,6 +99,14 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 	    public int compare(StationItem left, StationItem right) {
 	    	return left.GetName().compareTo( right.GetName() );
 	    }
+	}
+	
+	public void Update(List<StationItem> stationList){
+		mStationList.clear();
+		mStationList.addAll(stationList);
+		mAlphaIndexer.clear();
+		
+		onInit();
 	}
 
 }

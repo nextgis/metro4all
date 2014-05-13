@@ -18,34 +18,29 @@
 *    You should have received a copy of the GNU General Public License
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-package com.nextgis.metroaccess;
+package com.nextgis.metroaccess.data;
+
+import com.nextgis.metroaccess.DataDownloader;
+import com.nextgis.metroaccess.R;
 
 import android.content.Context;
 import android.os.Handler;
 
 public class DownloadData {
-	private String sName;
-	private String sPath;
-	private String sLocName;
-	private String sURL;
-	private int nVer;
-	private boolean bDirected;
-	private Context Context;
-	private Handler eventReceiver;
+	private GraphDataItem m_oItem;
+	private String m_sURL;
+	private Context m_Context;
+	private Handler m_EventReceiver;
 	
-	public DownloadData(Context Context, String sName, String sPath, String sLocName, String sURL, int nVer, boolean bDirected, Handler eventReceiver) {
-		this.sName = sName;
-		this.sPath = sPath;
-		this.sLocName = sLocName;
-		this.sURL = sURL;
-		this.nVer = nVer;
-		this.bDirected = bDirected;
-		this.Context = Context;
-		this.eventReceiver = eventReceiver;
+	public DownloadData(Context Context, GraphDataItem oItem, String sURL, Handler eventReceiver) {
+		this.m_oItem = oItem;
+		this.m_sURL = sURL;
+		this.m_Context = Context;
+		this.m_EventReceiver = eventReceiver;
 	}
 	
 	public void OnDownload(){
-		DataDownloader uploader = new DataDownloader(Context, sPath, sName, sLocName, nVer, bDirected, Context.getResources().getString(R.string.sDownLoading) + "\n(" + sLocName + ")", eventReceiver);
-		uploader.execute(sURL);			
+		DataDownloader uploader = new DataDownloader(m_Context, m_oItem, m_Context.getResources().getString(R.string.sDownLoading) + "\n(" + m_oItem.GetLocaleName() + ")", m_EventReceiver);
+		uploader.execute(m_sURL);			
 	}
 }

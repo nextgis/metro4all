@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -53,7 +56,6 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	
 	protected LayoutInflater mInfalInflater;
 	protected List<StationItem> moOriginalStationList;
-	private boolean notifyChanged;
 	
 	public StationExpandableListAdapter(Context c) {
 		mContext = c;
@@ -66,16 +68,15 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	
     }
 	
-	protected void onInit(){
-		//load recent data
+	protected void FillArrays(){
+		mStationList.clear();
+		mPortalCollection.clear();
+		
 		SelectStationActivity act = (SelectStationActivity)mContext;
 		boolean bIn = act.IsIn();
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-		SelectStationActivity parentActivity = (SelectStationActivity)mContext;
-		Map<Integer, StationItem> omStations = parentActivity.GetStations();
-		mStationList = new ArrayList<StationItem>();
-		mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
+		Map<Integer, StationItem> omStations = MainActivity.GetGraph().GetStations();
 		
 		if(bIn){
 			int size = prefs.getInt("recent_dep_counter", 0);
@@ -103,6 +104,15 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 				}
 			}
 		}
+		
+	}
+	
+	protected void onInit(){
+		mStationList = new ArrayList<StationItem>();
+		mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
+		
+		//load recent data
+		FillArrays();
 	}
 	
 	@Override
@@ -187,7 +197,8 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 
 			ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 
-			File imgFile = new File(MainActivity.msRDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
+			String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
+			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
 			Log.d(MainActivity.TAG, imgFile.getPath());
 			if(imgFile.exists()){
 			
@@ -241,9 +252,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	    };
 	}
 	
-	@Override
-	public void notifyDataSetChanged() {
-	    super.notifyDataSetChanged();
-	    notifyChanged = true;
+	public void Update(){
+		FillArrays();
 	}
 }
