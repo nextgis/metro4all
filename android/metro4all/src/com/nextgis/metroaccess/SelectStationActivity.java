@@ -54,8 +54,6 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	protected static RecentStationListFragment mRecentStListFragment;
 	
 	protected boolean m_bIn;
-	protected List<StationItem> m_aoStationList;
-	protected Map<StationItem, List<PortalItem>> m_moPortalCollection;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +62,6 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         
         setContentView(R.layout.select_station);
         
-    	m_aoStationList = new ArrayList<StationItem>();
-    	m_moPortalCollection = new HashMap<StationItem, List<PortalItem>>();
-
        // setup action bar for tabs
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -118,21 +113,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         	case MainActivity.ARRIVAL_RESULT:
         		setTitle(R.string.sToStation);
         		break;
-        	}
-
-        	FillArrays();        	
+        	}       	
         }        
-    }
-    
-    public void FillArrays(){
-    	m_aoStationList.clear();
-    	m_moPortalCollection.clear();
-        Map<Integer, StationItem> moStations = MainActivity.GetGraph().GetStations();
-   	
-    	for(StationItem it : moStations.values()){
-    		m_aoStationList.add(it); 
-    		m_moPortalCollection.put(it, it.GetPortals(m_bIn));
-    	}  
     }
     
 	public boolean IsIn(){
@@ -140,13 +122,9 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	}
 
 	public List<StationItem> GetStationList(){
-		return m_aoStationList;
+		return new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
 	}
 	
-	public Map<StationItem, List<PortalItem>> GetPortalCollection(){
-		return m_moPortalCollection;
-	}
-
     public static class TabListener<T extends SherlockFragment> implements ActionBar.TabListener {
     	 private final String m_Tag;
     	 private ViewPager m_Pager;
@@ -256,7 +234,6 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 		//update fragments to new data
 	    switch(requestCode){
 	    case MainActivity.PREF_RESULT:
-	    	FillArrays(); 
 	    	if(mAlphaStListFragment != null)
 	    		mAlphaStListFragment.Update();
 	    	if(mLinesStListFragment != null)

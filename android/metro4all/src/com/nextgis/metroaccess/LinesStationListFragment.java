@@ -50,7 +50,7 @@ public class LinesStationListFragment extends SherlockFragment {
     	View view = inflater.inflate(R.layout.line_stationlist_fragment, container, false);
 
     	m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-    	m_oExpListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), parentActivity.GetPortalCollection(), MainActivity.GetGraph().GetLines());
+    	m_oExpListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), MainActivity.GetGraph().GetLines());
     	m_oExpListAdapter.onInit();
         m_oExpListView.setAdapter(m_oExpListAdapter);
         m_oExpListView.setFastScrollEnabled(true); 

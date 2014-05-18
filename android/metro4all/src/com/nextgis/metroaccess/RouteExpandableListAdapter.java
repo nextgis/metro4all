@@ -34,6 +34,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,7 +87,9 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 			item.setTextColor(Color.RED);
 		}
 		else{
-			item.setTextColor(Color.WHITE);	
+			TypedValue tv = new TypedValue();
+			mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
+			item.setTextColor(mContext.getResources().getColor(tv.resourceId));	
 		}			
 		//
 		item.setText(bit.GetName());
@@ -167,7 +170,9 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				subitem.setTextColor(Color.RED);
 			}
 			else{
-				subitem.setTextColor(Color.WHITE);
+				TypedValue tv = new TypedValue();
+				mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
+				subitem.setTextColor(mContext.getResources().getColor(tv.resourceId));	
 			}
 		}
 		else{

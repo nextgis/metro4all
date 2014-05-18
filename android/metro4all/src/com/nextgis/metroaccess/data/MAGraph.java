@@ -1,7 +1,7 @@
 /******************************************************************************
- * Project:  Metro Access
- * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Project:  Metro4All
+ * Purpose:  Routing in subway.
+ * Author:   Dmitry Baryshnikov, polimax@mail.ru
  ******************************************************************************
 *   Copyright (C) 2014 NextGIS
 *
@@ -67,6 +67,8 @@ public class MAGraph {
 	protected Map<Integer, String> m_omLines;
 	
 	protected String m_sCurrentCity;
+	protected String m_sCurrentCityName;
+
 	protected boolean m_bIsValid;
 	protected String m_sErr;
 	
@@ -156,7 +158,8 @@ public class MAGraph {
 	}
 	
 	protected boolean LoadGraph(){
-		//fill routes
+		//fill
+		
     	try {
     		File oRouteDataDir = new File(GetCurrentRouteDataPath());
     		File file_route = new File(oRouteDataDir, "graph.csv");
@@ -201,7 +204,11 @@ public class MAGraph {
 			e.printStackTrace();
 			m_sErr = e.getLocalizedMessage();
 			return false;
-		}	
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			m_sErr = e.getLocalizedMessage();
+			return false;
+		}
 		m_oYenAlg = new YenTopKShortestPathsAlg(m_oGraph);
 		
 		return true;			
@@ -307,7 +314,9 @@ public class MAGraph {
 	}
 	
 	protected boolean LoadStations(){
+		m_oGraph.clear();
 		m_moStations.clear();
+		
 		String sFileName = "stations_" + m_sLocale + ".csv";	
     	try {
     		File oRouteDataDir = new File(GetCurrentRouteDataPath());
@@ -467,7 +476,11 @@ public class MAGraph {
 			return;
 		if(!LoadLines())
 			return;
-		
+		if(!LoadPortals())
+			return;
+
+		if(!LoadGraph())
+			return;
 	}
 	
 	public String GetCurrentCity(){
@@ -479,6 +492,11 @@ public class MAGraph {
 			return;
 		
 		m_sCurrentCity = sCurrentCity;
+		
+		GraphDataItem item = m_moRouteMetadata.get(m_sCurrentCity);
+		if(item != null){
+			m_sCurrentCityName = item.GetLocaleName();
+		}
 		
 		m_bIsValid = false;
 		
@@ -554,7 +572,8 @@ public class MAGraph {
 					}
 				}
 				else{
-					m_asChoiceItems.add(Item);
+					if(!m_moRouteMetadata.containsKey(sPath))
+						m_asChoiceItems.add(Item);
 				}
 			}	
 		} catch (JSONException e) {
@@ -596,5 +615,9 @@ public class MAGraph {
 	
 	public Map<String, int[]> GetCrosses(){
 		return m_moCrosses;
+	}
+	
+	public String GetCurrentCityName(){
+		return m_sCurrentCityName;
 	}
 }

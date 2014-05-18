@@ -1,7 +1,7 @@
 /******************************************************************************
- * Project:  Metro Access
- * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Project:  Metro4All
+ * Purpose:  Routing in subway.
+ * Author:   Dmitry Baryshnikov, polimax@mail.ru
  ******************************************************************************
 *   Copyright (C) 2013 NextGIS
 *
@@ -49,7 +49,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
@@ -98,21 +101,18 @@ public class MainActivity extends SherlockActivity{
 	protected Button m_oSearchButton;
 	protected MenuItem m_oSearchMenuItem;
 	
-	protected Button mSelectFromStationButton;
-	protected Button mSelectToStationButton;
-	protected Button mSetButton;
-	
 	protected List<Pair<Integer, Integer>> m_aoDepRecentIds, m_aoArrRecentIds;
 	protected int m_nDepartureStationId, m_nArrivalStationId;
 	protected int m_nDeparturePortalId, m_nArrivalPortalId;
-	
-	protected TextView mtvDepartureStationName, mtvArrivalStationName; 
-	protected TextView mtvDeparturePortalName, mtvArrivalPortalName;	
 	
 	protected List<DownloadData> m_asDownloadData;
 
 	public static String m_sUrl = "http://metro4all.org/data/v2/";
 	public static MAGraph m_oGraph;
+	
+	protected ListView m_lvListButtons;
+	protected TextView m_tvCurentCity;
+    protected ButtonListAdapter m_laListButtons;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +165,7 @@ public class MainActivity extends SherlockActivity{
             	String sPayload = resultData.getString(BUNDLE_PAYLOAD_KEY);
             	
             	if(bHaveErr){
-            		Toast.makeText(MainActivity.this, resultData.getString(BUNDLE_MSG_KEY), Toast.LENGTH_LONG).show();
+            		MainActivity.this.ErrMessage(resultData.getString(BUNDLE_MSG_KEY));
 	            	switch(nEventSource){
 	            	case 1://get remote meta
 	            		File file = new File(getExternalFilesDir(null), REMOTE_METAFILE);
@@ -222,6 +222,30 @@ public class MainActivity extends SherlockActivity{
 		
 		m_bInterfaceLoaded = true;
 		setContentView(R.layout.activity_main);
+		
+		m_tvCurentCity = (TextView)findViewById(R.id.tvCurrentCity);
+		
+		m_lvListButtons = (ListView)findViewById(R.id.lvButtList);
+		m_laListButtons = new ButtonListAdapter(this);
+		// set adapter to list view
+		m_lvListButtons.setAdapter(m_laListButtons);
+		m_lvListButtons.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {  
+	        	switch(position){
+	        	case 0: //from
+	        		onSelectDepatrure();
+	        		break;
+	        	case 1: //to
+	        		onSelectArrival();
+	        		break;
+	        	case 2: 
+	        		onSettings();
+	        		break;
+	        	} 
+	        }
+	    });
+		
 	    
 		m_oSearchButton = (Button) findViewById(R.id.btSearch);
 		m_oSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -231,51 +255,13 @@ public class MainActivity extends SherlockActivity{
         });  
 		m_oSearchButton.setEnabled(false);
 		
-		//from station
-		mSelectFromStationButton = (Button) findViewById(R.id.btSetDepart);
-		mSelectFromStationButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	onSelectDepatrure();
-             }
-        });  		
-		//to station
-		mSelectToStationButton = (Button) findViewById(R.id.btSelArrival);
-		mSelectToStationButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	onSelectArrival();
-             }
-        });
-		
-		//settings
-		mSetButton = (Button) findViewById(R.id.btSettings);
-		mSetButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	onSettings();
-             }
-        });		
-		
-		mtvDepartureStationName = (TextView) findViewById(R.id.fromstationname);
-		mtvArrivalStationName = (TextView) findViewById(R.id.tostationname);
-		mtvDeparturePortalName = (TextView) findViewById(R.id.fromentrancename);
-		mtvArrivalPortalName =  (TextView) findViewById(R.id.toentrancename);
-		
-		TextView tv1 = (TextView) findViewById(R.id.fromentrancenamelabel);
-		tv1.setText(tv1.getText() + ": ");
-		TextView tv2 = (TextView) findViewById(R.id.toentrancenamelabel);
-		tv2.setText(tv2.getText() + ": ");
-		
-		mtvDepartureStationName.setText(getString(R.string.sNotSet));
-		mtvDeparturePortalName.setText(getString(R.string.sNotSet));   
-		mtvArrivalStationName.setText(getString(R.string.sNotSet));
-		mtvArrivalPortalName.setText(getString(R.string.sNotSet));   
-		
     	if(m_oSearchButton != null) 
     		m_oSearchButton.setEnabled(false);
     	if(m_oSearchMenuItem != null)
     		m_oSearchMenuItem.setEnabled(false);
     	
     	if(!m_oGraph.IsValid()){
-    		Toast.makeText(this, m_oGraph.GetLastError(), Toast.LENGTH_SHORT).show();
+    		MainActivity.this.ErrMessage( m_oGraph.GetLastError());
     	}
     	else{
     		UpdateUI();
@@ -287,9 +273,9 @@ public class MainActivity extends SherlockActivity{
         Intent intentSet = new Intent(this, PreferencesActivity.class);
         intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         
-        Bundle bundle = new Bundle();
+        //Bundle bundle = new Bundle();
         //bundle.putParcelable(BUNDLE_METAMAP_KEY, m_oGraph);
-        intentSet.putExtras(bundle);            
+        //intentSet.putExtras(bundle);            
         startActivityForResult(intentSet, PREF_RESULT);		
 	}
 
@@ -518,240 +504,6 @@ public class MainActivity extends SherlockActivity{
 	    return ret;
 	}
 
-	/*
-	@Override
-	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-
-		mtvDepartureStationName.setText(getString(R.string.sNotSet));
-		mtvDeparturePortalName.setText(getString(R.string.sNotSet));   
-		mtvArrivalStationName.setText(getString(R.string.sNotSet));
-		mtvArrivalPortalName.setText(getString(R.string.sNotSet));   
-		
-    	if(m_oSearchButton != null) 
-    		m_oSearchButton.setEnabled(false);
-    	if(m_oSearchMenuItem != null)
-    		m_oSearchMenuItem.setEnabled(false);
-    	
- 	    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-      	//TODO: something to do
-	    //Editor edit = prefs.edit();
-	    //edit.putInt(CURRENT_METRO_SEL, itemPosition);
-	    //edit.commit();
-
-	    try {
-	    	JSONObject mmeta = mmoRouteMetadata.get(itemPosition);
-			msRDataPath = mmeta.getString("path");
-
-			if(mmeta.has("directed")){
-				mbDirected = mmeta.getBoolean("directed");
-			}
-	
-			mGraph = new VariableGraph();
-			mmoStations = new HashMap<Integer, StationItem>();
-
-		    //fill with station list
-			//TODO: add locale support in stations name
-			//1. Get preferences value
-		    String sLoc = prefs.getString(PreferencesActivity.KEY_PREF_DATA_LOCALE, Locale.getDefault().getLanguage());
-			//2. Try to find appropriate file
-		    String sFileName = "stations_" + sLoc + ".csv";		    
-			//3. If none get stations_en.csv
-		    File station_file = new File(msRDataPath, sFileName);
-		    if(!station_file.exists())
-	    		station_file = new File(msRDataPath, "stations_en.csv");
-		    
-			if (station_file != null) {
-	        	InputStream in;
-				in = new BufferedInputStream(new FileInputStream(station_file));
-	       	
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-	
-		        String line = reader.readLine();
-		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(CSV_CHAR);
-		             
-		             if(RowData.length < 4){
-		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "stations.csv", Toast.LENGTH_LONG).show();
-		            	 return false;
-		             }
-		             
-					 String sName = RowData[3];
-					 int nNode = Integer.parseInt(RowData[2]);
-					 int nLine = Integer.parseInt(RowData[1]);
-					 int nID = Integer.parseInt(RowData[0]);
-	 					 
-					 mGraph.add_vertex(new Vertex(nID));
-					 StationItem st = new StationItem(nID, sName, nLine, nNode, 0);
-	 				     
-				     mmoStations.put(nID, st);
-		        }
-			        
-		        reader.close();
-		        if (in != null) {
-		        	in.close();
-		    	} 
-			}
-	
-			File portals_file = new File(msRDataPath, "portals.csv");
-			if (portals_file != null) {
-			   	InputStream in;
-				in = new BufferedInputStream(new FileInputStream(portals_file));
-	
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-	
-		        String line = reader.readLine();
-		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(CSV_CHAR);
-		             
-		             if(RowData.length < 4){
-		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "portals.csv", Toast.LENGTH_LONG).show();
-		            	 return false;
-		             }
-		             
-					 int nID = Integer.parseInt(RowData[0]);
-					 String sName = RowData[1];
-					 int nStationId = Integer.parseInt(RowData[2]);
-					 int nDirection = 0;
-					 if(RowData[3].equals("in")){
-						 nDirection = 1;
-					 }
-					 else if(RowData[3].equals("out")){
-						 nDirection = 2;
-					 }
-					 else{
-					 	nDirection = 3;
-					 }						
-					 
-					 int min_width = 0;
-					 int min_step = 0;
-					 int min_step_ramp = 0;
-					 int lift = 0;
-					 int lift_minus_step = 0;
-					 int min_rail_width = 0;
-					 int max_rail_width = 0;
-					 int max_angle = 0;
-					 
-					 if(RowData.length > 13)
-					 {
-						 String tmp = RowData[6];
-						 min_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[7];
-						 min_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[8];
-						 min_step_ramp = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[9];
-						 lift = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[10];
-						 lift_minus_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[11];
-						 min_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[12];
-						 max_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[13];
-						 max_angle = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-					 }
-					 int [] detailes = {min_width, min_step, min_step_ramp, lift, lift_minus_step, min_rail_width, max_rail_width, max_angle};
-					 PortalItem pt = new PortalItem(nID, sName, nStationId, nDirection, detailes);
-	
-					 mmoStations.get(nStationId).AddPortal(pt);
-					 
-					 Log.d(TAG, "#" + nID);
-		        }
-		        
-		        reader.close();
-			    if (in != null) {
-			       	in.close();
-			   	} 
-			}	
-		
-		
-			//fill routes
-			File file_route = new File(msRDataPath, "graph.csv");
-			if (file_route != null) {
-	        	InputStream in;
-				in = new BufferedInputStream(new FileInputStream(file_route));
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		        String line = reader.readLine();
-		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(CSV_CHAR);
-		             
-		             if(RowData.length != 5){
-		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "graph.csv", Toast.LENGTH_LONG).show();
-		            	 return false;
-		             }
-		             
-					 int nFromId = Integer.parseInt(RowData[0]);
-					 int nToId = Integer.parseInt(RowData[1]);
-					 int nCost = Integer.parseInt(RowData[4]);
-	 					 
-					 Log.d("Route", ">" + nFromId + "-" + nToId + ":" + nCost);
-					 mGraph.add_edge(nFromId, nToId, nCost);
-					 if(!mbDirected){
-						 mGraph.add_edge(nToId, nFromId, nCost);
-					 }
-		        }
-		        reader.close();
-		        if (in != null) {
-		        	in.close();
-		    	}
-			}
-			
-			m_yenAlg = new YenTopKShortestPathsAlg(mGraph);
-			
-			//fill interchanges.csv
-			mmoCrosses = new HashMap<String, int[]>(); 
-			File inter_route = new File(msRDataPath, "interchanges.csv");
-			if (inter_route != null) {
-	        	InputStream in = new BufferedInputStream(new FileInputStream(inter_route));
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		        String line = reader.readLine();
-		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(CSV_CHAR);
-		             
-		             //station_from;station_to;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
-		             
-		             if(RowData.length != 10){
-		     	    	 Toast.makeText(MainActivity.this, getString(R.string.sInvalidCSVData) + "interchanges.csv", Toast.LENGTH_LONG).show();
-		            	 return false;
-		             }
-		             
-					 int nFromId = Integer.parseInt(RowData[0]);
-					 int nToId = Integer.parseInt(RowData[1]);
-					 int[] naBarriers = {0,0,0,0,0,0,0,0};
-					 for(int i = 2; i < 10; i++){
-						 int nVal = Integer.parseInt(RowData[i]);
-						 naBarriers[i - 2] = nVal;
-					 }	 
-					 mmoCrosses.put("" + nFromId + "->" + nToId, naBarriers);					 
-		        }
-		        reader.close();
-		        if (in != null) {
-		        	in.close();
-		    	}
-			}
-	    }
-	    catch (IOException ex) {
-	    	ex.printStackTrace();
-	    	return false;
-		}
-		catch(IllegalArgumentException ex){
-			ex.printStackTrace();
-			return false;
-		}
-		catch (JSONException e) {
-			e.printStackTrace();
-			return false;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		
-		UpdateUI();
-		
-		return true;
-	}
-*/
 	@Override
 	protected void onPause() {
 		final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
@@ -898,40 +650,44 @@ public class MainActivity extends SherlockActivity{
 	}	
 	
 	protected void UpdateUI(){
+
+		m_tvCurentCity.setText(m_oGraph.GetCurrentCityName());
+		
 		if(m_oGraph.HasStations()){
 	    	StationItem dep_sit = m_oGraph.GetStation(m_nDepartureStationId);
-	    	if(dep_sit != null && mtvDepartureStationName != null){    		
-	    		mtvDepartureStationName.setText(dep_sit.GetName());
+	    	String sNotSet = getString(R.string.sNotSet);
+	    	if(dep_sit != null && m_laListButtons != null){    		
+	    		m_laListButtons.setFromStationName(dep_sit.GetName());
 	    		PortalItem pit = dep_sit.GetPortal(m_nDeparturePortalId);
-	    		if(pit != null && mtvDeparturePortalName != null){
-	    			mtvDeparturePortalName.setText(pit.GetName());
+	    		if(pit != null){
+	    			m_laListButtons.setFromEntranceName(pit.GetName());
 	    		}
 	    		else{
-	    			mtvDeparturePortalName.setText(getString(R.string.sNotSet));  
+	    			m_laListButtons.setFromEntranceName(sNotSet);  
 	    			m_nDeparturePortalId = -1;
 	    		}
 	    	}
 	    	else{
-	    		mtvDepartureStationName.setText(getString(R.string.sNotSet));
-	    		mtvDeparturePortalName.setText(getString(R.string.sNotSet)); 
+	    		m_laListButtons.setFromStationName(sNotSet);
+	    		m_laListButtons.setFromEntranceName(sNotSet); 
 	    		m_nDepartureStationId = -1;
 	    	}
 	
 	    	StationItem arr_sit = m_oGraph.GetStation(m_nArrivalStationId);
-	    	if(arr_sit != null && mtvArrivalStationName != null){
-	    		mtvArrivalStationName.setText(arr_sit.GetName());
+	    	if(arr_sit != null && m_laListButtons != null){
+	    		m_laListButtons.setToStationName(arr_sit.GetName());
 	    		PortalItem pit = arr_sit.GetPortal(m_nArrivalPortalId);
-	    		if(pit != null && mtvArrivalPortalName != null){
-	    			mtvArrivalPortalName.setText(pit.GetName());
+	    		if(pit != null){
+	    			m_laListButtons.setToEntranceName(pit.GetName());
 	    		}
 	    		else{
-	    			mtvArrivalPortalName.setText(getString(R.string.sNotSet));
+	    			m_laListButtons.setToEntranceName(sNotSet);  
 	    			m_nArrivalPortalId = -1;
 	    		}
 	    	}
 	    	else{
-	    		mtvArrivalStationName.setText(getString(R.string.sNotSet));
-	    		mtvArrivalPortalName.setText(getString(R.string.sNotSet)); 
+	    		m_laListButtons.setToStationName(sNotSet);
+	    		m_laListButtons.setToEntranceName(sNotSet);  
 	    		m_nArrivalStationId = -1;
 	    	}
 		}
@@ -948,6 +704,9 @@ public class MainActivity extends SherlockActivity{
 	    	if(m_oSearchMenuItem != null)
 	    		m_oSearchMenuItem.setEnabled(false);
 	    }
+	    
+	    if(m_laListButtons != null)
+	    	m_laListButtons.notifyDataSetChanged();
 	}
 	
 	protected void onSearch(){
@@ -1000,9 +759,9 @@ public class MainActivity extends SherlockActivity{
 				List<Path> shortest_paths_list = m_oGraph.GetShortestPaths(m_nDepartureStationId, m_nArrivalStationId, nMaxRouteCount);
 				
 				if(shortest_paths_list.size() == 0){
-					Toast.makeText(MainActivity.this.getBaseContext(), R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
+					//MainActivity.this.ErrMessage(R.string.sCannotGetPath);
 					//Toast.makeText(MainActivity.this, R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
-					//Log.d(MainActivity.TAG, MainActivity.this.getString(R.string.sCannotGetPath));
+					Log.d(MainActivity.TAG, MainActivity.this.getString(R.string.sCannotGetPath));
 				}
 				else {
 			        Intent intentView = new Intent(MainActivity.this, com.nextgis.metroaccess.StationListView.class);
@@ -1064,6 +823,14 @@ public class MainActivity extends SherlockActivity{
 	
 	public static void SetDownloadURL(String sURL){
 		m_sUrl = sURL;
+	}
+	
+	public void ErrMessage(String sErrMsg){
+		Toast.makeText(this, sErrMsg, Toast.LENGTH_SHORT).show();
+	}
+	
+	public void ErrMessage(int nErrMsg){
+		Toast.makeText(this, getString(nErrMsg), Toast.LENGTH_SHORT).show();
 	}
 
 }

@@ -31,7 +31,7 @@
 	<string name="sToStation">Куда</string>
 	<string name="sRoute">Вариант</string>
 	<string name="sSchema">Схема</string>
-	<string name="sStationName">Станция: </string>
+	<string name="sStationName">Станция</string>
 	<string name="sEntranceName">Вход</string>
 	<string name="sExitName">Выход</string>		
 	<string name="sNotSet">Не назначено</string>	
@@ -81,6 +81,7 @@
 	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
 	<string name="sPrefUpdDataSummary">Нажмите чтобы обновить данные для маршрутизации</string>
 	<string name="sPrefUpdDataTitle">Обновить данные</string>	
+	<string name="sPrefChangeCityBasesBtn">Изменить</string>
 	<string name="sPrefChangeCityBasesTitle">Изменить состав баз</string>
 	<string name="sPrefChangeCityBasesSummary">Нажмите чтобы изменить состав загруженных баз данных по метро</string>
 	<string name="sPrefCity">Метро</string>

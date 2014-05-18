@@ -38,8 +38,8 @@ public class LinesExpandableListAdapter extends StationIndexedExpandableListAdap
 	protected HashMap<Integer, Integer> mDigitIndexer; 
 	protected Integer[] mnaSections;
 	
-	public LinesExpandableListAdapter(Context c, List<StationItem> stationList, Map<StationItem, List<PortalItem>> portalCollection, Map<Integer, String> omLines) {
-		super(c, stationList, portalCollection);
+	public LinesExpandableListAdapter(Context c, List<StationItem> stationList, Map<Integer, String> omLines) {
+		super(c, stationList);
 		
 		momLines = omLines;
 	}

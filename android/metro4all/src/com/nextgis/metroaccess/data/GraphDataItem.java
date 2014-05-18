@@ -1,7 +1,7 @@
 /******************************************************************************
- * Project:  Metro Access
- * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Project:  Metro4All
+ * Purpose:  Routing in subway.
+ * Author:   Dmitry Baryshnikov, polimax@mail.ru
  ******************************************************************************
 *   Copyright (C) 2014 NextGIS
 *

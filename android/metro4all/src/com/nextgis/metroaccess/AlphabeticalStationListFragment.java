@@ -50,7 +50,7 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 		View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
 
 		m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-		m_oExpListAdapter = new StationIndexedExpandableListAdapter(parentActivity, parentActivity.GetStationList(), parentActivity.GetPortalCollection());
+		m_oExpListAdapter = new StationIndexedExpandableListAdapter(parentActivity, parentActivity.GetStationList());
 		m_oExpListAdapter.onInit();
 		m_oExpListView.setAdapter(m_oExpListAdapter);
 		m_oExpListView.setFastScrollEnabled(true);

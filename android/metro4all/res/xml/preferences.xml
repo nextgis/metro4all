@@ -63,14 +63,12 @@
 		    android:key="city"
 		    android:title="@string/sPrefCity"
 		    android:summary="@string/sPrefCitySummary"
-		    android:defaultValue="0"
 		    android:dialogTitle="@string/sPrefCityTitle"
 		    />    	 
    		<ListPreference
 		    android:key="city_lang"
 		    android:title="@string/sPrefCityLoc"
 		    android:summary="@string/sPrefCityLocSummary"
-		    android:defaultValue="0"
 		    android:entries="@array/locales"
 			android:entryValues="@array/locales_val"
 		    android:dialogTitle="@string/sPrefCityLocTitle"

@@ -1,9 +1,9 @@
 /*******************************************************************************
- * Project:  Metro Access
+ * Project:  Metro4All
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Author:   Dmitry Baryshnikov, polimax@mail.ru
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -26,12 +26,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.SectionIndexer;
 
 public class StationIndexedExpandableListAdapter extends StationExpandableListAdapter implements SectionIndexer {
@@ -40,15 +40,12 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 	
 	protected String[] msaSections;
 
-	public StationIndexedExpandableListAdapter(Context c, List<StationItem> stationList, Map<StationItem, List<PortalItem>> portalCollection) {
+	public StationIndexedExpandableListAdapter(Context c, List<StationItem> stationList) {
 		super(c);
 
 		mStationList = new ArrayList <StationItem>();
 		mStationList.addAll(stationList);
 		//mStationList = stationList;
-		//mPortalCollection = new HashMap<StationItem, List<PortalItem>>();
-		//mPortalCollection.putAll(portalCollection);
-		mPortalCollection = portalCollection;
 		mAlphaIndexer = new HashMap<String, Integer>();
 	}
 	
@@ -65,7 +62,6 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 
 				StationItem sit = new StationItem(-1, ch, -1, -1, -1);
 				mStationList.add(x, sit);
-				//mPortalCollection.put(sit, null);
 
 			}     
 		}  	
@@ -102,8 +98,11 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 	}
 	
 	public void Update(List<StationItem> stationList){
+		super.Update();
+
 		mStationList.clear();
 		mStationList.addAll(stationList);
+		//mStationList = stationList;
 		mAlphaIndexer.clear();
 		
 		onInit();
