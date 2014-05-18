@@ -83,7 +83,8 @@ public class StationImageView extends SherlockActivity {
 		String sFolder = f.getParent();
 		String sName = f.getName();
 		String sPath = "file://" + sFolder + "/";
-		String sCmd = "<html><center><img src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></html>";
+		String sCmd = "<html><center><img src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></center></html>";
+		
 		
 		mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
 			//This loads the image at the center of thee screen

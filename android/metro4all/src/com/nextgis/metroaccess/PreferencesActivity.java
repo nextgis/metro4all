@@ -1,9 +1,9 @@
 /******************************************************************************
- * Project:  Metro Access
- * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Project:  Metro4All
+ * Purpose:  Routing in subway.
+ * Author:   Dmitry Baryshnikov, polimax@mail.ru
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -20,16 +20,11 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -39,10 +34,9 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
@@ -51,6 +45,9 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.nextgis.metroaccess.data.DownloadData;
+import com.nextgis.metroaccess.data.GraphDataItem;
+import com.nextgis.metroaccess.data.MAGraph;
 
 public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
 	
@@ -59,21 +56,21 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	public static final String KEY_PREF_WHEEL_WIDTH = "wheel_width";
 	public static final String KEY_PREF_DOWNLOAD_PATH = "download_path";
 	public static final String KEY_PREF_UPDROUTEDATA = "update_route_data";
+	public static final String KEY_PREF_CHANGE_CITY_BASES = "change_city_bases";
+	public static final String KEY_PREF_DATA_LOCALE = "data_loc";
+	public static final String KEY_PREF_HAVE_LIMITS = "limits";
+	public static final String KEY_PREF_CITY = "city";
+	public static final String KEY_PREF_CITYLANG = "city_lang";
+	public static final String KEY_PREF_MAX_ROUTE_COUNT = "max_route_count";
 	
-	//ListPreference mlsNaviType;
-	protected EditTextPreference metWheelWidth;
-	protected EditTextPreference metMaxWidth;
-	protected EditTextPreference metDownloadPath;
+	protected List<DownloadData> m_asDownloadData;
+	protected static Handler m_oGetJSONHandler; 
 	
-	protected Map<String, JSONObject> moRemoteData;  
-	protected Map<String, CheckBoxPreference> mDBs;
+	protected ListPreference m_CityLangPref;
+	protected ListPreference m_CityPref;
 	
-	protected String msUrl;
-	
-	protected List<String> aoRouteMetadata;
-	
-	protected List<DownloadData> masDownloadData;
-	protected static Handler moGetJSONHandler; 
+	protected EditTextPreference m_etMaxWidthPref;
+	protected EditTextPreference m_etWheelWidthPref;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +79,9 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         
-        masDownloadData = new ArrayList<DownloadData>();
+        m_asDownloadData = new ArrayList<DownloadData>();
 		
-		moGetJSONHandler = new Handler() {
+		m_oGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
             	super.handleMessage(msg);
             	
@@ -97,10 +94,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             	}
 
             	switch(nEventSource){
-            	case 2:            		
-            		if(!masDownloadData.isEmpty()){            			
-            			OnDownloadData();
-            		}
+            	case 2:
+            		OnDownloadData();
             		break;
         		default:
         			break;
@@ -109,152 +104,169 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         };
         
         addPreferencesFromResource(R.xml.preferences);
+        PreferenceManager preferenceManager = getPreferenceManager();
         
-	    Bundle extras = getIntent().getExtras(); 
-	    if(extras != null) {
-	    	aoRouteMetadata = (List<String>) extras.getSerializable(MainActivity.BUNDLE_METAMAP_KEY);
-	    }        
-        
-        /*mlsNaviType = (ListPreference) findPreference(KEY_PREF_USER_TYPE);
-        
-        int index = Integer.parseInt((String) mlsNaviType.getValue()) - 1;           
-        if(index >= 0){
-        	mlsNaviType.setSummary((String) mlsNaviType.getEntries()[index]);
+        m_etMaxWidthPref = (EditTextPreference) findPreference(KEY_PREF_MAX_WIDTH);
+        m_etMaxWidthPref.setSummary((String) m_etMaxWidthPref.getText() + " " + getString(R.string.sCM));
+        if(!preferenceManager.getSharedPreferences().getBoolean(KEY_PREF_HAVE_LIMITS, false)){
+        	m_etMaxWidthPref.setEnabled(false);
         }
-        */
-        metMaxWidth = (EditTextPreference) findPreference(KEY_PREF_MAX_WIDTH);
-        metMaxWidth.setSummary((String) metMaxWidth.getText() + " " + getString(R.string.sCM));
 	    
-	    metWheelWidth = (EditTextPreference) findPreference(KEY_PREF_WHEEL_WIDTH);
-	    metWheelWidth.setSummary((String) metWheelWidth.getText() + " " + getString(R.string.sCM));
-	    
-	    //metDownloadPath = (EditTextPreference) findPreference(KEY_PREF_DOWNLOAD_PATH);
-	    //msUrl = (String) metDownloadPath.getText();
-	    //metDownloadPath.setSummary(msUrl);
+        m_etWheelWidthPref = (EditTextPreference) findPreference(KEY_PREF_WHEEL_WIDTH);
+        m_etWheelWidthPref.setSummary((String) m_etWheelWidthPref.getText() + " " + getString(R.string.sCM));
+        if(!preferenceManager.getSharedPreferences().getBoolean(KEY_PREF_HAVE_LIMITS, false)){
+	    	m_etWheelWidthPref.setEnabled(false);
+        }
 	    
 	    //add button update data
 	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
 	    
-		File file = new File(getExternalFilesDir(null), MainActivity.REMOTE_METAFILE);
-		String sPayload = MainActivity.readFromFile(file, this);
-		moRemoteData = new HashMap<String, JSONObject>();
-		mDBs = new HashMap<String, CheckBoxPreference>();
-		try{
-		    	JSONObject oJSONMetaRemote = new JSONObject(sPayload);
-				
-			    final JSONArray jsonArray = oJSONMetaRemote.getJSONArray("packages");
-			    
-			    for (int i = 0; i < jsonArray.length(); i++) {
-					JSONObject jsonObject = jsonArray.getJSONObject(i);
-					String sLocaleKeyName = "name_" + Locale.getDefault().getLanguage();
-					String sLocName = jsonObject.getString(sLocaleKeyName);	
-					String sName = jsonObject.getString("name");
-					if(sLocName.length() == 0)
-						sLocName = sName;
-					// = jsonObject.getInt("ver");
-					
-					//int nVer = 0;
-					
-					final String sKey = "db_" + i;
-					moRemoteData.put(sKey, jsonObject);
-					  
-					//check is exist
-					CheckBoxPreference db = new CheckBoxPreference(this);
-					db.setKey(sKey); //Refer to get the pref value
-					db.setTitle(sLocName);
-					//db.setSummary("ver." + nVer);
-					//
-					boolean bChecked = false;
-					if(aoRouteMetadata != null){
-						for(String sExistName : aoRouteMetadata){
-							String[] RowData = sExistName.split(MainActivity.CSV_CHAR);
-							String sExName = RowData[0];
-							String sVer = RowData[1];
-							if(sExName.equals(sName)){
-								bChecked = true;
-								db.setSummary(sVer);
-								break;
-							}
-						}
-					}
-					db.setChecked(bChecked);			
-					db.setOnPreferenceChangeListener(new MyOnPreferenceChangeListener(sKey));
+	    MAGraph oGraph = MainActivity.GetGraph();
+	    
+	    m_CityPref = (ListPreference) findPreference(KEY_PREF_CITY);
+        if(m_CityPref != null){
+        	UpdateCityList();
+            int index = m_CityPref.findIndexOfValue( m_CityPref.getValue() );           
+            if(index >= 0){
+            	m_CityPref.setSummary(m_CityPref.getEntries()[index]);
+            }
+            else{
+            	m_CityPref.setSummary((String) m_CityPref.getSummary()); //.getValue()
+            }
+        }
+        
+        m_CityLangPref = (ListPreference) findPreference(KEY_PREF_CITYLANG);
+        if(m_CityLangPref != null){
+            int index = m_CityLangPref.findIndexOfValue( m_CityLangPref.getValue() );           
+            if(index >= 0){
+            	m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
+            }
+            else{
+            	m_CityLangPref.setSummary((String) m_CityLangPref.getSummary()); 
+            }
+        }
+        
+	    
+	    Preference checkUpd = new Preference(this);
+	    checkUpd.setKey(KEY_PREF_UPDROUTEDATA);
+	    checkUpd.setTitle(R.string.sPrefUpdDataTitle);
+	    checkUpd.setSummary(R.string.sPrefUpdDataSummary);
+	    checkUpd.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        	public boolean onPreferenceClick(Preference preference) {
+        		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);		
+        		String sUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.GetDownloadURL());
+        		
+        		m_asDownloadData.clear();
+        		
+        		MAGraph oGraph = MainActivity.GetGraph();
+        		
+        		for(GraphDataItem oItem : oGraph.GetRouteMetadata().values()){
+        			m_asDownloadData.add(new DownloadData(PreferencesActivity.this, oItem, sUrl + oItem.GetPath() + ".zip", m_oGetJSONHandler));
+        		}
 
-					targetCategory.addPreference(db);
-					
-					mDBs.put(sKey,  db);
+        		OnDownloadData();
+        		
+				return true;
+        	}
+        });
+	    
+	    targetCategory.addPreference(checkUpd);
+	    
+	    Preference changeCityBases = new Preference(this);
+	    changeCityBases.setKey(KEY_PREF_CHANGE_CITY_BASES);
+	    changeCityBases.setTitle(R.string.sPrefChangeCityBasesTitle);
+	    changeCityBases.setSummary(R.string.sPrefChangeCityBasesSummary);
+	    changeCityBases.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        	public boolean onPreferenceClick(Preference preference) {
+        		//Add and remove bases
+        		
+        		MAGraph oGraph = MainActivity.GetGraph();
+        		
+        		File oDataFolder = new File(getExternalFilesDir(""), MainActivity.GetRemoteMetaFile());			
+    			String sJSON = MainActivity.readFromFile(oDataFolder);
+        		oGraph.OnUpdateMeta(sJSON, false);
+        		
+        		final List<GraphDataItem> new_items = oGraph.HasChanges();
+        		final List<GraphDataItem> exist_items = new ArrayList<GraphDataItem>(oGraph.GetRouteMetadata().values()); 
+    		    
+        	    int count = new_items.size() + exist_items.size();
+        	    if(count == 0)
+        	    	return false;
+        	    
+        	    final boolean[] checkedItems = new boolean[count];
+        	    final CharSequence[] checkedItemStrings = new CharSequence[count];
+        	    
+        	    for(int i = 0; i < new_items.size(); i++){
+        	    	checkedItems[i] = false;
+        	    }
+        	    
+        	    for(int i = 0; i < new_items.size(); i++){
+        	    	checkedItemStrings[i] = new_items.get(i).GetFullName();
+        	    }
+        	    
+        	    for(int i = 0; i < exist_items.size(); i++){
+        	    	checkedItems[i + new_items.size()] = true;
+        	    }
+        	    
+        	    for(int i = 0; i < exist_items.size(); i++){
+        	    	checkedItemStrings[i + new_items.size()] = exist_items.get(i).GetLocaleName();
+        	    }       	    
+        	    
+        	    
+        	    AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
+        		builder.setTitle(R.string.sPrefChangeCityBasesTitle)
+        			   .setCancelable(false)
+        			   .setMultiChoiceItems(checkedItemStrings, checkedItems,
+        						new DialogInterface.OnMultiChoiceClickListener() {
+        							@Override
+        							public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        								checkedItems[which] = isChecked;
+        							}
+        						})
+        				.setPositiveButton(R.string.sPrefChangeCityBasesBtn,
+        						new DialogInterface.OnClickListener() {
+        							@Override
+        							public void onClick(DialogInterface dialog, int id) {
+        								
+        								m_asDownloadData.clear();
+        								
+        								for (int i = 0; i < checkedItems.length; i++) {
+        									//check if no change
+        									//1. item is unchecked and was unchecked
+        									if(!checkedItems[i] && i < new_items.size()){
+        										continue;
+        									}
+        									else if(i < new_items.size()){
+        										m_asDownloadData.add(new DownloadData(PreferencesActivity.this, new_items.get(i), MainActivity.GetDownloadURL() + new_items.get(i).GetPath() + ".zip", m_oGetJSONHandler));										
+        									}
+        									//2. item is checked and was checked
+        									else if (checkedItems[i] && i >= new_items.size()){
+        										continue;
+        									}
+        									else{//delete
+        										File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()), exist_items.get(i - new_items.size()).GetPath());
+        										DeleteRecursive(oDataFolder);
+        									}
+        								}
+        								OnDownloadData();
+        							}
+        						})
 
-			    }
-			    
-			    Preference checkUpd = new Preference(this);
-			    checkUpd.setKey(KEY_PREF_UPDROUTEDATA);
-			    checkUpd.setTitle(R.string.sPrefUpdDataTitle);
-			    checkUpd.setSummary(R.string.sPrefUpdDataSummary);
-			    checkUpd.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-		        	public boolean onPreferenceClick(Preference preference) {
-		        		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);		
-		        		msUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.sUrl);
-		        		
-		        		masDownloadData.clear();
-		        		
-		        		for(JSONObject jsonObject : moRemoteData.values()){
-		        			if(jsonObject != null){	
-		        				    				
-		    					//download and unzip
-		    					try {
-		    						int nVer = jsonObject.getInt("ver");
-		    					
-		    						String sPath = jsonObject.getString("path");
-		    						String sName = jsonObject.getString("name");
-		    						String sLocName = sName;
-		    						if(jsonObject.has("name_" + Locale.getDefault().getLanguage())){
-		    							sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
-		    						}
-		    						boolean bDirected = false;
-		    						if(jsonObject.has("directed")){
-		    							bDirected = jsonObject.getBoolean("directed");
-		    						}
-		    						if(sLocName.length() == 0){
-		    							sLocName = sName;
-		    						}
-		    						
+        				.setNegativeButton(R.string.sCancel,
+        						new DialogInterface.OnClickListener() {
+        							@Override
+        							public void onClick(DialogInterface dialog, int id) {
+        								dialog.cancel();
 
-									boolean bChecked = false;
-									if(PreferencesActivity.this.aoRouteMetadata != null){
-										for(String sExistName : PreferencesActivity.this.aoRouteMetadata){
-											String[] RowData = sExistName.split(MainActivity.CSV_CHAR);
-											String sExName = RowData[0];
-											String sVer = RowData[1];
-											if(sExName.equals(sName)){
-												bChecked = true;
-												break;
-											}
-										}
-									}
-									
-									if(!bChecked)
-										continue;   
-		    						
-									masDownloadData.add(new DownloadData(PreferencesActivity.this, sName, sPath, sLocName, msUrl + sPath + ".zip", nVer, bDirected, moGetJSONHandler));
-									
-		    					} catch (JSONException e) {
-		    						e.printStackTrace();
-		    					}	
-		        			}
-		        		}
-
-		        		OnDownloadData();
-		        		
-						return true;
-		        	}
-		        });
-			    
-			    targetCategory.addPreference(checkUpd);
-			    
-		 } 
-		 catch (Exception e) {
-			 Toast.makeText(this, R.string.sNetworkInvalidData, Toast.LENGTH_LONG).show();
-		}		 
+        							}
+        						});
+        		builder.create();
+        		builder.show();
+				return true;
+        	}
+        });
+	    
+	    targetCategory.addPreference(changeCityBases);
     }
     
     @Override
@@ -300,6 +312,30 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     		if(newVal.length() > 0)
             	Pref.setSummary(newVal  + " " + getString(R.string.sCM));
         }
+		else if(key.equals(KEY_PREF_CITY)){
+			newVal = sharedPreferences.getString(key, "msk");
+			int nIndex = m_CityPref.findIndexOfValue((String) newVal);
+            if(nIndex >= 0){
+            	m_CityPref.setSummary((String) m_CityPref.getEntries()[nIndex]);
+            }
+            MainActivity.GetGraph().SetCurrentCity((String) newVal);
+            return;
+		}
+		else if(key.equals(KEY_PREF_CITYLANG)){
+			newVal = sharedPreferences.getString(key, "en");
+			int nIndex = m_CityLangPref.findIndexOfValue((String) newVal);
+            if(nIndex >= 0){
+            	m_CityLangPref.setSummary((String) m_CityLangPref.getEntries()[nIndex]);
+            }
+            MainActivity.GetGraph().SetLocale((String) newVal);
+            return;
+			
+		}
+		else if(key.equals(KEY_PREF_HAVE_LIMITS)){
+			boolean bHaveLimits = sharedPreferences.getBoolean(key, false);
+			m_etMaxWidthPref.setEnabled(bHaveLimits);
+			m_etWheelWidthPref.setEnabled(bHaveLimits);
+		}
 		/*else if(key.equals(KEY_PREF_USER_TYPE))
 		{
 			newVal = sharedPreferences.getString(key, "1");
@@ -313,153 +349,58 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             if(index >= 0){
             	mlsNaviType.setSummary((String) mlsNaviType.getEntries()[index]);
             }
-        }	*/
+        }*/
 		else if(key.equals(KEY_PREF_DOWNLOAD_PATH)){
-			msUrl = sharedPreferences.getString(key, MainActivity.sUrl);			
-    		if(msUrl.length() > 0)
-            	Pref.setSummary(msUrl);			
-		}
-		else if(key.startsWith("db_")){
-			//update interface
-			//set or not set check
-			boolean bVal = sharedPreferences.getBoolean(key, true);
-			CheckBoxPreference db = mDBs.get(key);
-			if(db != null){
-				db.setChecked(bVal);
-			}
-
-			JSONObject jsonObject = moRemoteData.get(key);
-			if(jsonObject != null){
-				if(bVal){
-					//download and unzip
-					try {
-						int nVer = jsonObject.getInt("ver");
-					
-						String sPath = jsonObject.getString("path");
-						String sName = jsonObject.getString("name");
-						String sLocName = sName;
-						if(jsonObject.has("name_" + Locale.getDefault().getLanguage())){
-							sLocName = jsonObject.getString("name_" + Locale.getDefault().getLanguage());
-						}
-						boolean bDirected = false;
-						if(jsonObject.has("directed")){
-							bDirected = jsonObject.getBoolean("directed");
-						}
-						if(sLocName.length() == 0){
-							sLocName = sName;
-						}
-						
-						msUrl = sharedPreferences.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.sUrl);
-						
-						DataDownloader uploader = new DataDownloader(this, sPath, sName, sLocName, nVer, bDirected, getResources().getString(R.string.sDownLoading), null);
-						uploader.execute(msUrl + sPath + ".zip");
-						
-
-            			
-            			aoRouteMetadata.add(sName + ";ver." + nVer);
-            			
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}			
-				}
-				else {
-					try {
-						String sPath = jsonObject.getString("path");
-						String sFullPath = getExternalFilesDir(MainActivity.ROUTE_DATA_DIR) + File.separator + sPath;
-						DeleteRecursive(new File(sFullPath));
-						
-						String sName = jsonObject.getString("name");
-						int nVer = jsonObject.getInt("ver");
-						aoRouteMetadata.remove(sName + ";ver." + nVer);
-					}
-					catch (JSONException e) {
-						e.printStackTrace();
-					}		
-				}
+			String sUrl = sharedPreferences.getString(key, MainActivity.GetDownloadURL());			
+    		if(sUrl.length() > 0){
+            	Pref.setSummary(sUrl);	
+            	MainActivity.SetDownloadURL(sUrl);
     		}
 		}
 	}	
 	
-	
-	private void DeleteRecursive(File fileOrDirectory) {
+	protected void DeleteRecursive(File fileOrDirectory) {
 	    if (fileOrDirectory.isDirectory())
 	        for (File child : fileOrDirectory.listFiles())
 	            DeleteRecursive(child);
 
 	    fileOrDirectory.delete();
 	}
-
-	class MyOnPreferenceChangeListener implements OnPreferenceChangeListener{
-		protected String msKey;
-		protected SharedPreferences mSharedPref;
-		
-		public MyOnPreferenceChangeListener(String sKey) {
-			msKey = sKey;
-			mSharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);
-		}
-
-		public boolean onPreferenceChange(Preference preference, Object newValue) {
-			boolean currentVal = mSharedPref.getBoolean(msKey, false);
-			boolean newVal = (Boolean) newValue;
-			if(currentVal == newVal){
-				return true;
-			}
-			else if(newVal == true){
-				AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
-				builder.setTitle(R.string.sDownload)
-				.setMessage(R.string.sDownloadData)
-				.setCancelable(false)
-				.setPositiveButton(R.string.sDownload, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id){
-						Editor editor = MyOnPreferenceChangeListener.this.mSharedPref.edit();
-						editor.putBoolean(msKey,  true);
-						editor.commit();
-					}								
-				})
-				.setNegativeButton(R.string.sCancel, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-				builder.create();
-				builder.show();
-			}
-			else  if(newVal == false){
-				AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
-				builder.setTitle(R.string.sDelete)
-				.setMessage(R.string.sDeleteData)
-				.setCancelable(false)
-				.setPositiveButton(R.string.sDelete, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id){
-						Editor editor = MyOnPreferenceChangeListener.this.mSharedPref.edit();
-						editor.putBoolean(msKey,  false);
-						editor.commit();
-					}								
-				})
-				.setNegativeButton(R.string.sCancel, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-				AlertDialog dlg = builder.create();
-				dlg.setCancelable(false);
-				dlg.setCanceledOnTouchOutside(false);
-				dlg.show();
-			}
-			return false;
-		}
-	}
 	
 	protected void OnDownloadData(){
-		if(masDownloadData.isEmpty())
+		if(m_asDownloadData.isEmpty()){
+			MAGraph oGraph = MainActivity.GetGraph();
+			oGraph.FillRouteMetadata();
+			UpdateCityList();
+
 			return;
-		DownloadData data = masDownloadData.get(0);
-		masDownloadData.remove(0);
+		}
+		DownloadData data = m_asDownloadData.get(0);
+		m_asDownloadData.remove(0);
 		
 		data.OnDownload();
+	}
+	
+	protected void UpdateCityList(){
+		MAGraph oGraph = MainActivity.GetGraph();
+		Map<String, GraphDataItem> oRouteMetadata = oGraph.GetRouteMetadata();        	
+    	if(oRouteMetadata.size() > 0){
+    		CharSequence[] ent = new CharSequence[oRouteMetadata.size()];
+    		CharSequence[] ent_val = new CharSequence[oRouteMetadata.size()];
+    		int nCounter = 0;
+    		for (Map.Entry<String, GraphDataItem> entry : oRouteMetadata.entrySet()) {
+				ent[nCounter] = entry.getValue().GetLocaleName();
+				ent_val[nCounter] = entry.getKey();
+				nCounter++;
+			}
+    		
+    		m_CityPref.setEntries(ent);
+    		m_CityPref.setEntryValues(ent_val);
+    		
+    		m_CityPref.setEnabled(true);
+    	}
+    	else{
+    		m_CityPref.setEnabled(false);
+    	}
 	}
 }

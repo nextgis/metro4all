@@ -21,6 +21,7 @@
 package com.nextgis.metroaccess;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.nextgis.metroaccess.data.PortalItem;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,16 +32,18 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.content.Context;
 import android.os.Bundle;
 
 public class AlphabeticalStationListFragment extends SherlockFragment {
-	protected static final String TAG = AlphabeticalStationListFragment.class
-			.getSimpleName();
-	protected ExpandableListView mExpListView;
-
+	protected ExpandableListView m_oExpListView;
+	protected StationIndexedExpandableListAdapter m_oExpListAdapter;
+	
+	protected TextView m_tvNotes;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -48,67 +51,81 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 		this.setRetainInstance(true);
 
 		SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-		View view = inflater.inflate(
-				R.layout.alphabetical_stationlist_fragment, container, false);
+		View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
+		
+        m_tvNotes = (TextView)view.findViewById(R.id.tvNotes);        
+        
+		if( m_tvNotes != null){
+			if(!parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
+		}
 
-		mExpListView = (ExpandableListView) view
-				.findViewById(R.id.lvStationList);
-		final StationIndexedExpandableListAdapter expListAdapter = new StationIndexedExpandableListAdapter(
-				parentActivity, parentActivity.GetStationList(),
-				parentActivity.GetPortalCollection());
-		expListAdapter.onInit();
-		mExpListView.setAdapter(expListAdapter);
-		mExpListView.setFastScrollEnabled(true);
+		m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
+		m_oExpListAdapter = new StationIndexedExpandableListAdapter(parentActivity, parentActivity.GetStationList());
+		m_oExpListAdapter.onInit();
+		m_oExpListView.setAdapter(m_oExpListAdapter);
+		m_oExpListView.setFastScrollEnabled(true);
+		m_oExpListView.setGroupIndicator(null);
 
-		mExpListView.setGroupIndicator(null);
+		m_oExpListView.setOnChildClickListener(new OnChildClickListener() {
 
-		mExpListView.setOnChildClickListener(new OnChildClickListener() {
-
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-				final PortalItem selected = (PortalItem) expListAdapter
-						.getChild(groupPosition, childPosition);
+			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+				final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
 				SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
 				parentActivity.Finish(selected.GetStationId(), selected.GetId());
 				return true;
 			}
 		});
 		
-		mExpListView.setOnGroupClickListener(new OnGroupClickListener() {
+		m_oExpListView.setOnGroupClickListener(new OnGroupClickListener() {
 
 			@Override
-			public boolean onGroupClick(ExpandableListView parent, View v,
-					int groupPosition, long id) {
+			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 				InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-				
+				imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);				
 				return false;
 			}			
 		});
 
-		EditText stationFilterEdit = (EditText) view
-				.findViewById(R.id.etStationFilterEdit);
+		EditText stationFilterEdit = (EditText) view.findViewById(R.id.etStationFilterEdit);
 		TextWatcher searchTextWatcher = new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				// ignore
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 				// ignore
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				Log.d(TAG, "*** Search value changed: " + s.toString());
-				expListAdapter.getFilter().filter(s.toString());
+				Log.d(MainActivity.TAG, "*** Search value changed: " + s.toString());
+				m_oExpListAdapter.getFilter().filter(s.toString());
 			}
 		};
 		stationFilterEdit.addTextChangedListener(searchTextWatcher);
 		
 		return view;
+	}
+	
+	public void Update(){
+		if( m_tvNotes != null){
+			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+			if(parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.VISIBLE);
+			}
+			else{
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
+		}
+		
+		if(m_oExpListAdapter != null){
+			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+			m_oExpListAdapter.Update(parentActivity.GetStationList());
+			m_oExpListAdapter.notifyDataSetChanged();
+		}
 	}
 }

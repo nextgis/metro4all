@@ -73,6 +73,7 @@
                     view.$metroStartInputName.val(portalIn);
                     portalInSelectCallback = {f: m4a.stations.selectPortalByFeatureId, args: [portalIn, 'in']};
                 }
+                view.$metroStartStationExtent.prop("disabled", false);
                 m4a.stations.updatePortalsByAjax(stat_start, 'in', portalInSelectCallback);
             }
 
@@ -85,10 +86,11 @@
                     view.$metroEndInputName.val(portalOut);
                     portalOutSelectCallback = {f: m4a.stations.selectPortalByFeatureId, args: [portalOut, 'out']};
                 }
+                view.$metroEndStationExtent.prop("disabled", false);
                 m4a.stations.updatePortalsByAjax(stat_end, 'out', portalOutSelectCallback);
             }
 
-            if (stat_start && portalIn && stat_end && portalOut) {
+            if (stat_start && stat_end) {
                 $("#mainform").submit();
             }
         },

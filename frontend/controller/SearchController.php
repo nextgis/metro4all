@@ -68,9 +68,35 @@ class SearchController
 		}
 
 		$html = '
-    <div class="row">
+<div class="row">
       <div class="col-md-9">
       <form id="mainform" role="form">
+      <div class="col-md-4">
+        <legend>' . s('Откуда') . '</legend>
+        <div class="form-group">
+          <div style="white-space:nowrap">
+            <input id="metroStartStation" name="station_from" type="hidden" style="max-width: 87%;">
+            <button id="metroStartStationExtent" type="button" class="btn" title="' . s('Перейти') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
+          </div>
+        </div>
+        <div class="form-group">
+          <input class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Выберите вход на карте...') . '" disabled>
+          <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <legend>' . s('Куда') . '</legend>
+        <div class="form-group">
+          <div style="white-space:nowrap">
+            <input id="metroEndStation" name="station_to" type="hidden" style="max-width: 87%;">
+            <button id="metroEndStationExtent" type="button" class="btn" title="' . s('Перейти') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
+          </div>
+        </div>
+        <div class="form-group">
+          <input class="form-control" id="metroEndInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
+          <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
+        </div>
+      </div>
         <div class="col-md-4">
         <legend>' . s('Ограничения') . '</legend>
         <div class="btn-group profiles" data-toggle="buttons">
@@ -85,30 +111,6 @@ class SearchController
           </label>
         </div>
         <div class="profile-descr"></div>
-      </div>
-      <div class="col-md-4">
-        <legend>' . s('Откуда') . '</legend>
-        <div class="form-group">
-          <div>
-            <input id="metroStartStation" name="station_from" type="hidden">
-          </div>
-        </div>
-        <div class="form-group">
-          <input class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
-          <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
-        </div>
-      </div>
-      <div class="col-md-4">
-        <legend>Куда</legend>
-        <div class="form-group">
-          <div>
-            <input id="metroEndStation" name="station_to" type="hidden">
-          </div>
-        </div>
-        <div class="form-group">
-          <input class="form-control" id="metroEndInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
-          <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
-        </div>
       </div>
       </form>
       <div class="clearfix"></div>

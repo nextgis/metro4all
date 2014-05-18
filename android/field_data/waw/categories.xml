@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<categories>
+    <category name="Młociny">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Wawrzyszew">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Stare Bielany">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Słodowiec">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Marymont">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Plac Wilsona">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Dworzec Gdański">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Ratusz Arsenał">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Świętokrzyska">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Centrum">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Politechnika">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Pole Mokotowskie">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Racławicka">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Wierzbno">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Wilanowska">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Służew">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Ursynów">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Stokłosy">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Imielin">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Natolin">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+    <category name="Kabaty">
+        <subcategory name="entrance"/>
+        <subcategory name="exit"/>
+    </category>
+
+    <category name="custom"/>
+</categories>

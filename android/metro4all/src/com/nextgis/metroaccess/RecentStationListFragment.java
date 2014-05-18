@@ -21,16 +21,22 @@
 package com.nextgis.metroaccess;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.nextgis.metroaccess.data.PortalItem;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.os.Bundle;
 
 public class RecentStationListFragment extends SherlockFragment {
-	protected ExpandableListView mExpListView;
+	protected ExpandableListView m_oExpListView;
+	protected StationExpandableListAdapter m_oExpListAdapter;
+	
+	protected TextView m_tvNotes;
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
@@ -41,19 +47,25 @@ public class RecentStationListFragment extends SherlockFragment {
      	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
     	
     	View view = inflater.inflate(R.layout.recent_stationlist_fragment, container, false);
+		
+        m_tvNotes = (TextView)view.findViewById(R.id.tvNotes);   
+		if( m_tvNotes != null){
+			if(!parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
+		}
+		
+    	m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
+    	m_oExpListAdapter = new StationExpandableListAdapter(parentActivity);
+    	m_oExpListAdapter.onInit();
+        m_oExpListView.setAdapter(m_oExpListAdapter);
+        m_oExpListView.setFastScrollEnabled(true); 
+        m_oExpListView.setGroupIndicator(null);
 
-     	mExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-        final StationExpandableListAdapter expListAdapter = new StationExpandableListAdapter(parentActivity);
-        expListAdapter.onInit();
-        mExpListView.setAdapter(expListAdapter);
-        mExpListView.setFastScrollEnabled(true);
- 
-        mExpListView.setGroupIndicator(null);
-
-        mExpListView.setOnChildClickListener(new OnChildClickListener() {
+        m_oExpListView.setOnChildClickListener(new OnChildClickListener() {
  
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            	final PortalItem selected = (PortalItem) expListAdapter.getChild(groupPosition, childPosition);
+            	final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
             	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
             	parentActivity.Finish(selected.GetStationId(), selected.GetId());
                 return true;
@@ -63,4 +75,21 @@ public class RecentStationListFragment extends SherlockFragment {
         return view;
 
     }
+    
+	public void Update(){
+		if( m_tvNotes != null){
+			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+			if(parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.VISIBLE);
+			}
+			else{
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
+		}
+		
+		if(m_oExpListAdapter != null){
+			m_oExpListAdapter.Update();
+			m_oExpListAdapter.notifyDataSetChanged();
+		}
+	}
 }

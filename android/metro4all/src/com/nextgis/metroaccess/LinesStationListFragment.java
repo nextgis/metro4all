@@ -20,18 +20,8 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.actionbarsherlock.app.SherlockFragment;
+import com.nextgis.metroaccess.data.PortalItem;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,15 +32,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 public class LinesStationListFragment extends SherlockFragment {
-	protected static final String TAG = LinesStationListFragment.class.getSimpleName();
-	protected ExpandableListView mExpListView;
-	protected Map<Integer, String> momLines;
+	protected ExpandableListView m_oExpListView;
+	protected LinesExpandableListAdapter m_oExpListAdapter;
+	
+	protected TextView m_tvNotes;
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
@@ -60,65 +54,36 @@ public class LinesStationListFragment extends SherlockFragment {
      	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
     	
     	View view = inflater.inflate(R.layout.line_stationlist_fragment, container, false);
-
-    	try {
     	
-		momLines = new HashMap<Integer, String>();
-	    //fill with lines list
-	    File lines_file = new File(MainActivity.msRDataPath, "lines.csv");
-		if (lines_file != null) {
-        	InputStream in;
-			in = new BufferedInputStream(new FileInputStream(lines_file));
-       	
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-	        String line = reader.readLine();
-	        while ((line = reader.readLine()) != null) {
-	             String[] RowData = line.split(MainActivity.CSV_CHAR);
-	             
-				 String sName = RowData[1];
-				 int nLineId = Integer.parseInt(RowData[0]);
-				 
-				 momLines.put(nLineId, sName);
-	        }
-		        
-	        reader.close();
-	        if (in != null) {
-	        	in.close();
-	    	} 
+        m_tvNotes = (TextView)view.findViewById(R.id.tvNotes);        
+        
+		if( m_tvNotes != null){
+			if(!parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
 		}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	
-    	mExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-        final LinesExpandableListAdapter expListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), parentActivity.GetPortalCollection(), momLines);
-        expListAdapter.onInit();
-        mExpListView.setAdapter(expListAdapter);
-        mExpListView.setFastScrollEnabled(true);
- 
-        mExpListView.setGroupIndicator(null);
 
-        mExpListView.setOnChildClickListener(new OnChildClickListener() {
+
+    	m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
+    	m_oExpListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), MainActivity.GetGraph().GetLines());
+    	m_oExpListAdapter.onInit();
+        m_oExpListView.setAdapter(m_oExpListAdapter);
+        m_oExpListView.setFastScrollEnabled(true); 
+        m_oExpListView.setGroupIndicator(null);
+        m_oExpListView.setOnChildClickListener(new OnChildClickListener() {
  
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            	final PortalItem selected = (PortalItem) expListAdapter.getChild(groupPosition, childPosition);
+            	final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
             	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
             	parentActivity.Finish(selected.GetStationId(), selected.GetId());
                 return true;
             }
         });
         
-		mExpListView.setOnGroupClickListener(new OnGroupClickListener() {
+        m_oExpListView.setOnGroupClickListener(new OnGroupClickListener() {
 
 			@Override
-			public boolean onGroupClick(ExpandableListView parent, View v,
-					int groupPosition, long id) {
+			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 				InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 				
@@ -126,29 +91,45 @@ public class LinesStationListFragment extends SherlockFragment {
 			}			
 		});
 		
-        EditText stationFilterEdit = (EditText) view
-				.findViewById(R.id.etStationFilterEdit);
+        EditText stationFilterEdit = (EditText) view.findViewById(R.id.etStationFilterEdit);
 		TextWatcher searchTextWatcher = new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				// ignore
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 				// ignore
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				Log.d(TAG, "*** Search value changed: " + s.toString());
-				expListAdapter.getFilter().filter(s.toString());
+				Log.d(MainActivity.TAG, "*** Search value changed: " + s.toString());
+				m_oExpListAdapter.getFilter().filter(s.toString());
 			}
 		};
 		stationFilterEdit.addTextChangedListener(searchTextWatcher);
 
 		return view;
     }
+    
+	public void Update(){
+		
+		if( m_tvNotes != null){
+			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+			if(parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.VISIBLE);
+			}
+			else{
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
+		}
+		
+		if(m_oExpListAdapter != null){
+			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+			m_oExpListAdapter.Update(parentActivity.GetStationList());
+			m_oExpListAdapter.notifyDataSetChanged();
+		}
+	}
 }

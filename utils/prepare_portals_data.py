@@ -10,7 +10,9 @@ csv_path = sys.argv[1]
 
 fieldmap = (
     ('id2', 'id_entrance'),
-    ('Название выхода', 'name'),
+    ('name_ru', 'name_ru'),
+    ('name_en', 'name_en'),
+    ('name_pl', 'name_pl'),
     ('Код станции', 'id_station'),
     ('Направление', 'direction'),
     ('0_y', 'lat'),
@@ -36,5 +38,9 @@ for row in input_f:
         if source_name in row.keys():
             portal[target_name] = row[source_name]
         else:
-            portal[target_name] = ''
-    output_f.writerow(portal)
+            if source_name.startswith('name'):
+                portal[source_name] = row['name_en']
+            else:
+                portal[target_name] = ''
+    if portal['lat'] != '':
+        output_f.writerow(portal)

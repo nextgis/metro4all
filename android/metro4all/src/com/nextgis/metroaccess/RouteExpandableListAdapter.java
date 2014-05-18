@@ -23,6 +23,9 @@ package com.nextgis.metroaccess;
 import java.io.File;
 import java.util.List;
 
+import com.nextgis.metroaccess.data.BarrierItem;
+import com.nextgis.metroaccess.data.RouteItem;
+
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +34,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,14 +87,17 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 			item.setTextColor(Color.RED);
 		}
 		else{
-			item.setTextColor(Color.WHITE);	
+			TypedValue tv = new TypedValue();
+			mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
+			item.setTextColor(mContext.getResources().getColor(tv.resourceId));	
 		}			
 		//
 		item.setText(bit.GetName());
 		
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 		// set data to display
-	    File imgFile = new File(MainActivity.msRDataPath + "/icons", "" + rit.GetLine() + "8.png");		
+		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
+	    File imgFile = new File(sRouteDataPath + "/icons", "" + rit.GetLine() + "8.png");		
 		Log.d(MainActivity.TAG, imgFile.getPath());
 		if(imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
@@ -163,7 +170,9 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				subitem.setTextColor(Color.RED);
 			}
 			else{
-				subitem.setTextColor(Color.WHITE);
+				TypedValue tv = new TypedValue();
+				mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
+				subitem.setTextColor(mContext.getResources().getColor(tv.resourceId));	
 			}
 		}
 		else{
@@ -172,7 +181,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 		// set data to display
-	    File imgFile = new File(MainActivity.msRDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
+		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
+	    File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
 		Log.d(MainActivity.TAG, imgFile.getPath());
 		if(imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
@@ -185,7 +195,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		
 		ImageButton showSchemaButton = (ImageButton) convertView.findViewById(R.id.show_sheme);
 		showSchemaButton.setFocusable(false);
-		final File schemaFile = new File(MainActivity.msRDataPath + "/schemes", "" + entry.GetId() + ".png");		
+		final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");		
 		if(schemaFile.exists()){
 			showSchemaButton.setOnClickListener(new OnClickListener() {
  

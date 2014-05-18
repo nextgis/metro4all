@@ -172,7 +172,7 @@ def get_portals(lang, city):
                     coordinates=[float(portal['lon']), float(portal['lat'])]
                 ),
                 properties=dict(
-                    name=portal['name'],
+                    name=portal['name_' + lang],
                     direction=portal['direction'],
                     barriers=get_barriers(portal)
                 )

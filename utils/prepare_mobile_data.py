@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
-#prepare data for mobile app, see https://github.com/nextgis/metro4all/issues/58
-
+# prepare data for mobile app, see https://github.com/nextgis/metro4all/issues/58
+# run from util folder
+# Data will be put here: /usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/
+#                    or: metro4all.org/data/v2/
 # example: python prepare_mobile_data.py city USERNAME PASSWORD
 
 import csv
@@ -12,18 +14,26 @@ import shutil
 import zipfile
 import ftplib
 import urllib2
+import paramiko
 
+def cleanup(val):
+    if val == '':
+        val = '-1'
 
-def split_stations(stations_csv_in):
+    if val[0] == '"':
+        print '" found'
+    return val
+
+def split_stations(csv_in):
 
     langs = ("ru","en","pl")
 
     for lang in langs:
-        input_f = csv.DictReader(open(stations_csv_in, 'rb'), delimiter=';')
+        input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
         if 'name_' + lang in input_f.fieldnames:
-            stations_csv_out = "temp/" + "stations_" + lang + ".csv"
+            csv_out = "temp/" + "stations_" + lang + ".csv"
 
-            stations_fieldmap = (
+            fieldmap = (
                 ('id_station', 'id_station'),
                 ('id_line', 'id_line'),
                 ('id_node', 'id_node'),
@@ -32,18 +42,88 @@ def split_stations(stations_csv_in):
                 ('lon', 'lon')
             )
 
-            output_f = csv.DictWriter(open(stations_csv_out, 'wb'), [target_name for source_name, target_name in stations_fieldmap], delimiter=';')
+            output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
 
             output_f.writeheader()
 
             for row in input_f:
-                station = dict()
-                for source_name, target_name in stations_fieldmap:
+                item = dict()
+                for source_name, target_name in fieldmap:
                     if source_name in row.keys():
-                        station[target_name] = row[source_name]
+                        item[target_name] = row[source_name]
+                        item[target_name] = cleanup(item[target_name])
                     else:
-                        station[target_name] = ''
-                output_f.writerow(station)
+                        item[target_name] = ''
+                output_f.writerow(item)
+
+def split_lines(csv_in):
+
+    langs = ("ru","en","pl")
+
+    for lang in langs:
+        input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
+        if 'name_' + lang in input_f.fieldnames:
+            csv_out = "temp/" + "lines_" + lang + ".csv"
+
+            fieldmap = (
+                ('id_line', 'id_line'),
+                ('name_' + lang, 'name')
+            )
+
+            output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
+
+            output_f.writeheader()
+
+            for row in input_f:
+                item = dict()
+                for source_name, target_name in fieldmap:
+                    if source_name in row.keys():
+                        item[target_name] = row[source_name]
+                        item[target_name] = cleanup(item[target_name])
+                    else:
+                        item[target_name] = ''
+                output_f.writerow(item)
+
+def split_portals(csv_in):
+
+    langs = ("ru","en","pl")
+
+    for lang in langs:
+        input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
+        if 'name_' + lang in input_f.fieldnames:
+            csv_out = "temp/" + "portals_" + lang + ".csv"
+
+            fieldmap = (
+                ('id_entrance', 'id_entrance'),
+                ('name_' + lang, 'name'),
+                ('id_station', 'id_station'),
+                ('direction', 'direction'),
+                ('lat', 'lat'),
+                ('lon', 'lon'),
+                ('max_width', 'max_width'),
+                ('min_step', 'min_step'),
+                ('min_step_ramp', 'min_step_ramp'),
+                ('lift', 'lift'),
+                ('lift_minus_step', 'lift_minus_step'),
+                ('min_rail_width', 'min_rail_width'),
+                ('max_rail_width', 'max_rail_width'),
+                ('max_angle', 'max_angle')
+            )
+
+            output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';', quotechar = '|', quoting = csv.QUOTE_NONE)
+
+            output_f.writeheader()
+
+            for row in input_f:
+                item = dict()
+                for source_name, target_name in fieldmap:
+                    if source_name in row.keys():
+                        item[target_name] = row[source_name]
+                        item[target_name] = cleanup(item[target_name])
+                    else:
+                        item[target_name] = ''
+                output_f.writerow(item)
+
 
 def get_meta():
     u = urllib2.urlopen("http://metro4all.org/data/v2/meta.json")
@@ -62,7 +142,7 @@ def update_meta(city):
             package["ver"] = package["ver"] + 1
             package["size"] = os.stat("temp/" + city + ".zip").st_size/1024
             ver = package["ver"]
-            print "New version: " + ver
+            print "New version: " + str(ver)
 
     j = json.dumps(json_content, ensure_ascii=False).encode('utf8')
     f = open(meta, 'w')
@@ -75,15 +155,11 @@ def copyfiles():
     
     graph = "data/" + city + "/graph.csv"
     interchanges = "data/" + city + "/interchanges.csv"
-    lines = "data/" + city + "/lines.csv"
-    portals = "data/" + city + "/portals.csv"
     schemes = "data/" + city + "/schemes/"
     icons = "data/" + city + "/icons/"
 
     shutil.copy(graph,"temp/graph.csv")
     shutil.copy(interchanges,"temp/interchanges.csv")
-    shutil.copy(lines,"temp/lines.csv")
-    shutil.copy(portals,"temp/portals.csv")
     shutil.copytree(schemes,"temp/schemes")
     shutil.copytree(icons,"temp/icons")
 
@@ -92,23 +168,29 @@ def createzip(city):
     zf = zipfile.ZipFile(city + ".zip", "w")
     zf.write("graph.csv")
     zf.write("interchanges.csv")
-    zf.write("lines.csv")
-    zf.write("portals.csv")
 
     for dirname, subdirs, files in os.walk("schemes"):
-        zf.write("schemes")
+        #zf.write("schemes")
         for filename in files:
             zf.write(os.path.join(dirname, filename))
 
     for dirname, subdirs, files in os.walk("icons"):
-        zf.write("schemes")
+        #zf.write("icons")
         for filename in files:
             zf.write(os.path.join(dirname, filename))
+
+    langs = ("ru","en","pl")
+    items = ("stations","lines","portals")
+    for lang in langs:
+        for item in items:
+            fn = item + "_" + lang + ".csv"
+            if os.path.exists(fn):
+                zf.write(fn)
 
     zf.close()
     os.chdir("..")
 
-def upload(city,ver,USERNAME,PASSWORD):
+def upload_ftp(city,ver,USERNAME,PASSWORD):
     print "Uploading: " + city + ".zip"
 
     session = ftplib.FTP('metro4all.ru',USERNAME,PASSWORD)
@@ -117,13 +199,32 @@ def upload(city,ver,USERNAME,PASSWORD):
     file = open("temp/" + city + ".zip",'rb')
     session.storbinary('STOR ' + city + ".zip", file)
     file.close()
-
+    
     session.cwd('archive')
     file = open("temp/" + city + ".zip",'rb')
     session.storbinary('STOR ' + city + "_" + str(ver) + ".zip", file)
     file.close()
 
     session.quit()
+
+def upload_sftp(city,ver,USERNAME,PASSWORD):
+    print "Uploading: " + city + ".zip"
+
+    transport = paramiko.Transport(("gis-lab.info", 22222))
+    transport.connect(username = USERNAME, password = PASSWORD)
+    sftp = paramiko.SFTPClient.from_transport(transport)
+
+    sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/" + city + ".zip")
+    
+    print "Uploading: archive/" + city + "_" + str(ver) + ".zip"
+    sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/archive/" + city + "_" + str(ver) + ".zip")
+
+    print "Uploading: meta.json"
+    sftp.put("temp/meta.json","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/meta.json")
+
+    sftp.close()
+    transport.close()
+
 
 if __name__ == '__main__':
 
@@ -139,13 +240,16 @@ if __name__ == '__main__':
     USERNAME = sys.argv[2]
     PASSWORD = sys.argv[3]
 
-    stations_csv_in = "data/" + city + "/" + "stations.csv"
-
-    split_stations(stations_csv_in)
+    split_stations("data/" + city + "/" + "stations.csv")
+    split_portals("data/" + city + "/" + "portals.csv")
+    split_lines("data/" + city + "/" + "lines.csv")
     copyfiles()
     createzip(city)
     get_meta()
+    #shutil.copy("/home/sim/work/meta.json","/home/sim/work/metro4all/repo/temp/meta.json")
+
     ver = update_meta(city)
-    upload(city,ver,USERNAME,PASSWORD)
-
-
+    upload_sftp(city,ver,USERNAME,PASSWORD)
+    
+    #clean up everything
+    shutil.rmtree("temp/")

@@ -50,7 +50,7 @@ class PageCommon extends Page
 			<ul class="nav navbar-nav">
 			  <li><a href="/' . Core::$config['current_language'] . '/"><span class="glyphicon glyphicon-home"></span></a><//li>
 			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Города <b class="caret"></b></a>
+			    <a href="#" class="dropdown-toggle" data-toggle="dropdown">' . s('Города') . '<b class="caret"></b></a>
 			    <ul class="dropdown-menu">
                   <li class="metro-logo metro-logo-msk"><a href="/' . Core::$config['current_language'] . '/msk/">' . s('Москва') . '</a></li>
                   <li class="metro-logo metro-logo-spb"><a href="/' . Core::$config['current_language'] . '/spb/">' . s('Санкт-Петербург') . '</a></li>

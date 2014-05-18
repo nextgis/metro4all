@@ -31,20 +31,22 @@
 	<string name="sToStation">Arrival</string>
 	<string name="sRoute">Option</string>
 	<string name="sSchema">Schema</string>
-	<string name="sStationName">Name: </string>
-	<string name="sEntranceName">Entrance: </string>
+	<string name="sStationName">Name</string>
+	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
 	<string name="sNotSet">Not set</string>
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>
 	<string name="sBarriersExist">Click here to see barriers&#8230;</string>
 	<string name="sBarriersConflict">You have a conflict with your parameters</string>
-	<string name="sMaxWCWidth">Maximum weelchair width</string>
+	<string name="sMaxWCWidth">Weelchair width</string>
 	<string name="sStairsCount">Number of stairs</string>
 	<string name="sStairsWORails">Of those, without rails or ramps</string>
 	<string name="sLift">Elevator</string>
 	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
 	<string name="sCM">cm</string>
+	<string name="sKB">Kb</string>
+	<string name="sMB">Mb</string>
 	<string name="sNo">No</string>
 	<string name="sMinRailWidth">Min rail width</string>
 	<string name="sMaxRailWidth">Max rail width</string>
@@ -52,8 +54,9 @@
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
-	<string name="sLimits">My limitations</string>	
+	<string name="sLimits">Limitations</string>	
 	<string name="sLimitsSet">Set my limitations</string>
+	<string name="sLimitsHave">Have limitations</string>
 	<string name="sSummary">Trip summary</string>		
 	<string name="sSummaryClick">Press to show details</string>		
 	<!-- tabs -->
@@ -76,7 +79,16 @@
 	<string name="sPrefDataPath">Download data URL</string>
 	<string name="sPrefDataPathSummary">Set download routing data URL</string>
 	<string name="sPrefDataPathTitle">Set download data URL</string>
-	<string name="sPrefUpdDataSummary">Click to update routing data</string>
+	<string name="sPrefUpdDataSummary">Click to update data</string>
 	<string name="sPrefUpdDataTitle">Update data</string>
+	<string name="sPrefChangeCityBasesTitle">Change metro bases</string>
+	<string name="sPrefChangeCityBasesBtn">Change</string>
+	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
+	<string name="sPrefCity">City</string>
+	<string name="sPrefCitySummary">Choose city</string>
+	<string name="sPrefCityTitle">Choose city from the list</string>
+	<string name="sPrefCityLoc">Select locale</string>
+	<string name="sPrefCityLocSummary">Select names locale</string>
+	<string name="sPrefCityLocTitle">Choose the locale for names</string>
 	<string name="stationFilterHintText">Start entering the name of the station</string>
 </resources>

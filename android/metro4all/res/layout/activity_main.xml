@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-	Project:  Metro Access
- 	Purpose:  Routing in subway for disabled.
-    Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
-    Copyright (C) 2013 NextGIS
+<!-- 
+	Project:  Metro4All
+ 	Purpose:  Routing in subway
+    Author:   Dmitry Baryshnikov, polimax@mail.ru
+    Copyright (C) 2013, 2014 NextGIS
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,177 +19,51 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-   
-<ScrollView
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:tools="http://schemas.android.com/tools"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:orientation="vertical"> 
+	 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"	     
+	     android:background="@drawable/contrast_pane" 
+	     android:orientation="vertical" >	
 
     <TextView
-        android:id="@+id/textFrom"
+        android:id="@+id/tvCurrentCity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sFromStation"
         android:textStyle="bold"
+        android:gravity="center"
+        android:layout_margin="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sStationName"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/fromstationname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sNotSet"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/fromentrancenamelabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sEntranceName"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/fromentrancename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sNotSet"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        </TableRow>
-    </TableLayout>
-    
-    <Button
-        android:id="@+id/btSetDepart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/sSelFromStation" />
-    
-    <View
-	    android:layout_height="1dp"
-	    android:layout_width="fill_parent"
-	    android:background="@android:color/darker_gray"/>    
-
-    <TextView
-        android:id="@+id/textTo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sToStation"        
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sStationName"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/tostationname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sNotSet"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/toentrancenamelabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sExitName"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/toentrancename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sNotSet"
-                android:layout_margin="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        </TableRow>
-    </TableLayout>
-
-    <Button
-        android:id="@+id/btSelArrival"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/sSelToStation" />
-    
-    <View
-	    android:layout_height="1dp"
-	    android:layout_width="fill_parent"
-	    android:background="@android:color/darker_gray"/>
-    
-    <Button
-        android:id="@+id/btSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:text="@string/sSearch" />
-    
-    <Button
-        android:id="@+id/btSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:text="@string/sLimitsSet" />    
-    
     </LinearLayout>
-    </ScrollView>
-    
-</FrameLayout>
+	
+	 <ListView
+	     android:id="@+id/lvButtList"
+	     android:layout_width="fill_parent"
+         android:layout_height="wrap_content" 
+         android:layout_weight="2"/>
+				
+	 <LinearLayout
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"     
+	     android:background="@drawable/contrast_pane" 
+	     android:orientation="vertical" >
+				      	
+      	<Button
+        android:id="@+id/btSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:background="@drawable/btn_selector"
+        android:textColor="@color/btnTextColor"
+        android:text="@string/sSearch" />
+      	
+   	</LinearLayout>
+   	
+</LinearLayout>
