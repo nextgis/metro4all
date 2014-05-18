@@ -18,20 +18,13 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<resources>
-    <color name="metrocolorlight">#50C0DB</color> 
- 	<color name="metrocolordark">#AFEEEE</color> 
- 	<color name="metrocolormid">#ADD8E6</color>
- 	<color name="btnOnColor">#1D3F58</color>
- 	<color name="btnOnGradientStart">#436884</color>
- 	<color name="btnOnGradientEnd">#224560</color>
-	<color name="btnOffColor">#2A4D68</color>
- 	<color name="btnOffGradientStart">#81B0D5</color>
- 	<color name="btnOffGradientEnd">#335F81</color>
- 	<color name="btnTextColor">#d3e4f0</color>
- 	<color name="btnBorderColor">#8ab7d7</color>
- 	<color name="bkColorLight">#ececea</color>
-  	<color name="bkColorDark">#d4d4d2</color>
-  	<color name="bkColorStrongDark">#737373</color>
-  	
-</resources>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"> 
+	<stroke android:width="2dp" android:color="@color/btnBorderColor" /> 
+	<corners android:radius="5dp" /> 
+	<gradient
+		android:startColor="@color/bkColorDark" 
+		android:endColor="@color/bkColorStrongDark"
+		android:angle="270"
+	/>
+</shape>	

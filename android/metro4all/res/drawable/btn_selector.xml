@@ -19,6 +19,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
     <selector xmlns:android="http://schemas.android.com/apk/res/android" >
+        <item android:state_enabled="false" android:drawable="@drawable/btn_disabled"/>
         <item
             android:drawable="@drawable/btn_off"
             android:state_focused="true"
@@ -32,4 +33,5 @@
             android:state_focused="false"
             android:state_pressed="true"/>
         <item android:drawable="@drawable/btn_off"/>
+    	<item android:state_enabled="true" android:drawable="@drawable/btn_off"/>
     </selector>

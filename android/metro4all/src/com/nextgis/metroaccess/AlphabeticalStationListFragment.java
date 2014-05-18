@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.content.Context;
@@ -40,6 +41,9 @@ import android.os.Bundle;
 public class AlphabeticalStationListFragment extends SherlockFragment {
 	protected ExpandableListView m_oExpListView;
 	protected StationIndexedExpandableListAdapter m_oExpListAdapter;
+	
+	protected TextView m_tvNotes;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -48,6 +52,14 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 
 		SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
 		View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
+		
+        m_tvNotes = (TextView)view.findViewById(R.id.tvNotes);        
+        
+		if( m_tvNotes != null){
+			if(!parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
+		}
 
 		m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
 		m_oExpListAdapter = new StationIndexedExpandableListAdapter(parentActivity, parentActivity.GetStationList());
@@ -100,6 +112,16 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 	}
 	
 	public void Update(){
+		if( m_tvNotes != null){
+			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+			if(parentActivity.HasLimits()){
+				m_tvNotes.setVisibility(View.VISIBLE);
+			}
+			else{
+				m_tvNotes.setVisibility(View.INVISIBLE);
+			}
+		}
+		
 		if(m_oExpListAdapter != null){
 			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
 			m_oExpListAdapter.Update(parentActivity.GetStationList());

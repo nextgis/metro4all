@@ -26,13 +26,17 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -53,7 +57,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	protected static LinesStationListFragment mLinesStListFragment;
 	protected static RecentStationListFragment mRecentStListFragment;
 	
-	protected boolean m_bIn;
+	protected boolean m_bIn;	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.select_station);
-        
+               
        // setup action bar for tabs
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -249,5 +253,11 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 	protected void onSettings() {
         Intent intentSet = new Intent(this, PreferencesActivity.class);
         startActivityForResult(intentSet, MainActivity.PREF_RESULT);		
+	}
+	
+	public boolean HasLimits(){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		return prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
+		
 	}
 }

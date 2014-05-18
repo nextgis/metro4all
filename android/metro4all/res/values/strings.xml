@@ -39,7 +39,7 @@
 	<string name="sSelToStation">Select arrival station</string>
 	<string name="sBarriersExist">Click here to see barriers&#8230;</string>
 	<string name="sBarriersConflict">You have a conflict with your parameters</string>
-	<string name="sMaxWCWidth">Maximum weelchair width</string>
+	<string name="sMaxWCWidth">Weelchair width</string>
 	<string name="sStairsCount">Number of stairs</string>
 	<string name="sStairsWORails">Of those, without rails or ramps</string>
 	<string name="sLift">Elevator</string>
@@ -54,7 +54,7 @@
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
-	<string name="sLimits">My limitations</string>	
+	<string name="sLimits">Limitations</string>	
 	<string name="sLimitsSet">Set my limitations</string>
 	<string name="sLimitsHave">Have limitations</string>
 	<string name="sSummary">Trip summary</string>		
@@ -79,16 +79,16 @@
 	<string name="sPrefDataPath">Download data URL</string>
 	<string name="sPrefDataPathSummary">Set download routing data URL</string>
 	<string name="sPrefDataPathTitle">Set download data URL</string>
-	<string name="sPrefUpdDataSummary">Click to update routing data</string>
+	<string name="sPrefUpdDataSummary">Click to update data</string>
 	<string name="sPrefUpdDataTitle">Update data</string>
 	<string name="sPrefChangeCityBasesTitle">Change metro bases</string>
 	<string name="sPrefChangeCityBasesBtn">Change</string>
-	<string name="sPrefChangeCityBasesSummary">Change the downloaded metro bases list</string>
-	<string name="sPrefCity">Metro</string>
-	<string name="sPrefCitySummary">Choose metro</string>
-	<string name="sPrefCityTitle">Choose metro from the list</string>
+	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
+	<string name="sPrefCity">City</string>
+	<string name="sPrefCitySummary">Choose city</string>
+	<string name="sPrefCityTitle">Choose city from the list</string>
 	<string name="sPrefCityLoc">Select locale</string>
-	<string name="sPrefCityLocSummary">Select metro data locale</string>
-	<string name="sPrefCityLocTitle">Choose the locale for metro data</string>
+	<string name="sPrefCityLocSummary">Select names locale</string>
+	<string name="sPrefCityLocTitle">Choose the locale for names</string>
 	<string name="stationFilterHintText">Start entering the name of the station</string>
 </resources>

@@ -83,6 +83,7 @@ public class MAGraph {
 		this.m_bDirected = false;
 		this.m_oExternalDir = oExternalDir;
 		this.m_sLocale = sLocale;
+		this.m_bIsValid = false;
 		
 		m_moRouteMetadata = new HashMap<String, GraphDataItem>();
 		m_asChoiceItems = new ArrayList<GraphDataItem>();
@@ -90,9 +91,9 @@ public class MAGraph {
 		m_moCrosses = new HashMap<String, int[]>();
 		m_omLines = new HashMap<Integer, String>();
 		
-		FillRouteMetadata();
-		
 		m_oGraph = new VariableGraph();
+		
+		FillRouteMetadata();		
 		
 		SetCurrentCity(sCurrentCity);
 	}
@@ -423,6 +424,7 @@ public class MAGraph {
 	public void FillRouteMetadata(){
 		m_moRouteMetadata.clear();
 		m_sFirstCity = "";
+		boolean bHaveCity = false;
 		//fill meta
 		File oRouteDataDir = new File(m_oExternalDir, MainActivity.GetRouteDataDir());
 		if(!oRouteDataDir.exists())
@@ -449,6 +451,9 @@ public class MAGraph {
 			        	
 			        	m_moRouteMetadata.put(inFile.getName(), Item);	
 			        	
+			        	if(!bHaveCity && inFile.getName().equals(m_sCurrentCity))
+			        		bHaveCity = true;
+			        	
 			        	if(m_sFirstCity.length() < 2){
 			        		m_sFirstCity = inFile.getName();
 			        	}
@@ -459,7 +464,10 @@ public class MAGraph {
 					}
 		        }
 		    }
-		}		
+		}
+		
+		if(!bHaveCity)
+			SetCurrentCity( m_sFirstCity );
 	}
 	
 	public String GetLocale(){
@@ -488,6 +496,8 @@ public class MAGraph {
 	}
 
 	public void SetCurrentCity(String sCurrentCity){
+		if(sCurrentCity.length() == 0)
+			return;
 		if(m_sCurrentCity != null && m_sCurrentCity.equals(sCurrentCity))
 			return;
 		

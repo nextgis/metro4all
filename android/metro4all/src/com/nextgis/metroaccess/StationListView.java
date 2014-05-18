@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SpinnerAdapter;
@@ -60,7 +61,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
         super.onCreate(savedInstanceState);
         //mbFilled = false;
         setContentView(R.layout.station_list_view);
-        
+              
 	    ActionBar actionBar = getSupportActionBar();
 		Context context = actionBar.getThemedContext();		
         
@@ -72,7 +73,6 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);	
 		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-		 
 
 	    Bundle extras = getIntent().getExtras(); 
 	    if(extras != null) {

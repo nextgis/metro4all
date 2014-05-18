@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">Metro4All</string>
-    <string name="sHomepage">http://nextgis.ru</string>
-    <string name="sDetailpage">http://metro4all.ru</string>
+    <string name="sHomepage">http://nextgis.org</string>
+    <string name="sDetailpage">http://metro4all.org</string>
     
     <string name="about_app">Это приложение расчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. Вы можете выбрать более оптимальный маршрут. \n\nПодробнее:</string>
 
@@ -34,12 +34,12 @@
 	<string name="sStationName">Станция</string>
 	<string name="sEntranceName">Вход</string>
 	<string name="sExitName">Выход</string>		
-	<string name="sNotSet">Не назначено</string>	
+	<string name="sNotSet">Не выбрано</string>	
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>
 	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
 	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
-	<string name="sMaxWCWidth">Макс. ширина коляски</string>
+	<string name="sMaxWCWidth">Ширина коляски</string>
 	<string name="sStairsCount">Ступенек</string>
 	<string name="sStairsWORails">Из них без аппарелей или рамп</string>
 	<string name="sLift">Лифт</string>
@@ -54,7 +54,7 @@
 	<string name="sDownloadData">Загрузить данные по маршрутам?</string>
 	<string name="sDeleteData">Удалить данные по маршрутам?</string>	
 	<string name="sConflictNotes">Входы конфликтующие с вашими ограничениями отмечены красным</string>
-	<string name="sLimits">Мои ограничения</string>		
+	<string name="sLimits">Ограничения</string>		
 	<string name="sLimitsSet">Установить мои ограничения</string>
 	<string name="sLimitsHave">Учитывать ограничения</string>
 	<string name="sSummary">Сводка по маршруту</string>
@@ -79,16 +79,16 @@
 	<string name="sPrefDataPath">Загружать данные по ссылке</string>
 	<string name="sPrefDataPathSummary">Ссылка для загрузки данных маршрутизации</string>
 	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
-	<string name="sPrefUpdDataSummary">Нажмите чтобы обновить данные для маршрутизации</string>
+	<string name="sPrefUpdDataSummary">Нажмите, чтобы обновить данные</string>
 	<string name="sPrefUpdDataTitle">Обновить данные</string>	
 	<string name="sPrefChangeCityBasesBtn">Изменить</string>
 	<string name="sPrefChangeCityBasesTitle">Изменить состав баз</string>
-	<string name="sPrefChangeCityBasesSummary">Нажмите чтобы изменить состав загруженных баз данных по метро</string>
-	<string name="sPrefCity">Метро</string>
-	<string name="sPrefCitySummary">Выберите метрополитен</string>
-	<string name="sPrefCityTitle">Выберите метрополитен из списка</string>
-	<string name="sPrefCityLoc">Выбор языка</string>
-	<string name="sPrefCityLocSummary">Выбор языка для данных о метрополитене</string>
-	<string name="sPrefCityLocTitle">Выберите язык для данных о метрополитене</string>
+	<string name="sPrefChangeCityBasesSummary">Нажмите, чтобы выбрать загружаемые города</string>
+	<string name="sPrefCity">Город</string>
+	<string name="sPrefCitySummary">Выберите город</string>
+	<string name="sPrefCityTitle">Выберите город из списка</string>
+	<string name="sPrefCityLoc">Язык названий</string>
+	<string name="sPrefCityLocSummary">Выбор языка названий</string>
+	<string name="sPrefCityLocTitle">Выберите язык названий</string>
 	<string name="stationFilterHintText">Введите часть названия станции</string>		
 </resources>
