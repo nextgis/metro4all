@@ -23,12 +23,12 @@ text {
 
 .histPlot .axis .axisLabel {
   fill: #000;
-  font: bold 14px Arial Narrow; 
+  font: 14px Arial Narrow; 
 }
 
 .histPlot .x.axis .tick.major text {
   fill: #000;
-  font: bold 12px Arial Narrow;  
+  font: 12px Arial Narrow;  
 }
 
 .histPlot .barLabel {
@@ -52,12 +52,12 @@ text {
 
 .barPlot .axis .axisLabel {
   fill: #000;
-  font: bold 14px Arial Narrow; 
+  font: 14px Arial Narrow; 
 }
 
 .barPlot .x.axis .tick.major text {
   fill: #000;
-  font: bold 12px Arial Narrow;  
+  font: 12px Arial Narrow;  
 }
 
 .barPlot .barLabel {
@@ -81,27 +81,31 @@ text {
 
 .doubleBarPlot .axis .axisLabel {
   fill: #000;
-  font: bold 12px Arial Narrow; 
+  font: 12px Arial Narrow; 
 }
 
 .doubleBarPlot .x.axis .tick.major text {
   fill: #000;
-  font: bold 12px Arial Narrow;  
+  font: 12px Arial Narrow;  
 }
 
 .doubleBarPlot .barLabel {
   fill: #000;
-  font: bold 14px Arial Narrow; 
+  font: bold 13px Arial Narrow; 
 }
 
 .doubleBarPlot .bar0 rect {
   fill: #ecb525;
   shape-rendering: crispEdges;
+  stroke: #000;
+  stroke-width: 1px;
 }
 
 .doubleBarPlot .bar1 rect {
   fill: #5228ff;
   shape-rendering: crispEdges;
+  stroke: #000;
+  stroke-width: 1px;
 }
 
 /* Stacked Barplot styling*/
@@ -113,17 +117,17 @@ text {
 
 .stackedBarPlot .axis .axisLabel {
   fill: #000;
-  font: bold 14px Arial Narrow; 
+  font: 12px Arial Narrow; 
 }
 
 .stackedBarPlot .x.axis .tick.major text {
   fill: #000;
-  font: bold 10px Arial Narrow;  
+  font: 10px Arial Narrow;  
 }
 
 .stackedBarPlot .barLabel {
   fill: #000;
-  font: bold 16px Arial Narrow; 
+  font: 13px Arial Narrow; 
 }
 
 .stackedBarPlot .bar rect {
@@ -450,7 +454,7 @@ function drawStackedBarplot(data, stackLevels, title) {
   bar.append('text')
       .attr('class', 'barLabel')
       //.attr('dy', '.75em')
-      .attr('y', function(d) { return y(d.y1) - 11; })
+      .attr('y', function(d) { return y(d.y1) - 5; })
       .attr('x', x.rangeBand() / 2)
       .attr('text-anchor', 'middle')
       .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });  
@@ -526,7 +530,7 @@ function drawBarplot(data, title) {
   bar.append('text')
       .attr('class', 'barLabel')
       //.attr('dy', '.75em')
-      .attr('y', function(d) { return y(d.frequency) - 11; })
+      .attr('y', function(d) { return y(d.frequency) - 7; })
       .attr('x', x.rangeBand() / 2)
       .attr('text-anchor', 'middle')
       .text(function(d) { return d.frequency > 0 ? formatCount(d.frequency) + ' (' + formatPercent(d.frequency/total) +') ' : ''; }); 
@@ -605,7 +609,7 @@ function drawDoubleBarplot(data, data2, title) {
   bar0.append('text')
       .attr('class', 'barLabel')
       //.attr('dy', '.75em')
-      .attr('y', function(d) { return y(d.frequency) - 11; })
+      .attr('y', function(d) { return y(d.frequency) - 5; })
       .attr('x', x.rangeBand() / 4)
       .attr('text-anchor', 'middle')
       .text(function(d) { return d.frequency > 0 ? formatCount(d.frequency) : ''; });
@@ -625,7 +629,7 @@ function drawDoubleBarplot(data, data2, title) {
   bar1.append('text')
       .attr('class', 'barLabel')
       //.attr('dy', '.75em')
-      .attr('y', function(d) { return y(d.frequency) - 11; })
+      .attr('y', function(d) { return y(d.frequency) - 5; })
       .attr('x', 3 * x.rangeBand() / 4)
       .attr('text-anchor', 'middle')
       .text(function(d) { return d.frequency > 0 ? formatCount(d.frequency) : ''; });
