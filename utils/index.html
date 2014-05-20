@@ -414,7 +414,7 @@ function drawStackedBarplot(data, stackLevels, title) {
       .selectAll("text")  
         .style("text-anchor", "end")
         .attr('x', -10)
-        .attr('y', - 6)
+        .attr('y', +3)
         //.attr("dx", "-.8em")
         //.attr("dy", ".15em")
         .attr("transform", function(d) { return "rotate(-90)";});
@@ -467,8 +467,8 @@ function drawStackedBarplot(data, stackLevels, title) {
       .attr('text-anchor', 'middle')
       .text(null);
 
-  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1] ? formatCount(d.y0) + ' из ' + formatCount(d.y1) : ''; });
-  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) + 13; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; });
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 20; }).text(function(d) { return d.name == stackLevels[1] ? formatCount(d.y0) + ' из ' + formatCount(d.y1) : ''; });
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; });
 
   svg.append('g')
     .attr('class', 'title')
