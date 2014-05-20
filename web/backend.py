@@ -286,9 +286,8 @@ def get_routes(lang, city, delta=5, limit=3):
 
 
 app = bottle.default_app()
-def run_fcgi():
-    from flup.server.fcgi import WSGIServer
-    WSGIServer(app).run()
+def get_app():
+    return app
 
 
 if __name__ == "__main__":
