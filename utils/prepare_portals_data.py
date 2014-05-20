@@ -34,13 +34,14 @@ output_f.writeheader()
 
 for row in input_f:
     portal = dict()
-    for source_name, target_name in fieldmap:
-        if source_name in row.keys():
-            portal[target_name] = row[source_name]
-        else:
-            if source_name.startswith('name'):
-                portal[source_name] = row['name_en']
+    if row[u'Закрыто'] != '':
+        for source_name, target_name in fieldmap:
+            if source_name in row.keys():
+                portal[target_name] = row[source_name]
             else:
-                portal[target_name] = ''
-    if portal['lat'] != '':
-        output_f.writerow(portal)
+                if source_name.startswith('name'):
+                    portal[source_name] = row['name_en']
+                else:
+                    portal[target_name] = ''
+        if portal['lat'] != '':
+            output_f.writerow(portal)
