@@ -285,8 +285,8 @@ def get_routes(lang, city, delta=5, limit=3):
         return HTTPResponse(status=400)
 
 
+app = bottle.default_app()
 def run_fcgi():
-    app = bottle.default_app()
     from flup.server.fcgi import WSGIServer
     WSGIServer(app).run()
 
