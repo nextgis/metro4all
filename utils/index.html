@@ -546,7 +546,7 @@ function drawBarplot(data, title) {
 
 function drawDoubleBarplot(data, data2, title) {
   var x = d3.scale.ordinal()
-      .rangeRoundBands([0, width], .1);
+      .rangeRoundBands([0, width], .3);
   
   var y = d3.scale.linear()
       .rangeRound([height, 0]);
