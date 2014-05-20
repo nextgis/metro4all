@@ -451,13 +451,24 @@ function drawStackedBarplot(data, stackLevels, title) {
       .attr('height', function(d) { return y(d.y0) - y(d.y1); })
       .style('fill', function(d) { return color(d.line);});
 
-  bar.append('text')
+  //Simple barLabel
+  /*var barLabel = bar.append('text')
       .attr('class', 'barLabel')
       //.attr('dy', '.75em')
       .attr('y', function(d) { return y(d.y1) - 5; })
       .attr('x', x.rangeBand() / 2)
       .attr('text-anchor', 'middle')
-      .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });  
+      .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });*/
+
+  //Stacked barLabels
+  var barLabel = bar.append('text')
+      .attr('class', 'barLabel')
+      //.attr('dy', '.75em')
+      .attr('text-anchor', 'middle')
+      .text(null);
+
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1] ? formatCount(d.y0) + ' из ' + formatCount(d.y1) : ''; });
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) + 13; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; });
 
   svg.append('g')
     .attr('class', 'title')
@@ -687,4 +698,3 @@ function xmlnsFix(svg) {
 };
 </script>
 </body>
-
