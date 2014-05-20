@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-# example: python histStat.py elements.csv transfersReport.csv entrances.csv elevators.csv
+# example: python histStat.py elements.csv transfersReport.csv portals.csv elevators.csv
 
 import os
 import sys
@@ -28,7 +28,7 @@ elementsDf['slope'] = np.tan(np.radians(elementsDf['max_angle'])) * 100
 
 transfersReportDf = pd.read_csv(filePath2, sep=',', encoding='utf-8')
 
-stationsDf = pd.read_csv(filePath3,  sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'entrance_name', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
+stationsDf = pd.read_csv(filePath3,  sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'portalName_ru', 'portalName_en', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
 
 ''' Calculated columns
 stationsDf['max_slope'] = np.tan(np.radians(stationsDf['max_angle'])) * 100
