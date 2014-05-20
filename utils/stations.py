@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-# example: python stations.py stations.csv entrances.csv
+# example: python stations.py stations.csv portals.csv
 
 import os
 import sys
@@ -11,11 +11,11 @@ import numpy as np
 vocabPath = sys.argv[1]
 filePath = sys.argv[2]
 
-vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=0, names=['stationId', 'lineId', 'nodeId', 'stationName', 'stationName_en', 'lat', 'lon', 'lineName'])
+vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=0, names=['stationId', 'lineId', 'nodeId', 'stationName', 'stationName_en', 'lon', 'lat', 'lineName'])
 #['stationName', 'stationName_en', 'lineName', 'stationId', 'lineId', 'nodeId', 'lat', 'lon']
 del vocabDf['lat']
 del vocabDf['lon']
-sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'entrance_name', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
+sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'portalName_ru', 'portalName_en', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
 
 ''' Calculated columns
 sourceDf['max_slope'] = np.tan(np.radians(sourceDf['max_angle'])) * 100
