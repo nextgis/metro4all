@@ -1,5 +1,8 @@
 Metro4All
 ===========
 
-Доступность метрополитена для людей с ограниченными возможностями
+Metro navigation and accessibility for people with special needs.
 
+Now available for: Moscow, Saint-Petersburg, Warsaw, Kazan (upcoming)
+
+http://metro4all.org
