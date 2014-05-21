@@ -31,7 +31,12 @@ text {
   font: 12px Arial Narrow;  
 }
 
-.histPlot .barLabel {
+.histPlot .barLabel.italic {
+  fill: #000;
+  font: italic 16px Arial Narrow; 
+}
+
+.histPlot .barLabel.bold {
   fill: #000;
   font: bold 16px Arial Narrow; 
 }
@@ -60,7 +65,12 @@ text {
   font: 12px Arial Narrow;  
 }
 
-.barPlot .barLabel {
+.barPlot .barLabel.italic {
+  fill: #000;
+  font: italic 16px Arial Narrow; 
+}
+
+.barPlot .barLabel.bold {
   fill: #000;
   font: bold 16px Arial Narrow; 
 }
@@ -125,9 +135,14 @@ text {
   font: 10px Arial Narrow;  
 }
 
-.stackedBarPlot .barLabel {
+.stackedBarPlot .barLabel.italic {
   fill: #000;
-  font: 13px Arial Narrow; 
+  font: italic 13px Arial Narrow; 
+}
+
+.stackedBarPlot .barLabel.bold {
+  fill: #000;
+  font: bold 13px Arial Narrow; 
 }
 
 .stackedBarPlot .bar rect {
@@ -139,6 +154,7 @@ text {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
 </style>
 <body>
   <div id='rasterPreview'></div>
@@ -299,7 +315,7 @@ function plotHist(histData, bins, title, xAxisLabel) {
       .attr('height', function(d) { return height - y(d.y); });
   
   bar.append('text')
-      .attr('class', 'barLabel')
+      .attr('class', 'barLabel bold')
       //.attr('dy', '.75em')
       .attr('y', -26)
       .attr('x', function(d, i) { return x(data[i].dx + minThreshold) / 2; })
@@ -308,7 +324,7 @@ function plotHist(histData, bins, title, xAxisLabel) {
       //.text(function(d) { return d.y > 0 ? formatCount(d.y) + ' (' + formatPercent(d.y/total) +') ' : ''; });
 
   bar.append('text')
-      .attr('class', 'barLabel')
+      .attr('class', 'barLabel italic')
       //.attr('dy', '.75em')
       .attr('y', -7)
       .attr('x', function(d, i) { return x(data[i].dx + minThreshold) / 2; })
@@ -414,7 +430,8 @@ function drawStackedBarplot(data, stackLevels, title) {
       .selectAll("text")  
         .style("text-anchor", "end")
         .attr('x', -10)
-        .attr('y', +3)
+        .attr('y', -5)
+        .call(wrap, x.rangeBand())
         //.attr("dx", "-.8em")
         //.attr("dy", ".15em")
         .attr("transform", function(d) { return "rotate(-90)";});
@@ -453,7 +470,7 @@ function drawStackedBarplot(data, stackLevels, title) {
 
   //Simple barLabel
   /*var barLabel = bar.append('text')
-      .attr('class', 'barLabel')
+      .attr('class', 'barLabel bold')
       //.attr('dy', '.75em')
       .attr('y', function(d) { return y(d.y1) - 5; })
       .attr('x', x.rangeBand() / 2)
@@ -467,8 +484,8 @@ function drawStackedBarplot(data, stackLevels, title) {
       .attr('text-anchor', 'middle')
       .text(null);
 
-  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 20; }).text(function(d) { return d.name == stackLevels[1] ? formatCount(d.y0) + ' из ' + formatCount(d.y1) : ''; });
-  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; });
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 20; }).text(function(d) { return d.name == stackLevels[1] ? formatCount(d.y0) + ' из ' + formatCount(d.y1) : ''; }).style('font-weight', 'bold');
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; }).style('font-style', 'italic');
 
   svg.append('g')
     .attr('class', 'title')
@@ -539,7 +556,7 @@ function drawBarplot(data, title) {
       .attr("height", function(d) { return height - y(d.frequency); });
 
   bar.append('text')
-      .attr('class', 'barLabel')
+      .attr('class', 'barLabel bold')
       //.attr('dy', '.75em')
       .attr('y', function(d) { return y(d.frequency) - 7; })
       .attr('x', x.rangeBand() / 2)
@@ -681,6 +698,23 @@ function frequencyData(data, ranges) {
   });
   return freqData;
 };
+
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split('-').reverse(),
+        word,
+        lineNumber = 0,
+        lineHeight = 10, // px
+        x = text.attr("x")
+        y = text.attr("y"),
+        text.text(null);
+    while (word = words.pop()) {
+        text.append("tspan").attr("x", x).attr("y", parseInt(y) + (lineNumber++ * lineHeight))
+         .text(function() { return words.length == 0 ? word : word + '-';});
+    }
+  });
+}
 
 function xmlnsFix(svg) {
   // removing attributes so they aren't doubled up
