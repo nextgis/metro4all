@@ -3,11 +3,11 @@
 <style>
 
 body {
-  font: 12px Arial;
+  font: 12px Arial Narrow;
 }
 
 text {
-  font: 12px Arial;  
+  font: 12px Arial Narrow;  
 }
 
 .lighten {
@@ -213,56 +213,56 @@ function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pa
   minRailStepsStationsFreq = frequencyData(minRailStepsStations, [[0, 10], [10, 20], [20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90], [90, 100]]);
   minLiftStepsStationsFreq = frequencyData(minLiftStepsStations, [[0, 10], [10, 20], [20, 30], [30, 40], [40, 50], [50, 60], [60, 70], [70, 80], [80, 90], [90, 100]]);
 
-  drawBarplot(cabinDepthFreq, 'Глубина кабины лифтов');
-  drawBarplot(minTaperTransfersFreq, 'Самое узкое место на переходе');
+  drawBarplot(cabinDepthFreq, 'График 3. Глубина кабины лифтов', 'Миллиметры (мм)');
+  drawBarplot(minTaperTransfersFreq, 'График 17. Самое узкое место на переходах', 'Миллиметры (мм)');
 
-  plotHist(stairsLength, [0, 3, 10, 15, 20, 25, 30, 35, 40, 45, 50], 'Длина лестниц', 'Количество ступеней (шт.)');
-  plotHist(minRailsWidth, [250, 300, 350, 400, 450, 500], 'Минимальная ширина рельс', 'Миллиметры (мм)');
-  plotHist(maxRailsWidth, [500, 600, 700, 800, 900, 1000, 1100, 1200], 'Максимальная ширина рельс', 'Миллиметры (мм)');
-  plotHist(railsSlope, [20, 25, 30, 35, 40, 45, 50], 'Уклон рельс', 'Проценты (%)');
-  plotHist(pandusSlope, [0, 5, 8, 11, 20, 40, 50], 'Уклон пандусов', 'Проценты (%)');
-  plotHist(turnstileWidth, [500, 600, 750, 850, 1500], 'Ширина турникетов', 'Миллиметры (мм)');
-  plotHist(doorWidth, [700, 800, 900, 1000, 1500], 'Ширина дверей', 'Миллиметры (мм)');
-  plotHist(liftWidth, [800, 850, 900, 950, 1000], 'Ширина дверного проема лифтов', 'Миллиметры (мм)');
+  plotHist(stairsLength, [0, 3, 10, 15, 20, 25, 30, 35, 40, 45, 50], 'График 6. Длина лестниц', 'Количество ступеней (шт.)');
+  plotHist(minRailsWidth, [250, 300, 350, 400, 450, 500], 'График 7. Минимальная ширина рельс', 'Миллиметры (мм)');
+  plotHist(maxRailsWidth, [500, 600, 700, 800, 900, 1000, 1100, 1200], 'График 8. Максимальная ширина рельс', 'Миллиметры (мм)');
+  plotHist(railsSlope, [20, 25, 30, 35, 40, 45, 50], 'График 9. Уклон рельс', 'Проценты (%)');
+  plotHist(pandusSlope, [0, 5, 8, 11, 20, 40, 50], 'График 10. Уклон пандусов', 'Проценты (%)');
+  plotHist(turnstileWidth, [500, 600, 750, 850, 1500], 'График 11. Ширина турникетов', 'Миллиметры (мм)');
+  plotHist(doorWidth, [700, 800, 900, 1000, 1500], 'График 12. Ширина дверей', 'Миллиметры (мм)');
+  plotHist(liftWidth, [800, 850, 900, 950, 1000], 'График 2. Ширина дверного проема лифтов', 'Миллиметры (мм)');
 
-  plotHist(minStepsTransfers, [20, 30, 40, 50, 60, 70, 80, 90], 'Длина лестниц на переходах', 'Количество ступеней (шт.)');
-  plotHist(minRailStepsTransfers, [20, 30, 40, 50, 60, 70], 'Длина лестниц на переходах c учетом рельс и пандусов', 'Количество ступеней (шт.)');
-  plotHist(minLiftStepsTransfers, [20, 30, 40, 50, 60, 70, 80, 90], 'Длина лестниц на переходах c учетом лифтов', 'Количество ступеней (шт.)');
-  plotHist(minTaperStations, [500, 600, 700, 800, 900, 1000], 'Самое узкое место на маршрутах', 'Миллиметры (мм)');
-  plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц на маршрутах', 'Количество ступеней (шт.)');
-  drawDoubleBarplot(minStepsStationsFreq, minRailStepsStationsFreq, 'Длина лестниц на маршрутах c учетом рельс и пандусов');
-  plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц, не дублированных рельсами и пандусами, на маршрутах', 'Количество ступеней (шт.)');
-  drawDoubleBarplot(minStepsStationsFreq, minLiftStepsStationsFreq, 'Длина лестниц на маршрутах c учетом лифтов');
-  plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'Длина лестниц, не дублированных лифтами, на маршрутах', 'Количество ступеней (шт.)');
+  plotHist(minStepsTransfers, [20, 30, 40, 50, 60, 70, 80, 90], 'График 19. Длина лестниц на переходах', 'Количество ступеней (шт.)');
+  plotHist(minRailStepsTransfers, [20, 30, 40, 50, 60, 70], 'График 22. Длина лестниц, не дублированных рельсами и пандусами, на переходах', 'Количество ступеней (шт.)');
+  plotHist(minLiftStepsTransfers, [20, 30, 40, 50, 60, 70, 80, 90], 'График 25. Длина лестниц на переходах c учетом лифтов', 'Количество ступеней (шт.)');
+  plotHist(minTaperStations, [500, 600, 700, 800, 900, 1000], 'График 16. Самое узкое место на маршрутах', 'Миллиметры (мм)');
+  plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'График 18. Длина лестниц на маршрутах', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsStationsFreq, minRailStepsStationsFreq, 'График 21. Длина лестниц на маршрутах c учетом рельс и пандусов', 'Количество ступеней (шт.)');
+  plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'График 20. Длина лестниц, не дублированных рельсами и пандусами, на маршрутах', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsStationsFreq, minLiftStepsStationsFreq, 'График 24. Длина лестниц на маршрутах c учетом лифтов', 'Количество ступеней (шт.)');
+  plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'График 23. Длина лестниц, не дублированных лифтами, на маршрутах', 'Количество ступеней (шт.)');
 
-  drawStackedBarplot(routesByLine, ['routesInByLine', 'Null'], 'Количество маршрутов на вход');
-  drawStackedBarplot(routesByLine, ['routesOutByLine', 'Null'], 'Количество маршрутов на выход');
+  drawStackedBarplot(routesByLine, ['routesInByLine', 'Null'], 'График 13. Количество маршрутов на вход');
+  drawStackedBarplot(routesByLine, ['routesOutByLine', 'Null'], 'График 14. Количество маршрутов на выход');
   drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesInByLine', 'wheelchairNotFriendlyRoutesInByLine'],
-   'Доступность маршрутов на вход для инвалидов-колясочников');
+   'График 29. Количество маршрутов на вход, доступных для инвалидов-колясочников');
   drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesOutByLine', 'wheelchairNotFriendlyRoutesOutByLine'],
-   'Доступность маршрутов на выход для инвалидов-колясочников');
+   'График 30. Количество маршрутов на выход, доступных для инвалидов-колясочников');
   drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesInByLine', 'handicappedNotFriendlyRoutesInByLine'],
-   'Доступность маршрутов на вход для людей с затруднениями передвижения');
+   'График 32. Количество маршрутов на вход, доступных для людей с затруднениями передвижения');
   drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesOutByLine', 'handicappedNotFriendlyRoutesOutByLine'],
-   'Доступность маршрутов на выход для людей с затруднениями передвижения');
+   'График 33. Количество маршрутов на выход, доступных для людей с затруднениями передвижения');
   drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesInByLine', 'luggageNotFriendlyRoutesInByLine'],
-   'Доступность маршрутов на вход для людей с детскими колясками и габаритными грузами');
+   'График 35. Количество маршрутов на вход, доступных для людей с детскими колясками и габаритным багажом');
   drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesOutByLine', 'luggageNotFriendlyRoutesOutByLine'],
-   'Доступность маршрутов на выход для людей с детскими колясками и габаритными грузами');
+   'График 36. Количество маршрутов на выход, доступных для людей с детскими колясками и габаритным багажом');
   drawStackedBarplot(routesByLine, ['stairwayAvailableRoutesByLine', 'stairwayUnavailableRoutesByLine'],
-    'Количество маршрутов с эскалаторами');
+    'График 26. Количество маршрутов с эскалаторами');
   drawStackedBarplot(routesByLine, ['liftAvailableRoutesByLine', 'liftUnavailableRoutesByLine'],
-    'Количество маршрутов с лифтами');
+    'График 28. Количество маршрутов с лифтами');
 
-  drawStackedBarplot(routesByLine, ['transfersByLine', 'Null'], 'Количество переходов');
+  drawStackedBarplot(routesByLine, ['transfersByLine', 'Null'], 'График 15. Количество переходов');
   drawStackedBarplot(routesByLine, ['stairwayAvailableTransfersByLine', 'stairwayUnavailableTransfersByLine'],
-    'Количество переходов с эскалаторами');
+    'График 27. Количество переходов с эскалаторами');
   drawStackedBarplot(routesByLine, ['wheelchairFriendlyTransfersByLine', 'wheelchairNotFriendlyTransfersByLine'],
-    'Доступность переходов для инвалидов-колясочников');
+    'График 31. Количество переходов, доступных для инвалидов-колясочников');
   drawStackedBarplot(routesByLine, ['handicappedFriendlyTransfersByLine', 'handicappedNotFriendlyTransfersByLine'],
-    'Доступность переходов для людей с затруднениями передвижения');
+    'График 34. Количество переходов, доступных для людей с затруднениями передвижения');
   drawStackedBarplot(routesByLine, ['luggageFriendlyTransfersByLine', 'luggageNotFriendlyTransfersByLine'],
-    'Доступность переходов для людей с детскими колясками и габаритными грузами');
+    'График 37. Количество переходов, доступных для людей с детскими колясками и габаритным багажом');
 };
 
 function plotHist(histData, bins, title, xAxisLabel) {
@@ -430,7 +430,7 @@ function drawStackedBarplot(data, stackLevels, title) {
       .selectAll("text")  
         .style("text-anchor", "end")
         .attr('x', -10)
-        .attr('y', -5)
+        .attr('y', +3)
         .call(wrap, x.rangeBand())
         //.attr("dx", "-.8em")
         //.attr("dy", ".15em")
