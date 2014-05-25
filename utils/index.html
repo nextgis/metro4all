@@ -225,9 +225,9 @@ function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pa
   plotHist(doorWidth, [700, 800, 900, 1000, 1100], 'График 12. Ширина дверей', 'Миллиметры (мм)');
   plotHist(liftWidth, [800, 850, 900, 950, 1000], 'График 2. Ширина дверного проема лифтов', 'Миллиметры (мм)');
 
-  plotHist(minStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90], 'График 19. Протяженность лестниц на переходах', 'Количество ступеней (шт.)');
-  plotHist(minRailStepsTransfers, [10, 20, 30, 40, 50, 60, 70], 'График 22. Протяженность лестниц, не дублированных рельсами и пандусами, на переходах', 'Количество ступеней (шт.)');
-  plotHist(minLiftStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90], 'График 25. Протяженность лестниц, не дублированных лифтами, на переходах', 'Количество ступеней (шт.)');
+  plotHist(minStepsTransfers, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90], 'График 19. Протяженность лестниц на переходах', 'Количество ступеней (шт.)');
+  plotHist(minRailStepsTransfers, [0, 10, 20, 30, 40, 50, 60, 70], 'Протяженность лестниц, не дублированных рельсами и пандусами, на переходах', 'Количество ступеней (шт.)');
+  plotHist(minLiftStepsTransfers, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90], 'Протяженность лестниц, не дублированных лифтами, на переходах', 'Количество ступеней (шт.)');
   plotHist(minTaperStations, [500, 600, 700, 800, 900, 1000], 'График 16. Самое узкое место на маршрутах', 'Миллиметры (мм)');
   plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120], 'График 18. Протяженность лестниц на маршрутах', 'Количество ступеней (шт.)');
   drawDoubleBarplot(minStepsStationsFreq, minRailStepsStationsFreq, 'График 21. Протяженность лестниц на маршрутах c учетом рельс и пандусов', 'Количество ступеней (шт.)');
@@ -469,23 +469,23 @@ function drawStackedBarplot(data, stackLevels, title) {
       .style('fill', function(d) { return color(d.line);});
 
   //Simple barLabel
-  var barLabel = bar.append('text')
+  /*var barLabel = bar.append('text')
       .attr('class', 'barLabel bold')
       //.attr('dy', '.75em')
       .attr('y', function(d) { return y(d.y1) - 5; })
       .attr('x', x.rangeBand() / 2)
       .attr('text-anchor', 'middle')
-      .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });
+      .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });*/
 
   //Stacked barLabels
-  /*var barLabel = bar.append('text')
+  var barLabel = bar.append('text')
       .attr('class', 'barLabel')
       //.attr('dy', '.75em')
       .attr('text-anchor', 'middle')
       .text(null);
 
   barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 20; }).text(function(d) { return d.name == stackLevels[1] ? formatCount(d.y0) + ' из ' + formatCount(d.y1) : ''; }).style('font-weight', 'bold');
-  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; }).style('font-style', 'italic');*/
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; }).style('font-style', 'italic');
 
   svg.append('g')
     .attr('class', 'title')
