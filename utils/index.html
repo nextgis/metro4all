@@ -219,21 +219,21 @@ function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pa
   plotHist(stairsLength, [0, 3, 10, 15, 20, 25, 30, 35, 40, 45, 50], 'График 6. Длина лестниц', 'Количество ступеней (шт.)');
   plotHist(minRailsWidth, [250, 300, 350, 400, 450, 500], 'График 7. Минимальная ширина рельс', 'Миллиметры (мм)');
   plotHist(maxRailsWidth, [500, 600, 700, 800, 900, 1000, 1100, 1200], 'График 8. Максимальная ширина рельс', 'Миллиметры (мм)');
-  plotHist(railsSlope, [20, 25, 30, 35, 40, 45, 50], 'График 9. Уклон рельс', 'Проценты (%)');
+  plotHist(railsSlope, [25, 30, 35, 40, 45, 50], 'График 9. Уклон рельс', 'Проценты (%)');
   plotHist(pandusSlope, [0, 5, 8, 11, 20, 40, 50], 'График 10. Уклон пандусов', 'Проценты (%)');
-  plotHist(turnstileWidth, [500, 600, 750, 850, 1500], 'График 11. Ширина турникетов', 'Миллиметры (мм)');
-  plotHist(doorWidth, [700, 800, 900, 1000, 1500], 'График 12. Ширина дверей', 'Миллиметры (мм)');
+  plotHist(turnstileWidth, [500, 600, 750, 850, 1100], 'График 11. Ширина турникетов', 'Миллиметры (мм)');
+  plotHist(doorWidth, [700, 800, 900, 1000, 1100], 'График 12. Ширина дверей', 'Миллиметры (мм)');
   plotHist(liftWidth, [800, 850, 900, 950, 1000], 'График 2. Ширина дверного проема лифтов', 'Миллиметры (мм)');
 
-  plotHist(minStepsTransfers, [20, 30, 40, 50, 60, 70, 80, 90], 'График 19. Длина лестниц на переходах', 'Количество ступеней (шт.)');
-  plotHist(minRailStepsTransfers, [20, 30, 40, 50, 60, 70], 'График 22. Длина лестниц, не дублированных рельсами и пандусами, на переходах', 'Количество ступеней (шт.)');
-  plotHist(minLiftStepsTransfers, [20, 30, 40, 50, 60, 70, 80, 90], 'График 25. Длина лестниц на переходах c учетом лифтов', 'Количество ступеней (шт.)');
+  plotHist(minStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90], 'График 19. Протяженность лестниц на переходах', 'Количество ступеней (шт.)');
+  plotHist(minRailStepsTransfers, [10, 20, 30, 40, 50, 60, 70], 'График 22. Протяженность лестниц, не дублированных рельсами и пандусами, на переходах', 'Количество ступеней (шт.)');
+  plotHist(minLiftStepsTransfers, [10, 20, 30, 40, 50, 60, 70, 80, 90], 'График 25. Протяженность лестниц, не дублированных лифтами, на переходах', 'Количество ступеней (шт.)');
   plotHist(minTaperStations, [500, 600, 700, 800, 900, 1000], 'График 16. Самое узкое место на маршрутах', 'Миллиметры (мм)');
-  plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'График 18. Длина лестниц на маршрутах', 'Количество ступеней (шт.)');
-  drawDoubleBarplot(minStepsStationsFreq, minRailStepsStationsFreq, 'График 21. Длина лестниц на маршрутах c учетом рельс и пандусов', 'Количество ступеней (шт.)');
-  plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'График 20. Длина лестниц, не дублированных рельсами и пандусами, на маршрутах', 'Количество ступеней (шт.)');
-  drawDoubleBarplot(minStepsStationsFreq, minLiftStepsStationsFreq, 'График 24. Длина лестниц на маршрутах c учетом лифтов', 'Количество ступеней (шт.)');
-  plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'График 23. Длина лестниц, не дублированных лифтами, на маршрутах', 'Количество ступеней (шт.)');
+  plotHist(minStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120], 'График 18. Протяженность лестниц на маршрутах', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsStationsFreq, minRailStepsStationsFreq, 'График 21. Протяженность лестниц на маршрутах c учетом рельс и пандусов', 'Количество ступеней (шт.)');
+  plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90], 'График 20. Протяженность лестниц, не дублированных рельсами и пандусами, на маршрутах', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsStationsFreq, minLiftStepsStationsFreq, 'График 24. Протяженность лестниц на маршрутах c учетом лифтов', 'Количество ступеней (шт.)');
+  plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120], 'График 23. Протяженность лестниц, не дублированных лифтами, на маршрутах', 'Количество ступеней (шт.)');
 
   drawStackedBarplot(routesByLine, ['routesInByLine', 'Null'], 'График 13. Количество маршрутов на вход');
   drawStackedBarplot(routesByLine, ['routesOutByLine', 'Null'], 'График 14. Количество маршрутов на выход');
@@ -469,23 +469,23 @@ function drawStackedBarplot(data, stackLevels, title) {
       .style('fill', function(d) { return color(d.line);});
 
   //Simple barLabel
-  /*var barLabel = bar.append('text')
+  var barLabel = bar.append('text')
       .attr('class', 'barLabel bold')
       //.attr('dy', '.75em')
       .attr('y', function(d) { return y(d.y1) - 5; })
       .attr('x', x.rangeBand() / 2)
       .attr('text-anchor', 'middle')
-      .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });*/
+      .text(function(d) { return d.y1 > 0 ? formatCount(d.y1) : ''; });
 
   //Stacked barLabels
-  var barLabel = bar.append('text')
+  /*var barLabel = bar.append('text')
       .attr('class', 'barLabel')
       //.attr('dy', '.75em')
       .attr('text-anchor', 'middle')
       .text(null);
 
   barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 20; }).text(function(d) { return d.name == stackLevels[1] ? formatCount(d.y0) + ' из ' + formatCount(d.y1) : ''; }).style('font-weight', 'bold');
-  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; }).style('font-style', 'italic');
+  barLabel.append("tspan").attr('x', x.rangeBand() / 2).attr('y', function(d) { return y(d.y1) - 5; }).text(function(d) { return d.name == stackLevels[1]  ? formatPercent(d.y0/d.y1) : ''; }).style('font-style', 'italic');*/
 
   svg.append('g')
     .attr('class', 'title')
