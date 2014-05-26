@@ -50,38 +50,43 @@ def changeIdxType(DataFrame, idxType):
 #Переходы
 
 ##Самое узкое место на переходе
-minTaperTransfers = transfersReportDf[transfersReportDf['minWidth'] > 0]['minWidth']
+minTaperTransfers = transfersReportDf[transfersReportDf['minWidth'] >= 0]['minWidth']
 minTaperTransfers.name = 'value'
 
 ##Длина лестниц на переходе
-minStepsTransfers = transfersReportDf[transfersReportDf['minStairs'] > 0]['minStairs']
+minStepsTransfers = transfersReportDf[transfersReportDf['minStairs'] >= 0]['minStairs']
 minStepsTransfers.name = 'value'
 
 ##Длина лестниц на переходе c учетом рельс и пандусов
-minRailStepsTransfers = transfersReportDf[transfersReportDf['minRailsStairs'] > 0]['minRailsStairs']
+minRailStepsTransfers = transfersReportDf[transfersReportDf['minRailsStairs'] >= 0]['minRailsStairs']
 minRailStepsTransfers.name = 'value'
 
 ##Длина лестниц на переходе c учетом лифтов
-minLiftStepsTransfers = transfersReportDf[transfersReportDf['minLiftStairs'] > 0]['minLiftStairs']
+minLiftStepsTransfers = transfersReportDf[transfersReportDf['minLiftStairs'] >= 0]['minLiftStairs']
 minLiftStepsTransfers.name = 'value'
 
 #Маршруты станций
 
+def filterGTE(target, filter):
+	targetIO = target[target['direction'] != u'both']
+	targetBoth = target[target['direction'] == u'both']
+	fresult_1 = targetIO[targetIO[filter] >= 0][filter]
+	fresult_2 = targetBoth[targetBoth[filter] >= 0][filter]
+	fresult_0 = pd.concat([fresult_1, fresult_2, fresult_2], ignore_index=True)
+	fresult_0.name = 'value'
+	return fresult_0
+
 ##Самое узкое место на маршрутах
-minTaperStations = stationsDf[stationsDf['min_width'] > 0]['min_width']
-minTaperStations.name = 'value'
+minTaperStations = filterGTE(stationsDf, 'min_width')
 
 ##Длина лестниц на маршрутах
-minStepsStations = stationsDf[stationsDf['min_steps'] > 0]['min_steps']
-minStepsStations.name = 'value'
+minStepsStations = filterGTE(stationsDf, 'min_steps')
 
 ##Длина лестниц на маршрутах c учетом рельс и пандусов
-minRailStepsStations = stationsDf[stationsDf['min_rail_steps'] > 0]['min_rail_steps']
-minRailStepsStations.name = 'value'
+minRailStepsStations = filterGTE(stationsDf, 'min_rail_steps')
 
 ##Длина лестниц на маршрутах c учетом лифтов
-minLiftStepsStations = stationsDf[stationsDf['min_lift_steps'] > 0]['min_lift_steps']
-minLiftStepsStations.name = 'value'
+minLiftStepsStations = filterGTE(stationsDf, 'min_lift_steps')
 
 #Элементы по узлам
 
