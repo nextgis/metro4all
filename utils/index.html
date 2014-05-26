@@ -234,35 +234,25 @@ function ready(error, stairsLength, minRailsWidth, maxRailsWidth, railsSlope, pa
   plotHist(minRailStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90], 'График 20. Протяженность лестниц, не дублированных рельсами и пандусами, на маршрутах', 'Количество ступеней (шт.)');
   drawDoubleBarplot(minStepsStationsFreq, minLiftStepsStationsFreq, 'График 24. Протяженность лестниц на маршрутах c учетом лифтов', 'Количество ступеней (шт.)');
   plotHist(minLiftStepsStations, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120], 'График 23. Протяженность лестниц, не дублированных лифтами, на маршрутах', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsTransfersFreq, minRailStepsTransfersFreq, 'График Х. Протяженность лестниц на переходах c учетом рельс и пандусов', 'Количество ступеней (шт.)');
+  drawDoubleBarplot(minStepsTransfersFreq, minLiftStepsTransfersFreq, 'График Х. Протяженность лестниц на переходах c учетом лифтов', 'Количество ступеней (шт.)');
 
   drawStackedBarplot(routesByLine, ['routesInByLine', 'Null'], 'График 13. Количество маршрутов на вход');
   drawStackedBarplot(routesByLine, ['routesOutByLine', 'Null'], 'График 14. Количество маршрутов на выход');
-  drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesInByLine', 'wheelchairNotFriendlyRoutesInByLine'],
-   'График 29. Количество маршрутов на вход, доступных для инвалидов-колясочников');
-  drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesOutByLine', 'wheelchairNotFriendlyRoutesOutByLine'],
-   'График 30. Количество маршрутов на выход, доступных для инвалидов-колясочников');
-  drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesInByLine', 'handicappedNotFriendlyRoutesInByLine'],
-   'График 32. Количество маршрутов на вход, доступных для людей с затруднениями передвижения');
-  drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesOutByLine', 'handicappedNotFriendlyRoutesOutByLine'],
-   'График 33. Количество маршрутов на выход, доступных для людей с затруднениями передвижения');
-  drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesInByLine', 'luggageNotFriendlyRoutesInByLine'],
-   'График 35. Количество маршрутов на вход, доступных для людей с детскими колясками и габаритным багажом');
-  drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesOutByLine', 'luggageNotFriendlyRoutesOutByLine'],
-   'График 36. Количество маршрутов на выход, доступных для людей с детскими колясками и габаритным багажом');
-  drawStackedBarplot(routesByLine, ['stairwayAvailableRoutesByLine', 'stairwayUnavailableRoutesByLine'],
-    'График 26. Количество маршрутов с эскалаторами');
-  drawStackedBarplot(routesByLine, ['liftAvailableRoutesByLine', 'liftUnavailableRoutesByLine'],
-    'График 28. Количество маршрутов с лифтами');
+  drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesInByLine', 'wheelchairNotFriendlyRoutesInByLine'], 'График 29. Количество маршрутов на вход, доступных для инвалидов-колясочников');
+  drawStackedBarplot(routesByLine, ['wheelchairFriendlyRoutesOutByLine', 'wheelchairNotFriendlyRoutesOutByLine'], 'График 30. Количество маршрутов на выход, доступных для инвалидов-колясочников');
+  drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesInByLine', 'handicappedNotFriendlyRoutesInByLine'], 'График 32. Количество маршрутов на вход, доступных для людей с затруднениями передвижения');
+  drawStackedBarplot(routesByLine, ['handicappedFriendlyRoutesOutByLine', 'handicappedNotFriendlyRoutesOutByLine'], 'График 33. Количество маршрутов на выход, доступных для людей с затруднениями передвижения');
+  drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesInByLine', 'luggageNotFriendlyRoutesInByLine'], 'График 35. Количество маршрутов на вход, доступных для людей с детскими колясками и габаритным багажом');
+  drawStackedBarplot(routesByLine, ['luggageFriendlyRoutesOutByLine', 'luggageNotFriendlyRoutesOutByLine'], 'График 36. Количество маршрутов на выход, доступных для людей с детскими колясками и габаритным багажом');
+  drawStackedBarplot(routesByLine, ['stairwayAvailableRoutesByLine', 'stairwayUnavailableRoutesByLine'], 'График 26. Количество маршрутов с эскалаторами');
+  drawStackedBarplot(routesByLine, ['liftAvailableRoutesByLine', 'liftUnavailableRoutesByLine'], 'График 28. Количество маршрутов с лифтами');
 
   drawStackedBarplot(routesByLine, ['transfersByLine', 'Null'], 'График 15. Количество переходов');
-  drawStackedBarplot(routesByLine, ['stairwayAvailableTransfersByLine', 'stairwayUnavailableTransfersByLine'],
-    'График 27. Количество переходов с эскалаторами');
-  drawStackedBarplot(routesByLine, ['wheelchairFriendlyTransfersByLine', 'wheelchairNotFriendlyTransfersByLine'],
-    'График 31. Количество переходов, доступных для инвалидов-колясочников');
-  drawStackedBarplot(routesByLine, ['handicappedFriendlyTransfersByLine', 'handicappedNotFriendlyTransfersByLine'],
-    'График 34. Количество переходов, доступных для людей с затруднениями передвижения');
-  drawStackedBarplot(routesByLine, ['luggageFriendlyTransfersByLine', 'luggageNotFriendlyTransfersByLine'],
-    'График 37. Количество переходов, доступных для людей с детскими колясками и габаритным багажом');
+  drawStackedBarplot(routesByLine, ['stairwayAvailableTransfersByLine', 'stairwayUnavailableTransfersByLine'], 'График 27. Количество переходов с эскалаторами');
+  drawStackedBarplot(routesByLine, ['wheelchairFriendlyTransfersByLine', 'wheelchairNotFriendlyTransfersByLine'], 'График 31. Количество переходов, доступных для инвалидов-колясочников');
+  drawStackedBarplot(routesByLine, ['handicappedFriendlyTransfersByLine', 'handicappedNotFriendlyTransfersByLine'], 'График 34. Количество переходов, доступных для людей с затруднениями передвижения');
+  drawStackedBarplot(routesByLine, ['luggageFriendlyTransfersByLine', 'luggageNotFriendlyTransfersByLine'], 'График 37. Количество переходов, доступных для людей с детскими колясками и габаритным багажом');
 };
 
 function plotHist(histData, bins, title, xAxisLabel) {
