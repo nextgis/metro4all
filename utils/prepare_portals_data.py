@@ -34,7 +34,7 @@ output_f.writeheader()
 
 for row in input_f:
     portal = dict()
-    if row['Закрыт'] != '':
+    if row['Закрыт'] == '':
         for source_name, target_name in fieldmap:
             if source_name in row.keys():
                 portal[target_name] = row[source_name]
