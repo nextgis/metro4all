@@ -31,9 +31,9 @@
 		<item>3</item>
 	</string-array>
 		<string-array name="locales">
-	    <item>Английский</item>
+	    <item>English</item>
 		<item>Русский</item>
-		<item>Польский</item>
+		<item>Polski</item>
 	</string-array>	
 	<string-array name="locales_val">
 	    <item>en</item>
