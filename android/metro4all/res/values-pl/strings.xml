@@ -30,7 +30,7 @@
 	<string name="sFromStation">Departure</string>
 	<string name="sToStation">Arrival</string>
 	<string name="sRoute">Option</string>
-	<string name="sSchema">Schema</string>
+	<string name="sSchema">Scheme</string>
 	<string name="sStationName">Name</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
@@ -39,7 +39,7 @@
 	<string name="sSelToStation">Select arrival station</string>
 	<string name="sBarriersExist">Click here to see barriers&#8230;</string>
 	<string name="sBarriersConflict">You have a conflict with your parameters</string>
-	<string name="sMaxWCWidth">Weelchair width</string>
+	<string name="sMaxWCWidth">Wheelchair width</string>
 	<string name="sStairsCount">Number of stairs</string>
 	<string name="sStairsWORails">Of those, without rails or ramps</string>
 	<string name="sLift">Elevator</string>
