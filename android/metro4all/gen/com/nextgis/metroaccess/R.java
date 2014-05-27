@@ -1168,6 +1168,7 @@ containing a value of this type.
         public static final int sPrefNaviTypeTitle=0x7f0a004c;
         /**  dialogs 
  dialogs 
+ dialogs 
          */
         public static final int sPrefTitle=0x7f0a0047;
         public static final int sPrefUpdDataSummary=0x7f0a0056;
@@ -1180,6 +1181,7 @@ containing a value of this type.
         public static final int sSearch=0x7f0a0023;
         public static final int sSearching=0x7f0a0017;
         /**  tabs 
+ tabs 
  tabs 
          */
         public static final int sSelAlphabeticalTab=0x7f0a0044;

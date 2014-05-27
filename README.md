@@ -1,44 +1,15 @@
 Metro4All
 ===========
 
-Доступность метрополитена для людей с ограниченными возможностями
+Metro navigation and accessibility for people with special needs.
 
-Рабочие таблицы хранятся в Google Docs в папках по городам.
+Now available for: Moscow, Saint-Petersburg, Warsaw, Kazan (upcoming)
 
-На Github данные лежат также в папках по городам:
+Metro4all is:
 
-  * metroaccess/data/msk - Москва
-  * metroaccess/data/spb - Санкт-Петербург
-  * metroaccess/data/kzn - Казань
+* Database of metro data that includes, stations, lines, exits, navigation graph, schematics for each station, measurements of infrastructure elements at each station
+* Web-app: routing engine that allows to set FROM and TO including particular exits/entrances and build a route showing all info on obstacles
+* Android-app: same as above
+* Website with additional information
 
-На сервере сервис и данные расположены здесь:
-
-  * /home/karavanjow/projects/metroaccess/metro4all 
-
-Процесс обновления:
---------
-Действия 1-5,8 производятся локально, 6 и 7 на сервере, где нужны соответствующие права.
-
-1. Скачать в формате .csv документы из Google Docs Metro4All => [город] => data
-  * данные по станциям - stations.csv 
-  * данные по переходам - interchanges.csv
-  * данные по выходам - portals.csv
-
-2. Запустить инструменты подготовки для приведения CSV к формальному виду (названия полей и т.п.):
-  * python utils/prepare_stations_data.py stations.csv
-  * python utils/prepare_interchanges_data.py interchanges.csv
-  * python utils/prepare_portals_data.py portals.csv
-
-3. Заменить обновленные файлы в папке metroaccess/data/[город]
-
-4. Обновить схемы в папке [город]/schemes 
-
-5. Повторить, если нужно для других городов
-
-6. Закоммитить обновленные файлы в репозиторий и загрузить на сервер.
-
-7. Перезапустить сервис:
-  * supervisorctl -c /home/karavanjow/supervisor/supervisor.conf restart metro4all:*
-
-8. Сформировать пакеты для мобильного приложения
-  * python utils/prepare_mobile_data.py city USERNAME PASSWORD
+http://metro4all.org

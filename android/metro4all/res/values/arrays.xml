@@ -33,8 +33,8 @@
 	
 	<string-array name="locales">
 	    <item>English</item>
-		<item>Russian</item>
-		<item>Polish</item>
+		<item>Русский</item>
+		<item>Polski</item>
 	</string-array>	
 	<string-array name="locales_val">
 	    <item>en</item>
