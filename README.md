@@ -1,6 +1,8 @@
 Metro4All
 ===========
 
+http://metro4all.org
+
 Metro navigation and accessibility for people with special needs.
 
 Now available for: Moscow, Saint-Petersburg, Warsaw, Kazan (upcoming)
@@ -12,4 +14,4 @@ Metro4all is:
 * Android-app: same as above
 * Website with additional information
 
-http://metro4all.org
+Read more about data structures, running aps etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
