@@ -28,10 +28,10 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 14931;Профсоюзная улица;Profsojuznaja ulica;Profsojuznaja ulica;101;out;55.6867753562;37.5728476298;740;34;34;0;0;0;0;0
 14932;ул. Дмитрия Ульянова;ul. Dmitrija Ul'janova;ul. Dmitrija Ul'janova;101;in;55.6869715981;37.5730589672;740;58;58;0;0;0;0;0
 14933;Профсоюзная улица;Profsojuznaja ulica;Profsojuznaja ulica;101;in;55.6867753562;37.5728476298;740;61;61;0;0;0;0;0
-14940;проспект 60-летия Октября;prospekt 60-letija Oktjabrja;prospekt 60-letija Oktjabrja;101;both;55.6888019309;37.5741496191;780;48;23;0;0;290;760;22
-14941;ул. Дмитрия Ульянова;ul. Dmitrija Ul'janova;ul. Dmitrija Ul'janova;101;both;55.6886170107;37.5739307339;780;51;51;0;0;0;0;0
-14950;проспект 60-летия Октября;prospekt 60-letija Oktjabrja;prospekt 60-letija Oktjabrja;101;both;55.6886132368;37.574855335;780;47;47;0;0;0;0;0
-14951;площадь Хо Ши Мина;ploshhad' Ho Shi Mina;ploshhad' Ho Shi Mina;101;both;55.6883339695;37.5745458767;780;51;23;0;0;290;760;24
+14940;проспект 60-летия Октября;prospekt 60-letija Oktjabrja;prospekt 60-letija Oktjabrja;101;both;55.6888019309;37.5741496191;740;48;23;0;0;290;760;22
+14941;ул. Дмитрия Ульянова;ul. Dmitrija Ul'janova;ul. Dmitrija Ul'janova;101;both;55.6886170107;37.5739307339;740;51;51;0;0;0;0;0
+14950;проспект 60-летия Октября;prospekt 60-letija Oktjabrja;prospekt 60-letija Oktjabrja;101;both;55.6886132368;37.574855335;740;47;47;0;0;0;0;0
+14951;площадь Хо Ши Мина;ploshhad' Ho Shi Mina;ploshhad' Ho Shi Mina;101;both;55.6883339695;37.5745458767;740;51;23;0;0;290;760;24
 14960;ул. Воздвиженка, Моховая, РГБ;ul. Vozdvizhenka, Mohovaja, RGB;ul. Vozdvizhenka, Mohovaja, RGB;54;in;55.7522714905;37.6101026316;730;77;46;0;0;310;860;20
 14961;ул. Воздвиженка, Моховая, РГБ;ul. Vozdvizhenka, Mohovaja, RGB;ul. Vozdvizhenka, Mohovaja, RGB;54;out;55.7522714905;37.6101026316;550;80;49;0;0;310;860;20
 14962;ул. Воздвиженка, Моховая, РГБ;ul. Vozdvizhenka, Mohovaja, RGB;ul. Vozdvizhenka, Mohovaja, RGB;44;in;55.7522714905;37.6101026316;730;62;31;0;0;310;860;20
