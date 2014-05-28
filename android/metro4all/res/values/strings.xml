@@ -48,8 +48,8 @@
 	<string name="sKB">Kb</string>
 	<string name="sMB">Mb</string>
 	<string name="sNo">No</string>
-	<string name="sMinRailWidth">Min width between wheels</string>
-	<string name="sMaxRailWidth">Max width between wheels</string>
+	<string name="sMinRailWidth">Min distance between wheels</string>
+	<string name="sMaxRailWidth">Max distance between wheels</string>
 	<string name="sMaxAngle">Max angle of the ramp/rail</string>
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
