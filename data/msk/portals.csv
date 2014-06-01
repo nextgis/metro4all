@@ -183,14 +183,12 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 15560;К области, Болотниковской улице, Чонгарскому бульвару;K oblasti, Bolotnikovskoj ulice, Chongarskomu bul'varu;K oblasti, Bolotnikovskoj ulice, Chongarskomu bul'varu;27;out;55.6534732031;37.6180095473;540;29;0;0;0;310;800;22
 15561;К области, Болотниковской улице, Чонгарскому бульвару;K oblasti, Bolotnikovskoj ulice, Chongarskomu bul'varu;K oblasti, Bolotnikovskoj ulice, Chongarskomu bul'varu;27;in;55.6534732031;37.6180095473;740;76;47;0;0;310;800;22
 15570;На Каширский проезд;Na Kashirskij proezd;Na Kashirskij proezd;27;both;55.6536318325;37.6231333737;740;87;48;0;0;310;750;20
-15580;К центру, из стеклянных дверей налево, на север;K centru, iz stekljannyh dverej nalevo, na sever;K centru, iz stekljannyh dverej nalevo, na sever;90;out;55.8202442077;37.6400193656;560;68;26;0;0;410;1000;20
-15581;К центру, из стеклянных дверей налево, на север;K centru, iz stekljannyh dverej nalevo, na sever;K centru, iz stekljannyh dverej nalevo, na sever;90;in;55.8202442077;37.6400193656;800;68;26;0;0;410;1000;20
-15590;К центру, из стеклянных дверей направо. На восток;K centru, iz stekljannyh dverej napravo. Na vostok;K centru, iz stekljannyh dverej napravo. Na vostok;90;out;55.8195751117;37.6407447407;560;68;68;0;0;0;0;0
-15591;К центру, из стеклянных дверей направо. На восток;K centru, iz stekljannyh dverej napravo. Na vostok;K centru, iz stekljannyh dverej napravo. Na vostok;90;in;55.8195751117;37.6407447407;800;68;68;0;0;0;0;0
-15600;К центру, из стеклянных дверей налево, на аллею Космонавтов, и на запад;K centru, iz stekljannyh dverej nalevo, na alleju Kosmonavtov, i na zapad;K centru, iz stekljannyh dverej nalevo, na alleju Kosmonavtov, i na zapad;90;out;55.8199002798;37.6396254119;560;68;68;0;0;0;0;0
-15601;К центру, из стеклянных дверей налево, на аллею Космонавтов, и на запад;K centru, iz stekljannyh dverej nalevo, na alleju Kosmonavtov, i na zapad;K centru, iz stekljannyh dverej nalevo, na alleju Kosmonavtov, i na zapad;90;in;55.8199002798;37.6396254119;800;68;68;0;0;0;0;0
-15610;К центру, из стеклянных дверей направо, по проспекту Мира на север;K centru, iz stekljannyh dverej napravo, po prospektu Mira na sever;K centru, iz stekljannyh dverej napravo, po prospektu Mira na sever;90;out;55.8199377992;37.6411512009;560;68;26;0;0;410;1000;20
-15611;К центру, из стеклянных дверей направо, по проспекту Мира на север;K centru, iz stekljannyh dverej napravo, po prospektu Mira na sever;K centru, iz stekljannyh dverej napravo, po prospektu Mira na sever;90;in;55.8199377992;37.6411512009;800;68;26;0;0;410;1000;20
+15580;ВДНХ, Аллея Космонавтов;VDNH, Alleja Kosmonavtov;VDNH, Alleja Kosmonavtov;90;both;55.8202442077;37.6400193656;800;68;26;0;0;410;1000;20
+15590;Ул. Церковная горка;Ul. Cerkovnaja gorka;Ul. Cerkovnaja gorka;90;both;55.8195751117;37.6407447407;800;68;68;0;0;0;0;0
+15600;Останкинский пр-д, Звездный б-р;Ostankinskij pr-d, Zvezdnyj b-r;Ostankinskij pr-d, Zvezdnyj b-r;90;both;55.8199002798;37.6396254119;800;68;68;0;0;0;0;0
+15610;ул. Космонавтов;ul. Kosmonavtov;ul. Kosmonavtov;90;both;55.8199377992;37.6411512009;800;68;26;0;0;410;1000;20
+15620;"Главный вход ВДНХ, гостиница ""Космос""";"Glavnyj vhod VDNH, gostinica ""Kosmos""";"Glavnyj vhod VDNH, gostinica ""Kosmos""";90;out;55.8222744745;37.6417014564;800;0;0;0;0;0;0;0
+15621;"Главный вход ВДНХ, гостиница ""Космос""";"Glavnyj vhod VDNH, gostinica ""Kosmos""";"Glavnyj vhod VDNH, gostinica ""Kosmos""";90;in;55.8224390838;37.6414949466;800;0;0;0;0;0;0;0
 15630;В центр;V centr;V centr;132;out;55.8460327815;37.5896400891;750;2;2;0;0;0;0;0
 15631;В центр;V centr;V centr;132;in;55.8460984404;37.5891773498;750;2;2;0;0;0;0;0
 15640;В область;V oblast';V oblast';132;out;55.8482901988;37.5907250251;740;1;1;0;0;0;0;0
