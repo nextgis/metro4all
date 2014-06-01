@@ -68,8 +68,8 @@
 	<string name="sPrefCatMain">Основные</string>
 	<string name="sPrefCatData">Данные</string>
 	<string name="sPrefNaviType">Тип навигации</string>
-	<string name="sPrefNaviTypeSummary">Navigation type affects on routing</string>
-	<string name="sPrefNaviTypeTitle">Select navigation type</string>
+	<string name="sPrefNaviTypeSummary">Тип навигации влияет на маршрут</string>
+	<string name="sPrefNaviTypeTitle">Выбрать тип навигации</string>
 	<string name="sPrefWheelBaseSize">Ширина колесной базы</string>
 	<string name="sPrefWheelBaseSizeSummary">Расстояние между колесами (см)</string>
 	<string name="sPrefWheelBaseSizeTitle">Введите расстояние между колесами</string>		
