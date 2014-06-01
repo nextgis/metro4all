@@ -30,7 +30,7 @@
 	<string name="sFromStation">Departure</string>
 	<string name="sToStation">Arrival</string>
 	<string name="sRoute">Option</string>
-	<string name="sSchema">Scheme</string>
+	<string name="sSchema">Layout</string>
 	<string name="sStationName">Name</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
@@ -56,8 +56,8 @@
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
 	<string name="sLimits">Limitations</string>	
 	<string name="sLimitsSet">Set my limitations</string>
-	<string name="sLimitsHave">Have limitations</string>
-	<string name="sSummary">Trip summary</string>		
+	<string name="sLimitsHave">Enable limitations</string>
+	<string name="sSummary">Route summary</string>		
 	<string name="sSummaryClick">Press to show details</string>		
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
@@ -68,20 +68,20 @@
 	<string name="sPrefCatMain">Main</string>
 	<string name="sPrefCatData">Data</string>
 	<string name="sPrefNaviType">Navigation type</string>
-	<string name="sPrefNaviTypeSummary">Navigation type affects the routing</string>
+	<string name="sPrefNaviTypeSummary">Navigation type affects routing</string>
 	<string name="sPrefNaviTypeTitle">Select navigation type</string>
 	<string name="sPrefWheelBaseSize">Width between wheels</string>
-	<string name="sPrefWheelBaseSizeSummary">The distance between the wheels (cm)</string>
-	<string name="sPrefWheelBaseSizeTitle">Set width between the wheels</string>		
-	<string name="sPrefCarriageSize">Max width of carriage</string>
-	<string name="sPrefCarriageSizeSummary">The maximum width of carriage (cm)</string>
-	<string name="sPrefCarriageSizeTitle">Set max width of carriage</string>	
+	<string name="sPrefWheelBaseSizeSummary">The distance between wheels (cm)</string>
+	<string name="sPrefWheelBaseSizeTitle">Set width between wheels</string>		
+	<string name="sPrefCarriageSize">Max width of wheelchair</string>
+	<string name="sPrefCarriageSizeSummary">Max width of wheelchair (cm)</string>
+	<string name="sPrefCarriageSizeTitle">Set max width of wheelchair</string>	
 	<string name="sPrefDataPath">Download data URL</string>
 	<string name="sPrefDataPathSummary">Set download routing data URL</string>
 	<string name="sPrefDataPathTitle">Set download data URL</string>
 	<string name="sPrefUpdDataSummary">Click to update data</string>
 	<string name="sPrefUpdDataTitle">Update data</string>
-	<string name="sPrefChangeCityBasesTitle">Change metro bases</string>
+	<string name="sPrefChangeCityBasesTitle">Change databases</string>
 	<string name="sPrefChangeCityBasesBtn">Change</string>
 	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
 	<string name="sPrefCity">City</string>
