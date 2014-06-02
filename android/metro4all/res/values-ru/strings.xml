@@ -72,10 +72,10 @@
 	<string name="sPrefNaviTypeTitle">Выбрать тип навигации</string>
 	<string name="sPrefWheelBaseSize">Ширина колесной базы</string>
 	<string name="sPrefWheelBaseSizeSummary">Расстояние между колесами (см)</string>
-	<string name="sPrefWheelBaseSizeTitle">Введите расстояние между колесами</string>		
-	<string name="sPrefCarriageSize">Максимальная ширина коляски</string>
+	<string name="sPrefWheelBaseSizeTitle">Введите расстояние между колесами (см)</string>		
+	<string name="sPrefCarriageSize">Ширина коляски</string>
 	<string name="sPrefCarriageSizeSummary">Максимальная ширина коляски (см)</string>
-	<string name="sPrefCarriageSizeTitle">Введите максимальную ширину коляски</string>	
+	<string name="sPrefCarriageSizeTitle">Введите ширину коляски (см)</string>	
 	<string name="sPrefDataPath">Загружать данные по ссылке</string>
 	<string name="sPrefDataPathSummary">Ссылка для загрузки данных маршрутизации</string>
 	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
