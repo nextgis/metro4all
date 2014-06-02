@@ -1200,6 +1200,8 @@ containing a value of this type.
         public static final int sUpdateAvaliable=0x7f0a001f;
         public static final int sZipExtractionProcess=0x7f0a0016;
         public static final int stationFilterHintText=0x7f0a0061;
+        public static final int switch_off=0x7f0a0063;
+        public static final int switch_on=0x7f0a0062;
     }
     public static final class style {
         /** 

@@ -441,7 +441,13 @@ public class MAGraph {
 						oJSON = new JSONObject(sJSON);
 						String sLocaleKeyName = "name_" + Locale.getDefault().getLanguage();
 						String sName = oJSON.getString("name");
-						String sLocName = oJSON.getString(sLocaleKeyName);	
+						
+						String sLocName;
+						if(oJSON.has(sLocaleKeyName))
+							sLocName = oJSON.getString(sLocaleKeyName);	
+						else
+							sLocName = sName;
+						
 						if(sLocName.length() == 0)
 							sLocName = sName;
 						int nVer = oJSON.getInt("ver");	
@@ -561,7 +567,13 @@ public class MAGraph {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				String sLocaleKeyName = "name_" + Locale.getDefault().getLanguage();
 				String sName = jsonObject.getString("name");
-				String sLocName = jsonObject.getString(sLocaleKeyName);	
+				String sLocName;
+				
+				if(jsonObject.has(sLocaleKeyName))
+					sLocName = jsonObject.getString(sLocaleKeyName);	
+				else
+					sLocName = sName;
+					
 				if(sLocName.length() == 0)
 					sLocName = sName;
 				int nVer = jsonObject.getInt("ver");

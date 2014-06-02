@@ -91,4 +91,7 @@
 	<string name="sPrefCityLocSummary">Select names locale</string>
 	<string name="sPrefCityLocTitle">Choose the locale for names</string>
 	<string name="stationFilterHintText">Start entering the name of the station</string>
+	
+	<string name="switch_on">On</string>
+	<string name="switch_off">Off</string>
 </resources>

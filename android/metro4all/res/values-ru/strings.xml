@@ -90,5 +90,8 @@
 	<string name="sPrefCityLoc">Язык названий</string>
 	<string name="sPrefCityLocSummary">Выбор языка названий</string>
 	<string name="sPrefCityLocTitle">Выберите язык названий</string>
-	<string name="stationFilterHintText">Введите часть названия станции</string>		
+	<string name="stationFilterHintText">Введите часть названия станции</string>
+	
+	<string name="switch_on">Вкл</string>
+	<string name="switch_off">Выкл</string>		
 </resources>

@@ -89,5 +89,8 @@
 	<string name="sPrefCityLoc">Język</string>
 	<string name="sPrefCityLocSummary">Wybierz język</string>
 	<string name="sPrefCityLocTitle">Wybierz język</string>
-	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>
+	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>	
+	
+	<string name="switch_on">On</string>
+	<string name="switch_off">Off</string>
 </resources>

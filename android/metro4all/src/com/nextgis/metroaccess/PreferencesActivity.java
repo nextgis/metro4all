@@ -72,6 +72,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	protected EditTextPreference m_etMaxWidthPref;
 	protected EditTextPreference m_etWheelWidthPref;
 	
+	//protected EditTextPreference m_etWheelWidthPref;
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
