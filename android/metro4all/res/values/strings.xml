@@ -50,7 +50,7 @@
 	<string name="sNo">No</string>
 	<string name="sMinRailWidth">Min distance between wheels</string>
 	<string name="sMaxRailWidth">Max distance between wheels</string>
-	<string name="sMaxAngle">Max angle of the ramp/rail</string>
+	<string name="sMaxAngle">Max angle of ramps/rails</string>
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
@@ -58,7 +58,7 @@
 	<string name="sLimitsSet">Set my limitations</string>
 	<string name="sLimitsHave">Enable limitations</string>
 	<string name="sSummary">Route summary</string>		
-	<string name="sSummaryClick">Press to show details</string>		
+	<string name="sSummaryClick">Press for details</string>		
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>
@@ -73,9 +73,9 @@
 	<string name="sPrefWheelBaseSize">Width between wheels</string>
 	<string name="sPrefWheelBaseSizeSummary">The distance between wheels (cm)</string>
 	<string name="sPrefWheelBaseSizeTitle">Set width between wheels</string>		
-	<string name="sPrefCarriageSize">Max width of wheelchair</string>
-	<string name="sPrefCarriageSizeSummary">Max width of wheelchair (cm)</string>
-	<string name="sPrefCarriageSizeTitle">Set max width of wheelchair</string>	
+	<string name="sPrefCarriageSize">Wheelchair/stroller width</string>
+	<string name="sPrefCarriageSizeSummary">Wheelchair/stroller width (cm)</string>
+	<string name="sPrefCarriageSizeTitle">Set max width</string>	
 	<string name="sPrefDataPath">Download data URL</string>
 	<string name="sPrefDataPathSummary">Set download routing data URL</string>
 	<string name="sPrefDataPathTitle">Set download data URL</string>
@@ -87,10 +87,10 @@
 	<string name="sPrefCity">City</string>
 	<string name="sPrefCitySummary">Choose city</string>
 	<string name="sPrefCityTitle">Choose city from the list</string>
-	<string name="sPrefCityLoc">Select locale</string>
-	<string name="sPrefCityLocSummary">Select names locale</string>
-	<string name="sPrefCityLocTitle">Choose the locale for names</string>
-	<string name="stationFilterHintText">Start entering the name of the station</string>
+	<string name="sPrefCityLoc">Language</string>
+	<string name="sPrefCityLocSummary">Choose language</string>
+	<string name="sPrefCityLocTitle">Choose language for names</string>
+	<string name="stationFilterHintText">Start entering name of the station</string>
 	
 	<string name="switch_on">On</string>
 	<string name="switch_off">Off</string>
