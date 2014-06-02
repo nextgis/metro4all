@@ -72,10 +72,10 @@
 	<string name="sPrefNaviTypeTitle">Select navigation type</string>
 	<string name="sPrefWheelBaseSize">Width between wheels</string>
 	<string name="sPrefWheelBaseSizeSummary">The distance between wheels (cm)</string>
-	<string name="sPrefWheelBaseSizeTitle">Set width between wheels</string>		
+	<string name="sPrefWheelBaseSizeTitle">Set width between wheels (cm)</string>		
 	<string name="sPrefCarriageSize">Wheelchair/stroller width</string>
 	<string name="sPrefCarriageSizeSummary">Wheelchair/stroller width (cm)</string>
-	<string name="sPrefCarriageSizeTitle">Set max width</string>	
+	<string name="sPrefCarriageSizeTitle">Set max wheelchair/stroller width (cm)</string>	
 	<string name="sPrefDataPath">Download data URL</string>
 	<string name="sPrefDataPathSummary">Set download routing data URL</string>
 	<string name="sPrefDataPathTitle">Set download data URL</string>
