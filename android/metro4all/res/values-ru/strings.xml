@@ -56,7 +56,7 @@
 	<string name="sConflictNotes">Входы, конфликтующие с вашими ограничениями, отмечены красным</string>
 	<string name="sLimits">Ограничения</string>		
 	<string name="sLimitsSet">Установить мои ограничения</string>
-	<string name="sLimitsHave">Учитывать ограничения</string>
+	<string name="sLimitsHave">Ограничения</string>
 	<string name="sSummary">Сводка по маршруту</string>
 	<string name="sSummaryClick">Выберите для просмотра деталей</string>	
 		<!-- tabs -->
