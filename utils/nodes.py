@@ -148,8 +148,8 @@ result['pandus'] = (pandusAmount > 0) * 1
 result = result.join(pandusAvailableAmount, how='inner', sort=False)
 result['pandusAvailable'] = (pandusAvailableAmount > 0) * 1
 result = result.join(pandusRailing, how='inner', sort=False)
-result = result.join(pandusMinSlope, how='inner', sort=False)
-result = result.join(pandusMaxSlope, how='inner', sort=False)
+result = result.join(np.round(pandusMinSlope, decimals=0), how='inner', sort=False)
+result = result.join(np.round(pandusMaxSlope, decimals=0), how='inner', sort=False)
 
 result = result.join(stairsAmount, how='inner', sort=False)
 #result = result.join(stairs, how='inner', sort=False)
@@ -164,8 +164,8 @@ result['rails'] = (railsStairsAmount > 0) * 1
 result = result.join(railsStairsLength, how='inner', sort=False)
 result = result.join(minRailsWidth, how='inner', sort=False)
 result = result.join(maxRailsWidth, how='inner', sort=False)
-result = result.join(minRailsSlope, how='inner', sort=False)
-result = result.join(maxRailsSlope, how='inner', sort=False)
+result = result.join(np.round(minRailsSlope, decimals=0), how='inner', sort=False)
+result = result.join(np.round(maxRailsSlope, decimals=0), how='inner', sort=False)
 result = result.join(railingAmount, how='inner', sort=False)
 #result = result.join(railing, how='inner', sort=False)
 result['noRailing'] = (noRailingStairsLength > 0) * 1
