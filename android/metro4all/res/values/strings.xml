@@ -56,7 +56,7 @@
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
 	<string name="sLimits">Limitations</string>	
 	<string name="sLimitsSet">Set my limitations</string>
-	<string name="sLimitsHave">Enable limitations</string>
+	<string name="sLimitsHave">Limitations</string>
 	<string name="sSummary">Route summary</string>		
 	<string name="sSummaryClick">Press for details</string>		
 	<!-- tabs -->
