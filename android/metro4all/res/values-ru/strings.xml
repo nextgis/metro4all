@@ -5,7 +5,7 @@
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
     
-    <string name="about_app">Это приложение расчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. Вы можете выбрать более оптимальный маршрут. \n\nПодробнее:</string>
+    <string name="about_app">Это приложение расcчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. Вы можете выбрать более оптимальный маршрут. \n\nПодробнее:</string>
 
 	<string name="sSettings">Настройки</string>
 	<string name="sAbout">О программе</string>
