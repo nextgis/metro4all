@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Metro Dla Wszystkich</string>
-    <string name="sHomepage">http://nextgis.ru</string>
-    <string name="sDetailpage">http://metro4all.ru/pl</string>
+    <string name="app_name">Metro4All</string>
+    <string name="sHomepage">http://nextgis.org</string>
+    <string name="sDetailpage">http://metro4all.org</string>
     
     <string name="about_app">Aplikacja ta pozwala na nawigację w metrze dla osób z ograniczeniami ruchu. Obliczy dla Ciebie najbardziej dostępną trasę podróży. \n\nWięcej informacji znajdziesz na:</string>
 
