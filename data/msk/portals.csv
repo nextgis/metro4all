@@ -55,9 +55,9 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 14984;Александровский сад, кассы Московского Кремля;Aleksandrovskij sad, kassy Moskovskogo Kremlja;Aleksandrovskij sad, kassy Moskovskogo Kremlja;11;in;55.7518946194;37.612542833;730;93;62;0;0;350;710;20
 14985;Александровский сад, кассы Московского Кремля;Aleksandrovskij sad, kassy Moskovskogo Kremlja;Aleksandrovskij sad, kassy Moskovskogo Kremlja;11;out;55.7518946194;37.612542833;550;96;65;0;0;350;710;20
 14990;На проспект Мира;Na prospekt Mira;Na prospekt Mira;91;both;55.8079366147;37.6385240573;800;0;0;0;0;0;0;0
-15000;Южный;Juzhnyj;Juzhnyj;225;both;55.6321826509;37.7671080498;800;71;30;2;71;0;0;2
-15010;Северный;Severnyj;Severnyj;225;both;55.633708429394;37.7652156136226;800;3;0;0;0;0;0;6
-15011;Северный;Severnyj;Severnyj;225;both;55.6337779005953;37.7654835906599;800;3;0;0;0;0;0;6
+15000;Южный;Juzhnyj;Juzhnyj;225;both;55.6321826509;37.7671080498;800;71;30;2;71;0;1000;2
+15010;Северный;Severnyj;Severnyj;225;both;55.633708429394;37.7652156136226;800;3;0;0;0;0;1000;6
+15011;Северный;Severnyj;Severnyj;225;both;55.6337779005953;37.7654835906599;800;3;0;0;0;0;1000;6
 15020;К области, Череповецкая улица на запад;K oblasti, Cherepoveckaja ulica na zapad;K oblasti, Cherepoveckaja ulica na zapad;129;both;55.8987623686;37.586449957;740;64;34;0;0;300;770;22
 15022;К области, Алтуфьевское шоссе западная сторона;K oblasti, Altuf'evskoe shosse zapadnaja storona;K oblasti, Altuf'evskoe shosse zapadnaja storona;129;both;55.8990187512;37.5864249441;900;30;0;0;0;300;770;22
 15030;К центру, Череповецкая улица на запад;K centru, Cherepoveckaja ulica na zapad;K centru, Cherepoveckaja ulica na zapad;129;both;55.8970739956;37.5865906547;740;61;36;0;0;300;780;22
@@ -70,8 +70,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 15062;К центру, к пешеходному переходу на восток;K centru, k peshehodnomu perehodu na vostok;K centru, k peshehodnomu perehodu na vostok;163;both;55.5834835962;37.5971640043;740;36;1;0;0;410;870;20
 15070;К области, к перехватывающей парковке, ГАИ;K oblasti, k perehvatyvajushhej parkovke, GAI;K oblasti, k perehvatyvajushhej parkovke, GAI;163;both;55.5814559495;37.5961940092;800;66;2;0;0;370;940;23
 15072;К центру, на восточную сторону Варшавского шоссе;K centru, na vostoсhnuju storonu Varshavskogo shosse;K centru, na vostoсhnuju storonu Varshavskogo shosse;163;both;55.5836992732;37.5978924977;740;31;31;0;0;0;0;0
-15074;К центру, на Варшавское шоссе, по пандусу;K centru, na Varshavskoje shosse, po pandusu;K centru, na Varshavskoje shosse, po pandusu;163;both;55.583634881;37.5975598046;740;0;0;0;0;0;0;5
-15076;К центру, на восточную сторону Варшавского шоссе, по пандусу;K centru, na vostoсhnuju storonu Varshavskogo shosse, po pandusu;K centru, na vostoсhnuju storonu Varshavskogo shosse, po pandusu;163;both;55.5835168287;37.5978603016;740;1;1;0;0;0;0;5
+15074;К центру, на Варшавское шоссе, по пандусу;K centru, na Varshavskoje shosse, po pandusu;K centru, na Varshavskoje shosse, po pandusu;163;both;55.583634881;37.5975598046;740;0;0;0;0;0;1000;5
+15076;К центру, на восточную сторону Варшавского шоссе, по пандусу;K centru, na vostoсhnuju storonu Varshavskogo shosse, po pandusu;K centru, na vostoсhnuju storonu Varshavskogo shosse, po pandusu;163;both;55.5835168287;37.5978603016;740;1;1;0;0;0;1000;5
 15080;улица Воздвиженка, Генштаб;ulica Vozdvizhenka, Genshtab;ulica Vozdvizhenka, Genshtab;44;both;55.7524138022;37.6033981675;735;0;0;0;0;0;0;0
 15090;кинотеатр Художественный;kinoteatr Hudozhestvennyj;kinoteatr Hudozhestvennyj;55;both;55.7521439397;37.6017436358;550;65;65;0;0;0;0;0
 15100;В сторону области, у турникетов налево, из стеклянных дверей налево. На юг, к финансовой академии.;V storonu oblasti, u turniketov nalevo, iz stekljannyh dverej nalevo. Na jug, k finansovoj akademii.;V storonu oblasti, u turniketov nalevo, iz stekljannyh dverej nalevo. Na jug, k finansovoj akademii.;37;out;55.8004353056;37.5306640955;720;49;21;0;0;300;620;20
@@ -106,10 +106,10 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 15231;К пригородным поездам в область;K prigorodnym poezdam v oblast';K prigorodnym poezdam v oblast';122;in;55.7732627443;37.5490669016;740;73;73;0;0;0;0;0
 15232;Высадка с пригородных поездов из области;Vysadka s prigorodnyh poezdov iz oblasti;Vysadka s prigorodnyh poezdov iz oblasti;122;out;55.7729483569;37.5489786447;740;55;55;0;0;0;0;0
 15233;Высадка с пригородных поездов из области;Vysadka s prigorodnyh poezdov iz oblasti;Vysadka s prigorodnyh poezdov iz oblasti;122;in;55.7729483569;37.5489786447;740;88;88;0;0;0;0;0
-15234;Высадка с пригородных поездов из области;Vysadka s prigorodnyh poezdov iz oblasti;Vysadka s prigorodnyh poezdov iz oblasti;122;out;55.7732407711;37.5483637603;740;2;2;0;0;0;0;5
-15235;Высадка с пригородных поездов из области;Vysadka s prigorodnyh poezdov iz oblasti;Vysadka s prigorodnyh poezdov iz oblasti;122;in;55.7732407711;37.5483637603;740;35;35;0;0;0;0;5
-15240;К центру, на Беговую улицу;K centru, na Begovuju ulicu;K centru, na Begovuju ulicu;122;out;55.7743579378;37.5492757884;740;48;37;0;0;0;0;4
-15241;К центру, на Беговую улицу;K centru, na Begovuju ulicu;K centru, na Begovuju ulicu;122;in;55.7743579378;37.5492757884;740;81;70;0;0;0;0;4
+15234;Высадка с пригородных поездов из области;Vysadka s prigorodnyh poezdov iz oblasti;Vysadka s prigorodnyh poezdov iz oblasti;122;out;55.7732407711;37.5483637603;740;2;2;0;0;0;1000;5
+15235;Высадка с пригородных поездов из области;Vysadka s prigorodnyh poezdov iz oblasti;Vysadka s prigorodnyh poezdov iz oblasti;122;in;55.7732407711;37.5483637603;740;35;35;0;0;0;1000;5
+15240;К центру, на Беговую улицу;K centru, na Begovuju ulicu;K centru, na Begovuju ulicu;122;out;55.7743579378;37.5492757884;740;48;37;0;0;0;1000;4
+15241;К центру, на Беговую улицу;K centru, na Begovuju ulicu;K centru, na Begovuju ulicu;122;in;55.7743579378;37.5492757884;740;81;70;0;0;0;1000;4
 15250;На Грузинский Вал;Na Gruzinskij Val;Na Gruzinskij Val;67;in;55.7754196298;37.5827102001;720;2;2;0;0;0;0;0
 15251;На Грузинский Вал;Na Gruzinskij Val;Na Gruzinskij Val;67;out;55.775302476;37.5828010458;800;0;0;0;0;0;0;0
 15260;Вход в здании вокзала;Vhod v zdanii vokzala;Vhod v zdanii vokzala;35;in;55.7772410298;37.5821803383;720;0;0;0;0;0;0;0
@@ -178,6 +178,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 15541;С южной стороны Чонгарского бульвара;S juzhnoj storony Chongarskogo bul'vara;S juzhnoj storony Chongarskogo bul'vara;27;in;55.6530417319;37.6180533197;740;76;47;0;0;320;830;22
 15550;Главный выход на Варшавское шоссе;Glavnyj vyhod na Varshavskoe shosse;Glavnyj vyhod na Varshavskoe shosse;27;out;55.653166796;37.6207547044;740;28;28;0;0;0;0;0
 15551;Главный выход на Варшавское шоссе;Glavnyj vyhod na Varshavskoe shosse;Glavnyj vyhod na Varshavskoe shosse;27;in;55.653166796;37.6207547044;740;69;69;0;0;0;0;0
+15553;В подвальный этаж торгового центра;V podval'nyj jetazh torgovogo centra;V podval'nyj jetazh torgovogo centra;27;both;55.6537612008;37.6202167419;740;24;24;0;0;0;0;0
 15554;К пригородным поездам, станция Коломенское, платформа №1;K prigorodnym poezdam, stancija Kolomenskoe, platforma №1;K prigorodnym poezdam, stancija Kolomenskoe, platforma №1;27;both;55.6537272089;37.622019714;740;85;85;0;0;0;0;0
 15556;К пригородным поездам, станция Коломенское, платформа №2;K prigorodnym poezdam, stancija Kolomenskoe, platforma №2;K prigorodnym poezdam, stancija Kolomenskoe, platforma №2;27;both;55.653730014;37.6222441291;740;87;47;0;0;300;765;25
 15560;К области, Болотниковской улице, Чонгарскому бульвару;K oblasti, Bolotnikovskoj ulice, Chongarskomu bul'varu;K oblasti, Bolotnikovskoj ulice, Chongarskomu bul'varu;27;out;55.6534732031;37.6180095473;540;29;0;0;0;310;800;22
@@ -205,7 +206,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 15720;В центр, к трамваям;V centr, k tramvajam;V centr, k tramvajam;39;both;55.8183976345;37.4990582265;720;49;24;0;0;320;780;20
 15730;В центр;V centr;V centr;39;both;55.8177843687;37.4995671739;720;46;24;0;0;420;880;25
 15740;В центр, на Волгоградский проспект;V centr, na Volgogradskij prospekt;V centr, na Volgogradskij prospekt;114;both;55.7256807813;37.685131139;740;53;25;0;0;310;750;25
-15741;В область, на Новоостаповскую улицу;V oblast', na Novoostapovskuju ulicu;V oblast', na Novoostapovskuju ulicu;114;both;55.7245363533;37.6877733292;740;55;53;0;0;0;0;10
+15741;В область, на Новоостаповскую улицу;V oblast', na Novoostapovskuju ulicu;V oblast', na Novoostapovskuju ulicu;114;both;55.7245363533;37.6877733292;740;55;53;0;0;0;1000;10
 15750;В центр, под мост на северную сторону Волгоградского проспекта;V centr, pod most na severnuju storonu Volgogradskogo prospekta;V centr, pod most na severnuju storonu Volgogradskogo prospekta;114;both;55.7255119313;37.6856220548;740;53;53;0;0;0;0;0
 15751;В область, на Волгоградский проспект;V oblast', na Volgogradskij prospekt;V oblast', na Volgogradskij prospekt;114;both;55.7244488015;37.6885081396;740;52;52;0;0;0;0;0
 15760;К центру, в парк в западном направлении;K centru, v park v zapadnom napravlenii;K centru, v park v zapadnom napravlenii;156;both;55.691167128;37.7509629281;720;64;24;0;0;315;750;20
@@ -214,20 +215,22 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 15790;В область, к парку на восток;V oblast', k parku na vostok;V oblast', k parku na vostok;156;both;55.6906699593;37.7562826441;720;58;2;0;0;315;870;20
 15800;Новотушинский проезд (север);Novotushinskij proezd (sever);Novotushinskij proezd (sever);214;in;55.8364438999;37.3813282131;800;0;0;0;0;0;0;0
 15801;Новотушинский проезд (север);Novotushinskij proezd (sever);Novotushinskij proezd (sever);214;out;55.8364438999;37.3813282131;800;0;0;0;0;0;0;0
-15810;Новотушинский проезд (юг);Novotushinskij proezd (jug);Novotushinskij proezd (jug);214;both;55.8346327959;37.3832984006;800;0;0;1;0;0;0;2
+15810;Новотушинский проезд (юг);Novotushinskij proezd (jug);Novotushinskij proezd (jug);214;both;55.8346327959;37.3832984006;800;0;0;1;0;0;1000;2
 15820;"Воробьевская набережная, правый берег, заказник ""Воробьевы горы""";"Vorob'evskaja naberezhnaja, pravyj bereg, zakaznik ""Vorob'evy gory""";"Vorob'evskaja naberezhnaja, pravyj bereg, zakaznik ""Vorob'evy gory""";16;both;55.709501493005;37.5579026558265;720;74;74;0;0;0;0;0
 15830;"Олимпийский комплекс ""Лужники"", Лужнецкая набережная (левый берег)";"Olimpijskij kompleks ""Luzhniki"", Luzhneckaja naberezhnaja (levyj bereg)";"Olimpijskij kompleks ""Luzhniki"", Luzhneckaja naberezhnaja (levyj bereg)";16;both;55.7117561592;37.5609105966;720;5;1;0;0;605;890;25
 15840;"Олимпийский комплекс ""Лужники"", Олимпийский комитет РФ, Лужнецкая набережная (левый берег р. Москвы)";"Olimpijskij kompleks ""Luzhniki"", Olimpijskij komitet RF, Luzhneckaja naberezhnaja (levyj bereg r. Moskvy)";"Olimpijskij kompleks ""Luzhniki"", Olimpijskij komitet RF, Luzhneckaja naberezhnaja (levyj bereg r. Moskvy)";16;both;55.7115787067;37.5612791518;720;5;1;0;0;605;890;25
 15850;мост через Москва-реку;most cherez Moskva-reku;most cherez Moskva-reku;16;both;55.7096608547;37.5580645316;720;72;72;0;0;0;0;0
 15851;"природный заказник ""Воробьевы горы""";"prirodnyj zakaznik ""Vorob'evy gory""";"prirodnyj zakaznik ""Vorob'evy gory""";16;both;55.7085074135;37.5568564895;720;12;12;0;0;0;0;0
-15860;"ТРЦ ""АФИ Молл""";"TRC ""AFI Moll""";"TRC ""AFI Moll""";188;out;55.7501533471;37.5428004005;800;21;17;0;0;0;0;6
-15861;"ТРЦ ""АФИ Молл""";"TRC ""AFI Moll""";"TRC ""AFI Moll""";188;in;55.7501533471;37.5428004005;800;50;46;0;0;0;0;6
-15862;"ТРЦ ""АФИ Молл""";"TRC ""AFI Moll""";"TRC ""AFI Moll""";230;both;55.7501533471;37.5428004005;800;21;17;0;0;0;0;6
-15863;"Башня ""Федерация""";"Bashnja ""Federacija""";"Bashnja ""Federacija""";230;both;55.7490619849;37.537743565;800;3;0;0;0;0;0;4
-15870;"Мост ""Багратион""";"Most ""Bagration""";"Most ""Bagration""";188;out;55.7485620153;37.5441888875;860;9;0;0;0;0;0;6
-15871;"Мост ""Багратион""";"Most ""Bagration""";"Most ""Bagration""";188;in;55.7485620153;37.5441888875;790;39;30;0;0;0;0;6
-15872;"Мост ""Багратион""";"Most ""Bagration""";"Most ""Bagration""";188;out;55.7480477608;37.543768913;860;8;0;0;0;0;0;10
-15873;"Мост ""Багратион""";"Most ""Bagration""";"Most ""Bagration""";188;in;55.7480477608;37.543768913;790;38;30;0;0;0;0;10
+15860;"ТРЦ ""АФИ Молл""";"TRC ""AFI Moll""";"TRC ""AFI Moll""";188;out;55.7501533471;37.5428004005;800;21;17;0;0;0;1000;6
+15861;"ТРЦ ""АФИ Молл""";"TRC ""AFI Moll""";"TRC ""AFI Moll""";188;in;55.7501533471;37.5428004005;800;50;46;0;0;0;1000;6
+15862;"ТРЦ ""АФИ Молл""";"TRC ""AFI Moll""";"TRC ""AFI Moll""";230;both;55.7501533471;37.5428004005;800;21;17;0;0;0;1000;6
+15863;"Башня ""Федерация""";"Bashnja ""Federacija""";"Bashnja ""Federacija""";230;both;55.7490619849;37.537743565;800;3;0;0;0;0;1000;4
+15870;Выставочный переулок;Vystavochnyj pereulok;Vystavochnyj pereulok;188;out;55.7485620153;37.5441888875;860;9;0;0;0;0;1000;6
+15871;Выставочный переулок;Vystavochnyj pereulok;Vystavochnyj pereulok;188;in;55.7485620153;37.5441888875;790;39;30;0;0;0;1000;6
+15872;Пресненская набережная;Presnenskaja naberezhnaja;Presnenskaja naberezhnaja;188;out;55.7480477608;37.543768913;860;8;0;0;0;0;1000;10
+15873;Пресненская набережная;Presnenskaja naberezhnaja;Presnenskaja naberezhnaja;188;in;55.7480477608;37.543768913;790;38;30;0;0;0;1000;10
+15874;"Мост ""Багратион""";"Most ""Bagration""";"Most ""Bagration""";188;in;55.7482347992;37.544076624;790;30;30;0;0;0;0;0
+15875;"Мост ""Багратион""";"Most ""Bagration""";"Most ""Bagration""";188;out;55.7482347992;37.544076624;860;0;0;0;0;0;0;0
 15890;В область, к Ташкенской улице;V oblast', k Tashkenskoj ulice;V oblast', k Tashkenskoj ulice;110;out;55.7153052646;37.8185065164;890;26;26;0;0;0;0;0
 15891;В область, к Ташкенской улице;V oblast', k Tashkenskoj ulice;V oblast', k Tashkenskoj ulice;110;in;55.7153052646;37.8185065164;550;25;25;0;0;0;0;0
 15894;В область, к троллейбусам в Новогиреево;V oblast', k trollejbusam v Novogireevo;V oblast', k trollejbusam v Novogireevo;110;out;55.7158130305;37.8190566344;820;33;33;0;0;0;0;0
@@ -308,8 +311,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 16111;ТЦ Калужский;TC Kaluzhskij;TC Kaluzhskij;104;out;55.6563006676;37.5403220761;760;38;4;0;0;310;780;15
 16112;ТЦ Калужский;TC Kaluzhskij;TC Kaluzhskij;104;in;55.6560334931;37.5400096874;550;81;81;0;0;0;0;0
 16113;ТЦ Калужский;TC Kaluzhskij;TC Kaluzhskij;104;out;55.6560334931;37.5400096874;760;35;35;0;0;0;0;0
-16120;Главное архивное управление г.Москвы;Glavnoe arhivnoe upravlenie g.Moskvy;Glavnoe arhivnoe upravlenie g.Moskvy;104;in;55.6581462274;37.5410948272;730;79;76;0;0;0;0;18
-16121;Главное архивное управление г.Москвы;Glavnoe arhivnoe upravlenie g.Moskvy;Glavnoe arhivnoe upravlenie g.Moskvy;104;out;55.6581462274;37.5410948272;730;32;29;0;0;0;0;18
+16120;Главное архивное управление г.Москвы;Glavnoe arhivnoe upravlenie g.Moskvy;Glavnoe arhivnoe upravlenie g.Moskvy;104;in;55.6581462274;37.5410948272;730;79;76;0;0;0;1000;18
+16121;Главное архивное управление г.Москвы;Glavnoe arhivnoe upravlenie g.Moskvy;Glavnoe arhivnoe upravlenie g.Moskvy;104;out;55.6581462274;37.5410948272;730;32;29;0;0;0;1000;18
 16122;Главное архивное управление г.Москвы;Glavnoe arhivnoe upravlenie g.Moskvy;Glavnoe arhivnoe upravlenie g.Moskvy;104;in;55.6578872736;37.5408112111;730;77;47;0;0;310;780;18
 16123;Главное архивное управление г.Москвы;Glavnoe arhivnoe upravlenie g.Moskvy;Glavnoe arhivnoe upravlenie g.Moskvy;104;out;55.6578872736;37.5408112111;730;30;0;0;0;310;780;18
 16130;Хлебобулочный проезд;Hlebobulochnyj proezd;Hlebobulochnyj proezd;104;in;55.6578420595;37.5419785585;730;81;81;0;0;0;0;0
@@ -377,20 +380,20 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 16341;На север, Старая площадь;Na sever, Staraja ploshhad';Na sever, Staraja ploshhad';227;both;55.7562893888;37.6300345728;740;61;61;0;0;0;0;0
 16350;На север, к Политехническому музею;Na sever, k Politehnicheskomu muzeju;Na sever, k Politehnicheskomu muzeju;96;both;55.7569715217;37.6305015363;740;73;73;0;0;0;0;0
 16351;На север, к Политехническому музею;Na sever, k Politehnicheskomu muzeju;Na sever, k Politehnicheskomu muzeju;227;both;55.7569715217;37.6305015363;740;73;73;0;0;0;0;0
-16360;На север, к памятнику героям Плевны, западный;Na sever, k pamjatniku gerojam Plevny, zapadnyj;Na sever, k pamjatniku gerojam Plevny, zapadnyj;96;both;55.7567838207;37.6309913901;740;69;67;0;0;0;0;4
-16361;На север, к памятнику героям Плевны, западный;Na sever, k pamjatniku gerojam Plevny, zapadnyj;Na sever, k pamjatniku gerojam Plevny, zapadnyj;227;both;55.7567838207;37.6309913901;740;69;67;0;0;0;0;4
+16360;На север, к памятнику героям Плевны, западный;Na sever, k pamjatniku gerojam Plevny, zapadnyj;Na sever, k pamjatniku gerojam Plevny, zapadnyj;96;both;55.7567838207;37.6309913901;740;69;67;0;0;0;1000;4
+16361;На север, к памятнику героям Плевны, западный;Na sever, k pamjatniku gerojam Plevny, zapadnyj;Na sever, k pamjatniku gerojam Plevny, zapadnyj;227;both;55.7567838207;37.6309913901;740;69;67;0;0;0;1000;4
 16370;На север, улица Маросейка, северная сторона;Na sever, ulica Marosejka, severnaja storona;Na sever, ulica Marosejka, severnaja storona;96;both;55.7573251779;37.6317811078;740;71;71;0;0;0;0;0
 16371;На север, улица Маросейка, северная сторона;Na sever, ulica Marosejka, severnaja storona;Na sever, ulica Marosejka, severnaja storona;227;both;55.7573251779;37.6317811078;740;71;71;0;0;0;0;0
-16380;На север, к памятнику героям Плевны, восточный;Na sever, k pamjatniku gerojam Plevny, vostochnyj;Na sever, k pamjatniku gerojam Plevny, vostochnyj;96;both;55.7568708041;37.6312202938;740;72;68;0;0;0;0;4
-16381;На север, к памятнику героям Плевны, восточный;Na sever, k pamjatniku gerojam Plevny, vostochnyj;Na sever, k pamjatniku gerojam Plevny, vostochnyj;227;both;55.7568708041;37.6312202938;740;72;68;0;0;0;0;4
+16380;На север, к памятнику героям Плевны, восточный;Na sever, k pamjatniku gerojam Plevny, vostochnyj;Na sever, k pamjatniku gerojam Plevny, vostochnyj;96;both;55.7568708041;37.6312202938;740;72;68;0;0;0;1000;4
+16381;На север, к памятнику героям Плевны, восточный;Na sever, k pamjatniku gerojam Plevny, vostochnyj;Na sever, k pamjatniku gerojam Plevny, vostochnyj;227;both;55.7568708041;37.6312202938;740;72;68;0;0;0;1000;4
 16390;На север, улица Маросейка, южная сторона;Na sever, ulica Marosejka, juzhnaja storona;Na sever, ulica Marosejka, juzhnaja storona;96;both;55.7572153041;37.6320649484;740;72;72;0;0;0;0;0
 16391;На север, улица Маросейка, южная сторона;Na sever, ulica Marosejka, juzhnaja storona;Na sever, ulica Marosejka, juzhnaja storona;227;both;55.7572153041;37.6320649484;740;72;72;0;0;0;0;0
 16392;На север, Лубянский проезд, угол с Маросейкой;Na sever, Lubjanskij proezd, ugol s Marosejkoj;Na sever, Lubjanskij proezd, ugol s Marosejkoj;96;both;55.7570127244;37.6318886925;740;54;54;0;0;0;0;0
 16393;На север, Лубянский проезд, угол с Маросейкой;Na sever, Lubjanskij proezd, ugol s Marosejkoj;Na sever, Lubjanskij proezd, ugol s Marosejkoj;227;both;55.7570127244;37.6318886925;740;54;54;0;0;0;0;0
 16400;На юг, на Варварку;Na jug, na Varvarku;Na jug, na Varvarku;96;both;55.7531385296;37.6330675465;740;35;35;0;0;0;0;0
 16401;На юг, на Варварку;Na jug, na Varvarku;Na jug, na Varvarku;227;both;55.7531385296;37.6330675465;740;35;35;0;0;0;0;0
-16402;На юг, Китайгородский проезд, троллейбусная остановка;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;96;both;55.7529738673;37.6333069206;740;6;6;0;0;0;0;5
-16403;На юг, Китайгородский проезд, троллейбусная остановка;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;227;both;55.7529738673;37.6333069206;740;6;6;0;0;0;0;5
+16402;На юг, Китайгородский проезд, троллейбусная остановка;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;96;both;55.7529738673;37.6333069206;740;6;6;0;0;0;1000;5
+16403;На юг, Китайгородский проезд, троллейбусная остановка;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;Na jug, Kitajgorodskij proezd, trollejbusnaja ostanovka;227;both;55.7529738673;37.6333069206;740;6;6;0;0;0;1000;5
 16410;На юг, Китайгородский проезд, лицом на площадь;Na jug, Kitajgorodskij proezd, licom na ploshhad';Na jug, Kitajgorodskij proezd, licom na ploshhad';96;both;55.7532361938;37.6337378856;740;26;26;0;0;0;0;0
 16411;На юг, Китайгородский проезд, лицом на площадь;Na jug, Kitajgorodskij proezd, licom na ploshhad';Na jug, Kitajgorodskij proezd, licom na ploshhad';227;both;55.7532361938;37.6337378856;740;26;26;0;0;0;0;0
 16412;На юг, Китайгородский проезд, восточная сторона;Na jug, Kitajgorodskij proezd, vostochnaja storona;Na jug, Kitajgorodskij proezd, vostochnaja storona;96;both;55.7530011874;37.6336535399;740;22;22;0;0;0;0;0
@@ -504,8 +507,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 16951;К области, на Зеленодольскую улицу на север, макдональдсу, театру;K oblasti, na Zelenodol'skuju ulicu na sever, makdonal'dsu, teatru;K oblasti, na Zelenodol'skuju ulicu na sever, makdonal'dsu, teatru;112;in;55.7055674692;37.7672859678;740;61;37;0;0;310;840;25
 16952;К области, на северную сторону Волгоградского проспекта;K oblasti, na severnuju storonu Volgogradskogo prospekta;K oblasti, na severnuju storonu Volgogradskogo prospekta;112;out;55.7055055721;37.7677522595;550;28;28;0;0;0;0;0
 16953;К области, на северную сторону Волгоградского проспекта;K oblasti, na severnuju storonu Volgogradskogo prospekta;K oblasti, na severnuju storonu Volgogradskogo prospekta;112;in;55.7055055721;37.7677522595;740;62;62;0;0;0;0;0
-16960;Кастанаевская ул.;Kastanaevskaja ul.;Kastanaevskaja ul.;210;in;55.7306983659;37.4465199378;850;42;40;1;40;0;0;5
-16961;Кастанаевская ул.;Kastanaevskaja ul.;Kastanaevskaja ul.;210;out;55.7306571652;37.446533122;850;42;40;1;40;0;0;5
+16960;Кастанаевская ул.;Kastanaevskaja ul.;Kastanaevskaja ul.;210;in;55.7306983659;37.4465199378;850;42;40;1;40;0;1000;5
+16961;Кастанаевская ул.;Kastanaevskaja ul.;Kastanaevskaja ul.;210;out;55.7306571652;37.446533122;850;42;40;1;40;0;1000;5
 16970;Рублевское шоссе, ул. Ивана Франко;Rublevskoe sh., ul. Ivana Franko;Rublevskoe sh., ul. Ivana Franko;210;in;55.7305385072;37.4456744992;800;40;40;1;38;0;0;0
 16971;Рублевское шоссе, ул. Ивана Франко;Rublevskoe sh., ul. Ivana Franko;Rublevskoe sh., ul. Ivana Franko;210;out;55.7305764118;37.4456547228;800;40;40;1;38;0;0;0
 16980;Малая Филевская ул.;Malaja Filevskaja ul.;Malaja Filevskaja ul.;64;in;55.7307939516;37.4464803851;550;32;32;0;0;0;0;0
@@ -522,12 +525,12 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 17015;На платформу №1, к поездам дальнего следования;Na platformu №1, k poezdam dal'nego sledovanija;Na platformu №1, k poezdam dal'nego sledovanija;71;both;55.7586021662;37.6610518224;730;45;15;0;0;430;760;21
 17020;Через переход под путями, на Нижний Сусальный переулок;Cherez perehod pod putjami, na Nizhnij Susal'nyj pereulok;Cherez perehod pod putjami, na Nizhnij Susal'nyj pereulok;46;both;55.7601917802;37.6619683566;730;15;15;0;0;0;0;0
 17021;Через переход под путями, на Нижний Сусальный переулок;Cherez perehod pod putjami, na Nizhnij Susal'nyj pereulok;Cherez perehod pod putjami, na Nizhnij Susal'nyj pereulok;71;both;55.7601917802;37.6619683566;730;15;15;0;0;0;0;0
-17030;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;71;in;55.7560117671;37.6595502303;720;32;0;0;0;0;0;7
-17031;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;71;out;55.7560117671;37.6595502303;600;32;0;0;0;0;0;7
+17030;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;71;in;55.7560117671;37.6595502303;720;32;0;0;0;0;1000;7
+17031;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;71;out;55.7560117671;37.6595502303;600;32;0;0;0;0;1000;7
 17032;На Садовое кольцо на юг;Na Sadovoe kol'co na jug;Na Sadovoe kol'co na jug;71;in;55.7559450683;37.6582059927;720;66;66;0;0;0;0;0
 17033;На Садовое кольцо на юг;Na Sadovoe kol'co na jug;Na Sadovoe kol'co na jug;71;out;55.7559450683;37.6582059927;600;58;58;0;0;0;0;0
-17034;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;151;in;55.7560117671;37.6595502303;720;32;0;0;0;0;0;7
-17035;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;151;out;55.7560117671;37.6595502303;600;32;0;0;0;0;0;7
+17034;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;151;in;55.7560117671;37.6595502303;720;32;0;0;0;0;1000;7
+17035;К пригородным поездам Горьковского направления, трамвайному кольцу;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;K prigorodnym poezdam Gor'kovskogo napravlenija, tramvajnomu kol'cu;151;out;55.7560117671;37.6595502303;600;32;0;0;0;0;1000;7
 17036;На Садовое кольцо на юг;Na Sadovoe kol'co na jug;Na Sadovoe kol'co na jug;151;in;55.7559450683;37.6582059927;720;66;66;0;0;0;0;0
 17037;На Садовое кольцо на юг;Na Sadovoe kol'co na jug;Na Sadovoe kol'co na jug;151;out;55.7559450683;37.6582059927;600;58;58;0;0;0;0;0
 17040;Кутузовский проспект (юг);Kutuzovskij prospekt (jug);Kutuzovskij prospekt (jug);59;in;55.739462883;37.5349365164;660;31;31;0;0;0;0;0
@@ -542,7 +545,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 17081;Лубянская площадь, Никольская улица, Театральный проезд;Lubjanskaja ploshhad', Nikol'skaja ulica, Teatral'nyj proezd;Lubjanskaja ploshhad', Nikol'skaja ulica, Teatral'nyj proezd;9;in;55.7590360365;37.6258042371;700;33;33;0;0;0;0;0
 17090;Лубянская площадь, Малый Черкасский переулок;Lubjanskaja ploshhad', Malyj Cherkasskij pereulok;Lubjanskaja ploshhad', Malyj Cherkasskij pereulok;9;both;55.7588336531;37.6262759744;720;22;22;0;0;0;0;0
 17100;Политехнический музей, Лубянская площадь;Politehnicheskij muzej, Lubjanskaja ploshhad';Politehnicheskij muzej, Lubjanskaja ploshhad';9;both;55.758950394;37.6271320741;720;20;20;0;0;0;0;0
-17110;Политехнический музей, Лубянская площадь;Politehnicheskij muzej, Lubjanskaja ploshhad';Politehnicheskij muzej, Lubjanskaja ploshhad';9;both;55.7592420352623;37.628021263033;720;34;34;0;0;0;0;15
+17110;Политехнический музей, Лубянская площадь;Politehnicheskij muzej, Lubjanskaja ploshhad';Politehnicheskij muzej, Lubjanskaja ploshhad';9;both;55.7592420352623;37.628021263033;720;34;34;0;0;0;1000;15
 17120;Лубянская площадь, ФСБ;Lubjanskaja ploshhad', FSB;Lubjanskaja ploshhad', FSB;9;both;55.7600306699999;37.6279527;720;25;25;0;0;0;0;0
 17130;Мясницкая улица, Лубянский проезд;Mjasnickaja ulica, Lubjanskij proezd;Mjasnickaja ulica, Lubjanskij proezd;9;both;55.75961894;37.62854544;720;32;32;0;0;0;0;0
 17150;Лубянская площадь, Никольская улица;Lubjanskaja ploshhad', Nikol'skaja ulica;Lubjanskaja ploshhad', Nikol'skaja ulica;9;both;55.7590373774;37.6259738215;720;21;21;0;0;0;0;0
@@ -558,11 +561,11 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 17240;Марксистская улица, северная сторона;Marksistskaja ulica, severnaja storona;Marksistskaja ulica, severnaja storona;84;in;55.7410618321;37.6568020722;700;46;6;0;0;410;890;22
 17241;Марксистская улица, северная сторона;Marksistskaja ulica, severnaja storona;Marksistskaja ulica, severnaja storona;84;out;55.7410618321;37.6568020722;550;46;10;0;0;410;890;18
 17250;К центру, на северную сторону Сущёвского вала в восточном направлении, на Шереметьевскую улицу на юг;K centru, na severnuju storonu Sushhjovskogo vala v vostochnom napravlenii, na Sheremet'evskuju ulicu na jug;K centru, na severnuju storonu Sushhjovskogo vala v vostochnom napravlenii, na Sheremet'evskuju ulicu na jug;217;both;55.7935400442;37.6169652933;740;39;0;1;26;410;1200;18
-17251;К центру, к концентному залу;K centru, k koncentnomu zalu;K centru, k koncentnomu zalu;217;both;55.7938762731;37.6171441385;740;41;1;1;35;0;0;5
+17251;К центру, к концентному залу;K centru, k koncentnomu zalu;K centru, k koncentnomu zalu;217;both;55.7938762731;37.6171441385;740;41;1;1;35;0;1000;5
 17260;К центру, на Сущёвский Вал в западном направлении;K centru, na Sushhjovskij Val v zapadnom napravlenii;K centru, na Sushhjovskij Val v zapadnom napravlenii;217;both;55.7935507749;37.6158779148;740;40;0;0;0;410;680;21
 17261;К центру, на западную сторону Шереметьевской улицы;K centru, na zapadnuju storonu Sheremet'evskoj ulicy;K centru, na zapadnuju storonu Sheremet'evskoj ulicy;217;both;55.7937424;37.6160021;740;42;29;0;0;410;1200;19
-17270;К области, выход к театру, на север;K oblasti, vyhod k teatru, na sever;K oblasti, vyhod k teatru, na sever;217;both;55.7970336031;37.6169924503;730;46;33;0;0;0;0;5
-17271;К области, выход к театру, на север;K oblasti, vyhod k teatru, na sever;K oblasti, vyhod k teatru, na sever;217;both;55.7972314083;37.6168114865;740;12;0;0;0;0;0;5
+17270;К области, выход к театру, на север;K oblasti, vyhod k teatru, na sever;K oblasti, vyhod k teatru, na sever;217;both;55.7970336031;37.6169924503;730;46;33;0;0;0;1000;5
+17271;К области, выход к театру, на север;K oblasti, vyhod k teatru, na sever;K oblasti, vyhod k teatru, na sever;217;both;55.7972314083;37.6168114865;740;12;0;0;0;0;1000;5
 17280;К центру, на правую сторону Люблинской улицы;K centru, na pravuju storonu Ljublinskoj ulicy;K centru, na pravuju storonu Ljublinskoj ulicy;159;both;55.6512930682;37.7437329464;590;73;37;0;0;420;800;21
 17290;К центрю, на Новомарьинскую улицу;K centrju, na Novomar'inskuju ulicu;K centrju, na Novomar'inskuju ulicu;159;both;55.6509324617;37.7438882846;590;74;74;0;0;0;0;0
 17300;К области, на левую сторону Люблинской улицы;K oblasti, na levuju storonu Ljublinskoj ulicy;K oblasti, na levuju storonu Ljublinskoj ulicy;159;both;55.6491839827;37.7438586964;725;71;33;0;0;420;800;19
@@ -577,21 +580,21 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 17372;В сторону центра;V storonu centra;V storonu centra;34;out;55.7696894134;37.5972629804;850;48;0;0;0;330;760;24
 17380;К центру;K centru;K centru;86;both;55.8860093033;37.6612996793;800;2;2;0;0;0;0;0
 17390;К области, выход;K oblasti, vyhod;K oblasti, vyhod;86;out;55.8881416559;37.6618624703;800;2;2;0;0;0;0;0
-17391;К области, вход;K oblasti, vhod;K oblasti, vhod;86;in;55.8879540589;37.6614935295;800;6;0;0;0;0;0;20
+17391;К области, вход;K oblasti, vhod;K oblasti, vhod;86;in;55.8879540589;37.6614935295;800;6;0;0;0;0;1000;20
 17400;На Тестовскую улицу;Na Testovskuju ulicu;Na Testovskuju ulicu;189;both;55.7481391838;37.5330238519;780;11;11;0;0;0;0;0
 17410;Новослободская улица западная сторона на юг;Novoslobodskaja ulica zapadnaja storona na jug;Novoslobodskaja ulica zapadnaja storona na jug;137;both;55.7813359895;37.5988233766;750;33;3;0;0;390;860;20
 17420;Новослободская улица восточная сторона, во дворы к Сущёвской;Novoslobodskaja ulica vostochnaja storona, vo dvory k Sushhjovskoj;Novoslobodskaja ulica vostochnaja storona, vo dvory k Sushhjovskoj;137;both;55.7818800208;37.5990735059;750;43;43;0;0;0;0;0
 17430;Новослободская улица западная сторона на север;Novoslobodskaja ulica zapadnaja storona na sever;Novoslobodskaja ulica zapadnaja storona na sever;137;both;55.781463057;37.59871399;750;35;3;0;0;390;860;20
 17440;Дубравная ул. (запад);Dubravnaja ul. (zapad);Dubravnaja ul. (zapad);213;both;55.8461813568;37.3593954945;800;60;60;1;31;0;0;0
 17441;Митинская ул., к-тр Люксор;Mitinskaja ul., k-tr Ljuksor;Mitinskaja ul., k-tr Ljuksor;213;both;55.8464952634;37.3593077853;800;61;31;1;31;400;900;18
-17450;Митинская ул. (север);Mitinskaja ul. (sever);Mitinskaja ul. (sever);213;both;55.8463983217;37.3611081321;800;76;31;2;76;0;0;5
+17450;Митинская ул. (север);Mitinskaja ul. (sever);Mitinskaja ul. (sever);213;both;55.8463983217;37.3611081321;800;76;31;2;76;0;1000;5
 17460;Митинская ул. (юг);Mitinskaja ul. (jug);Mitinskaja ul. (jug);213;both;55.8448580864;37.363496702;800;59;27;0;0;400;900;18
 17461;Митинская ул. (юг);Mitinskaja ul. (jug);Mitinskaja ul. (jug);213;both;55.8447687771;37.3637163267;800;57;57;0;0;0;0;0
 17470;Дубравная ул. (восток);Dubravnaja ul. (vostok);Dubravnaja ul. (vostok);213;both;55.8470122861;37.360568028;800;67;31;1;31;400;900;21
 17480;Митинская ул. (юг);Mitinskaja ul. (jug);Mitinskaja ul. (jug);213;both;55.8455627761;37.363924059;800;65;27;0;0;400;900;20
 17490;Дубравная ул. (восток);Dubravnaja ul. (vostok);Dubravnaja ul. (vostok);213;both;55.8467860887;37.3612558528;800;69;31;2;62;400;900;21
-17500;Дубравная ул. (запад);Dubravnaja ul. (zapad);Dubravnaja ul. (zapad);213;both;55.8461028802;37.3601202495;800;61;61;2;61;0;0;5
-17501;Дубравная ул. (запад);Dubravnaja ul. (zapad);Dubravnaja ul. (zapad);213;both;55.8460521011;37.3605634118;800;65;31;2;65;0;0;5
+17500;Дубравная ул. (запад);Dubravnaja ul. (zapad);Dubravnaja ul. (zapad);213;both;55.8461028802;37.3601202495;800;61;61;2;61;0;1000;5
+17501;Дубравная ул. (запад);Dubravnaja ul. (zapad);Dubravnaja ul. (zapad);213;both;55.8460521011;37.3605634118;800;65;31;2;65;0;1000;5
 17510;на Ярцевскую ул.;na Jarcevskuju ul.;na Jarcevskuju ul.;65;in;55.7411976639;37.4157678381;730;47;47;0;0;0;0;0
 17511;на Ярцевскую ул.;na Jarcevskuju ul.;na Jarcevskuju ul.;65;out;55.7412984049;37.415937083;730;0;0;0;0;0;0;0
 17520;на Ельнинскую ул.;na El'ninskuju ul.;na El'ninskuju ul.;65;in;55.7402104025;37.4179720504;730;43;43;0;0;0;0;0
@@ -629,11 +632,11 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 17671;В область, на трамвай;V oblast', na tramvaj;V oblast', na tramvaj;79;both;55.751189;37.818662;720;56;34;0;0;310;760;21
 17680;Свободный проспект на север, к троллейбусам в Ивановское;Svobodnyj prospekt na sever, k trollejbusam v Ivanovskoe;Svobodnyj prospekt na sever, k trollejbusam v Ivanovskoe;79;both;55.751673;37.818253;720;58;36;0;0;310;760;21
 17681;В область, на север, к  улице Молостовых;V oblast', na sever, k  ulice Molostovyh;V oblast', na sever, k  ulice Molostovyh;79;both;55.751582;37.818878;720;58;36;0;0;310;760;21
-17690;В область, в Реутов;V oblast', v Reutov;V oblast', v Reutov;186;both;55.7461492292;37.8661727259;800;75;68;2;68;0;0;5
-17700;В область, к Городецкой улице;V oblast', k Gorodeckoj ulice;V oblast', k Gorodeckoj ulice;186;both;55.7444651771;37.8659600035;800;68;68;2;68;0;0;5
-17710;В центр, к Городецкой улице;V centr, k Gorodeckoj ulice;V centr, k Gorodeckoj ulice;186;both;55.7439466663;37.8631502954;800;68;68;2;68;0;0;3
+17690;В область, в Реутов;V oblast', v Reutov;V oblast', v Reutov;186;both;55.7461492292;37.8661727259;800;75;68;2;68;0;1000;5
+17700;В область, к Городецкой улице;V oblast', k Gorodeckoj ulice;V oblast', k Gorodeckoj ulice;186;both;55.7444651771;37.8659600035;800;68;68;2;68;0;1000;5
+17710;В центр, к Городецкой улице;V centr, k Gorodeckoj ulice;V centr, k Gorodeckoj ulice;186;both;55.7439466663;37.8631502954;800;68;68;2;68;0;1000;3
 17720;В центр, на Суздальскую улицу;V centr, na Suzdal'skuju ulicu;V centr, na Suzdal'skuju ulicu;186;both;55.7442657499;37.8629287096;800;68;68;1;29;0;0;0
-17730;В центр, в Реутов, к Макдональдсу;V centr, v Reutov, k Makdonal'dsu;V centr, v Reutov, k Makdonal'dsu;186;both;55.7455420841;37.8624146305;800;68;68;2;68;0;0;3
+17730;В центр, в Реутов, к Макдональдсу;V centr, v Reutov, k Makdonal'dsu;V centr, v Reutov, k Makdonal'dsu;186;both;55.7455420841;37.8624146305;800;68;68;2;68;0;1000;3
 17740;На Пятницкую улицу, Садовнический проезд;Na Pjatnickuju ulicu, Sadovnicheskij proezd;Na Pjatnickuju ulicu, Sadovnicheskij proezd;31;both;55.7422799751;37.6290703334;720;1;1;0;0;0;0;0
 17750;На Новослободскую улицу, и к трамваям;Na Novoslobodskuju ulicu, i k tramvajam;Na Novoslobodskuju ulicu, i k tramvajam;68;both;55.7795037921;37.60111206;860;0;0;0;0;0;0;0
 17760;Юг Новоясеневского проспекта;Jug Novojasenevskogo prospekta;Jug Novojasenevskogo prospekta;109;both;55.6014489167;37.5529533379;750;67;25;0;0;420;860;17
@@ -650,7 +653,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 17811;Магазин Охотник;Magazin Ohotnik;Magazin Ohotnik;103;both;55.6708610106;37.5557303043;740;53;53;0;0;0;0;0
 17820;ул. Крымский Вал;ul. Krymskij Val;ul. Krymskij Val;75;in;55.7292228966;37.6115408384;720;0;0;0;0;0;0;0
 17821;ул. Крымский Вал;ul. Krymskij Val;ul. Krymskij Val;75;out;55.7293125017;37.6115497989;740;0;0;0;0;0;0;0
-17822;МИСиС;MISiS;MISiS;75;both;55.729419;37.6113577;750;7;0;0;0;0;0;10
+17822;МИСиС;MISiS;MISiS;75;both;55.729419;37.6113577;750;7;0;0;0;0;1000;10
 17830;ул. Большая Якиманка;ul. Bol'shaja Jakimanka;ul. Bol'shaja Jakimanka;98;in;55.7312930478;37.6128503697;720;0;0;0;0;0;0;0
 17831;ул. Большая Якиманка;ul. Bol'shaja Jakimanka;ul. Bol'shaja Jakimanka;98;out;55.7311765237;37.6128503697;730;0;0;0;0;0;0;0
 17840;К области, к троллейбусам по улице Народного Ополчения на юг;K oblasti, k trollejbusam po ulice Narodnogo Opolchenija na jug;K oblasti, k trollejbusam po ulice Narodnogo Opolchenija na jug;124;both;55.7939584062;37.4923188399;740;60;25;0;0;310;750;17
@@ -749,8 +752,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 18311;Малая Филевская ул. (запад);Malaja Filevskaja ul. (zapad);Malaja Filevskaja ul. (zapad);63;in;55.7359567218;37.466773265;550;28;28;0;0;0;0;0
 18320;Малая Филевская ул. (восток);Malaja Filevskaja ul. (vostok);Malaja Filevskaja ul. (vostok);63;out;55.7360226003;37.4675138303;550;28;28;0;0;0;0;0
 18321;Малая Филевская ул. (восток);Malaja Filevskaja ul. (vostok);Malaja Filevskaja ul. (vostok);63;in;55.7360748488;37.4674888419;550;28;28;0;0;0;0;0
-18330;Южный выход;Juzhnyj vyhod;Juzhnyj vyhod;128;out;55.8617397557;37.4362503847;710;3;0;0;0;0;0;17
-18331;Южный вход;Juzhnyj vhod;Juzhnyj vhod;128;in;55.8617178694;37.436028395;710;47;44;0;0;0;0;17
+18330;Южный выход;Juzhnyj vyhod;Juzhnyj vyhod;128;out;55.8617397557;37.4362503847;710;3;0;0;0;0;1000;17
+18331;Южный вход;Juzhnyj vhod;Juzhnyj vhod;128;in;55.8617178694;37.436028395;710;47;44;0;0;0;1000;17
 18340;Северный выход;Severnyj vyhod;Severnyj vyhod;128;out;55.8595323643;37.4370289123;710;3;3;0;0;0;0;0
 18341;Северный вход;Severnyj vhod;Severnyj vhod;128;in;55.8594854651;37.4368225556;710;47;47;0;0;0;0;0
 18350;К пл. Серп и Молот, Золоторожскому валу;K pl. Serp i Molot, Zolotorozhskomu valu;K pl. Serp i Molot, Zolotorozhskomu valu;83;both;55.7473206031;37.6808201353;720;38;38;0;0;0;0;0
@@ -849,9 +852,9 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 18832;К памятнику Пушкину, южный вход в сквере;K pamjatniku Pushkinu, juzhnyj vhod v skvere;K pamjatniku Pushkinu, juzhnyj vhod v skvere;33;both;55.7650831848;37.6054280256;720;51;51;0;0;0;0;0
 18833;К памятнику Пушкину, южный вход в сквере;K pamjatniku Pushkinu, juzhnyj vhod v skvere;K pamjatniku Pushkinu, juzhnyj vhod v skvere;119;both;55.7650831848;37.6054280256;720;51;51;0;0;0;0;0
 18840;Митинская ул. (восток);Mitinskaja ul. (vostok);Mitinskaja ul. (vostok);212;both;55.8544891739;37.3543182246;800;75;29;1;29;400;900;21
-18850;Митинская ул. (восток);Mitinskaja ul. (vostok);Mitinskaja ul. (vostok);212;both;55.8549780472;37.3546682821;800;69;29;2;61;0;0;5
-18860;Митинская ул. (запад);Mitinskaja ul. (zapad);Mitinskaja ul. (zapad);212;both;55.8552617145;37.3529662785;800;70;63;2;63;0;0;5
-18861;Митинская ул. (запад);Mitinskaja ul. (zapad);Mitinskaja ul. (zapad);212;both;55.8548694087;37.3527791788;800;73;29;2;66;0;0;5
+18850;Митинская ул. (восток);Mitinskaja ul. (vostok);Mitinskaja ul. (vostok);212;both;55.8549780472;37.3546682821;800;69;29;2;61;0;1000;5
+18860;Митинская ул. (запад);Mitinskaja ul. (zapad);Mitinskaja ul. (zapad);212;both;55.8552617145;37.3529662785;800;70;63;2;63;0;1000;5
+18861;Митинская ул. (запад);Mitinskaja ul. (zapad);Mitinskaja ul. (zapad);212;both;55.8548694087;37.3527791788;800;73;29;2;66;0;1000;5
 18870;Муравская ул., Пятницкое шоссе;Muravskaja ul., Pjatnickoe shosse;Muravskaja ul., Pjatnickoe shosse;212;in;55.8571462611;37.3551028388;800;0;0;0;0;0;0;0
 18871;Муравская ул., Пятницкое шоссе;Muravskaja ul., Pjatnickoe shosse;Muravskaja ul., Pjatnickoe shosse;212;out;55.8571462611;37.3551028388;850;0;0;0;0;0;0;0
 18880;В область;V oblast';V oblast';41;in;55.8557081836;37.4756698337;720;0;0;0;0;0;0;0
@@ -937,14 +940,14 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 19255;Сретенский бульвар, проспект ак. Сахарова, здание Lukoil;Sretenskij bul'var, prospekt ak. Saharova, zdanie Lukoil;Sretenskij bul'var, prospekt ak. Saharova, zdanie Lukoil;219;in;55.766302883;37.6362626148;790;49;31;0;0;420;870;20
 19256;Сретенский бульвар, проспект ак. Сахарова, здание Lukoil;Sretenskij bul'var, prospekt ak. Saharova, zdanie Lukoil;Sretenskij bul'var, prospekt ak. Saharova, zdanie Lukoil;95;out;55.766302883;37.6362626148;850;31;31;0;0;0;0;0
 19257;Сретенский бульвар, проспект ак. Сахарова, здание Lukoil;Sretenskij bul'var, prospekt ak. Saharova, zdanie Lukoil;Sretenskij bul'var, prospekt ak. Saharova, zdanie Lukoil;95;in;55.766302883;37.6362626148;790;53;53;0;0;0;0;0
-19260;Строгинский бульвар (запад);Stroginskij bul'var (zapad);Stroginskij bul'var (zapad);211;both;55.8036358091;37.4013830402;800;42;35;0;0;0;0;5
-19261;Строгинский бульвар (запад);Stroginskij bul'var (zapad);Stroginskij bul'var (zapad);211;both;55.8038234711;37.4004916456;800;44;0;0;0;0;0;5
+19260;Строгинский бульвар (запад);Stroginskij bul'var (zapad);Stroginskij bul'var (zapad);211;both;55.8036358091;37.4013830402;800;42;35;0;0;0;1000;5
+19261;Строгинский бульвар (запад);Stroginskij bul'var (zapad);Stroginskij bul'var (zapad);211;both;55.8038234711;37.4004916456;800;44;0;0;0;0;1000;5
 19270;Строгинский бульвар (запад);Stroginskij bul'var (zapad);Stroginskij bul'var (zapad);211;both;55.8043523369;37.4018394001;800;38;38;0;0;0;0;0
-19271;Строгинский бульвар (запад);Stroginskij bul'var (zapad);Stroginskij bul'var (zapad);211;both;55.8045399989;37.4009437405;800;37;1;0;0;0;0;5
-19280;Строгинский бульвар (восток);Stroginskij bul'var (vostok);Stroginskij bul'var (vostok);211;both;55.8030259075;37.4042491512;800;76;69;1;30;0;0;5
-19281;Строгинский бульвар (восток);Stroginskij bul'var (vostok);Stroginskij bul'var (vostok);211;both;55.8028382455;37.4051405458;800;75;31;1;30;0;0;5
+19271;Строгинский бульвар (запад);Stroginskij bul'var (zapad);Stroginskij bul'var (zapad);211;both;55.8045399989;37.4009437405;800;37;1;0;0;0;1000;5
+19280;Строгинский бульвар (восток);Stroginskij bul'var (vostok);Stroginskij bul'var (vostok);211;both;55.8030259075;37.4042491512;800;76;69;1;30;0;1000;5
+19281;Строгинский бульвар (восток);Stroginskij bul'var (vostok);Stroginskij bul'var (vostok);211;both;55.8028382455;37.4051405458;800;75;31;1;30;0;1000;5
 19290;Строгинский бульвар (восток);Stroginskij bul'var (vostok);Stroginskij bul'var (vostok);211;both;55.803716845;37.4047268364;800;67;67;1;30;0;0;0
-19291;Строгинский бульвар (восток);Stroginskij bul'var (vostok);Stroginskij bul'var (vostok);211;both;55.8035206529;37.4056310261;800;66;31;1;30;0;0;5
+19291;Строгинский бульвар (восток);Stroginskij bul'var (vostok);Stroginskij bul'var (vostok);211;both;55.8035206529;37.4056310261;800;66;31;1;30;0;1000;5
 19300;Киевская улица;Kievskaja ulica;Kievskaja ulica;58;in;55.7388971564;37.5483342554;730;23;23;0;0;0;0;0
 19301;Киевская улица;Kievskaja ulica;Kievskaja ulica;58;out;55.7388652216;37.5482327484;570;23;23;0;0;0;0;0
 19302;Киевская улица;Kievskaja ulica;Kievskaja ulica;58;out;55.7389290912;37.5484836646;550;23;23;0;0;0;0;0
@@ -1049,7 +1052,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 19722;К области, выход к автобусам в Строгино;K oblasti, vyhod k avtobusam v Strogino;K oblasti, vyhod k avtobusam v Strogino;126;both;55.8274153583;37.4369279991;740;17;0;0;0;360;590;17
 19730;К области, к Тушинской улцице;K oblasti, k Tushinskoj ulcice;K oblasti, k Tushinskoj ulcice;126;both;55.8281606769;37.438136013;740;32;0;0;0;330;670;17
 19732;К области, выход на платформу пригородных поездов;K oblasti, vyhod na platformu prigorodnyh poezdov;K oblasti, vyhod na platformu prigorodnyh poezdov;126;both;55.8278792814;37.4380484678;740;41;41;0;0;0;0;0
-19740;Главный вход;Glavnyj vhod;Glavnyj vhod;194;both;55.5421835486;37.5320875809;800;3;0;1;0;0;0;1
+19740;Главный вход;Glavnyj vhod;Glavnyj vhod;194;both;55.5421835486;37.5320875809;800;3;0;1;0;0;1000;1
 19750;К области, к Большой Декабрьской улице;K oblasti, k Bol'shoj Dekabr'skoj ulice;K oblasti, k Bol'shoj Dekabr'skoj ulice;121;both;55.7653815343;37.5604636964;720;60;36;0;0;310;760;25
 19760;К области на улицу 1905 года;K oblasti na ulicu 1905 goda;K oblasti na ulicu 1905 goda;121;both;55.7656879427;37.5601885542;720;58;0;0;0;310;760;25
 19770;К области, на автобусы по Варшавскому шоссе на юг;K oblasti, na avtobusy po Varshavskomu shosse na jug;K oblasti, na avtobusy po Varshavskomu shosse na jug;162;both;55.594279564;37.6010866122;740;37;1;0;0;420;860;23
@@ -1112,11 +1115,11 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 20111;"Стадион ""Локомотив"", Большая Черкизовская улица, Окружной проезд";"Stadion ""Lokomotiv"", Bol'shaja Cherkizovskaja ulica, Okruzhnoj proezd";"Stadion ""Lokomotiv"", Bol'shaja Cherkizovskaja ulica, Okruzhnoj proezd";2;out;55.8027413765;37.7452105176;540;3;3;0;0;0;0;0
 20120;К центру, выход из перехода к ТЦ Свод;K centru, vyhod iz perehoda k TC Svod;K centru, vyhod iz perehoda k TC Svod;148;both;55.640245036;37.6059801258;740;27;0;0;0;410;580;20
 20121;К области;K oblasti;K oblasti;148;out;55.6397760435;37.6078998685;740;4;4;0;0;0;0;0
-20122;К центру, высадка из трамваев;K centru, vysadka iz tramvaev;K centru, vysadka iz tramvaev;148;both;55.6403517898;37.6057325289;740;30;27;0;0;0;0;20
-20123;К области;K oblasti;K oblasti;148;both;55.6404263798;37.6055611592;740;31;28;0;0;0;0;20
+20122;К центру, высадка из трамваев;K centru, vysadka iz tramvaev;K centru, vysadka iz tramvaev;148;both;55.6403517898;37.6057325289;740;30;27;0;0;0;1000;20
+20123;К области;K oblasti;K oblasti;148;both;55.6404263798;37.6055611592;740;31;28;0;0;0;1000;20
 20124;К центру, на юго-запад, к району Чертаново-Северное;K centru, na jugo-zapad, k rajonu Chertanovo-Severnoe;K centru, na jugo-zapad, k rajonu Chertanovo-Severnoe;148;both;55.640689374;37.6050762464;740;33;0;0;0;360;880;20
-20125;К центру, посадка на трамваи;K centru, posadka na tramvai;K centru, posadka na tramvai;148;in;55.6398823485;37.6080499461;740;4;0;0;0;0;0;17
-20127;К центру, на юго-запад, к району Чертаново-Северное;K centru, na jugo-zapad, k rajonu Chertanovo-Severnoe;K centru, na jugo-zapad, k rajonu Chertanovo-Severnoe;148;both;55.6410261466;37.604728616;740;4;1;0;0;0;0;20
+20125;К центру, посадка на трамваи;K centru, posadka na tramvai;K centru, posadka na tramvai;148;in;55.6398823485;37.6080499461;740;4;0;0;0;0;1000;17
+20127;К центру, на юго-запад, к району Чертаново-Северное;K centru, na jugo-zapad, k rajonu Chertanovo-Severnoe;K centru, na jugo-zapad, k rajonu Chertanovo-Severnoe;148;both;55.6410261466;37.604728616;740;4;1;0;0;0;1000;20
 20128;К центру, на травайное кольцо;K centru, na travajnoe kol'co;K centru, na travajnoe kol'co;148;both;55.6418591148;37.6052816298;740;53;0;0;0;410;710;21
 20140;На Страстной бульвар со стороны области, с западной стороны, к кинотеатру Россия;Na Strastnoj bul'var so storony oblasti, s zapadnoj storony, k kinoteatru Rossija;Na Strastnoj bul'var so storony oblasti, s zapadnoj storony, k kinoteatru Rossija;119;both;55.7658531402;37.607837241;720;62;62;0;0;0;0;0
 20141;На Страстной бульвар со стороны области, с западной стороны, к кинотеатру Россия;Na Strastnoj bul'var so storony oblasti, s zapadnoj storony, k kinoteatru Rossija;Na Strastnoj bul'var so storony oblasti, s zapadnoj storony, k kinoteatru Rossija;139;both;55.7658531402;37.607837241;720;62;62;0;0;0;0;0
@@ -1186,7 +1189,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 20530;Поликлиника №134;Poliklinika №134;Poliklinika №134;108;both;55.6062051601;37.5316940249;740;26;0;0;0;310;750;20
 20540;ул.Ясногорская (юг);ul.Jasnogorskaja (jug);ul.Jasnogorskaja (jug);108;both;55.6056373274;37.53429912;740;52;4;0;0;400;750;19
 20550;ул.Ясногорская (север);ul.Jasnogorskaja (sever);ul.Jasnogorskaja (sever);108;both;55.6062408835;37.5345148239;740;58;4;0;0;400;750;19
-20590;К центру;K centru;K centru;192;both;55.5484497549;37.5561342109;900;0;0;1;0;0;0;2
+20590;К центру;K centru;K centru;192;both;55.5484497549;37.5561342109;900;0;0;1;0;0;1000;2
 20600;В здании издательства Известия;V zdanii izdatel'stva Izvestija;V zdanii izdatel'stva Izvestija;33;both;55.7659975795;37.6043261504;720;0;0;0;0;0;0;0
 20601;В здании издательства Известия;V zdanii izdatel'stva Izvestija;V zdanii izdatel'stva Izvestija;119;both;55.7659975795;37.6043261504;720;0;0;0;0;0;0;0
 20610;Сапожковая площадь, Манеж;Sapozhkovaja ploshhad', Manezh;Sapozhkovaja ploshhad', Manezh;54;in;55.7522388783698;37.6117353194541;730;81;45;0;0;350;710;26
@@ -1195,7 +1198,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 20613;Сапожковая площадь, Манеж;Sapozhkovaja ploshhad', Manezh;Sapozhkovaja ploshhad', Manezh;44;out;55.7522388783698;37.6117353194541;550;69;33;0;0;350;710;26
 20614;Сапожковая площадь, Манеж;Sapozhkovaja ploshhad', Manezh;Sapozhkovaja ploshhad', Manezh;11;in;55.7522388783698;37.6117353194541;730;91;55;0;0;350;710;26
 20615;Сапожковая площадь, Манеж;Sapozhkovaja ploshhad', Manezh;Sapozhkovaja ploshhad', Manezh;11;out;55.7522388783698;37.6117353194541;550;94;58;0;0;350;710;26
-20620;К Бунинской аллее;K Buninskoj allee;K Buninskoj allee;195;both;55.537717811;37.5149447949;800;3;0;1;0;0;0;1
+20620;К Бунинской аллее;K Buninskoj allee;K Buninskoj allee;195;both;55.537717811;37.5149447949;800;3;0;1;0;0;1000;1
 20630;Жулебинская ул., север;Zhulebinskaja ul., sever;Zhulebinskaja ul., sever;228;both;55.7019992764;37.8501857433;800;65;36;0;0;440;1140;19
 20640;Жулебинская ул., юг;Zhulebinskaja ul., jug;Zhulebinskaja ul., jug;228;both;55.7016833105;37.8508204107;800;65;65;0;0;0;0;0
 20650;Макдональдс;Makdonal'ds;Makdonal'ds;228;both;55.7005904243;37.8539773335;800;70;70;0;0;0;0;0
