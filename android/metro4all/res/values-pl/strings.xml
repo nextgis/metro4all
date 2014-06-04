@@ -28,8 +28,8 @@
 	<string name="sNo">No</string>	
 	<string name="sOk">Ok</string>
 	<string name="sCancel">Anuluj</string>
-	<string name="sQuestion">Question</string>
-	<string name="sAreYouSure">Are you sure?</string>
+	<string name="sQuestion">Aktualizuj bazę danych</string>
+	<string name="sAreYouSure">Czy na pewno?</string>
 	<string name="sSearch">Pokaż trasę</string>
 	<string name="sFromStation">Stacja początkowa</string>
 	<string name="sToStation">Stacja końcowa</string>
