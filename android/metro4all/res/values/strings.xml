@@ -25,7 +25,12 @@
 	<string name="sUpdateAvaliable">Data updates is available</string>
 	<string name="sDownload">Download</string>
 	<string name="sDelete">Delete</string>
+	<string name="sYes">Yes</string>
+	<string name="sNo">No</string>	
+	<string name="sOk">Ok</string>
 	<string name="sCancel">Cancel</string>
+	<string name="sQuestion">Question</string>
+	<string name="sAreYouSure">Are you sure?</string>
 	<string name="sSearch">Search</string>
 	<string name="sFromStation">Departure</string>
 	<string name="sToStation">Arrival</string>
@@ -47,7 +52,6 @@
 	<string name="sCM">cm</string>
 	<string name="sKB">Kb</string>
 	<string name="sMB">Mb</string>
-	<string name="sNo">No</string>
 	<string name="sMinRailWidth">Min distance between wheels</string>
 	<string name="sMaxRailWidth">Max distance between wheels</string>
 	<string name="sMaxAngle">Max angle of ramps/rails</string>

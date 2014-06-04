@@ -25,7 +25,12 @@
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>
 	<string name="sDownload">Загрузить</string>
 	<string name="sDelete">Удалить</string>
+	<string name="sYes">Да</string>
+	<string name="sNo">Нет</string>	
+	<string name="sOk">Ok</string>	
 	<string name="sCancel">Отмена</string>
+	<string name="sQuestion">Вопрос</string>
+	<string name="sAreYouSure">Уверены?</string>
 	<string name="sSearch">Проложить маршрут</string>
 	<string name="sFromStation">Откуда</string>
 	<string name="sToStation">Куда</string>
@@ -47,7 +52,6 @@
 	<string name="sCM">см</string>
 	<string name="sKB">Кб</string>
 	<string name="sMB">Мб</string>
-	<string name="sNo">Нет</string>
 	<string name="sMinRailWidth">Мин. расстояние между колесами</string>
 	<string name="sMaxRailWidth">Макс. расстояние между колесами</string>
 	<string name="sMaxAngle">Угол наклона</string>
