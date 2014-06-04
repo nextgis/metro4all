@@ -29,7 +29,7 @@
 	<string name="sNo">Нет</string>	
 	<string name="sOk">Ok</string>	
 	<string name="sCancel">Отмена</string>
-	<string name="sQuestion">Вопрос</string>
+	<string name="sQuestion">Обновить все данные</string>
 	<string name="sAreYouSure">Уверены?</string>
 	<string name="sSearch">Проложить маршрут</string>
 	<string name="sFromStation">Откуда</string>
