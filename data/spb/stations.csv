@@ -29,6 +29,7 @@ id_station;id_line;id_node;name_ru;name_en;name_pl;lat;lon
 31;2;27;Сенная площадь;Sennaya ploschad;Sennaya ploschad;59.927028;30.320479
 32;2;28;Невский проспект;Nevsky prospekt;Nevsky prospekt;59.934585;30.327917
 33;2;29;Горьковская;Gorkovskaya;Gorkovskaya;59.956163;30.318737
+34;2;59;Петроградская;Petrogradskaya;Petrogradskaya;59.965689;30.312284
 35;2;30;Чёрная речка;Chernaya rechka;Chernaya rechka;59.985454;30.300865
 36;2;31;Пионерская;Pionerskaya;Pionerskaya;60.002518;30.296674
 37;2;32;Удельная;Udelnaya;Udelnaya;60.016713;30.315879

@@ -90,6 +90,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1387;Невский проспект-4;Nevskij prospekt-4;Nevskij prospekt-4;32;both;59.935023;30.330081;800;65;1;0;0;361;748;25
 1396;Горьковская-1;Gor'kovskaja-1;Gor'kovskaja-1;33;in;59.956336;30.318844;670;10;0;0;0;0;1000;5
 1397;Горьковская-2;Gor'kovskaja-2;Gor'kovskaja-2;33;out;59.956162;30.319158;670;10;0;0;0;0;1000;5
+1399;Петроградская-1;Petrogradskaya-1;Petrogradskaya-1;33;both;59.966272;30.311437;670;10;0;0;0;0;1000;5
 1420;Чёрная речка-1;Chjornaja rechka-1;Chjornaja rechka-1;35;in;59.985599;30.300794;730;27;0;0;0;358;750;22
 1421;Чёрная речка-2;Chjornaja rechka-2;Chjornaja rechka-2;35;out;59.985432;30.301169;730;27;0;0;0;358;750;22
 1432;Пионерская-1;Pionerskaja-1;Pionerskaja-1;36;in;60.002654;30.296690;730;26;0;0;0;360;747;90
