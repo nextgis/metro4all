@@ -34,15 +34,17 @@ public class StationItem implements Parcelable {
 	private int nId;
 	private int nLine;
 	private int nNode;
+	private int nOrder;
 	private Map<Integer, PortalItem> maoPortals;
 	
-	public StationItem(int nId, String sName, int nLine, int nNode, int nType) {
+	public StationItem(int nId, String sName, int nLine, int nNode, int nType, int nOrder) {
 		this.maoPortals = new HashMap<Integer, PortalItem>();
 		this.sName = sName;
 		this.nId = nId;
 		this.nType = nType;
 		this.nLine = nLine;
 		this.nNode = nNode;
+		this.nOrder = nOrder;
 	}		
 	
 	public String GetName(){
@@ -65,6 +67,10 @@ public class StationItem implements Parcelable {
 		return nNode;
 	}
 	
+	public int GetOrder(){
+		return nOrder;
+	}	
+	
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -76,6 +82,7 @@ public class StationItem implements Parcelable {
 		out.writeInt(nLine);
 		out.writeInt(nNode);
 		out.writeInt(nType);
+		out.writeInt(nOrder);
 		//
 		out.writeInt(maoPortals.size());
 		for(PortalItem it : maoPortals.values()){
@@ -100,6 +107,7 @@ public class StationItem implements Parcelable {
 		nLine = in.readInt();
 		nNode = in.readInt();
 		nType = in.readInt();
+		nOrder = in.readInt();
 		
 		maoPortals = new HashMap<Integer, PortalItem>();
 		int nSize = in.readInt();

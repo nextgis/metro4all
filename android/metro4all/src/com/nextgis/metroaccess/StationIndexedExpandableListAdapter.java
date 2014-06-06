@@ -60,7 +60,7 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 			if (!mAlphaIndexer.containsKey(ch)){
 				mAlphaIndexer.put(ch, x);
 
-				StationItem sit = new StationItem(-1, ch, -1, -1, -1);
+				StationItem sit = new StationItem(-1, ch, -1, -1, -1, -1);
 				mStationList.add(x, sit);
 
 			}     

@@ -318,6 +318,7 @@ public class MAGraph {
 	protected boolean LoadStations(){
 		m_oGraph.clear();
 		m_moStations.clear();
+		int nCounter = 0;
 		
 		String sFileName = "stations_" + m_sLocale + ".csv";	
     	try {
@@ -347,7 +348,7 @@ public class MAGraph {
 					 int nID = Integer.parseInt(RowData[0]);
 	 					 
 					 m_oGraph.add_vertex(new Vertex(nID));
-					 StationItem st = new StationItem(nID, sName, nLine, nNode, 0);
+					 StationItem st = new StationItem(nID, sName, nLine, nNode, 0, nCounter++);
 	 				     
 				     m_moStations.put(nID, st);
 		        }

@@ -56,7 +56,7 @@ public class LinesExpandableListAdapter extends StationIndexedExpandableListAdap
 				mDigitIndexer.put(ch, x);
 
 				String sName = ""+ ch + ". " + momLines.get(ch);
-				StationItem sit = new StationItem(-1, sName, -1, -1, -1);
+				StationItem sit = new StationItem(-1, sName, -1, -1, -1, -1);
 				mStationList.add(x, sit);
 			}     
 		}  
@@ -86,7 +86,7 @@ public class LinesExpandableListAdapter extends StationIndexedExpandableListAdap
 	{
 	    public int compare(StationItem left, StationItem right) {
 	    	if(left.GetLine() == right.GetLine())
-	    		return 0;//left.GetName().compareTo( right.GetName() );
+	    		return left.GetOrder()  - right.GetOrder();//left.GetName().compareTo( right.GetName() );
 	    	else {
 	    		return left.GetLine() - right.GetLine();
 	    	}
