@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">Metro4All</string>
-    <string name="sHomepage">http://nextgis.ru</string>
-    <string name="sDetailpage">http://metro4all.ru</string>
+    <string name="sHomepage">http://nextgis.org</string>
+    <string name="sDetailpage">http://metro4all.org</string>
     
     <string name="about_app">This application calculates subway routes and shows you information about the barriers on the way. \n\nMore info at:</string>
 
