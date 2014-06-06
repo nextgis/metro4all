@@ -32,8 +32,8 @@
 	<string name="sQuestion">Update all data</string>
 	<string name="sAreYouSure">Are you sure?</string>
 	<string name="sSearch">Search</string>
-	<string name="sFromStation">Departure</string>
-	<string name="sToStation">Arrival</string>
+	<string name="sFromStation">From</string>
+	<string name="sToStation">To</string>
 	<string name="sRoute">Option</string>
 	<string name="sSchema">Layout</string>
 	<string name="sStationName">Name</string>
