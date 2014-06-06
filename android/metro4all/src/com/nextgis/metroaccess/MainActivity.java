@@ -271,8 +271,7 @@ public class MainActivity extends SherlockActivity{
 
 	protected void onSettings() {
         Intent intentSet = new Intent(this, PreferencesActivity.class);
-        intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        
+        //intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);        
         //Bundle bundle = new Bundle();
         //bundle.putParcelable(BUNDLE_METAMAP_KEY, m_oGraph);
         //intentSet.putExtras(bundle);            
@@ -609,16 +608,17 @@ public class MainActivity extends SherlockActivity{
 	
 	@Override
 	  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (data == null) {
+	    /*if (resultCode != RESULT_OK) {
 	    	return;
-	    }
+	    }*/
 	    
-	    if (resultCode != RESULT_OK) {
-	    	return;
-	    }
-	    
-    	int nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
-    	int nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+    	int nStationId = -1;
+    	int nPortalId = -1;
+    	
+    	if(data != null){
+    		nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
+    		nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+    	}
     	
     	
 		final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
@@ -646,7 +646,12 @@ public class MainActivity extends SherlockActivity{
 
 	    edit.commit();
 	    
-	    UpdateUI();
+	    if(m_bInterfaceLoaded){
+	    	UpdateUI();	    
+    	}
+	    else{
+	    	LoadInterface();
+    	}
 	}	
 	
 	protected void UpdateUI(){

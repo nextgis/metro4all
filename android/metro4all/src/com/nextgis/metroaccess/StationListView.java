@@ -168,7 +168,8 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	    		StationItem entry = mmoStations.get(nId);
 				RouteItem oSta = new RouteItem(entry.GetId(), entry.GetName(), entry.GetLine(), entry.GetNode(), nType);
 				if(i == list.size() - 1){
-					routeList.add(FillBarriersForExit(oSta, mnArrivalPortalId));
+					//routeList.add(FillBarriersForExit(oSta, mnArrivalPortalId));
+					routeList.add(FillBarriers(oSta, entry.GetId(), -1));
 				}
 				else{
 					routeList.add(FillBarriers(oSta, entry.GetId(), list.get(i + 1)));
@@ -177,9 +178,10 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		    		
 		    //add exit
 		    StationItem sit = mmoStations.get(list.get(list.size() - 1));
-			RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), sit.GetLine(), -1, 7);
-			routeList.add(oExit);
-			
+			RouteItem oExit = new RouteItem(sit.GetId(), getString(R.string.sExitName), sit.GetLine(), -1, 7);
+			routeList.add(FillBarriersForExit(oExit, mnArrivalPortalId));
+			//routeList.add(oExit);
+		
 			int[] naBarriers = {0,0,0,0,0,0,0,0};
 			for(RouteItem rit : routeList){
 				List<BarrierItem> bits = rit.GetProblems();
@@ -264,9 +266,8 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			if(pit != null){
 				FillWithData(pit.GetDetailes(), it, false);		
 			}
-			it.SetLine(sit.GetLine());
+			//it.SetLine(sit.GetLine());
 		}
-		
 		return it;
 	}
 

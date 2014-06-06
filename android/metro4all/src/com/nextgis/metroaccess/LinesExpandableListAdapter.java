@@ -86,7 +86,7 @@ public class LinesExpandableListAdapter extends StationIndexedExpandableListAdap
 	{
 	    public int compare(StationItem left, StationItem right) {
 	    	if(left.GetLine() == right.GetLine())
-	    		return left.GetName().compareTo( right.GetName() );
+	    		return 0;//left.GetName().compareTo( right.GetName() );
 	    	else {
 	    		return left.GetLine() - right.GetLine();
 	    	}

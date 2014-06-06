@@ -19,6 +19,10 @@
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 package com.nextgis.metroaccess.data;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import com.nextgis.metroaccess.R;
 
 import android.content.res.Resources;
@@ -29,15 +33,15 @@ public class GraphDataItem implements Parcelable {
 	
 	private int m_nVersion;
 	private String m_sName;
-	private String m_sLocName;
+	private Map<String, String> m_sLocNames;
 	private boolean m_bDirected;
 	private int m_nSizeKb;
 	private String m_sPath;
 	private String m_sKb, m_sMb;
 	
-	public GraphDataItem(int nVersion, String sName, String sLocName, String sPath, int nSizeKb, boolean bDirected, String sKb, String sMb) {
+	public GraphDataItem(int nVersion, String sName, Map<String, String> sLocNames, String sPath, int nSizeKb, boolean bDirected, String sKb, String sMb) {
 		this.m_sName = sName;
-		this.m_sLocName = sLocName;
+		this.m_sLocNames = sLocNames;
 		this.m_nVersion = nVersion;
 		this.m_bDirected = bDirected;
 		this.m_nSizeKb = nSizeKb;
@@ -55,7 +59,11 @@ public class GraphDataItem implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeString(m_sName);
-		out.writeString(m_sLocName);
+		out.writeInt(m_sLocNames.size());
+		for(String key : m_sLocNames.keySet()){
+			out.writeString(key);
+			out.writeString(m_sLocNames.get(key));
+		}
 		out.writeInt(m_nVersion);
 		out.writeInt(m_nSizeKb);
 		out.writeInt(m_bDirected == true ? 1 : 0);
@@ -69,8 +77,16 @@ public class GraphDataItem implements Parcelable {
 	}
 	
 	public String GetLocaleName(){
-		return m_sLocName;
+		String sLoc = Locale.getDefault().getLanguage();
+		if(m_sLocNames.containsKey("name_" + sLoc)){
+			return m_sLocNames.get("name_" + sLoc);
+		}
+		return m_sName;
 	}
+	
+	public Map<String,String> GetLocaleNames(){
+		return m_sLocNames;
+	}	
 	
 	public int GetVersion(){
 		return m_nVersion;
@@ -91,7 +107,7 @@ public class GraphDataItem implements Parcelable {
 			nSize = m_nSizeKb;
 			sValSize = m_sKb;
 		}
-	    String sOutput = m_sLocName + " (" + nSize + " ";
+	    String sOutput = GetLocaleName() + " (" + nSize + " ";
 	    sOutput += sValSize;
 	    sOutput += ")";
 	    
@@ -110,8 +126,16 @@ public class GraphDataItem implements Parcelable {
 	};
 	
 	private GraphDataItem(Parcel in) {
+		
+		m_sLocNames = new HashMap<String, String>();
+		
 		m_sName = in.readString();
-		m_sLocName = in.readString();
+		int size = in.readInt();
+		for(int i = 0; i < size; i++){
+			String key = in.readString();
+			String value = in.readString();
+			m_sLocNames.put(key,value);
+		}		  
 		m_nVersion = in.readInt();
 		m_nSizeKb = in.readInt();
 		m_bDirected = in.readInt() == 1 ? true : false;

@@ -155,18 +155,34 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    checkUpd.setSummary(R.string.sPrefUpdDataSummary);
 	    checkUpd.setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	public boolean onPreferenceClick(Preference preference) {
-        		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);		
-        		String sUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.GetDownloadURL());
         		
-        		m_asDownloadData.clear();
-        		
-        		MAGraph oGraph = MainActivity.GetGraph();
-        		
-        		for(GraphDataItem oItem : oGraph.GetRouteMetadata().values()){
-        			m_asDownloadData.add(new DownloadData(PreferencesActivity.this, oItem, sUrl + oItem.GetPath() + ".zip", m_oGetJSONHandler));
-        		}
+        		AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
+        		builder.setMessage(R.string.sAreYouSure)
+        	       	   .setTitle(R.string.sQuestion)
+        	       	   .setPositiveButton(R.string.sYes, new DialogInterface.OnClickListener() {
+        	               public void onClick(DialogInterface dialog, int id) {
+        	           		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);		
+        	        		String sUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.GetDownloadURL());
+        	        		
+        	        		m_asDownloadData.clear();
+        	        		
+        	        		MAGraph oGraph = MainActivity.GetGraph();
+        	        		
+        	        		for(GraphDataItem oItem : oGraph.GetRouteMetadata().values()){
+        	        			m_asDownloadData.add(new DownloadData(PreferencesActivity.this, oItem, sUrl + oItem.GetPath() + ".zip", m_oGetJSONHandler));
+        	        		}
 
-        		OnDownloadData();
+        	        		OnDownloadData();
+        	               }
+        	           })
+        	           .setNegativeButton(R.string.sNo, new DialogInterface.OnClickListener() {
+        	               public void onClick(DialogInterface dialog, int id) {
+        	                   // User cancelled the dialog
+        	               }
+        	           });
+
+        	    builder.create();
+        		builder.show();
         		
 				return true;
         	}

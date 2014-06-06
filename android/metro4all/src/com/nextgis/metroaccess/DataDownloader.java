@@ -185,35 +185,45 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		String filePath = params[0];
     		File archive = new File(filePath);
     		try {
-    			DeleteRecursive(new File(msPath));
     			ZipFile zipfile = new ZipFile(archive);
-    			for (Enumeration<? extends ZipEntry> e = zipfile.entries(); e.hasMoreElements();) {
-    				ZipEntry entry = (ZipEntry) e.nextElement();
-    				unzipEntry(zipfile, entry, msPath);
-    			}
-    			zipfile.close();
-    			archive.delete();
-    		
-    			JSONObject oJSONRoot = new JSONObject();
-
-            	oJSONRoot.put("name", m_oItem.GetName());
-				oJSONRoot.put("name_" + Locale.getDefault().getLanguage(), m_oItem.GetLocaleName());
-				oJSONRoot.put("ver", m_oItem.GetVersion());
-				oJSONRoot.put("directed", m_oItem.GetDirected());            
-            
-	            String sJSON = oJSONRoot.toString();
-	            File file = new File(msPath, MainActivity.GetMetaFileName());
-	            if(MainActivity.writeToFile(file, sJSON)){
-	            	//store data
-	            	//create sqlite db
-	            	//Creating and saving the graph
-		            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
-	            } 
-	            else{
-		            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
-	                bundle.putString(MainActivity.BUNDLE_MSG_KEY, "write failed");
+    			if(zipfile.size() > 0){
+	    			DeleteRecursive(new File(msPath));
+	    			for (Enumeration<? extends ZipEntry> e = zipfile.entries(); e.hasMoreElements();) {
+	    				ZipEntry entry = (ZipEntry) e.nextElement();
+	    				unzipEntry(zipfile, entry, msPath);
+	    			}
+	    			zipfile.close();
+	    			archive.delete();
+	    		
+	    			JSONObject oJSONRoot = new JSONObject();
+	
+	            	oJSONRoot.put("name", m_oItem.GetName());
+	            	
+	            	for(String key : m_oItem.GetLocaleNames().keySet()){
+	            		oJSONRoot.put(key, m_oItem.GetLocaleNames().get(key));
+	        		}
+					//oJSONRoot.put("name_" + Locale.getDefault().getLanguage(), m_oItem.GetLocaleName());
+					oJSONRoot.put("ver", m_oItem.GetVersion());
+					oJSONRoot.put("directed", m_oItem.GetDirected());            
+	            
+		            String sJSON = oJSONRoot.toString();
+		            File file = new File(msPath, MainActivity.GetMetaFileName());
+		            if(MainActivity.writeToFile(file, sJSON)){
+		            	//store data
+		            	//create sqlite db
+		            	//Creating and saving the graph
+			            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
+		            } 
+		            else{
+			            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
+		                bundle.putString(MainActivity.BUNDLE_MSG_KEY, "write failed");
 	            }
-    		
+	
+    			}
+    			else{
+		            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
+	                bundle.putString(MainActivity.BUNDLE_MSG_KEY, "zip file is broken");
+    			}    		
 			} 
     		catch (JSONException e) {
 				e.printStackTrace();
@@ -221,6 +231,11 @@ public class DataDownloader extends AsyncTask<String, String, String> {
 				bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
 				return false;
 			}
+    		catch (IllegalStateException e){
+	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
+	            bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+				return false;   			
+    		}
 			catch (Exception e) {
 	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
 	            bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());

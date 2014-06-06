@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -438,22 +439,24 @@ public class MAGraph {
 		        	String sJSON = MainActivity.readFromFile(metafile);
 		        	JSONObject oJSON;
 					try {
-						oJSON = new JSONObject(sJSON);
-						String sLocaleKeyName = "name_" + Locale.getDefault().getLanguage();
-						String sName = oJSON.getString("name");
+						oJSON = new JSONObject(sJSON);						
 						
-						String sLocName;
-						if(oJSON.has(sLocaleKeyName))
-							sLocName = oJSON.getString(sLocaleKeyName);	
-						else
-							sLocName = sName;
+						Map<String,String> sLocaleNames = GetNames(oJSON);
+						String sName = "";
 						
-						if(sLocName.length() == 0)
-							sLocName = sName;
+						if(oJSON.has("name"))
+							sName = oJSON.getString("name");	
+						else if(oJSON.has("name_en"))
+							sName = oJSON.getString("name_en");
+							
+						if(sName.length() == 0 && sLocaleNames.size() == 0){
+							continue;
+						}						
+						
 						int nVer = oJSON.getInt("ver");	
 						boolean bDirected = oJSON.getBoolean("directed");
 			        	
-			        	GraphDataItem Item = new GraphDataItem(nVer, sName, sLocName, inFile.getName(), 0, bDirected, m_oContext.getString(R.string.sKB), m_oContext.getString(R.string.sMB));
+			        	GraphDataItem Item = new GraphDataItem(nVer, sName, sLocaleNames, inFile.getName(), 0, bDirected, m_oContext.getString(R.string.sKB), m_oContext.getString(R.string.sMB));
 			        	
 			        	m_moRouteMetadata.put(inFile.getName(), Item);	
 			        	
@@ -507,6 +510,8 @@ public class MAGraph {
 		if(m_sCurrentCity != null && m_sCurrentCity.equals(sCurrentCity))
 			return;
 		
+		if(!m_moRouteMetadata.containsKey(sCurrentCity))
+			return;
 		m_sCurrentCity = sCurrentCity;
 		
 		GraphDataItem item = m_moRouteMetadata.get(m_sCurrentCity);
@@ -565,17 +570,18 @@ public class MAGraph {
 
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				String sLocaleKeyName = "name_" + Locale.getDefault().getLanguage();
-				String sName = jsonObject.getString("name");
-				String sLocName;
+				Map<String,String> sLocaleNames = GetNames(jsonObject);
+				String sName = "";
 				
-				if(jsonObject.has(sLocaleKeyName))
-					sLocName = jsonObject.getString(sLocaleKeyName);	
-				else
-					sLocName = sName;
+				if(jsonObject.has("name"))
+					sName = jsonObject.getString("name");	
+				else if(jsonObject.has("name_en"))
+					sName = jsonObject.getString("name_en");
 					
-				if(sLocName.length() == 0)
-					sLocName = sName;
+				if(sName.length() == 0 && sLocaleNames.size() == 0){
+					continue;
+				}
+				
 				int nVer = jsonObject.getInt("ver");
 				boolean bDirected = jsonObject.getBoolean("directed");
 				int nSize = 0;
@@ -584,7 +590,7 @@ public class MAGraph {
 				}
 				String sPath = jsonObject.getString("path");
 						
-				GraphDataItem Item = new GraphDataItem(nVer, sName, sLocName, sPath, nSize, bDirected, m_oContext.getString(R.string.sKB), m_oContext.getString(R.string.sMB));
+				GraphDataItem Item = new GraphDataItem(nVer, sName, sLocaleNames, sPath, nSize, bDirected, m_oContext.getString(R.string.sKB), m_oContext.getString(R.string.sMB));
 				if(bOnlyNewer){
 					for (Map.Entry<String, GraphDataItem> entry : m_moRouteMetadata.entrySet()) {
 						if(Item.IsNewer(entry.getValue())){
@@ -641,5 +647,26 @@ public class MAGraph {
 	
 	public String GetCurrentCityName(){
 		return m_sCurrentCityName;
+	}
+	
+	protected Map<String,String> GetNames(JSONObject obj){
+		Map<String,String> ret = new HashMap<String,String>();
+    	try {
+		Iterator<?> keys = obj.keys();
+
+        while( keys.hasNext() ){
+            String key = (String)keys.next();
+            if( key.equals("name") || key.equals("name_en")){
+            	continue;
+            }
+            
+            if(key.startsWith("name_")){
+				ret.put(key, obj.getString(key));
+            }
+        }
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}		
+    	return ret;
 	}
 }
