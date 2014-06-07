@@ -85,7 +85,7 @@
 	<string name="sPrefDataPathTitle">Set download data URL</string>
 	<string name="sPrefUpdDataSummary">Click to update data</string>
 	<string name="sPrefUpdDataTitle">Update data</string>
-	<string name="sPrefChangeCityBasesTitle">Change databases</string>
+	<string name="sPrefChangeCityBasesTitle">Add/Remove city</string>
 	<string name="sPrefChangeCityBasesBtn">Change</string>
 	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
 	<string name="sPrefCity">City</string>
