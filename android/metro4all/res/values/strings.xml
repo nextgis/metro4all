@@ -88,7 +88,7 @@
 	<string name="sPrefChangeCityBasesTitle">Add/Remove city</string>
 	<string name="sPrefChangeCityBasesBtn">Change</string>
 	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
-	<string name="sPrefCity">City</string>
+	<string name="sPrefCity">Current city</string>
 	<string name="sPrefCitySummary">Choose city</string>
 	<string name="sPrefCityTitle">Choose city from the list</string>
 	<string name="sPrefCityLoc">Language</string>
