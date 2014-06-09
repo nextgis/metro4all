@@ -134,4 +134,8 @@ public class RouteItem implements Parcelable {
 	public void SetNode(int nNode) {
 		this.nNode = nNode;		
 	}
-}
+	
+
+	public void SetId(int nId) {
+		this.nId = nId;		
+	}}

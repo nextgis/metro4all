@@ -1,8 +1,30 @@
 id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
-30000;Социалистическая (пандус);Socialisticheskaja (pandus);Socialisticheskaja (pandus);1;both;55.85665;49.08416;800;28;28;0;0;0;0;4
+30280;Бутлерова;Butlerova;Butlerova;6;both;55.78705;49.12269;710;75;32;0;0;380;630;24
+30250;Островского;Ostrovskogo;Ostrovskogo;6;both;55.78729;49.12148;710;79;32;0;0;300;640;23
+30260;Гостиница Татарстан;Gostinica Tatarstan;Gostinica Tatarstan;6;both;55.78681;49.12226;710;77;32;0;0;680;630;23
+30270;Профсоюзная;Profsojuznaja;Profsojuznaja;6;both;55.78745;49.12186;710;78;32;0;0;380;650;23
+30330;Аметьево;Amet'evo;Amet'evo;8;both;55.76558;49.165;800;88;27;0;0;420;900;20
+30290;Петербургская;Peterburgskaja;Peterburgskaja;6;both;55.78518;49.12613;800;71;64;0;0;0;1000;5
+30340;Ж/Д платформа;Zh/D platforma;Zh/D platforma;8;both;55.76535;49.16482;800;45;27;0;0;0;1000;5
+30350;Ж/Д платформа (туннель);Zh/D platforma (tunnel');Zh/D platforma (tunnel');8;both;55.76529;49.1649;800;52;27;0;0;0;1000;5
+30360;Даурская;Daurskaja;Daurskaja;8;both;55.76497;49.16812;800;42;34;0;0;0;1000;5
+30370;Высотная;Vysotnaja;Vysotnaja;8;both;55.76476;49.16848;800;104;62;0;0;0;1000;5
+30380;Мавлютова;Mavljutova;Mavljutova;9;both;55.75969;49.19148;800;74;28;0;0;0;1000;5
+30410;Родины;Rodiny;Rodiny;9;both;55.76011;49.19228;810;76;28;0;0;0;1000;5
+30000;Социалистическая (пандус);Socialisticheskaja (pandus);Socialisticheskaja (pandus);1;both;55.85665;49.08416;800;28;28;0;0;0;1000;4
+30030;Лукина (пандус);Lukina (pandus);Lukina (pandus);1;both;55.85667;49.08535;800;28;28;0;0;0;1000;4
+30110;Привокзальная площадь;Privokzal'naja ploshhad';Privokzal'naja ploshhad';2;both;55.8413;49.08106;800;27;27;0;0;0;1000;4
+30170;Чистопольская;Chistopol'skaja;Chistopol'skaja;4;both;55.81786;49.09901;810;27;0;0;0;0;1000;4
+30180;Красносельская;Krasnosel'skaja;Krasnosel'skaja;4;both;55.81593;49.09857;810;0;0;1;0;0;1000;4
+30200;Солдатская;Soldatskaja;Soldatskaja;4;both;55.81612;49.09994;810;24;0;1;0;0;1000;4
+30220;Право-Булачная;Pravo-Bulachnaja;Pravo-Bulachnaja;5;both;55.79597;49.10601;800;24;0;0;0;0;1000;4
+30300;Театр Кукол;Teatr Kukol;Teatr Kukol;7;both;55.77775;49.14084;720;72;31;0;0;0;1000;4
+30310;Суконная;Sukonnaja;Sukonnaja;7;both;55.77741;49.14152;720;74;74;0;0;0;1000;4
+30420;Гарифьянова;Garif'janova;Garif'janova;10;both;55.75003;49.2075;810;28;0;1;0;0;1000;4
+30430;Юлиуса Фучика;Juliusa Fuchika;Juliusa Fuchika;10;both;55.74933;49.20868;810;45;25;0;0;0;1000;4
+30440;Братьев Касимовых;Brat'ev Kasimovyh;Brat'ev Kasimovyh;10;both;55.75076;49.20885;810;36;8;1;0;0;1000;4
 30010;Социалистическая;Socialisticheskaja;Socialisticheskaja;1;both;55.85714;49.08441;710;81;81;0;0;0;0;0
 30020;Лукина;Lukina;Lukina;1;both;55.85695;49.08538;710;75;75;0;0;0;0;0
-30030;Лукина (пандус);Lukina (pandus);Lukina (pandus);1;both;55.85667;49.08535;800;28;28;0;0;0;0;4
 30040;Белинского;Belinskogo;Belinskogo;1;both;55.85446;49.08409;710;65;37;0;0;0;0;0
 30050;ДК им. В.И. Ленина;DK im. V.I. Lenina;DK im. V.I. Lenina;1;both;55.855;49.08507;710;68;40;0;0;0;0;0
 30060;Северный вокзал;Severnyj vokzal;Severnyj vokzal;2;both;55.84284;49.08176;810;28;28;0;0;0;0;0
@@ -10,42 +32,20 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 30080;Декабристов (трамвай из центра);Dekabristov (tramvaj iz centra);Dekabristov (tramvaj iz centra);2;both;55.84125;49.08236;800;58;58;0;0;0;0;0
 30090;Воровского;Vorovskogo;Vorovskogo;2;both;55.84118;49.08257;800;58;58;0;0;0;0;0
 30100;Королёва;Koroljova;Koroljova;2;both;55.84093;49.08222;800;61;61;0;0;0;0;0
-30110;Привокзальная площадь;Privokzal'naja ploshhad';Privokzal'naja ploshhad';2;both;55.8413;49.08106;800;27;27;0;0;0;0;4
 30120;Шамиля Усманова;Shamilja Usmanova;Shamilja Usmanova;3;both;55.8287;49.08177;720;67;67;0;0;0;0;0
 30130;Волгоградская;Volgogradskaja;Volgogradskaja;3;both;55.82882;49.08225;720;67;67;0;0;0;0;0
 30140;Тверская;Tverskaja;Tverskaja;3;both;55.82719;49.08313;720;67;67;0;0;0;0;0
 30150;Магазин Луч;Magazin Luch;Magazin Luch;3;both;55.82732;49.08359;720;67;67;0;0;0;0;0
 30160;Вахитова;Vahitova;Vahitova;4;both;55.81727;49.09742;810;0;0;0;0;0;0;0
-30170;Чистопольская;Chistopol'skaja;Chistopol'skaja;4;both;55.81786;49.09901;810;27;0;0;0;0;0;4
-30180;Красносельская;Krasnosel'skaja;Krasnosel'skaja;4;both;55.81593;49.09857;810;0;0;1;0;0;0;4
 30190;Молодежный центр;Molodezhnyj centr;Molodezhnyj centr;4;both;55.81546;49.09889;720;40;40;1;0;0;0;0
-30200;Солдатская;Soldatskaja;Soldatskaja;4;both;55.81612;49.09994;810;24;0;1;0;0;0;4
 30210;Издательство;Izdatel'stvo;Izdatel'stvo;4;both;55.8158;49.10015;720;24;24;1;0;0;0;0
-30220;Право-Булачная;Pravo-Bulachnaja;Pravo-Bulachnaja;5;both;55.79597;49.10601;800;24;0;0;0;0;0;4
 30230;Площадь тысячелетия;Ploshhad' tysjacheletija;Ploshhad' tysjacheletija;5;both;55.79663;49.10577;800;0;0;0;0;0;0;0
 30240;Профсоюзная;Profsojuznaja;Profsojuznaja;5;both;55.79597;49.10642;800;38;38;0;0;0;0;0
-30250;Островского;Ostrovskogo;Ostrovskogo;6;both;55.78729;49.12148;710;79;32;0;0;300;640;23
 30255;Баумана (лифт);Baumana (lift);Baumana (lift);6;both;55.78721;49.12163;0;0;0;0;0;0;0;0
-30260;Гостиница Татарстан;Gostinica Tatarstan;Gostinica Tatarstan;6;both;55.78681;49.12226;710;77;32;0;0;680;630;23
-30270;Профсоюзная;Profsojuznaja;Profsojuznaja;6;both;55.78745;49.12186;710;78;32;0;0;380;650;23
 30275;Бутлерова (лифт);Butlerova (lift);Butlerova (lift);6;both;55.78705;49.12248;0;0;0;0;0;0;0;0
-30280;Бутлерова;Butlerova;Butlerova;6;both;55.78705;49.12269;710;75;32;0;0;380;630;24
-30290;Петербургская;Peterburgskaja;Peterburgskaja;6;both;55.78518;49.12613;800;71;64;0;0;0;0;5
-30300;Театр Кукол;Teatr Kukol;Teatr Kukol;7;both;55.77775;49.14084;720;72;31;0;0;0;0;4
-30310;Суконная;Sukonnaja;Sukonnaja;7;both;55.77741;49.14152;720;74;74;0;0;0;0;4
 30320;Эсперанто;Jesperanto;Jesperanto;7;both;55.77635;49.14344;720;79;79;0;0;0;0;0
-30330;Аметьево;Amet'evo;Amet'evo;8;both;55.76558;49.165;800;88;27;0;0;420;900;20
-30340;Ж/Д платформа;Zh/D platforma;Zh/D platforma;8;both;55.76535;49.16482;800;45;27;0;0;0;0;5
-30350;Ж/Д платформа (туннель);Zh/D platforma (tunnel');Zh/D platforma (tunnel');8;both;55.76529;49.1649;800;52;27;0;0;0;0;5
-30360;Даурская;Daurskaja;Daurskaja;8;both;55.76497;49.16812;800;42;34;0;0;0;0;5
-30370;Высотная;Vysotnaja;Vysotnaja;8;both;55.76476;49.16848;800;104;62;0;0;0;0;5
-30380;Мавлютова;Mavljutova;Mavljutova;9;both;55.75969;49.19148;800;74;28;0;0;0;0;5
 30390;Рихарда Зорге (трамвай из центра);Riharda Zorge (tramvaj iz centra);Riharda Zorge (tramvaj iz centra);9;both;55.75987;49.19183;810;73;73;0;0;0;0;0
 30400;Рихарда Зорге (трамвай в центр);Riharda Zorge (tramvaj v centr);Riharda Zorge (tramvaj v centr);9;both;55.75994;49.192;810;75;75;0;0;0;0;0
-30410;Родины;Rodiny;Rodiny;9;both;55.76011;49.19228;810;76;28;0;0;0;0;5
-30420;Гарифьянова;Garif'janova;Garif'janova;10;both;55.75003;49.2075;810;28;0;1;0;0;0;4
-30430;Юлиуса Фучика;Juliusa Fuchika;Juliusa Fuchika;10;both;55.74933;49.20868;810;45;25;0;0;0;0;4
-30440;Братьев Касимовых;Brat'ev Kasimovyh;Brat'ev Kasimovyh;10;both;55.75076;49.20885;810;36;8;1;0;0;0;4
 30450;Проспект Победы (трамвай из центра);Prospekt Pobedy (tramvaj iz centra);Prospekt Pobedy (tramvaj iz centra);10;both;55.75042;49.2093;810;70;70;1;0;0;0;0
 30460;Проспект Победы (трамвай в центр);Prospekt Pobedy (tramvaj v centr);Prospekt Pobedy (tramvaj v centr);10;both;55.75036;49.20945;810;77;77;0;0;0;0;0
 30470;Сафиуллина;Safiullina;Safiullina;10;both;55.75007;49.21004;810;64;64;0;0;0;0;0

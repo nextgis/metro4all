@@ -41,18 +41,18 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 40380;ул. Словацкего, трамвай к Центрум;ul. Słowackiego, tramwaj kierunek Centrum;ul. Słowackiego, tramwaj kierunek Centrum;6;out;52.269210347;20.9850322219;900;39;39;2;39;0;0;0
 40390;ул. Мицкевича, ж/д вокзал Варшава Гданьская;ul. Mickiewicza, Warszawa Gdańska PKP;ul. Mickiewicza, Warszawa Gdańska PKP;7;in;52.2582693211;20.9945330545;900;73;73;1;73;0;0;0
 40400;ул. Мицкевича, ж/д вокзал Варшава Гданьская;ul. Mickiewicza, Warszawa Gdańska PKP;ul. Mickiewicza, Warszawa Gdańska PKP;7;out;52.2582693211;20.9945330545;900;0;0;1;0;0;0;0
-40401;ж/д вокзал Варшава Гданьская;Warszawa Gdańska PKP;Warszawa Gdańska PKP;7;in;52.258676264;20.9943066753;900;86;80;2;80;0;0;5
-40402;ж/д вокзал Варшава Гданьская;Warszawa Gdańska PKP;Warszawa Gdańska PKP;7;out;52.258676264;20.9943066753;900;48;42;2;42;0;0;5
-40403;ж/д вокзал Варшава Гданьская, перрон 2;Warszawa Gdańska PKP, peron 2;Warszawa Gdańska PKP, peron 2;7;in;52.2589136131;20.9932212371;900;82;76;2;76;0;0;5
-40404;ж/д вокзал Варшава Гданьская, перрон 2;Warszawa Gdańska PKP, peron 2;Warszawa Gdańska PKP, peron 2;7;out;52.2589136131;20.9932212371;900;44;38;2;38;0;0;5
-40405;ж/д вокзал Варшава Гданьская, перрон 3;Warszawa Gdańska PKP, peron 3;Warszawa Gdańska PKP, peron 3;7;in;52.2590728107;20.9932125536;900;82;76;2;76;0;0;5
-40406;ж/д вокзал Варшава Гданьская, перрон 3;Warszawa Gdańska PKP, peron 3;Warszawa Gdańska PKP, peron 3;7;out;52.2590728107;20.9932125536;900;44;38;2;38;0;0;5
+40401;ж/д вокзал Варшава Гданьская;Warszawa Gdańska PKP;Warszawa Gdańska PKP;7;in;52.258676264;20.9943066753;900;86;80;2;80;0;1000;5
+40402;ж/д вокзал Варшава Гданьская;Warszawa Gdańska PKP;Warszawa Gdańska PKP;7;out;52.258676264;20.9943066753;900;48;42;2;42;0;1000;5
+40403;ж/д вокзал Варшава Гданьская, перрон 2;Warszawa Gdańska PKP, peron 2;Warszawa Gdańska PKP, peron 2;7;in;52.2589136131;20.9932212371;900;82;76;2;76;0;1000;5
+40404;ж/д вокзал Варшава Гданьская, перрон 2;Warszawa Gdańska PKP, peron 2;Warszawa Gdańska PKP, peron 2;7;out;52.2589136131;20.9932212371;900;44;38;2;38;0;1000;5
+40405;ж/д вокзал Варшава Гданьская, перрон 3;Warszawa Gdańska PKP, peron 3;Warszawa Gdańska PKP, peron 3;7;in;52.2590728107;20.9932125536;900;82;76;2;76;0;1000;5
+40406;ж/д вокзал Варшава Гданьская, перрон 3;Warszawa Gdańska PKP, peron 3;Warszawa Gdańska PKP, peron 3;7;out;52.2590728107;20.9932125536;900;44;38;2;38;0;1000;5
 40410;ул. Сломиньскего;ul. Słomińskiego;ul. Słomińskiego;7;in;52.2580522759;20.9937972183;900;76;76;2;76;0;0;0
 40420;ул. Сломиньскего;ul. Słomińskiego;ul. Słomińskiego;7;out;52.2580522759;20.9937972183;900;38;38;2;38;0;0;0
-40421;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;in;52.2595909265;20.9932038701;900;74;68;2;68;0;0;5
-40422;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;out;52.2595909265;20.9932038701;900;36;30;2;30;0;0;5
-40423;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;in;52.259576454;20.9937596145;900;74;68;1;38;0;0;5
-40424;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;out;52.259576454;20.9937596145;900;6;0;1;0;0;0;5
+40421;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;in;52.2595909265;20.9932038701;900;74;68;2;68;0;1000;5
+40422;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;out;52.2595909265;20.9932038701;900;36;30;2;30;0;1000;5
+40423;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;in;52.259576454;20.9937596145;900;74;68;1;38;0;1000;5
+40424;ул. Кокарда;ul. Kokarda;ul. Kokarda;7;out;52.259576454;20.9937596145;900;6;0;1;0;0;1000;5
 40430;ул. Сломиньскего, трамвай к Центрум, Охота;ul. Słomińskiego, tramwaj kierunek Centrum, Ochota;ul. Słomińskiego, tramwaj kierunek Centrum, Ochota;7;in;52.258025807;20.9946071675;900;76;76;2;76;0;0;0
 40440;ул. Сломиньскего, трамвай к Центрум, Охота;ul. Słomińskiego, tramwaj kierunek Centrum, Ochota;ul. Słomińskiego, tramwaj kierunek Centrum, Ochota;7;out;52.258025807;20.9946071675;900;38;38;2;38;0;0;0
 40450;ул. Сломиньскего, трамвай к Прага;ul. Słomińskiego, tramwaj kierunek Praga;ul. Słomińskiego, tramwaj kierunek Praga;7;in;52.2577981742;20.9942683652;900;76;76;2;76;0;0;0
@@ -63,18 +63,18 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 40500;ул. Сломиньскего;ul. Słomińskiego;ul. Słomińskiego;7;out;52.2576711234;20.9948136251;1000;0;0;1;0;0;0;0
 40510;Арсенал, ул. Длуга;Arsenał, ul. Długa;Arsenał, ul. Długa;8;both;52.2453142403;21.001231425;900;67;67;1;33;0;0;0
 40520;ул. Генераля Андэрса;ul. Generala Andersa;ul. Generala Andersa;8;both;52.2451374724;21.0007164923;900;73;73;1;33;0;0;0
-40530;кино Муранов;kino Muranow;kino Muranow;8;both;52.245303584;21.0000505947;900;63;59;2;63;0;0;3
-40540;кино Муранов;kino Muranow;kino Muranow;8;both;52.2450588635;21.0002273373;900;64;64;2;64;0;0;3
+40530;кино Муранов;kino Muranow;kino Muranow;8;both;52.245303584;21.0000505947;900;63;59;2;63;0;1000;3
+40540;кино Муранов;kino Muranow;kino Muranow;8;both;52.2450588635;21.0002273373;900;64;64;2;64;0;1000;3
 40550;ул. Генераля Андэрса;ul. Generala Andersa;ul. Generala Andersa;8;in;52.2447378232;21.0010469715;900;72;72;1;72;0;0;0
 40560;ул. Генераля Андэрса;ul. Generala Andersa;ul. Generala Andersa;8;out;52.2447378232;21.0010469715;900;39;39;1;39;0;0;0
 40570;аллея Солидарносьци;al. Solidarności;al. Solidarności;8;in;52.2447608799;21.0017079298;900;73;73;1;73;0;0;0
 40580;аллея Солидарносьци;al. Solidarności;al. Solidarności;8;out;52.2447608799;21.0017079298;900;0;0;1;0;0;0;0
-40590;аллея Солидарносьци, трамвай к Воля;al. Solidarności, tramwaj kierunek Wola;al. Solidarności, tramwaj kierunek Wola;8;in;52.2446071687;21.0018155276;900;76;73;2;73;0;0;2
-40600;аллея Солидарносьци, трамвай к Воля;al. Solidarności, tramwaj kierunek Wola;al. Solidarności, tramwaj kierunek Wola;8;out;52.2446071687;21.0018155276;900;43;40;2;40;0;0;2
-40610;аллея Солидарносьци, трамвай к Прага;al. Solidarności, tramwaj kierunek Praga;al. Solidarności, tramwaj kierunek Praga;8;in;52.2444765141;21.0019384966;900;76;73;2;73;0;0;2
-40620;аллея Солидарносьци, трамвай к Прага;al. Solidarności, tramwaj kierunek Praga;al. Solidarności, tramwaj kierunek Praga;8;out;52.2444765141;21.0019384966;900;43;40;2;40;0;0;2
-40630;пл. Банковы;pl. Bankowy;pl. Bankowy;8;in;52.2440614938;21.0018462699;900;76;73;2;73;0;0;2
-40640;пл. Банковы;pl. Bankowy;pl. Bankowy;8;out;52.2440614938;21.0018462699;900;3;0;2;0;0;0;2
+40590;аллея Солидарносьци, трамвай к Воля;al. Solidarności, tramwaj kierunek Wola;al. Solidarności, tramwaj kierunek Wola;8;in;52.2446071687;21.0018155276;900;76;73;2;73;0;1000;2
+40600;аллея Солидарносьци, трамвай к Воля;al. Solidarności, tramwaj kierunek Wola;al. Solidarności, tramwaj kierunek Wola;8;out;52.2446071687;21.0018155276;900;43;40;2;40;0;1000;2
+40610;аллея Солидарносьци, трамвай к Прага;al. Solidarności, tramwaj kierunek Praga;al. Solidarności, tramwaj kierunek Praga;8;in;52.2444765141;21.0019384966;900;76;73;2;73;0;1000;2
+40620;аллея Солидарносьци, трамвай к Прага;al. Solidarności, tramwaj kierunek Praga;al. Solidarności, tramwaj kierunek Praga;8;out;52.2444765141;21.0019384966;900;43;40;2;40;0;1000;2
+40630;пл. Банковы;pl. Bankowy;pl. Bankowy;8;in;52.2440614938;21.0018462699;900;76;73;2;73;0;1000;2
+40640;пл. Банковы;pl. Bankowy;pl. Bankowy;8;out;52.2440614938;21.0018462699;900;3;0;2;0;0;1000;2
 40650;Зельна Центер;Zielna Center;Zielna Center;9;in;52.2362456621;21.0067609559;1000;71;71;0;0;0;0;0
 40660;Зельна Центер;Zielna Center;Zielna Center;9;out;52.2362456621;21.0067609559;1000;0;0;0;0;0;0;0
 40670;ул. Свентокшиская;ul. Świętokrzyska;ul. Świętokrzyska;9;in;52.2352295924;21.0073295337;900;78;78;1;78;0;0;0
@@ -87,8 +87,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 40740;ул. Нововейская;ul. Nowowiejska;ul. Nowowiejska;11;out;52.2196997142;21.0158404829;1000;1;1;0;0;0;0;0
 40741;ул. Явожиньская;ul. Jaworzyńska;ul. Jaworzyńska;11;in;52.2192557362;21.0157384191;1000;70;70;0;0;0;0;0
 40742;ул. Явожиньская;ul. Jaworzyńska;ul. Jaworzyńska;11;out;52.2192557362;21.0157384191;1000;40;40;0;0;0;0;0
-40750;ул. Польна;ul. Polna;ul. Polna;11;in;52.2192455298;21.0152587187;1000;61;61;0;0;0;0;5
-40760;ул. Польна;ul. Polna;ul. Polna;11;out;52.2192455298;21.0152587187;1000;31;31;0;0;0;0;5
+40750;ул. Польна;ul. Polna;ul. Polna;11;in;52.2192455298;21.0152587187;1000;61;61;0;0;0;1000;5
+40760;ул. Польна;ul. Polna;ul. Polna;11;out;52.2192455298;21.0152587187;1000;31;31;0;0;0;1000;5
 40770;ул. Явожиньская;ul. Jaworzyńska;ul. Jaworzyńska;11;in;52.217939112;21.0156006328;900;67;67;2;67;0;0;0
 40780;ул. Явожиньская;ul. Jaworzyńska;ul. Jaworzyńska;11;out;52.217939112;21.0156006328;900;31;31;2;31;0;0;0
 40790;Траса  Лазенковская, ул. Мокотовская;Trasa  Łazienkowska, ul. Mokotowska;Trasa  Łazienkowska, ul. Mokotowska;11;in;52.2175767852;21.0157231095;900;67;67;0;0;0;0;0
@@ -107,8 +107,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 40920;аллея Неподлеглосьци;al. Niepodległości;al. Niepodległości;12;in;52.2082160376;21.0083555139;900;66;66;2;66;0;0;0
 40930;аллея Неподлеглосьци;al. Niepodległości;al. Niepodległości;12;out;52.2082160376;21.0083555139;900;24;24;2;24;0;0;0
 40940;аллея Неподлеглосьци, трамвай к Центрум;al. Niepodległości, tramwaj kierunek Centrum;al. Niepodległości, tramwaj kierunek Centrum;12;both;52.2079635712;21.0080787719;900;60;60;1;24;0;0;0
-40950;ул. Раковецкая;ul. Rakowiecka;ul. Rakowiecka;12;both;52.2076334229;21.007690362;900;64;60;1;24;0;0;12
-40960;ул. Раковецкая;ul. Rakowiecka;ul. Rakowiecka;12;both;52.2077887868;21.0086808071;900;63;59;1;24;0;0;10
+40950;ул. Раковецкая;ul. Rakowiecka;ul. Rakowiecka;12;both;52.2076334229;21.007690362;900;64;60;1;24;0;1000;12
+40960;ул. Раковецкая;ul. Rakowiecka;ul. Rakowiecka;12;both;52.2077887868;21.0086808071;900;63;59;1;24;0;1000;10
 40970;ул. Домбровскего, ул. Краусхара;ul. Dąbrowskiego, ul. Kraushara;ul. Dąbrowskiego, ul. Kraushara;13;both;52.1998441067;21.0115202042;1000;59;59;0;0;0;0;0
 40980;ул. Викторская;ul. Wiktorska;ul. Wiktorska;13;both;52.1993563287;21.0117419215;1000;59;59;0;0;0;0;0
 40990;ул. Домбровскего ул. Одоляньская;ul. Dąbrowskiego ul. Odolańska;ul. Dąbrowskiego ul. Odolańska;13;both;52.1998330209;21.0119968964;1000;59;59;0;0;0;0;0
@@ -129,7 +129,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 41140;ул. Бронивоя;ul. Broniwoja;ul. Broniwoja;14;both;52.1889244921;21.017618885;900;59;59;2;58;0;0;0
 41150;ул. Доманевская;ul. Domaniewska;ul. Domaniewska;15;both;52.1824071104;21.0218565393;900;57;57;1;24;0;0;0
 41160;аллея Неподлеглосьци;al. Niepodległości;al. Niepodległości;15;both;52.1822355818;21.0218794098;900;57;57;1;24;0;0;0
-41170;ул. Пулавская;ul. Puławska;ul. Puławska;15;both;52.1826644034;21.0226970296;900;61;61;2;61;0;0;6
+41170;ул. Пулавская;ul. Puławska;ul. Puławska;15;both;52.1826644034;21.0226970296;900;61;61;2;61;0;1000;6
 41180;ул. Пулавская, трамвай к Служев;ul. Puławska, tramwaj kierunek Służew;ul. Puławska, tramwaj kierunek Służew;15;both;52.1816137906;21.0226713003;820;37;37;0;0;0;0;0
 41190;ул. Пулавская, трамвай к Центрум;ul. Puławska, tramwaj kierunek Centrum;ul. Puławska, tramwaj kierunek Centrum;15;both;52.1815680496;21.022857123;820;37;37;0;0;0;0;0
 41200;ул. Пулавская;ul. Puławska;ul. Puławska;15;in;52.1809333937;21.0235975549;900;60;60;1;24;0;0;0
@@ -142,19 +142,19 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 41270;ул. Валбжиская;ul. Wałbrzyska;ul. Wałbrzyska;16;both;52.1732268115;21.0266759343;1000;56;56;0;0;0;0;0
 41280;ул. Валбжиская;ul. Wałbrzyska;ul. Wałbrzyska;16;both;52.1731042058;21.0264920258;1000;56;56;0;0;0;0;0
 41290;аллея КЕН;aleja KEN;aleja KEN;16;both;52.1721182518;21.0259709517;900;56;56;1;24;0;0;0
-41300;аллея КЕН;aleja KEN;aleja KEN;16;both;52.1719088004;21.0258534546;900;56;32;1;24;0;0;5
-41310;аллея КЕН, ул. Батуты;aleja KEN, ul. Batuty;aleja KEN, ul. Batuty;16;both;52.1712702292;21.0260577974;900;35;35;1;24;0;0;5
+41300;аллея КЕН;aleja KEN;aleja KEN;16;both;52.1719088004;21.0258534546;900;56;32;1;24;0;1000;5
+41310;аллея КЕН, ул. Батуты;aleja KEN, ul. Batuty;aleja KEN, ul. Batuty;16;both;52.1712702292;21.0260577974;900;35;35;1;24;0;1000;5
 41320;аллея КЕН;aleja KEN;aleja KEN;16;both;52.1720824918;21.0266044144;900;57;57;1;24;0;0;0
 41330;аллея КЕН;aleja KEN;aleja KEN;16;both;52.1717351091;21.0266146315;900;56;56;1;24;0;0;0
 41350;ул. Коньский  Яр;ul. Koński  Jar;ul. Koński  Jar;17;both;52.1626068929;21.0269686873;820;53;53;0;0;0;0;0
 41360;ул. Суровецкего;ul. Surowieckiego;ul. Surowieckiego;17;both;52.1622919496;21.0270343005;820;54;54;0;0;0;0;0
 41370;ул. Концертова;ul. Koncertowa;ul. Koncertowa;17;both;52.1627468677;21.0280141242;820;55;55;0;0;0;0;0
 41380;ул. Бели Бартока;ul. Beli Bartoka;ul. Beli Bartoka;17;both;52.1624362986;21.0280447437;820;56;56;0;0;0;0;0
-41390;ул. Вёлинова;ul. Wiolinowa;ul. Wiolinowa;17;both;52.1612150397;21.0275156658;900;24;24;1;24;0;0;5
+41390;ул. Вёлинова;ul. Wiolinowa;ul. Wiolinowa;17;both;52.1612150397;21.0275156658;900;24;24;1;24;0;1000;5
 41400;аллея КЕН;aleja KEN;aleja KEN;17;both;52.1610984595;21.0277069769;900;57;57;2;57;0;0;0
-41410;аллея КЕН, ул. Артистув ;aleja KEN, ul. Artistów ;aleja KEN, ul. Artistów ;17;both;52.1611522658;21.0284154258;900;55;55;1;24;0;0;1
-41430;пр. Стоклосы;pasaż Stokłosy;pasaż Stokłosy;17;both;52.1612987383;21.0285678769;900;35;24;1;24;0;0;10
-41440;пр. Урсыновский, ул. Хербста;pasaż Ursynowski, ul. Herbsta;pasaż Ursynowski, ul. Herbsta;18;both;52.1563169309;21.033316921;820;35;35;0;0;0;0;10
+41410;аллея КЕН, ул. Артистув ;aleja KEN, ul. Artistów ;aleja KEN, ul. Artistów ;17;both;52.1611522658;21.0284154258;900;55;55;1;24;0;1000;1
+41430;пр. Стоклосы;pasaż Stokłosy;pasaż Stokłosy;17;both;52.1612987383;21.0285678769;900;35;24;1;24;0;1000;10
+41440;пр. Урсыновский, ул. Хербста;pasaż Ursynowski, ul. Herbsta;pasaż Ursynowski, ul. Herbsta;18;both;52.1563169309;21.033316921;820;35;35;0;0;0;1000;10
 41450;пр. Урсыновский, ул. Хербста;pasaż Ursynowski, ul. Herbsta;pasaż Ursynowski, ul. Herbsta;18;both;52.1566569357;21.0334133359;820;56;56;0;0;0;0;0
 41460;ул. Замяны,  ул. Стоклосы;ul. Zamiany,  ul. Stokłosy;ul. Zamiany,  ul. Stokłosy;18;both;52.1568480813;21.0339299456;820;55;55;0;0;0;0;0
 41470;ул. Замяны,  ул. Стоклосы;ul. Zamiany,  ul. Stokłosy;ul. Zamiany,  ul. Stokłosy;18;both;52.1569216981;21.0339919387;820;54;54;0;0;0;0;0

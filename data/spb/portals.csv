@@ -20,7 +20,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1073;Кировский завод-2;Kirovskij zavod-2;Kirovskij zavod-2;6;out;59.879875;30.261726;860;7;0;0;0;364;750;20
 1084;Нарвская-1;Narvskaja-1;Narvskaja-1;7;in;59.901113;30.274569;740;13;0;0;0;356;602;27
 1085;Нарвская-2;Narvskaja-2;Narvskaja-2;7;out;59.901043;30.274756;920;19;6;0;0;356;608;27
-1096;Балтийская-1;Baltijskaja-1;Baltijskaja-1;8;in;59.907443;30.299793;870;0;0;0;0;0;0;8
+1096;Балтийская-1;Baltijskaja-1;Baltijskaja-1;8;in;59.907443;30.299793;870;0;0;0;0;0;1000;8
 1097;Балтийская-2;Baltijskaja-2;Baltijskaja-2;8;out;59.907103;30.299059;735;13;0;0;0;354;745;24
 1108;Технологический институт 1-1;Tehnologicheskij institut 1-1;Tehnologicheskij institut 1-1;9;in;59.916366;30.318378;890;12;12;0;0;0;0;0
 1110;Технологический институт 1-3;Tehnologicheskij institut 1-3;Tehnologicheskij institut 1-3;9;out;59.916381;30.318488;920;12;6;0;0;346;742;17
@@ -36,8 +36,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1149;Площадь Восстания-6;Ploshhad' Vosstanija-6;Ploshhad' Vosstanija-6;12;in;59.929386;30.362258;730;56;24;0;0;364;748;26
 1156;Чернышевская-1;Chernyshevskaja-1;Chernyshevskaja-1;13;in;59.944505;30.359524;730;0;0;0;0;0;0;0
 1157;Чернышевская-2;Chernyshevskaja-2;Chernyshevskaja-2;13;out;59.944680;30.359894;730;0;0;0;0;0;0;0
-1168;Площадь Ленина-1;Ploshhad' Lenina-1;Ploshhad' Lenina-1;14;in;59.95558;30.355779;735;0;0;0;0;0;0;4
-1169;Площадь Ленина-2;Ploshhad' Lenina-2;Ploshhad' Lenina-2;14;out;59.955524;30.356151;735;0;0;0;0;0;0;4
+1168;Площадь Ленина-1;Ploshhad' Lenina-1;Ploshhad' Lenina-1;14;in;59.95558;30.355779;735;0;0;0;0;0;1000;4
+1169;Площадь Ленина-2;Ploshhad' Lenina-2;Ploshhad' Lenina-2;14;out;59.955524;30.356151;735;0;0;0;0;0;1000;4
 1170;Площадь Ленина-3;Ploshhad' Lenina-3;Ploshhad' Lenina-3;14;in;59.958631;30.354556;915;0;0;0;0;0;0;0
 1171;Площадь Ленина-4;Ploshhad' Lenina-4;Ploshhad' Lenina-4;14;out;59.958539;30.355098;915;0;0;0;0;0;0;0
 1180;Выборгская-1;Vyborgskaja-1;Vyborgskaja-1;15;both;59.971090;30.347597;735;24;0;0;0;353;742;24
@@ -52,8 +52,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1192;Лесная-1;Lesnaja-1;Lesnaja-1;16;in;59.984929;30.344194;745;1;1;0;0;0;0;0
 1193;Лесная-2;Lesnaja-2;Lesnaja-2;16;out;59.984758;30.344448;745;1;1;0;0;0;0;0
 1204;Площадь Мужества-1;Ploshhad' Muzhestva-1;Ploshhad' Muzhestva-1;17;both;59.999619;30.366015;735;0;0;0;0;0;0;0
-1216;Политехническая-1;Politehnicheskaja-1;Politehnicheskaja-1;18;in;60.008950;30.370597;745;5;0;0;0;0;0;8
-1217;Политехническая-2;Politehnicheskaja-2;Politehnicheskaja-2;18;out;60.008766;30.370758;745;5;0;0;0;0;0;8
+1216;Политехническая-1;Politehnicheskaja-1;Politehnicheskaja-1;18;in;60.008950;30.370597;745;5;0;0;0;0;1000;8
+1217;Политехническая-2;Politehnicheskaja-2;Politehnicheskaja-2;18;out;60.008766;30.370758;745;5;0;0;0;0;1000;8
 1228;Академическая-1;Akademicheskaja-1;Akademicheskaja-1;19;both;60.012805;30.396234;915;0;0;0;0;0;0;0
 1240;Гражданский проспект-1;Grazhdanskij prospekt-1;Grazhdanskij prospekt-1;20;in;60.035222;30.418450;735;2;0;0;0;356;745;22
 1241;Гражданский проспект-2;Grazhdanskij prospekt-2;Grazhdanskij prospekt-2;20;out;60.034881;30.418612;735;2;0;0;0;356;745;22
@@ -79,7 +79,7 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1312;Парк Победы-1;Park Pobedy-1;Park Pobedy-1;26;both;59.866363;30.321541;915;0;0;0;0;0;0;0
 1324;Электросила-1;Jelektrosila-1;Jelektrosila-1;27;both;59.879193;30.318917;740;1;1;0;0;0;0;0
 1336;Московские ворота-1;Moskovskie vorota-1;Moskovskie vorota-1;28;both;59.891720;30.318020;720;1;1;0;0;0;0;0
-1348;Фрунзенская-1;Frunzenskaja-1;Frunzenskaja-1;29;both;59.906266;30.317833;940;3;1;0;0;0;0;4
+1348;Фрунзенская-1;Frunzenskaja-1;Frunzenskaja-1;29;both;59.906266;30.317833;940;3;1;0;0;0;1000;4
 1361;Технологический институт 2-2;Tehnologicheskij institut 2-2;Tehnologicheskij institut 2-2;30;out;59.916616;30.318566;890;12;12;0;0;0;0;0
 1363;Технологический институт 2-4;Tehnologicheskij institut 2-4;Tehnologicheskij institut 2-4;30;in;59.916648;30.318671;920;12;6;0;0;346;742;17
 1372;Сенная площадь-1;Sennaja ploshhad'-1;Sennaja ploshhad'-1;31;in;59.927176;30.320405;730;7;0;0;0;357;748;22
@@ -88,8 +88,9 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1385;Невский проспект-2;Nevskij prospekt-2;Nevskij prospekt-2;32;both;59.934926;30.330937;800;63;0;0;0;361;738;26
 1386;Невский проспект-3;Nevskij prospekt-3;Nevskij prospekt-3;32;both;59.934594;30.330737;800;63;1;0;0;361;743;27
 1387;Невский проспект-4;Nevskij prospekt-4;Nevskij prospekt-4;32;both;59.935023;30.330081;800;65;1;0;0;361;748;25
-1396;Горьковская-1;Gor'kovskaja-1;Gor'kovskaja-1;33;in;59.956336;30.318844;670;10;0;0;0;0;0;5
-1397;Горьковская-2;Gor'kovskaja-2;Gor'kovskaja-2;33;out;59.956162;30.319158;670;10;0;0;0;0;0;5
+1396;Горьковская-1;Gor'kovskaja-1;Gor'kovskaja-1;33;in;59.956336;30.318844;670;10;0;0;0;0;1000;5
+1397;Горьковская-2;Gor'kovskaja-2;Gor'kovskaja-2;33;out;59.956162;30.319158;670;10;0;0;0;0;1000;5
+1399;Петроградская-1;Petrogradskaya-1;Petrogradskaya-1;34;both;59.966272;30.311437;670;10;0;0;0;0;1000;5
 1420;Чёрная речка-1;Chjornaja rechka-1;Chjornaja rechka-1;35;in;59.985599;30.300794;730;27;0;0;0;358;750;22
 1421;Чёрная речка-2;Chjornaja rechka-2;Chjornaja rechka-2;35;out;59.985432;30.301169;730;27;0;0;0;358;750;22
 1432;Пионерская-1;Pionerskaja-1;Pionerskaja-1;36;in;60.002654;30.296690;730;26;0;0;0;360;747;90
@@ -106,15 +107,15 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1505;Рыбацкое-2;Rybackoe-2;Rybackoe-2;42;both;59.831507;30.501436;0;0;0;0;0;0;0;0
 1506;Рыбацкое-3;Rybackoe-3;Rybackoe-3;42;both;59.831192;30.502311;0;0;0;0;0;0;0;0
 1516;Обухово-1;Obuhovo-1;Obuhovo-1;43;both;59.848540;30.457827;755;0;0;0;0;0;0;0
-1528;Пролетарская-1;Proletarskaja-1;Proletarskaja-1;44;both;59.865080;30.470130;755;3;0;0;0;0;0;7
+1528;Пролетарская-1;Proletarskaja-1;Proletarskaja-1;44;both;59.865080;30.470130;755;3;0;0;0;0;1000;7
 1540;Ломоносовская-1;Lomonosovskaja-1;Lomonosovskaja-1;45;in;59.877415;30.442054;750;3;0;0;0;380;698;23
 1541;Ломоносовская-2;Lomonosovskaja-2;Lomonosovskaja-2;45;out;59.877174;30.441840;750;3;0;0;0;380;698;23
 1552;Елизаровская-1;Elizarovskaja-1;Elizarovskaja-1;46;both;59.896581;30.423775;740;0;0;0;0;0;0;0
-1564;Площадь Александра Невского 1-1;Ploshhad' Aleksandra Nevskogo 1-1;Ploshhad' Aleksandra Nevskogo 1-1;47;both;59.924235;30.385375;930;2;0;0;0;0;0;6
+1564;Площадь Александра Невского 1-1;Ploshhad' Aleksandra Nevskogo 1-1;Ploshhad' Aleksandra Nevskogo 1-1;47;both;59.924235;30.385375;930;2;0;0;0;0;1000;6
 1576;Маяковская-1;Majakovskaja-1;Majakovskaja-1;48;both;59.9316;30.355079;930;1;1;0;0;0;0;0
 1577;Маяковская-2;Majakovskaja-2;Majakovskaja-2;48;both;59.931482;30.355248;930;1;1;0;0;0;0;0
-1588;Гостиный двор-1;Gostinyj dvor-1;Gostinyj dvor-1;49;both;59.934026;30.333776;730;4;0;0;0;0;0;9
-1589;Гостиный двор-2;Gostinyj dvor-2;Gostinyj dvor-2;49;both;59.935544;30.327003;920;10;0;0;0;0;0;13
+1588;Гостиный двор-1;Gostinyj dvor-1;Gostinyj dvor-1;49;both;59.934026;30.333776;730;4;0;0;0;0;1000;9
+1589;Гостиный двор-2;Gostinyj dvor-2;Gostinyj dvor-2;49;both;59.935544;30.327003;920;10;0;0;0;0;1000;13
 1612;Василеостровская-1;Vasileostrovskaja-1;Vasileostrovskaja-1;51;in;59.942659;30.278437;750;9;0;0;0;333;700;23
 1613;Василеостровская-2;Vasileostrovskaja-2;Vasileostrovskaja-2;51;out;59.942726;30.278112;750;9;0;0;0;333;700;23
 1624;Приморская-1;Primorskaja-1;Primorskaja-1;52;both;59.948424;30.234382;720;30;0;0;0;370;705;25
@@ -123,8 +124,8 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1768;Проспект Большевиков-1;Prospekt Bol'shevikov-1;Prospekt Bol'shevikov-1;64;both;59.919628;30.466985;735;41;20;0;0;348;736;22
 1780;Ладожская-1;Ladozhskaja-1;Ladozhskaja-1;65;out;59.932516;30.438854;740;0;0;0;0;0;0;0
 1781;Ладожская-2;Ladozhskaja-2;Ladozhskaja-2;65;in;59.932680;30.439065;740;0;0;0;0;0;0;0
-1782;Ладожская-3;Ladozhskaja-3;Ladozhskaja-3;65;in;59.932473;30.439737;910;7;0;0;0;0;0;6
-1783;Ладожская-4;Ladozhskaja-4;Ladozhskaja-4;65;out;59.932305;30.439521;910;7;0;0;0;0;0;6
+1782;Ладожская-3;Ladozhskaja-3;Ladozhskaja-3;65;in;59.932473;30.439737;910;7;0;0;0;0;1000;6
+1783;Ладожская-4;Ladozhskaja-4;Ladozhskaja-4;65;out;59.932305;30.439521;910;7;0;0;0;0;1000;6
 1792;Новочеркасская-1;Novocherkasskaja-1;Novocherkasskaja-1;66;both;59.928519;30.411029;740;42;0;0;0;362;740;22
 1793;Новочеркасская-2;Novocherkasskaja-2;Novocherkasskaja-2;66;both;59.928920;30.410721;740;44;0;0;0;355;740;22
 1794;Новочеркасская-3;Novocherkasskaja-3;Novocherkasskaja-3;66;both;59.929374;30.411064;740;38;26;0;0;344;740;18
@@ -141,31 +142,31 @@ id_entrance;name_ru;name_en;name_pl;id_station;direction;lat;lon;max_width;min_s
 1816;Лиговский проспект-1;Ligovskij prospekt-1;Ligovskij prospekt-1;68;both;59.920917;30.354972;730;38;0;0;0;350;734;22
 1828;Достоевская-1;Dostoevskaja-1;Dostoevskaja-1;69;both;59.928135;30.346503;730;26;0;0;0;352;743;24
 1829;Достоевская-2;Dostoevskaja-2;Dostoevskaja-2;69;both;59.928338;30.346316;730;26;0;0;0;352;743;24
-1996;Международная-1;Mezhdunarodnaja-1;Mezhdunarodnaja-1;83;both;59.870509;30.379168;915;4;0;0;0;0;0;4
-2008;Бухарестская-1;Buharestskaja-1;Buharestskaja-1;84;both;59.884190;30.369189;915;1;0;0;0;0;0;6
+1996;Международная-1;Mezhdunarodnaja-1;Mezhdunarodnaja-1;83;both;59.870509;30.379168;915;4;0;0;0;0;1000;4
+2008;Бухарестская-1;Buharestskaja-1;Buharestskaja-1;84;both;59.884190;30.369189;915;1;0;0;0;0;1000;6
 2020;Волковская-1;Volkovskaja-1;Volkovskaja-1;85;both;59.896262;30.357343;915;28;0;0;0;367;758;26
 2032;Обводный канал-1;Obvodnyj kanal-1;Obvodnyj kanal-1;86;in;59.914337;30.349522;915;26;0;0;0;375;725;24
 2033;Обводный канал-2;Obvodnyj kanal-2;Obvodnyj kanal-2;86;out;59.914896;30.349672;915;26;0;0;0;375;725;24
-2044;Звенигородская-1;Zvenigorodskaja-1;Zvenigorodskaja-1;87;both;59.922543;30.335532;940;4;0;0;0;0;0;4
-2045;Звенигородская-2;Zvenigorodskaja-2;Zvenigorodskaja-2;87;both;59.922169;30.336067;940;4;0;0;0;0;0;4
+2044;Звенигородская-1;Zvenigorodskaja-1;Zvenigorodskaja-1;87;both;59.922543;30.335532;940;4;0;0;0;0;1000;4
+2045;Звенигородская-2;Zvenigorodskaja-2;Zvenigorodskaja-2;87;both;59.922169;30.336067;940;4;0;0;0;0;1000;4
 2056;Садовая-1;Sadovaja-1;Sadovaja-1;88;both;59.926597;30.318603;925;70;0;0;0;363;739;25
 2057;Садовая-2;Sadovaja-2;Sadovaja-2;88;both;59.927146;30.317639;925;67;0;0;0;361;739;25
 2058;Садовая-3;Sadovaja-3;Sadovaja-3;88;both;59.926321;30.317892;925;70;0;0;0;356;739;25
 2059;Садовая-4;Sadovaja-4;Sadovaja-4;88;both;59.926807;30.316752;925;66;0;0;0;359;739;25
-2068;Адмиралтейская-1;Admiraltejskaja-1;Admiraltejskaja-1;89;both;59.936014;30.315146;910;10;0;0;0;0;0;5
-2069;Адмиралтейская-2;Admiraltejskaja-2;Admiraltejskaja-2;89;both;59.936158;30.314710;910;10;0;0;0;0;0;5
+2068;Адмиралтейская-1;Admiraltejskaja-1;Admiraltejskaja-1;89;both;59.936014;30.315146;910;10;0;0;0;0;1000;5
+2069;Адмиралтейская-2;Admiraltejskaja-2;Admiraltejskaja-2;89;both;59.936158;30.314710;910;10;0;0;0;0;1000;5
 2080;Спортивная-1;Sportivnaja-1;Sportivnaja-1;90;both;59.951700;30.291971;730;42;0;0;0;359;735;21
 2081;Спортивная-2;Sportivnaja-2;Sportivnaja-2;90;both;59.952259;30.291143;730;39;0;0;0;363;737;24
 2082;Спортивная-3;Sportivnaja-3;Sportivnaja-3;90;both;59.952050;30.291907;730;43;0;0;0;358;720;21
 2083;Спортивная-4;Sportivnaja-4;Sportivnaja-4;90;both;59.951783;30.290629;730;45;0;0;0;354;733;21
-2092;Чкаловская-1;Chkalovskaja-1;Chkalovskaja-1;91;in;59.960987;30.291756;730;12;0;0;0;0;0;5
-2093;Чкаловская-2;Chkalovskaja-2;Chkalovskaja-2;91;out;59.961037;30.292296;730;12;0;0;0;0;0;5
-2105;Крестовский остров-2;Krestovskij ostrov-2;Krestovskij ostrov-2;92;in;59.971659;30.259266;730;8;0;0;0;0;0;4
-2106;Крестовский остров-3;Krestovskij ostrov-3;Krestovskij ostrov-3;92;out;59.971919;30.259569;730;8;0;0;0;0;0;4
-2116;Старая деревня-1;Staraja derevnja-1;Staraja derevnja-1;93;in;59.989569;30.254819;730;9;0;0;0;0;0;11
-2117;Старая деревня-2;Staraja derevnja-2;Staraja derevnja-2;93;out;59.989668;30.255549;730;9;0;0;0;0;0;11
-2128;Комендантский проспект-1;Komendantskij prospekt-1;Komendantskij prospekt-1;94;both;60.008239;30.258492;925;36;0;0;0;0;0;8
-2129;Комендантский проспект-2;Komendantskij prospekt-2;Komendantskij prospekt-2;94;both;60.008573;30.258085;925;36;0;0;0;0;0;8
-2130;Комендантский проспект-3;Komendantskij prospekt-3;Komendantskij prospekt-3;94;both;60.008799;30.258832;925;37;0;0;0;0;0;6
-2131;Комендантский проспект-4;Komendantskij prospekt-4;Komendantskij prospekt-4;94;both;60.008464;30.259234;925;37;0;0;0;0;0;6
-2132;Комендантский проспект-5;Komendantskij prospekt-5;Komendantskij prospekt-5;94;both;60.008298;30.258911;925;13;0;0;0;0;0;6
+2092;Чкаловская-1;Chkalovskaja-1;Chkalovskaja-1;91;in;59.960987;30.291756;730;12;0;0;0;0;1000;5
+2093;Чкаловская-2;Chkalovskaja-2;Chkalovskaja-2;91;out;59.961037;30.292296;730;12;0;0;0;0;1000;5
+2105;Крестовский остров-2;Krestovskij ostrov-2;Krestovskij ostrov-2;92;in;59.971659;30.259266;730;8;0;0;0;0;1000;4
+2106;Крестовский остров-3;Krestovskij ostrov-3;Krestovskij ostrov-3;92;out;59.971919;30.259569;730;8;0;0;0;0;1000;4
+2116;Старая деревня-1;Staraja derevnja-1;Staraja derevnja-1;93;in;59.989569;30.254819;730;9;0;0;0;0;1000;11
+2117;Старая деревня-2;Staraja derevnja-2;Staraja derevnja-2;93;out;59.989668;30.255549;730;9;0;0;0;0;1000;11
+2128;Комендантский проспект-1;Komendantskij prospekt-1;Komendantskij prospekt-1;94;both;60.008239;30.258492;925;36;0;0;0;0;1000;8
+2129;Комендантский проспект-2;Komendantskij prospekt-2;Komendantskij prospekt-2;94;both;60.008573;30.258085;925;36;0;0;0;0;1000;8
+2130;Комендантский проспект-3;Komendantskij prospekt-3;Komendantskij prospekt-3;94;both;60.008799;30.258832;925;37;0;0;0;0;1000;6
+2131;Комендантский проспект-4;Komendantskij prospekt-4;Komendantskij prospekt-4;94;both;60.008464;30.259234;925;37;0;0;0;0;1000;6
+2132;Комендантский проспект-5;Komendantskij prospekt-5;Komendantskij prospekt-5;94;both;60.008298;30.258911;925;13;0;0;0;0;1000;6

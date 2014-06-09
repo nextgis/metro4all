@@ -25,3 +25,6 @@ android/MetroDataCollector/docs
 #archives
 *.zip
 *.7z
+
+#lock files
+*.~lock*

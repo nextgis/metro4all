@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Metro Dla Wszystkich</string>
-    <string name="sHomepage">http://nextgis.ru</string>
-    <string name="sDetailpage">http://metro4all.ru/pl</string>
+    <string name="app_name">Metro4All</string>
+    <string name="sHomepage">http://nextgis.org</string>
+    <string name="sDetailpage">http://metro4all.org</string>
     
     <string name="about_app">Aplikacja ta pozwala na nawigację w metrze dla osób z ograniczeniami ruchu. Obliczy dla Ciebie najbardziej dostępną trasę podróży. \n\nWięcej informacji znajdziesz na:</string>
 
@@ -24,7 +24,12 @@
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
 	<string name="sDownload">Pobierz</string>
 	<string name="sDelete">Usuń</string>
+	<string name="sYes">Yes</string>
+	<string name="sNo">No</string>	
+	<string name="sOk">Ok</string>
 	<string name="sCancel">Anuluj</string>
+	<string name="sQuestion">Aktualizuj bazę danych</string>
+	<string name="sAreYouSure">Czy na pewno?</string>
 	<string name="sSearch">Pokaż trasę</string>
 	<string name="sFromStation">Stacja początkowa</string>
 	<string name="sToStation">Stacja końcowa</string>
@@ -46,7 +51,6 @@
 	<string name="sCM">cm</string>
 	<string name="sKB">Kb</string>
 	<string name="sMB">Mb</string>
-	<string name="sNo">No</string>
 	<string name="sMinRailWidth">Minimalna odległość między kołami</string>
 	<string name="sMaxRailWidth">Maksymalna odległość między kołami</string>
 	<string name="sMaxAngle">Maksymalne nachylenie szyn/rampy</string>
@@ -89,5 +93,8 @@
 	<string name="sPrefCityLoc">Język</string>
 	<string name="sPrefCityLocSummary">Wybierz język</string>
 	<string name="sPrefCityLocTitle">Wybierz język</string>
-	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>
+	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>	
+	
+	<string name="switch_on">On</string>
+	<string name="switch_off">Off</string>
 </resources>

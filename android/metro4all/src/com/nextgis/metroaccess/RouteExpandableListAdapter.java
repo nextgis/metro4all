@@ -99,7 +99,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
 	    File imgFile = new File(sRouteDataPath + "/icons", "" + rit.GetLine() + "8.png");		
 		Log.d(MainActivity.TAG, imgFile.getPath());
-		if(imgFile.exists()){
+		if(rit.GetType() != 7 && imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
 		    ivIcon.setVisibility(View.VISIBLE);
