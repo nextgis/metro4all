@@ -24,12 +24,12 @@
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
 	<string name="sDownload">Pobierz</string>
 	<string name="sDelete">Usuń</string>
-	<string name="sYes">Yes</string>
-	<string name="sNo">No</string>	
+	<string name="sYes">Tak</string>
+	<string name="sNo">Nie</string>
 	<string name="sOk">Ok</string>
 	<string name="sCancel">Anuluj</string>
 	<string name="sQuestion">Aktualizuj bazę danych</string>
-	<string name="sAreYouSure">Czy na pewno?</string>
+	<string name="sAreYouSure">Na pewno?</string>
 	<string name="sSearch">Pokaż trasę</string>
 	<string name="sFromStation">Stacja początkowa</string>
 	<string name="sToStation">Stacja końcowa</string>
@@ -95,6 +95,6 @@
 	<string name="sPrefCityLocTitle">Wybierz język</string>
 	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>	
 	
-	<string name="switch_on">On</string>
-	<string name="switch_off">Off</string>
+	<string name="switch_on">Wł</string>
+	<string name="switch_off">Wył</string>
 </resources>
