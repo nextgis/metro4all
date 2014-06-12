@@ -13,6 +13,7 @@ fieldmap = (
     ('name_ru', 'name_ru'),
     ('name_en', 'name_en'),
     ('name_pl', 'name_pl'),
+    ('name_by', 'name_by'),
     ('Код станции', 'id_station'),
     ('Направление', 'direction'),
     ('0_y', 'lat'),
