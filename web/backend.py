@@ -149,14 +149,14 @@ def get_stations(lang, city):
             if line['id_line'] == station['id_line']:
                 station_json = {
                     'id':   station['id_station'],
-                    'text': station['name_' + lang]
+                    'text': station.get('name_' + lang, station.get('name_en'))
                 }
                 if station['id_station'] in SCHEMAS[city]:
                     station_json['sch'] = SCHEMAS[city][station['id_station']]
                 group.append(station_json)
         # group = sorted(group, key=lambda i: i['text'])
         results.append({
-            'text': line['name_' + lang],
+            'text': line.get('name_' + lang, line.get('name_en')),
             'children': group
         })
 
@@ -184,7 +184,7 @@ def get_portals(lang, city):
                     coordinates=[float(portal['lon']), float(portal['lat'])]
                 ),
                 properties=dict(
-                    name=portal['name_' + lang],
+                    name=portal.get('name_' + lang, portal.get('name_en')),
                     direction=portal['direction'],
                     barriers=get_barriers(portal)
                 )
@@ -208,7 +208,7 @@ def get_routes(lang, city, delta=5, limit=3):
         for station in STATIONS[city]:
             if station['id_station'] == str(station_id):
                 return dict(
-                    name=station['name_' + lang],
+                    name=station.get('name_' + lang, station.get('name_en')),
                     line=int(station['id_line']),
                     coords=(float(station['lat']), float(station['lon'])),
                     node_id=station['id_node']
@@ -219,7 +219,7 @@ def get_routes(lang, city, delta=5, limit=3):
         for line in LINES[city]:
             if line['id_line'] == str(line_id):
                 return dict(
-                    name=line['name_' + lang],
+                    name=line.get('name_' + lang, line.get('name_en')),
                     color=line['color']
                 )
 
