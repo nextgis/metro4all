@@ -36,6 +36,40 @@ define('DB', 'm4a_');
 
 define('M_USER', 1);
 
+$config['languages'] = array(
+    'ru' => array( 'menu' => 'Ру' ),
+    'en' => array( 'menu' => 'En' ),
+    'pl' => array( 'menu' => 'Pl' ),
+    'by' => array( 'menu' => 'Бр' )
+);
+
+$config['cities'] = array(
+    'msk' => array(
+        'title' => 'Москва',
+        'lat' => 55.75,
+        'lon' => 37.62,
+        'route_css_class' => 'city-1'
+    ),
+    'spb' => array(
+        'title' => 'Санкт-Петербург',
+        'lat' => 59.95,
+        'lon' => 30.316667,
+        'route_css_class' => 'city-2'
+    ),
+    'waw' => array(
+        'title' => 'Варшава',
+        'lat' => 52.233333,
+        'lon' => 21.016667,
+        'route_css_class' => 'city-3'
+    ),
+    'min' => array(
+        'title' => 'Минск',
+        'lat' => 53.9013964,
+        'lon' => 27.5603287,
+        'route_css_class' => 'city-4'
+    )
+);
+
 /*
 
 $config[M_USER] = array(

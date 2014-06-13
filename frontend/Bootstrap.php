@@ -47,8 +47,12 @@ class Core {
 Core::$time = $time;
 Core::$config = &$config;
 
-require_once(ROOT . 'lang/en.php');
-require_once(ROOT . 'lang/pl.php');
+foreach (Core::$config['languages'] as $url => $lang) {
+    if ($url !== 'ru') {
+        require_once(ROOT . 'lang/' . $url . '.php');
+    }
+}
+
 Core::$lang = &$lang;
 
 function s($str) {

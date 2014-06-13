@@ -23,7 +23,7 @@ if (preg_match('/^([^?]*[^\/?]+)$/Uui', $url)) {
 	go(preg_replace('/^([^?]*[^\/?]+)$/Uui', '$1/', $url));
 }
 
-if(preg_match('/^' . addcslashes(core::$config['http_root'], '\/') . '(en|ru|pl)\/(.*)$/Uu', $url, $matches)) {
+if(preg_match('/^' . addcslashes(core::$config['http_root'], '\/') . '(' . join('|', array_keys(Core::$config['languages'])) . ')\/(.*)$/Uu', $url, $matches)) {
     Core::$config['current_language'] = $matches[1];
     $url = $matches[2];
 
@@ -154,26 +154,10 @@ if(preg_match('/^' . addcslashes(core::$config['http_root'], '\/') . '(en|ru|pl)
 	
 	*/
 
-	if (preg_match('/^msk\/(|\?.*)$/Uu', $url, $matches)) {
+	if (preg_match('/^(' . join('|', array_keys(Core::$config['cities'])) . ')\/(|\?.*)$/Uu', $url, $matches)) {
 		require_once('SearchController.php');
 		$controller = new SearchController();
-		$controller->setCity(1);
-		echo $controller->actions();
-		die();
-	}
-
-	if (preg_match('/^spb\/(|\?.*)$/Uu', $url, $matches)) {
-		require_once('SearchController.php');
-		$controller = new SearchController();
-		$controller->setCity(2);
-		echo $controller->actions();
-		die();
-	}
-
-	if (preg_match('/^waw\/(|\?.*)$/Uu', $url, $matches)) {
-		require_once('SearchController.php');
-		$controller = new SearchController();
-		$controller->setCity(3);
+		$controller->setCity($matches[1]);
 		echo $controller->actions();
 		die();
 	}

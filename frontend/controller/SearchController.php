@@ -37,35 +37,14 @@ class SearchController
 
 		$page->addResource('style', 'css/m4a.css');
 
-		switch ($this->currentCity)
-		{
-			case 1:
-				$globalConfig = 'var global_config = {
-					  mainmap: {"center": [55.75, 37.62], "zoom": 10},
-					  city: "msk",
-					  route_css_class: "city-1",
-					  language: "' . Core::$config['current_language'] . '"
-				}';
-				break;
+        $city = Core::$config['cities'][$this->currentCity];
 
-			case 2:
-				$globalConfig = 'var global_config = {
-					  mainmap: {"center": [59.95, 30.316667], "zoom": 10},
-					  city: "spb",
-					  route_css_class: "city-2",
-					  language: "' . Core::$config['current_language'] . '"
-				}';
-				break;
-
-			case 3:
-				$globalConfig = 'var global_config = {
-					  mainmap: {"center": [52.233333, 21.016667], "zoom": 10},
-					  city: "waw",
-                      route_css_class: "city-3",
-					  language: "' . Core::$config['current_language'] . '"
-				}';
-				break;
-		}
+        $globalConfig = 'var global_config = {
+              mainmap: {"center": [' . $city['lat'] . ',' . $city['lon'] . '], "zoom": 10 },
+              city: "' . $this->currentCity . '",
+              route_css_class: "' . $city['route_css_class'] . '",
+              language: "' . Core::$config['current_language'] . '"
+        }';
 
 		$html = '
 <div class="row">

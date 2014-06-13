@@ -52,10 +52,13 @@ class PageCommon extends Page
 			  <li class="dropdown">
 			    <a href="#" class="dropdown-toggle" data-toggle="dropdown">' . s('Города') . '<b class="caret"></b></a>
 			    <ul class="dropdown-menu">
-                  <li class="metro-logo metro-logo-msk"><a href="/' . Core::$config['current_language'] . '/msk/">' . s('Москва') . '</a></li>
-                  <li class="metro-logo metro-logo-spb"><a href="/' . Core::$config['current_language'] . '/spb/">' . s('Санкт-Петербург') . '</a></li>
-                  <li class="metro-logo metro-logo-waw"><a href="/' . Core::$config['current_language'] . '/waw/">' . s('Варшава') . '</a></li>
-                </ul>
+			    ';
+
+        foreach (Core::$config['cities'] as $url => $city) {
+            $html .= '<li class="metro-logo metro-logo-' . $url . '"><a href="/' . Core::$config['current_language'] . '/' . $url . '/">' . s($city['title']) . '</a></li>';
+        }
+
+        $html .= '</ul>
               </li>
 			  <li><a href="/' . Core::$config['current_language'] . '/faq/">' . s('Вопросы и ответы') . '</a></li>
 			  <li><a href="/' . Core::$config['current_language'] . '/about/">' . s('О проекте') . '</a></li>
@@ -66,11 +69,13 @@ class PageCommon extends Page
 				<li><a target="_blank" href="http://vk.com/metro4all"><img src="/img/icon-social-vk.png" /></a></li>
 				<li><a target="_blank" href="https://www.facebook.com/pages/Metro4All/730617493632187"><img src="/img/icon-social-fb.png" /></a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li' . (Core::$config['current_language'] == 'ru' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/', core::$config['http_root'] . 'ru/', $_SERVER['REQUEST_URI'])) . '">' . s('Ру') . '</a></li>
-				<li' . (Core::$config['current_language'] == 'en' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/', core::$config['http_root'] . 'en/', $_SERVER['REQUEST_URI'])) . '">' . s('En') . '</a></li>
-				<li' . (Core::$config['current_language'] == 'pl' ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/', core::$config['http_root'] . 'pl/', $_SERVER['REQUEST_URI'])) . '">' . s('Pl') . '</a></li>
-			</ul>
+			<ul class="nav navbar-nav navbar-right">';
+
+        foreach (Core::$config['languages'] as $url => $lang) {
+            $html .= '<li' . (Core::$config['current_language'] == $url ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/', core::$config['http_root'] . $url . '/', $_SERVER['REQUEST_URI'])) . '">' . s($lang['menu']) . '</a></li>';
+        }
+
+		$html .= '</ul>
 		  </div>
 		</nav>
 
