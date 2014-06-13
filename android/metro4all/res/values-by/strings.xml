@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Metro4All</string>
+    <string name="sHomepage">http://nextgis.org</string>
+    <string name="sDetailpage">http://metro4all.org</string>
+    
+    <string name="about_app">This application calculates subway routes and shows you information about the barriers on the way. \n\nMore info at:</string>
+
+	<string name="sSettings">Settings</string>
+	<string name="sAbout">About</string>
+	<string name="sNetworkGetErr">Getting data failed</string>
+	<string name="sNetworkUnreachErr">Network is not available</string>
+    <string name="sDownLoading">Downloading &#8230;</string>
+    <string name="sZipExtractionProcess">Extracting &#8230;</string>
+    <string name="sSearching">Searching &#8230;</string>
+	<string name="sNetworkInvalidData">The data are invalid</string>
+	<string name="sFileNotFound">File not found</string>
+	<string name="sCannotReadFile">Cannot read file</string>
+	<string name="sCannotGetPath">Cannot find path</string>
+	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
+	<string name="sNoOrEmptyData">The data are absent or invalid. Please download the database.</string>
+	
+	<string name="sSelectDataToDownload">Select data to download</string>
+	<string name="sUpdateAvaliable">Data updates is available</string>
+	<string name="sDownload">Download</string>
+	<string name="sDelete">Delete</string>
+	<string name="sYes">Yes</string>
+	<string name="sNo">No</string>	
+	<string name="sOk">Ok</string>
+	<string name="sCancel">Cancel</string>
+	<string name="sQuestion">Update all data</string>
+	<string name="sAreYouSure">Are you sure?</string>
+	<string name="sSearch">Search</string>
+	<string name="sFromStation">From</string>
+	<string name="sToStation">To</string>
+	<string name="sRoute">Option</string>
+	<string name="sSchema">Layout</string>
+	<string name="sStationName">Name</string>
+	<string name="sEntranceName">Entrance</string>
+	<string name="sExitName">Exit</string>
+	<string name="sNotSet">Not set</string>
+	<string name="sSelFromStation">Select departure station</string>
+	<string name="sSelToStation">Select arrival station</string>
+	<string name="sBarriersExist">Click here to see barriers&#8230;</string>
+	<string name="sBarriersConflict">You have a conflict with your parameters</string>
+	<string name="sMaxWCWidth">Wheelchair width</string>
+	<string name="sStairsCount">Number of stairs</string>
+	<string name="sStairsWORails">Of those, without rails or ramps</string>
+	<string name="sLift">Elevator</string>
+	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
+	<string name="sCM">cm</string>
+	<string name="sKB">Kb</string>
+	<string name="sMB">Mb</string>
+	<string name="sMinRailWidth">Min distance between wheels</string>
+	<string name="sMaxRailWidth">Max distance between wheels</string>
+	<string name="sMaxAngle">Max angle of ramps/rails</string>
+	<string name="sDownloadData">Download new data?</string>
+	<string name="sDeleteData">Delete existing data?</string>
+	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
+	<string name="sLimits">Limitations</string>	
+	<string name="sLimitsSet">Set my limitations</string>
+	<string name="sLimitsHave">Limitations</string>
+	<string name="sSummary">Route summary</string>		
+	<string name="sSummaryClick">Press for details</string>		
+	<!-- tabs -->
+	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
+	<string name="sSelLinesTab">Lines</string>
+	<string name="sSelRecentTab">Recent</string>	
+	<!-- dialogs -->
+	<string name="sPrefTitle">Preferences</string>
+	<string name="sPrefCatMain">Main</string>
+	<string name="sPrefCatData">Data</string>
+	<string name="sPrefNaviType">Navigation type</string>
+	<string name="sPrefNaviTypeSummary">Navigation type affects routing</string>
+	<string name="sPrefNaviTypeTitle">Select navigation type</string>
+	<string name="sPrefWheelBaseSize">Width between wheels</string>
+	<string name="sPrefWheelBaseSizeSummary">The distance between wheels (cm)</string>
+	<string name="sPrefWheelBaseSizeTitle">Set width between wheels (cm)</string>		
+	<string name="sPrefCarriageSize">Wheelchair/stroller width</string>
+	<string name="sPrefCarriageSizeSummary">Wheelchair/stroller width (cm)</string>
+	<string name="sPrefCarriageSizeTitle">Set max wheelchair/stroller width (cm)</string>	
+	<string name="sPrefDataPath">Download data URL</string>
+	<string name="sPrefDataPathSummary">Set download routing data URL</string>
+	<string name="sPrefDataPathTitle">Set download data URL</string>
+	<string name="sPrefUpdDataSummary">Click to update data</string>
+	<string name="sPrefUpdDataTitle">Update data</string>
+	<string name="sPrefChangeCityBasesTitle">Add/Remove city</string>
+	<string name="sPrefChangeCityBasesBtn">Change</string>
+	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
+	<string name="sPrefCity">Current city</string>
+	<string name="sPrefCitySummary">Choose city</string>
+	<string name="sPrefCityTitle">Choose city from the list</string>
+	<string name="sPrefCityLoc">Language</string>
+	<string name="sPrefCityLocSummary">Choose language</string>
+	<string name="sPrefCityLocTitle">Choose language for names</string>
+	<string name="stationFilterHintText">Start entering name of the station</string>
+	
+	<string name="switch_on">On</string>
+	<string name="switch_off">Off</string>
+</resources>

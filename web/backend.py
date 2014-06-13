@@ -55,40 +55,47 @@ def get_barriers(item):
 LINES = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/lines.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/lines.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/lines.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/lines.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/lines.csv'), 'rb'), delimiter=';')]
 }
 
 STATIONS = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/stations.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/stations.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/stations.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/stations.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/stations.csv'), 'rb'), delimiter=';')]
 }
 
 PORTALS = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/portals.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/portals.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/portals.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/portals.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/portals.csv'), 'rb'), delimiter=';')]
 }
 
 INTERCHANGES = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/interchanges.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/interchanges.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/interchanges.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/interchanges.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/interchanges.csv'), 'rb'), delimiter=';')]
 }
 
 GRAPH = {
     'msk': init_graph('msk'),
     'spb': init_graph('spb'),
-    'waw': init_graph('waw')
+    'waw': init_graph('waw'),
+    'min': init_graph('min')
 }
 
 msk_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/msk/schemes/*.png'))]
 spb_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/spb/schemes/*.png'))]
 waw_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/waw/schemes/*.png'))]
+min_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/min/schemes/*.png'))]
 SCHEMAS = {
     'msk': dict(zip([os.path.splitext(s)[0] for s in msk_schemes], msk_schemes)),
     'spb': dict(zip([os.path.splitext(s)[0] for s in spb_schemes], spb_schemes)),
-    'waw': dict(zip([os.path.splitext(s)[0] for s in waw_schemes], waw_schemes))
+    'waw': dict(zip([os.path.splitext(s)[0] for s in waw_schemes], waw_schemes)),
+    'min': dict(zip([os.path.splitext(s)[0] for s in min_schemes], min_schemes))
 }
 
 
@@ -110,9 +117,14 @@ def main(city):
             mainmap=dict(center=[52.2286, 21.0491], zoom=10),
             city='waw',
             route_css_class='city-3'
+        ),
+        'min': dict(
+            mainmap=dict(center=[53.916667, 27.55], zoom=10),
+            city='min',
+            route_css_class='city-4'
         )
     }
-    city = city if city in ['msk', 'spb', 'waw'] else 'msk'
+    city = city if city in ['msk', 'spb', 'waw', 'min'] else 'msk'
     return dict(config=config[city])
 
 
