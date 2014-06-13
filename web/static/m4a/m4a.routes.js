@@ -110,7 +110,7 @@
             var context = this,
                 content = "<ul class='route'>",
                 lineClass = routes[index].route && routes[index].route.length > 0 ?
-                    ' line-' + routes[index].route[0].station_line.id : '';
+                    ' line-' + m4a.routes.COLORS[item.station_line.color] : '';
 
             content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
             if (routes[index].portals.portal_from) {
