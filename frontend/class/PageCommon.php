@@ -118,11 +118,11 @@ class PageCommon extends Page
 		<div class="footer">
 			' . $html . '
 			<p class="nextgis-link"><a href="http://nextgis.ru/"><img src="/img/nextgis-logo.png" width="150" /></a></p>
-			<p class="feedback-email"><a class="btn btn-primary" style="margin-right:10px;" href="/' . Core::$config['current_language'] . '/feedback/">' . s('Feedback') . '</a>
-				<a class="btn btn-primary" href="/' . Core::$config['current_language'] . '/subscription/">' . s('Newsletter') . '</a></p>
+			<p class="feedback-email"><a class="btn btn-primary" style="margin-right:10px;" href="/' . Core::$config['current_language'] . '/feedback/">' . s('Feedback') . '</a></p>
 		</div>
-
 		';
+
+        // <a class="btn btn-primary" href="/' . Core::$config['current_language'] . '/subscription/">' . s('Newsletter') . '</a>
 	}
 }
 
