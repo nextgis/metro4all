@@ -21,7 +21,7 @@ class QaController
 	{
 	    $html = '';
 
-		$page = new PageCommon(s('Вопросы и ответы'));
+		$page = new PageCommon(s('Q&A'));
 		
 		$html .= $page->start();
 
@@ -33,38 +33,17 @@ class QaController
 
 		$html .= '<div class="row"><div class="col-md-offset-1 col-md-7">';
 		
-		$html .= '<h1>' . s('Вопросы и ответы') . '</h1>';
+		$html .= '<h1>' . s('Q&A') . '</h1>';
 
 		if ($this->is_admin) {
-			$html .= '<p><a class="btn btn-primary" href="?action=insert">' . s('Добавить') . '</a></p>';
+			$html .= '<p><a class="btn btn-primary" href="?action=insert">' . s('Add') . '</a></p>';
 		}
-		
-		switch (core::$config['current_language']) {
-			case 'ru':
-				$data = core::$sql->get('id, title, group_title, description'
-						, DB . 'qa'
-						, 'title <> "" and group_title <> "" and description <> ""'
-						. ' order by group_title, title'
-				);
-				break;
 
-			case 'en':
-				$data = core::$sql->get('id, title_en as title, group_title_en as group_title, description_en as description'
-						, DB . 'qa'
-						, 'title_en <> "" and group_title_en <> "" and description_en <> ""'
-						. ' order by group_title_en, title_en'
-				);
-				break;
+        $data = core::$sql->get('*'
+                , DB . 'qa'
+                . ' order by group_title_ru, title_ru'
+        );
 
-			case 'pl':
-				$data = core::$sql->get('id, title_en as title, group_title_en as group_title, description_en as description'
-						, DB . 'qa'
-						, 'title_pl <> "" and group_title_pl <> "" and description_pl <> ""'
-						. ' order by group_title_pl, title_pl'
-				);
-				break;
-		}
-		
 		if (count($data)) {
 		
 			$last_group_title = '';
@@ -74,7 +53,9 @@ class QaController
 			$html .= '<ul>';
 			
 			foreach ($data as $row) {
-					
+
+                translateFields(array('group_title', 'title', 'description'), $row);
+
 				if ($last_group_title != $row['group_title']) {
 					
 					if ($i > 0) {
@@ -96,6 +77,8 @@ class QaController
 			$last_group_title = '';
 			
 			foreach ($data as $row) {
+
+                translateFields(array('group_title', 'title', 'description'), $row);
 				
 				if ($last_group_title != $row['group_title']) {
 					
@@ -107,8 +90,8 @@ class QaController
 				$html .= '<div id="question-block-' . $row['id'] . '" class="question-block"> <p style="margin-bottom:10px;"><strong><a name="' . $row['id'] . '"></a>' . escape($row['title']) . '</strong>';
 	
 				if ($this->is_admin) {
-					$html .= ' <a class="btn btn-xs" href="?action=update&id=' . $row['id'] . '"><spam>' . s('Изменить') . '</a>'
-							. ' <a class="btn btn-xs btn-danger btn-confirm" confirm-href="?action=delete&id='.$row['id'].'" confirm-question="Действительно удалить?"><spam>' . s('Удалить') . '</a>';
+					$html .= ' <a class="btn btn-xs" href="?action=update&id=' . $row['id'] . '"><spam>' . s('Edit') . '</a>'
+							. ' <a class="btn btn-xs btn-danger btn-confirm" confirm-href="?action=delete&id='.$row['id'].'" confirm-question="' . s('Really delete?') . '"><spam>' . s('Delete') . '</a>';
 				}
 							
 				$html .= '</p>
@@ -164,14 +147,14 @@ class QaController
 		    }
 		    
 		    if (! count($errors)) {
-			    core::$sql->insert(array(
-			    	'title' => core::$sql->s(request_str('title')),
-			    	'title_en' => core::$sql->s(request_str('title_en')),
-			    	'group_title' => core::$sql->s(request_str('group_title')),
-			    	'group_title_en' => core::$sql->s(request_str('group_title_en')),
-			    	'description' => core::$sql->s(request_str('description')),
-			    	'description_en' => core::$sql->s(request_str('description_en')),
-			    ), DB.'qa');
+                $fields = array();
+                foreach (Core::$config['languages'] as $url => $languages) {
+                    $fields['title_' . $url] = core::$sql->s(request_str('title_' . $url));
+                    $fields['group_title_' . $url] = core::$sql->s(request_str('group_title_' . $url));
+                    $fields['description_' . $url] = core::$sql->s(request_str('description_' . $url));
+                }
+
+			    core::$sql->insert($fields, DB.'qa');
 			    
 				go(core::$config['http_home'].'faq/');
 			}
@@ -182,7 +165,7 @@ class QaController
 		$html .= $page->start();
 		
 		$html .= '
-				<p><a href="./">' . s('Вопросы и ответы') . '</a> &rarr;</p>
+				<p><a href="./">' . s('Q&A') . '</a> &rarr;</p>
 				<h2>'.s('Добавить вопрос').'</h2>';
 		
 		if (count($errors)) {
@@ -194,14 +177,21 @@ class QaController
 		$html .= '<div class="well">'
 		    . $form->start()
 			. $form->addVariable('is_posted', 1)
-			. $form->addVariable('action', 'insert')
-			. $form->addString('title', s('Вопрос') . ' Rus', $is_posted ? request_str('title') : '', array('class' => 'span7'))
-			. $form->addString('title_en', s('Вопрос') . ' Eng', $is_posted ? request_str('title_en') : '', array('class' => 'span7'))
-			. $form->addString('group_title', s('Группа') . ' Rus', $is_posted ? request_str('group_title') : '', array('class' => 'span7'))
-			. $form->addString('group_title_en', s('Группа') . ' Eng', $is_posted ? request_str('group_title_en') : '', array('class' => 'span7'))
-			. $form->addText('description', s('Ответ') . ' Rus', $is_posted ? request_str('description') : '', array('class' => 'span7', 'style' => 'height:250px;'))
-			. $form->addText('description_en', s('Ответ') . ' Eng', $is_posted ? request_str('description_en') : '', array('class' => 'span7', 'style' => 'height:250px;'))
-			. $form->submit(s('Добавить'))
+			. $form->addVariable('action', 'insert');
+
+        foreach (Core::$config['languages'] as $url => $language) {
+            $html .= $form->addString('title_' . $url, s('Вопрос') . ' ' . $language['title'], $is_posted ? request_str('title_' . $url) : '', array('class' => 'span7'));
+        }
+
+        foreach (Core::$config['languages'] as $url => $language) {
+            $html .= $form->addString('group_title_' . $url, s('Группа') . ' ' . $language['title'], $is_posted ? request_str('group_title_' . $url) : '', array('class' => 'span7'));
+        }
+
+        foreach (Core::$config['languages'] as $url => $language) {
+            $html .= $form->addString('description_' . $url, s('Ответ') . ' ' . $language['title'], $is_posted ? request_str('description_' . $url) : '', array('class' => 'span7', 'style' => 'height:250px;'));
+        }
+
+		$html .= $form->submit(s('Add'))
 			. '</div>';
 		
 		$html .= '<script> $(document).ready(function() { $("#'.$jump_to.'").focus(); }); </script>';
@@ -239,14 +229,13 @@ class QaController
 		    }
 		    		    
 		    if (! count($errors)) {
-			    core::$sql->update(array(
-				    'title' => core::$sql->s(request_str('title')),
-				    'title_en' => core::$sql->s(request_str('title_en')),
-				    'group_title' => core::$sql->s(request_str('group_title')),
-				    'group_title_en' => core::$sql->s(request_str('group_title_en')),
-				    'description' => core::$sql->s(request_str('description')),
-				    'description_en' => core::$sql->s(request_str('description_en')),
-			    ), DB.'qa', 'id='.core::$sql->i($item['id']));
+                $fields = array();
+                foreach (Core::$config['languages'] as $url => $languages) {
+                    $fields['title_' . $url] = core::$sql->s(request_str('title_' . $url));
+                    $fields['group_title_' . $url] = core::$sql->s(request_str('group_title_' . $url));
+                    $fields['description_' . $url] = core::$sql->s(request_str('description_' . $url));
+                }
+			    core::$sql->update($fields, DB.'qa', 'id='.core::$sql->i($item['id']));
 			    
 				go(core::$config['http_home'].'faq/');
 			}
@@ -256,7 +245,7 @@ class QaController
 		
 		$html .= $page->start();
 		
-		$html .= '<p><a href="./">' . s('Вопросы и ответы') . '</a> &rarr;</p>
+		$html .= '<p><a href="./">' . s('Q&A') . '</a> &rarr;</p>
 				<h2>'.s('Изменить вопрос').'</h2>';
 		
 		if (count($errors)) {
@@ -268,14 +257,21 @@ class QaController
 		$html .= '<div class="well">'
 		    . $form->start()
 			. $form->addVariable('is_posted', 1)
-			. $form->addVariable('action', 'update')
-			. $form->addString('title', s('Вопрос') . ' Rus', $is_posted ? request_str('title') : $item['title'], array('class' => 'span7'))
-			. $form->addString('title_en', s('Вопрос') . ' Eng', $is_posted ? request_str('title_en') : $item['title_en'], array('class' => 'span7'))
-			. $form->addString('group_title', s('Группа') . ' Rus', $is_posted ? request_str('group_title') : $item['group_title'], array('class' => 'span7'))
-			. $form->addString('group_title_en', s('Группа') . ' Eng', $is_posted ? request_str('group_title_en') : $item['group_title_en'], array('class' => 'span7'))
-			. $form->addText('description', s('Ответ') . ' Rus', $is_posted ? request_str('description') : $item['description'], array('class' => 'span7', 'style' => 'height:250px;'))
-			. $form->addText('description_en', s('Ответ') . ' Eng', $is_posted ? request_str('description_en') : $item['description_en'], array('class' => 'span7', 'style' => 'height:250px;'))
-			. $form->submit(s('Сохранить'))
+			. $form->addVariable('action', 'update');
+
+        foreach (Core::$config['languages'] as $url => $language) {
+            $html .= $form->addString('title_' . $url, s('Вопрос') . ' ' . $language['title'], $is_posted ? request_str('title_' . $url) : $item['title_' . $url], array('class' => 'span7'));
+        }
+
+        foreach (Core::$config['languages'] as $url => $language) {
+            $html .= $form->addString('group_title_' . $url, s('Группа') . ' ' . $language['title'], $is_posted ? request_str('group_title_' . $url) : $item['group_title_' . $url], array('class' => 'span7'));
+        }
+
+        foreach (Core::$config['languages'] as $url => $language) {
+            $html .= $form->addString('description_' . $url, s('Ответ') . ' ' . $language['title'], $is_posted ? request_str('description_' . $url) : $item['description_' . $url], array('class' => 'span7', 'style' => 'height:250px;'));
+        }
+
+        $html .= $form->submit(s('Update'))
 			. '</div>';
 		
 		$html .= '<script> $(document).ready(function() { $("#'.$jump_to.'").focus(); }); </script>';

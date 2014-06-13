@@ -23,13 +23,13 @@ class PageCommon extends Page
 			$html .= '
 			  	<div class="auth-panel">
 			    	<a href="'.core::$config['http_home'].'u'.core::$user->info['id'].'/" class="user"><span class="icon icon-user"></span> '.escape(core::$user->info['title']).'</a>
-			  		<a href="'.core::$config['http_home'].'logout/">'.s('Выход').'</a>
+			  		<a href="'.core::$config['http_home'].'logout/">'.s('Logout').'</a>
 			    </div>';
 	    } else {
 			$html .= '
 			  	<div class="auth-panel">
-			  		<a href="'.core::$config['http_home'].'login/">'.s('Вход').'</a>
-			  		<a href="'.core::$config['http_home'].'register/">'.s('Регистрация').'</a>
+			  		<a href="'.core::$config['http_home'].'login/">'.s('Sign In').'</a>
+			  		<a href="'.core::$config['http_home'].'register/">'.s('Registration').'</a>
 			  	</div>';
 	    }
 
@@ -50,7 +50,7 @@ class PageCommon extends Page
 			<ul class="nav navbar-nav">
 			  <li><a href="/' . Core::$config['current_language'] . '/"><span class="glyphicon glyphicon-home"></span></a><//li>
 			  <li class="dropdown">
-			    <a href="#" class="dropdown-toggle" data-toggle="dropdown">' . s('Города') . '<b class="caret"></b></a>
+			    <a href="#" class="dropdown-toggle" data-toggle="dropdown">' . s('Cities') . '<b class="caret"></b></a>
 			    <ul class="dropdown-menu">
 			    ';
 
@@ -60,8 +60,8 @@ class PageCommon extends Page
 
         $html .= '</ul>
               </li>
-			  <li><a href="/' . Core::$config['current_language'] . '/faq/">' . s('Вопросы и ответы') . '</a></li>
-			  <li><a href="/' . Core::$config['current_language'] . '/about/">' . s('О проекте') . '</a></li>
+			  <li><a href="/' . Core::$config['current_language'] . '/faq/">' . s('Q&A') . '</a></li>
+			  <li><a href="/' . Core::$config['current_language'] . '/about/">' . s('About') . '</a></li>
 			  <li><a href="https://play.google.com/store/apps/details?id=com.nextgis.metroaccess" style="color:red;padding-top:9px;padding-bottom:9px;"><span style="background-image:url(/img/android.png);display:inline-block;height:32px;margin-right:5px;vertical-align:middle;width:32px;"></span></a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-social">
@@ -71,8 +71,8 @@ class PageCommon extends Page
 			</ul>
 			<ul class="nav navbar-nav navbar-right">';
 
-        foreach (Core::$config['languages'] as $url => $lang) {
-            $html .= '<li' . (Core::$config['current_language'] == $url ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/', core::$config['http_root'] . $url . '/', $_SERVER['REQUEST_URI'])) . '">' . s($lang['menu']) . '</a></li>';
+        foreach (Core::$config['languages'] as $url => $language) {
+            $html .= '<li' . (Core::$config['current_language'] == $url ? ' class="active"' : '') . '><a href="' . escape(str_replace(core::$config['http_root'] . Core::$config['current_language'] . '/', core::$config['http_root'] . $url . '/', $_SERVER['REQUEST_URI'])) . '">' . s($language['menu']) . '</a></li>';
         }
 
 		$html .= '</ul>
@@ -80,8 +80,8 @@ class PageCommon extends Page
 		</nav>
 
 		<div class="header">
-			<h1 class="col-md-11 title">' . s('Метро для всех') . ' <sup class="title-beta">Beta</sup></h1>
-			<div class="col-md-1"><a class="btn btn-danger" style="margin-top:20px" href="http://forum.metro4all.ru/">' . s('Форум') . '</a></div>
+			<h1 class="col-md-11 title">' . s('Metro4all') . ' <sup class="title-beta">Beta</sup></h1>
+			<div class="col-md-1"><a class="btn btn-danger" style="margin-top:20px" href="http://forum.metro4all.ru/">' . s('Forum') . '</a></div>
 		</div>
 ';
 
@@ -118,11 +118,11 @@ class PageCommon extends Page
 		<div class="footer">
 			' . $html . '
 			<p class="nextgis-link"><a href="http://nextgis.ru/"><img src="/img/nextgis-logo.png" width="150" /></a></p>
-			<p class="feedback-email"><a class="btn btn-primary" style="margin-right:10px;" href="/' . Core::$config['current_language'] . '/feedback/">' . s('Обратная связь') . '</a>
-				<a class="btn btn-primary" href="/' . Core::$config['current_language'] . '/subscription/">' . s('Подписка на новости') . '</a></p>
+			<p class="feedback-email"><a class="btn btn-primary" style="margin-right:10px;" href="/' . Core::$config['current_language'] . '/feedback/">' . s('Feedback') . '</a></p>
 		</div>
-
 		';
+
+        // <a class="btn btn-primary" href="/' . Core::$config['current_language'] . '/subscription/">' . s('Newsletter') . '</a>
 	}
 }
 

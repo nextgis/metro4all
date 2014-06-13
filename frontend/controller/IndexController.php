@@ -14,7 +14,7 @@ class IndexController
 
 	function defaultAction()
 	{
-		$page = new PageCommon(s('Метро для всех'));
+		$page = new PageCommon(s('Metro4all'));
 
 		$page->addResource('style', 'css/metro4all-promo.css');
 		$page->addResource('style', 'css/metro4all-index.css');
@@ -35,28 +35,28 @@ class IndexController
 			<div class="item active">
 				<img src="/img/part-1.jpg">
 				<div class="carousel-caption">
-					' . s('Мы обошли все станции метро Москвы и Санкт-Петербурга') . '
+					' . s('We surveyed all subway stations of Moscow and Saint-Petersburg') . '
 				</div>
 				<div class="photo-copyright">Фото: Wikipedia <a href="http://commons.wikimedia.org/wiki/File:Metro_SPB_Line1_Lesnaya_pavilion.jpg?uselang=ru">1</a> <a href="http://commons.wikimedia.org/wiki/File:Kunts_12.jpg">2</a></div>
 			</div>
 			<div class="item">
 				<img src="/img/part-4.jpg">
 				<div class="carousel-caption">
-					 ' . s('...и измерили все элементы инфраструктуры важные для перемещения людей...') . '
+					 ' . s('...and measured all elements of infrastructure important for movement of people...') . '
 				</div>
 				<div class="photo-copyright">Фото: Максим Дубинин//NextGIS</div>
 			</div>
 			<div class="item">
 				<img src="/img/part-3.jpg">
 				<div class="carousel-caption">
-					' . s('...в том числе для людей с особенными потребностями...') . '
+					' . s('...especially for people with special needs ...') . '
 				</div>
 				<div class="photo-copyright">Фото: Максим Дубинин//NextGIS</div>
 			</div>
 			<div class="item">
 				<img src="/img/part-2.jpg">
 				<div class="carousel-caption">
-					' . s('...начните использовать прямо сейчас...') . '
+					' . s('...start using it now...') . '
 				</div>
 			</div>
 		</div>
@@ -75,7 +75,7 @@ $html .= '
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="news">
-				<h2><a href="news/" style="color: #D8A300;">' . s('Новости') . '</a></h2>
+				<h2><a href="news/" style="color: #D8A300;">' . s('News') . '</a></h2>
 				<ul>
 ';
 

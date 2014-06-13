@@ -47,13 +47,26 @@ class Core {
 Core::$time = $time;
 Core::$config = &$config;
 
-foreach (Core::$config['languages'] as $url => $lang) {
-    if ($url !== 'ru') {
+foreach (Core::$config['languages'] as $url => $language) {
+    if ($url !== 'en') {
         require_once(ROOT . 'lang/' . $url . '.php');
     }
 }
+/*
+$temp = array();
+foreach ($lang['ru'] as $en => $ru) {
+    if (isset($lang['pl'][$ru])) {
+        $temp[$en] = $lang['pl'][$ru];
+    }
+}
 
-Core::$lang = &$lang;
+$lang['pl'] = $temp;
+
+var_export($lang['pl']);
+die();
+*/
+
+Core::$lang = $lang;
 
 function s($str) {
     if (isset(Core::$lang[Core::$config['current_language']][$str])) {
@@ -61,6 +74,34 @@ function s($str) {
     } else {
         return $str;
     } 
+}
+
+function selectFields($prefix, $fields) {
+    $result = array();
+    foreach (Core::$config['languages'] as $url => $language) {
+        $result []= $fields[$prefix . '_' . $url];
+    }
+    return $result;
+}
+
+function getNotEmpty($value, $fallback) {
+    $result = $value;
+    if ($result == '') {
+        foreach ($fallback as $text) {
+            if ($text != '') {
+                $result = $text;
+                break;
+            }
+        }
+    }
+    return $result;
+}
+
+function translateFields($prefixes, &$fields) {
+    foreach ($prefixes as $prefix) {
+        $fields[$prefix] = getNotEmpty($fields[$prefix . '_' . Core::$config['current_language']],
+            selectFields($prefix, $fields));
+    }
 }
 
 require_once(ROOT . 'mod/lib.db.php');
