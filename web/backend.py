@@ -154,7 +154,7 @@ def get_stations(lang, city):
                 if station['id_station'] in SCHEMAS[city]:
                     station_json['sch'] = SCHEMAS[city][station['id_station']]
                 group.append(station_json)
-        group = sorted(group, key=lambda i: i['text'])
+        # group = sorted(group, key=lambda i: i['text'])
         results.append({
             'text': line['name_' + lang],
             'children': group
