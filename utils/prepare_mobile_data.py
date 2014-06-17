@@ -26,8 +26,6 @@ def cleanup(val):
 
 def split_stations(csv_in):
 
-    langs = ("ru","en","pl")
-
     for lang in langs:
         input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
         if 'name_' + lang in input_f.fieldnames:
@@ -86,7 +84,6 @@ def split_lines(csv_in):
 
 def split_portals(csv_in):
 
-    langs = ("ru","en","pl")
 
     for lang in langs:
         input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
@@ -239,6 +236,7 @@ if __name__ == '__main__':
     city = sys.argv[1]
     USERNAME = sys.argv[2]
     PASSWORD = sys.argv[3]
+	langs = ("ru","en","pl","by")
 
     split_stations("data/" + city + "/" + "stations.csv")
     split_portals("data/" + city + "/" + "portals.csv")
