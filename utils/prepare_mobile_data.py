@@ -236,7 +236,7 @@ if __name__ == '__main__':
     city = sys.argv[1]
     USERNAME = sys.argv[2]
     PASSWORD = sys.argv[3]
-	langs = ("ru","en","pl","by")
+    langs = ("ru","en","pl","by")
 
     split_stations("data/" + city + "/" + "stations.csv")
     split_portals("data/" + city + "/" + "portals.csv")
