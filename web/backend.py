@@ -132,7 +132,7 @@ def main(city):
             route_css_class='city-4'
         ),
         'kzn': dict(
-            mainmap=dict(center=[52.2286, 21.0491], zoom=10),
+            mainmap=dict(center=[55.7916, 49.1295], zoom=12),
             city='kzn',
             route_css_class='city-5'
         )
