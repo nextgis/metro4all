@@ -138,7 +138,7 @@ def main(city):
         )
     }
     city = city if city in ['msk', 'spb', 'waw', 'min', 'kzn'] else 'msk'
-    return dict(config=config[city])
+    return dict(config=config[city], request=request)
 
 
 @route('/static/<path:path>')
