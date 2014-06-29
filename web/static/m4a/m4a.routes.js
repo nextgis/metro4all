@@ -3,6 +3,21 @@
 
     $.extend(m4a.routes, {
 
+        COLORS: {
+            "#ed1b35": 1,
+            "#44b85c": 2,
+            "#0078bf": 3,
+            "#19c1f3": 4,
+            "#894e35": 5,
+            "#f58631": 6,
+            "#8e479c": 7,
+            "#ffcb31": 8,
+            "#a1a2a3": 9,
+            "#b3d445": 10,
+            "#79cdcd": 11,
+            "#acbfe1": 12
+        },
+
         buildRoutes: function (data) {
             var context = this,
                 routes = data.result;
@@ -95,7 +110,7 @@
             var context = this,
                 content = "<ul class='route'>",
                 lineClass = routes[index].route && routes[index].route.length > 0 ?
-                    ' line-' + routes[index].route[0].station_line.id : '';
+                    ' line-' + m4a.routes.COLORS[routes[index].route[0].station_line.color] : '';
 
             content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
             if (routes[index].portals.portal_from) {
@@ -115,7 +130,7 @@
                     (item.station_type == 'regular' && routes[index].route[i - 1].station_type != 'interchange')
 
                 if (condition) {
-                    content += "<li class=" + "'station line-" + item.station_line.id + "'>" + item.station_name +
+                    content += "<li class=" + "'station line-" + m4a.routes.COLORS[item.station_line.color] + "'>" + item.station_name +
                         context.schemeIconTemplate({
                             schemeExists: item.schema,
                             path: m4a.viewmodel.pathToSchemes + item.schema,
@@ -123,8 +138,8 @@
                         }) +
                         "</li>"
                 } else if (item.station_type == 'interchange') {
-                    content += "<li class=" + "'transition from-line-" + item.station_line.id + " to-line-" +
-                        routes[index].route[i + 1].station_line.id + "'>" + item.station_name +
+                    content += "<li class=" + "'transition from-line-" + m4a.routes.COLORS[item.station_line.color] + " to-line-" +
+                        m4a.routes.COLORS[routes[index].route[i + 1].station_line.color] + "'>" + item.station_name +
                         " (" + item.station_line.name + ")" + " &rarr; " + routes[index].route[i + 1].station_name +
                         " (" + routes[index].route[i + 1].station_line.name + ")" +
                         context.schemeIconTemplate({
@@ -165,7 +180,7 @@
                     item.coordinates,
                     {
                         icon: L.divIcon({
-                            className: 'marker-station marker-line-' + item.station_line.id +
+                            className: 'marker-station marker-line-' + m4a.routes.COLORS[item.station_line.color] +
                                 (i == 0 ? ' marker-enter' : (i == (routes[index].route.length - 1) ? ' marker-exit' : '')),
                             iconSize: [16, 16]
                         })

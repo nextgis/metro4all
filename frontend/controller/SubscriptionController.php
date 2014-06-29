@@ -24,12 +24,12 @@ class SubscriptionController
 			// $captcha_code = request_str('captcha_code');
 
 			if (! count($errors) && ! request_str('email')) {
-		        $errors []= s('Пожалуйста, укажите адрес электронной почты.');
+		        $errors []= s('Please, enter your email');
 		        $jump_to = 'register_email';
 		    }
 
 		    if (! count($errors) && request_str('email') && ! filter_var(request_str('email'), FILTER_VALIDATE_EMAIL)) {
-		    	$errors []= s('Пожалуйста, укажите корректный адрес электронной почты. Например: john@gmail.com');
+		    	$errors []= s('Please, provide correct email address. For example: john@gmail.com');
 		    	$jump_to = 'register_email';
 		   	}
 
@@ -59,11 +59,11 @@ class SubscriptionController
 			//	$errors []= 'Неверный код подтверждения';
 		}
 
-		$page = new PageCommon(s('Подписка'));
+		$page = new PageCommon(s('Newsletter'));
 
 		$html .= $page->start();
 
-		$html .= '<div class="row"><div class="col-md-offset-1 col-md-6"><h1>'.s('Подписка на новости').'</h1>';
+		$html .= '<div class="row"><div class="col-md-offset-1 col-md-6"><h1>'.s('Newsletter').'</h1>';
 
 		if (count($errors)) {
 			$html .= '<div class="alert alert-danger"><p>'.escape($errors[0]).'</p></div>';
@@ -74,9 +74,9 @@ class SubscriptionController
 		$html .= '<div class="well">'
 			. $form->start()
 			. $form->addVariable('is_posted', 1)
-			. $form->addString('email', s('Адрес электронной почты'), $is_posted ? request_str('email') : '', array('is_required' => true))
+			. $form->addString('email', s('E-mail'), $is_posted ? request_str('email') : '', array('is_required' => true))
 			// . $form->add_captcha('Код на картинке', array('style' => 'width:300px;'))
-			. $form->submit(s('Подписаться'))
+			. $form->submit(s('Subscribe'))
 			. '</div>';
 
 		$html .= '<script> $(document).ready(function() { $("#'.$jump_to.'").focus(); }); </script>';
@@ -91,14 +91,14 @@ class SubscriptionController
 	function okAction() {
 		$html = '';
 
-		$page = new PageCommon(s('Подписка на новости'));
+		$page = new PageCommon(s('Newsletter'));
 
 		$html .= $page->start();
 
 		$html .= '<div class="row"><div class="col-md-offset-1 col-md-6">
-			<h3>' . s('Спасибо за подписку!') . '</strong></h3>
-			<p>' . s('Ваш адрес электронной почты успешно добавлен в список рассылки.') . '</p>
-			<p><a href="../">' . s('Вернуться на главную') . '</a></p>
+			<h3>' . s('Thanks for subscribing!') . '</strong></h3>
+			<p>' . s('Your email was added to the newsletter list.') . '</p>
+			<p><a href="../">' . s('Home') . '</a></p>
 		</div></div>';
 
 		$html .= $page->stop();

@@ -16,17 +16,19 @@ class NewsController
 	{
 		$html = '';
 
-		$page = new PageCommon(s('Новости'));
+		$page = new PageCommon(s('News'));
 
 		$html .= $page->start();
 
-		$html .= '<div class="row" style="margin-bottom:200px"><div class="col-md-offset-1 col-md-7"><h1>' . s('Новости') . '</h1><ul class="news-list">';
+		$html .= '<div class="row" style="margin-bottom:200px"><div class="col-md-offset-1 col-md-7"><h1>' . s('News') . '</h1><ul class="news-list">';
 
 		foreach (Core::$sql->get('*', DB . 'news order by datetime_stamp desc') as $row)
 		{
-			$html .= '<li><div class="item-date">' . time_format_date($row['datetime_stamp']) . '</div>'
-				. '<h3><a name="' . $row['id'] . '"></a>' . ($row['title_' . Core::$config['current_language']] ? $row['title_' . Core::$config['current_language']] : $row['title_en']) . '</h3>'
-				. '<p>' . ($row['description_' .Core::$config['current_language']] ? $row['description_' .Core::$config['current_language']] : $row['title_en']) . '</p>'
+            translateFields(array('title', 'description'), $row);
+
+            $html .= '<li><div class="item-date">' . time_format_date($row['datetime_stamp']) . '</div>'
+				. '<h3><a name="' . $row['id'] . '"></a>' . ($row['title']) . '</h3>'
+				. '<p>' . ($row['description']) . '</p>'
 				. '</li>';
 		}
 
