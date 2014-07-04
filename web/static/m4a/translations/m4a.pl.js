@@ -33,6 +33,8 @@
             "obt_arent_sh_en": "Przeszkody nie są wyświetlane ponieważ nie wybrałeś wejście",
             "exit": "Wyjście",
             "obt_arent_sh_ex": "Przeszkody nie są wyświetlane ponieważ nie wybrałeś wyjście",
+            "show": "Jeszcze...",
+            "hide": "Schować"
         },
         inline: {
             "start_st": "Wybierz stacje wejścia lub wyjścia",

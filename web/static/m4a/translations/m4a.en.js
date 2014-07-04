@@ -32,7 +32,9 @@
             "entr": "Entrance",
             "obt_arent_sh_en": "Obstacles aren't shown as the entrance is not selected",
             "exit": "Exit",
-            "obt_arent_sh_ex": "Obstacles aren't shown as the exit is not selected"
+            "obt_arent_sh_ex": "Obstacles aren't shown as the exit is not selected",
+            "show": "More...",
+            "hide": "Hide"
         },
         inline: {
             "start_st": "Please select starting or destination station",
