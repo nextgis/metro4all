@@ -154,6 +154,60 @@
     background-image: none !important;
 }
 
+/* markers */
+
+.marker-station {
+    background-image: url(../img/search-result-1-circle.png);
+}
+
+.city-2 .marker-station {
+    background-image: url(../img/search-result-2-circle.png);
+}
+
+.marker-station.marker-line-2 {
+    background-position: 0 -16px;
+}
+
+.marker-station.marker-line-3 {
+    background-position: 0 -32px;
+}
+
+.marker-station.marker-line-4 {
+    background-position: 0 -48px;
+}
+
+.marker-station.marker-line-5 {
+    background-position: 0 -64px;
+}
+
+.marker-station.marker-line-6 {
+    background-position: 0 -80px;
+}
+
+.marker-station.marker-line-7 {
+    background-position: 0 -96px;
+}
+
+.marker-station.marker-line-8 {
+    background-position: 0 -112px;
+}
+
+.marker-station.marker-line-9 {
+    background-position: 0 -128px;
+}
+
+.marker-station.marker-line-10 {
+    background-position: 0 -144px;
+}
+
+.marker-station.marker-line-11 {
+    background-position: 0 -160px;
+}
+
+.marker-station.marker-line-12 {
+    background-position: 0 -176px;
+}
+
 .obstacles {
     margin: 7px 0 10px 0;
     padding: 0;
