@@ -261,7 +261,16 @@ li.invalid {
 li.show-hidden-params {
     cursor: pointer;
     text-decoration: dashed;
+    padding-top: 5px;
+    color: #00afff;
+    text-decoration: underline;
 }
+
+/*override user agent style*/
+ul {
+    -webkit-padding-start: 0;
+}
+
 
 /* profiles section */
 

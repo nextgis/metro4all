@@ -66,7 +66,8 @@
             });
 
             this.indexForHidden += 1;
-            c += '<li class="show-hidden-params" data-hidden-id="' + this.indexForHidden + '">Еще...</li>'
+            c += '<li class="show-hidden-params" data-state="hidden" data-hidden-id="' + this.indexForHidden + '">' +
+                m4a.resources.routes.show + '</li>'
 
             c += '<ul class="barries-hidden-' + this.indexForHidden + '" style="display: none;">';
 
@@ -99,7 +100,6 @@
                     c += "<li><strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>";
                     c += "<li><strong>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
                 }
-//                c += "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
 
                 return c;
             },
@@ -117,7 +117,6 @@
             lift: function (barriers, invalid) {
                 var c = "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
 
-                // Лифт
                 if (barriers['lift']) {
                     c += m4a.resources.routes.elev_y_1 + barriers['lift_minus_step'] + m4a.resources.routes.elev_y_2;
                 }
@@ -242,9 +241,7 @@
             content += "</ul>";
             m4a.view.$routePanel.append(content);
 
-            $('li.show-hidden-params').off('click').on('click', function (e) {
-                $('ul.barries-hidden-' + $(this).data('hidden-id')).toggle("slide");
-            });
+            this.bindIndicatorsEvents();
 
             // Отображение маршрута на карте
             if (typeof route !== 'undefined') {
@@ -275,6 +272,22 @@
                             })
                     ).addTo(m4a.viewmodel.mainMap);
                 }
+            });
+        },
+
+        bindIndicatorsEvents: function () {
+            $('li.show-hidden-params').off('click').on('click', function () {
+                $('ul.barries-hidden-' + $(this).data('hidden-id')).toggle("start", function () {
+                    var $toggleHiddenIndicators = $(this).siblings('li.show-hidden-params'),
+                        previousState = $toggleHiddenIndicators.data('state');
+                    if (previousState === 'hidden') {
+                        $toggleHiddenIndicators.text(m4a.resources.routes.hide);
+                        $toggleHiddenIndicators.data('state', 'visible');
+                    } else if (previousState === 'visible') {
+                        $toggleHiddenIndicators.text(m4a.resources.routes.show);
+                        $toggleHiddenIndicators.data('state', 'hidden');
+                    }
+                });
             });
         }
     })
