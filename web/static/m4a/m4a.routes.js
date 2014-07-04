@@ -43,51 +43,124 @@
             });
         },
 
-
+        indexForHidden: 0,
         fillBarriers: function (barriers) {
-            var c = "";
-            c += "<ul class='obstacles'>";
-            c += "<li><strong>" + m4a.resources.routes.wch_w + "</strong> " +
-                m4a.resources.routes.wch_w1 + barriers['max_width'] + m4a.resources.routes.wch_w2 + "</li>";
-            if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
-                c += "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
-            } else {
-                c += "<li><strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>";
-                c += "<li><strong>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
-            }
-            c += "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
+            var available = true,
+                context = this,
+                c = "",
+                profileName = m4a.viewmodel.profile.name,
+                profileBarriersIndicators = m4a.profiles.barriersIndicatorsByProfile[profileName];
 
-            // Лифт
-            if (barriers['lift']) {
-                c += m4a.resources.routes.elev_y_1 + barriers['lift_minus_step'] + m4a.resources.routes.elev_y_2;
-            }
-            c += "</li>";
+            $.each(profileBarriersIndicators.visible, function (index, indicatorName) {
+                if (context.barriersIndicators[indicatorName]) {
+                    var invalid = false;
+                    if (m4a.profiles.profileBarriersRestrictions[profileName][indicatorName]) {
+                        invalid = m4a.profiles.profileBarriersRestrictions[profileName][indicatorName](barriers);
+                        if (invalid && available) { available = false; }
+                    }
+                    c += context.barriersIndicators[indicatorName](barriers, invalid);
 
-            // Аппарели
-            if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
-                c += "<li><strong>" + m4a.resources.routes.min_max + "</strong> "
-                    + barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + m4a.resources.routes.cm;
-            } else {
-                c += "<li class='empty'>" + m4a.resources.routes.no_r;
-            }
-            c += "</li>";
+                } else {
+                    console.log('Barrier indicator is not found: ' + indicatorName);
+                }
+            });
 
-            // Наклонные поверхности
-            if (barriers['max_angle']) {
-                c += "<li><strong>" + m4a.resources.routes.slope + "</strong> "
-                    + barriers['max_angle'] + "&deg;";
-            } else {
-                c += "<li class='empty'>" + m4a.resources.routes.no_lev_surf;
+            this.indexForHidden += 1;
+            c += '<li class="show-hidden-params" data-hidden-id="' + this.indexForHidden + '">Еще...</li>'
+
+            c += '<ul class="barries-hidden-' + this.indexForHidden + '" style="display: none;">';
+
+            $.each(profileBarriersIndicators.hidden, function (index, controlName) {
+                if (context.barriersIndicators[controlName]) {
+                    c += context.barriersIndicators[controlName](barriers);
+                } else {
+                    console.log('Control is not found: ' + controlName);
+                }
+            });
+
+            c += '</ul>';
+
+            return '<ul class="' + (available ? 'obstacles available' : 'obstacles unavailable')  + '">' + c + '</ul>';
+        },
+
+
+        barriersIndicators: {
+            max_width: function (barriers, invalid) {
+                return (invalid ? "<li class='invalid'><strong>" : "<li><strong>") + m4a.resources.routes.wch_w + "</strong> " +
+                    m4a.resources.routes.wch_w1 + barriers['max_width'] + m4a.resources.routes.wch_w2 + "</li>";
+            },
+
+            min_step: function (barriers, invalid) {
+                var c = '';
+
+                if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
+                    c += "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
+                } else {
+                    c += "<li><strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>";
+                    c += "<li><strong>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
+                }
+//                c += "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
+
+                return c;
+            },
+
+            min_step_min_step_ramp: function (barriers, invalid) {
+                if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
+                    return "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
+                } else {
+                    return invalid ? "<li class='invalid'>" : "<li>" + "<strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>" +
+                        invalid ? "<li class='invalid'>" : "<li>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
+                }
+            },
+
+
+            lift: function (barriers, invalid) {
+                var c = "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
+
+                // Лифт
+                if (barriers['lift']) {
+                    c += m4a.resources.routes.elev_y_1 + barriers['lift_minus_step'] + m4a.resources.routes.elev_y_2;
+                }
+                c += "</li>";
+
+                return c;
+            },
+
+            min_max_rail_width: function (barriers, invalid) {
+                var c = '';
+
+                if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
+                    c += "<li><strong>" + m4a.resources.routes.min_max + "</strong> "
+                        + barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width']
+                        + m4a.resources.routes.cm;
+                } else {
+                    c += "<li class='empty'>" + m4a.resources.routes.no_r;
+                }
+                c += "</li>";
+
+                return c;
+            },
+
+            max_angle: function (barriers, invalid) {
+                var c = '';
+
+                if (barriers['max_angle']) {
+                    c += "<li><strong>" + m4a.resources.routes.slope + "</strong> "
+                        + barriers['max_angle'] + "&deg;";
+                } else {
+                    c += "<li class='empty'>" + m4a.resources.routes.no_lev_surf;
+                }
+
+                c += "</li>";
+
+                return c;
             }
-            c += "</li>";
-            c += "</ul>";
-            return c;
         },
 
         schemeIconTemplate: Mustache.compile('{{#schemeExists}}<a class="scheme"' +
             ' href="{{path}}" data-lightbox="{{schemeExists}}" title="{{name}}"></a>{{/schemeExists}}'),
 
-        zoomRoute: function(route) {
+        zoomRoute: function (route) {
             // Охват на маршрут
             var xmin = route[0].coordinates[1],
                 ymin = route[0].coordinates[0],
@@ -169,13 +242,17 @@
             content += "</ul>";
             m4a.view.$routePanel.append(content);
 
+            $('li.show-hidden-params').off('click').on('click', function (e) {
+                $('ul.barries-hidden-' + $(this).data('hidden-id')).toggle("slide");
+            });
+
             // Отображение маршрута на карте
             if (typeof route !== 'undefined') {
                 m4a.viewmodel.mainMap.removeLayer(route);
             }
             route = L.layerGroup();
             $.each(routes[index].route, function (i, item) {
-            // Маркеры станций
+                // Маркеры станций
                 route.addLayer(L.marker(
                     item.coordinates,
                     {
@@ -201,4 +278,5 @@
             });
         }
     })
-})(jQuery, m4a)
+})
+    (jQuery, m4a)

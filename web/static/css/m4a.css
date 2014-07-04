@@ -192,6 +192,23 @@
     background-image: url(../img/search-result-2-circle.png);
 }
 
+ul.available {
+    background-color: #9fff8e;
+}
+
+ul.unavailable {
+    background-color: #ffafa7;
+}
+
+li.invalid {
+    color: red;
+}
+
+li.show-hidden-params {
+    cursor: pointer;
+    text-decoration: dashed;
+}
+
 /* profiles section */
 
 div.profiles {
@@ -221,17 +238,41 @@ div.profiles input {
     float: left;
 }
 
-label.profile {
+div.profiles label.apply {
+    display: none;
+    background: url(../img/m4a.png) no-repeat -105px -35px;
+}
+
+div.profiles label.undo {
+    display: none;
+    background: url(../img/m4a.png) no-repeat -140px -35px;
+}
+
+div.profiles label.apply.active {
+    display: inline-block;
+    margin-left: -70px;
+}
+
+div.profiles label.undo.active {
+    display: inline-block;
+    margin-left: -35px;
+}
+
+label.profile,
+label.apply,
+label.undo{
     width: 35px;
     height: 35px;
     opacity: 0.5;
 }
 
-label.profile:hover {
+label.profile:hover ,
+label.apply:hover,
+label.undo:hover{
     opacity: 0.7;
 }
 
-label.profile.active {
+label.profile.active{
     opacity: 1.0;
 }
 
