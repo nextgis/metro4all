@@ -106,15 +106,16 @@
                     return barriers['escal'] ?
                         barriers['escal'] === 0 :
                         false;
-                },
-                retrench_steps: function (barriers) {
-
                 }
             },
             trolley: {
-                visible: ['max_width', 'escal', 'lift', 'min_step_ramp-lift_minus_step', 'min_step_ramp-lift_minus_step',
-                    'step_for_walking', 'min_max_rail_width'],
-                hide: ['min_step', 'max_angle']
+                min_rail_width: function (barriers) {
+                    if (!barriers.max_rail_width || !barriers.min_rail_width) {
+
+                    }
+                    (m4a.viewmodel.profile.values.selected <= barriers.max_rail_width) &&
+                        (m4a.viewmodel.profile.values.selected >= barriers.min_rail_width)
+                }
             }
         },
 
@@ -209,6 +210,9 @@
         },
 
         validateStation: function (station) {
+            var profileName = m4a.viewmodel.profile.name,
+                restrictions = m4a.profiles.profileBarriersRestrictions[profileName];
+
             if (m4a.viewmodel.profile.name === 'man') {
                 return true;
             }
