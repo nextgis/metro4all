@@ -122,12 +122,12 @@ def main(city):
             route_css_class='city-2'
         ),
         'waw': dict(
-            mainmap=dict(center=[52.2286, 21.0491], zoom=10),
+            mainmap=dict(center=[52.2286, 21.0491], zoom=11),
             city='waw',
             route_css_class='city-3'
         ),
         'min': dict(
-            mainmap=dict(center=[53.916667, 27.55], zoom=10),
+            mainmap=dict(center=[53.916667, 27.55], zoom=11),
             city='min',
             route_css_class='city-4'
         ),
