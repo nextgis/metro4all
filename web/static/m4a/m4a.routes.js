@@ -45,7 +45,7 @@
 
         indexForHidden: 0,
         fillBarriers: function (barriers) {
-            var available = true,
+            var isStationAvailable = true,
                 context = this,
                 c = "",
                 profileName = m4a.viewmodel.profile.name,
@@ -53,12 +53,12 @@
 
             $.each(profileBarriersIndicators.visible, function (index, indicatorName) {
                 if (context.barriersIndicators[indicatorName]) {
-                    var invalid = false;
+                    var isIndicatorAvailable = false;
                     if (m4a.profiles.profileBarriersRestrictions[profileName][indicatorName]) {
-                        invalid = m4a.profiles.profileBarriersRestrictions[profileName][indicatorName](barriers);
-                        if (invalid && available) { available = false; }
+                        isIndicatorAvailable = m4a.profiles.profileBarriersRestrictions[profileName][indicatorName](barriers);
+                        if (isIndicatorAvailable && isStationAvailable) { isStationAvailable = false; }
                     }
-                    c += context.barriersIndicators[indicatorName](barriers, invalid);
+                    c += context.barriersIndicators[indicatorName](barriers, isIndicatorAvailable);
 
                 } else {
                     console.log('Barrier indicator is not found: ' + indicatorName);
@@ -81,7 +81,7 @@
 
             c += '</ul>';
 
-            return '<ul class="' + (available ? 'obstacles available' : 'obstacles unavailable')  + '">' + c + '</ul>';
+            return '<ul class="' + (isStationAvailable ? 'obstacles available' : 'obstacles unavailable')  + '">' + c + '</ul>';
         },
 
 
