@@ -46,6 +46,7 @@
         indexForHidden: 0,
         fillBarriers: function (barriers) {
             var isStationAvailable = true,
+                isIndicatorAvailable,
                 context = this,
                 c = "",
                 profileName = m4a.viewmodel.profile.name,
@@ -53,10 +54,9 @@
 
             $.each(profileBarriersIndicators.visible, function (index, indicatorName) {
                 if (context.barriersIndicators[indicatorName]) {
-                    var isIndicatorAvailable = false;
                     if (m4a.profiles.profileBarriersRestrictions[profileName][indicatorName]) {
                         isIndicatorAvailable = m4a.profiles.profileBarriersRestrictions[profileName][indicatorName](barriers);
-                        if (isIndicatorAvailable && isStationAvailable) { isStationAvailable = false; }
+                        if (!isIndicatorAvailable && isStationAvailable) { isStationAvailable = false; }
                     }
                     c += context.barriersIndicators[indicatorName](barriers, isIndicatorAvailable);
 
@@ -86,12 +86,12 @@
 
 
         barriersIndicators: {
-            max_width: function (barriers, invalid) {
-                return (invalid ? "<li class='invalid'><strong>" : "<li><strong>") + m4a.resources.routes.wch_w + "</strong> " +
+            max_width: function (barriers, isIndicatorAvailable) {
+                return (isIndicatorAvailable ? "<li><strong>" : "<li class='invalid'><strong>") + m4a.resources.routes.wch_w + "</strong> " +
                     m4a.resources.routes.wch_w1 + barriers['max_width'] + m4a.resources.routes.wch_w2 + "</li>";
             },
 
-            min_step: function (barriers, invalid) {
+            min_step: function (barriers, isIndicatorAvailable) {
                 var c = '';
 
                 if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
@@ -104,17 +104,17 @@
                 return c;
             },
 
-            min_step_min_step_ramp: function (barriers, invalid) {
+            min_step_min_step_ramp: function (barriers, isIndicatorAvailable) {
                 if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
                     return "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
                 } else {
-                    return invalid ? "<li class='invalid'>" : "<li>" + "<strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>" +
-                        invalid ? "<li class='invalid'>" : "<li>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
+                    return isIndicatorAvailable ? "<li>" : "<li class='invalid'>" + "<strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>" +
+                        isIndicatorAvailable ? "<li>" : "<li class='invalid'>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
                 }
             },
 
 
-            lift: function (barriers, invalid) {
+            lift: function (barriers, isIndicatorAvailable) {
                 var c = "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
 
                 if (barriers['lift']) {
@@ -125,7 +125,7 @@
                 return c;
             },
 
-            min_max_rail_width: function (barriers, invalid) {
+            min_max_rail_width: function (barriers, isIndicatorAvailable) {
                 var c = '';
 
                 if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
@@ -140,7 +140,7 @@
                 return c;
             },
 
-            max_angle: function (barriers, invalid) {
+            max_angle: function (barriers, isIndicatorAvailable) {
                 var c = '';
 
                 if (barriers['max_angle']) {
