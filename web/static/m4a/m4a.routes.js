@@ -43,6 +43,10 @@
             });
         },
 
+        clickPageRoute: function (event, zoom) {
+
+        },
+
         indexForHidden: 0,
         fillBarriers: function (barriers) {
             var isStationAvailable = true,

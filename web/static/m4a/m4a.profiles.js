@@ -42,7 +42,7 @@
                 m4a.viewmodel.profile.name = profile;
                 context.buildProfileControl(profile, type, $this);
                 m4a.stations.updateLocalPortals();
-                $('.pagination li.active').click();
+                $('.pagination li.active').first().trigger('click', [true]);
             });
         },
 
@@ -198,7 +198,7 @@
             this.updateDescription(this.profileControls[m4a.viewmodel.profile.name].description(values.selected));
 
             m4a.stations.updateLocalPortals();
-            $('.pagination li.active').click();
+            $('.pagination li.active').first().trigger('click', [true]);
         },
 
         undoActionHandler: function (e) {
