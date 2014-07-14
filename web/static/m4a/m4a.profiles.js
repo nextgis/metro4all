@@ -98,7 +98,7 @@
             wheelchair: {
                 max_width: function (barriers) {
                     return barriers.max_width ?
-                        barriers.max_width > m4a.viewmodel.profile.values.selected :
+                        barriers.max_width >= m4a.viewmodel.profile.values.selected :
                         true;
                 }
             },
@@ -112,7 +112,7 @@
                 },
                 max_width: function (barriers) {
                     return barriers.max_width ?
-                        barriers.max_width > m4a.viewmodel.profile.values.selected :
+                        barriers.max_width >= m4a.viewmodel.profile.values.selected :
                         true;
                 }
             }
