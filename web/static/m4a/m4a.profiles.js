@@ -48,8 +48,7 @@
 
         profileControls: {
             man: {
-                description: m4a.resources.profiles.man_d,
-
+                description: m4a.resources.profiles.man_d
             },
             wheelchair: {
                 html: '<input type="input" class="profile-value" value="60" title="' + m4a.resources.profiles.wch_html + '">' +
@@ -98,23 +97,23 @@
             },
             wheelchair: {
                 max_width: function (barriers) {
-                    return barriers['max_width'] ?
-                        barriers['max_width'] < m4a.viewmodel.profile.values.selected :
-                        false;
-                },
-                escal: function (barriers) {
-                    return barriers['escal'] ?
-                        barriers['escal'] === 0 :
-                        false;
+                    return barriers.max_width ?
+                        barriers.max_width > m4a.viewmodel.profile.values.selected :
+                        true;
                 }
             },
             trolley: {
                 min_rail_width: function (barriers) {
-                    if (!barriers.max_rail_width || !barriers.min_rail_width) {
-
+                    if (barriers.max_rail_width && barriers.min_rail_width) {
+                        return ( barriers.max_rail_width >= m4a.viewmodel.profile.values.selected) &&
+                            (barriers.min_rail_width <= m4a.viewmodel.profile.values.selected);
                     }
-                    (m4a.viewmodel.profile.values.selected <= barriers.max_rail_width) &&
-                        (m4a.viewmodel.profile.values.selected >= barriers.min_rail_width)
+                    return true;
+                },
+                max_width: function (barriers) {
+                    return barriers.max_width ?
+                        barriers.max_width > m4a.viewmodel.profile.values.selected :
+                        true;
                 }
             }
         },
@@ -210,33 +209,22 @@
         },
 
         validateStation: function (station) {
-            var profileName = m4a.viewmodel.profile.name,
-                restrictions = m4a.profiles.profileBarriersRestrictions[profileName];
+            var barriersParameters = station.properties.barriers,
+                profileName = m4a.viewmodel.profile.name,
+                indicatorsRestrictions = m4a.profiles.profileBarriersRestrictions[profileName];
 
-            if (m4a.viewmodel.profile.name === 'man') {
+            if (profileName === 'man') {
                 return true;
             }
 
-            var barriersParameters = station.properties.barriers;
-
-            if (m4a.viewmodel.profile.name === 'wheelchair') {
-                if (barriersParameters.max_width) {
-                    return m4a.viewmodel.profile.values.width <= barriersParameters.max_width;
+            for (var indicator in indicatorsRestrictions) {
+                if (indicatorsRestrictions.hasOwnProperty(indicator)) {
+                    if (!indicatorsRestrictions[indicator](barriersParameters)) {
+                        return false;
+                    }
                 }
-                return true;
             }
-
-            if (m4a.viewmodel.profile.name === 'trolley') {
-                if (barriersParameters.min_rail_width && barriersParameters.max_rail_width) {
-                    return (m4a.viewmodel.profile.values.width <= barriersParameters.max_rail_width) &&
-                        (m4a.viewmodel.profile.values.width >= barriersParameters.min_rail_width);
-                }
-                if (barriersParameters.min_step && barriersParameters.min_step_ramp) {
-                    return (barriersParameters.min_step > 0) &&
-                        (barriersParameters.min_step_ramp < barriersParameters.min_step);
-                }
-                return true;
-            }
+            return true;
         }
     })
 })(jQuery, m4a)
