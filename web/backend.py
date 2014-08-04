@@ -57,7 +57,8 @@ LINES = {
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/lines.csv'), 'rb'), delimiter=';')],
     'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/lines.csv'), 'rb'), delimiter=';')],
     'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/lines.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/lines.csv'), 'rb'), delimiter=';')]
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/lines.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/lines.csv'), 'rb'), delimiter=';')]
 }
 
 STATIONS = {
@@ -65,7 +66,8 @@ STATIONS = {
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/stations.csv'), 'rb'), delimiter=';')],
     'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/stations.csv'), 'rb'), delimiter=';')],
     'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/stations.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/stations.csv'), 'rb'), delimiter=';')]
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/stations.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/stations.csv'), 'rb'), delimiter=';')]
 }
 
 PORTALS = {
@@ -73,7 +75,8 @@ PORTALS = {
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/portals.csv'), 'rb'), delimiter=';')],
     'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/portals.csv'), 'rb'), delimiter=';')],
     'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/portals.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/portals.csv'), 'rb'), delimiter=';')]
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/portals.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/portals.csv'), 'rb'), delimiter=';')]
 }
 
 INTERCHANGES = {
@@ -81,7 +84,8 @@ INTERCHANGES = {
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/interchanges.csv'), 'rb'), delimiter=';')],
     'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/interchanges.csv'), 'rb'), delimiter=';')],
     'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/interchanges.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/interchanges.csv'), 'rb'), delimiter=';')]
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/interchanges.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/interchanges.csv'), 'rb'), delimiter=';')]
 }
 
 GRAPH = {
@@ -89,7 +93,8 @@ GRAPH = {
     'spb': init_graph('spb'),
     'waw': init_graph('waw'),
     'min': init_graph('min'),
-    'kzn': init_graph('kzn')
+    'kzn': init_graph('kzn'),
+    'niz': init_graph('niz')
 }
 
 msk_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/msk/schemes/*.png'))]
@@ -97,13 +102,15 @@ spb_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirna
 waw_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/waw/schemes/*.png'))]
 min_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/min/schemes/*.png'))]
 kzn_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/kzn/schemes/*.png'))]
+niz_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/niz/schemes/*.png'))]
 
 SCHEMAS = {
     'msk': dict(zip([os.path.splitext(s)[0] for s in msk_schemes], msk_schemes)),
     'spb': dict(zip([os.path.splitext(s)[0] for s in spb_schemes], spb_schemes)),
     'waw': dict(zip([os.path.splitext(s)[0] for s in waw_schemes], waw_schemes)),
     'min': dict(zip([os.path.splitext(s)[0] for s in min_schemes], min_schemes)),
-    'kzn': dict(zip([os.path.splitext(s)[0] for s in kzn_schemes], kzn_schemes))
+    'kzn': dict(zip([os.path.splitext(s)[0] for s in kzn_schemes], kzn_schemes)),
+    'niz': dict(zip([os.path.splitext(s)[0] for s in niz_schemes], niz_schemes))
 }
 
 
@@ -135,9 +142,14 @@ def main(city):
             mainmap=dict(center=[55.7916, 49.1295], zoom=12),
             city='kzn',
             route_css_class='city-5'
+        ),
+        'niz': dict(
+            mainmap=dict(center=[56.31955, 43.94353], zoom=12),
+            city='niz',
+            route_css_class='city-6'
         )
     }
-    city = city if city in ['msk', 'spb', 'waw', 'min', 'kzn'] else 'msk'
+    city = city if city in ['msk', 'spb', 'waw', 'min', 'kzn', 'niz'] else 'msk'
     return dict(config=config[city], request=request)
 
 
