@@ -66,7 +66,8 @@
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>
-	<string name="sSelRecentTab">Recent</string>	
+	<string name="sSelRecentTab">Recent</string>
+	<string name="sSelMapTab">Map</string>
 	<!-- dialogs -->
 	<string name="sPrefTitle">Preferences</string>
 	<string name="sPrefCatMain">Main</string>
