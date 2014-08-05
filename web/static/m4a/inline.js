@@ -75,7 +75,8 @@ $(document).ready(function () {
                     m4a.routes.buildRoutes(data);
 
                     // Активируем первый маршрут
-                    if (start_station && end_station && !(portal_in || portal_out)){
+                    // Охват на маршрут включаем только в случае, если выбраны оба выхода
+                    if ((start_station && end_station) && !((portal_in && !portal_out) || (!portal_in && portal_out))) {
                         $('.pagination li').first().trigger('click');
                     } else {
                         $('.pagination li').first().trigger('click', [false]);
