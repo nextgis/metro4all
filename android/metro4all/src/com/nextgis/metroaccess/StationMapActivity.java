@@ -28,6 +28,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -55,6 +56,8 @@ public class StationMapActivity extends SherlockActivity {
     StationItem mStation = null;
     boolean isPortalIn;
 
+    GeoPoint mLocation = null;
+
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
     private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
@@ -65,6 +68,9 @@ public class StationMapActivity extends SherlockActivity {
     private final static String PREFS_SCROLL_X = "map_scroll_x";
     private final static String PREFS_SCROLL_Y = "map_scroll_y";
     private final static String PREFS_ZOOM_LEVEL = "map_zoom_level";
+    private final static String PREFS_MAP_LATITUDE = "map_latitude";
+    private final static String PREFS_MAP_LONGITUDE = "map_longitude";
+
 //    private final static String PREFS_SHOW_LOCATION = "map_show_loc";
 //    private final static String PREFS_SHOW_COMPASS = "map_show_compass";
 
@@ -191,8 +197,15 @@ public class StationMapActivity extends SherlockActivity {
     }
 
     protected void PanToStation() {
-        if (mStation != null) {
-            GeoPoint pt = new GeoPoint(mStation.GetLatitude(), mStation.GetLongitude());
+        GeoPoint pt = null;
+
+        if (mLocation != null) {
+            pt = mLocation;
+        } else if (mStation != null) {
+            pt = new GeoPoint(mStation.GetLatitude(), mStation.GetLongitude());
+        }
+
+        if (pt != null) {
             mMapView.getController().animateTo(pt);
         }
     }
@@ -219,8 +232,6 @@ public class StationMapActivity extends SherlockActivity {
 //        if (prefs.getBoolean(PREFS_SHOW_COMPASS, true)) {
 //            mLocationOverlay.enableCompass();
 //        }
-
-        PanToStation();
     }
 
     @Override
@@ -240,5 +251,27 @@ public class StationMapActivity extends SherlockActivity {
 //        mLocationOverlay.disableCompass();
 
         super.onPause();
+    }
+
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        PanToStation();
+        return super.onCreateView(name, context, attrs);
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putDouble(PREFS_MAP_LATITUDE, mMapView.getMapCenter().getLatitude());
+        outState.putDouble(PREFS_MAP_LONGITUDE, mMapView.getMapCenter().getLongitude());
+    }
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            double nLat  = savedInstanceState.getDouble(PREFS_MAP_LATITUDE, 0);
+            double nLong = savedInstanceState.getDouble(PREFS_MAP_LONGITUDE, 0);
+            mLocation = new GeoPoint(nLat, nLong);
+        }
     }
 }
