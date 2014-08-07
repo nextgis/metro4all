@@ -39,6 +39,9 @@
 	<string name="sStationName">Name</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
+    <string name="sStationPortalName">Name \"%1$s\",\n%2$s \"%3$s\".</string>
+    <string name="sInPortalMapTitle">Entrances of \"%1$s\"</string>
+    <string name="sOutPortalMapTitle">Exits of \"%1$s\"</string>
 	<string name="sNotSet">Not set</string>
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>
@@ -67,7 +70,7 @@
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>
 	<string name="sSelRecentTab">Recent</string>
-	<string name="sSelMapTab">Map</string>
+	<string name="sSelMapButton">Map</string>
 	<!-- dialogs -->
 	<string name="sPrefTitle">Preferences</string>
 	<string name="sPrefCatMain">Main</string>

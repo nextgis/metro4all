@@ -53,7 +53,10 @@
         <activity 
     		android:name="com.nextgis.metroaccess.PreferencesActivity"
     		android:label="@string/sPrefTitle">
-		</activity>		 
+		</activity>
+        <activity
+            android:name="com.nextgis.metroaccess.StationMapActivity">
+        </activity>
       </application>
 
 </manifest>

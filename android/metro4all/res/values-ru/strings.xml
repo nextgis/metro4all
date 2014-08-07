@@ -38,8 +38,11 @@
 	<string name="sSchema">Схема</string>
 	<string name="sStationName">Станция</string>
 	<string name="sEntranceName">Вход</string>
-	<string name="sExitName">Выход</string>		
-	<string name="sNotSet">Не выбрано</string>	
+	<string name="sExitName">Выход</string>
+    <string name="sStationPortalName">Станция \"%1$s\",\n%2$s \"%3$s\".</string>
+    <string name="sInPortalMapTitle">Входы ст. \"%1$s\"</string>
+    <string name="sOutPortalMapTitle">Выходы ст. \"%1$s\"</string>
+	<string name="sNotSet">Не выбрано</string>
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>
 	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
@@ -67,7 +70,7 @@
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>
 	<string name="sSelRecentTab">Недавние</string>
-	<string name="sSelMapTab">Карта</string>
+	<string name="sSelMapButton">Карта</string>
 	<!-- dialogs -->
 	<string name="sPrefTitle">Настройки</string>
 	<string name="sPrefCatMain">Основные</string>
@@ -96,7 +99,7 @@
 	<string name="sPrefCityLocSummary">Выбор языка названий</string>
 	<string name="sPrefCityLocTitle">Выберите язык названий</string>
 	<string name="stationFilterHintText">Введите часть названия станции</string>
-	
+
 	<string name="switch_on">Вкл</string>
 	<string name="switch_off">Выкл</string>		
 </resources>

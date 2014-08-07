@@ -22,18 +22,15 @@ package com.nextgis.metroaccess;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
-import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 import org.osmdroid.ResourceProxy;
@@ -48,18 +45,20 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StationMapFragment extends SherlockFragment {
+public class StationMapActivity extends SherlockActivity {
 
     private Context mAppContext;
 
     private MapView mMapView;
     private ResourceProxy mResourceProxy;
 
+    StationItem mStation = null;
+    boolean isPortalIn;
+
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
     private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
 
-    private LocationManager mLocationManager;
     private ArrayList<OverlayItem> maItems;
 
     private final static String PREFS_TILE_SOURCE = "map_tile_source";
@@ -71,25 +70,30 @@ public class StationMapFragment extends SherlockFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        super.onCreateView(inflater, container, savedInstanceState);
+        Intent inIntent = getIntent();
+        int stationID = inIntent.getIntExtra(MainActivity.PARAM_SEL_STATION_ID, 0);
+        isPortalIn = inIntent.getBooleanExtra(MainActivity.PARAM_PORTAL_DIRECTION, true);
 
-        mAppContext = inflater.getContext().getApplicationContext();
-        mLocationManager = (LocationManager) mAppContext
-                .getSystemService(Context.LOCATION_SERVICE);
+        mStation = MainActivity.GetGraph().GetStation(stationID);
+
+        mAppContext = getApplicationContext();
         mResourceProxy = new ResourceProxyImpl(mAppContext);
 
-        InitMap();
-        PanToLocation();
+        setTitle(String.format(
+                getString(isPortalIn ? R.string.sInPortalMapTitle : R.string.sOutPortalMapTitle),
+                mStation.GetName()));
 
-        return mMapView;
+        InitMap();
+        PanToStation();
+
+        setContentView(mMapView);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void setHardwareAccelerationOff()
-    {
+    private void setHardwareAccelerationOff() {
         // Turn off hardware acceleration here, or in manifest
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
             mMapView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -116,35 +120,28 @@ public class StationMapFragment extends SherlockFragment {
 
         mMapView.setMultiTouchControls(true);
         mMapView.setBuiltInZoomControls(true);
-        mMapView.getController().setZoom(prefs.getInt(PREFS_ZOOM_LEVEL, 1));
+        mMapView.getController().setZoom(prefs.getInt(PREFS_ZOOM_LEVEL, 15));
         mMapView.scrollTo(prefs.getInt(PREFS_SCROLL_X, 0),
                 prefs.getInt(PREFS_SCROLL_Y, 0));
     }
 
-    protected void LoadPortalsToOverlay(){
+    protected void LoadPortalsToOverlay() {
         maItems = new ArrayList<OverlayItem>();
         Drawable ivIn = getResources().getDrawable(R.drawable.portal_in);
         Drawable ivOut = getResources().getDrawable(R.drawable.portal_out);
 
-        SelectStationActivity parentActivity =
-                (SelectStationActivity) getSherlockActivity();
-        List<StationItem> stationList = parentActivity.GetStationList();
+        List<PortalItem> portalList = mStation.GetPortals(isPortalIn);
 
-        boolean bDir = parentActivity.IsIn();
+        for (PortalItem portal : portalList) {
+            OverlayItem itemPortal = new OverlayItem(
+                    mStation.GetId() + "", portal.GetId() + "",
+                    String.format(getString(R.string.sStationPortalName), mStation.GetName(),
+                            getString(isPortalIn ? R.string.sEntranceName : R.string.sExitName),
+                            portal.GetName()),
+                    new GeoPoint(portal.GetLatitude(), portal.GetLongitude()));
 
-        for (StationItem station : stationList) {
-            List<PortalItem> portalList = station.GetPortals(bDir);
-
-            for (PortalItem portal : portalList) {
-                OverlayItem itemPortal = new OverlayItem(
-                        station.GetId() + "", portal.GetId() + "",
-                        "Station '" + station.GetName() +
-                                "',\nPortal '" + portal.GetName() + "'.",
-                        new GeoPoint(portal.GetLatitude(), portal.GetLongitude()));
-
-                itemPortal.setMarker(bDir ? ivIn : ivOut);
-                maItems.add(itemPortal);
-            }
+            itemPortal.setMarker(isPortalIn ? ivIn : ivOut);
+            maItems.add(itemPortal);
         }
 
         mPointsOverlay = new ItemizedIconOverlay<OverlayItem>(maItems,
@@ -152,9 +149,6 @@ public class StationMapFragment extends SherlockFragment {
 
                     public boolean onItemSingleTapUp(final int index,
                                                      final OverlayItem item) {
-                        SelectStationActivity parentActivity =
-                                (SelectStationActivity) getSherlockActivity();
-
                         StationItem selectedStation = MainActivity.GetGraph()
                                 .GetStation(Integer.parseInt(item.getUid()));
 
@@ -173,8 +167,14 @@ public class StationMapFragment extends SherlockFragment {
                             return true;
                         }
 
-                        parentActivity.Finish(selectedPortal.GetStationId(),
+                        Intent outIntent = new Intent();
+                        outIntent.putExtra(MainActivity.PARAM_SEL_STATION_ID,
+                                selectedPortal.GetStationId());
+                        outIntent.putExtra(MainActivity.PARAM_SEL_PORTAL_ID,
                                 selectedPortal.GetId());
+                        setResult(RESULT_OK, outIntent);
+                        finish();
+
                         return true; // We 'handled' this event.
                     }
 
@@ -190,21 +190,9 @@ public class StationMapFragment extends SherlockFragment {
         mMapView.getOverlays().add(mPointsOverlay);
     }
 
-    protected void PanToLocation(){
-        Location loc = null;
-
-        if (mLocationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null)
-            loc = mLocationManager.getLastKnownLocation(
-                    LocationManager.NETWORK_PROVIDER);
-
-        if (mLocationManager.getProvider(LocationManager.GPS_PROVIDER) != null)
-            loc = mLocationManager.getLastKnownLocation(
-                    LocationManager.GPS_PROVIDER);
-
-        if(loc != null){
-            GeoPoint pt = new GeoPoint(loc.getLatitude(), loc.getLongitude());
-
-            // TODO (Fn): Bug with location to center of fragment
+    protected void PanToStation() {
+        if (mStation != null) {
+            GeoPoint pt = new GeoPoint(mStation.GetLatitude(), mStation.GetLongitude());
             mMapView.getController().animateTo(pt);
         }
     }
@@ -232,7 +220,7 @@ public class StationMapFragment extends SherlockFragment {
 //            mLocationOverlay.enableCompass();
 //        }
 
-        PanToLocation();
+        PanToStation();
     }
 
     @Override

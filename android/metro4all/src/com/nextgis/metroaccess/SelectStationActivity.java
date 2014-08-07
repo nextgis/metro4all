@@ -43,7 +43,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.StationItem;
 
 public class SelectStationActivity extends SherlockFragmentActivity {
-    private static final int NUM_ITEMS = 4;
+    private static final int NUM_ITEMS = 3;
 
     private FragmentRollAdapter mAdapter;
     private ViewPager mPager;
@@ -51,7 +51,6 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     protected static AlphabeticalStationListFragment mAlphaStListFragment;
     protected static LinesStationListFragment mLinesStListFragment;
     protected static RecentStationListFragment mRecentStListFragment;
-    protected static StationMapFragment mStationMapFragment;
 
     protected boolean m_bIn;
 
@@ -99,11 +98,6 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         tab = actionBar.newTab()
                 .setText(R.string.sSelRecentTab)
                 .setTabListener(new TabListener<SherlockFragment>(2 + "", mPager));
-        actionBar.addTab(tab);
-
-        tab = actionBar.newTab()
-                .setText(R.string.sSelMapTab)
-                .setTabListener(new TabListener<SherlockFragment>(3 + "", mPager));
         actionBar.addTab(tab);
 
         //get location from calling class
@@ -187,9 +181,6 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                 case 2:
                     mRecentStListFragment = new RecentStationListFragment();
                     return (SherlockFragment) mRecentStListFragment;//
-                case 3:
-                    mStationMapFragment = new StationMapFragment();
-                    return (SherlockFragment) mStationMapFragment;
                 default:
                     return null;
             }
@@ -247,6 +238,13 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                     mLinesStListFragment.Update();
                 if (mRecentStListFragment != null)
                     mRecentStListFragment.Update();
+                break;
+            case MainActivity.PORTAL_MAP_RESULT:
+                if (resultCode == RESULT_OK) {
+                    int stationID = data.getIntExtra(MainActivity.PARAM_SEL_STATION_ID, 0);
+                    int portalID = data.getIntExtra(MainActivity.PARAM_SEL_PORTAL_ID, 0);
+                    Finish(stationID, portalID);
+                }
                 break;
             default:
                 break;
