@@ -70,7 +70,6 @@
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>
 	<string name="sSelRecentTab">Недавние</string>
-	<string name="sSelMapButton">Карта</string>
 	<!-- dialogs -->
 	<string name="sPrefTitle">Настройки</string>
 	<string name="sPrefCatMain">Основные</string>

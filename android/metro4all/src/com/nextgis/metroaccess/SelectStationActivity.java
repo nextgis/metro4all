@@ -65,7 +65,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         //actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         mAdapter = new FragmentRollAdapter(getSupportFragmentManager());
         mAdapter.setActionBar(actionBar);
@@ -204,7 +204,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                return false;
+                finish();
+                return true;
             case MainActivity.MENU_SETTINGS:
                 // app icon in action bar clicked; go home
                 onSettings();

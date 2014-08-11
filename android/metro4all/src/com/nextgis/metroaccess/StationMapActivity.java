@@ -32,13 +32,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.tileprovider.tilesource.ITileSource;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.*;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
@@ -50,13 +50,11 @@ public class StationMapActivity extends SherlockActivity {
 
     private Context mAppContext;
 
-    private MapView mMapView;
+    private StationMapView mMapView;
     private ResourceProxy mResourceProxy;
 
-    StationItem mStation = null;
-    boolean isPortalIn;
-
-    GeoPoint mLocation = null;
+    private int mStationID;
+    private boolean mIsPortalIn;
 
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
@@ -79,21 +77,26 @@ public class StationMapActivity extends SherlockActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent inIntent = getIntent();
-        int stationID = inIntent.getIntExtra(MainActivity.PARAM_SEL_STATION_ID, 0);
-        isPortalIn = inIntent.getBooleanExtra(MainActivity.PARAM_PORTAL_DIRECTION, true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mStation = MainActivity.GetGraph().GetStation(stationID);
+        Intent inIntent = getIntent();
+        mStationID = inIntent.getIntExtra(MainActivity.PARAM_SEL_STATION_ID, 0);
+        mIsPortalIn = inIntent.getBooleanExtra(MainActivity.PARAM_PORTAL_DIRECTION, true);
+
+        StationItem station = MainActivity.GetGraph().GetStation(mStationID);
 
         mAppContext = getApplicationContext();
         mResourceProxy = new ResourceProxyImpl(mAppContext);
 
         setTitle(String.format(
-                getString(isPortalIn ? R.string.sInPortalMapTitle : R.string.sOutPortalMapTitle),
-                mStation.GetName()));
+                getString(mIsPortalIn
+                        ? R.string.sInPortalMapTitle : R.string.sOutPortalMapTitle),
+                station.GetName()));
+
+        mMapView = new StationMapView(mAppContext, 256, mResourceProxy,
+                station.GetLatitude(), station.GetLongitude());
 
         InitMap();
-        PanToStation();
 
         setContentView(mMapView);
     }
@@ -108,8 +111,6 @@ public class StationMapActivity extends SherlockActivity {
     protected void InitMap() {
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(mAppContext);
-
-        mMapView = new MapView(mAppContext, 256, mResourceProxy);
 
         // Call this method to turn off hardware acceleration at the View level.
         setHardwareAccelerationOff();
@@ -133,21 +134,39 @@ public class StationMapActivity extends SherlockActivity {
 
     protected void LoadPortalsToOverlay() {
         maItems = new ArrayList<OverlayItem>();
-        Drawable ivIn = getResources().getDrawable(R.drawable.portal_in);
-        Drawable ivOut = getResources().getDrawable(R.drawable.portal_out);
 
-        List<PortalItem> portalList = mStation.GetPortals(isPortalIn);
+        Drawable markerPortal = getResources().getDrawable(mIsPortalIn
+                ? R.drawable.portal_in : R.drawable.portal_out);
 
-        for (PortalItem portal : portalList) {
-            OverlayItem itemPortal = new OverlayItem(
-                    mStation.GetId() + "", portal.GetId() + "",
-                    String.format(getString(R.string.sStationPortalName), mStation.GetName(),
-                            getString(isPortalIn ? R.string.sEntranceName : R.string.sExitName),
-                            portal.GetName()),
-                    new GeoPoint(portal.GetLatitude(), portal.GetLongitude()));
+        Drawable markerTransparentPortal = getResources().getDrawable(mIsPortalIn
+                ? R.drawable.portal_in_tr : R.drawable.portal_out_tr);
 
-            itemPortal.setMarker(isPortalIn ? ivIn : ivOut);
-            maItems.add(itemPortal);
+        markerTransparentPortal.setAlpha(127);
+
+        List<StationItem> stationList =
+                new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
+
+        for (StationItem station : stationList) {
+            List<PortalItem> portalList = station.GetPortals(mIsPortalIn);
+
+            boolean isCurrentStation = (station.GetId() == mStationID);
+
+            for (PortalItem portal : portalList) {
+                OverlayItem itemPortal = new OverlayItem(
+                        station.GetId() + "", portal.GetId() + "",
+                        String.format(getString(R.string.sStationPortalName), station.GetName(),
+                                getString(mIsPortalIn
+                                        ? R.string.sEntranceName : R.string.sExitName),
+                                portal.GetName()),
+                        new GeoPoint(portal.GetLatitude(), portal.GetLongitude()));
+
+                if (isCurrentStation)
+                    itemPortal.setMarker(markerPortal);
+                else
+                    itemPortal.setMarker(markerTransparentPortal);
+
+                maItems.add(itemPortal);
+            }
         }
 
         mPointsOverlay = new ItemizedIconOverlay<OverlayItem>(maItems,
@@ -196,20 +215,6 @@ public class StationMapActivity extends SherlockActivity {
         mMapView.getOverlays().add(mPointsOverlay);
     }
 
-    protected void PanToStation() {
-        GeoPoint pt = null;
-
-        if (mLocation != null) {
-            pt = mLocation;
-        } else if (mStation != null) {
-            pt = new GeoPoint(mStation.GetLatitude(), mStation.GetLongitude());
-        }
-
-        if (pt != null) {
-            mMapView.getController().animateTo(pt);
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -253,11 +258,6 @@ public class StationMapActivity extends SherlockActivity {
         super.onPause();
     }
 
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
-        PanToStation();
-        return super.onCreateView(name, context, attrs);
-    }
-
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -268,10 +268,19 @@ public class StationMapActivity extends SherlockActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            double nLat  = savedInstanceState.getDouble(PREFS_MAP_LATITUDE, 0);
-            double nLong = savedInstanceState.getDouble(PREFS_MAP_LONGITUDE, 0);
-            mLocation = new GeoPoint(nLat, nLong);
+        double nLat = savedInstanceState.getDouble(PREFS_MAP_LATITUDE, 0);
+        double nLong = savedInstanceState.getDouble(PREFS_MAP_LONGITUDE, 0);
+        mMapView.setRestoredLocation(new GeoPoint(nLat, nLong));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

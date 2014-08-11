@@ -45,11 +45,9 @@
 
   <TextView
       android:id="@+id/tvPortalMapButton"
-      android:text="@string/sSelMapButton"
+      android:background="@drawable/ic_action_map"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@drawable/abs__ab_transparent_light_holo"
-      style="@style/Widget.Sherlock.ActionButton"
-      />
+      android:layout_marginRight="15dip"/>
 
 </LinearLayout>
