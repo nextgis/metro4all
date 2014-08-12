@@ -46,21 +46,26 @@ public class StationMapView extends MapView {
         mRestoredMapCenter = point;
     }
 
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        PanToStation();
-
-        Context mContext = getContext();
-        boolean isNotNetwork = !MetaDownloader.IsNetworkAvailible(mContext);
-
-        if (isNotNetwork)
-            Toast.makeText(mContext, mContext.getString(R.string.sNetworkUnreachErr),
-                    Toast.LENGTH_LONG).show();
-    }
-
     protected void PanToStation() {
         GeoPoint pt = (mRestoredMapCenter == null) ? mMapCenter : mRestoredMapCenter;
         getController().animateTo(pt);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        PanToStation();
+    }
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        if (visibility == VISIBLE) {
+            Context mContext = getContext();
+            boolean isNotNetwork = !MetaDownloader.IsNetworkAvailible(mContext);
+
+            if (isNotNetwork)
+                Toast.makeText(mContext, mContext.getString(R.string.sNetworkUnreachErr),
+                        Toast.LENGTH_LONG).show();
+        }
     }
 }

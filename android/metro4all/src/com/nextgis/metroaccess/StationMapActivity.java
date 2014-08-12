@@ -308,6 +308,7 @@ public class StationMapActivity extends SherlockActivity {
         super.onPause();
     }
 
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -315,6 +316,7 @@ public class StationMapActivity extends SherlockActivity {
         outState.putDouble(PREFS_MAP_LONGITUDE, mMapView.getMapCenter().getLongitude());
     }
 
+    @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
