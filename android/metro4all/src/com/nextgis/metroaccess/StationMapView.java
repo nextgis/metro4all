@@ -21,37 +21,46 @@
 package com.nextgis.metroaccess;
 
 import android.content.Context;
+import android.widget.Toast;
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
 public class StationMapView extends MapView {
 
-    private double mStationLatitude;
-    private double mStationLongitude;
-    private GeoPoint mRestoredLocation = null;
+    private GeoPoint mMapCenter = null;
+    private GeoPoint mRestoredMapCenter = null;
 
 
     public StationMapView(Context context, int tileSizePixels, ResourceProxy resourceProxy,
-                          double latitude, double longitude) {
+                          GeoPoint center) {
         super(context, tileSizePixels, resourceProxy);
-        mStationLatitude = latitude;
-        mStationLongitude = longitude;
+        mMapCenter = center;
     }
 
-    public void setRestoredLocation(GeoPoint point) {
-        mRestoredLocation = point;
+    public void setMapCenter(GeoPoint point) {
+        mMapCenter = point;
+    }
+
+    public void setRestoredMapCenter(GeoPoint point) {
+        mRestoredMapCenter = point;
     }
 
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
         PanToStation();
+
+        Context mContext = getContext();
+        boolean isNotNetwork = !MetaDownloader.IsNetworkAvailible(mContext);
+
+        if (isNotNetwork)
+            Toast.makeText(mContext, mContext.getString(R.string.sNetworkUnreachErr),
+                    Toast.LENGTH_LONG).show();
     }
 
     protected void PanToStation() {
-        GeoPoint pt = (mRestoredLocation == null)
-                ? new GeoPoint(mStationLatitude, mStationLongitude)
-                : mRestoredLocation;
+        GeoPoint pt = (mRestoredMapCenter == null) ? mMapCenter : mRestoredMapCenter;
         getController().animateTo(pt);
     }
 }

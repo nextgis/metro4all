@@ -28,7 +28,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -55,6 +54,11 @@ public class StationMapActivity extends SherlockActivity {
 
     private int mStationID;
     private boolean mIsPortalIn;
+
+    protected int mnType;
+    protected int mnMaxWidth, mnWheelWidth;
+    protected boolean m_bHaveLimits;
+
 
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
@@ -88,13 +92,19 @@ public class StationMapActivity extends SherlockActivity {
         mAppContext = getApplicationContext();
         mResourceProxy = new ResourceProxyImpl(mAppContext);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mAppContext);
+        mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
+        mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
+        mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
+        m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
+
         setTitle(String.format(
                 getString(mIsPortalIn
                         ? R.string.sInPortalMapTitle : R.string.sOutPortalMapTitle),
                 station.GetName()));
 
         mMapView = new StationMapView(mAppContext, 256, mResourceProxy,
-                station.GetLatitude(), station.GetLongitude());
+                new GeoPoint(station.GetLatitude(), station.GetLongitude()));
 
         InitMap();
 
@@ -141,15 +151,28 @@ public class StationMapActivity extends SherlockActivity {
         Drawable markerTransparentPortal = getResources().getDrawable(mIsPortalIn
                 ? R.drawable.portal_in_tr : R.drawable.portal_out_tr);
 
+        Drawable markerInvalidPortal = getResources().getDrawable(R.drawable.portal_invalid);
+
+        Drawable markerTransparentInvalidPortal =
+                getResources().getDrawable(R.drawable.portal_invalid_tr);
+
         markerTransparentPortal.setAlpha(127);
+        markerTransparentInvalidPortal.setAlpha(127);
 
         List<StationItem> stationList =
                 new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
+
+        double minLat = 0, minLong = 0, maxLat = 0, maxLong = 0;
 
         for (StationItem station : stationList) {
             List<PortalItem> portalList = station.GetPortals(mIsPortalIn);
 
             boolean isCurrentStation = (station.GetId() == mStationID);
+
+            if (isCurrentStation) {
+                minLat = maxLat = portalList.get(0).GetLatitude();
+                minLong = maxLong = portalList.get(0).GetLongitude();
+            }
 
             for (PortalItem portal : portalList) {
                 OverlayItem itemPortal = new OverlayItem(
@@ -160,14 +183,41 @@ public class StationMapActivity extends SherlockActivity {
                                 portal.GetName()),
                         new GeoPoint(portal.GetLatitude(), portal.GetLongitude()));
 
-                if (isCurrentStation)
-                    itemPortal.setMarker(markerPortal);
-                else
-                    itemPortal.setMarker(markerTransparentPortal);
+                boolean isInvalidPortal = false;
+
+                if (mnType > 1) {
+                    boolean bSmallWidth = portal.GetDetailes()[0] < mnMaxWidth;
+                    boolean bCanRoll = portal.GetDetailes()[5] < mnWheelWidth &&
+                            portal.GetDetailes()[6] > mnWheelWidth;
+                    if (m_bHaveLimits && (bSmallWidth || !bCanRoll))
+                        isInvalidPortal = true;
+                }
+
+                if (isCurrentStation) {
+                    itemPortal.setMarker(isInvalidPortal ? markerInvalidPortal : markerPortal);
+
+                    double portalLat = portal.GetLatitude();
+                    double portalLong = portal.GetLongitude();
+
+                    if (portalLat < minLat)
+                        minLat = portalLat;
+                    if (portalLat > maxLat)
+                        maxLat = portalLat;
+                    if (portalLong < minLong)
+                        minLong = portalLong;
+                    if (portalLong > maxLong)
+                        maxLong = portalLong;
+
+                } else
+                    itemPortal.setMarker(isInvalidPortal
+                            ? markerTransparentInvalidPortal : markerTransparentPortal);
 
                 maItems.add(itemPortal);
             }
         }
+
+        mMapView.setMapCenter(new GeoPoint((maxLat - minLat) / 2 + minLat,
+                (maxLong - minLong) / 2 + minLong));
 
         mPointsOverlay = new ItemizedIconOverlay<OverlayItem>(maItems,
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
@@ -270,7 +320,7 @@ public class StationMapActivity extends SherlockActivity {
 
         double nLat = savedInstanceState.getDouble(PREFS_MAP_LATITUDE, 0);
         double nLong = savedInstanceState.getDouble(PREFS_MAP_LONGITUDE, 0);
-        mMapView.setRestoredLocation(new GeoPoint(nLat, nLong));
+        mMapView.setRestoredMapCenter(new GeoPoint(nLat, nLong));
     }
 
     @Override
