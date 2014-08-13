@@ -1,6 +1,6 @@
 id_entrance;name_ru;name_en;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
-60000;пл. Горького, ул. Большая Покровская;pl. Gor'kogo, ul. Bol'shaja Pokrovskaja;1;both;56.3140900836;43.9927168183;720;37;4;1;0;400;1000;19
-60010;ул. Новая, ул. Костина;ul. Novaja, ul. Kostina;1;both;56.3135376002;43.9936308031;730;54;32;1;0;400;1000;19
+60000;пл. Горького, ул. Большая Покровская;pl. Gor'kogo, ul. Bol'shaja Pokrovskaja;1;both;56.3140900836;43.9927168183;720;37;4;2;37;400;1000;19
+60010;ул. Новая, ул. Костина;ul. Novaja, ul. Kostina;1;both;56.3135376002;43.9936308031;730;54;32;2;54;400;1000;19
 60020;ул. Горького, ул. Звездинка;ul. Gor'kogo, ul. Zvezdinka;1;both;56.3143151694;43.9950802193;720;84;30;0;0;400;880;14
 60030;ул. Горького, ул. Звездинка;ul. Gor'kogo, ul. Zvezdinka;1;both;56.3144413539;43.995731604;720;76;59;0;0;400;880;14
 60040;ул. Короленко, ул. Студеная;ul. Korolenko, ul. Studenaja;1;both;56.314154881;43.9965739705;720;84;30;0;0;400;1000;14
