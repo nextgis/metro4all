@@ -1,5 +1,5 @@
 id_station;id_line;id_node;name_en;name_ru;name_pl;lat;lon
-1;1;126;Ulitsa Podbelskogo;Улица Подбельского;Ulitsa Podbelskogo;55.8145927602;37.7344292345
+1;1;126;Bulvar Rokossovskogo;Бульвар Рокоссовского;Bulvar Rokossovskogo;55.8145927602;37.7344292345
 2;1;127;Cherkizovskaya;Черкизовская;Cherkizovskaya;55.803964167;37.7447700657
 3;1;128;Preobrajenskaya ploschad;Преображенская площадь;Preobrajenskaya ploschad;55.7962871634;37.7152173748
 4;1;129;Sokolniki;Сокольники;Sokolniki;55.7889149911;37.6801366412
