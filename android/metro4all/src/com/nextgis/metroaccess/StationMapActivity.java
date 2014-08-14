@@ -64,8 +64,6 @@ public class StationMapActivity extends SherlockActivity {
     private MyLocationNewOverlay mLocationOverlay;
     private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
 
-    private ArrayList<OverlayItem> maItems;
-
     private final static String PREFS_TILE_SOURCE = "map_tile_source";
     private final static String PREFS_SCROLL_X = "map_scroll_x";
     private final static String PREFS_SCROLL_Y = "map_scroll_y";
@@ -143,7 +141,8 @@ public class StationMapActivity extends SherlockActivity {
     }
 
     protected void LoadPortalsToOverlay() {
-        maItems = new ArrayList<OverlayItem>();
+        ArrayList<OverlayItem> overlayPortals = new ArrayList<OverlayItem>();
+        ArrayList<OverlayItem> overlayTransparentPortals = new ArrayList<OverlayItem>();
 
         Drawable markerPortal = getResources().getDrawable(mIsPortalIn
                 ? R.drawable.portal_in : R.drawable.portal_out);
@@ -164,12 +163,29 @@ public class StationMapActivity extends SherlockActivity {
 
         double minLat = 0, minLong = 0, maxLat = 0, maxLong = 0;
 
-        for (StationItem station : stationList) {
+        int stationListSize = stationList.size();
+        int i = 0;
+        boolean isForSelectedStation = false;
+
+        while (i < stationListSize || isForSelectedStation) {
+            StationItem station;
+
+            if (!isForSelectedStation) {
+                station = stationList.get(i);
+            } else {
+                station = MainActivity.GetGraph().GetStation(mStationID);
+            }
+
+            boolean isSelectedStation = isForSelectedStation || (station.GetId() == mStationID);
+
+            if (isSelectedStation && !isForSelectedStation) {
+                ++i;
+                continue;
+            }
+
             List<PortalItem> portalList = station.GetPortals(mIsPortalIn);
 
-            boolean isCurrentStation = (station.GetId() == mStationID);
-
-            if (isCurrentStation) {
+            if (isSelectedStation) {
                 minLat = maxLat = portalList.get(0).GetLatitude();
                 minLong = maxLong = portalList.get(0).GetLongitude();
             }
@@ -193,7 +209,7 @@ public class StationMapActivity extends SherlockActivity {
                         isInvalidPortal = true;
                 }
 
-                if (isCurrentStation) {
+                if (isSelectedStation) {
                     itemPortal.setMarker(isInvalidPortal ? markerInvalidPortal : markerPortal);
 
                     double portalLat = portal.GetLatitude();
@@ -208,61 +224,72 @@ public class StationMapActivity extends SherlockActivity {
                     if (portalLong > maxLong)
                         maxLong = portalLong;
 
-                } else
+                    overlayPortals.add(itemPortal);
+
+                } else {
                     itemPortal.setMarker(isInvalidPortal
                             ? markerTransparentInvalidPortal : markerTransparentPortal);
-
-                maItems.add(itemPortal);
+                    overlayTransparentPortals.add(itemPortal);
+                }
             }
+
+            ++i;
+            isForSelectedStation = !isForSelectedStation && (i == stationListSize);
         }
 
         mMapView.setMapCenter(new GeoPoint((maxLat - minLat) / 2 + minLat,
                 (maxLong - minLong) / 2 + minLong));
 
-        mPointsOverlay = new ItemizedIconOverlay<OverlayItem>(maItems,
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+        ArrayList<OverlayItem> overlayItems = overlayTransparentPortals;
 
-                    public boolean onItemSingleTapUp(final int index,
-                                                     final OverlayItem item) {
-                        StationItem selectedStation = MainActivity.GetGraph()
-                                .GetStation(Integer.parseInt(item.getUid()));
+        for (int j = 0; j < 2; ++j) {
+            mPointsOverlay = new ItemizedIconOverlay<OverlayItem>(overlayItems,
+                    new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
 
-                        if (selectedStation == null) {
-                            Toast.makeText(mAppContext, R.string.sNoOrEmptyData,
-                                    Toast.LENGTH_LONG).show();
-                            return true;
+                        public boolean onItemSingleTapUp(final int index,
+                                                         final OverlayItem item) {
+                            StationItem selectedStation = MainActivity.GetGraph()
+                                    .GetStation(Integer.parseInt(item.getUid()));
+
+                            if (selectedStation == null) {
+                                Toast.makeText(mAppContext, R.string.sNoOrEmptyData,
+                                        Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+
+                            PortalItem selectedPortal = selectedStation
+                                    .GetPortal(Integer.parseInt(item.getTitle()));
+
+                            if (selectedPortal == null) {
+                                Toast.makeText(mAppContext, R.string.sNoOrEmptyData,
+                                        Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+
+                            Intent outIntent = new Intent();
+                            outIntent.putExtra(MainActivity.PARAM_SEL_STATION_ID,
+                                    selectedPortal.GetStationId());
+                            outIntent.putExtra(MainActivity.PARAM_SEL_PORTAL_ID,
+                                    selectedPortal.GetId());
+                            setResult(RESULT_OK, outIntent);
+                            finish();
+
+                            return true; // We 'handled' this event.
                         }
 
-                        PortalItem selectedPortal = selectedStation
-                                .GetPortal(Integer.parseInt(item.getTitle()));
-
-                        if (selectedPortal == null) {
-                            Toast.makeText(mAppContext, R.string.sNoOrEmptyData,
+                        public boolean onItemLongPress(final int index,
+                                                       final OverlayItem item) {
+                            Toast.makeText(mAppContext, item.getSnippet(),
                                     Toast.LENGTH_LONG).show();
-                            return true;
+                            return true; // We 'handled' this event.
                         }
-
-                        Intent outIntent = new Intent();
-                        outIntent.putExtra(MainActivity.PARAM_SEL_STATION_ID,
-                                selectedPortal.GetStationId());
-                        outIntent.putExtra(MainActivity.PARAM_SEL_PORTAL_ID,
-                                selectedPortal.GetId());
-                        setResult(RESULT_OK, outIntent);
-                        finish();
-
-                        return true; // We 'handled' this event.
                     }
+                    , mResourceProxy);
 
-                    public boolean onItemLongPress(final int index,
-                                                   final OverlayItem item) {
-                        Toast.makeText(mAppContext, item.getSnippet(),
-                                Toast.LENGTH_LONG).show();
-                        return true; // We 'handled' this event.
-                    }
-                }
-                , mResourceProxy);
+            mMapView.getOverlays().add(mPointsOverlay);
 
-        mMapView.getOverlays().add(mPointsOverlay);
+            overlayItems = overlayPortals;
+        }
     }
 
     @Override

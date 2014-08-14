@@ -214,6 +214,9 @@ public class MainActivity extends SherlockActivity{
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
 
+        if (sCurrentCity == null)
+            return;
+
         if(sCurrentCity.length() < 2){
         	//find first city and load it
         	m_oGraph.SetFirstCityAsCurrent();
@@ -361,7 +364,6 @@ public class MainActivity extends SherlockActivity{
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.sUpdateAvaliable)
-		.setCancelable(false)
 		.setMultiChoiceItems(checkedItemStrings, checkedItems,
 				new DialogInterface.OnMultiChoiceClickListener() {
 			@Override
@@ -420,7 +422,6 @@ public class MainActivity extends SherlockActivity{
 
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.sSelectDataToDownload)
-			   .setCancelable(false)
 			   .setMultiChoiceItems(checkedItemStrings, checkedItems,
 						new DialogInterface.OnMultiChoiceClickListener() {
 							@Override
