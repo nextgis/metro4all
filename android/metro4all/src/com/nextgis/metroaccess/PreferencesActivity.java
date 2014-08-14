@@ -132,19 +132,22 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             if(index >= 0){
             	m_CityPref.setSummary(m_CityPref.getEntries()[index]);
             }
-            else{
-            	m_CityPref.setSummary((String) m_CityPref.getSummary()); //.getValue()
-            }
         }
-        
+
         m_CityLangPref = (ListPreference) findPreference(KEY_PREF_CITYLANG);
-        if(m_CityLangPref != null){
-            int index = m_CityLangPref.findIndexOfValue( m_CityLangPref.getValue() );           
-            if(index >= 0){
-            	m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
-            }
-            else{
-            	m_CityLangPref.setSummary((String) m_CityLangPref.getSummary()); 
+        if (m_CityLangPref != null) {
+            int index = m_CityLangPref.findIndexOfValue(m_CityLangPref.getValue());
+
+            if (index >= 0) {
+                m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
+            } else {
+                String currCityLang = MainActivity.GetGraph().GetLocale();
+                index = m_CityLangPref.findIndexOfValue(currCityLang);
+                if (index < 0) {
+                    index = 0;
+                }
+                m_CityLangPref.setValue((String) m_CityLangPref.getEntryValues()[index]);
+                m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
             }
         }
         
@@ -233,7 +236,6 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         	    
         	    AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
         		builder.setTitle(R.string.sPrefChangeCityBasesTitle)
-        			   .setCancelable(false)
         			   .setMultiChoiceItems(checkedItemStrings, checkedItems,
         						new DialogInterface.OnMultiChoiceClickListener() {
         							@Override
@@ -411,10 +413,14 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 				ent_val[nCounter] = entry.getKey();
 				nCounter++;
 			}
-    		
+
     		m_CityPref.setEntries(ent);
     		m_CityPref.setEntryValues(ent_val);
-    		
+
+            int index = m_CityPref.findIndexOfValue(m_CityPref.getValue());
+            if (index < 0)
+                m_CityPref.setValue(oGraph.GetCurrentCity());
+
     		m_CityPref.setEnabled(true);
     	}
     	else{

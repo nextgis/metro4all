@@ -234,11 +234,11 @@ public class MAGraph {
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(MainActivity.CSV_CHAR);
 		             
-		             if(RowData.length < 4){
+		             if(RowData.length < 6){
 		     	    	 m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "portals.csv";
 		            	 return false;
 		             }
-		             
+
 					 int nID = Integer.parseInt(RowData[0]);
 					 String sName = RowData[1];
 					 int nStationId = Integer.parseInt(RowData[2]);
@@ -251,9 +251,12 @@ public class MAGraph {
 					 }
 					 else{
 					 	nDirection = 3;
-					 }						
-					 
-					 int min_width = 0;
+					 }
+
+                     double nLat = Double.parseDouble(RowData[4]);
+                     double nLong = Double.parseDouble(RowData[5]);
+
+                     int min_width = 0;
 					 int min_step = 0;
 					 int min_step_ramp = 0;
 					 int lift = 0;
@@ -282,7 +285,8 @@ public class MAGraph {
 						 max_angle = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
 					 }
 					 int [] detailes = {min_width, min_step, min_step_ramp, lift, lift_minus_step, min_rail_width, max_rail_width, max_angle};
-					 PortalItem pt = new PortalItem(nID, sName, nStationId, nDirection, detailes);
+					 PortalItem pt = new PortalItem(nID, sName, nStationId,
+                             nDirection, detailes, nLat, nLong);
 	
 					 StationItem item = m_moStations.get(nStationId);
 					 if(item == null){
@@ -337,18 +341,21 @@ public class MAGraph {
 		        while ((line = reader.readLine()) != null) {
 		             String[] RowData = line.split(MainActivity.CSV_CHAR);
 		             
-		             if(RowData.length < 4){
+		             if(RowData.length < 6){
 		            	 m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "stations.csv";
 		            	 return false;
 		             }
-		             
+
+                     double nLong = Double.parseDouble(RowData[5]);
+                     double nLat = Double.parseDouble(RowData[4]);
 					 String sName = RowData[3];
 					 int nNode = Integer.parseInt(RowData[2]);
 					 int nLine = Integer.parseInt(RowData[1]);
 					 int nID = Integer.parseInt(RowData[0]);
-	 					 
+
 					 m_oGraph.add_vertex(new Vertex(nID));
-					 StationItem st = new StationItem(nID, sName, nLine, nNode, 0, nCounter++);
+					 StationItem st = new StationItem(nID, sName, nLine, nNode,
+                             0, nCounter++, nLat, nLong);
 	 				     
 				     m_moStations.put(nID, st);
 		        }
