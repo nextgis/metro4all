@@ -20,6 +20,9 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.view.ViewTreeObserver;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.nextgis.metroaccess.data.PortalItem;
 
@@ -107,8 +110,33 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 			}
 		};
 		stationFilterEdit.addTextChangedListener(searchTextWatcher);
-		
-		return view;
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        parentActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        final int softKeyboardHeight = displaymetrics.heightPixels / 5;
+
+        // http://stackoverflow.com/a/9108219
+        final View activityRootView = parentActivity.findViewById(R.id.select_station_layout);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Rect r = new Rect();
+                        //r will be populated with the coordinates of your view
+                        // that area still visible.
+                        activityRootView.getWindowVisibleDisplayFrame(r);
+                        int heightDiff =
+                                activityRootView.getRootView().getHeight() - r.height();
+
+                        // if more than 1/5 of display, its probably a keyboard...
+                        if (heightDiff > softKeyboardHeight)
+                            m_tvNotes.setVisibility(View.GONE);
+                        else
+                            m_tvNotes.setVisibility(View.VISIBLE);
+                    }
+                });
+
+        return view;
 	}
 	
 	public void Update(){
