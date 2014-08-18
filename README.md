@@ -15,3 +15,9 @@ Metro4all is:
 * Website with additional information
 
 Read more about data structures, running aps etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
+
+
+License information:
+
+* Code - GPL v2
+* Data - CC-BY-SA 4.0 International
