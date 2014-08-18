@@ -217,7 +217,7 @@
     list-style: none;
     font-size: 12px;
     margin: 0 0 3px 0;
-    padding: 0;
+    padding: 0 3px;
     width: 220px;
     font-weight: normal;
 }
@@ -247,7 +247,7 @@
 }
 
 ul.available {
-    background-color: #9fff8e;
+    background-color: #99ff99;
 }
 
 ul.unavailable {
