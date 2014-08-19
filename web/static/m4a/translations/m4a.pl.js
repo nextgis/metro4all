@@ -10,7 +10,7 @@
             "wch_d3": " cm",
             "trl_html": "Szerokość wózka dziecięcego, cm",
             "trl_d": "Jestem z wózkiem dziecięcym",
-            "trl_d2": "Jestem z wózkiem dziecięcym szerokością ",
+            "trl_d2": "Jestem z wózkiem szerokością ",
             "trl_d3": " cm",
         },
         routes: {
