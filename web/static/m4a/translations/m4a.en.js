@@ -8,10 +8,10 @@
             "wch_d": "I'm in a wheelchair",
             "wch_d2": "I'm in a ",
             "wch_d3": " cm wide wheelchair",
-            "trl_html": "Trolley width, cm",
-            "trl_d": "I am with a trolley",
+            "trl_html": "Stroller width, cm",
+            "trl_d": "I am with a stroller",
             "trl_d2": "I am with a ",
-            "trl_d3": " cm wide trolley"
+            "trl_d3": " cm wide stroller"
         },
         routes: {
             "wch_w": "Wheelchair width upto ",

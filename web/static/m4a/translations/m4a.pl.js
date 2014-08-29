@@ -8,9 +8,9 @@
             "wch_d": "Jestem na wózku",
             "wch_d2": "Jestem na wózku szerokością ",
             "wch_d3": " cm",
-            "trl_html": "Szerokość torby, cm",
-            "trl_d": "Jestem z torbą",
-            "trl_d2": "Jestem z torbą szerokością ",
+            "trl_html": "Szerokość wózka dziecięcego, cm",
+            "trl_d": "Jestem z wózkiem dziecięcym",
+            "trl_d2": "Jestem z wózkiem szerokością ",
             "trl_d3": " cm",
         },
         routes: {

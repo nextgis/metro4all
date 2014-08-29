@@ -217,7 +217,7 @@
     list-style: none;
     font-size: 12px;
     margin: 0 0 3px 0;
-    padding: 0;
+    padding: 0 5px;
     width: 220px;
     font-weight: normal;
 }
@@ -247,11 +247,13 @@
 }
 
 ul.available {
-    background-color: #9fff8e;
+    background-color: #99ff99;
+    border-radius: 4px;
 }
 
 ul.unavailable {
     background-color: #ffafa7;
+    border-radius: 4px;
 }
 
 li.invalid {
@@ -260,7 +262,7 @@ li.invalid {
 
 li.show-hidden-params {
     cursor: pointer;
-    text-decoration: dashed;
+    text-align: right;
     padding-top: 5px;
     color: #00afff;
     text-decoration: underline;
