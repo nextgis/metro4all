@@ -22,15 +22,17 @@ package com.nextgis.metroaccess;
 
 import java.io.File;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class StationImageView extends SherlockActivity {
@@ -39,7 +41,8 @@ public class StationImageView extends SherlockActivity {
     float height;
 	float currentHeight;
 	String msPath;
-	
+    boolean isForLegend;
+
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -48,47 +51,62 @@ public class StationImageView extends SherlockActivity {
        	getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-	    Bundle extras = getIntent().getExtras(); 
-	    if(extras != null) {
-	
-	        // load view
-	        mWebView = (WebView)findViewById(R.id.webView);
-	        // (*) this line make uses of the Zoom control
-	        mWebView.getSettings().setBuiltInZoomControls(true);
-	        mWebView.getSettings().setJavaScriptEnabled(true);
-	        
-	        mWebView.getSettings().setLoadWithOverviewMode(true);
-	        mWebView.getSettings().setUseWideViewPort(true);
-	        
-	        DisplayMetrics displaymetrics = new DisplayMetrics();
-	        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-	        height = displaymetrics.heightPixels;
-	        width = displaymetrics.widthPixels;
-	        currentHeight = height;
-	        
-	        msPath = extras.getString("image_path");
-	        
-	        loadImage();
-	        // simply, just load an image
-	        //mWebView.loadUrl("file://" + extras.getString("image_path"));
-	    }
-	}
+        // load view
+        mWebView = (WebView) findViewById(R.id.webView);
+        // (*) this line make uses of the Zoom control
+        mWebView.getSettings().setBuiltInZoomControls(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setUseWideViewPort(true);
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        height = displaymetrics.heightPixels;
+        width = displaymetrics.widthPixels;
+        currentHeight = height;
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            msPath = extras.getString("image_path");
+        } else {
+            isForLegend = true;
+        }
+
+        loadImage();
+        // simply, just load an image
+        //mWebView.loadUrl("file://" + extras.getString("image_path"));
+    }
 	
 	protected void loadImage(){
 		//mWebView.loadUrl("file://" + msPath);
-		Bitmap BitmapOfMyImage = BitmapFactory.decodeFile(msPath);  
 
-		File f = new File(msPath);
-		
-		String sFolder = f.getParent();
-		String sName = f.getName();
+        Bitmap BitmapOfMyImage;
+        String sFolder;
+        String sName;
+
+        if (isForLegend) {
+            BitmapOfMyImage = BitmapFactory
+                    .decodeResource(getResources(), R.raw.schemes_legend);
+
+            sFolder = "/android_res/raw";
+            sName = "schemes_legend.png";
+
+            mWebView.clearCache(true);
+
+        } else {
+            BitmapOfMyImage = BitmapFactory.decodeFile(msPath);
+
+            File f = new File(msPath);
+            sFolder = f.getParent();
+            sName = f.getName();
+        }
+
 		String sPath = "file://" + sFolder + "/";
 		String sCmd = "<html><center><img src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></center></html>";
-		
-		
-		mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
+
+        mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
 			//This loads the image at the center of thee screen
-	    
 	}
 	
 	//this function will set the current height according to screen orientation
@@ -105,7 +123,15 @@ public class StationImageView extends SherlockActivity {
 			loadImage();
 
 		}
-	} 	
+	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater infl = getSupportMenuInflater();
+        infl.inflate(R.menu.menu_station_list, menu);
+        menu.findItem(R.id.btn_legend).setEnabled(!isForLegend).setVisible(!isForLegend);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -117,9 +143,16 @@ public class StationImageView extends SherlockActivity {
                 //startActivity(intent);
             	finish();
                 return true;
+            case R.id.btn_legend:
+                onLegendClick();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-	
+
+    public void onLegendClick() {
+        Intent intentView = new Intent(this, StationImageView.class);
+        startActivity(intentView);
+    }
 }
