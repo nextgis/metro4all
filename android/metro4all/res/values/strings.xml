@@ -93,7 +93,7 @@
 	<string name="sPrefChangeCityBasesBtn">Change</string>
 	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
     <string name="sPrefLegend">Legend</string>
-    <string name="sPrefLegendSummary">Legend of station scheme</string>
+    <string name="sPrefLegendSummary">Legend for station layout</string>
 	<string name="sPrefCity">Current city</string>
 	<string name="sPrefCitySummary">Choose city</string>
 	<string name="sPrefCityTitle">Choose city from the list</string>
