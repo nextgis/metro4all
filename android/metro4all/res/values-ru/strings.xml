@@ -92,7 +92,9 @@
 	<string name="sPrefChangeCityBasesBtn">Изменить</string>
 	<string name="sPrefChangeCityBasesTitle">Добавить/Удалить город</string>
 	<string name="sPrefChangeCityBasesSummary">Нажмите, чтобы выбрать загружаемые города</string>
-	<string name="sPrefCity">Текущий город</string>
+    <string name="sPrefLegend">Условные обозначения</string>
+    <string name="sPrefLegendSummary">Условные обозначения схемы станции</string>
+    <string name="sPrefCity">Текущий город</string>
 	<string name="sPrefCitySummary">Выберите город</string>
 	<string name="sPrefCityTitle">Выберите город из списка</string>
 	<string name="sPrefCityLoc">Язык названий</string>

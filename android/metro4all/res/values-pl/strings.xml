@@ -88,6 +88,8 @@
 	<string name="sPrefChangeCityBasesTitle">Przechowywane mapy metra</string>
 	<string name="sPrefChangeCityBasesBtn">Ustaw</string>
 	<string name="sPrefChangeCityBasesSummary">Kliknij, aby dodać/usunąć miasta</string>
+    <string name="sPrefLegend">Legenda do schematów</string>
+    <string name="sPrefLegendSummary">Legend of station scheme</string>
 	<string name="sPrefCity">Miasto</string>
 	<string name="sPrefCitySummary">Wybierz miasto</string>
 	<string name="sPrefCityTitle">Wybierz miasto z listy</string>

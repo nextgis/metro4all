@@ -28,6 +28,7 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -59,6 +60,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	public static final String KEY_PREF_CHANGE_CITY_BASES = "change_city_bases";
 	public static final String KEY_PREF_DATA_LOCALE = "data_loc";
 	public static final String KEY_PREF_HAVE_LIMITS = "limits";
+    public static final String KEY_PREF_LEGEND = "legend";
 	public static final String KEY_PREF_CITY = "city";
 	public static final String KEY_PREF_CITYLANG = "city_lang";
 	public static final String KEY_PREF_MAX_ROUTE_COUNT = "max_route_count";
@@ -124,7 +126,18 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
 	    
 	    MAGraph oGraph = MainActivity.GetGraph();
-	    
+
+        Preference legendPref = (Preference) findPreference(KEY_PREF_LEGEND);
+        if(legendPref != null){
+            legendPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intentView = new Intent(getApplicationContext(), StationImageView.class);
+                    startActivity(intentView);
+                    return true;
+                }
+            });
+        }
+
 	    m_CityPref = (ListPreference) findPreference(KEY_PREF_CITY);
         if(m_CityPref != null){
         	UpdateCityList();
