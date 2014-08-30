@@ -31,6 +31,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
@@ -50,6 +52,7 @@ public class StationMapActivity extends SherlockActivity {
     private Context mAppContext;
 
     private StationMapView mMapView;
+    private GpsMyLocationProvider gpsMyLocationProvider;
     private ResourceProxy mResourceProxy;
 
     private int mStationID;
@@ -123,9 +126,11 @@ public class StationMapActivity extends SherlockActivity {
         // Call this method to turn off hardware acceleration at the View level.
         setHardwareAccelerationOff();
 
+        gpsMyLocationProvider = new GpsMyLocationProvider(mAppContext);
+
         //add overlays
-        mLocationOverlay = new MyLocationNewOverlay(mAppContext,
-                new GpsMyLocationProvider(mAppContext), mMapView);
+        mLocationOverlay =
+                new MyLocationNewOverlay(mAppContext, gpsMyLocationProvider, mMapView);
         mLocationOverlay.setDrawAccuracyEnabled(true);
         mLocationOverlay.enableMyLocation();
 
@@ -353,13 +358,28 @@ public class StationMapActivity extends SherlockActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater infl = getSupportMenuInflater();
+        infl.inflate(R.menu.menu_station_map, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.btn_location_found:
+                onLocationFoundClick();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onLocationFoundClick() {
+        mMapView.getController().animateTo(
+                new GeoPoint(gpsMyLocationProvider.getLastKnownLocation()));
     }
 }
