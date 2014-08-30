@@ -36,6 +36,7 @@
 	<string name="sToStation">Куда</string>
 	<string name="sRoute">Вариант</string>
 	<string name="sSchema">Схема</string>
+    <string name="sLegend">Условные обозначения</string>
 	<string name="sStationName">Станция</string>
 	<string name="sEntranceName">Вход</string>
 	<string name="sExitName">Выход</string>

@@ -71,6 +71,7 @@ public class StationImageView extends SherlockActivity {
             msPath = extras.getString("image_path");
         } else {
             isForLegend = true;
+            setTitle(R.string.sLegend);
         }
 
         loadImage();
