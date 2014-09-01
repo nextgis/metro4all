@@ -20,6 +20,7 @@
 	<string name="sCannotGetPath">Błędna ścieżka do pliku</string>
 	<string name="sInvalidCSVData">Niepoprawna ilość pól w pliku csv: </string>
 	<string name="sNoOrEmptyData">Brak danych lub dane niepoprawne. Proszę ściągnąć aktualizację bazy danych.</string>
+	
 	<string name="sSelectDataToDownload">Wybierz dane do pobrania</string>
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
 	<string name="sDownload">Pobierz</string>
@@ -39,6 +40,10 @@
 	<string name="sStationName">Stacja</string>
 	<string name="sEntranceName">Wejście</string>
 	<string name="sExitName">Wyjście</string>
+    <string name="sStationPortalName">Name \"%1$s\",\n%2$s \"%3$s\"</string>
+    <string name="sNearestStation">Nearest station is \"%1$s\"</string>
+    <string name="sInPortalMapTitle">Entrances of \"%1$s\"</string>
+    <string name="sOutPortalMapTitle">Exits of \"%1$s\"</string>
 	<string name="sNotSet">Wybierz</string>
 	<string name="sSelFromStation">Wybierz stację początkową</string>
 	<string name="sSelToStation">Wybierz stację docelową</string>
