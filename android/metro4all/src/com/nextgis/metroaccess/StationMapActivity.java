@@ -40,6 +40,7 @@ import com.nextgis.metroaccess.data.StationItem;
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.tileprovider.tilesource.ITileSource;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.*;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
@@ -50,23 +51,9 @@ import java.util.List;
 
 public class StationMapActivity extends SherlockActivity {
 
-    private Context mAppContext;
-
-    private StationMapView mMapView;
-    private GpsMyLocationProvider gpsMyLocationProvider;
-    private ResourceProxy mResourceProxy;
-
-    private int mStationID;
-    private boolean mIsPortalIn;
-
     protected int mnType;
     protected int mnMaxWidth, mnWheelWidth;
     protected boolean m_bHaveLimits;
-
-
-    //overlays
-    private MyLocationNewOverlay mLocationOverlay;
-    private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
 
     private final static String PREFS_TILE_SOURCE = "map_tile_source";
     private final static String PREFS_SCROLL_X = "map_scroll_x";
@@ -77,6 +64,20 @@ public class StationMapActivity extends SherlockActivity {
 
 //    private final static String PREFS_SHOW_LOCATION = "map_show_loc";
 //    private final static String PREFS_SHOW_COMPASS = "map_show_compass";
+
+    private Context mAppContext;
+
+    private StationMapView mMapView;
+    private GpsMyLocationProvider gpsMyLocationProvider;
+    private ResourceProxy mResourceProxy;
+
+    private int mStationID;
+    private boolean mIsPortalIn;
+    private List<StationItem> stationList;
+
+    //overlays
+    private MyLocationNewOverlay mLocationOverlay;
+    private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
 
 
     @Override
@@ -164,8 +165,7 @@ public class StationMapActivity extends SherlockActivity {
         markerTransparentPortal.setAlpha(127);
         markerTransparentInvalidPortal.setAlpha(127);
 
-        List<StationItem> stationList =
-                new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
+        stationList = new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
 
         double minLat = 0, minLong = 0, maxLat = 0, maxLong = 0;
 
@@ -382,8 +382,68 @@ public class StationMapActivity extends SherlockActivity {
     public void onLocationFoundClick() {
         Location myLocation = gpsMyLocationProvider.getLastKnownLocation();
 
-        if (null != myLocation) {
-            mMapView.getController().animateTo(new GeoPoint(myLocation));
+        if (null == myLocation) return;
+
+        if (mMapView.getScreenRect(null).height() > 0) {
+
+            StationItem nearestStation = null;
+            float minDistance = Float.MAX_VALUE;
+
+            for (StationItem station : stationList) {
+
+                List<PortalItem> portalList = station.GetPortals(mIsPortalIn);
+                float[] distanceToPortal = new float[1];
+
+                for (PortalItem portal : portalList) {
+
+                    Location.distanceBetween(myLocation.getLatitude(), myLocation.getLongitude(),
+                            portal.GetLatitude(), portal.GetLongitude(), distanceToPortal);
+
+                    if (distanceToPortal[0] < minDistance) {
+                        minDistance = distanceToPortal[0];
+                        nearestStation = station;
+                    }
+                }
+            }
+
+            if (null != nearestStation) {
+
+                List<PortalItem> portalList = nearestStation.GetPortals(mIsPortalIn);
+
+                float[] distanceToPortal = new float[1];
+                float maxDistance = 0;
+                PortalItem farPortal = null;
+
+                for (PortalItem portal : portalList) {
+
+                    Location.distanceBetween(myLocation.getLatitude(), myLocation.getLongitude(),
+                            portal.GetLatitude(), portal.GetLongitude(), distanceToPortal);
+
+                    if (distanceToPortal[0] > maxDistance) {
+                        maxDistance = distanceToPortal[0];
+                        farPortal = portal;
+                    }
+                }
+
+                if (null != farPortal) {
+
+                    GeoPoint myGeoPoint = new GeoPoint(myLocation);
+
+                    int north = myGeoPoint.destinationPoint(maxDistance, 0).getLatitudeE6();
+                    int south = myGeoPoint.destinationPoint(maxDistance, 180).getLatitudeE6();
+                    int east = myGeoPoint.destinationPoint(maxDistance, 90).getLongitudeE6();
+                    int west = myGeoPoint.destinationPoint(maxDistance, 270).getLongitudeE6();
+
+                    mMapView.zoomToBoundingBox(new BoundingBoxE6(north, east, south, west));
+
+                    Toast.makeText(mAppContext,
+                            String.format(getString(R.string.sNearestStation),
+                                    nearestStation.GetName()),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
         }
+
+        mMapView.getController().animateTo(new GeoPoint(myLocation));
     }
 }
