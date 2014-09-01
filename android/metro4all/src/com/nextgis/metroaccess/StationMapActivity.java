@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -379,7 +380,10 @@ public class StationMapActivity extends SherlockActivity {
     }
 
     public void onLocationFoundClick() {
-        mMapView.getController().animateTo(
-                new GeoPoint(gpsMyLocationProvider.getLastKnownLocation()));
+        Location myLocation = gpsMyLocationProvider.getLastKnownLocation();
+
+        if (null != myLocation) {
+            mMapView.getController().animateTo(new GeoPoint(myLocation));
+        }
     }
 }
