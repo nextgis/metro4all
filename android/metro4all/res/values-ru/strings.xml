@@ -40,8 +40,8 @@
 	<string name="sStationName">Станция</string>
 	<string name="sEntranceName">Вход</string>
 	<string name="sExitName">Выход</string>
-    <string name="sStationPortalName">Станция \"%1$s\",\n%2$s \"%3$s\".</string>
-    <string name="sNearestStation">Ближайшая станция \"%1$s\".</string>
+    <string name="sStationPortalName">Станция \"%1$s\",\n%2$s \"%3$s\"</string>
+    <string name="sNearestStation">Ближайшая станция \"%1$s\"</string>
     <string name="sInPortalMapTitle">Входы ст. \"%1$s\"</string>
     <string name="sOutPortalMapTitle">Выходы ст. \"%1$s\"</string>
 	<string name="sNotSet">Не выбрано</string>
