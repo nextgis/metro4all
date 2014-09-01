@@ -186,6 +186,7 @@ public class StationMapActivity extends SherlockActivity {
 
             if (isSelectedStation && !isForSelectedStation) {
                 ++i;
+                isForSelectedStation = !isForSelectedStation && (i == stationListSize);
                 continue;
             }
 
