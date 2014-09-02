@@ -34,7 +34,9 @@
             "exit": "Wyjście",
             "obt_arent_sh_ex": "Przeszkody nie są wyświetlane ponieważ nie wybrałeś wyjście",
             "show": "Jeszcze...",
-            "hide": "Schować"
+            "hide": "Schować",
+            "help": "Looking for official assistance service?",
+            "help_link": "http://metro4all.org/official-assistance/"
         },
         inline: {
             "start_st": "Wybierz stacje wejścia lub wyjścia",
