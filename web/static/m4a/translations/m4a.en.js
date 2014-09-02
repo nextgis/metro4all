@@ -34,7 +34,9 @@
             "exit": "Exit",
             "obt_arent_sh_ex": "Obstacles aren't shown as the exit is not selected",
             "show": "More...",
-            "hide": "Hide"
+            "hide": "Hide",
+            "help": "Looking for official assistance service?",
+            "help_link": "http://metro4all.org/official-assistance/"
         },
         inline: {
             "start_st": "Please select starting or destination station",
