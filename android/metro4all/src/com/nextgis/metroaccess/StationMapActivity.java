@@ -24,6 +24,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
@@ -38,8 +41,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 import org.osmdroid.ResourceProxy;
-import org.osmdroid.tileprovider.tilesource.ITileSource;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.*;
@@ -55,7 +58,9 @@ public class StationMapActivity extends SherlockActivity {
     protected int mnMaxWidth, mnWheelWidth;
     protected boolean m_bHaveLimits;
 
+/*  // commented because of bug https://github.com/osmdroid/osmdroid/issues/49
     private final static String PREFS_TILE_SOURCE = "map_tile_source";
+*/
     private final static String PREFS_SCROLL_X = "map_scroll_x";
     private final static String PREFS_SCROLL_Y = "map_scroll_y";
     private final static String PREFS_ZOOM_LEVEL = "map_zoom_level";
@@ -70,6 +75,7 @@ public class StationMapActivity extends SherlockActivity {
     private StationMapView mMapView;
     private GpsMyLocationProvider gpsMyLocationProvider;
     private ResourceProxy mResourceProxy;
+    private float scaledDensity;
 
     private int mStationID;
     private boolean mIsPortalIn;
@@ -148,19 +154,38 @@ public class StationMapActivity extends SherlockActivity {
     }
 
     protected void LoadPortalsToOverlay() {
+        scaledDensity = getBaseContext().getResources().getDisplayMetrics().scaledDensity;
+
         ArrayList<OverlayItem> overlayPortals = new ArrayList<OverlayItem>();
         ArrayList<OverlayItem> overlayTransparentPortals = new ArrayList<OverlayItem>();
 
-        Drawable markerPortal = getResources().getDrawable(mIsPortalIn
-                ? R.drawable.portal_in : R.drawable.portal_out);
+        Bitmap original = BitmapFactory.decodeResource(mAppContext.getResources(),
+                mIsPortalIn ? R.drawable.portal_in : R.drawable.portal_out);
+        Drawable markerPortal = new BitmapDrawable(mAppContext.getResources(),
+                Bitmap.createScaledBitmap(original,
+                        (int) (scaledDensity * original.getWidth()),
+                        (int) (scaledDensity * original.getHeight()), false));
 
-        Drawable markerTransparentPortal = getResources().getDrawable(mIsPortalIn
-                ? R.drawable.portal_in_tr : R.drawable.portal_out_tr);
+        original = BitmapFactory.decodeResource(mAppContext.getResources(),
+                mIsPortalIn ? R.drawable.portal_in_tr : R.drawable.portal_out_tr);
+        Drawable markerTransparentPortal = new BitmapDrawable(mAppContext.getResources(),
+                Bitmap.createScaledBitmap(original,
+                        (int) (scaledDensity * original.getWidth()),
+                        (int) (scaledDensity * original.getHeight()), false));
 
-        Drawable markerInvalidPortal = getResources().getDrawable(R.drawable.portal_invalid);
+        original = BitmapFactory.decodeResource(mAppContext.getResources(),
+                R.drawable.portal_invalid);
+        Drawable markerInvalidPortal = new BitmapDrawable(mAppContext.getResources(),
+                Bitmap.createScaledBitmap(original,
+                        (int) (scaledDensity * original.getWidth()),
+                        (int) (scaledDensity * original.getHeight()), false));
 
-        Drawable markerTransparentInvalidPortal =
-                getResources().getDrawable(R.drawable.portal_invalid_tr);
+        original = BitmapFactory.decodeResource(mAppContext.getResources(),
+                R.drawable.portal_invalid_tr);
+        Drawable markerTransparentInvalidPortal = new BitmapDrawable(mAppContext.getResources(),
+                Bitmap.createScaledBitmap(original,
+                        (int) (scaledDensity * original.getWidth()),
+                        (int) (scaledDensity * original.getHeight()), false));
 
         markerTransparentPortal.setAlpha(127);
         markerTransparentInvalidPortal.setAlpha(127);
@@ -303,6 +328,7 @@ public class StationMapActivity extends SherlockActivity {
     public void onResume() {
         super.onResume();
 
+/*  // commented because of bug https://github.com/osmdroid/osmdroid/issues/49
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(mAppContext);
         final String tileSourceName = prefs.getString(PREFS_TILE_SOURCE,
@@ -314,6 +340,25 @@ public class StationMapActivity extends SherlockActivity {
         } catch (final IllegalArgumentException e) {
             mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         }
+*/
+
+        // For bug https://github.com/osmdroid/osmdroid/issues/49
+        // "Tiles are too small on high dpi devices"
+        // It is from sources of TileSourceFactory
+        final int newScale = (int) (256 * scaledDensity);
+        OnlineTileSourceBase mapSource = new XYTileSource(
+                "Mapnik",
+                ResourceProxy.string.mapnik,
+                0,
+                18,
+                newScale,
+                ".png",
+                new String[]{
+                        "http://a.tile.openstreetmap.org/",
+                        "http://b.tile.openstreetmap.org/",
+                        "http://c.tile.openstreetmap.org/"});
+        mMapView.setTileSource(mapSource);
+
 
 //        if (prefs.getBoolean(PREFS_SHOW_LOCATION, true)) {
             mLocationOverlay.enableMyLocation();
@@ -327,7 +372,10 @@ public class StationMapActivity extends SherlockActivity {
     public void onPause() {
         final SharedPreferences.Editor edit =
                 PreferenceManager.getDefaultSharedPreferences(mAppContext).edit();
+
+/*  // commented because of bug https://github.com/osmdroid/osmdroid/issues/49
         edit.putString(PREFS_TILE_SOURCE, mMapView.getTileProvider().getTileSource().name());
+*/
         edit.putInt(PREFS_SCROLL_X, mMapView.getScrollX());
         edit.putInt(PREFS_SCROLL_Y, mMapView.getScrollY());
         edit.putInt(PREFS_ZOOM_LEVEL, mMapView.getZoomLevel());
