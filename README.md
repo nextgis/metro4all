@@ -14,7 +14,7 @@ Metro4all is:
 * Android-app: same as above
 * Website with additional information
 
-Read more about data structures, running aps etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
+Read more about data structures, running apps, etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
 
 
 License information:
