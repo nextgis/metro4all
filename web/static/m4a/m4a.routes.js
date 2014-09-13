@@ -191,7 +191,7 @@
                 return m4a.routes.COLORS[currentRoute[stationIndex].station_line.color];
             }
             var lineClass = currentRoute && currentRoute.length > 0 ?
-                ' line-' + getIndexByColor(0) : ''
+                ' line-' + getLineIndexByStationIndex(0) : ''
 
             content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
             if (routes[index].portals.portal_from) {
