@@ -570,7 +570,7 @@ public class MAGraph {
 			m_asChoiceItems.clear();
 
 			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 				Map<String,String> sLocaleNames = GetNames(jsonObject);
 				String sName = "";
 				

@@ -303,7 +303,15 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			BarrierItem bit = new BarrierItem(4, sName, false, naBarriers[4]);
 			it.AddBarrier(bit);
 		}
-		if(bWithZeroes || naBarriers[5] > 0){//min_rail_width
+        if(bWithZeroes || naBarriers[5] > 0 || naBarriers[6] > 0){
+           String sName = getString(R.string.sDistBetweenWeels) +  ": " + naBarriers[5] / 10 + " - "  + naBarriers[6] / 10 + " " + getString(R.string.sCM);
+            boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
+            if(!bCanRoll && !m_bHaveLimits)
+                bCanRoll = true;
+            BarrierItem bit = new BarrierItem(56, sName, !bCanRoll, naBarriers[6] - naBarriers[5]);
+            it.AddBarrier(bit);
+        }
+		/*if(bWithZeroes || naBarriers[5] > 0){//min_rail_width
 			String sName = getString(R.string.sMinRailWidth) + ": " + naBarriers[5] / 10 + " " + getString(R.string.sCM);
 			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
 			if(!bCanRoll && !m_bHaveLimits)
@@ -318,7 +326,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 				bCanRoll = true;
 			BarrierItem bit = new BarrierItem(6, sName, !bCanRoll, naBarriers[6]);
 			it.AddBarrier(bit);
-		}
+		}*/
 		if(bWithZeroes || naBarriers[7] > 0){//max_angle
 			String sName = getString(R.string.sMaxAngle) + ": " + naBarriers[7] + DEGREE_CHAR;
 			BarrierItem bit = new BarrierItem(7, sName, false, naBarriers[7]);

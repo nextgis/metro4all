@@ -47,6 +47,7 @@
 	<string name="sMaxWCWidth">Wheelchair width</string>
 	<string name="sStairsCount">Number of stairs</string>
 	<string name="sStairsWORails">Of those, without rails or ramps</string>
+    <string name="sDistBetweenWeels">Distance between wheels</string>
 	<string name="sLift">Elevator</string>
 	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
 	<string name="sCM">cm</string>
