@@ -36,25 +36,34 @@
 	<string name="sToStation">To</string>
 	<string name="sRoute">Option</string>
 	<string name="sSchema">Layout</string>
+    <string name="sLegend">Legend</string>
 	<string name="sStationName">Name</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
+    <string name="sStationPortalName">Station \"%1$s\",\n%2$s \"%3$s\"</string>
+    <string name="sNearestStation">Nearest station is \"%1$s\"</string>
+    <string name="sInPortalMapTitle">Entrances of \"%1$s\"</string>
+    <string name="sOutPortalMapTitle">Exits of \"%1$s\"</string>
 	<string name="sNotSet">Not set</string>
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>
 	<string name="sBarriersExist">Click here to see barriers&#8230;</string>
 	<string name="sBarriersConflict">You have a conflict with your parameters</string>
-	<string name="sMaxWCWidth">Wheelchair width</string>
-	<string name="sStairsCount">Number of stairs</string>
+	<string name="sMaxWCWidth">Passway width upto</string>
+	<string name="sStairsCount">Steps total</string>
+	<string name="sStairsEconomy">Steps saved by elevators, ramps and rails</string>
+	<string name="sStairsLeft">Steps to climb</string>
 	<string name="sStairsWORails">Of those, without rails or ramps</string>
 	<string name="sLift">Elevator</string>
+	<string name="sEscalator">Escalator</string>
 	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
 	<string name="sCM">cm</string>
 	<string name="sKB">Kb</string>
 	<string name="sMB">Mb</string>
 	<string name="sMinRailWidth">Min distance between wheels</string>
 	<string name="sMaxRailWidth">Max distance between wheels</string>
-	<string name="sMaxAngle">Max angle of ramps/rails</string>
+	<string name="sRailWidth">Distance between wheels</string>
+	<string name="sMaxAngle">Max slope</string>
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
@@ -66,7 +75,7 @@
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>
-	<string name="sSelRecentTab">Recent</string>	
+	<string name="sSelRecentTab">Recent</string>
 	<!-- dialogs -->
 	<string name="sPrefTitle">Preferences</string>
 	<string name="sPrefCatMain">Main</string>
@@ -88,6 +97,8 @@
 	<string name="sPrefChangeCityBasesTitle">Add/Remove city</string>
 	<string name="sPrefChangeCityBasesBtn">Change</string>
 	<string name="sPrefChangeCityBasesSummary">Click to select cities</string>
+    <string name="sPrefLegend">Legend</string>
+    <string name="sPrefLegendSummary">Legend for station layout</string>
 	<string name="sPrefCity">Current city</string>
 	<string name="sPrefCitySummary">Choose city</string>
 	<string name="sPrefCityTitle">Choose city from the list</string>
