@@ -21,38 +21,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/sPrefTitle" >
 	<PreferenceCategory
-		android:title="@string/sLimits"
-		android:key="main_cat">
-		<!-- ListPreference
-		    android:key="user_type"
-		    android:title="@string/sPrefNaviType"
-		    android:summary="@string/sPrefNaviTypeSummary"
-			android:defaultValue="1"
-			android:entries="@array/navi_type"
-			android:entryValues="@array/navi_type_val"
-			android:dialogTitle="@string/sPrefNaviTypeTitle" /-->
-		<SwitchPreference 
-		    android:key="limits"
-		    android:title="@string/sLimitsHave"
-		    android:defaultValue="false" 
-		    android:switchTextOn="@string/switch_on"
-		    android:switchTextOff="@string/switch_off"/>
-		<EditTextPreference
-		    android:key="max_width"
-		    android:title="@string/sPrefCarriageSize"
-		    android:summary="@string/sPrefCarriageSizeSummary"
-		    android:defaultValue="40"
-		    android:inputType="number"
-		    android:dialogTitle="@string/sPrefCarriageSizeTitle" />
-		<EditTextPreference
-		    android:key="wheel_width"
-		    android:title="@string/sPrefWheelBaseSize"
-		    android:summary="@string/sPrefWheelBaseSizeSummary"
-		    android:defaultValue="40"
-		    android:inputType="number"
-		    android:dialogTitle="@string/sPrefWheelBaseSizeTitle" />		
-	</PreferenceCategory>
-	<PreferenceCategory
 		android:title="@string/sPrefCatData"
 		android:key="data_cat">
         <Preference
@@ -81,4 +49,36 @@
 		    android:dialogTitle="@string/sPrefCityLocTitle"
 		    />     		
 	</PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/sLimits"
+        android:key="main_cat">
+        <!-- ListPreference
+            android:key="user_type"
+            android:title="@string/sPrefNaviType"
+            android:summary="@string/sPrefNaviTypeSummary"
+            android:defaultValue="1"
+            android:entries="@array/navi_type"
+            android:entryValues="@array/navi_type_val"
+            android:dialogTitle="@string/sPrefNaviTypeTitle" /-->
+        <SwitchPreference
+            android:key="limits"
+            android:title="@string/sLimitsHave"
+            android:defaultValue="false"
+            android:switchTextOn="@string/switch_on"
+            android:switchTextOff="@string/switch_off"/>
+        <EditTextPreference
+            android:key="max_width"
+            android:title="@string/sPrefCarriageSize"
+            android:summary="@string/sPrefCarriageSizeSummary"
+            android:defaultValue="40"
+            android:inputType="number"
+            android:dialogTitle="@string/sPrefCarriageSizeTitle" />
+        <EditTextPreference
+            android:key="wheel_width"
+            android:title="@string/sPrefWheelBaseSize"
+            android:summary="@string/sPrefWheelBaseSizeSummary"
+            android:defaultValue="40"
+            android:inputType="number"
+            android:dialogTitle="@string/sPrefWheelBaseSizeTitle" />
+    </PreferenceCategory>
 </PreferenceScreen>
