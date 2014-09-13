@@ -144,7 +144,7 @@ def main(city):
             route_css_class='city-5'
         ),
         'niz': dict(
-            mainmap=dict(center=[56.31955, 43.94353], zoom=12),
+            mainmap=dict(center=[56.3004, 43.9165], zoom=12),
             city='niz',
             route_css_class='city-6'
         )
