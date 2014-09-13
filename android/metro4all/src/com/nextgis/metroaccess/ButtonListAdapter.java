@@ -164,4 +164,14 @@ public class ButtonListAdapter extends BaseAdapter {
 	public void setToEntranceName(String sToEntranceName) {
 		this.m_sToEntranceName = sToEntranceName;
 	}
+
+    public void clear(){
+        String sNotSet = (String) m_oContext.getResources().getText(R.string.sNotSet);
+        this.m_sFromStationName = sNotSet;
+        this.m_sToStationName = sNotSet;
+        this.m_sFromEntranceName = sNotSet;
+        this.m_sToEntranceName = sNotSet;
+
+        notifyDataSetChanged();
+    }
 }

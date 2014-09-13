@@ -42,6 +42,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.StationItem;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class SelectStationActivity extends SherlockFragmentActivity {
     private static final int NUM_ITEMS = 3;
 
@@ -80,7 +82,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
             }
 
             public void onPageSelected(int arg0) {
-                Log.d(MainActivity.TAG, "onPageSelected: " + arg0);
+                Log.d(TAG, "onPageSelected: " + arg0);
                 actionBar.getTabAt(arg0).select();
             }
         });
@@ -103,13 +105,13 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         //get location from calling class
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int nType = extras.getInt(MainActivity.BUNDLE_EVENTSRC_KEY);
-            m_bIn = extras.getBoolean(MainActivity.BUNDLE_ENTRANCE_KEY);
+            int nType = extras.getInt(BUNDLE_EVENTSRC_KEY);
+            m_bIn = extras.getBoolean(BUNDLE_ENTRANCE_KEY);
             switch (nType) {
-                case MainActivity.DEPARTURE_RESULT:
+                case DEPARTURE_RESULT:
                     setTitle(R.string.sFromStation);
                     break;
-                case MainActivity.ARRIVAL_RESULT:
+                case ARRIVAL_RESULT:
                     setTitle(R.string.sToStation);
                     break;
             }
@@ -191,10 +193,10 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getSupportMenuInflater().inflate(R.menu.main, menu);
-        menu.add(Menu.NONE, MainActivity.MENU_SETTINGS, Menu.NONE, R.string.sSettings)
+        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.sSettings)
                 .setIcon(R.drawable.ic_action_settings)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(Menu.NONE, MainActivity.MENU_ABOUT, Menu.NONE, R.string.sAbout)
+        menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.sAbout)
                 .setIcon(R.drawable.ic_action_about)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         return true;
@@ -206,11 +208,11 @@ public class SelectStationActivity extends SherlockFragmentActivity {
             case android.R.id.home:
                 finish();
                 return true;
-            case MainActivity.MENU_SETTINGS:
+            case MENU_SETTINGS:
                 // app icon in action bar clicked; go home
                 onSettings();
                 return true;
-            case MainActivity.MENU_ABOUT:
+            case MENU_ABOUT:
                 Intent intentAbout = new Intent(this, AboutActivity.class);
                 intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentAbout);
@@ -221,8 +223,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 
     public void Finish(int nStationId, int nPortalId) {
         Intent intent = new Intent();
-        intent.putExtra(MainActivity.BUNDLE_STATIONID_KEY, nStationId);
-        intent.putExtra(MainActivity.BUNDLE_PORTALID_KEY, nPortalId);
+        intent.putExtra(BUNDLE_STATIONID_KEY, nStationId);
+        intent.putExtra(BUNDLE_PORTALID_KEY, nPortalId);
         setResult(RESULT_OK, intent);
         finish();
 
@@ -232,7 +234,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //update fragments to new data
         switch (requestCode) {
-            case MainActivity.PREF_RESULT:
+            case PREF_RESULT:
                 if (mAlphaStListFragment != null)
                     mAlphaStListFragment.Update();
                 if (mLinesStListFragment != null)
@@ -240,10 +242,10 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                 if (mRecentStListFragment != null)
                     mRecentStListFragment.Update();
                 break;
-            case MainActivity.PORTAL_MAP_RESULT:
+            case PORTAL_MAP_RESULT:
                 if (resultCode == RESULT_OK) {
-                    int stationID = data.getIntExtra(MainActivity.PARAM_SEL_STATION_ID, 0);
-                    int portalID = data.getIntExtra(MainActivity.PARAM_SEL_PORTAL_ID, 0);
+                    int stationID = data.getIntExtra(PARAM_SEL_STATION_ID, 0);
+                    int portalID = data.getIntExtra(PARAM_SEL_PORTAL_ID, 0);
                     Finish(stationID, portalID);
                 }
                 break;
@@ -254,7 +256,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 
     protected void onSettings() {
         Intent intentSet = new Intent(this, PreferencesActivity.class);
-        startActivityForResult(intentSet, MainActivity.PREF_RESULT);
+        startActivityForResult(intentSet, PREF_RESULT);
     }
 
     public boolean HasLimits() {
