@@ -187,31 +187,43 @@
                 content = "<ul class='route'>",
                 currentRoute = routes[index].route;
 
-            var getLineIndexByStationIndex = function(stationIndex){
-                return m4a.routes.COLORS[currentRoute[stationIndex].station_line.color];
+            var getLineIndexByStationColor = function(stationColor){
+                return m4a.routes.COLORS[stationColor];
             }
-            var lineClass = currentRoute && currentRoute.length > 0 ?
-                ' line-' + getLineIndexByStationIndex(0) : ''
+            var getLineIndexForRouteItem = function(routeItem){
+                return getLineIndexByStationColor(routeItem.station_line.color);
+            }
 
-            content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
-            if (routes[index].portals.portal_from) {
-                var barriers = routes[index].portals.portal_from.barriers;
-                if (barriers) {
-                    content += this.fillBarriers(barriers);
+            var addTerminalStation = function(i, className, resourceName, portalDirection) {
+
+                var lineClass = currentRoute && currentRoute.length > 0 ?
+                    ' line-' + getLineIndexForRouteItem(currentRoute[i]) : '';
+
+                var fullClassName = [className, lineClass].join(' ');
+                var result = "<li class='" + fullClassName + "'>" + m4a.resources.routes[resourceName];
+                var portal = routes[index].portals[portalDirection];
+                if (portal) {
+                    var barriers = portal.barriers;
+                    if (barriers) {
+                        result += this.fillBarriers(barriers);
+                    }
+                } else {
+                    result += "<ul class='obstacles'>";
+                    result += "<li>" + m4a.resources.routes.obt_arent_sh_en + "</li>";
+                    result += "</ul>";
                 }
-            } else {
-                content += "<ul class='obstacles'>";
-                content += "<li>" + m4a.resources.routes.obt_arent_sh_en + "</li>";
-                content += "</ul>";
-            }
-            content += "</li>";
+                result += "</li>";
+                return result;
+            };
+
+            content += addTerminalStation(0, 'enter', 'entr', 'portal_from');
 
             $.each(currentRoute, function (i, item) {
                 var condition = (i == 0) ? item.station_type == 'regular' :
                     (item.station_type == 'regular' && currentRoute[i - 1].station_type != 'interchange')
 
                 if (condition) {
-                    content += "<li class=" + "'station line-" + m4a.routes.COLORS[item.station_line.color] + "'>" + item.station_name +
+                    content += "<li class='station line-" + getLineIndexForRouteItem(item) + "'>" + item.station_name +
                         context.schemeIconTemplate({
                             schemeExists: item.schema,
                             path: m4a.viewmodel.pathToSchemes + item.schema,
@@ -219,14 +231,15 @@
                         }) +
                         "</li>"
                 } else if (item.station_type == 'interchange') {
-                    content += "<li class=" + "'transition from-line-" + m4a.routes.COLORS[item.station_line.color] + " to-line-" +
-                        m4a.routes.COLORS[currentRoute[i + 1].station_line.color] + "'>" + item.station_name +
-                        " (" + item.station_line.name + ")" + " &rarr; " + currentRoute[i + 1].station_name +
-                        " (" + currentRoute[i + 1].station_line.name + ")" +
+                    var nextStation = currentRoute[i + 1];
+                    content += "<li class=" + "'transition from-line-" + getLineIndexForRouteItem(item) + " to-line-" +
+                        getLineIndexForRouteItem(nextStation) + "'>" + item.station_name +
+                        " (" + item.station_line.name + ")" + " &rarr; " + nextStation.station_name +
+                        " (" + nextStation.station_line.name + ")" +
                         context.schemeIconTemplate({
-                            schemeExists: currentRoute[i + 1].schema,
-                            path: m4a.viewmodel.pathToSchemes + currentRoute[i + 1].schema,
-                            name: currentRoute[i + 1].station_name
+                            schemeExists: nextStation.schema,
+                            path: m4a.viewmodel.pathToSchemes + nextStation.schema,
+                            name: nextStation.station_name
                         })
                     if (item.barriers) {
                         content += context.fillBarriers(item.barriers);
@@ -235,21 +248,8 @@
                 }
             });
 
-            var exitLineClass = 'exit line-' + getLineIndexByStationIndex(currentRoute.length-1);
-            content += "<li class='" + exitLineClass + "'>" + m4a.resources.routes.exit;
-            if (routes[index].portals.portal_to) {
-                var barriers = routes[index].portals.portal_to.barriers;
-                if (barriers) {
-                    content += this.fillBarriers(barriers);
-                }
-            } else {
-                content += "<ul class='obstacles'>";
-                content += "<li>" + m4a.resources.routes.obt_arent_sh_ex + "</li>";
-                content += "</ul>";
-            }
-            content += "</li>";
+            content += addTerminalStation(currentRoute.length-1, 'exit', 'exit', 'portal_to');
             content += "</ul>";
-
             content += '<a href="' + m4a.resources.routes.help_link  +'" target="_blank">' + m4a.resources.routes.help + '</a>';
 
             m4a.view.$routePanel.append(content);
@@ -267,7 +267,7 @@
                     item.coordinates,
                     {
                         icon: L.divIcon({
-                            className: 'marker-station marker-line-' + m4a.routes.COLORS[item.station_line.color] +
+                            className: 'marker-station marker-line-' + getLineIndexForRouteItem(item) +
                                 (i == 0 ? ' marker-enter' : (i == (currentRoute.length - 1) ? ' marker-exit' : '')),
                             iconSize: [16, 16]
                         })

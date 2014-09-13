@@ -160,10 +160,6 @@
     background-image: url(../img/search-result-1-circle.png);
 }
 
-.city-2 .marker-station {
-    background-image: url(../img/search-result-2-circle.png);
-}
-
 .marker-station.marker-line-2 {
     background-position: 0 -16px;
 }
@@ -232,25 +228,6 @@
 
 .route-paging {
     margin-top: 0;
-}
-
-/* city-2 routes */
-
-.city-2 .route > li {
-    background-image: url(../img/search-result-2-line.png);
-}
-
-.city-2 .route > li.transition:before {
-    background-image: url(../img/search-result-2-circle-from.png);
-}
-
-.city-2 .route > li.exit:before {
-    background-image: url(../img/search-result-2-circle.png);
-}
-
-.city-2 .route > li.line-7,
-.city-2 .route > li.to-line-7 {
-    background-position: 0 -1200px;
 }
 
 ul.available {
