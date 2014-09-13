@@ -185,9 +185,13 @@
             // Вывод списка станций, входящих в маршрут
             var context = this,
                 content = "<ul class='route'>",
-                currentRoute = routes[index].route,
-                lineClass = currentRoute && currentRoute.length > 0 ?
-                    ' line-' + m4a.routes.COLORS[currentRoute[0].station_line.color] : '';
+                currentRoute = routes[index].route;
+
+            var getLineIndexByStationIndex = function(stationIndex){
+                return m4a.routes.COLORS[currentRoute[stationIndex].station_line.color];
+            }
+            var lineClass = currentRoute && currentRoute.length > 0 ?
+                ' line-' + getIndexByColor(0) : ''
 
             content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
             if (routes[index].portals.portal_from) {
@@ -231,7 +235,7 @@
                 }
             });
 
-            var exitLineClass = 'exit line-' + currentRoute[currentRoute.length-1].station_line.id;
+            var exitLineClass = 'exit line-' + getLineIndexByStationIndex(currentRoute.length-1);
             content += "<li class='" + exitLineClass + "'>" + m4a.resources.routes.exit;
             if (routes[index].portals.portal_to) {
                 var barriers = routes[index].portals.portal_to.barriers;
