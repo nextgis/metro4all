@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
     <TextView
-        android:id="@+id/txtLinks"
+        android:id="@+id/txtLinksNG"
         android:autoLink="web"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

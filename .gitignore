@@ -19,6 +19,11 @@ android/*/.classpath
 android/*/.project
 android/*/lint.xml
 
+# Android studio
+android/*/build/
+*.iml
+*.gradle
+
 # MetroDataCollector
 android/MetroDataCollector/docs
 
