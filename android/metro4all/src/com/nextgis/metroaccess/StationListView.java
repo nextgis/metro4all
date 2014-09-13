@@ -43,6 +43,8 @@ import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.RouteItem;
 import com.nextgis.metroaccess.data.StationItem;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class StationListView extends SherlockActivity implements OnNavigationListener{
 	
 	protected int mnType;
@@ -76,10 +78,10 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 
 	    Bundle extras = getIntent().getExtras(); 
 	    if(extras != null) {
-	    	mnDeparturePortalId = extras.getInt("dep_" + MainActivity.BUNDLE_PORTALID_KEY);
-	    	mnArrivalPortalId = extras.getInt("arr_" + MainActivity.BUNDLE_PORTALID_KEY);
+	    	mnDeparturePortalId = extras.getInt("dep_" + BUNDLE_PORTALID_KEY);
+	    	mnArrivalPortalId = extras.getInt("arr_" + BUNDLE_PORTALID_KEY);
 	    	
-	    	mnPathCount = extras.getInt(MainActivity.BUNDLE_PATHCOUNT_KEY);
+	    	mnPathCount = extras.getInt(BUNDLE_PATHCOUNT_KEY);
 	    	mmoStations = MainActivity.GetGraph().GetStations();//(Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
 	    	mmoCrosses = MainActivity.GetGraph().GetCrosses();//(Map<String, int[]>) extras.getSerializable(MainActivity.BUNDLE_CROSSESMAP_KEY);
 
@@ -99,7 +101,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		    if(mnPathCount > 0){
 		    	moAdapters = new RouteExpandableListAdapter[mnPathCount];
 			    for(int i = 0; i < mnPathCount; i++){
-			    	List<Integer> list = extras.getIntegerArrayList(MainActivity.BUNDLE_PATH_KEY + i);
+			    	List<Integer> list = extras.getIntegerArrayList(BUNDLE_PATH_KEY + i);
 			    	moAdapters[i] = CreateAndFillAdapter(list);
 			    }
 		    }

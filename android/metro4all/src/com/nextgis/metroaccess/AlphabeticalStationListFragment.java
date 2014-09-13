@@ -41,6 +41,8 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.content.Context;
 import android.os.Bundle;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class AlphabeticalStationListFragment extends SherlockFragment {
 	protected ExpandableListView m_oExpListView;
 	protected StationIndexedExpandableListAdapter m_oExpListAdapter;
@@ -105,7 +107,7 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				Log.d(MainActivity.TAG, "*** Search value changed: " + s.toString());
+				Log.d(TAG, "*** Search value changed: " + s.toString());
 				m_oExpListAdapter.getFilter().filter(s.toString());
 			}
 		};

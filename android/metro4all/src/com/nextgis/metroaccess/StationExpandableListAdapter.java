@@ -43,6 +43,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
 
 	protected Context mContext;
@@ -81,7 +83,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		if(m_bIn){
 			int size = prefs.getInt("recent_dep_counter", 0);
 			for(int i = 0; i < size; i++){
-				int nStationId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
+				int nStationId = prefs.getInt("recent_dep_" + BUNDLE_STATIONID_KEY+i, -1);
 				//int nPortalId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
 
 				StationItem sit = omStations.get(nStationId);
@@ -93,8 +95,8 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		else{
 			int size = prefs.getInt("recent_arr_counter", 0);
 			for(int i = 0; i < size; i++){
-				int nStationId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
-				//int nPortalId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
+				int nStationId = prefs.getInt("recent_arr_" + BUNDLE_STATIONID_KEY+i, -1);
+				//int nPortalId = prefs.getInt("recent_arr_" + BUNDLE_PORTALID_KEY+i, -1);
 
 				StationItem sit = omStations.get(nStationId);
 				if(sit != null && !mStationList.contains(sit)){
@@ -208,7 +210,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 
 			String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
 			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");
-			Log.d(MainActivity.TAG, imgFile.getPath());
+			Log.d(TAG, imgFile.getPath());
 			if(imgFile.exists()){
 
 			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
@@ -220,9 +222,9 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
                 public void onClick(View v) {
                     SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
                     Intent intent = new Intent(parentActivity, StationMapActivity.class);
-                    intent.putExtra(MainActivity.PARAM_SEL_STATION_ID, entry.GetId());
-                    intent.putExtra(MainActivity.PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
-                    parentActivity.startActivityForResult(intent, MainActivity.PORTAL_MAP_RESULT);
+                    intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
+                    intent.putExtra(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+                    parentActivity.startActivityForResult(intent, PORTAL_MAP_RESULT);
                 }
             });
 		}

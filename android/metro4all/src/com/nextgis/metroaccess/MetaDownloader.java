@@ -46,6 +46,7 @@ import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import static com.nextgis.metroaccess.Constants.*;
 
 public class MetaDownloader extends AsyncTask<String, Void, Void> {
     private String msContent;
@@ -88,7 +89,7 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 	        	
 	        	moHTTPGet = new HttpGet(sURL);
 	            
-	            Log.d(MainActivity.TAG, "HTTPGet URL " + sURL);
+	            Log.d(TAG, "HTTPGet URL " + sURL);
 	            
 	            HttpParams httpParameters = new BasicHttpParams();
 	            int timeoutConnection = 1500;
@@ -108,15 +109,15 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
 	            	if(entity != null){
 			            Bundle bundle = new Bundle();
 						if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
-							bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
+							bundle.putBoolean(BUNDLE_ERRORMARK_KEY, false);
 							msContent = EntityUtils.toString(entity, HTTP.UTF_8);
-				            bundle.putString(MainActivity.BUNDLE_PAYLOAD_KEY, msContent);
-				            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
+				            bundle.putString(BUNDLE_PAYLOAD_KEY, msContent);
+				            bundle.putInt(BUNDLE_EVENTSRC_KEY, 1);
 						}
 						else{
-							bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
-							bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkGetErr));
-							bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
+							bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+							bundle.putString(BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkGetErr));
+							bundle.putInt(BUNDLE_EVENTSRC_KEY, 1);
 						}				
 						
 			            Message oMsg = new Message();
@@ -140,9 +141,9 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
         else {
             if(moEventReceiver != null){
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
-                bundle.putString(MainActivity.BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkUnreachErr));
-                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
+                bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+                bundle.putString(BUNDLE_MSG_KEY, moContext.getString(R.string.sNetworkUnreachErr));
+                bundle.putInt(BUNDLE_EVENTSRC_KEY, 1);
                 
                 Message oMsg = new Message();
                 oMsg.setData(bundle);            	
@@ -161,9 +162,9 @@ public class MetaDownloader extends AsyncTask<String, Void, Void> {
         if (msError != null) {
             if(moEventReceiver != null){
             	Bundle bundle = new Bundle();
-                bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
-                bundle.putString(MainActivity.BUNDLE_MSG_KEY, msError);
-                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 1);
+                bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+                bundle.putString(BUNDLE_MSG_KEY, msError);
+                bundle.putInt(BUNDLE_EVENTSRC_KEY, 1);
                 
                 Message oMsg = new Message();
                 oMsg.setData(bundle);            	

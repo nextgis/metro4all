@@ -44,6 +44,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 	protected Context mContext;
 	protected List <RouteItem> maRouteList;
@@ -98,7 +100,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		// set data to display
 		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
 	    File imgFile = new File(sRouteDataPath + "/icons", "" + rit.GetLine() + "8.png");		
-		Log.d(MainActivity.TAG, imgFile.getPath());
+		Log.d(TAG, imgFile.getPath());
 		if(rit.GetType() != 7 && imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
@@ -183,7 +185,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		// set data to display
 		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
 	    File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
-		Log.d(MainActivity.TAG, imgFile.getPath());
+		Log.d(TAG, imgFile.getPath());
 		if(imgFile.exists()){
 		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
@@ -201,7 +203,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
  
 				public void onClick(View arg0) {
 				    try {
-				    	Log.d(MainActivity.TAG, schemaFile.getPath());
+				    	Log.d(TAG, schemaFile.getPath());
 				    	
 				    	Bundle bundle = new Bundle();
 				    	bundle.putString("image_path", schemaFile.getPath());
@@ -211,7 +213,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				    	
 				    	mContext.startActivity(intentView);
 				    } catch (ActivityNotFoundException e) {
-				        Log.e(MainActivity.TAG, "Call failed", e);
+				        Log.e(TAG, "Call failed", e);
 				    }
 				}
 	 

@@ -52,6 +52,8 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class StationMapActivity extends SherlockActivity {
 
     protected int mnType;
@@ -93,8 +95,8 @@ public class StationMapActivity extends SherlockActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent inIntent = getIntent();
-        mStationID = inIntent.getIntExtra(MainActivity.PARAM_SEL_STATION_ID, 0);
-        mIsPortalIn = inIntent.getBooleanExtra(MainActivity.PARAM_PORTAL_DIRECTION, true);
+        mStationID = inIntent.getIntExtra(PARAM_SEL_STATION_ID, 0);
+        mIsPortalIn = inIntent.getBooleanExtra(PARAM_PORTAL_DIRECTION, true);
 
         StationItem station = MainActivity.GetGraph().GetStation(mStationID);
 
@@ -299,9 +301,9 @@ public class StationMapActivity extends SherlockActivity {
                             }
 
                             Intent outIntent = new Intent();
-                            outIntent.putExtra(MainActivity.PARAM_SEL_STATION_ID,
+                            outIntent.putExtra(PARAM_SEL_STATION_ID,
                                     selectedPortal.GetStationId());
-                            outIntent.putExtra(MainActivity.PARAM_SEL_PORTAL_ID,
+                            outIntent.putExtra(PARAM_SEL_PORTAL_ID,
                                     selectedPortal.GetId());
                             setResult(RESULT_OK, outIntent);
                             finish();

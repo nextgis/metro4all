@@ -50,6 +50,8 @@ import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
 	
 	public static final String KEY_PREF_USER_TYPE = "user_type";
@@ -90,11 +92,11 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             	super.handleMessage(msg);
             	
             	Bundle resultData = msg.getData();
-            	boolean bHaveErr = resultData.getBoolean(MainActivity.BUNDLE_ERRORMARK_KEY);
-            	int nEventSource = resultData.getInt(MainActivity.BUNDLE_EVENTSRC_KEY);
-            	String sPayload = resultData.getString(MainActivity.BUNDLE_PAYLOAD_KEY);
+            	boolean bHaveErr = resultData.getBoolean(BUNDLE_ERRORMARK_KEY);
+            	int nEventSource = resultData.getInt(BUNDLE_EVENTSRC_KEY);
+            	String sPayload = resultData.getString(BUNDLE_PAYLOAD_KEY);
             	if(bHaveErr){
-            		Toast.makeText(PreferencesActivity.this, resultData.getString(MainActivity.BUNDLE_MSG_KEY), Toast.LENGTH_LONG).show();
+            		Toast.makeText(PreferencesActivity.this, resultData.getString(BUNDLE_MSG_KEY), Toast.LENGTH_LONG).show();
             	}
 
             	switch(nEventSource){
