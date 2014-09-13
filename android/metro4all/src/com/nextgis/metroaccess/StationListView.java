@@ -134,7 +134,6 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	    		int nId = list.get(i);
 	    		int nType = 5;
 				if(bCross){
-					bCross = false;
 					if(i != list.size() - 1){
 						int nNextId = list.get(i + 1);
 						int nLineFrom = mmoStations.get(nId).GetLine();
@@ -304,7 +303,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			it.AddBarrier(bit);
 		}
         if(bWithZeroes || naBarriers[5] > 0 || naBarriers[6] > 0){
-           String sName = getString(R.string.sDistBetweenWeels) +  ": " + naBarriers[5] / 10 + " - "  + naBarriers[6] / 10 + " " + getString(R.string.sCM);
+           String sName = getString(R.string.sRailWidth) +  ": " + naBarriers[5] / 10 + " - "  + naBarriers[6] / 10 + " " + getString(R.string.sCM);
             boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
             if(!bCanRoll && !m_bHaveLimits)
                 bCanRoll = true;
