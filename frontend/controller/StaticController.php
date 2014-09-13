@@ -22,12 +22,13 @@ class StaticController
 	function defaultAction()
 	{
 		$item = Core::$sql->row('*', DB . 'content', 'id=' . Core::$sql->s($this->id));
+        translateFields(array('title', 'description'), $item);
 
-		$page = new PageCommon($item['title_' . Core::$config['current_language']] ? $item['title_' . Core::$config['current_language']] : $item['title_en']);
+		$page = new PageCommon($item['title']);
 
 		$html = '<div class="row"><div class="col-md-offset-1 col-md-7">'
-			. '<h1>' . escape($item['title_' . Core::$config['current_language']] ? $item['title_' . Core::$config['current_language']] : $item['title_en']) . '</h1>'
-			. ($item['description_' . Core::$config['current_language']] ? $item['description_' . Core::$config['current_language']] : $item['title_en']) . '</div></div>';
+			. '<h1>' . escape($item['title']) . '</h1>'
+			. $item['description'] . '</div></div>';
 
 		return $page->start() . $html . $page->stop();
 	}

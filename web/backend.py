@@ -55,40 +55,62 @@ def get_barriers(item):
 LINES = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/lines.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/lines.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/lines.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/lines.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/lines.csv'), 'rb'), delimiter=';')],
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/lines.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/lines.csv'), 'rb'), delimiter=';')]
 }
 
 STATIONS = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/stations.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/stations.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/stations.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/stations.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/stations.csv'), 'rb'), delimiter=';')],
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/stations.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/stations.csv'), 'rb'), delimiter=';')]
 }
 
 PORTALS = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/portals.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/portals.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/portals.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/portals.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/portals.csv'), 'rb'), delimiter=';')],
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/portals.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/portals.csv'), 'rb'), delimiter=';')]
 }
 
 INTERCHANGES = {
     'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/interchanges.csv'), 'rb'), delimiter=';')],
     'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/interchanges.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/interchanges.csv'), 'rb'), delimiter=';')]
+    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/interchanges.csv'), 'rb'), delimiter=';')],
+    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/interchanges.csv'), 'rb'), delimiter=';')],
+    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/interchanges.csv'), 'rb'), delimiter=';')],
+    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/interchanges.csv'), 'rb'), delimiter=';')]
 }
 
 GRAPH = {
     'msk': init_graph('msk'),
     'spb': init_graph('spb'),
-    'waw': init_graph('waw')
+    'waw': init_graph('waw'),
+    'min': init_graph('min'),
+    'kzn': init_graph('kzn'),
+    'niz': init_graph('niz')
 }
 
 msk_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/msk/schemes/*.png'))]
 spb_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/spb/schemes/*.png'))]
 waw_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/waw/schemes/*.png'))]
+min_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/min/schemes/*.png'))]
+kzn_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/kzn/schemes/*.png'))]
+niz_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/niz/schemes/*.png'))]
+
 SCHEMAS = {
     'msk': dict(zip([os.path.splitext(s)[0] for s in msk_schemes], msk_schemes)),
     'spb': dict(zip([os.path.splitext(s)[0] for s in spb_schemes], spb_schemes)),
-    'waw': dict(zip([os.path.splitext(s)[0] for s in waw_schemes], waw_schemes))
+    'waw': dict(zip([os.path.splitext(s)[0] for s in waw_schemes], waw_schemes)),
+    'min': dict(zip([os.path.splitext(s)[0] for s in min_schemes], min_schemes)),
+    'kzn': dict(zip([os.path.splitext(s)[0] for s in kzn_schemes], kzn_schemes)),
+    'niz': dict(zip([os.path.splitext(s)[0] for s in niz_schemes], niz_schemes))
 }
 
 
@@ -107,13 +129,28 @@ def main(city):
             route_css_class='city-2'
         ),
         'waw': dict(
-            mainmap=dict(center=[52.2286, 21.0491], zoom=10),
+            mainmap=dict(center=[52.2286, 21.0491], zoom=11),
             city='waw',
             route_css_class='city-3'
+        ),
+        'min': dict(
+            mainmap=dict(center=[53.916667, 27.55], zoom=11),
+            city='min',
+            route_css_class='city-4'
+        ),
+        'kzn': dict(
+            mainmap=dict(center=[55.7916, 49.1295], zoom=12),
+            city='kzn',
+            route_css_class='city-5'
+        ),
+        'niz': dict(
+            mainmap=dict(center=[56.31955, 43.94353], zoom=12),
+            city='niz',
+            route_css_class='city-6'
         )
     }
-    city = city if city in ['msk', 'spb', 'waw'] else 'msk'
-    return dict(config=config[city])
+    city = city if city in ['msk', 'spb', 'waw', 'min', 'kzn', 'niz'] else 'msk'
+    return dict(config=config[city], request=request)
 
 
 @route('/static/<path:path>')
@@ -137,14 +174,14 @@ def get_stations(lang, city):
             if line['id_line'] == station['id_line']:
                 station_json = {
                     'id':   station['id_station'],
-                    'text': station['name_' + lang]
+                    'text': station.get('name_' + lang, station.get('name_en'))
                 }
                 if station['id_station'] in SCHEMAS[city]:
                     station_json['sch'] = SCHEMAS[city][station['id_station']]
                 group.append(station_json)
-        group = sorted(group, key=lambda i: i['text'])
+        # group = sorted(group, key=lambda i: i['text'])
         results.append({
-            'text': line['name_' + lang],
+            'text': line.get('name_' + lang, line.get('name_en')),
             'children': group
         })
 
@@ -172,7 +209,7 @@ def get_portals(lang, city):
                     coordinates=[float(portal['lon']), float(portal['lat'])]
                 ),
                 properties=dict(
-                    name=portal['name_' + lang],
+                    name=portal.get('name_' + lang, portal.get('name_en')),
                     direction=portal['direction'],
                     barriers=get_barriers(portal)
                 )
@@ -196,7 +233,7 @@ def get_routes(lang, city, delta=5, limit=3):
         for station in STATIONS[city]:
             if station['id_station'] == str(station_id):
                 return dict(
-                    name=station['name_' + lang],
+                    name=station.get('name_' + lang, station.get('name_en')),
                     line=int(station['id_line']),
                     coords=(float(station['lat']), float(station['lon'])),
                     node_id=station['id_node']
@@ -207,7 +244,7 @@ def get_routes(lang, city, delta=5, limit=3):
         for line in LINES[city]:
             if line['id_line'] == str(line_id):
                 return dict(
-                    name=line['name_' + lang],
+                    name=line.get('name_' + lang, line.get('name_en')),
                     color=line['color']
                 )
 

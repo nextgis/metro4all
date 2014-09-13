@@ -8,10 +8,10 @@
             "wch_d": "I'm in a wheelchair",
             "wch_d2": "I'm in a ",
             "wch_d3": " cm wide wheelchair",
-            "trl_html": "Trolley width, cm",
-            "trl_d": "I am with a trolley",
+            "trl_html": "Stroller width, cm",
+            "trl_d": "I am with a stroller",
             "trl_d2": "I am with a ",
-            "trl_d3": " cm wide trolley"
+            "trl_d3": " cm wide stroller"
         },
         routes: {
             "wch_w": "Wheelchair width upto ",
@@ -32,7 +32,11 @@
             "entr": "Entrance",
             "obt_arent_sh_en": "Obstacles aren't shown as the entrance is not selected",
             "exit": "Exit",
-            "obt_arent_sh_ex": "Obstacles aren't shown as the exit is not selected"
+            "obt_arent_sh_ex": "Obstacles aren't shown as the exit is not selected",
+            "show": "More...",
+            "hide": "Hide",
+            "help": "Looking for official assistance service?",
+            "help_link": "http://metro4all.org/official-assistance/"
         },
         inline: {
             "start_st": "Please select starting or destination station",

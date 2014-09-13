@@ -21,7 +21,7 @@ class SearchController
 
 	function defaultAction()
 	{
-		$page = new PageCommon(s('Метро для всех'));
+		$page = new PageCommon(s('Metro4all'));
 
 		$page->addResource('style', 'vendor/select2-3.4.2/select2.css');
 		$page->addResource('script', 'vendor/select2-3.4.2/select2.js');
@@ -37,76 +37,55 @@ class SearchController
 
 		$page->addResource('style', 'css/m4a.css');
 
-		switch ($this->currentCity)
-		{
-			case 1:
-				$globalConfig = 'var global_config = {
-					  mainmap: {"center": [55.75, 37.62], "zoom": 10},
-					  city: "msk",
-					  route_css_class: "city-1",
-					  language: "' . Core::$config['current_language'] . '"
-				}';
-				break;
+        $city = Core::$config['cities'][$this->currentCity];
 
-			case 2:
-				$globalConfig = 'var global_config = {
-					  mainmap: {"center": [59.95, 30.316667], "zoom": 10},
-					  city: "spb",
-					  route_css_class: "city-2",
-					  language: "' . Core::$config['current_language'] . '"
-				}';
-				break;
-
-			case 3:
-				$globalConfig = 'var global_config = {
-					  mainmap: {"center": [52.233333, 21.016667], "zoom": 10},
-					  city: "waw",
-                      route_css_class: "city-3",
-					  language: "' . Core::$config['current_language'] . '"
-				}';
-				break;
-		}
+        $globalConfig = 'var global_config = {
+              mainmap: {"center": [' . $city['lat'] . ',' . $city['lon'] . '], "zoom": 10 },
+              city: "' . $this->currentCity . '",
+              route_css_class: "' . $city['route_css_class'] . '",
+              language: "' . Core::$config['current_language'] . '"
+        }';
 
 		$html = '
 <div class="row">
       <div class="col-md-9">
       <form id="mainform" role="form">
       <div class="col-md-4">
-        <legend>' . s('Откуда') . '</legend>
+        <legend>' . s('From') . '</legend>
         <div class="form-group">
           <div style="white-space:nowrap">
             <input id="metroStartStation" name="station_from" type="hidden" style="max-width: 87%;">
-            <button id="metroStartStationExtent" type="button" class="btn" title="' . s('Перейти') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
+            <button id="metroStartStationExtent" type="button" class="btn" title="' . s('Zoom to') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
           </div>
         </div>
         <div class="form-group">
-          <input class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Выберите вход на карте...') . '" disabled>
+          <input class="form-control" id="metroStartInputName" type="text" placeholder="' . s('Choose entrance on the map') . '" disabled>
           <input name="portal_from" class="form-control" id="metroStartInputID" type="hidden">
         </div>
       </div>
       <div class="col-md-4">
-        <legend>' . s('Куда') . '</legend>
+        <legend>' . s('To') . '</legend>
         <div class="form-group">
           <div style="white-space:nowrap">
             <input id="metroEndStation" name="station_to" type="hidden" style="max-width: 87%;">
-            <button id="metroEndStationExtent" type="button" class="btn" title="' . s('Перейти') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
+            <button id="metroEndStationExtent" type="button" class="btn" title="' . s('Zoom to') . '" disabled style="padding:0;background-color:transparent"><span class="glyphicon glyphicon-screenshot" style="font-size:19px"></span></button>
           </div>
         </div>
         <div class="form-group">
-          <input class="form-control" id="metroEndInputName" type="text" placeholder="' . s('Выберите выход на карте...') . '" disabled>
+          <input class="form-control" id="metroEndInputName" type="text" placeholder="' . s('Choose exit on the map') . '" disabled>
           <input name="portal_to" class="form-control" id="metroEndInputID" type="hidden">
         </div>
       </div>
         <div class="col-md-4">
-        <legend>' . s('Ограничения') . '</legend>
+        <legend>' . s('Limitations') . '</legend>
         <div class="btn-group profiles" data-toggle="buttons">
-          <label id="profile_man" class="btn btn-default profile" data-profile="man" data-type="sample" title="' . s('Я просто иду') . '">
+          <label id="profile_man" class="btn btn-default profile" data-profile="man" data-type="sample" title="' . s('I am walking') . '">
             <input type="radio" name="options" id="option1">
           </label>
-          <label id="profile_wheelchair" class="btn btn-default profile" data-profile="wheelchair" data-type="input" title="' . s('Я на коляске') . '">
+          <label id="profile_wheelchair" class="btn btn-default profile" data-profile="wheelchair" data-type="input" title="' . s('I am on a wheelchair') . '">
             <input type="radio" name="options" id="option2">
           </label>
-          <label id="profile_trolley" class="btn btn-default profile" data-profile="trolley" data-type="input" title="' . s('Я с тележкой') . '">
+          <label id="profile_trolley" class="btn btn-default profile" data-profile="trolley" data-type="input" title="' . s('I am with a cart') . '">
             <input type="radio" name="options" id="option3">
           </label>
         </div>
@@ -120,7 +99,7 @@ class SearchController
       </div>
       </div>
       <div class="col-md-3">
-        <legend>' . s('Маршрут') . '</legend>
+        <legend>' . s('Route') . '</legend>
         <ul class="route-paging pagination pagination-sm"></ul>
         <div id="routePanel" class="city-' . $this->currentCity . '"></div>
       </div>

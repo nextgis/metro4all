@@ -30,15 +30,20 @@ public class PortalItem implements Parcelable {
 	private int nId;
 	private int nStationId;
 	private int[] anDetails;
-	
-	public PortalItem(int nId, String sName, int nStationId, int nDirection, int[] anDetails) {
+    private double nLatitude;
+    private double nLongitude;
+
+	public PortalItem(int nId, String sName, int nStationId, int nDirection,
+                      int[] anDetails, double nLat, double nLong) {
 		this.sName = sName;
 		this.nId = nId;
 		this.nDirection = nDirection;
 		this.nStationId = nStationId;
 		this.nStationId = nStationId;
 		this.anDetails = anDetails;
-	}	
+        this.nLatitude = nLat;
+        this.nLongitude = nLong;
+	}
 	
 	public String GetName(){
 		if(sName.length() == 0){
@@ -62,9 +67,16 @@ public class PortalItem implements Parcelable {
 	public int[] GetDetailes(){
 		return anDetails;
 	}
-	
 
-	@Override
+    public double GetLatitude(){
+        return nLatitude;
+    }
+
+    public double GetLongitude(){
+        return nLongitude;
+    }
+
+    @Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -80,7 +92,9 @@ public class PortalItem implements Parcelable {
 		for(int i = 0; i < anDetails.length; i++){
 			out.writeInt(anDetails[i]);
 		}
-	}
+        out.writeDouble(nLatitude);
+        out.writeDouble(nLongitude);
+    }
 
 	public static final Parcelable.Creator<PortalItem> CREATOR
     = new Parcelable.Creator<PortalItem>() {
@@ -103,7 +117,9 @@ public class PortalItem implements Parcelable {
 		for(int i = 0; i < size; i++){
 			anDetails[i] = in.readInt();
 		}
-	}
+        nLatitude = in.readDouble();
+        nLongitude = in.readDouble();
+    }
 
 	@Override
 	public String toString() {

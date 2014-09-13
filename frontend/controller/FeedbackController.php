@@ -15,11 +15,11 @@ class FeedbackController
 	function defaultAction()
 	{
 		$subjects = array(
-			1 => array('id' => 1, 'title' => s('Общие вопросы')),
-			2 => array('id' => 2, 'title' => s('Сообщение об ошибке')),
-			3 => array('id' => 3, 'title' => s('Предложение о сотрудничестве')),
-			4 => array('id' => 4, 'title' => s('Идея')),
-			5 => array('id' => 5, 'title' => s('Другое')),
+			1 => array('id' => 1, 'title' => s('General question')),
+			2 => array('id' => 2, 'title' => s('Bug report')),
+			3 => array('id' => 3, 'title' => s('Collaboration or partership')),
+			4 => array('id' => 4, 'title' => s('Idea')),
+			5 => array('id' => 5, 'title' => s('Other')),
 		);
 
 	    $html = '';
@@ -31,17 +31,17 @@ class FeedbackController
 
 		if ($is_posted) {
 			if (! count($errors) && ! request_str('email')) {
-		        $errors []= s('Пожалуйста, укажите адрес электронной почты.');
+		        $errors []= s('Please, enter your email');
 		        $jump_to = 'feedback_email';
 		    }
 
 		    if (! count($errors) && request_str('email') && ! filter_var(request_str('email'), FILTER_VALIDATE_EMAIL)) {
-		    	$errors []= s('Пожалуйста, укажите корректный адрес электронной почты. Например: john@gmail.com');
+		    	$errors []= s('Please, provide correct email address. For example: john@gmail.com');
 		    	$jump_to = 'feedback_email';
 		   	}
 
 		    if (! count($errors) && ! request_str('message')) {
-		        $errors []= s('Пожалуйста, укажите текст сообщения.');
+		        $errors []= s('Enter the message.');
 		        $jump_to = 'feedback_password';
 		    }
 
@@ -55,10 +55,10 @@ class FeedbackController
 				);
 
 				$message = str_replace(array_keys($data), array_values($data),
-'Имя: {name}
-Адрес электронной почты: {email}
+'Name: {name}
+Email: {email}
 
-Тема: {subject}
+Subject: {subject}
 
 {message}
 
@@ -81,11 +81,11 @@ class FeedbackController
 			}
 		}
 
-		$page = new PageCommon(s('Обратная связь'));
+		$page = new PageCommon(s('Feedback'));
 
 		$html .= $page->start();
 
-		$html .= '<div class="row"><div class="col-md-offset-2 col-md-8"><h2>'.s('Обратная связь').'</h2>';
+		$html .= '<div class="row"><div class="col-md-offset-2 col-md-8"><h2>'.s('Feedback').'</h2>';
 
 		if (count($errors)) {
 			$html .= '<div class="alert alert-danger"><p>'.escape($errors[0]).'</p></div>';
@@ -96,11 +96,11 @@ class FeedbackController
 		$html .= '<div class="well">'
 			. $form->start()
 			. $form->addVariable('is_posted', 1)
-			. $form->addString('name', s('Имя'), $is_posted ? request_str('name') : '')
-			. $form->addString('email', s('Адрес электронной почты'), $is_posted ? request_str('email') : '', array('is_required' => true))
-			. $form->addSelect('subject_id', s('Тема'), $is_posted ? request_int('subject_id') : 1, array('data' => $subjects))
-			. $form->addText('message', s('Сообщение'), $is_posted ? request_str('message') : '', array('is_required' => true, 'style' => 'height:200px'))
-			. $form->submit(s('Отправить'))
+			. $form->addString('name', s('Name'), $is_posted ? request_str('name') : '')
+			. $form->addString('email', s('E-mail'), $is_posted ? request_str('email') : '', array('is_required' => true))
+			. $form->addSelect('subject_id', s('Subject'), $is_posted ? request_int('subject_id') : 1, array('data' => $subjects))
+			. $form->addText('message', s('Message'), $is_posted ? request_str('message') : '', array('is_required' => true, 'style' => 'height:200px'))
+			. $form->submit(s('Send'))
 			. '</div>';
 
 		$html .= '<script> $(document).ready(function() { $("#'.$jump_to.'").focus(); }); </script>';
@@ -115,14 +115,14 @@ class FeedbackController
 	function okAction() {
 		$html = '';
 
-		$page = new PageCommon(s('Обратная связь'));
+		$page = new PageCommon(s('Feedback'));
 
 		$html .= $page->start();
 
-		$html .= '<div class="row" style="margin-bottom:200px"><div class="col-md-offset-2 col-md-8"><h2>'.s('Спасибо за письмо').'</h2>';
+		$html .= '<div class="row" style="margin-bottom:200px"><div class="col-md-offset-2 col-md-8"><h2>'.s('Thanks for subscribing!').'</h2>';
 
-		$html .= '<p>'.s('Мы обязательно ответим в течение дня.').'</p>
-			<p><a href="' . Core::$config['http_home'] . '">'.s('Перейти на главную').'</a></p>
+		$html .= '<p>'.s('We will answer shortly.').'</p>
+			<p><a href="' . Core::$config['http_home'] . '">'.s('Home').'</a></p>
 			</div></div>';
 
 		$html .= $page->stop();

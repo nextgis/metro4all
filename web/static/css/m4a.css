@@ -154,6 +154,60 @@
     background-image: none !important;
 }
 
+/* markers */
+
+.marker-station {
+    background-image: url(../img/search-result-1-circle.png);
+}
+
+.city-2 .marker-station {
+    background-image: url(../img/search-result-2-circle.png);
+}
+
+.marker-station.marker-line-2 {
+    background-position: 0 -16px;
+}
+
+.marker-station.marker-line-3 {
+    background-position: 0 -32px;
+}
+
+.marker-station.marker-line-4 {
+    background-position: 0 -48px;
+}
+
+.marker-station.marker-line-5 {
+    background-position: 0 -64px;
+}
+
+.marker-station.marker-line-6 {
+    background-position: 0 -80px;
+}
+
+.marker-station.marker-line-7 {
+    background-position: 0 -96px;
+}
+
+.marker-station.marker-line-8 {
+    background-position: 0 -112px;
+}
+
+.marker-station.marker-line-9 {
+    background-position: 0 -128px;
+}
+
+.marker-station.marker-line-10 {
+    background-position: 0 -144px;
+}
+
+.marker-station.marker-line-11 {
+    background-position: 0 -160px;
+}
+
+.marker-station.marker-line-12 {
+    background-position: 0 -176px;
+}
+
 .obstacles {
     margin: 7px 0 10px 0;
     padding: 0;
@@ -163,7 +217,7 @@
     list-style: none;
     font-size: 12px;
     margin: 0 0 3px 0;
-    padding: 0;
+    padding: 0 5px;
     width: 220px;
     font-weight: normal;
 }
@@ -191,6 +245,34 @@
 .city-2 .route > li.exit:before {
     background-image: url(../img/search-result-2-circle.png);
 }
+
+ul.available {
+    background-color: #99ff99;
+    border-radius: 4px;
+}
+
+ul.unavailable {
+    background-color: #ffafa7;
+    border-radius: 4px;
+}
+
+li.invalid {
+    color: red;
+}
+
+li.show-hidden-params {
+    cursor: pointer;
+    text-align: right;
+    padding-top: 5px;
+    color: #00afff;
+    text-decoration: underline;
+}
+
+/*override user agent style*/
+ul {
+    -webkit-padding-start: 0;
+}
+
 
 /* profiles section */
 
@@ -221,17 +303,41 @@ div.profiles input {
     float: left;
 }
 
-label.profile {
+div.profiles label.apply {
+    display: none;
+    background: url(../img/m4a.png) no-repeat -105px -35px;
+}
+
+div.profiles label.undo {
+    display: none;
+    background: url(../img/m4a.png) no-repeat -140px -35px;
+}
+
+div.profiles label.apply.active {
+    display: inline-block;
+    margin-left: -70px;
+}
+
+div.profiles label.undo.active {
+    display: inline-block;
+    margin-left: -35px;
+}
+
+label.profile,
+label.apply,
+label.undo{
     width: 35px;
     height: 35px;
     opacity: 0.5;
 }
 
-label.profile:hover {
+label.profile:hover ,
+label.apply:hover,
+label.undo:hover{
     opacity: 0.7;
 }
 
-label.profile.active {
+label.profile.active{
     opacity: 1.0;
 }
 

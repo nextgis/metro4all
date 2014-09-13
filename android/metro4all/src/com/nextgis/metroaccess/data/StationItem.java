@@ -35,9 +35,12 @@ public class StationItem implements Parcelable {
 	private int nLine;
 	private int nNode;
 	private int nOrder;
+    private double nLatitude;
+    private double nLongitude;
 	private Map<Integer, PortalItem> maoPortals;
 	
-	public StationItem(int nId, String sName, int nLine, int nNode, int nType, int nOrder) {
+	public StationItem(int nId, String sName, int nLine, int nNode, int nType,
+                       int nOrder, double nLat, double nLong) {
 		this.maoPortals = new HashMap<Integer, PortalItem>();
 		this.sName = sName;
 		this.nId = nId;
@@ -45,7 +48,9 @@ public class StationItem implements Parcelable {
 		this.nLine = nLine;
 		this.nNode = nNode;
 		this.nOrder = nOrder;
-	}		
+        this.nLatitude = nLat;
+        this.nLongitude = nLong;
+	}
 	
 	public String GetName(){
 		return sName;
@@ -69,9 +74,17 @@ public class StationItem implements Parcelable {
 	
 	public int GetOrder(){
 		return nOrder;
-	}	
-	
-	public int describeContents() {
+	}
+
+    public double GetLatitude(){
+        return nLatitude;
+    }
+
+    public double GetLongitude(){
+        return nLongitude;
+    }
+
+    public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -83,6 +96,8 @@ public class StationItem implements Parcelable {
 		out.writeInt(nNode);
 		out.writeInt(nType);
 		out.writeInt(nOrder);
+        out.writeDouble(nLatitude);
+        out.writeDouble(nLongitude);
 		//
 		out.writeInt(maoPortals.size());
 		for(PortalItem it : maoPortals.values()){
@@ -108,7 +123,9 @@ public class StationItem implements Parcelable {
 		nNode = in.readInt();
 		nType = in.readInt();
 		nOrder = in.readInt();
-		
+        nLatitude = in.readDouble();
+        nLongitude = in.readDouble();
+
 		maoPortals = new HashMap<Integer, PortalItem>();
 		int nSize = in.readInt();
 		for(int i = 0; i < nSize; i++){

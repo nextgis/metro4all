@@ -65,13 +65,13 @@ import android.content.SharedPreferences;
 
 public class MainActivity extends SherlockActivity{
 	public final static String TAG = "metro4all";
-	
+
 	public final static String META = "meta.json";
 	final static String REMOTE_METAFILE = "remotemeta_v2.json";
 	final static String ROUTE_DATA_DIR = "rdata_v2";
-	
+
 	public final static String CSV_CHAR = ";";
-	
+
 	final static String BUNDLE_MSG_KEY = "msg";
 	final static String BUNDLE_PAYLOAD_KEY = "json";
 	final static String BUNDLE_ERRORMARK_KEY = "error";
@@ -84,7 +84,7 @@ public class MainActivity extends SherlockActivity{
 	final static String BUNDLE_STATIONID_KEY = "stationid";
 	final static String BUNDLE_PORTALID_KEY = "portalid";
 	final static String BUNDLE_METAMAP_KEY = "metamap";
-	
+
 	public final static int MENU_SEARCH = 3;
 	public final static int MENU_SETTINGS = 4;
 	public final static int MENU_ABOUT = 5;
@@ -92,24 +92,29 @@ public class MainActivity extends SherlockActivity{
 	public final static int DEPARTURE_RESULT = 1;
 	public final static int ARRIVAL_RESULT = 2;
 	public final static int PREF_RESULT = 3;
+    public final static int PORTAL_MAP_RESULT = 4;
 	public final static int MAX_RECENT_ITEMS = 10;
-	
+
+    public final static String PARAM_SEL_STATION_ID = "SEL_STATION_ID";
+    public final static String PARAM_SEL_PORTAL_ID = "SEL_PORTAL_ID";
+    public final static String PARAM_PORTAL_DIRECTION = "PORTAL_DIRECTION";
+
 	protected boolean m_bInterfaceLoaded;
-	
-	protected static Handler m_oGetJSONHandler; 
-	
+
+	protected static Handler m_oGetJSONHandler;
+
 	protected Button m_oSearchButton;
 	protected MenuItem m_oSearchMenuItem;
-	
+
 	protected List<Pair<Integer, Integer>> m_aoDepRecentIds, m_aoArrRecentIds;
 	protected int m_nDepartureStationId, m_nArrivalStationId;
 	protected int m_nDeparturePortalId, m_nArrivalPortalId;
-	
+
 	protected List<DownloadData> m_asDownloadData;
 
 	public static String m_sUrl = "http://metro4all.org/data/v2/";
 	public static MAGraph m_oGraph;
-	
+
 	protected ListView m_lvListButtons;
 	protected TextView m_tvCurentCity;
     protected ButtonListAdapter m_laListButtons;
@@ -117,53 +122,53 @@ public class MainActivity extends SherlockActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.empty_activity_main);
 		m_nDepartureStationId = m_nArrivalStationId = -1;
 		m_nDeparturePortalId = m_nArrivalPortalId = -1;
-		
+
 		m_aoDepRecentIds = new ArrayList<Pair<Integer, Integer>>();
 		m_aoArrRecentIds = new ArrayList<Pair<Integer, Integer>>();
-		
+
 		m_bInterfaceLoaded = false;
- 		
+
         // initialize the default settings
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		m_sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, m_sUrl);
-		
+
 		String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
 		String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
 		m_oGraph = new MAGraph(this.getBaseContext(), sCurrentCity, getExternalFilesDir(null), sCurrentCityLang);
-		
+
 		//create downloading queue empty initially
 		m_asDownloadData = new ArrayList<DownloadData>();
-		
+
 		CreateHandler();
-        	
+
 		//check for data exist
 		if(IsRoutingDataExist()){
 			//else check for updates
-			CheckForUpdates();		
+			CheckForUpdates();
 		}
 		else{
 			//ask to download data
 			GetRoutingData();
-		}      
+		}
 
 	}
-	
+
 	protected void CreateHandler(){
-		
+
 		m_oGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
             	super.handleMessage(msg);
-            	
+
             	Bundle resultData = msg.getData();
             	boolean bHaveErr = resultData.getBoolean(BUNDLE_ERRORMARK_KEY);
             	int nEventSource = resultData.getInt(BUNDLE_EVENTSRC_KEY);
             	String sPayload = resultData.getString(BUNDLE_PAYLOAD_KEY);
-            	
+
             	if(bHaveErr){
             		MainActivity.this.ErrMessage(resultData.getString(BUNDLE_MSG_KEY));
 	            	switch(nEventSource){
@@ -190,8 +195,8 @@ public class MainActivity extends SherlockActivity{
             			AskForDownloadData(sPayload);
             		}
             		break;
-            	case 2:            		
-            		if(m_asDownloadData.isEmpty()){   
+            	case 2:
+            		if(m_asDownloadData.isEmpty()){
             			m_oGraph.FillRouteMetadata();
             			LoadInterface();
             		}
@@ -201,37 +206,40 @@ public class MainActivity extends SherlockActivity{
             		break;
             	}
             }
-        };		
+        };
 	}
-	
+
 	protected void LoadInterface(){
-		
+
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
-        
+
+        if (sCurrentCity == null)
+            return;
+
         if(sCurrentCity.length() < 2){
         	//find first city and load it
         	m_oGraph.SetFirstCityAsCurrent();
         }
         else{
-        	m_oGraph.SetCurrentCity( sCurrentCity );        	
+        	m_oGraph.SetCurrentCity( sCurrentCity );
         }
-        
+
         if(!m_oGraph.IsValid())
         	return;
-		
+
 		m_bInterfaceLoaded = true;
 		setContentView(R.layout.activity_main);
-		
+
 		m_tvCurentCity = (TextView)findViewById(R.id.tvCurrentCity);
-		
+
 		m_lvListButtons = (ListView)findViewById(R.id.lvButtList);
 		m_laListButtons = new ButtonListAdapter(this);
 		// set adapter to list view
 		m_lvListButtons.setAdapter(m_laListButtons);
 		m_lvListButtons.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {  
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	        	switch(position){
 	        	case 0: //from
 	        		onSelectDepatrure();
@@ -239,27 +247,27 @@ public class MainActivity extends SherlockActivity{
 	        	case 1: //to
 	        		onSelectArrival();
 	        		break;
-	        	case 2: 
+	        	case 2:
 	        		onSettings();
 	        		break;
-	        	} 
+	        	}
 	        }
 	    });
-		
-	    
+
+
 		m_oSearchButton = (Button) findViewById(R.id.btSearch);
 		m_oSearchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	onSearch();
              }
-        });  
+        });
 		m_oSearchButton.setEnabled(false);
-		
-    	if(m_oSearchButton != null) 
+
+    	if(m_oSearchButton != null)
     		m_oSearchButton.setEnabled(false);
     	if(m_oSearchMenuItem != null)
     		m_oSearchMenuItem.setEnabled(false);
-    	
+
     	if(!m_oGraph.IsValid()){
     		MainActivity.this.ErrMessage( m_oGraph.GetLastError());
     	}
@@ -275,7 +283,7 @@ public class MainActivity extends SherlockActivity{
         //Bundle bundle = new Bundle();
         //bundle.putParcelable(BUNDLE_METAMAP_KEY, m_oGraph);
         //intentSet.putExtras(bundle);            
-        startActivityForResult(intentSet, PREF_RESULT);		
+        startActivityForResult(intentSet, PREF_RESULT);
 	}
 
 	@Override
@@ -288,12 +296,12 @@ public class MainActivity extends SherlockActivity{
 		 */
 		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_SETTINGS, com.actionbarsherlock.view.Menu.NONE, R.string.sSettings)
        .setIcon(R.drawable.ic_action_settings)
-       .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);		
-		
+       .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
 		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_ABOUT, com.actionbarsherlock.view.Menu.NONE, R.string.sAbout)
 		.setIcon(R.drawable.ic_action_about)
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);	
-		  
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
 		return true;
 //		return super.onCreateOptionsMenu(menu);
 	}
@@ -314,28 +322,28 @@ public class MainActivity extends SherlockActivity{
             Intent intentAbout = new Intent(this, AboutActivity.class);
             intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentAbout);
-            return true;	  
+            return true;
         }
 		return super.onOptionsItemSelected(item);
-	}	
-	
+	}
+
 	protected void CheckForUpdates(){
 		MetaDownloader uploader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), m_oGetJSONHandler, true);
-		uploader.execute(GetDownloadURL() + META);				
+		uploader.execute(GetDownloadURL() + META);
 	}
-	
+
 	protected void GetRoutingData(){
 		MetaDownloader loader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), m_oGetJSONHandler, true);
-		loader.execute(GetDownloadURL() + META);		
+		loader.execute(GetDownloadURL() + META);
 	}
-	
+
 	//check if data for routing is downloaded
-	protected boolean IsRoutingDataExist(){	
+	protected boolean IsRoutingDataExist(){
 		return m_oGraph.IsRoutingDataExist();
 	}
-	
+
 	protected void CheckUpdatesAvailable(String sJSON){
-		
+
 		m_oGraph.OnUpdateMeta(sJSON, true);
 		final List<GraphDataItem> items = m_oGraph.HasChanges();
 
@@ -348,15 +356,14 @@ public class MainActivity extends SherlockActivity{
 	    for(int i = 0; i < count; i++){
 	    	checkedItems[i] = true;
 	    }
-	    
+
 	    final CharSequence[] checkedItemStrings = new CharSequence[count];
 	    for(int i = 0; i < count; i++){
 	    	checkedItemStrings[i] = items.get(i).GetFullName();
 	    }
-	    
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.sUpdateAvaliable)
-		.setCancelable(false)
 		.setMultiChoiceItems(checkedItemStrings, checkedItems,
 				new DialogInterface.OnMultiChoiceClickListener() {
 			@Override
@@ -368,17 +375,17 @@ public class MainActivity extends SherlockActivity{
 				new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				
+
 				m_asDownloadData.clear();
-				
+
 				for (int i = 0; i < checkedItems.length; i++) {
 					if (checkedItems[i]){
 						m_asDownloadData.add(new DownloadData(MainActivity.this, items.get(i), GetDownloadURL() + items.get(i).GetPath() + ".zip", m_oGetJSONHandler));
 					}
 				}
-				
+
 				OnDownloadData();
-				
+
 			}
 		})
 
@@ -391,31 +398,30 @@ public class MainActivity extends SherlockActivity{
 			}
 		});
 		builder.create();
-		builder.show();		    
+		builder.show();
     }
 
 	protected void AskForDownloadData(String sJSON){
 		//ask user for download
 		m_oGraph.OnUpdateMeta(sJSON, false);
 		final List<GraphDataItem> items = m_oGraph.HasChanges();
-		    
+
 	    int count = items.size();
 	    if(count == 0)
 	    	return;
-	    
+
 	    final boolean[] checkedItems = new boolean[count];
 	    for(int i = 0; i < count; i++){
 	    	checkedItems[i] = true;
 	    }
-	    
+
 	    final CharSequence[] checkedItemStrings = new CharSequence[count];
 	    for(int i = 0; i < count; i++){
 	    	checkedItemStrings[i] = items.get(i).GetFullName();
 	    }
-	    
+
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.sSelectDataToDownload)
-			   .setCancelable(false)
 			   .setMultiChoiceItems(checkedItemStrings, checkedItems,
 						new DialogInterface.OnMultiChoiceClickListener() {
 							@Override
@@ -427,12 +433,12 @@ public class MainActivity extends SherlockActivity{
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int id) {
-								
+
 								m_asDownloadData.clear();
-								
+
 								for (int i = 0; i < checkedItems.length; i++) {
 									if (checkedItems[i]){
-										m_asDownloadData.add(new DownloadData(MainActivity.this, items.get(i), GetDownloadURL() + items.get(i).GetPath() + ".zip", m_oGetJSONHandler));										
+										m_asDownloadData.add(new DownloadData(MainActivity.this, items.get(i), GetDownloadURL() + items.get(i).GetPath() + ".zip", m_oGetJSONHandler));
 									}
 								}
 								OnDownloadData();
@@ -450,16 +456,16 @@ public class MainActivity extends SherlockActivity{
 		builder.create();
 		builder.show();
 	}
-	
+
 	protected void OnDownloadData(){
 		if(m_asDownloadData.isEmpty())
 			return;
 		DownloadData data = m_asDownloadData.get(0);
 		m_asDownloadData.remove(0);
-		
+
 		data.OnDownload();
 	}
-	
+
 	public static boolean writeToFile(File filePath, String sData){
 		try{
 			FileOutputStream os = new FileOutputStream(filePath, false);
@@ -470,7 +476,7 @@ public class MainActivity extends SherlockActivity{
 		}
 		catch(IOException e){
 			return false;
-		}		
+		}
 	}
 
 	public static String readFromFile(File filePath) {
@@ -506,41 +512,41 @@ public class MainActivity extends SherlockActivity{
 	@Override
 	protected void onPause() {
 		final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
-	    
+
 		//store departure and arrival
-		
+
 		edit.putInt("dep_" + BUNDLE_STATIONID_KEY, m_nDepartureStationId);
 		edit.putInt("arr_" + BUNDLE_STATIONID_KEY, m_nArrivalStationId);
 		edit.putInt("dep_" + BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
 		edit.putInt("arr_" + BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
-		
+
 		int nbeg = m_aoDepRecentIds.size() < MAX_RECENT_ITEMS ? 0 : m_aoDepRecentIds.size() - MAX_RECENT_ITEMS;
 		int nsize = m_aoDepRecentIds.size() - nbeg;
 		int counter = 0;
 		for(int i = nbeg; i < nsize; i++){
 			edit.putInt("recent_dep_" + BUNDLE_STATIONID_KEY+counter, m_aoDepRecentIds.get(i).first);
 			edit.putInt("recent_dep_" + BUNDLE_PORTALID_KEY+counter, m_aoDepRecentIds.get(i).second);
-			
+
 			counter++;
 		}
 		edit.putInt("recent_dep_counter",counter);
-		
+
 		nbeg = m_aoArrRecentIds.size() < MAX_RECENT_ITEMS ? 0 : m_aoArrRecentIds.size() - MAX_RECENT_ITEMS;
 		nsize = m_aoArrRecentIds.size() - nbeg;
 		counter = 0;
 		for(int i = nbeg; i < nsize; i++){
 			edit.putInt("recent_arr_" + BUNDLE_STATIONID_KEY+counter, m_aoArrRecentIds.get(i).first);
 			edit.putInt("recent_arr_" + BUNDLE_PORTALID_KEY+counter, m_aoArrRecentIds.get(i).second);
-			
+
 			counter++;
 		}
 		edit.putInt("recent_arr_counter",counter);
-		
+
 		edit.commit();
 
 		super.onPause();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -555,7 +561,7 @@ public class MainActivity extends SherlockActivity{
 		for(int i = 0; i < size; i++){
 			int nB = prefs.getInt("recent_dep_"+BUNDLE_STATIONID_KEY+i, -1);
 			int nE = prefs.getInt("recent_dep_"+BUNDLE_PORTALID_KEY+i, -1);
-			
+
 			Pair<Integer, Integer> pair = Pair.create(nB, nE);
 			if(!m_aoDepRecentIds.contains(pair)){
 				m_aoDepRecentIds.add(Pair.create(nB, nE));
@@ -570,12 +576,12 @@ public class MainActivity extends SherlockActivity{
 			if(!m_aoArrRecentIds.contains(pair)){
 				m_aoArrRecentIds.add(Pair.create(nB, nE));
 			}
-		}	    
-		
-		
+		}
+
+
 		//check if routing data changed
-		m_oGraph.FillRouteMetadata();		
-		
+		m_oGraph.FillRouteMetadata();
+
 		if(m_bInterfaceLoaded){
 			if(m_oGraph.IsEmpty()){
 				if(IsRoutingDataExist()){
@@ -585,7 +591,7 @@ public class MainActivity extends SherlockActivity{
 			UpdateUI();
 		}
 	}
-	
+
 	protected void 	onSelectDepatrure(){
 	    Intent intent = new Intent(this, SelectStationActivity.class);
 	    Bundle bundle = new Bundle();
@@ -593,9 +599,9 @@ public class MainActivity extends SherlockActivity{
         //bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
         bundle.putBoolean(BUNDLE_ENTRANCE_KEY, true);
 	    intent.putExtras(bundle);
-	    startActivityForResult(intent, DEPARTURE_RESULT);	
+	    startActivityForResult(intent, DEPARTURE_RESULT);
 	}
-	
+
 	protected void 	onSelectArrival(){
 	    Intent intent = new Intent(this, SelectStationActivity.class);
 	    Bundle bundle = new Bundle();
@@ -603,30 +609,30 @@ public class MainActivity extends SherlockActivity{
         //bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
         bundle.putBoolean(BUNDLE_ENTRANCE_KEY, false);
 	    intent.putExtras(bundle);
-	    startActivityForResult(intent, ARRIVAL_RESULT);			
+	    startActivityForResult(intent, ARRIVAL_RESULT);
 	}
-	
+
 	@Override
 	  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    /*if (resultCode != RESULT_OK) {
 	    	return;
 	    }*/
-	    
+
     	int nStationId = -1;
     	int nPortalId = -1;
-    	
+
     	if(data != null){
     		nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
     		nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
     	}
-    	
-    	
+
+
 		final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
-		
+
 	    switch(requestCode){
 	    case DEPARTURE_RESULT:
 	    	m_aoDepRecentIds.add(Pair.create(nStationId, nPortalId));
-	       	m_nDepartureStationId = nStationId;	    	
+	       	m_nDepartureStationId = nStationId;
 	    	m_nDeparturePortalId = nPortalId;
 			edit.putInt("dep_"+BUNDLE_STATIONID_KEY, m_nDepartureStationId);
 			edit.putInt("dep_"+BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
@@ -645,39 +651,39 @@ public class MainActivity extends SherlockActivity{
 	    }
 
 	    edit.commit();
-	    
+
 	    if(m_bInterfaceLoaded){
-	    	UpdateUI();	    
+	    	UpdateUI();
     	}
 	    else{
 	    	LoadInterface();
     	}
-	}	
-	
+	}
+
 	protected void UpdateUI(){
 
 		m_tvCurentCity.setText(m_oGraph.GetCurrentCityName());
-		
+
 		if(m_oGraph.HasStations()){
 	    	StationItem dep_sit = m_oGraph.GetStation(m_nDepartureStationId);
 	    	String sNotSet = getString(R.string.sNotSet);
-	    	if(dep_sit != null && m_laListButtons != null){    		
+	    	if(dep_sit != null && m_laListButtons != null){
 	    		m_laListButtons.setFromStationName(dep_sit.GetName());
 	    		PortalItem pit = dep_sit.GetPortal(m_nDeparturePortalId);
 	    		if(pit != null){
 	    			m_laListButtons.setFromEntranceName(pit.GetName());
 	    		}
 	    		else{
-	    			m_laListButtons.setFromEntranceName(sNotSet);  
+	    			m_laListButtons.setFromEntranceName(sNotSet);
 	    			m_nDeparturePortalId = -1;
 	    		}
 	    	}
 	    	else{
 	    		m_laListButtons.setFromStationName(sNotSet);
-	    		m_laListButtons.setFromEntranceName(sNotSet); 
+	    		m_laListButtons.setFromEntranceName(sNotSet);
 	    		m_nDepartureStationId = -1;
 	    	}
-	
+
 	    	StationItem arr_sit = m_oGraph.GetStation(m_nArrivalStationId);
 	    	if(arr_sit != null && m_laListButtons != null){
 	    		m_laListButtons.setToStationName(arr_sit.GetName());
@@ -686,42 +692,42 @@ public class MainActivity extends SherlockActivity{
 	    			m_laListButtons.setToEntranceName(pit.GetName());
 	    		}
 	    		else{
-	    			m_laListButtons.setToEntranceName(sNotSet);  
+	    			m_laListButtons.setToEntranceName(sNotSet);
 	    			m_nArrivalPortalId = -1;
 	    		}
 	    	}
 	    	else{
 	    		m_laListButtons.setToStationName(sNotSet);
-	    		m_laListButtons.setToEntranceName(sNotSet);  
+	    		m_laListButtons.setToEntranceName(sNotSet);
 	    		m_nArrivalStationId = -1;
 	    	}
 		}
 
 	    if(m_nDepartureStationId != m_nArrivalStationId && m_nDepartureStationId != -1 && m_nArrivalStationId != -1 && m_nDeparturePortalId != -1 && m_nArrivalPortalId != -1){
-	    	if(m_oSearchButton != null) 
+	    	if(m_oSearchButton != null)
 	    		m_oSearchButton.setEnabled(true);
     		if(m_oSearchMenuItem != null)
 	    		m_oSearchMenuItem.setEnabled(true);
 	    }
 	    else{
-	    	if(m_oSearchButton != null) 
+	    	if(m_oSearchButton != null)
 	    		m_oSearchButton.setEnabled(false);
 	    	if(m_oSearchMenuItem != null)
 	    		m_oSearchMenuItem.setEnabled(false);
 	    }
-	    
+
 	    if(m_laListButtons != null)
 	    	m_laListButtons.notifyDataSetChanged();
 	}
-	
+
 	protected void onSearch(){
-		
+
 		final ProgressDialog progressDialog = new ProgressDialog(this);
 		progressDialog.setCancelable(false);
 		progressDialog.setIndeterminate(true);
 		progressDialog.setMessage(getString(R.string.sSearching));
 		progressDialog.show();
-		
+
 		new Thread() {
 
 			public void run() {
@@ -739,7 +745,7 @@ public class MainActivity extends SherlockActivity{
 					for(DefaultWeightedEdge edge : path) {
 		                	Log.d("Route", mmoStations.get(mGraph.getEdgeSource(edge)) + " - " + mmoStations.get(mGraph.getEdgeTarget(edge)) + " " + edge);
 		                }
-				}*/	
+				}*/
 		        //KShortestPaths
 				/*
 				KShortestPaths<Integer, DefaultWeightedEdge> kPaths = new KShortestPaths<Integer, DefaultWeightedEdge>(mGraph, stFrom.getId(), 2);
@@ -755,14 +761,14 @@ public class MainActivity extends SherlockActivity{
 		        } catch (IllegalArgumentException e) {
 		        	e.printStackTrace();
 		        }*/
-				
+
 				//YenTopKShortestPaths
-				
+
 			    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
 			    int nMaxRouteCount = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_ROUTE_COUNT, 3);
 
 				List<Path> shortest_paths_list = m_oGraph.GetShortestPaths(m_nDepartureStationId, m_nArrivalStationId, nMaxRouteCount);
-				
+
 				if(shortest_paths_list.size() == 0){
 					//MainActivity.this.ErrMessage(R.string.sCannotGetPath);
 					//Toast.makeText(MainActivity.this, R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
@@ -771,11 +777,11 @@ public class MainActivity extends SherlockActivity{
 				else {
 			        Intent intentView = new Intent(MainActivity.this, com.nextgis.metroaccess.StationListView.class);
 			        //intentView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-				
+
 			        int nCounter = 0;
 			        Bundle bundle = new Bundle();
 			        bundle.putInt("dep_" + BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
-			        bundle.putInt("arr_" + BUNDLE_PORTALID_KEY, m_nArrivalPortalId);			
+			        bundle.putInt("arr_" + BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
 
 			        for (Path path : shortest_paths_list) {
 						ArrayList<Integer> IndexPath = new  ArrayList<Integer>();
@@ -786,16 +792,16 @@ public class MainActivity extends SherlockActivity{
 			            }
 			            intentView.putIntegerArrayListExtra(BUNDLE_PATH_KEY + nCounter, IndexPath);
 			            nCounter++;
-			        }	        
-			        
+			        }
+
 			        bundle.putInt(BUNDLE_PATHCOUNT_KEY, nCounter);
 			        //bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
 			        //bundle.putSerializable(BUNDLE_CROSSESMAP_KEY, (Serializable) mmoCrosses);
-					
+
 					intentView.putExtras(bundle);
-			        
+
 			        MainActivity.this.startActivity(intentView);
-			       
+
 				}
 
 				progressDialog.dismiss();
@@ -805,35 +811,35 @@ public class MainActivity extends SherlockActivity{
 		}.start();
 
 	}
-	
+
 	public static String GetDownloadURL(){
 		return m_sUrl;
 	}
-	
+
 	public static String GetRouteDataDir(){
 		return ROUTE_DATA_DIR;
 	}
-	
+
 	public static String GetMetaFileName(){
 		return META;
 	}
-	
+
 	public static String GetRemoteMetaFile(){
 		return REMOTE_METAFILE;
 	}
-	
+
 	public static MAGraph GetGraph(){
 		return m_oGraph;
 	}
-	
+
 	public static void SetDownloadURL(String sURL){
 		m_sUrl = sURL;
 	}
-	
+
 	public void ErrMessage(String sErrMsg){
 		Toast.makeText(this, sErrMsg, Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public void ErrMessage(int nErrMsg){
 		Toast.makeText(this, getString(nErrMsg), Toast.LENGTH_SHORT).show();
 	}

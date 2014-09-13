@@ -28,6 +28,7 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -59,6 +60,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	public static final String KEY_PREF_CHANGE_CITY_BASES = "change_city_bases";
 	public static final String KEY_PREF_DATA_LOCALE = "data_loc";
 	public static final String KEY_PREF_HAVE_LIMITS = "limits";
+    public static final String KEY_PREF_LEGEND = "legend";
 	public static final String KEY_PREF_CITY = "city";
 	public static final String KEY_PREF_CITYLANG = "city_lang";
 	public static final String KEY_PREF_MAX_ROUTE_COUNT = "max_route_count";
@@ -124,7 +126,18 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
 	    
 	    MAGraph oGraph = MainActivity.GetGraph();
-	    
+
+        Preference legendPref = (Preference) findPreference(KEY_PREF_LEGEND);
+        if(legendPref != null){
+            legendPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intentView = new Intent(getApplicationContext(), StationImageView.class);
+                    startActivity(intentView);
+                    return true;
+                }
+            });
+        }
+
 	    m_CityPref = (ListPreference) findPreference(KEY_PREF_CITY);
         if(m_CityPref != null){
         	UpdateCityList();
@@ -132,19 +145,22 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             if(index >= 0){
             	m_CityPref.setSummary(m_CityPref.getEntries()[index]);
             }
-            else{
-            	m_CityPref.setSummary((String) m_CityPref.getSummary()); //.getValue()
-            }
         }
-        
+
         m_CityLangPref = (ListPreference) findPreference(KEY_PREF_CITYLANG);
-        if(m_CityLangPref != null){
-            int index = m_CityLangPref.findIndexOfValue( m_CityLangPref.getValue() );           
-            if(index >= 0){
-            	m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
-            }
-            else{
-            	m_CityLangPref.setSummary((String) m_CityLangPref.getSummary()); 
+        if (m_CityLangPref != null) {
+            int index = m_CityLangPref.findIndexOfValue(m_CityLangPref.getValue());
+
+            if (index >= 0) {
+                m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
+            } else {
+                String currCityLang = MainActivity.GetGraph().GetLocale();
+                index = m_CityLangPref.findIndexOfValue(currCityLang);
+                if (index < 0) {
+                    index = 0;
+                }
+                m_CityLangPref.setValue((String) m_CityLangPref.getEntryValues()[index]);
+                m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
             }
         }
         
@@ -233,7 +249,6 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         	    
         	    AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
         		builder.setTitle(R.string.sPrefChangeCityBasesTitle)
-        			   .setCancelable(false)
         			   .setMultiChoiceItems(checkedItemStrings, checkedItems,
         						new DialogInterface.OnMultiChoiceClickListener() {
         							@Override
@@ -411,10 +426,14 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 				ent_val[nCounter] = entry.getKey();
 				nCounter++;
 			}
-    		
+
     		m_CityPref.setEntries(ent);
     		m_CityPref.setEntryValues(ent_val);
-    		
+
+            int index = m_CityPref.findIndexOfValue(m_CityPref.getValue());
+            if (index < 0)
+                m_CityPref.setValue(oGraph.GetCurrentCity());
+
     		m_CityPref.setEnabled(true);
     	}
     	else{

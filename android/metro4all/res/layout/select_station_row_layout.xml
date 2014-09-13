@@ -23,21 +23,32 @@
   android:layout_width="fill_parent"
   android:layout_height="?android:attr/listPreferredItemHeight"
   android:gravity="center_vertical"
+  android:orientation="horizontal"
   >
-   
+
   <ImageView
       android:id="@+id/ivIcon"
       android:layout_width="24dip"
       android:layout_height="24dip"
       android:layout_margin="15dip"
       />
-   
+
   <TextView
       android:id="@+id/tvStationName"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:layout_weight="1"
       android:textStyle="bold"
       android:textAppearance="?android:attr/textAppearanceLarge"
-      android:ellipsize="marquee"/>
-  
+      android:ellipsize="marquee"
+      />
+
+  <TextView
+      android:id="@+id/tvPortalMapButton"
+      android:background="@drawable/ic_action_map"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="15dip"
+      />
+
 </LinearLayout>

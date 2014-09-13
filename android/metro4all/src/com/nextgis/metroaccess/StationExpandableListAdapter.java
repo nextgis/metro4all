@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
+import android.widget.*;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 
@@ -40,79 +42,75 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
+
 	protected Context mContext;
 	protected List <StationItem> mStationList;
-	
+
 	protected int mnType;
 	protected int mnMaxWidth, mnWheelWidth;
 	protected boolean m_bHaveLimits;
-	
+
 	protected LayoutInflater mInfalInflater;
 	protected List<StationItem> moOriginalStationList;
-	
+
 	protected boolean m_bIn;
-	
+
 	public StationExpandableListAdapter(Context c) {
 		mContext = c;
 
 		mInfalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
+
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
 		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-		
+
 		SelectStationActivity act = (SelectStationActivity)mContext;
 		m_bIn = act.IsIn();
     }
-	
+
 	protected void FillArrays(){
 		mStationList.clear();
-		
+
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		Map<Integer, StationItem> omStations = MainActivity.GetGraph().GetStations();
-		
+
 		if(m_bIn){
 			int size = prefs.getInt("recent_dep_counter", 0);
 			for(int i = 0; i < size; i++){
 				int nStationId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
 				//int nPortalId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
-				
+
 				StationItem sit = omStations.get(nStationId);
 				if(sit != null && !mStationList.contains(sit)){
 					mStationList.add(sit);
 				}
-			}				
+			}
 		}
 		else{
 			int size = prefs.getInt("recent_arr_counter", 0);
 			for(int i = 0; i < size; i++){
 				int nStationId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
 				//int nPortalId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
-				
+
 				StationItem sit = omStations.get(nStationId);
 				if(sit != null && !mStationList.contains(sit)){
 					mStationList.add(sit);
 				}
 			}
-		}		
+		}
 	}
-	
+
 	protected void onInit(){
 		mStationList = new ArrayList<StationItem>();
-		
+
 		//load recent data
 		FillArrays();
 	}
-	
+
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		StationItem sit = mStationList.get(groupPosition);
@@ -150,7 +148,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 			else{
 				TypedValue tv = new TypedValue();
 				mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
-				item.setTextColor(mContext.getResources().getColor(tv.resourceId));	
+				item.setTextColor(mContext.getResources().getColor(tv.resourceId));
 			}
 		}
 		//
@@ -191,7 +189,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-		StationItem entry = (StationItem) getGroup(groupPosition);
+		final StationItem entry = (StationItem) getGroup(groupPosition);
 		if(entry.GetId() == -1){
 			if (convertView == null || convertView.findViewById(R.id.tvCategoryName) == null) {
 				convertView = mInfalInflater.inflate(R.layout.select_category_row_layout, null);
@@ -209,13 +207,24 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 			ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 
 			String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
-			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
+			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");
 			Log.d(MainActivity.TAG, imgFile.getPath());
 			if(imgFile.exists()){
-			
+
 			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 			    ivIcon.setImageBitmap(myBitmap);
-			}	
+			}
+
+            TextView tvMapButton = (TextView) convertView.findViewById(R.id.tvPortalMapButton);
+            tvMapButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
+                    Intent intent = new Intent(parentActivity, StationMapActivity.class);
+                    intent.putExtra(MainActivity.PARAM_SEL_STATION_ID, entry.GetId());
+                    intent.putExtra(MainActivity.PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+                    parentActivity.startActivityForResult(intent, MainActivity.PORTAL_MAP_RESULT);
+                }
+            });
 		}
 		return convertView;
 	}
@@ -262,14 +271,14 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	        }
 	    };
 	}
-	
+
 	public void Update(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
 		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-		
+
 		FillArrays();
 	}
 }

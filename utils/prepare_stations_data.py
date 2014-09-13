@@ -15,12 +15,21 @@ fieldmap = (
     ('name_en', 'name_en'),
     ('name_ru', 'name_ru'),
     ('name_pl', 'name_pl'),
+    ('name_by', 'name_by'),
     ('lat', 'lat'),
     ('lon', 'lon')
 )
 
+#create new list of fieldnames with only langs present in the source file
 input_f = csv.DictReader(open(csv_path, 'rb'), delimiter=',')
-output_f = csv.DictWriter(open(os.path.join(os.path.dirname(csv_path), 'stations.csv'), 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
+input_fnames = input_f.fieldnames
+output_fnames = []
+for source_name, target_name in fieldmap:
+    if source_name in input_fnames:
+        output_fnames.append(target_name)
+
+#output_f = csv.DictWriter(open(os.path.join(os.path.dirname(csv_path), 'stations.csv'), 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
+output_f = csv.DictWriter(open(os.path.join(os.path.dirname(csv_path), 'stations.csv'), 'wb'), output_fnames, delimiter=';')
 
 output_f.writeheader()
 
@@ -30,8 +39,10 @@ for row in input_f:
         if source_name in row.keys():
             station[target_name] = row[source_name]
         else:
-            if source_name.startswith('name'):
-                station[target_name] = row['name_en']
-            else:
-                station[target_name] = ''
+            pass
+            #Needed only if we want to replicate missing name_[lang] with English
+            #if source_name.startswith('name'):
+            #    station[target_name] = row['name_en']
+            #else:
+            #    station[target_name] = ''
     output_f.writerow(station)

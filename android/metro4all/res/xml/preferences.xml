@@ -55,12 +55,17 @@
 	<PreferenceCategory
 		android:title="@string/sPrefCatData"
 		android:key="data_cat">
-		<!-- EditTextPreference
-		    android:key="download_path"
-		    android:title="@string/sPrefDataPath"
-		    android:summary="@string/sPrefDataPathSummary"
-		    android:defaultValue="http://metro4all.ru/data/"
-		    android:dialogTitle="@string/sPrefDataPathTitle" /-->
+        <Preference
+            android:key="legend"
+            android:title="@string/sPrefLegend"
+            android:summary="@string/sPrefLegendSummary"
+            />
+        <!-- EditTextPreference
+            android:key="download_path"
+            android:title="@string/sPrefDataPath"
+            android:summary="@string/sPrefDataPathSummary"
+            android:defaultValue="http://metro4all.ru/data/"
+            android:dialogTitle="@string/sPrefDataPathTitle" /-->
 		<ListPreference
 		    android:key="city"
 		    android:title="@string/sPrefCity"

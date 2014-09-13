@@ -26,8 +26,6 @@ def cleanup(val):
 
 def split_stations(csv_in):
 
-    langs = ("ru","en","pl")
-
     for lang in langs:
         input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
         if 'name_' + lang in input_f.fieldnames:
@@ -86,7 +84,6 @@ def split_lines(csv_in):
 
 def split_portals(csv_in):
 
-    langs = ("ru","en","pl")
 
     for lang in langs:
         input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
@@ -179,7 +176,6 @@ def createzip(city):
         for filename in files:
             zf.write(os.path.join(dirname, filename))
 
-    langs = ("ru","en","pl")
     items = ("stations","lines","portals")
     for lang in langs:
         for item in items:
@@ -214,13 +210,13 @@ def upload_sftp(city,ver,USERNAME,PASSWORD):
     transport.connect(username = USERNAME, password = PASSWORD)
     sftp = paramiko.SFTPClient.from_transport(transport)
 
-    sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/" + city + ".zip")
+    sftp.put("temp/" + city + ".zip", data_path + city + ".zip")
     
     print "Uploading: archive/" + city + "_" + str(ver) + ".zip"
-    sftp.put("temp/" + city + ".zip","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/archive/" + city + "_" + str(ver) + ".zip")
+    sftp.put("temp/" + city + ".zip",data_path + "archive/" + city + "_" + str(ver) + ".zip")
 
     print "Uploading: meta.json"
-    sftp.put("temp/meta.json","/usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/meta.json")
+    sftp.put("temp/meta.json", data_path + "meta.json")
 
     sftp.close()
     transport.close()
@@ -239,6 +235,8 @@ if __name__ == '__main__':
     city = sys.argv[1]
     USERNAME = sys.argv[2]
     PASSWORD = sys.argv[3]
+    langs = ("ru","en","pl","by")
+    data_path = "/usr/local/www/metro4all.ru/data/data/v2/"
 
     split_stations("data/" + city + "/" + "stations.csv")
     split_portals("data/" + city + "/" + "portals.csv")
