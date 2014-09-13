@@ -51,6 +51,8 @@ import edu.asu.emit.qyan.alg.model.Path;
 import edu.asu.emit.qyan.alg.model.VariableGraph;
 import edu.asu.emit.qyan.alg.model.Vertex;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class MAGraph {
 	
 	protected Graph m_oGraph;
@@ -119,7 +121,7 @@ public class MAGraph {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 				String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(MainActivity.CSV_CHAR);
+		             String[] RowData = line.split(CSV_CHAR);
 		             
 		             //station_from;station_to;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
 		             
@@ -171,7 +173,7 @@ public class MAGraph {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(MainActivity.CSV_CHAR);
+		             String[] RowData = line.split(CSV_CHAR);
 		             
 		             if(RowData.length != 5){
 		     	    	 m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "graph.csv";
@@ -232,7 +234,7 @@ public class MAGraph {
 	
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(MainActivity.CSV_CHAR);
+		             String[] RowData = line.split(CSV_CHAR);
 		             
 		             if(RowData.length < 6){
 		     	    	 m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "portals.csv";
@@ -291,7 +293,7 @@ public class MAGraph {
 					 StationItem item = m_moStations.get(nStationId);
 					 if(item == null){
 						 m_sErr = "Station #" + nStationId + " is underfined.";
-						 Log.d(MainActivity.TAG, m_sErr);
+						 Log.d(TAG, m_sErr);
 						 return false;
 					 }
 					 m_moStations.get(nStationId).AddPortal(pt);
@@ -339,7 +341,7 @@ public class MAGraph {
 	
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(MainActivity.CSV_CHAR);
+		             String[] RowData = line.split(CSV_CHAR);
 		             
 		             if(RowData.length < 6){
 		            	 m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "stations.csv";
@@ -400,7 +402,7 @@ public class MAGraph {
 	
 		        String line = reader.readLine();
 		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(MainActivity.CSV_CHAR);
+		             String[] RowData = line.split(CSV_CHAR);
 		             
 					 String sName = RowData[1];
 					 int nLineId = Integer.parseInt(RowData[0]);

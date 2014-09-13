@@ -47,6 +47,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 
+import static com.nextgis.metroaccess.Constants.*;
 
 public class DataDownloader extends AsyncTask<String, String, String> {
     private Context m_oContext;
@@ -91,9 +92,9 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		int lenghtOfFile = connetion.getContentLength();
     		if(lenghtOfFile <= 0){
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
-                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
-                bundle.putString(MainActivity.BUNDLE_MSG_KEY, m_oContext.getString(R.string.sNetworkUnreachErr));
+                bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+                bundle.putInt(BUNDLE_EVENTSRC_KEY, 2);
+                bundle.putString(BUNDLE_MSG_KEY, m_oContext.getString(R.string.sNetworkUnreachErr));
                 
                 Message msg = new Message();
                 msg.setData(bundle);
@@ -116,9 +117,9 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		m_bSucces = false;
     		
             Bundle bundle = new Bundle();
-            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
-            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
-            bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+            bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+            bundle.putInt(BUNDLE_EVENTSRC_KEY, 2);
+            bundle.putString(BUNDLE_MSG_KEY, e.getLocalizedMessage());
             
             Message msg = new Message();
             msg.setData(bundle);
@@ -144,9 +145,9 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     			e.printStackTrace();
     			
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);
-                bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
-                bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+                bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+                bundle.putInt(BUNDLE_EVENTSRC_KEY, 2);
+                bundle.putString(BUNDLE_MSG_KEY, e.getLocalizedMessage());
                 
                 Message msg = new Message();
                 msg.setData(bundle);
@@ -180,7 +181,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     	protected Boolean doInBackground(String... params) {
     		
             Bundle bundle = new Bundle();
-            bundle.putInt(MainActivity.BUNDLE_EVENTSRC_KEY, 2);
+            bundle.putInt(BUNDLE_EVENTSRC_KEY, 2);
     
     		String filePath = params[0];
     		File archive = new File(filePath);
@@ -212,33 +213,33 @@ public class DataDownloader extends AsyncTask<String, String, String> {
 		            	//store data
 		            	//create sqlite db
 		            	//Creating and saving the graph
-			            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, false);
+			            bundle.putBoolean(BUNDLE_ERRORMARK_KEY, false);
 		            } 
 		            else{
-			            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
-		                bundle.putString(MainActivity.BUNDLE_MSG_KEY, "write failed");
+			            bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+		                bundle.putString(BUNDLE_MSG_KEY, "write failed");
 	            }
 	
     			}
     			else{
-		            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
-	                bundle.putString(MainActivity.BUNDLE_MSG_KEY, "zip file is broken");
+		            bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+	                bundle.putString(BUNDLE_MSG_KEY, "zip file is broken");
     			}    		
 			} 
     		catch (JSONException e) {
 				e.printStackTrace();
-	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
-				bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+	            bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+				bundle.putString(BUNDLE_MSG_KEY, e.getLocalizedMessage());
 				return false;
 			}
     		catch (IllegalStateException e){
-	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
-	            bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+	            bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+	            bundle.putString(BUNDLE_MSG_KEY, e.getLocalizedMessage());
 				return false;   			
     		}
 			catch (Exception e) {
-	            bundle.putBoolean(MainActivity.BUNDLE_ERRORMARK_KEY, true);            	
-	            bundle.putString(MainActivity.BUNDLE_MSG_KEY, e.getLocalizedMessage());
+	            bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
+	            bundle.putString(BUNDLE_MSG_KEY, e.getLocalizedMessage());
 				return false;
 			}    		
                   

@@ -32,8 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
@@ -42,6 +44,8 @@ import com.nextgis.metroaccess.data.StationItem;
 
 import edu.asu.emit.qyan.alg.model.Path;
 import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -51,9 +55,10 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -61,43 +66,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+
+import static com.nextgis.metroaccess.Constants.*;
+
 //https://code.google.com/p/k-shortest-paths/
 
-public class MainActivity extends SherlockActivity{
-	public final static String TAG = "metro4all";
-
-	public final static String META = "meta.json";
-	final static String REMOTE_METAFILE = "remotemeta_v2.json";
-	final static String ROUTE_DATA_DIR = "rdata_v2";
-
-	public final static String CSV_CHAR = ";";
-
-	final static String BUNDLE_MSG_KEY = "msg";
-	final static String BUNDLE_PAYLOAD_KEY = "json";
-	final static String BUNDLE_ERRORMARK_KEY = "error";
-	final static String BUNDLE_EVENTSRC_KEY = "eventsrc";
-	final static String BUNDLE_ENTRANCE_KEY = "in";
-	final static String BUNDLE_PATHCOUNT_KEY = "pathcount";
-	final static String BUNDLE_PATH_KEY = "path_";
-	final static String BUNDLE_STATIONMAP_KEY = "stationmap";
-	final static String BUNDLE_CROSSESMAP_KEY = "crossmap";
-	final static String BUNDLE_STATIONID_KEY = "stationid";
-	final static String BUNDLE_PORTALID_KEY = "portalid";
-	final static String BUNDLE_METAMAP_KEY = "metamap";
-
-	public final static int MENU_SEARCH = 3;
-	public final static int MENU_SETTINGS = 4;
-	public final static int MENU_ABOUT = 5;
-
-	public final static int DEPARTURE_RESULT = 1;
-	public final static int ARRIVAL_RESULT = 2;
-	public final static int PREF_RESULT = 3;
-    public final static int PORTAL_MAP_RESULT = 4;
-	public final static int MAX_RECENT_ITEMS = 10;
-
-    public final static String PARAM_SEL_STATION_ID = "SEL_STATION_ID";
-    public final static String PARAM_SEL_PORTAL_ID = "SEL_PORTAL_ID";
-    public final static String PARAM_PORTAL_DIRECTION = "PORTAL_DIRECTION";
+public class MainActivity extends SherlockActivity implements OnNavigationListener {
 
 	protected boolean m_bInterfaceLoaded;
 
@@ -116,8 +90,11 @@ public class MainActivity extends SherlockActivity{
 	public static MAGraph m_oGraph;
 
 	protected ListView m_lvListButtons;
-	protected TextView m_tvCurentCity;
     protected ButtonListAdapter m_laListButtons;
+
+    protected int mCurrentItemPosition;
+
+    List<String> mCities;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +106,7 @@ public class MainActivity extends SherlockActivity{
 
 		m_aoDepRecentIds = new ArrayList<Pair<Integer, Integer>>();
 		m_aoArrRecentIds = new ArrayList<Pair<Integer, Integer>>();
+        mCities = new ArrayList<String>();
 
 		m_bInterfaceLoaded = false;
 
@@ -231,7 +209,7 @@ public class MainActivity extends SherlockActivity{
 		m_bInterfaceLoaded = true;
 		setContentView(R.layout.activity_main);
 
-		m_tvCurentCity = (TextView)findViewById(R.id.tvCurrentCity);
+        fillActionBarList();
 
 		m_lvListButtons = (ListView)findViewById(R.id.lvButtList);
 		m_laListButtons = new ButtonListAdapter(this);
@@ -277,7 +255,34 @@ public class MainActivity extends SherlockActivity{
 
 	}
 
-	protected void onSettings() {
+    protected void fillActionBarList() {
+        ActionBar actionBar = getSupportActionBar();
+        Context context = actionBar.getThemedContext();
+        ArrayList<String> items = new ArrayList<String>();
+        int nCurrentCity = 0;
+        mCities.clear();
+        final List<GraphDataItem> city_list = new ArrayList<GraphDataItem>(m_oGraph.GetRouteMetadata().values());
+        for(int i = 0; i < city_list.size(); i++){
+            items.add(city_list.get(i).GetLocaleName());
+            mCities.add(city_list.get(i).GetPath());
+            if(m_oGraph.GetCurrentCity().equals(city_list.get(i).GetPath())){
+                nCurrentCity = i;
+            }
+        }
+
+        //ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.sherlock_spinner_dropdown_item, items.toArray(new String[items.size()]));
+//ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.views, R.layout.sherlock_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.citydropdown, items.toArray(new String[items.size()]));
+        adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setListNavigationCallbacks((SpinnerAdapter) adapter, this);
+        actionBar.setSelectedNavigationItem(nCurrentCity);
+
+        mCurrentItemPosition = nCurrentCity;
+    }
+
+    protected void onSettings() {
         Intent intentSet = new Intent(this, PreferencesActivity.class);
         //intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);        
         //Bundle bundle = new Bundle();
@@ -662,7 +667,8 @@ public class MainActivity extends SherlockActivity{
 
 	protected void UpdateUI(){
 
-		m_tvCurentCity.setText(m_oGraph.GetCurrentCityName());
+        //update current city
+        fillActionBarList();
 
 		if(m_oGraph.HasStations()){
 	    	StationItem dep_sit = m_oGraph.GetStation(m_nDepartureStationId);
@@ -772,7 +778,7 @@ public class MainActivity extends SherlockActivity{
 				if(shortest_paths_list.size() == 0){
 					//MainActivity.this.ErrMessage(R.string.sCannotGetPath);
 					//Toast.makeText(MainActivity.this, R.string.sCannotGetPath, Toast.LENGTH_SHORT).show();
-					Log.d(MainActivity.TAG, MainActivity.this.getString(R.string.sCannotGetPath));
+					Log.d(TAG, MainActivity.this.getString(R.string.sCannotGetPath));
 				}
 				else {
 			        Intent intentView = new Intent(MainActivity.this, com.nextgis.metroaccess.StationListView.class);
@@ -844,4 +850,30 @@ public class MainActivity extends SherlockActivity{
 		Toast.makeText(this, getString(nErrMsg), Toast.LENGTH_SHORT).show();
 	}
 
+    /**
+     * This method is called whenever a navigation item in your action bar
+     * is selected.
+     *
+     * @param itemPosition Position of the item clicked.
+     * @param itemId       ID of the item clicked.
+     * @return True if the event was handled, false otherwise.
+     */
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        if(itemPosition != mCurrentItemPosition) {
+            m_oGraph.SetCurrentCity(mCities.get(itemPosition));
+            m_laListButtons.clear();
+            m_nDepartureStationId = -1;
+            m_nArrivalStationId = -1;
+            m_nDeparturePortalId = -1;
+            m_nArrivalPortalId = -1;
+
+            final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
+
+            edit.putString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
+
+            edit.commit();
+        }
+        return true;
+    }
 }
