@@ -185,8 +185,9 @@
             // Вывод списка станций, входящих в маршрут
             var context = this,
                 content = "<ul class='route'>",
-                lineClass = routes[index].route && routes[index].route.length > 0 ?
-                    ' line-' + m4a.routes.COLORS[routes[index].route[0].station_line.color] : '';
+                currentRoute = routes[index].route,
+                lineClass = currentRoute && currentRoute.length > 0 ?
+                    ' line-' + m4a.routes.COLORS[currentRoute[0].station_line.color] : '';
 
             content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
             if (routes[index].portals.portal_from) {
@@ -201,9 +202,9 @@
             }
             content += "</li>";
 
-            $.each(routes[index].route, function (i, item) {
+            $.each(currentRoute, function (i, item) {
                 var condition = (i == 0) ? item.station_type == 'regular' :
-                    (item.station_type == 'regular' && routes[index].route[i - 1].station_type != 'interchange')
+                    (item.station_type == 'regular' && currentRoute[i - 1].station_type != 'interchange')
 
                 if (condition) {
                     content += "<li class=" + "'station line-" + m4a.routes.COLORS[item.station_line.color] + "'>" + item.station_name +
@@ -215,13 +216,13 @@
                         "</li>"
                 } else if (item.station_type == 'interchange') {
                     content += "<li class=" + "'transition from-line-" + m4a.routes.COLORS[item.station_line.color] + " to-line-" +
-                        m4a.routes.COLORS[routes[index].route[i + 1].station_line.color] + "'>" + item.station_name +
-                        " (" + item.station_line.name + ")" + " &rarr; " + routes[index].route[i + 1].station_name +
-                        " (" + routes[index].route[i + 1].station_line.name + ")" +
+                        m4a.routes.COLORS[currentRoute[i + 1].station_line.color] + "'>" + item.station_name +
+                        " (" + item.station_line.name + ")" + " &rarr; " + currentRoute[i + 1].station_name +
+                        " (" + currentRoute[i + 1].station_line.name + ")" +
                         context.schemeIconTemplate({
-                            schemeExists: routes[index].route[i + 1].schema,
-                            path: m4a.viewmodel.pathToSchemes + routes[index].route[i + 1].schema,
-                            name: routes[index].route[i + 1].station_name
+                            schemeExists: currentRoute[i + 1].schema,
+                            path: m4a.viewmodel.pathToSchemes + currentRoute[i + 1].schema,
+                            name: currentRoute[i + 1].station_name
                         })
                     if (item.barriers) {
                         content += context.fillBarriers(item.barriers);
@@ -230,7 +231,8 @@
                 }
             });
 
-            content += "<li class='exit'>" + m4a.resources.routes.exit;
+            var exitLineClass = 'exit line-' + currentRoute[currentRoute.length-1].station_line.id;
+            content += "<li class='" + exitLineClass + "'>" + m4a.resources.routes.exit;
             if (routes[index].portals.portal_to) {
                 var barriers = routes[index].portals.portal_to.barriers;
                 if (barriers) {
@@ -255,14 +257,14 @@
                 m4a.viewmodel.mainMap.removeLayer(route);
             }
             route = L.layerGroup();
-            $.each(routes[index].route, function (i, item) {
+            $.each(currentRoute, function (i, item) {
                 // Маркеры станций
                 route.addLayer(L.marker(
                     item.coordinates,
                     {
                         icon: L.divIcon({
                             className: 'marker-station marker-line-' + m4a.routes.COLORS[item.station_line.color] +
-                                (i == 0 ? ' marker-enter' : (i == (routes[index].route.length - 1) ? ' marker-exit' : '')),
+                                (i == 0 ? ' marker-enter' : (i == (currentRoute.length - 1) ? ' marker-exit' : '')),
                             iconSize: [16, 16]
                         })
                     }).bindLabel(item.station_name)
@@ -272,7 +274,7 @@
                 if (i != 0) {
                     route.addLayer(
                         L.polyline(
-                            [routes[index].route[i - 1].coordinates, item.coordinates],
+                            [currentRoute[i - 1].coordinates, item.coordinates],
                             {
                                 color: item.station_line.color,
                                 opacity: 1
