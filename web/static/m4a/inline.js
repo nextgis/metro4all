@@ -9,8 +9,16 @@ $(document).ready(function () {
 
     // Заполнение выпадающих списков
     $.ajax(url + global_config.language + "/" + global_config.city + "/stations").done(function (data) {
-        m4a.view.$metroStartStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.st_st});
-        m4a.view.$metroEndStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.end_st});
+        var sortResults = function(results, container, query) {
+            var filteredResults = [];
+            for (var i=0; i<results.length; i++) {
+                var r = results[i];
+                if (!r.children || r.children.length > 0) filteredResults.push(r);
+            }
+            return filteredResults;
+        }
+        m4a.view.$metroStartStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.st_st, sortResults: sortResults});
+        m4a.view.$metroEndStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.end_st, sortResults: sortResults});
 
         // Поле выбора станции входа
         view.$metroStartStation.on("change", function () {
