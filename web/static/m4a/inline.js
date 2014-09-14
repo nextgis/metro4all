@@ -11,7 +11,10 @@ $(document).ready(function () {
 
     // Отрисовываем линии на карте
     $.ajax(url + "data/" + global_config.city + "/lines.geojson").done(function (data) {
-        viewmodel.lineSegments = L.geoJson(JSON.parse(data), {
+        if (typeof data == 'string' || data instanceof String) {
+            data = JSON.parse(data);
+        }
+        viewmodel.lineSegments = L.geoJson(data, {
             style: function(feature) {
                 return {
                     opacity: 1,
