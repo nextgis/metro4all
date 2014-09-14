@@ -77,7 +77,9 @@ $(document).ready(function () {
                 start_station = view.$metroStartStation.val(),
                 end_station = view.$metroEndStation.val();
                 portal_in = view.$metroStartInputID.val();
-                portal_out = view.$metroEndInputID.val();
+                portal_out = view.$metroEndInputID.val(),
+                route = m4a.url.getURLParameter('route'),
+                profile = m4a.url.getURLParameter('profile');
 
             if (start_station.length == 0 || end_station.length == 0) {
                 // todo: use bootstrap
@@ -95,13 +97,14 @@ $(document).ready(function () {
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                     m4a.routes.buildRoutes(data);
+                    var routeEl = route ?  $('.pagination li')[route - 1] : $('.pagination li').first();
 
                     // Активируем первый маршрут
                     // Охват на маршрут включаем только в случае, если выбраны оба выхода
                     if ((start_station && end_station) && !((portal_in && !portal_out) || (!portal_in && portal_out))) {
-                        $('.pagination li').first().trigger('click');
+                        routeEl.trigger('click');
                     } else {
-                        $('.pagination li').first().trigger('click', [false]);
+                        routeEl.trigger('click', [false]);
                     }
 
                     $.unblockUI();
