@@ -26,14 +26,28 @@ $(document).ready(function () {
     $.ajax(url + global_config.language + "/" + global_config.city + "/stations").done(function (data) {
         var sortResults = function(results, container, query) {
             var filteredResults = [];
-            for (var i=0; i<results.length; i++) {
+            for (var i = 0; i < results.length; i++) {
                 var r = results[i];
                 if (!r.children || r.children.length > 0) filteredResults.push(r);
             }
             return filteredResults;
-        }
-        m4a.view.$metroStartStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.st_st, sortResults: sortResults});
-        m4a.view.$metroEndStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.end_st, sortResults: sortResults});
+        };
+
+        var matcher = function(term, text) {
+            term = (''+term).toUpperCase().gsub(/Ё/, 'Е');
+            text = (''+text).toUpperCase().gsub(/Ё/, 'Е');
+            return text.indexOf(term) >= 0;
+        };
+
+        var defaultOptions = {
+            width: "100%",
+            data: data,
+            sortResults: sortResults,
+            matcher: matcher
+        };
+
+        m4a.view.$metroStartStation.select2(defaultOptions);
+        m4a.view.$metroEndStation.select2(defaultOptions);
 
         // Поле выбора станции входа
         view.$metroStartStation.on("change", function () {
@@ -95,7 +109,9 @@ $(document).ready(function () {
                 start_station = view.$metroStartStation.val(),
                 end_station = view.$metroEndStation.val();
                 portal_in = view.$metroStartInputID.val();
-                portal_out = view.$metroEndInputID.val();
+                portal_out = view.$metroEndInputID.val(),
+                route = m4a.url.getURLParameter('route'),
+                profile = m4a.url.getURLParameter('profile');
 
             if (start_station.length == 0 || end_station.length == 0) {
                 // todo: use bootstrap
@@ -113,13 +129,14 @@ $(document).ready(function () {
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                     m4a.routes.buildRoutes(data);
+                    var routeEl = route ?  $('.pagination li')[route - 1] : $('.pagination li').first();
 
                     // Активируем первый маршрут
                     // Охват на маршрут включаем только в случае, если выбраны оба выхода
                     if ((start_station && end_station) && !((portal_in && !portal_out) || (!portal_in && portal_out))) {
-                        $('.pagination li').first().trigger('click');
+                        routeEl.trigger('click');
                     } else {
-                        $('.pagination li').first().trigger('click', [false]);
+                        routeEl.trigger('click', [false]);
                     }
 
                     $.unblockUI();
