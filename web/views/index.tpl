@@ -108,7 +108,7 @@
           language: "ru"
         }
     </script>
-    <script src="static/bootstrap-3.0.0/assets/js/jquery.js"></script>
+    <script src="static/jquery-1.11.1.min.js"></script>
     <script src="static/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
     <script src="static/select2-3.4.2/select2.js"></script>
     <script src="static/select2-3.4.2/select2_locale_ru.js"></script>
