@@ -18,6 +18,24 @@
             "#acbfe1": 12
         },
 
+        TERMINAL_STATIONS: {
+            FIRST: {
+                index: 'first',
+                className: 'enter',
+                resourceName: 'entr',
+                portalName: 'portal_to',
+                obstacleResourceName: 'obt_arent_sh_en'
+            },
+
+            LAST: {
+                index: 'last',
+                className: 'exit',
+                resourceName: 'exit',
+                portalName: 'portal_from',
+                obstacleResourceName: 'obt_arent_sh_ex'
+            }
+        },
+
         buildRoutes: function (data) {
             var context = this,
                 routes = data.result;
@@ -79,7 +97,7 @@
 
             $.each(profileBarriersIndicators.hidden, function (index, controlName) {
                 if (context.barriersIndicators[controlName]) {
-                    c += context.barriersIndicators[controlName](barriers);
+                    c += context.barriersIndicators[controlName](barriers, true);
                 } else {
                     console.log('Control is not found: ' + controlName);
                 }
@@ -189,7 +207,7 @@
                 content = "<ul class='route'>",
                 currentRoute = routes[index].route;
 
-            content += this._addTerminalStation(0, 'enter', 'entr', routes[index].portals['portal_from'], currentRoute);
+            content += this._addTerminalStation('FIRST', routes[index]);
 
             $.each(currentRoute, function (i, item) {
                 var condition = (i == 0) ? item.station_type == 'regular' :
@@ -221,7 +239,7 @@
                 }
             });
 
-            content += this._addTerminalStation(currentRoute.length - 1, 'exit', 'exit', routes[index].portals['portal_to'], currentRoute);
+            content += this._addTerminalStation('LAST', routes[index]);
             content += "</ul>";
             content += '<a href="' + m4a.resources.routes.help_link + '" target="_blank">' + m4a.resources.routes.help + '</a>';
 
@@ -269,11 +287,15 @@
             });
         },
 
-        _addTerminalStation: function (i, className, resourceName, portal, currentRoute) {
+        _addTerminalStation: function (index, route) {
+            var settings = m4a.routes.TERMINAL_STATIONS[index];
+            var currentRoute = route.route;
+            var portal = route.portals[settings.portalName];
+            var i = index == 'FIRST' ? 0 : currentRoute.length - 1;
             var lineClass = currentRoute && currentRoute.length > 0 ?
                     ' line-' + this._getLineIndexForRouteItem(currentRoute[i]) : '',
-                fullClassName = [className, lineClass].join(' '),
-                result = "<li class='" + fullClassName + "'>" + m4a.resources.routes[resourceName];
+                fullClassName = [settings.className, lineClass].join(' '),
+                result = "<li class='" + fullClassName + "'>" + m4a.resources.routes[settings.resourceName];
 
             if (portal) {
                 var barriers = portal.barriers;
@@ -282,7 +304,7 @@
                 }
             } else {
                 result += "<ul class='obstacles'>";
-                result += "<li>" + m4a.resources.routes.obt_arent_sh_en + "</li>";
+                result += "<li>" + m4a.resources.routes[settings.obstacleResourceName] + "</li>";
                 result += "</ul>";
             }
             result += "</li>";
