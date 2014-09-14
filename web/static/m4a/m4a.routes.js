@@ -60,7 +60,9 @@
                 if (context.barriersIndicators[indicatorName]) {
                     if (m4a.profiles.profileBarriersRestrictions[profileName][indicatorName]) {
                         isIndicatorAvailable = m4a.profiles.profileBarriersRestrictions[profileName][indicatorName](barriers);
-                        if (!isIndicatorAvailable && isStationAvailable) { isStationAvailable = false; }
+                        if (!isIndicatorAvailable && isStationAvailable) {
+                            isStationAvailable = false;
+                        }
                     }
                     c += context.barriersIndicators[indicatorName](barriers, isIndicatorAvailable);
 
@@ -85,7 +87,7 @@
 
             c += '</ul>';
 
-            return '<ul class="' + (isStationAvailable ? 'obstacles available' : 'obstacles unavailable')  + '">' + c + '</ul>';
+            return '<ul class="' + (isStationAvailable ? 'obstacles available' : 'obstacles unavailable') + '">' + c + '</ul>';
         },
 
 
@@ -187,43 +189,14 @@
                 content = "<ul class='route'>",
                 currentRoute = routes[index].route;
 
-            var getLineIndexByStationColor = function(stationColor){
-                return m4a.routes.COLORS[stationColor];
-            }
-            var getLineIndexForRouteItem = function(routeItem){
-                return getLineIndexByStationColor(routeItem.station_line.color);
-            }
-
-            var addTerminalStation = function(i, className, resourceName, portalDirection) {
-
-                var lineClass = currentRoute && currentRoute.length > 0 ?
-                    ' line-' + getLineIndexForRouteItem(currentRoute[i]) : '';
-
-                var fullClassName = [className, lineClass].join(' ');
-                var result = "<li class='" + fullClassName + "'>" + m4a.resources.routes[resourceName];
-                var portal = routes[index].portals[portalDirection];
-                if (portal) {
-                    var barriers = portal.barriers;
-                    if (barriers) {
-                        result += this.fillBarriers(barriers);
-                    }
-                } else {
-                    result += "<ul class='obstacles'>";
-                    result += "<li>" + m4a.resources.routes.obt_arent_sh_en + "</li>";
-                    result += "</ul>";
-                }
-                result += "</li>";
-                return result;
-            };
-
-            content += addTerminalStation(0, 'enter', 'entr', 'portal_from');
+            content += this._addTerminalStation(0, 'enter', 'entr', routes[index].portals['portal_from'], currentRoute);
 
             $.each(currentRoute, function (i, item) {
                 var condition = (i == 0) ? item.station_type == 'regular' :
-                    (item.station_type == 'regular' && currentRoute[i - 1].station_type != 'interchange')
+                    (item.station_type == 'regular' && currentRoute[i - 1].station_type != 'interchange');
 
                 if (condition) {
-                    content += "<li class='station line-" + getLineIndexForRouteItem(item) + "'>" + item.station_name +
+                    content += "<li class='station line-" + context._getLineIndexForRouteItem(item) + "'>" + item.station_name +
                         context.schemeIconTemplate({
                             schemeExists: item.schema,
                             path: m4a.viewmodel.pathToSchemes + item.schema,
@@ -232,15 +205,15 @@
                         "</li>"
                 } else if (item.station_type == 'interchange') {
                     var nextStation = currentRoute[i + 1];
-                    content += "<li class=" + "'transition from-line-" + getLineIndexForRouteItem(item) + " to-line-" +
-                        getLineIndexForRouteItem(nextStation) + "'>" + item.station_name +
+                    content += "<li class=" + "'transition from-line-" + context._getLineIndexForRouteItem(item) + " to-line-" +
+                        context._getLineIndexForRouteItem(nextStation) + "'>" + item.station_name +
                         " (" + item.station_line.name + ")" + " &rarr; " + nextStation.station_name +
                         " (" + nextStation.station_line.name + ")" +
                         context.schemeIconTemplate({
                             schemeExists: nextStation.schema,
                             path: m4a.viewmodel.pathToSchemes + nextStation.schema,
                             name: nextStation.station_name
-                        })
+                        });
                     if (item.barriers) {
                         content += context.fillBarriers(item.barriers);
                     }
@@ -248,9 +221,9 @@
                 }
             });
 
-            content += addTerminalStation(currentRoute.length-1, 'exit', 'exit', 'portal_to');
+            content += this._addTerminalStation(currentRoute.length - 1, 'exit', 'exit', routes[index].portals['portal_to'], currentRoute);
             content += "</ul>";
-            content += '<a href="' + m4a.resources.routes.help_link  +'" target="_blank">' + m4a.resources.routes.help + '</a>';
+            content += '<a href="' + m4a.resources.routes.help_link + '" target="_blank">' + m4a.resources.routes.help + '</a>';
 
             m4a.view.$routePanel.append(content);
 
@@ -264,14 +237,14 @@
             $.each(currentRoute, function (i, item) {
                 // Маркеры станций
                 route.addLayer(L.marker(
-                    item.coordinates,
-                    {
-                        icon: L.divIcon({
-                            className: 'marker-station marker-line-' + getLineIndexForRouteItem(item) +
-                                (i == 0 ? ' marker-enter' : (i == (currentRoute.length - 1) ? ' marker-exit' : '')),
-                            iconSize: [16, 16]
-                        })
-                    }).bindLabel(item.station_name)
+                        item.coordinates,
+                        {
+                            icon: L.divIcon({
+                                className: 'marker-station marker-line-' + context._getLineIndexForRouteItem(item) +
+                                    (i == 0 ? ' marker-enter' : (i == (currentRoute.length - 1) ? ' marker-exit' : '')),
+                                iconSize: [16, 16]
+                            })
+                        }).bindLabel(item.station_name)
                 ).addTo(m4a.viewmodel.mainMap);
 
                 // Сегменты маршрута
@@ -286,6 +259,34 @@
                     ).addTo(m4a.viewmodel.mainMap);
                 }
             });
+        },
+
+        _addTerminalStation: function (i, className, resourceName, portal, currentRoute) {
+            var lineClass = currentRoute && currentRoute.length > 0 ?
+                    ' line-' + this._getLineIndexForRouteItem(currentRoute[i]) : '',
+                fullClassName = [className, lineClass].join(' '),
+                result = "<li class='" + fullClassName + "'>" + m4a.resources.routes[resourceName];
+
+            if (portal) {
+                var barriers = portal.barriers;
+                if (barriers) {
+                    result += this.fillBarriers(barriers);
+                }
+            } else {
+                result += "<ul class='obstacles'>";
+                result += "<li>" + m4a.resources.routes.obt_arent_sh_en + "</li>";
+                result += "</ul>";
+            }
+            result += "</li>";
+            return result;
+        },
+
+        _getLineIndexByStationColor: function (stationColor) {
+            return m4a.routes.COLORS[stationColor];
+        },
+
+        _getLineIndexForRouteItem: function (routeItem) {
+            return this._getLineIndexByStationColor(routeItem.station_line.color);
         },
 
         bindIndicatorsEvents: function () {
@@ -305,4 +306,4 @@
         }
     })
 })
-    (jQuery, m4a)
+(jQuery, m4a)
