@@ -257,7 +257,6 @@ ul {
     -webkit-padding-start: 0;
 }
 
-
 /* profiles section */
 
 div.profiles {
@@ -309,19 +308,19 @@ div.profiles label.undo.active {
 
 label.profile,
 label.apply,
-label.undo{
+label.undo {
     width: 35px;
     height: 35px;
     opacity: 0.5;
 }
 
-label.profile:hover ,
+label.profile:hover,
 label.apply:hover,
-label.undo:hover{
+label.undo:hover {
     opacity: 0.7;
 }
 
-label.profile.active{
+label.profile.active {
     opacity: 1.0;
 }
 
@@ -378,4 +377,28 @@ a.scheme:hover {
 
 #map div.station-selected-popup .btn:hover {
     background-color: #32b3d4;
+}
+
+div.leaflet-control-extent {
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.65);
+    border: 1px solid #898989;
+    line-height: 26px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    background-color: #ffffff;
+}
+
+div.leaflet-control-extent:hover {
+    background-color: #ececec;
+    cursor: pointer;
+}
+
+div.extent-earth {
+    width: 26px;
+    height: 26px;
+    background: url(../img/m4a.png) no-repeat -138px 1px;
 }

@@ -123,6 +123,7 @@
     <script src="static/m4a/m4a.url.js"></script>
     <script src="static/m4a/m4a.profiles.js"></script>
     <script src="static/m4a/m4a.routes.js"></script>
+    <script src="static/m4a/mapControls/m4a.extent.js"></script>
     <script src="static/m4a/inline.js"></script>
     <script src="static/lightbox2/js/lightbox.js"></script>
     <script src="static/blockui/jquery.blockUI.js"></script>

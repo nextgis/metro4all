@@ -6,6 +6,7 @@ $(document).ready(function () {
         view = m4a.view;
     
     viewmodel.mainMap = L.map('mainMap').setView(global_config.mainmap.center, global_config.mainmap.zoom);
+    (new L.Control.Extent()).addTo(viewmodel.mainMap);
     viewmodel.stationMarkers = [];
     viewmodel.lineSegments = null;
 
