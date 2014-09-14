@@ -97,7 +97,7 @@
 
             $.each(profileBarriersIndicators.hidden, function (index, controlName) {
                 if (context.barriersIndicators[controlName]) {
-                    c += context.barriersIndicators[controlName](barriers);
+                    c += context.barriersIndicators[controlName](barriers, true);
                 } else {
                     console.log('Control is not found: ' + controlName);
                 }
