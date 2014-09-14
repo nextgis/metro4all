@@ -203,6 +203,7 @@
         showRoute: function (routes, index) {
             // Вывод списка станций, входящих в маршрут
             var context = this,
+                view = m4a.view,
                 content = "<ul class='route'>",
                 currentRoute = routes[index].route;
 
