@@ -28,14 +28,14 @@
                         label: "Станция на вход",
                         className: "btn-success",
                         callback: function() {
-                            m4a.view.$metroStartStation.select2("val", this.id_station).trigger('change');
+                            m4a.view.$metroStartStation.select2("val", this.id).trigger('change');
                         }.bind(this)
                     },
                     exit: {
                         label: "Станция на выход",
                         className: "btn-success",
                         callback: function() {
-                            m4a.view.$metroEndStation.select2("val", this.id_station).trigger('change');
+                            m4a.view.$metroEndStation.select2("val", this.id).trigger('change');
                         }.bind(this)
                    }
                 }

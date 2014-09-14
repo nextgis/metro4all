@@ -9,44 +9,13 @@ $(document).ready(function () {
     viewmodel.stationMarkers = [];
     viewmodel.lineSegments = null;
 
-    // Отрисовываем станции на карте
-    $.ajax(url + "data/" + global_config.city + "/stations.csv").done(function (data) {
-        csv2geojson.csv2geojson(data, {
-            latfield: "lat",
-            lonfield: "lon",
-            delimiter: ";"
-        }, function(err, geojson) {
-            L.geoJson(
-                geojson, {
-                    pointToLayer: function(feature, lonlat) {
-                        var stationMarker = L.marker(lonlat, {
-                            icon: L.divIcon({
-                                iconSize: [16, 16],
-                                className: "marker-station marker-line-" + feature.properties.id_line
-                            }),
-                            riseOnHover: true
-                        })
-                        .bindLabel(feature.properties['name_' + global_config.language] || feature.properties['name_en'])
-                        .on('click', m4a.stations.selectStationFromMap.bind(feature.properties));
-                        viewmodel.stationMarkers.push(stationMarker);
-                        return stationMarker;
-                    }
-                }
-            ).addTo(viewmodel.mainMap);
-        });
-    });
-
     // Отрисовываем линии на карте
     $.ajax(url + "data/" + global_config.city + "/lines.geojson").done(function (data) {
-        var swappedColors = Object.keys(m4a.routes.COLORS).reduce(function(obj,key) {
-            obj[ m4a.routes.COLORS[key] ] = key;
-            return obj;
-        }, {});
         viewmodel.lineSegments = L.geoJson(JSON.parse(data), {
             style: function(feature) {
                 return {
                     opacity: 1,
-                    color: swappedColors[feature.properties.id_line]
+                    color: feature.properties.color
                 };
             }
         });
@@ -103,6 +72,23 @@ $(document).ready(function () {
             attribution: "Map data &copy; <a href='http://osm.org'>OpenStreetMap</a> contributors",
             maxZoom: 18
         }).addTo(m4a.viewmodel.mainMap);
+
+        // Отрисовываем станции на карте
+        $.each(data.results, function(i, line) {
+            $.each(line.children, function(j, station) {
+                var stationMarker = L.marker([station.lat, station.lon], {
+                    icon: L.divIcon({
+                        iconSize: [16, 16],
+                        className: "marker-station marker-line-" + m4a.routes.COLORS[line.color]
+                    }),
+                    riseOnHover: true
+                })
+                .bindLabel(station.text)
+                .on('click', m4a.stations.selectStationFromMap.bind(station));
+                stationMarker.addTo(viewmodel.mainMap);
+                viewmodel.stationMarkers.push(stationMarker);
+            });
+        });
 
         $("#mainform").submit(function (from_url) {
             var view = m4a.view,

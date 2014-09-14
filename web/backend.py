@@ -174,7 +174,9 @@ def get_stations(lang, city):
             if line['id_line'] == station['id_line']:
                 station_json = {
                     'id':   station['id_station'],
-                    'text': station.get('name_' + lang, station.get('name_en'))
+                    'text': station.get('name_' + lang, station.get('name_en')),
+                    'lon':  station.get('lon'),
+                    'lat':  station.get('lat')
                 }
                 if station['id_station'] in SCHEMAS[city]:
                     station_json['sch'] = SCHEMAS[city][station['id_station']]
@@ -182,6 +184,7 @@ def get_stations(lang, city):
         # group = sorted(group, key=lambda i: i['text'])
         results.append({
             'text': line.get('name_' + lang, line.get('name_en')),
+            'color': line.get('color'),
             'children': group
         })
 
@@ -286,8 +289,8 @@ def get_routes(lang, city, delta=5, limit=3):
                 node_id=station_info['node_id']
 
                 unit = dict(
+                    id=station,
                     station_type=station_type,
-                    id_station=station,
                     station_name=station_info['name'],
                     coordinates=station_info['coords'],
                     station_line=dict(
