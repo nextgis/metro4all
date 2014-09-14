@@ -9,44 +9,13 @@ $(document).ready(function () {
     viewmodel.stationMarkers = [];
     viewmodel.lineSegments = null;
 
-    // Отрисовываем станции на карте
-    $.ajax(url + "data/" + global_config.city + "/stations.csv").done(function (data) {
-        csv2geojson.csv2geojson(data, {
-            latfield: "lat",
-            lonfield: "lon",
-            delimiter: ";"
-        }, function(err, geojson) {
-            L.geoJson(
-                geojson, {
-                    pointToLayer: function(feature, lonlat) {
-                        var stationMarker = L.marker(lonlat, {
-                            icon: L.divIcon({
-                                iconSize: [16, 16],
-                                className: "marker-station marker-line-" + feature.properties.id_line
-                            }),
-                            riseOnHover: true
-                        })
-                        .bindLabel(feature.properties['name_' + global_config.language] || feature.properties['name_en'])
-                        .on('click', m4a.stations.selectStationFromMap.bind(feature.properties));
-                        viewmodel.stationMarkers.push(stationMarker);
-                        return stationMarker;
-                    }
-                }
-            ).addTo(viewmodel.mainMap);
-        });
-    });
-
     // Отрисовываем линии на карте
     $.ajax(url + "data/" + global_config.city + "/lines.geojson").done(function (data) {
-        var swappedColors = Object.keys(m4a.routes.COLORS).reduce(function(obj,key) {
-            obj[ m4a.routes.COLORS[key] ] = key;
-            return obj;
-        }, {});
         viewmodel.lineSegments = L.geoJson(JSON.parse(data), {
             style: function(feature) {
                 return {
                     opacity: 1,
-                    color: swappedColors[feature.properties.id_line]
+                    color: feature.properties.color
                 };
             }
         });
@@ -57,14 +26,28 @@ $(document).ready(function () {
     $.ajax(url + global_config.language + "/" + global_config.city + "/stations").done(function (data) {
         var sortResults = function(results, container, query) {
             var filteredResults = [];
-            for (var i=0; i<results.length; i++) {
+            for (var i = 0; i < results.length; i++) {
                 var r = results[i];
                 if (!r.children || r.children.length > 0) filteredResults.push(r);
             }
             return filteredResults;
-        }
-        m4a.view.$metroStartStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.st_st, sortResults: sortResults});
-        m4a.view.$metroEndStation.select2({width: "100%", data: data, placeholder: m4a.resources.inline.end_st, sortResults: sortResults});
+        };
+
+        var matcher = function(term, text) {
+            term = (''+term).toUpperCase().gsub(/Ё/, 'Е');
+            text = (''+text).toUpperCase().gsub(/Ё/, 'Е');
+            return text.indexOf(term) >= 0;
+        };
+
+        var defaultOptions = {
+            width: "100%",
+            data: data,
+            sortResults: sortResults,
+            matcher: matcher
+        };
+
+        m4a.view.$metroStartStation.select2(defaultOptions);
+        m4a.view.$metroEndStation.select2(defaultOptions);
 
         // Поле выбора станции входа
         view.$metroStartStation.on("change", function () {
@@ -104,12 +87,31 @@ $(document).ready(function () {
             maxZoom: 18
         }).addTo(m4a.viewmodel.mainMap);
 
+        // Отрисовываем станции на карте
+        $.each(data.results, function(i, line) {
+            $.each(line.children, function(j, station) {
+                var stationMarker = L.marker([station.lat, station.lon], {
+                    icon: L.divIcon({
+                        iconSize: [16, 16],
+                        className: "marker-station marker-line-" + m4a.routes.COLORS[line.color]
+                    }),
+                    riseOnHover: true
+                })
+                .bindLabel(station.text)
+                .on('click', m4a.stations.selectStationFromMap.bind(station));
+                stationMarker.addTo(viewmodel.mainMap);
+                viewmodel.stationMarkers.push(stationMarker);
+            });
+        });
+
         $("#mainform").submit(function (from_url) {
             var view = m4a.view,
                 start_station = view.$metroStartStation.val(),
                 end_station = view.$metroEndStation.val();
                 portal_in = view.$metroStartInputID.val();
-                portal_out = view.$metroEndInputID.val();
+                portal_out = view.$metroEndInputID.val(),
+                route = m4a.url.getURLParameter('route'),
+                profile = m4a.url.getURLParameter('profile');
 
             if (start_station.length == 0 || end_station.length == 0) {
                 // todo: use bootstrap
@@ -127,13 +129,14 @@ $(document).ready(function () {
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                     m4a.routes.buildRoutes(data);
+                    var routeEl = route ?  $('.pagination li')[route - 1] : $('.pagination li').first();
 
                     // Активируем первый маршрут
                     // Охват на маршрут включаем только в случае, если выбраны оба выхода
                     if ((start_station && end_station) && !((portal_in && !portal_out) || (!portal_in && portal_out))) {
-                        $('.pagination li').first().trigger('click');
+                        routeEl.trigger('click');
                     } else {
-                        $('.pagination li').first().trigger('click', [false]);
+                        routeEl.trigger('click', [false]);
                     }
 
                     $.unblockUI();
