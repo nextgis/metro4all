@@ -97,7 +97,7 @@ $(document).ready(function () {
                     data: $("#mainform").serialize()
                 }).done(function (data) {
                     m4a.routes.buildRoutes(data);
-                    var routeEl = route ?  $('.pagination li')[route - 1] : $('.pagination li').first();
+                    var routeEl = route ?  $('.pagination li').eq(route - 1) : $('.pagination li').first();
 
                     // Активируем первый маршрут
                     // Охват на маршрут включаем только в случае, если выбраны оба выхода
