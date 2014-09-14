@@ -234,6 +234,11 @@
                 m4a.viewmodel.mainMap.removeLayer(route);
             }
             route = L.layerGroup();
+
+            // Прозрачность слоя станций и линий
+            $.each(m4a.viewmodel.stationMarkers, function(i, item) { item.setOpacity(0.3); });
+            m4a.viewmodel.lineSegments.setStyle({opacity: 0.1});
+            
             $.each(currentRoute, function (i, item) {
                 // Маркеры станций
                 route.addLayer(L.marker(
@@ -243,8 +248,11 @@
                                 className: 'marker-station marker-line-' + context._getLineIndexForRouteItem(item) +
                                     (i == 0 ? ' marker-enter' : (i == (currentRoute.length - 1) ? ' marker-exit' : '')),
                                 iconSize: [16, 16]
-                            })
-                        }).bindLabel(item.station_name)
+                            }),
+                            riseOnHover: true
+                        })
+                        .bindLabel(item.station_name)
+                        .on('click', m4a.stations.selectStationFromMap.bind(item))
                 ).addTo(m4a.viewmodel.mainMap);
 
                 // Сегменты маршрута

@@ -287,7 +287,7 @@ def get_routes(lang, city, delta=5, limit=3):
 
                 unit = dict(
                     station_type=station_type,
-                    station_id=station,
+                    id_station=station,
                     station_name=station_info['name'],
                     coordinates=station_info['coords'],
                     station_line=dict(

@@ -20,6 +20,28 @@
             out: { feature: null, marker: null }
         },
 
+        selectStationFromMap: function() {
+            bootbox.dialog({
+                message: "Выберите направление",
+                buttons: {
+                    entrance: {
+                        label: "Станция на вход",
+                        className: "btn-success",
+                        callback: function() {
+                            m4a.view.$metroStartStation.select2("val", this.id_station).trigger('change');
+                        }.bind(this)
+                    },
+                    exit: {
+                        label: "Станция на выход",
+                        className: "btn-success",
+                        callback: function() {
+                            m4a.view.$metroEndStation.select2("val", this.id_station).trigger('change');
+                        }.bind(this)
+                   }
+                }
+            });
+        },
+
         setStartStation: function (station_id) {
             var view = m4a.view;
             view.$metroStartInputID.val("");
