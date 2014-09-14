@@ -35,7 +35,7 @@
                 .openOn(m4a.viewmodel.mainMap);
 
             $('#btnHence').on('click', function () {
-                m4a.view.$metroStartStation.select2("val", context.id_station).trigger('change');
+                m4a.view.$metroStartStation.select2("val", context.id).trigger('change');
                 if (context.popupSelected) {
                     m4a.viewmodel.mainMap.closePopup(context.popupSelected);
                     context.popupSelected = null;
@@ -43,7 +43,7 @@
             });
 
             $('#btnThere').on('click', function () {
-                m4a.view.$metroEndStation.select2("val", context.id_station).trigger('change');
+                m4a.view.$metroEndStation.select2("val", context.id).trigger('change');
                 if (context.popupSelected) {
                     m4a.viewmodel.mainMap.closePopup(context.popupSelected);
                     context.popupSelected = null;
