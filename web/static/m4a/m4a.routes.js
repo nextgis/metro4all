@@ -36,6 +36,8 @@
             }
         },
 
+        route: null,
+
         buildRoutes: function (data) {
             var context = this,
                 routes = data.result;
@@ -248,10 +250,10 @@
             this.bindIndicatorsEvents();
 
             // Отображение маршрута на карте
-            if (typeof route !== 'undefined') {
-                m4a.viewmodel.mainMap.removeLayer(route);
+            if (this.route !== null) {
+                m4a.viewmodel.mainMap.removeLayer(this.route);
             }
-            route = L.layerGroup();
+            this.route = L.layerGroup();
 
             // Прозрачность слоя станций и линий
             $.each(m4a.viewmodel.stationMarkers, function(i, item) { item.setOpacity(0.3); });
@@ -259,7 +261,7 @@
             
             $.each(currentRoute, function (i, item) {
                 // Маркеры станций
-                route.addLayer(L.marker(
+                context.route.addLayer(L.marker(
                         item.coordinates,
                         {
                             icon: L.divIcon({
@@ -275,7 +277,7 @@
 
                 // Сегменты маршрута
                 if (i != 0) {
-                    route.addLayer(
+                    context.route.addLayer(
                         L.polyline(
                             [currentRoute[i - 1].coordinates, item.coordinates],
                             {
