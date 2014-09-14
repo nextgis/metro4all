@@ -164,10 +164,23 @@ $(document).ready(function () {
                 if (!r.children || r.children.length > 0) filteredResults.push(r);
             }
             return filteredResults;
-        }
+        };
 
-        m4a.view.$metroStartStation.select2({width: "100%", data: data, sortResults: sortResults});
-		m4a.view.$metroEndStation.select2({width: "100%", data: data, sortResults: sortResults});
+        var matcher = function(term, text) {
+            term = Select2.util.stripDiacritics(''+term).toUpperCase().replace(/Ё/g, 'Е');
+            text = Select2.util.stripDiacritics(''+text).toUpperCase().replace(/Ё/g, 'Е');
+            return text.indexOf(term) >= 0;
+        };
+
+        var defaultOptions = {
+            width: "100%",
+            data: data,
+            sortResults: sortResults,
+            matcher: matcher
+        };
+
+        m4a.view.$metroStartStation.select2(defaultOptions);
+		m4a.view.$metroEndStation.select2(defaultOptions);
 
 		// Поле выбора станции входа
 		view.$metroStartStation.on("change", function () {
