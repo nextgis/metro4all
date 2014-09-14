@@ -34,8 +34,8 @@ $(document).ready(function () {
         };
 
         var matcher = function(term, text) {
-            term = (''+term).toUpperCase().gsub(/Ё/, 'Е');
-            text = (''+text).toUpperCase().gsub(/Ё/, 'Е');
+            term = Select2.util.stripDiacritics(''+term).toUpperCase().replace(/Ё/g, 'Е');
+            text = Select2.util.stripDiacritics(''+text).toUpperCase().replace(/Ё/g, 'Е');
             return text.indexOf(term) >= 0;
         };
 
