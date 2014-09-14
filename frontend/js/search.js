@@ -157,29 +157,29 @@ $(document).ready(function () {
 
 	// Заполнение выпадающих списков
 	$.ajax(url + global_config.city + "/stations").done(function (data) {
-        var sortResults = function(results, container, query) {
-            var filteredResults = [];
-            for (var i=0; i<results.length; i++) {
-                var r = results[i];
-                if (!r.children || r.children.length > 0) filteredResults.push(r);
-            }
-            return filteredResults;
-        };
+		var sortResults = function(results, container, query) {
+			var filteredResults = [];
+			for (var i=0; i<results.length; i++) {
+				var r = results[i];
+				if (!r.children || r.children.length > 0) filteredResults.push(r);
+			}
+			return filteredResults;
+		};
 
-        var matcher = function(term, text) {
-            term = Select2.util.stripDiacritics(''+term).toUpperCase().replace(/Ё/g, 'Е');
-            text = Select2.util.stripDiacritics(''+text).toUpperCase().replace(/Ё/g, 'Е');
-            return text.indexOf(term) >= 0;
-        };
+		var matcher = function(term, text) {
+			term = Select2.util.stripDiacritics(''+term).toUpperCase().replace(/Ё/g, 'Е');
+			text = Select2.util.stripDiacritics(''+text).toUpperCase().replace(/Ё/g, 'Е');
+			return text.indexOf(term) >= 0;
+		};
 
-        var defaultOptions = {
-            width: "100%",
-            data: data,
-            sortResults: sortResults,
-            matcher: matcher
-        };
+		var defaultOptions = {
+			width: "100%",
+			data: data,
+			sortResults: sortResults,
+			matcher: matcher
+		};
 
-        m4a.view.$metroStartStation.select2(defaultOptions);
+		m4a.view.$metroStartStation.select2(defaultOptions);
 		m4a.view.$metroEndStation.select2(defaultOptions);
 
 		// Поле выбора станции входа
