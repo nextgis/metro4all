@@ -284,8 +284,8 @@
                     ).addTo(m4a.viewmodel.mainMap);
                 }
             });
-            view.$document.triggerHandler('/url/update', ['route', index + 1]);
-            view.$document.triggerHandler('/url/update', ['profile', m4a.viewmodel.profile.name]);
+            m4a.view.$document.triggerHandler('/url/update', ['route', index + 1]);
+            m4a.view.$document.triggerHandler('/url/update', ['profile', m4a.viewmodel.profile.name]);
         },
 
         _addTerminalStation: function (index, route) {
