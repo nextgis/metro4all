@@ -57,6 +57,7 @@ $(document).ready(function () {
                     view.$metroStartStationExtent.trigger('click');
                 });
             view.$metroStartStationExtent.prop("disabled", false);
+            m4a.view.$document.triggerHandler('/url/update', ['route', 1]);
             $("#mainform").submit();
         });
 
@@ -68,6 +69,7 @@ $(document).ready(function () {
                     view.$metroEndStationExtent.trigger('click');
                 });
             view.$metroEndStationExtent.prop("disabled", false);
+            m4a.view.$document.triggerHandler('/url/update', ['route', 1]);
             $("#mainform").submit();
         });
 
