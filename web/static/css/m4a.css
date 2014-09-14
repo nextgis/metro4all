@@ -358,3 +358,24 @@ a.scheme:hover {
     opacity: 1.0;
     cursor: pointer;
 }
+
+#map div.leaflet-popup-content-wrapper,
+#map div.leaflet-popup-tip {
+    background-color: transparent;
+}
+
+#map div.leaflet-popup-content {
+    margin: 3px 3px;
+}
+
+#map div.station-selected-popup .btn {
+    margin: 2px;
+    background-color: #35c0e5;
+    border-color: #2c9dba;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#map div.station-selected-popup .btn:hover {
+    background-color: #32b3d4;
+}
