@@ -20,24 +20,33 @@
             out: { feature: null, marker: null }
         },
 
-        selectStationFromMap: function() {
-            bootbox.dialog({
-                message: "Выберите направление",
-                buttons: {
-                    entrance: {
-                        label: "Станция на вход",
-                        className: "btn-success",
-                        callback: function() {
-                            m4a.view.$metroStartStation.select2("val", this.id_station).trigger('change');
-                        }.bind(this)
-                    },
-                    exit: {
-                        label: "Станция на выход",
-                        className: "btn-success",
-                        callback: function() {
-                            m4a.view.$metroEndStation.select2("val", this.id_station).trigger('change');
-                        }.bind(this)
-                   }
+        popupSelected: null,
+
+        selectStationFromMap: function (obj) {
+            var context = this,
+                popupSettings = {
+                    closeButton: false,
+                    className: 'station-selected-popup'
+                };
+
+            this.popupSelected = L.popup(popupSettings)
+                .setLatLng(obj.latlng)
+                .setContent('<button id="btnHence" type="button" class="btn">Отсюда</button><button id="btnThere" type="button" class="btn">Сюда</button>')
+                .openOn(m4a.viewmodel.mainMap);
+
+            $('#btnHence').on('click', function () {
+                m4a.view.$metroStartStation.select2("val", context.id_station).trigger('change');
+                if (context.popupSelected) {
+                    m4a.viewmodel.mainMap.closePopup(context.popupSelected);
+                    context.popupSelected = null;
+                }
+            });
+
+            $('#btnThere').on('click', function () {
+                m4a.view.$metroEndStation.select2("val", context.id_station).trigger('change');
+                if (context.popupSelected) {
+                    m4a.viewmodel.mainMap.closePopup(context.popupSelected);
+                    context.popupSelected = null;
                 }
             });
         },
@@ -51,7 +60,7 @@
         },
 
 
-        setEndStation: function(station_id) {
+        setEndStation: function (station_id) {
             var view = m4a.view;
             view.$metroEndInputID.val("");
             view.$metroEndInputName.val("");
@@ -60,27 +69,33 @@
         },
 
 
-        updateLocalPortals: function() {
-            if (this.portals.in.data) { this.updatePortalsLayer('in', this.portals.in.data); }
-            if (this.portals.out.data) { this.updatePortalsLayer('out', this.portals.out.data); }
+        updateLocalPortals: function () {
+            if (this.portals.in.data) {
+                this.updatePortalsLayer('in', this.portals.in.data);
+            }
+            if (this.portals.out.data) {
+                this.updatePortalsLayer('out', this.portals.out.data);
+            }
         },
 
 
         updatePortalsByAjax: function (stationId, type, callback) {
             var context = this;
             return $.ajax({
-              dataType: "json",
-              url: m4a.viewmodel.url.proxy + global_config.language +'/' + global_config.city + "/portals/search",
-              data: {
-                station: stationId,
-                direction: type
-              }
-            }).done(function(data) {
+                dataType: "json",
+                url: m4a.viewmodel.url.proxy + global_config.language + '/' + global_config.city + "/portals/search",
+                data: {
+                    station: stationId,
+                    direction: type
+                }
+            }).done(function (data) {
                 context.portals[type]['data'] = data;
                 context.portals[type]['markers'] = {};
                 context.updatePortalsLayer(type, data);
                 context.portalsSelected[type] = { feature: null, marker: null };
-                if (callback) { callback.f.apply(context, callback.args); }
+                if (callback) {
+                    callback.f.apply(context, callback.args);
+                }
             });
         },
 
@@ -118,10 +133,12 @@
         },
 
 
-        selectPortal: function(type, feature, marker) {
+        selectPortal: function (type, feature, marker) {
             var view = m4a.view,
                 domPrefix = 'Start';
-            if (type === 'out') { domPrefix = 'End'; }
+            if (type === 'out') {
+                domPrefix = 'End';
+            }
             view['$metro' + domPrefix + 'InputID'].val(feature.id);
             view['$metro' + domPrefix + 'InputName'].val(feature.properties.name || feature.id);
 
@@ -137,14 +154,14 @@
         },
 
 
-        isFeatureSelected: function(feature, type) {
+        isFeatureSelected: function (feature, type) {
             if (this.portalsSelected[type].feature) {
                 return this.portalsSelected[type].feature.id === feature.id;
             }
         },
 
 
-        buildIconStation: function(station, type) {
+        buildIconStation: function (station, type) {
             if (m4a.profiles.validateStation(station)) {
                 return L.icon({ iconUrl: '/static/img/' + type + '.png', iconAnchor: [8, 8]});
             } else {
@@ -153,14 +170,16 @@
         },
 
 
-        buildSelectedIcon: function() {
+        buildSelectedIcon: function () {
             return L.icon({iconUrl: '/static/img/check.png', iconAnchor: [8, 8]});
         },
 
 
-        selectPortalByFeatureId: function(id, type) {
+        selectPortalByFeatureId: function (id, type) {
             if (this.portals[type].markers[id]) {
-                var feature = $.grep(this.portals[type].data.features, function(feature){ return feature.id == id; });
+                var feature = $.grep(this.portals[type].data.features, function (feature) {
+                    return feature.id == id;
+                });
                 if (feature.length > 0) {
                     this.selectPortal(type, feature[0], this.portals[type].markers[id]);
                     return true;
@@ -169,4 +188,4 @@
             return false;
         }
     })
-}) (jQuery, m4a)
+})(jQuery, m4a)
