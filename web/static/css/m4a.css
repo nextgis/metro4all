@@ -398,7 +398,7 @@ div.leaflet-control-extent:hover {
 }
 
 div.extent-earth {
-    width: 26px;
-    height: 26px;
-    background: url(../img/m4a.png) no-repeat -138px 1px;
+    width: 33px;
+    height: 33px;
+    background: url(../img/m4a.png) no-repeat -139px 0px;
 }

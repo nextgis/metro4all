@@ -1,6 +1,6 @@
 L.Control.Extent = L.Control.extend({
     options: {
-        position: 'topleft',
+        position: 'topright',
         maxWidth: 100
     },
 
