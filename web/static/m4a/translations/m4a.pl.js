@@ -43,6 +43,9 @@
             "eq_st": "Wybrałeś takie same stacje",
             "st_st": "Wybierz stację początkową",
             "end_st": "Wybierz stację końcową",
+        },
+        map: {
+            "extent": "Pokaż całe miasto"
         }
     })
 })(jQuery, m4a)

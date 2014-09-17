@@ -43,6 +43,9 @@
             "eq_st": "From station is equal to destination station",
             "st_st": "Choose start station",
             "end_st": "Choose destination station"
+        },
+        map: {
+            "extent": "Show the whole city"
         }
     })
 })(jQuery, m4a)

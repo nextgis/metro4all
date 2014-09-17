@@ -6,7 +6,8 @@ L.Control.Extent = L.Control.extend({
 
     onAdd: function (map) {
         var className = 'leaflet-control-extent',
-            container = L.DomUtil.create('div', className);
+            container = L.DomUtil.create('div', className),
+            extentElement;
 
         L.DomEvent
             .on(container, 'click', L.DomEvent.stop)
@@ -16,7 +17,8 @@ L.Control.Extent = L.Control.extend({
             .on(container, 'dblclick', L.DomEvent.stop)
             .on(container, 'dblclick', this._extent, this);
 
-        L.DomUtil.create('div', 'extent-earth', container);
+        extentElement = L.DomUtil.create('div', 'extent-earth', container);
+        extentElement.setAttribute('title', m4a.resources.map.extent);
         return container;
     },
 
