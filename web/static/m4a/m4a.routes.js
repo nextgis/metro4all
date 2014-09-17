@@ -19,19 +19,17 @@
         },
 
         TERMINAL_STATIONS: {
-            FIRST: {
-                index: 'first',
+            ENTER: {
                 className: 'enter',
                 resourceName: 'entr',
-                portalName: 'portal_to',
+                portalName: 'portal_from',
                 obstacleResourceName: 'obt_arent_sh_en'
             },
 
-            LAST: {
-                index: 'last',
+            EXIT: {
                 className: 'exit',
                 resourceName: 'exit',
-                portalName: 'portal_from',
+                portalName: 'portal_to',
                 obstacleResourceName: 'obt_arent_sh_ex'
             }
         },
@@ -209,7 +207,7 @@
                 content = "<ul class='route'>",
                 currentRoute = routes[index].route;
 
-            content += this._addTerminalStation('FIRST', routes[index]);
+            content += this._addTerminalStation('ENTER', routes[index]);
 
             $.each(currentRoute, function (i, item) {
                 var condition = (i == 0) ? item.station_type == 'regular' :
@@ -241,7 +239,7 @@
                 }
             });
 
-            content += this._addTerminalStation('LAST', routes[index]);
+            content += this._addTerminalStation('EXIT', routes[index]);
             content += "</ul>";
             content += '<a href="' + m4a.resources.routes.help_link + '" target="_blank">' + m4a.resources.routes.help + '</a>';
 
@@ -295,7 +293,7 @@
             var settings = m4a.routes.TERMINAL_STATIONS[index];
             var currentRoute = route.route;
             var portal = route.portals[settings.portalName];
-            var i = index == 'FIRST' ? 0 : currentRoute.length - 1;
+            var i = index == 'ENTER' ? 0 : currentRoute.length - 1;
             var lineClass = currentRoute && currentRoute.length > 0 ?
                     ' line-' + this._getLineIndexForRouteItem(currentRoute[i]) : '',
                 fullClassName = [settings.className, lineClass].join(' '),
