@@ -9,9 +9,12 @@ L.Control.Extent = L.Control.extend({
             container = L.DomUtil.create('div', className);
 
         L.DomEvent
-            .on(container, 'mousedown dblclick', L.DomEvent.stopPropagation)
             .on(container, 'click', L.DomEvent.stop)
             .on(container, 'click', this._extent, this);
+
+        L.DomEvent
+            .on(container, 'dblclick', L.DomEvent.stop)
+            .on(container, 'dblclick', this._extent, this);
 
         L.DomUtil.create('div', 'extent-earth', container);
         return container;
