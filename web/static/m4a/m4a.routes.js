@@ -74,6 +74,7 @@
                 profileBarriersIndicators = m4a.profiles.barriersIndicatorsByProfile[profileName];
 
             $.each(profileBarriersIndicators.visible, function (index, indicatorName) {
+                isIndicatorAvailable = true;
                 if (context.barriersIndicators[indicatorName]) {
                     if (m4a.profiles.profileBarriersRestrictions[profileName][indicatorName]) {
                         isIndicatorAvailable = m4a.profiles.profileBarriersRestrictions[profileName][indicatorName](barriers);

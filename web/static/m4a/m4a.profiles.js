@@ -103,7 +103,7 @@
                 }
             },
             trolley: {
-                min_rail_width: function (barriers) {
+                min_max_rail_width: function (barriers) {
                     if (barriers.max_rail_width && barriers.min_rail_width) {
                         return ( barriers.max_rail_width >= m4a.viewmodel.profile.values.selected) &&
                             (barriers.min_rail_width <= m4a.viewmodel.profile.values.selected);
