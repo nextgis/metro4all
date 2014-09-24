@@ -36,7 +36,7 @@
 	<string name="sToStation">Куды</string>
 	<string name="sRoute">Варыянт</string>
 	<string name="sSchema">Макет</string>
-    <string name="sLegend"></string>
+    <string name="sLegend">Legend</string>
 	<string name="sStationName">Імя</string>
 	<string name="sEntranceName">Уваход</string>
 	<string name="sExitName">Выхад</string>
