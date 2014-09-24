@@ -22,7 +22,7 @@
 	<string name="sNoOrEmptyData">The data are absent or invalid. Please download the database.</string>
 	
 	<string name="sSelectDataToDownload">Select data to download</string>
-	<string name="sUpdateAvaliable">Data updates is available</string>
+	<string name="sUpdateAvaliable">Data update is available</string>
 	<string name="sDownload">Download</string>
 	<string name="sDelete">Delete</string>
 	<string name="sYes">Yes</string>
