@@ -3,12 +3,17 @@ import csv
 from lxml import etree
 from collections import namedtuple
 
-stations = csv.DictReader(open("stations.csv", 'rb'), delimiter=';')
+stations = csv.DictReader(open("stations.csv", 'rb'), delimiter=',')
 input_fnames = stations.fieldnames
 output_f = csv.DictWriter(open('stations_new.csv', 'wb'), input_fnames, delimiter=';')
 output_f.writeheader()
 
-request = "http://www.overpass-api.de/api/xapi_meta?*%5Bstation=subway%5D%5Bbbox=37.1867,55.4465,38.275,55.9842%5D"
+msk_bnd = "37.1867,55.4465,38.275,55.9842"
+spb_bnd = "29.6617,59.7592,30.817,60.1743"
+
+
+city_bnd = spb_bnd
+request = "http://www.overpass-api.de/api/xapi_meta?*%5Bstation=subway%5D%5Bbbox=" + city_bnd + "%5D"
 
 tree = etree.parse(urllib.urlopen(request))
 root = tree.getroot()
