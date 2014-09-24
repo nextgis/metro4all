@@ -31,7 +31,9 @@
 
             this.popupSelected = L.popup(popupSettings)
                 .setLatLng(obj.latlng)
-                .setContent('<button id="btnHence" type="button" class="btn">Отсюда</button><button id="btnThere" type="button" class="btn">Сюда</button>')
+                .setContent('<button id="btnHence" type="button" class="btn">' + m4a.resources.routes.from +
+                    '</button><button id="btnThere" type="button" class="btn">' + m4a.resources.routes.to +
+                    '</button>')
                 .openOn(m4a.viewmodel.mainMap);
 
             $('#btnHence').on('click', function () {

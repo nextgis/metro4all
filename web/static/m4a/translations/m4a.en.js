@@ -36,7 +36,9 @@
             "show": "More...",
             "hide": "Hide",
             "help": "Looking for official assistance service?",
-            "help_link": "http://metro4all.org/official-assistance/"
+            "help_link": "http://metro4all.org/official-assistance/",
+            "from": "From",
+            "to": "To"
         },
         inline: {
             "start_st": "Please select starting or destination station",

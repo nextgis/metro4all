@@ -36,7 +36,9 @@
             "show": "Еще...",
             "hide": "Скрыть",
             "help": "Нужна помощь официальных служб?",
-            "help_link": "http://metro4all.org/ru/official-assistance/"
+            "help_link": "http://metro4all.org/ru/official-assistance/",
+            "from": "Отсюда",
+            "to": "Сюда"
         },
         inline: {
             "start_st": "Не выбрана входная или выходная станция!",
