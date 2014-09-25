@@ -49,7 +49,7 @@
 	<string name="sSelToStation">Выберите станцию</string>
 	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
 	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
-	<string name="sMaxWCWidth">Ширина прохода</string>
+	<string name="sMaxWCWidth">Мин. ширина прохода</string>
 	<string name="sStairsCount">Всего ступеней</string>
 	<string name="sStairsEconomy">Можно сэкономить ступеней (за счет лифтов, пандусов, рельс)</string>
 	<string name="sStairsLeft">Остается пройти ступеней</string>
