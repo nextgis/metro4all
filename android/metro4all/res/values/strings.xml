@@ -49,7 +49,7 @@
 	<string name="sSelToStation">Select arrival station</string>
 	<string name="sBarriersExist">Click here to see barriers&#8230;</string>
 	<string name="sBarriersConflict">You have a conflict with your parameters</string>
-	<string name="sMaxWCWidth">Passway width upto</string>
+	<string name="sMaxWCWidth">Passway min width</string>
 	<string name="sStairsCount">Steps total</string>
 	<string name="sStairsEconomy">Steps saved by elevators, ramps and rails</string>
 	<string name="sStairsLeft">Steps to climb</string>
