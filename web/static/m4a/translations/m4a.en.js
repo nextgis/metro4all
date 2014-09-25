@@ -14,7 +14,7 @@
             "trl_d3": " cm wide stroller"
         },
         routes: {
-            "wch_w": "Min passway width",
+            "wch_w": "Passway min width",
             "wch_w1": "",
             "wch_w2": " cm",
             "n_str": "No stairs",
