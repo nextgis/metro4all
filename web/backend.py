@@ -48,7 +48,8 @@ def get_barriers(item):
         lift_minus_step=item['lift_minus_step'],
         min_rail_width=int(item['min_rail_width'])/10 if (item['min_rail_width'].isdigit() and item['min_rail_width'] != '0') else None,
         max_rail_width=int(item['max_rail_width'])/10 if (item['max_rail_width'].isdigit() and item['max_rail_width'] != '0') else None,
-        max_angle=int(item['max_angle']) if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None
+        max_angle=int(item['max_angle']) if (item['max_angle'].isdigit() and item['max_angle'] != '0') else None,
+        escalator=int(item['escalator']) if (item['escalator'].isdigit()) else 0
     )
 
 
