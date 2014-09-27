@@ -78,15 +78,15 @@
 
         barriersIndicatorsByProfile: {
             man: {
-                visible: ['escal', 'lift', 'min_step'],
+                visible: ['escalator', 'lift', 'min_step'],
                 hidden: ['max_width', 'retrench_steps', 'min_step_ramp-lift_minus_step', 'step_for_walking', 'min_max_rail_width', 'max_angle']
             },
             wheelchair: {
-                visible: ['max_width', 'escal', 'lift', 'retrench_steps', 'min_step_ramp-lift_minus_step', 'step_for_walking', 'min_max_rail_width', 'max_angle'],
+                visible: ['max_width', 'escalator', 'lift', 'retrench_steps', 'min_step_ramp-lift_minus_step', 'step_for_walking', 'min_max_rail_width', 'max_angle'],
                 hidden: ['min_step']
             },
             trolley: {
-                visible: ['max_width', 'escal', 'lift', 'retrench_steps', 'step_for_walking', 'min_max_rail_width'],
+                visible: ['max_width', 'escalator', 'lift', 'retrench_steps', 'step_for_walking', 'min_max_rail_width'],
                 hidden: ['min_step', 'max_angle']
             }
         },
@@ -100,6 +100,9 @@
                     return barriers.max_width ?
                         barriers.max_width >= m4a.viewmodel.profile.values.selected :
                         true;
+                },
+                escalator: function (barriers) {
+                    return barriers.escalator ? barriers.escalator < 1 : true
                 }
             },
             trolley: {
@@ -114,6 +117,9 @@
                     return barriers.max_width ?
                         barriers.max_width >= m4a.viewmodel.profile.values.selected :
                         true;
+                },
+                escalator: function (barriers) {
+                    return barriers.escalator ? barriers.escalator < 1 : true
                 }
             }
         },

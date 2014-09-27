@@ -38,7 +38,9 @@
             "help": "Нужна помощь официальных служб?",
             "help_link": "http://metro4all.org/ru/official-assistance/",
             "from": "Отсюда",
-            "to": "Сюда"
+            "to": "Сюда",
+            "escal_y": "Эскалатор",
+            "escal_n": "Эскалаторов нет"
         },
         inline: {
             "start_st": "Не выбрана входная или выходная станция!",

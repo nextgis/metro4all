@@ -38,7 +38,9 @@
             "help": "Looking for official assistance service?",
             "help_link": "http://metro4all.org/official-assistance/",
             "from": "Od",
-            "to": "Do"
+            "to": "Do",
+            "escal_y": "Schodkowych",
+            "escal_n": "Brak schodkowychów"
         },
         inline: {
             "start_st": "Wybierz stacje wejścia lub wyjścia",

@@ -177,6 +177,22 @@
                 c += "</li>";
 
                 return c;
+            },
+
+            escalator: function (barriers, isIndicatorAvailable) {
+                var c = '';
+
+                if (barriers['escalator'] && barriers['escalator'] > 0) {
+                    c += (isIndicatorAvailable ? '<li><strong>' : '<li class="invalid"><strong>')
+                        + m4a.resources.routes.escal_y + '</strong> '
+                        + barriers['escalator'];
+                } else {
+                    c += "<li class='empty'>" + m4a.resources.routes.escal_n;
+                }
+
+                c += "</li>";
+
+                return c;
             }
         },
 
@@ -255,9 +271,11 @@
             this.route = L.layerGroup();
 
             // Прозрачность слоя станций и линий
-            $.each(m4a.viewmodel.stationMarkers, function(i, item) { item.setOpacity(0.3); });
+            $.each(m4a.viewmodel.stationMarkers, function (i, item) {
+                item.setOpacity(0.3);
+            });
             m4a.viewmodel.lineSegments.setStyle({opacity: 0.1});
-            
+
             $.each(currentRoute, function (i, item) {
                 // Маркеры станций
                 context.route.addLayer(L.marker(

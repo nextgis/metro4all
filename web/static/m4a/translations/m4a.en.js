@@ -38,7 +38,9 @@
             "help": "Looking for official assistance service?",
             "help_link": "http://metro4all.org/official-assistance/",
             "from": "From",
-            "to": "To"
+            "to": "To",
+            "escal_y": "Escalator",
+            "escal_n": "No escalators"
         },
         inline: {
             "start_st": "Please select starting or destination station",
