@@ -5,7 +5,7 @@
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
     
-    <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
+    <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар\'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
 
 	<string name="sSettings">Наладкі</string>
 	<string name="sAbout">Пра дадатак</string>
