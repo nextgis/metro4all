@@ -5,7 +5,7 @@
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
     
-    <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар'еры, якія вас чакаюць на шляху. \n\nMore info at:</string>
+    <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
 
 	<string name="sSettings">Наладкі</string>
 	<string name="sAbout">Пра дадатак</string>
@@ -18,7 +18,7 @@
 	<string name="sFileNotFound">Файл не знойдзены</string>
 	<string name="sCannotReadFile">Немагчыма прачытаць файл</string>
 	<string name="sCannotGetPath">Шлях не знойдзены</string>
-	<string name="sInvalidCSVData">Памылковыя дадзеныя csv. Сума ў полі памылковая. File: </string>
+	<string name="sInvalidCSVData">Памылковыя дадзеныя csv. Сума ў полі памылковая. Файл: </string>
 	<string name="sNoOrEmptyData">Дадзеныя адсутнічаюць альбо памылковыя. Калі ласка, запампуйце базу дадзеных.</string>
 	
 	<string name="sSelectDataToDownload">Абярыце дадзеныя для запампавання</string>
@@ -36,26 +36,26 @@
 	<string name="sToStation">Куды</string>
 	<string name="sRoute">Варыянт</string>
 	<string name="sSchema">Макет</string>
-    <string name="sLegend">Legend</string>
+    <string name="sLegend">Умоўныя абазначэнні</string>
 	<string name="sStationName">Імя</string>
 	<string name="sEntranceName">Уваход</string>
 	<string name="sExitName">Выхад</string>
-    <string name="sStationPortalName">Station \"%1$s\",\n%2$s \"%3$s\"</string>
-    <string name="sNearestStation">Nearest station is \"%1$s\"</string>
-    <string name="sInPortalMapTitle">Entrances of \"%1$s\"</string>
-    <string name="sOutPortalMapTitle">Exits of \"%1$s\"</string>
+    <string name="sStationPortalName">Стацыя \"%1$s\",\n%2$s \"%3$s\"</string>
+    <string name="sNearestStation">Бліжэйшая станцыя \"%1$s\"</string>
+    <string name="sInPortalMapTitle">Уваходы ў cт. \"%1$s\"</string>
+    <string name="sOutPortalMapTitle">Выхады з ст. \"%1$s\"</string>
 	<string name="sNotSet">Не ўсталявана</string>
 	<string name="sSelFromStation">Абярыце станцыю адпраўлення</string>
 	<string name="sSelToStation">Абярыце станцыю прыбыцця</string>
 	<string name="sBarriersExist">Націсніце, каб пабачыць перашкоду&#8230;</string>
 	<string name="sBarriersConflict">Канфлікт параметраў</string>
-	<string name="sMaxWCWidth">Passway min width</string>
-	<string name="sStairsCount">Steps total</string>
-	<string name="sStairsEconomy">Steps saved by elevators, ramps and rails</string>
-	<string name="sStairsLeft">Steps to climb</string>
+	<string name="sMaxWCWidth">Мін. шырыня праходу</string>
+	<string name="sStairsCount">Усяго прыступак</string>
+	<string name="sStairsEconomy">Прытупак захавана праз ліфты, пандусы і рэйкі</string>
+	<string name="sStairsLeft">Прыступак падняцца</string>
 	<string name="sStairsWORails">З іх без рэек і рампаў</string>
 	<string name="sLift">Ліфт</string>
-	<string name="sEscalator">Escalator</string>
+	<string name="sEscalator">Эскалатар</string>
 	<string name="sLiftEconomy">Колькасць прыступак, якую эканоміць ліфт</string>
 	<string name="sCM">cm</string>
 	<string name="sKB">Kb</string>
@@ -98,7 +98,7 @@
 	<string name="sPrefChangeCityBasesBtn">Змяніць</string>
 	<string name="sPrefChangeCityBasesSummary">Выбраць гарады</string>
     <string name="sPrefLegend">Legend</string>
-    <string name="sPrefLegendSummary">Legend for station layout</string>
+    <string name="sPrefLegendSummary">Умоўныя абазначэнні для схемы станцыі</string>
 	<string name="sPrefCity">Цяперашні горад</string>
 	<string name="sPrefCitySummary">Выбраць горад</string>
 	<string name="sPrefCityTitle">Выбраць горад са спісу</string>
