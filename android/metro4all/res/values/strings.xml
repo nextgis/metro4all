@@ -56,7 +56,7 @@
 	<string name="sStairsWORails">Of those, without rails or ramps</string>
 	<string name="sLift">Elevator</string>
 	<string name="sEscalator">Escalator</string>
-	<string name="sLiftEconomy">Number of stairs saved by elevator</string>
+	<string name="sLiftEconomy">Number of steps saved by elevator</string>
 	<string name="sCM">cm</string>
 	<string name="sKB">Kb</string>
 	<string name="sMB">Mb</string>
