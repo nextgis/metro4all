@@ -52,7 +52,7 @@
 	<string name="sMaxWCWidth">Мін. шырыня праходу</string>
 	<string name="sStairsCount">Усяго прыступак</string>
 	<string name="sStairsEconomy">Прытупак захавана праз ліфты, пандусы і рэйкі</string>
-	<string name="sStairsLeft">Прыступак падняцца</string>
+	<string name="sStairsLeft">Прыступак пераадолець</string>
 	<string name="sStairsWORails">З іх без рэек і рампаў</string>
 	<string name="sLift">Ліфт</string>
 	<string name="sEscalator">Эскалатар</string>
