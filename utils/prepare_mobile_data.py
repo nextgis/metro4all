@@ -104,7 +104,8 @@ def split_portals(csv_in):
                 ('lift_minus_step', 'lift_minus_step'),
                 ('min_rail_width', 'min_rail_width'),
                 ('max_rail_width', 'max_rail_width'),
-                ('max_angle', 'max_angle')
+                ('max_angle', 'max_angle'),
+                ('escalator', 'escalator')
             )
 
             output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';', quotechar = '|', quoting = csv.QUOTE_NONE)
