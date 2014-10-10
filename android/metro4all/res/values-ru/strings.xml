@@ -54,8 +54,8 @@
 	<string name="sStairsEconomy">Можно сэкономить ступеней (за счет лифтов, пандусов, рельс)</string>
 	<string name="sStairsLeft">Остается пройти ступеней</string>
 	<string name="sStairsWORails">Из них без рельс и пандусов</string>
-	<string name="sLift">Лифт</string>
-	<string name="sEscalator">Эскалатор</string>
+	<string name="sLift">Лифтов</string>
+	<string name="sEscalator">Эскалаторов</string>
 	<string name="sLiftEconomy">Лифт экономит ступеней</string>
 	<string name="sCM">см</string>
 	<string name="sKB">Кб</string>
