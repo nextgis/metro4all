@@ -125,15 +125,15 @@ public class MAGraph {
 		             
 		             //station_from;station_to;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle
 		             
-		             if(RowData.length != 10){
+		             if(RowData.length != 11){
 		     	    	 m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "interchanges.csv";
 		            	 return false;
 		             }
 		             
 					 int nFromId = Integer.parseInt(RowData[0]);
 					 int nToId = Integer.parseInt(RowData[1]);
-					 int[] naBarriers = {0,0,0,0,0,0,0,0};
-					 for(int i = 2; i < 10; i++){
+					 int[] naBarriers = {0,0,0,0,0,0,0,0,0};
+					 for(int i = 2; i < 11; i++){
 						 int nVal = Integer.parseInt(RowData[i]);
 						 naBarriers[i - 2] = nVal;
 					 }	 
@@ -217,111 +217,110 @@ public class MAGraph {
 		
 		return true;			
 	}
-	
-	protected boolean LoadPortals(){
-		String sFileName = "portals_" + m_sLocale + ".csv";	
-    	try {
-    		File oRouteDataDir = new File(GetCurrentRouteDataPath());
-    		File portals_file = new File(oRouteDataDir, sFileName);
-		    if(!portals_file.exists())
-		    	portals_file = new File(oRouteDataDir, "portals_en.csv");
 
-			if (portals_file.exists()) {
-			   	InputStream in;
-				in = new BufferedInputStream(new FileInputStream(portals_file));
-	
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-	
-		        String line = reader.readLine();
-		        while ((line = reader.readLine()) != null) {
-		             String[] RowData = line.split(CSV_CHAR);
-		             
-		             if(RowData.length < 6){
-		     	    	 m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "portals.csv";
-		            	 return false;
-		             }
+    protected boolean LoadPortals() {
+        String sFileName = "portals_" + m_sLocale + ".csv";
+        try {
+            File oRouteDataDir = new File(GetCurrentRouteDataPath());
+            File portals_file = new File(oRouteDataDir, sFileName);
+            if (!portals_file.exists())
+                portals_file = new File(oRouteDataDir, "portals_en.csv");
 
-					 int nID = Integer.parseInt(RowData[0]);
-					 String sName = RowData[1];
-					 int nStationId = Integer.parseInt(RowData[2]);
-					 int nDirection = 0;
-					 if(RowData[3].equals("in")){
-						 nDirection = 1;
-					 }
-					 else if(RowData[3].equals("out")){
-						 nDirection = 2;
-					 }
-					 else{
-					 	nDirection = 3;
-					 }
+            if (portals_file.exists()) {
+                InputStream in;
+                in = new BufferedInputStream(new FileInputStream(portals_file));
 
-                     double nLat = Double.parseDouble(RowData[4]);
-                     double nLong = Double.parseDouble(RowData[5]);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                     int min_width = 0;
-					 int min_step = 0;
-					 int min_step_ramp = 0;
-					 int lift = 0;
-					 int lift_minus_step = 0;
-					 int min_rail_width = 0;
-					 int max_rail_width = 0;
-					 int max_angle = 0;
-					 
-					 if(RowData.length > 13)
-					 {
-						 String tmp = RowData[6];
-						 min_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[7];
-						 min_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[8];
-						 min_step_ramp = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[9];
-						 lift = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[10];
-						 lift_minus_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[11];
-						 min_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[12];
-						 max_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-						 tmp = RowData[13];
-						 max_angle = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
-					 }
-					 int [] detailes = {min_width, min_step, min_step_ramp, lift, lift_minus_step, min_rail_width, max_rail_width, max_angle};
-					 PortalItem pt = new PortalItem(nID, sName, nStationId,
-                             nDirection, detailes, nLat, nLong);
-	
-					 StationItem item = m_moStations.get(nStationId);
-					 if(item == null){
-						 m_sErr = "Station #" + nStationId + " is underfined.";
-						 Log.d(TAG, m_sErr);
-						 return false;
-					 }
-					 m_moStations.get(nStationId).AddPortal(pt);
-		        }
-		        
-		        reader.close();
-			    if (in != null) {
-			       	in.close();
-			   	} 
-			}
-			else{
-				m_sErr = m_oContext.getString(R.string.sCannotGetPath);
-				return false;
-			}
-			    
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			m_sErr = e.getLocalizedMessage();
-			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
-			m_sErr = e.getLocalizedMessage();
-			return false;
-		}	
-    	return true;
-	}
-	
-	protected boolean LoadStations(){
+                String line = reader.readLine();
+                while ((line = reader.readLine()) != null) {
+                    String[] RowData = line.split(CSV_CHAR);
+
+                    if (RowData.length < 6) {
+                        m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "portals.csv";
+                        return false;
+                    }
+
+                    int nID = Integer.parseInt(RowData[0]);
+                    String sName = RowData[1];
+                    int nStationId = Integer.parseInt(RowData[2]);
+                    int nDirection = 0;
+                    if (RowData[3].equals("in")) {
+                        nDirection = 1;
+                    } else if (RowData[3].equals("out")) {
+                        nDirection = 2;
+                    } else {
+                        nDirection = 3;
+                    }
+
+                    double nLat = Double.parseDouble(RowData[4]);
+                    double nLong = Double.parseDouble(RowData[5]);
+
+                    int min_width = 0;
+                    int min_step = 0;
+                    int min_step_ramp = 0;
+                    int lift = 0;
+                    int lift_minus_step = 0;
+                    int min_rail_width = 0;
+                    int max_rail_width = 0;
+                    int max_angle = 0;
+                    int escalator = 0;
+
+                    if (RowData.length > 14) {
+                        String tmp = RowData[6];
+                        min_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[7];
+                        min_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[8];
+                        min_step_ramp = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[9];
+                        lift = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[10];
+                        lift_minus_step = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[11];
+                        min_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[12];
+                        max_rail_width = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[13];
+                        max_angle = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                        tmp = RowData[14];
+                        escalator = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
+                    }
+                    int[] detailes = {min_width, min_step, min_step_ramp, lift, lift_minus_step, min_rail_width, max_rail_width, max_angle, escalator};
+                    PortalItem pt = new PortalItem(nID, sName, nStationId,
+                            nDirection, detailes, nLat, nLong);
+
+                    StationItem item = m_moStations.get(nStationId);
+                    if (item == null) {
+                        m_sErr = "Station #" + nStationId + " is underfined.";
+                        Log.d(TAG, m_sErr);
+                        return false;
+                    }
+                    m_moStations.get(nStationId).AddPortal(pt);
+                }
+
+                reader.close();
+                if (in != null) {
+                    in.close();
+                }
+            } else {
+                m_sErr = m_oContext.getString(R.string.sCannotGetPath);
+                return false;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            m_sErr = e.getLocalizedMessage();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            m_sErr = e.getLocalizedMessage();
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean LoadStations(){
 		m_oGraph.clear();
 		m_moStations.clear();
 		int nCounter = 0;

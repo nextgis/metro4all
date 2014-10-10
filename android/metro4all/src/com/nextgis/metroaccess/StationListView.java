@@ -183,7 +183,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			routeList.add(FillBarriersForExit(oExit, mnArrivalPortalId));
 			//routeList.add(oExit);
 		
-			int[] naBarriers = {0,0,0,0,0,0,0,0};
+			int[] naBarriers = {0,0,0,0,0,0,0,0,0};
 			for(RouteItem rit : routeList){
 				List<BarrierItem> bits = rit.GetProblems();
 				if(bits != null){
@@ -223,6 +223,11 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 								naBarriers[7] = bit.GetValue();
 							}
 						}
+                        else if(bit.GetId() == 8){
+                            if(naBarriers[8] < bit.GetValue()){
+                                naBarriers[8] = bit.GetValue();
+                            }
+                        }
 					}
 				}
 			}
@@ -234,7 +239,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			
 	        // create new adapter
 		    RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, routeList);
-	        
+
 		    return expListAdapter;
    		}
    		return null;
@@ -242,7 +247,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 
 	protected RouteItem FillBarriers(RouteItem it, int StationFromId, int StationToId){
 		int[] naBarriers = mmoCrosses.get("" + StationFromId + "->" + StationToId);
-		if(naBarriers != null && naBarriers.length == 8){
+		if(naBarriers != null && naBarriers.length == 9){
 			FillWithData(naBarriers, it, false);
 		}
 		return it;
@@ -332,8 +337,13 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			String sName = getString(R.string.sMaxAngle) + ": " + naBarriers[7] + DEGREE_CHAR;
 			BarrierItem bit = new BarrierItem(7, sName, false, naBarriers[7]);
 			it.AddBarrier(bit);
-		}		
-	}
+		}
+        if(bWithZeroes || naBarriers[8] > 0){//escalator
+            String sName = getString(R.string.sEscalator) + ": " + naBarriers[8];
+            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
+            it.AddBarrier(bit);
+        }
+    }
 	
 	
     @Override
