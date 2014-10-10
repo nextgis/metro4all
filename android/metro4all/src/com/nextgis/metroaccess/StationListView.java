@@ -343,6 +343,11 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
             BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
             it.AddBarrier(bit);
         }
+        else{
+            String sName = getString(R.string.sEscalator) + ": " + getString(R.string.sNo);
+            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
+            it.AddBarrier(bit);
+        }
     }
 	
 	
