@@ -26,7 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.*;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
@@ -216,6 +218,36 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 			    ivIcon.setImageBitmap(myBitmap);
 			}
+
+            TextView tvSchemeButton = (TextView) convertView.findViewById(R.id.tvStationSchemeButton);
+            final File schemaFile =
+                    new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
+
+            if (schemaFile.exists()) {
+                tvSchemeButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        try {
+                            Log.d(TAG, schemaFile.getPath());
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("image_path", schemaFile.getPath());
+                            Intent intentView = new Intent(mContext,
+                                    com.nextgis.metroaccess.StationImageView.class);
+                            intentView.putExtras(bundle);
+
+                            mContext.startActivity(intentView);
+
+                        } catch (ActivityNotFoundException e) {
+                            Log.e(TAG, "Call failed", e);
+                        }
+                    }
+                });
+
+                tvSchemeButton.setVisibility(View.VISIBLE);
+            } else {
+                tvSchemeButton.setVisibility(View.INVISIBLE);
+            }
+
 
             TextView tvMapButton = (TextView) convertView.findViewById(R.id.tvPortalMapButton);
             tvMapButton.setOnClickListener(new View.OnClickListener() {

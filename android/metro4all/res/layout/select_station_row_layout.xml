@@ -43,7 +43,15 @@
       android:ellipsize="marquee"
       />
 
-  <TextView
+    <TextView
+        android:id="@+id/tvStationSchemeButton"
+        android:background="@drawable/ic_action_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dip"
+        />
+
+    <TextView
       android:id="@+id/tvPortalMapButton"
       android:background="@drawable/ic_action_map"
       android:layout_width="wrap_content"
