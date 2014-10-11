@@ -70,7 +70,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:layout_margin="5dip"
-      android:background="@drawable/ic_content_picture"
+      android:background="@drawable/ic_action_schema"
       />
   
 </LinearLayout>
