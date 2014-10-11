@@ -145,7 +145,9 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		//
 		if(mnType > 1){
 			boolean bSmallWidth = entry.GetDetailes()[0] < mnMaxWidth;
-			boolean bCanRoll = entry.GetDetailes()[5] < mnWheelWidth && entry.GetDetailes()[6] > mnWheelWidth;
+			boolean bCanRoll = entry.GetDetailes()[7] == 0
+                    || entry.GetDetailes()[5] <= mnWheelWidth
+                    && (entry.GetDetailes()[6] == 0 || mnWheelWidth <= entry.GetDetailes()[6]);
 			if(m_bHaveLimits && (bSmallWidth || !bCanRoll)){
 				item.setTextColor(Color.RED);
 			}

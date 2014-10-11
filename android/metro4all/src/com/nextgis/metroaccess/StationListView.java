@@ -279,7 +279,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 
 	protected void FillWithData(int[] naBarriers, RouteItem it, boolean bWithZeroes){
 		if(bWithZeroes || naBarriers[0] > 0){//max_width
-			boolean bProblem = naBarriers[0] < mnMaxWidth && m_bHaveLimits;
+			boolean bProblem = m_bHaveLimits && naBarriers[0] < mnMaxWidth;
 			String sName = getString(R.string.sMaxWCWidth) + ": " + naBarriers[0] / 10 + " " + getString(R.string.sCM);
 			BarrierItem bit = new BarrierItem(0, sName, bProblem, naBarriers[0]);
 			it.AddBarrier(bit);
@@ -321,9 +321,9 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		}
         if(bWithZeroes || naBarriers[5] > 0 || naBarriers[6] > 0){
            String sName = getString(R.string.sRailWidth) +  ": " + naBarriers[5] / 10 + " - "  + naBarriers[6] / 10 + " " + getString(R.string.sCM);
-            boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
-            if(!bCanRoll && !m_bHaveLimits)
-                bCanRoll = true;
+            boolean bCanRoll = !m_bHaveLimits || naBarriers[7] == 0
+                    || naBarriers[5] <= mnWheelWidth
+                    && (naBarriers[6] == 0 || mnWheelWidth <= naBarriers[6]);
             BarrierItem bit = new BarrierItem(56, sName, !bCanRoll, naBarriers[6] - naBarriers[5]);
             it.AddBarrier(bit);
         }
