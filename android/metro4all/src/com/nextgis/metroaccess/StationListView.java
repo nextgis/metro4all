@@ -284,7 +284,27 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			BarrierItem bit = new BarrierItem(0, sName, bProblem, naBarriers[0]);
 			it.AddBarrier(bit);
 		}
-		if(bWithZeroes || naBarriers[1] > 0){//min_step
+        if(bWithZeroes || naBarriers[8] > 0){//escalator
+            String sName = getString(R.string.sEscalator) + ": " + naBarriers[8];
+            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
+            it.AddBarrier(bit);
+        }
+        else{
+            String sName = getString(R.string.sEscalator) + ": " + getString(R.string.sNo);
+            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
+            it.AddBarrier(bit);
+        }
+        if(bWithZeroes || naBarriers[3] > 0){//lift
+            String sName = getString(R.string.sLift) + ": " + naBarriers[3];
+            BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
+            it.AddBarrier(bit);
+        }
+        else{
+            String sName = getString(R.string.sLift) + ": " + getString(R.string.sNo);
+            BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
+            it.AddBarrier(bit);
+        }
+        if(bWithZeroes || naBarriers[1] > 0){//min_step
 			String sName = getString(R.string.sStairsCount) + ": " + naBarriers[1];
 			BarrierItem bit = new BarrierItem(1, sName, false, naBarriers[1]);
 			it.AddBarrier(bit);
@@ -292,16 +312,6 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		if(bWithZeroes || naBarriers[2] > 0){//min_step_ramp
 			String sName = getString(R.string.sStairsWORails) + ": " + naBarriers[2];
 			BarrierItem bit = new BarrierItem(2, sName, false, naBarriers[2]);
-			it.AddBarrier(bit);
-		}
-		if(bWithZeroes || naBarriers[3] > 0){//lift
-			String sName = getString(R.string.sLift) + ": " + naBarriers[3];
-			BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
-			it.AddBarrier(bit);
-		}	
-		else{
-			String sName = getString(R.string.sLift) + ": " + getString(R.string.sNo);
-			BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
 			it.AddBarrier(bit);
 		}
 		if(bWithZeroes || naBarriers[4] > 0){//lift_minus_step
@@ -338,16 +348,6 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			BarrierItem bit = new BarrierItem(7, sName, false, naBarriers[7]);
 			it.AddBarrier(bit);
 		}
-        if(bWithZeroes || naBarriers[8] > 0){//escalator
-            String sName = getString(R.string.sEscalator) + ": " + naBarriers[8];
-            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
-            it.AddBarrier(bit);
-        }
-        else{
-            String sName = getString(R.string.sEscalator) + ": " + getString(R.string.sNo);
-            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
-            it.AddBarrier(bit);
-        }
     }
 	
 	
