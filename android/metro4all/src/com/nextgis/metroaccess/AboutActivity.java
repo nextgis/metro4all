@@ -25,6 +25,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import com.actionbarsherlock.view.MenuItem;
 public class AboutActivity extends SherlockActivity {
     private TextView txtVersion;
     private TextView txtDescription;
+    private TextView txtCreditsText;
     private ImageView imgLogo;
 
     private String versionName = "unknown";
@@ -48,6 +51,7 @@ public class AboutActivity extends SherlockActivity {
         txtVersion = (TextView) findViewById(R.id.txtVersion);
         txtDescription = (TextView) findViewById(R.id.txtDescription);
         imgLogo = (ImageView) findViewById(R.id.imgLogo);
+        txtCreditsText = (TextView) findViewById(R.id.txtCreditsText);
 
         imgLogo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -64,8 +68,12 @@ public class AboutActivity extends SherlockActivity {
         }
 
         txtVersion.setText("v. " + versionName + " (rev. " + versionCode + ")");
-        
-       	getSupportActionBar().setHomeButtonEnabled(true);
+
+        txtCreditsText.setText(Html.fromHtml(getString(R.string.credits_text)));
+        txtCreditsText.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

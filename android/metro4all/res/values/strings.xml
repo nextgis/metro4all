@@ -7,6 +7,9 @@
     
     <string name="about_app">This application calculates subway routes and shows you information about the barriers on the way. \n\nMore info at:</string>
 
+    <string name="credits_caption">Credits:</string>
+    <string name="credits_text">Some icons used in the application are from &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;, licensed under a &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt;</string>
+
 	<string name="sSettings">Settings</string>
 	<string name="sAbout">About</string>
 	<string name="sNetworkGetErr">Getting data failed</string>

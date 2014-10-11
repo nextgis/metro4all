@@ -19,47 +19,83 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="5dp">
-    <TextView
-        android:id="@+id/txtAbout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/app_name"/>
-    <TextView
-        android:id="@+id/txtVersion"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="x.x"/>
-    <TextView
-        android:id="@+id/txtDescription"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/about_app"/>
-    <TextView
-        android:id="@+id/txtLinks"
-        android:autoLink="web"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sDetailpage"/>
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:src = "@drawable/nextgis"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-    <TextView
-        android:id="@+id/txtLinksNG"
-        android:autoLink="web"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sHomepage"
-        android:layout_gravity="center"
-        android:gravity="center"/>
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:padding="5dp">
+
+        <TextView
+            android:id="@+id/txtAbout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:text="@string/app_name"/>
+
+        <TextView
+            android:id="@+id/txtVersion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="x.x"/>
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/about_app"/>
+
+        <TextView
+            android:id="@+id/txtLinks"
+            android:autoLink="web"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/sDetailpage"/>
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:src="@drawable/nextgis"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtLinksNG"
+            android:autoLink="web"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sHomepage"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:id="@+id/txtCreditsCaption"
+            android:layout_marginTop="24dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/credits_caption"/>
+
+        <TextView
+            android:id="@+id/txtCreditsText"
+            android:layout_width="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</ScrollView>
