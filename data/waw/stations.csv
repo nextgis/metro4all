@@ -1,22 +1,22 @@
 id_station;id_line;id_node;name_en;name_ru;name_pl;lat;lon
-1;1;1;Młociny;Młociny;Młociny;52.2905208044;20.9304868273
-2;1;2;Wawrzyszew;Wawrzyszew;Wawrzyszew;52.2863243597;20.9395791241
-3;1;3;Stare Bielany;Stare Bielany;Stare Bielany;52.2818600568;20.9493410664
-4;1;4;Słodowiec;Słodowiec;Słodowiec;52.2768451566;20.9602042033
-5;1;5;Marymont;Marymont;Marymont;52.2716065084;20.9717078334
-6;1;6;Plac Wilsona;Plac Wilsona;Plac Wilsona;52.268080242;20.9873025217
-7;1;7;Dworzec Gdański;Dworzec Gdański;Dworzec Gdański;52.2581165577;20.995157205
-8;1;8;Ratusz Arsenał;Ratusz Arsenał;Ratusz Arsenał;52.2449633391;21.0010649224
-9;1;9;Świętokrzyska;Świętokrzyska;Świętokrzyska;52.235072795;21.0079875442
-10;1;10;Centrum;Centrum;Centrum;52.2305715727;21.0105076215
-11;1;11;Politechnika;Politechnika;Politechnika;52.2185116837;21.0152427061
-12;1;12;Pole Mokotowskie;Pole Mokotowskie;Pole Mokotowskie;52.2086037988;21.0079608483
-13;1;13;Racławicka;Racławicka;Racławicka;52.1989653694;21.0122025437
-14;1;14;Wierzbno;Wierzbno;Wierzbno;52.1898348209;21.0168159258
-15;1;15;Wilanowska;Wilanowska;Wilanowska;52.1815906383;21.0228141546
-16;1;16;Służew;Służew;Służew;52.1728626112;21.0262402069
-17;1;17;Ursynów;Ursynów;Ursynów;52.1619737165;21.0278423876
-18;1;18;Stokłosy;Stokłosy;Stokłosy;52.156084219;21.0346961605
-19;1;19;Imielin;Imielin;Imielin;52.1493046212;21.0461487853
-20;1;20;Natolin;Natolin;Natolin;52.1411008627;21.0563997747
-21;1;21;Kabaty;Kabaty;Kabaty;52.1321108488;21.0650782534
+1;1;1;Młociny;Млоцины;Młociny;52.2905208044;20.9304868273
+2;1;2;Wawrzyszew;Вавжишев;Wawrzyszew;52.2863243597;20.9395791241
+3;1;3;Stare Bielany;Старе Беляны;Stare Bielany;52.2818600568;20.9493410664
+4;1;4;Słodowiec;Слодовец;Słodowiec;52.2768451566;20.9602042033
+5;1;5;Marymont;Марымонт;Marymont;52.2716065084;20.9717078334
+6;1;6;Plac Wilsona;Пляц Вильсона;Plac Wilsona;52.268080242;20.9873025217
+7;1;7;Dworzec Gdański;Двожец Гданьский;Dworzec Gdański;52.2581165577;20.995157205
+8;1;8;Ratusz Arsenał;Ратуш Арсенал;Ratusz Arsenał;52.2449633391;21.0010649224
+9;1;9;Świętokrzyska;Свентокшиская;Świętokrzyska;52.235072795;21.0079875442
+10;1;10;Centrum;Центрум;Centrum;52.2305715727;21.0105076215
+11;1;11;Politechnika;Политехника;Politechnika;52.2185116837;21.0152427061
+12;1;12;Pole Mokotowskie;Поле Мокотовске;Pole Mokotowskie;52.2086037988;21.0079608483
+13;1;13;Racławicka;Рацлавицкая;Racławicka;52.1989653694;21.0122025437
+14;1;14;Wierzbno;Вежбно;Wierzbno;52.1898348209;21.0168159258
+15;1;15;Wilanowska;Виляновская;Wilanowska;52.1815906383;21.0228141546
+16;1;16;Służew;Служев;Służew;52.1728626112;21.0262402069
+17;1;17;Ursynów;Урсынув;Ursynów;52.1619737165;21.0278423876
+18;1;18;Stokłosy;Стоклосы;Stokłosy;52.156084219;21.0346961605
+19;1;19;Imielin;Имелин;Imielin;52.1493046212;21.0461487853
+20;1;20;Natolin;Натолин;Natolin;52.1411008627;21.0563997747
+21;1;21;Kabaty;Кабаты;Kabaty;52.1321108488;21.0650782534
