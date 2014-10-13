@@ -1,4 +1,4 @@
-id_entrance;name_ru;name_en;name_by;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle;escalator
+id_entrance;name_ru;name_en;name_be;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle;escalator
 50000;ТРЦ Green City, Каменная горка-1;Green City Shopping Mall, Kamiennaja horka -1;ТРЦ Green City, Каменная горка-1;223;both;53.9073627278;27.435096312;900;77;31;1;30;330;900;17;0
 50010;ул. Притыцкого, ул. Ивенецкая;vul. Prytytskaha, vul. Іvyanečkaja;вул. Прытыцкага, вул. Івянецкая;223;both;53.9066052585;27.4350219592;900;73;31;1;30;330;900;17;0
 50020;ул. Кунцевщина, ул. Матусевича;vul. Kuncaǔščyna, vul. Matusevіča;вул. Кунцаўшчына, вул. Матусевіча;223;both;53.9074603158;27.4363277804;900;74;71;1;30;0;1000;5;0
