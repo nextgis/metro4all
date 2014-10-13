@@ -26,8 +26,8 @@ public interface Constants {
     public final static String TAG = "metro4all";
 
     public final static String META = "meta.json";
-    final static String REMOTE_METAFILE = "remotemeta_v2.json";
-    final static String ROUTE_DATA_DIR = "rdata_v2";
+    final static String REMOTE_METAFILE = "remotemeta_v2.3.json";
+    final static String ROUTE_DATA_DIR = "rdata_v2.3";
 
     public final static String CSV_CHAR = ";";
 
