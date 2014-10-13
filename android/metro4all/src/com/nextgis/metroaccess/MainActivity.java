@@ -86,7 +86,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 	protected List<DownloadData> m_asDownloadData;
 
-	public static String m_sUrl = "http://metro4all.org/data/v2/";
+	public static String m_sUrl = "http://metro4all.org/data/v2.3/";
 	public static MAGraph m_oGraph;
 
 	protected ListView m_lvListButtons;
