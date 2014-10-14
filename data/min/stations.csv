@@ -1,4 +1,4 @@
-id_station;id_line;id_node;name_en;name_ru;name_by;lat;lon
+id_station;id_line;id_node;name_en;name_ru;name_be;lat;lon
 124;1;1;Uručča;Уручье;Уручча;53.9453821;27.687899
 123;1;2;Barysaŭski trakt;Борисовский тракт;Барысаўскі тракт;53.9387412;27.666667
 122;1;3;Uschod;Восток;Усход;53.9345184;27.6515217

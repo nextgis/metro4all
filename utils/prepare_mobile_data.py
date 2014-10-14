@@ -237,7 +237,7 @@ if __name__ == '__main__':
     city = sys.argv[1]
     USERNAME = sys.argv[2]
     PASSWORD = sys.argv[3]
-    langs = ('ru','en','pl','by')
+    langs = ('ru','en','pl','be')
     data_path = '/usr/local/www/metro4all.ru/data/data/v' + data_minimum_version + '/'
 
     split_stations('data/' + city + '/' + 'stations.csv')
