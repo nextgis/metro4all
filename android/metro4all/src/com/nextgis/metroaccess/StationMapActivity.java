@@ -237,10 +237,13 @@ public class StationMapActivity extends SherlockActivity {
 
                 if (mnType > 1) {
                     boolean bSmallWidth = portal.GetDetailes()[0] < mnMaxWidth;
-                    boolean bCanRoll = portal.GetDetailes()[5] < mnWheelWidth &&
-                            portal.GetDetailes()[6] > mnWheelWidth;
-                    if (m_bHaveLimits && (bSmallWidth || !bCanRoll))
+                    boolean bCanRoll = portal.GetDetailes()[7] == 0
+                            || portal.GetDetailes()[5] <= mnWheelWidth
+                            && (portal.GetDetailes()[6] == 0
+                                || mnWheelWidth <= portal.GetDetailes()[6]);
+                    if (m_bHaveLimits && (bSmallWidth || !bCanRoll)) {
                         isInvalidPortal = true;
+                    }
                 }
 
                 if (isSelectedStation) {
