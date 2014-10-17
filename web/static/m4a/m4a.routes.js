@@ -153,7 +153,8 @@
                 var c = '';
 
                 if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
-                    c += "<li><strong>" + m4a.resources.routes.min_max + "</strong> "
+                    c += (isIndicatorAvailable ? '<li><strong>' : '<li class="invalid"><strong>')
+                        + m4a.resources.routes.min_max + "</strong> "
                         + barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width']
                         + m4a.resources.routes.cm;
                 } else {
