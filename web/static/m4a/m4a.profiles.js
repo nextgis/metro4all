@@ -86,8 +86,8 @@
                 hidden: ['min_step']
             },
             trolley: {
-                visible: ['max_width', 'lift', 'retrench_steps', 'step_for_walking', 'min_max_rail_width'],
-                hidden: ['min_step', 'max_angle', 'escalator']
+                visible: ['max_width', 'escalator', 'lift', 'retrench_steps', 'step_for_walking', 'min_max_rail_width'],
+                hidden: ['min_step', 'max_angle']
             }
         },
 
