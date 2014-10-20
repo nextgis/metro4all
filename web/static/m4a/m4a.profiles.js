@@ -117,9 +117,6 @@
                     return barriers.max_width ?
                         barriers.max_width >= m4a.viewmodel.profile.values.selected :
                         true;
-                },
-                escalator: function (barriers) {
-                    return barriers.escalator ? barriers.escalator < 1 : true
                 }
             }
         },
