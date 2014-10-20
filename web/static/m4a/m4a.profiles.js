@@ -78,16 +78,16 @@
 
         barriersIndicatorsByProfile: {
             man: {
-                visible: ['escalator', 'lift', 'min_step'],
-                hidden: ['max_width', 'retrench_steps', 'min_step_ramp-lift_minus_step', 'step_for_walking', 'min_max_rail_width', 'max_angle']
+                visible: ['min_step', 'escalator'],
+                hidden: ['lift', 'max_width', 'min_step_ramp', 'min_max_rail_width', 'max_angle']
             },
             wheelchair: {
-                visible: ['max_width', 'escalator', 'lift', 'retrench_steps', 'min_step_ramp-lift_minus_step', 'step_for_walking', 'min_max_rail_width', 'max_angle'],
-                hidden: ['min_step']
+                visible: ['max_width', 'min_step', 'min_step_ramp', 'escalator', 'lift'],
+                hidden: ['min_max_rail_width', 'max_angle']
             },
             trolley: {
-                visible: ['max_width', 'escalator', 'lift', 'retrench_steps', 'step_for_walking', 'min_max_rail_width'],
-                hidden: ['min_step', 'max_angle']
+                visible: ['max_width', 'min_step', 'min_step_ramp', 'min_max_rail_width'],
+                hidden: ['max_angle', 'escalator', 'lift']
             }
         },
 
