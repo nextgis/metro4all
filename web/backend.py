@@ -66,7 +66,7 @@ for city in cities:
     STATIONS[city] = [i for i in  csv.DictReader(open(os.path.join(os.path.dirname(__file__),  '../data/%s/stations.csv' % city), 'rb'), delimiter=';')]
     PORTALS[city] = [i for i in  csv.DictReader(open(os.path.join(os.path.dirname(__file__),  '../data/%s/portals.csv' % city), 'rb'), delimiter=';')]
     INTERCHANGES[city] = [i for i in  csv.DictReader(open(os.path.join(os.path.dirname(__file__),  '../data/%s/interchanges.csv' % city), 'rb'), delimiter=';')]
-    GRAPH[city] = init_graph(%s) % city
+    GRAPH[city] = init_graph(city)
     
 
 msk_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/msk/schemes/*.png'))]
