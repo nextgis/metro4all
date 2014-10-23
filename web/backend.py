@@ -52,51 +52,22 @@ def get_barriers(item):
         escalator=int(item['escalator']) if (item['escalator'].isdigit()) else 0
     )
 
+cities = ['msk','spb','waw','min','kzn','ekb','niz']
+datavars = ['lines','stations','portals','interchanges']
 
-LINES = {
-    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/lines.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/lines.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/lines.csv'), 'rb'), delimiter=';')],
-    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/lines.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/lines.csv'), 'rb'), delimiter=';')],
-    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/lines.csv'), 'rb'), delimiter=';')]
-}
+LINES = {}
+STATIONS = {}
+PORTALS = {}
+INTERCHANGES = {}
+GRAPH = {}
 
-STATIONS = {
-    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/stations.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/stations.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/stations.csv'), 'rb'), delimiter=';')],
-    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/stations.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/stations.csv'), 'rb'), delimiter=';')],
-    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/stations.csv'), 'rb'), delimiter=';')]
-}
-
-PORTALS = {
-    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/portals.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/portals.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/portals.csv'), 'rb'), delimiter=';')],
-    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/portals.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/portals.csv'), 'rb'), delimiter=';')],
-    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/portals.csv'), 'rb'), delimiter=';')]
-}
-
-INTERCHANGES = {
-    'msk': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/msk/interchanges.csv'), 'rb'), delimiter=';')],
-    'spb': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/spb/interchanges.csv'), 'rb'), delimiter=';')],
-    'waw': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/waw/interchanges.csv'), 'rb'), delimiter=';')],
-    'min': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/min/interchanges.csv'), 'rb'), delimiter=';')],
-    'kzn': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/kzn/interchanges.csv'), 'rb'), delimiter=';')],
-    'niz': [i for i in csv.DictReader(open(os.path.join(os.path.dirname(__file__), '../data/niz/interchanges.csv'), 'rb'), delimiter=';')]
-}
-
-GRAPH = {
-    'msk': init_graph('msk'),
-    'spb': init_graph('spb'),
-    'waw': init_graph('waw'),
-    'min': init_graph('min'),
-    'kzn': init_graph('kzn'),
-    'niz': init_graph('niz')
-}
+for city in cities:
+    LINES[city] = [i for i in  csv.DictReader(open(os.path.join(os.path.dirname(__file__),  '../data/%s/lines.csv' % city), 'rb'), delimiter=';')]
+    STATIONS[city] = [i for i in  csv.DictReader(open(os.path.join(os.path.dirname(__file__),  '../data/%s/stations.csv' % city), 'rb'), delimiter=';')]
+    PORTALS[city] = [i for i in  csv.DictReader(open(os.path.join(os.path.dirname(__file__),  '../data/%s/portals.csv' % city), 'rb'), delimiter=';')]
+    INTERCHANGES[city] = [i for i in  csv.DictReader(open(os.path.join(os.path.dirname(__file__),  '../data/%s/interchanges.csv' % city), 'rb'), delimiter=';')]
+    GRAPH[city] = init_graph(%s) % city
+    
 
 msk_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/msk/schemes/*.png'))]
 spb_schemes = [os.path.basename(n) for n in glob.glob(os.path.join(os.path.dirname(__file__), '../data/spb/schemes/*.png'))]
