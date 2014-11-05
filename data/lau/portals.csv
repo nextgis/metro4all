@@ -1,111 +1,111 @@
 id_entrance;name_ru;name_en;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle;escalator
-80000;;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;1;both;46.5199853728;6.63035882767;2000;0;0;1;0;0;0;0;0
-80010;;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;21;in;46.5199853728;6.63035882767;2000;40;40;1;40;0;0;0;0
-80011;;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;21;out;46.5199853728;6.63035882767;750;0;0;1;0;0;0;0;1
-80020;;Passerelle du Grant-Pont;1;both;46.5202893184;6.63044048469;2000;0;0;1;0;0;0;0;0
-80030;;Passerelle du Grant-Pont;21;both;46.5202893184;6.63044048469;2000;0;0;1;0;0;0;0;0
-80040;;Rue du Grant-Pont, Route de Bel-Air;21;in;46.5204979974;6.63101888857;1500;20;20;0;0;0;1500;10;0
-80041;;Rue du Grant-Pont, Route de Bel-Air;21;out;46.5204979974;6.63101888857;750;0;0;0;0;0;1500;10;1
-80050;;Point de vente;21;in;46.5205615084;6.63044955769;2000;42;42;0;0;0;0;0;0
-80051;;Point de vente;21;out;46.5205615084;6.63044955769;750;0;0;0;0;0;0;0;2
-80060;;LEB platform;21;both;46.520729359;6.63034294992;2000;0;0;0;0;0;0;0;0
-80070;;Place de l'Europe, Voie du Chariot;21;both;46.5207361637;6.63013653912;2000;44;44;0;0;0;0;0;0
-80080;;Rue de Côtes-de-Montbenon;2;both;46.5216026354;6.62453622863;2000;40;40;0;0;0;0;0;0
-80090;;Pont Chauderon;2;both;46.521761413;6.62347241914;1000;0;0;0;0;0;1000;7;0
-80100;;Rue de la Vigie;2;both;46.5214824181;6.62428445282;2000;41;41;0;0;0;0;0;0
-80110;;Rue de la Vigie;2;both;46.5216343909;6.6233227146;1000;0;0;1;0;0;1000;7;0
-80120;;Théâtre Arsenic, EPSIC, ERACOM, Les DOCS;2;both;46.5216910972;6.62323878934;2000;0;0;0;0;0;2000;5;0
-80130;;AMAG;3;both;46.5221266013;6.61268461973;2000;0;0;0;0;0;2000;5;0
-80140;;AMAG, Migrol;3;both;46.521988238;6.61323580461;2000;0;0;0;0;0;2000;5;0
-80150;;Avenue de Provence, Migrol;3;both;46.52184307;6.61395257176;2000;0;0;0;0;0;2000;4;0
-80160;;Avenue de Provence, Avenue de Montoie;3;both;46.5216797559;6.61376884347;2000;0;0;0;0;0;2000;4;0
-80180;;Chemin de Malley;4;both;46.5234512596;6.60787819691;2000;0;0;0;0;0;2000;6;0
-80190;;Chemin de Malley;4;both;46.5236440609;6.60795078093;2000;0;0;0;0;0;2000;7;0
-80200;;Avenue de Provence;4;both;46.523092876;6.60939112;950;0;0;0;0;0;950;4;0
-80210;;Avenue de Provence, Giratoire de Malley;5;both;46.5240492732;6.60231338565;2000;36;36;0;0;0;0;0;0
-80220;;Avenue du Chablais, Gare CFF Prilley-Malley;5;both;46.5241265944;6.60230845025;2000;36;36;0;0;0;0;0;0
-80230;;Chemin de Malley;5;both;46.5244737175;6.60355217088;2000;0;0;0;0;0;0;0;0
-80240;;Chemin de la Prairie, Chemin de Malley;5;both;46.5242763015;6.60368378152;2000;3;0;0;0;0;1000;17;0
-80250;;Chemin de la Prairie, Avenue de Provence;5;both;46.5241874643;6.60368378152;2000;0;0;0;0;0;2000;7;0
-80260;;École et Centre de vie enfantine;6;both;46.523404381;6.58953399173;820;19;0;0;0;0;820;7;0
-80270;;Route de Chavannes;6;both;46.5235343465;6.59095703186;2000;0;0;0;0;0;2000;6;0
-80280;;Avenue du Chablais, UNIL;6;both;46.5231724172;6.58953563686;820;19;0;0;0;0;820;7;0
-80290;;Avenue du Chablais, bus stop;6;both;46.5231921588;6.58979063249;2000;21;0;0;0;0;2000;9;0
-80300;;Avenue du Chablais;6;both;46.5234471545;6.59099486992;2000;9;9;0;0;0;2000;6;0
-80310;;Direction de l'UNIL, Bibliothéque, Théâtre La Grange de Dorigny;7;both;46.5243585582;6.58427285607;2000;0;0;0;0;0;2000;5;0
-80320;;Route de la Chamberonne, Anthropole, Internef, Extranef;7;both;46.5238683085;6.58532245099;2000;0;0;0;0;0;2000;6;0
-80330;;Archives Cantonales, IDHEAP;8;both;46.5249820636;6.57853134155;2000;0;0;0;0;0;2000;4;0
-80340;;Route de la Sorge;8;both;46.5248669043;6.57849843889;2000;0;0;0;0;0;2000;4;0
-80350;;Rue de la Mouline, Geopolis;8;both;46.5252650265;6.58070785264;2000;32;32;0;0;0;2000;4;0
-80360;;Route de la Sorge;8;both;46.5249590318;6.57992312415;2000;0;0;0;0;0;2000;4;0
-80370;;Théâtre La Grange de Dorigny;8;both;46.5251383513;6.58081972169;2000;0;0;0;0;0;2000;8;0
-80380;;CTT;9;both;46.5219550187;6.57254634733;820;0;0;0;0;0;2000;6;0
-80390;;Avenue Auguste Forel, Cubotron;9;both;46.5216819266;6.57261215266;820;0;0;0;0;0;2000;6;0
-80400;;La Méridienne, Amphimax;9;both;46.5220668878;6.57339523601;2000;0;0;0;0;0;2000;4;0
-80410;;Amphipôle;9;both;46.5225176543;6.57388877594;2000;0;0;0;0;0;2000;4;0
-80420;;Route de Praz-Véguey;9;both;46.5226328136;6.57387890514;2000;0;0;0;0;0;2000;4;0
-80430;;Swisstech Convention Centre;10;both;46.522292271;6.56495405807;2000;36;0;0;0;0;2000;4;0
-80440;;Les Arcades, Swisstech Convention Centre;10;both;46.522662426;6.56545911393;2000;8;0;0;0;0;2000;4;0
-80450;;Route Louis-Favre, la Sorge;10;both;46.5223761728;6.56636722741;2000;8;8;0;0;0;0;0;0
-80460;;Parking;10;both;46.521612831;6.56463654738;2000;36;0;0;0;0;2000;5;0
-80470;;EPFL Campus;10;both;46.521760893;6.565014928;2000;77;41;0;0;0;2000;4;0
-80480;;Route de la Sorge;10;both;46.5219615993;6.56535382542;900;52;16;1;16;0;2000;4;0
-80490;;Route de la Sorge;10;both;46.521958309;6.5664067106;900;72;72;2;72;0;0;0;0
-80500;;Rue de Bassenges;11;both;46.5256499877;6.56523537583;2000;0;0;0;0;0;2000;4;0
-80510;;Chemin de Triaudes;11;both;46.5253308319;6.56518273157;2000;1;1;0;0;0;0;0;0
-80520;;Chemin de la Raye, Route Louis-Favre;11;both;46.5243634936;6.5644983562;2000;2;0;0;0;0;2000;5;0
-80530;;Rue du Villars;12;both;46.5284927777;6.56700224878;2000;0;0;0;0;0;2000;6;0
-80540;;Route de la Maladiére;12;both;46.5284532945;6.56707792491;2000;0;0;0;0;0;2000;6;0
-80550;;Rue de Bassenges;12;both;46.5274102801;6.56626193889;2000;0;0;0;0;0;2000;5;0
-80560;;Chemin de Cerisaie;12;both;46.5273707969;6.56636722741;2000;0;0;0;0;0;2000;5;0
-80570;;Route de Crochy;13;both;46.5337506231;6.57068734693;2000;0;0;0;0;0;2000;5;0
-80580;;Route de Crochy;13;both;46.5337078496;6.57081566731;2000;0;0;0;0;0;2000;5;0
-80590;;Chemin des Cédres;13;both;46.5323061962;6.56965749361;2000;0;0;0;0;0;2000;5;0
-80600;;Chemin des Cédres;13;both;46.5322502617;6.56983187772;2000;0;0;0;0;0;2000;5;0
-80610;;Avenue d'Epenex, Chemin de la Forêt;14;both;46.538755118;6.57432309108;2000;0;0;0;0;0;2000;5;0
-80620;;Avenue du Tir Fédéral;14;both;46.5374554628;6.57362555465;2000;0;0;0;0;0;2000;4;0
-80630;;Chemin du Bochet;14;both;46.5368632149;6.57290498635;2000;0;0;0;0;0;2000;6;0
-80640;;Renens VD;15;both;46.5371659194;6.57871888672;2000;0;0;0;0;0;0;0;0
-80650;;Avenue d'Epenex;15;both;46.5371066946;6.57853134155;2000;0;0;0;0;0;0;0;0
-80660;;Place de la Navigation, Avenue d'Ouchy, Avenue de Rhodanie;16;both;46.5070385969;6.62646722983;2000;0;0;0;0;0;0;0;0
-80670;;Rue des Fontenailles, Chemin du Funiculaire;17;both;46.510119851;6.62735233437;2000;27;27;0;0;0;0;0;0
-80680;;Rue des Fontenailles, Promenade de la Ficelle;17;both;46.51007193;6.6275026319;2000;27;27;0;0;0;0;0;0
-80690;;Avenue de Jordils, Chemin du Funiculaire;17;both;46.5096101463;6.62721510619;2000;0;0;0;0;0;2000;3;0
-80700;;Avenue de Jordils, Promenade de la Ficelle;17;both;46.5096036116;6.62736104727;900;23;23;1;23;0;0;0;0
-80710;;Rue des Fontenailles, Avenue d'Ouchy;17;both;46.509917276;6.62782065275;2000;23;0;0;0;0;2000;7;0
-80720;;Rue Voltaire, Avenue du Grammont;18;both;46.512472334;6.62807114862;2000;25;25;0;0;0;0;0;0
-80730;;Rue Voltaire, Chemin des Délices;18;both;46.5124178783;6.62821273325;2000;20;20;0;0;0;1000;11;0
-80740;;Avenue de Cour, Avenue du Grammont;18;both;46.5121804518;6.62797530672;2000;0;0;0;0;0;2000;4;0
-80750;;Avenue de Cour, Chemin des Délices;18;both;46.512123818;6.62815174295;2000;0;0;0;0;0;2000;5;0
-80760;;Boulevard de Grancy, Avenue du Rond-Point, Gare CFF (sud);19;both;46.5153214523;6.6288531314;900;30;30;1;30;0;0;0;0
-80770;;Boulevard de Grancy, Gare CFF (sud);19;both;46.515260462;6.6291319442;900;0;0;1;0;0;0;0;0
-80780;;Avenue Edouard Dapples, Chemin de la Ficelle;19;both;46.5147311533;6.62873332903;2000;18;18;0;0;0;0;0;0
-80790;;Avenue Edouard Dapples;19;both;46.5147006582;6.6288792701;2000;0;0;0;0;0;2000;8;0
-80800;;Place de la Gare;20;both;46.5175171031;6.62947392553;900;14;14;1;14;0;2000;7;0
-80810;;Place de la Gare;20;both;46.5174887862;6.62965253998;900;16;16;1;16;0;2000;7;0
-80820;;Place de la Gare;20;both;46.5174604692;6.62948699488;2000;26;26;0;0;0;2000;7;0
-80830;;Lausanne Gare;20;both;46.5170357154;6.62955016341;2000;0;0;0;0;0;2000;7;0
-80840;;Place de la Riponne, Place du Tunnel;22;both;46.5230236559;6.63242542042;1300;33;33;1;27;0;0;0;0
-80850;;Rue de la Madeleine, Place de la Polud;22;both;46.5227992987;6.63286977832;1500;43;43;1;43;0;0;0;0
-80860;;Place Renè Auberjonois, Place Mark-Louis Arlaud;22;both;46.5227208826;6.6324145293;2000;0;0;0;0;0;2000;8;0
-80870;;Rue Saint-Martin;23;both;46.5209216688;6.63690820749;1000;50;50;2;50;0;0;0;0
-80880;;Pont Charles-Bessières, Rue Caroline;23;both;46.5207190939;6.63712167354;1000;26;26;2;26;0;0;0;0
-80890;;Pont Charles-Bessières, Rue Caroline;23;both;46.5206994898;6.63715216869;1380;0;0;1;0;0;0;0;0
-80900;;Pont Charles-Bessières, Rue Caroline;23;both;46.5206254302;6.63714127757;1380;0;0;1;0;0;0;0;0
-80910;;Rue Centrale;23;both;46.5208280051;6.63680365269;1000;38;26;1;26;0;2000;9;0
-80920;;Rue de Bourg;23;both;46.5207060245;6.63689295992;1000;39;39;1;26;0;0;0;0
-80930;;Avenue de Bèthusy, Place de l'Ours, Rue Marterey, Passage Perdonnet;24;both;46.5211808776;6.64050227876;1300;105;105;1;105;0;0;0;0
-80940;;Avenue Pierre Decker, Maternité;25;both;46.5267658465;6.64160663884;2000;51;51;1;44;0;0;0;0
-80950;;Rue du Bugnon, Avenue de la Sallaz;25;both;46.5267048562;6.64139970747;2000;44;44;1;44;0;0;0;0
-80960;;CHUV entree principale, Urgences, PMU;25;both;46.5261929733;6.64139099457;1200;30;30;1;30;0;0;0;0
-80970;;CHUV entree principale, Urgences, PMU;25;both;46.5261711911;6.64155436144;1200;30;30;1;30;0;0;0;0
-80980;;Le Viaduc;26;both;46.5324553702;6.64588249454;900;26;26;1;26;0;0;0;0
-80990;;Avenue de la Sallaz;26;both;46.5324009146;6.64624190167;900;26;26;1;26;0;0;0;0
-81000;;Route de Berne;27;both;46.5388789558;6.65123003694;1000;138;138;1;138;0;0;0;0
-81010;;Route de Berne;28;both;46.5413795581;6.65761659267;1000;51;51;1;51;0;0;0;0
-81020;;Parking Level -1;28;both;46.5409264873;6.65789104903;1500;13;13;0;0;0;0;0;0
-81030;;Parking Level -2;28;both;46.5409613389;6.65752510722;1500;5;5;0;0;0;0;0;0
-81040;;Route de Berne, Biopôle, Don du Sang;29;both;46.5423989674;6.66035679974;800;32;32;1;32;0;0;0;0
-81050;;Route de Berne, Biopôle, Route de la Croix-Blanche;29;both;46.5429914446;6.66099719789;2000;0;0;0;0;0;2000;4;0
-81060;;Route de Berne, Chemin des Croisettes;29;both;46.5431439204;6.66080551409;2000;0;0;0;0;0;2000;4;0
-81070;;Chemin des Croisettes;29;both;46.5434924364;6.66114096074;2000;24;24;0;0;0;0;0;0
+80000;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;1;both;46.5199853728;6.63035882767;2000;0;0;1;0;0;0;0;0
+80010;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;21;in;46.5199853728;6.63035882767;2000;40;40;1;40;0;0;0;0
+80011;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;Place de l'Europe, Place Saint-François, Rue du Grand-Chêne;21;out;46.5199853728;6.63035882767;750;0;0;1;0;0;0;0;1
+80020;Passerelle du Grant-Pont;Passerelle du Grant-Pont;1;both;46.5202893184;6.63044048469;2000;0;0;1;0;0;0;0;0
+80030;Passerelle du Grant-Pont;Passerelle du Grant-Pont;21;both;46.5202893184;6.63044048469;2000;0;0;1;0;0;0;0;0
+80040;Rue du Grant-Pont, Route de Bel-Air;Rue du Grant-Pont, Route de Bel-Air;21;in;46.5204979974;6.63101888857;1500;20;20;0;0;0;1500;10;0
+80041;Rue du Grant-Pont, Route de Bel-Air;Rue du Grant-Pont, Route de Bel-Air;21;out;46.5204979974;6.63101888857;750;0;0;0;0;0;1500;10;1
+80050;Point de vente;Point de vente;21;in;46.5205615084;6.63044955769;2000;42;42;0;0;0;0;0;0
+80051;Point de vente;Point de vente;21;out;46.5205615084;6.63044955769;750;0;0;0;0;0;0;0;2
+80060;LEB platform;LEB platform;21;both;46.520729359;6.63034294992;2000;0;0;0;0;0;0;0;0
+80070;Place de l'Europe, Voie du Chariot;Place de l'Europe, Voie du Chariot;21;both;46.5207361637;6.63013653912;2000;44;44;0;0;0;0;0;0
+80080;Rue de Côtes-de-Montbenon;Rue de Côtes-de-Montbenon;2;both;46.5216026354;6.62453622863;2000;40;40;0;0;0;0;0;0
+80090;Pont Chauderon;Pont Chauderon;2;both;46.521761413;6.62347241914;1000;0;0;0;0;0;1000;7;0
+80100;Rue de la Vigie;Rue de la Vigie;2;both;46.5214824181;6.62428445282;2000;41;41;0;0;0;0;0;0
+80110;Rue de la Vigie;Rue de la Vigie;2;both;46.5216343909;6.6233227146;1000;0;0;1;0;0;1000;7;0
+80120;Théâtre Arsenic, EPSIC, ERACOM, Les DOCS;Théâtre Arsenic, EPSIC, ERACOM, Les DOCS;2;both;46.5216910972;6.62323878934;2000;0;0;0;0;0;2000;5;0
+80130;AMAG;AMAG;3;both;46.5221266013;6.61268461973;2000;0;0;0;0;0;2000;5;0
+80140;AMAG, Migrol;AMAG, Migrol;3;both;46.521988238;6.61323580461;2000;0;0;0;0;0;2000;5;0
+80150;Avenue de Provence, Migrol;Avenue de Provence, Migrol;3;both;46.52184307;6.61395257176;2000;0;0;0;0;0;2000;4;0
+80160;Avenue de Provence, Avenue de Montoie;Avenue de Provence, Avenue de Montoie;3;both;46.5216797559;6.61376884347;2000;0;0;0;0;0;2000;4;0
+80180;Chemin de Malley;Chemin de Malley;4;both;46.5234512596;6.60787819691;2000;0;0;0;0;0;2000;6;0
+80190;Chemin de Malley;Chemin de Malley;4;both;46.5236440609;6.60795078093;2000;0;0;0;0;0;2000;7;0
+80200;Avenue de Provence;Avenue de Provence;4;both;46.523092876;6.60939112;950;0;0;0;0;0;950;4;0
+80210;Avenue de Provence, Giratoire de Malley;Avenue de Provence, Giratoire de Malley;5;both;46.5240492732;6.60231338565;2000;36;36;0;0;0;0;0;0
+80220;Avenue du Chablais, Gare CFF Prilley-Malley;Avenue du Chablais, Gare CFF Prilley-Malley;5;both;46.5241265944;6.60230845025;2000;36;36;0;0;0;0;0;0
+80230;Chemin de Malley;Chemin de Malley;5;both;46.5244737175;6.60355217088;2000;0;0;0;0;0;0;0;0
+80240;Chemin de la Prairie, Chemin de Malley;Chemin de la Prairie, Chemin de Malley;5;both;46.5242763015;6.60368378152;2000;3;0;0;0;0;1000;17;0
+80250;Chemin de la Prairie, Avenue de Provence;Chemin de la Prairie, Avenue de Provence;5;both;46.5241874643;6.60368378152;2000;0;0;0;0;0;2000;7;0
+80260;École et Centre de vie enfantine;École et Centre de vie enfantine;6;both;46.523404381;6.58953399173;820;19;0;0;0;0;820;7;0
+80270;Route de Chavannes;Route de Chavannes;6;both;46.5235343465;6.59095703186;2000;0;0;0;0;0;2000;6;0
+80280;Avenue du Chablais, UNIL;Avenue du Chablais, UNIL;6;both;46.5231724172;6.58953563686;820;19;0;0;0;0;820;7;0
+80290;Avenue du Chablais, bus stop;Avenue du Chablais, bus stop;6;both;46.5231921588;6.58979063249;2000;21;0;0;0;0;2000;9;0
+80300;Avenue du Chablais;Avenue du Chablais;6;both;46.5234471545;6.59099486992;2000;9;9;0;0;0;2000;6;0
+80310;Direction de l'UNIL, Bibliothéque, Théâtre La Grange de Dorigny;Direction de l'UNIL, Bibliothéque, Théâtre La Grange de Dorigny;7;both;46.5243585582;6.58427285607;2000;0;0;0;0;0;2000;5;0
+80320;Route de la Chamberonne, Anthropole, Internef, Extranef;Route de la Chamberonne, Anthropole, Internef, Extranef;7;both;46.5238683085;6.58532245099;2000;0;0;0;0;0;2000;6;0
+80330;Archives Cantonales, IDHEAP;Archives Cantonales, IDHEAP;8;both;46.5249820636;6.57853134155;2000;0;0;0;0;0;2000;4;0
+80340;Route de la Sorge;Route de la Sorge;8;both;46.5248669043;6.57849843889;2000;0;0;0;0;0;2000;4;0
+80350;Rue de la Mouline, Geopolis;Rue de la Mouline, Geopolis;8;both;46.5252650265;6.58070785264;2000;32;32;0;0;0;2000;4;0
+80360;Route de la Sorge;Route de la Sorge;8;both;46.5249590318;6.57992312415;2000;0;0;0;0;0;2000;4;0
+80370;Théâtre La Grange de Dorigny;Théâtre La Grange de Dorigny;8;both;46.5251383513;6.58081972169;2000;0;0;0;0;0;2000;8;0
+80380;CTT;CTT;9;both;46.5219550187;6.57254634733;820;0;0;0;0;0;2000;6;0
+80390;Avenue Auguste Forel, Cubotron;Avenue Auguste Forel, Cubotron;9;both;46.5216819266;6.57261215266;820;0;0;0;0;0;2000;6;0
+80400;La Méridienne, Amphimax;La Méridienne, Amphimax;9;both;46.5220668878;6.57339523601;2000;0;0;0;0;0;2000;4;0
+80410;Amphipôle;Amphipôle;9;both;46.5225176543;6.57388877594;2000;0;0;0;0;0;2000;4;0
+80420;Route de Praz-Véguey;Route de Praz-Véguey;9;both;46.5226328136;6.57387890514;2000;0;0;0;0;0;2000;4;0
+80430;Swisstech Convention Centre;Swisstech Convention Centre;10;both;46.522292271;6.56495405807;2000;36;0;0;0;0;2000;4;0
+80440;Les Arcades, Swisstech Convention Centre;Les Arcades, Swisstech Convention Centre;10;both;46.522662426;6.56545911393;2000;8;0;0;0;0;2000;4;0
+80450;Route Louis-Favre, la Sorge;Route Louis-Favre, la Sorge;10;both;46.5223761728;6.56636722741;2000;8;8;0;0;0;0;0;0
+80460;Parking;Parking;10;both;46.521612831;6.56463654738;2000;36;0;0;0;0;2000;5;0
+80470;EPFL Campus;EPFL Campus;10;both;46.521760893;6.565014928;2000;77;41;0;0;0;2000;4;0
+80480;Route de la Sorge;Route de la Sorge;10;both;46.5219615993;6.56535382542;900;52;16;1;16;0;2000;4;0
+80490;Route de la Sorge;Route de la Sorge;10;both;46.521958309;6.5664067106;900;72;72;2;72;0;0;0;0
+80500;Rue de Bassenges;Rue de Bassenges;11;both;46.5256499877;6.56523537583;2000;0;0;0;0;0;2000;4;0
+80510;Chemin de Triaudes;Chemin de Triaudes;11;both;46.5253308319;6.56518273157;2000;1;1;0;0;0;0;0;0
+80520;Chemin de la Raye, Route Louis-Favre;Chemin de la Raye, Route Louis-Favre;11;both;46.5243634936;6.5644983562;2000;2;0;0;0;0;2000;5;0
+80530;Rue du Villars;Rue du Villars;12;both;46.5284927777;6.56700224878;2000;0;0;0;0;0;2000;6;0
+80540;Route de la Maladiére;Route de la Maladiére;12;both;46.5284532945;6.56707792491;2000;0;0;0;0;0;2000;6;0
+80550;Rue de Bassenges;Rue de Bassenges;12;both;46.5274102801;6.56626193889;2000;0;0;0;0;0;2000;5;0
+80560;Chemin de Cerisaie;Chemin de Cerisaie;12;both;46.5273707969;6.56636722741;2000;0;0;0;0;0;2000;5;0
+80570;Route de Crochy;Route de Crochy;13;both;46.5337506231;6.57068734693;2000;0;0;0;0;0;2000;5;0
+80580;Route de Crochy;Route de Crochy;13;both;46.5337078496;6.57081566731;2000;0;0;0;0;0;2000;5;0
+80590;Chemin des Cédres;Chemin des Cédres;13;both;46.5323061962;6.56965749361;2000;0;0;0;0;0;2000;5;0
+80600;Chemin des Cédres;Chemin des Cédres;13;both;46.5322502617;6.56983187772;2000;0;0;0;0;0;2000;5;0
+80610;Avenue d'Epenex, Chemin de la Forêt;Avenue d'Epenex, Chemin de la Forêt;14;both;46.538755118;6.57432309108;2000;0;0;0;0;0;2000;5;0
+80620;Avenue du Tir Fédéral;Avenue du Tir Fédéral;14;both;46.5374554628;6.57362555465;2000;0;0;0;0;0;2000;4;0
+80630;Chemin du Bochet;Chemin du Bochet;14;both;46.5368632149;6.57290498635;2000;0;0;0;0;0;2000;6;0
+80640;Renens VD;Renens VD;15;both;46.5371659194;6.57871888672;2000;0;0;0;0;0;0;0;0
+80650;Avenue d'Epenex;Avenue d'Epenex;15;both;46.5371066946;6.57853134155;2000;0;0;0;0;0;0;0;0
+80660;Place de la Navigation, Avenue d'Ouchy, Avenue de Rhodanie;Place de la Navigation, Avenue d'Ouchy, Avenue de Rhodanie;16;both;46.5070385969;6.62646722983;2000;0;0;0;0;0;0;0;0
+80670;Rue des Fontenailles, Chemin du Funiculaire;Rue des Fontenailles, Chemin du Funiculaire;17;both;46.510119851;6.62735233437;2000;27;27;0;0;0;0;0;0
+80680;Rue des Fontenailles, Promenade de la Ficelle;Rue des Fontenailles, Promenade de la Ficelle;17;both;46.51007193;6.6275026319;2000;27;27;0;0;0;0;0;0
+80690;Avenue de Jordils, Chemin du Funiculaire;Avenue de Jordils, Chemin du Funiculaire;17;both;46.5096101463;6.62721510619;2000;0;0;0;0;0;2000;3;0
+80700;Avenue de Jordils, Promenade de la Ficelle;Avenue de Jordils, Promenade de la Ficelle;17;both;46.5096036116;6.62736104727;900;23;23;1;23;0;0;0;0
+80710;Rue des Fontenailles, Avenue d'Ouchy;Rue des Fontenailles, Avenue d'Ouchy;17;both;46.509917276;6.62782065275;2000;23;0;0;0;0;2000;7;0
+80720;Rue Voltaire, Avenue du Grammont;Rue Voltaire, Avenue du Grammont;18;both;46.512472334;6.62807114862;2000;25;25;0;0;0;0;0;0
+80730;Rue Voltaire, Chemin des Délices;Rue Voltaire, Chemin des Délices;18;both;46.5124178783;6.62821273325;2000;20;20;0;0;0;1000;11;0
+80740;Avenue de Cour, Avenue du Grammont;Avenue de Cour, Avenue du Grammont;18;both;46.5121804518;6.62797530672;2000;0;0;0;0;0;2000;4;0
+80750;Avenue de Cour, Chemin des Délices;Avenue de Cour, Chemin des Délices;18;both;46.512123818;6.62815174295;2000;0;0;0;0;0;2000;5;0
+80760;Boulevard de Grancy, Avenue du Rond-Point, Gare CFF (sud);Boulevard de Grancy, Avenue du Rond-Point, Gare CFF (sud);19;both;46.5153214523;6.6288531314;900;30;30;1;30;0;0;0;0
+80770;Boulevard de Grancy, Gare CFF (sud);Boulevard de Grancy, Gare CFF (sud);19;both;46.515260462;6.6291319442;900;0;0;1;0;0;0;0;0
+80780;Avenue Edouard Dapples, Chemin de la Ficelle;Avenue Edouard Dapples, Chemin de la Ficelle;19;both;46.5147311533;6.62873332903;2000;18;18;0;0;0;0;0;0
+80790;Avenue Edouard Dapples;Avenue Edouard Dapples;19;both;46.5147006582;6.6288792701;2000;0;0;0;0;0;2000;8;0
+80800;Place de la Gare;Place de la Gare;20;both;46.5175171031;6.62947392553;900;14;14;1;14;0;2000;7;0
+80810;Place de la Gare;Place de la Gare;20;both;46.5174887862;6.62965253998;900;16;16;1;16;0;2000;7;0
+80820;Place de la Gare;Place de la Gare;20;both;46.5174604692;6.62948699488;2000;26;26;0;0;0;2000;7;0
+80830;Lausanne Gare;Lausanne Gare;20;both;46.5170357154;6.62955016341;2000;0;0;0;0;0;2000;7;0
+80840;Place de la Riponne, Place du Tunnel;Place de la Riponne, Place du Tunnel;22;both;46.5230236559;6.63242542042;1300;33;33;1;27;0;0;0;0
+80850;Rue de la Madeleine, Place de la Polud;Rue de la Madeleine, Place de la Polud;22;both;46.5227992987;6.63286977832;1500;43;43;1;43;0;0;0;0
+80860;Place Renè Auberjonois, Place Mark-Louis Arlaud;Place Renè Auberjonois, Place Mark-Louis Arlaud;22;both;46.5227208826;6.6324145293;2000;0;0;0;0;0;2000;8;0
+80870;Rue Saint-Martin;Rue Saint-Martin;23;both;46.5209216688;6.63690820749;1000;50;50;2;50;0;0;0;0
+80880;Pont Charles-Bessières, Rue Caroline;Pont Charles-Bessières, Rue Caroline;23;both;46.5207190939;6.63712167354;1000;26;26;2;26;0;0;0;0
+80890;Pont Charles-Bessières, Rue Caroline;Pont Charles-Bessières, Rue Caroline;23;both;46.5206994898;6.63715216869;1380;0;0;1;0;0;0;0;0
+80900;Pont Charles-Bessières, Rue Caroline;Pont Charles-Bessières, Rue Caroline;23;both;46.5206254302;6.63714127757;1380;0;0;1;0;0;0;0;0
+80910;Rue Centrale;Rue Centrale;23;both;46.5208280051;6.63680365269;1000;38;26;1;26;0;2000;9;0
+80920;Rue de Bourg;Rue de Bourg;23;both;46.5207060245;6.63689295992;1000;39;39;1;26;0;0;0;0
+80930;Avenue de Bèthusy, Place de l'Ours, Rue Marterey, Passage Perdonnet;Avenue de Bèthusy, Place de l'Ours, Rue Marterey, Passage Perdonnet;24;both;46.5211808776;6.64050227876;1300;105;105;1;105;0;0;0;0
+80940;Avenue Pierre Decker, Maternité;Avenue Pierre Decker, Maternité;25;both;46.5267658465;6.64160663884;2000;51;51;1;44;0;0;0;0
+80950;Rue du Bugnon, Avenue de la Sallaz;Rue du Bugnon, Avenue de la Sallaz;25;both;46.5267048562;6.64139970747;2000;44;44;1;44;0;0;0;0
+80960;CHUV entree principale, Urgences, PMU;CHUV entree principale, Urgences, PMU;25;both;46.5261929733;6.64139099457;1200;30;30;1;30;0;0;0;0
+80970;CHUV entree principale, Urgences, PMU;CHUV entree principale, Urgences, PMU;25;both;46.5261711911;6.64155436144;1200;30;30;1;30;0;0;0;0
+80980;Le Viaduc;Le Viaduc;26;both;46.5324553702;6.64588249454;900;26;26;1;26;0;0;0;0
+80990;Avenue de la Sallaz;Avenue de la Sallaz;26;both;46.5324009146;6.64624190167;900;26;26;1;26;0;0;0;0
+81000;Route de Berne;Route de Berne;27;both;46.5388789558;6.65123003694;1000;138;138;1;138;0;0;0;0
+81010;Route de Berne;Route de Berne;28;both;46.5413795581;6.65761659267;1000;51;51;1;51;0;0;0;0
+81020;Parking Level -1;Parking Level -1;28;both;46.5409264873;6.65789104903;1500;13;13;0;0;0;0;0;0
+81030;Parking Level -2;Parking Level -2;28;both;46.5409613389;6.65752510722;1500;5;5;0;0;0;0;0;0
+81040;Route de Berne, Biopôle, Don du Sang;Route de Berne, Biopôle, Don du Sang;29;both;46.5423989674;6.66035679974;800;32;32;1;32;0;0;0;0
+81050;Route de Berne, Biopôle, Route de la Croix-Blanche;Route de Berne, Biopôle, Route de la Croix-Blanche;29;both;46.5429914446;6.66099719789;2000;0;0;0;0;0;2000;4;0
+81060;Route de Berne, Chemin des Croisettes;Route de Berne, Chemin des Croisettes;29;both;46.5431439204;6.66080551409;2000;0;0;0;0;0;2000;4;0
+81070;Chemin des Croisettes;Chemin des Croisettes;29;both;46.5434924364;6.66114096074;2000;24;24;0;0;0;0;0;0
