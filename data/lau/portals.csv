@@ -106,7 +106,6 @@ id_entrance;name_ru;name_en;id_station;direction;lat;lon;max_width;min_step;min_
 81020;;Parking Level -1;28;both;46.5409264873;6.65789104903;1500;13;13;0;0;0;0;0;0
 81030;;Parking Level -2;28;both;46.5409613389;6.65752510722;1500;5;5;0;0;0;0;0;0
 81040;;Route de Berne, Biopôle, Don du Sang;29;both;46.5423989674;6.66035679974;800;32;32;1;32;0;0;0;0
-81050;;"Route de Berne, Biopôle, Route de la 
-Croix-Blanche";29;both;46.5429914446;6.66099719789;2000;0;0;0;0;0;2000;4;0
+81050;;Route de Berne, Biopôle, Route de la Croix-Blanche;29;both;46.5429914446;6.66099719789;2000;0;0;0;0;0;2000;4;0
 81060;;Route de Berne, Chemin des Croisettes;29;both;46.5431439204;6.66080551409;2000;0;0;0;0;0;2000;4;0
 81070;;Chemin des Croisettes;29;both;46.5434924364;6.66114096074;2000;24;24;0;0;0;0;0;0
