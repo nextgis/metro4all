@@ -1,9 +1,9 @@
 id_line;name_ru;name_en;name_nl;color
-1;;50 - Ring Line;50 - Ringlijn;#008000
-2;;51 - Amstelveen Line;51 - Amstelveenlijn;#ff9f00
-3;;"53 - East Line; Gaasperplas Branch";53 - Gaasperplaslijn;#ff0000
-4;;"54 - East Line; Gein Branch";54 - Geinlijn;#ffff00
-5;;"Multiple lines (50, 51)";"Lijnen 50, 51";#000000
-6;;"Multiple lines (50, 53, 54)";"Lijnen 50, 53, 54";#000000
-7;;"Multiple lines (50, 54)";"Lijnen 50, 54";#000000
-8;;"Multiple lines (51, 54, 53)";"Lijnen 51, 54, 53";#000000
+1;;50 - Ring Line;50 - Ringlijn;#44b85c
+2;;51 - Amstelveen Line;51 - Amstelveenlijn;#f58631
+3;;"53 - East Line; Gaasperplas Branch";53 - Gaasperplaslijn;#ed1b35
+4;;"54 - East Line; Gein Branch";54 - Geinlijn;#ffcb31
+5;;"Multiple lines (50, 51)";"Lijnen 50, 51";#894e35
+6;;"Multiple lines (50, 53, 54)";"Lijnen 50, 53, 54";#894e35
+7;;"Multiple lines (50, 54)";"Lijnen 50, 54";#894e35
+8;;"Multiple lines (51, 54, 53)";"Lijnen 51, 54, 53";#894e35
