@@ -9,7 +9,7 @@ import os
 
 # for Apache - http://bottlepy.org/docs/dev/faq.html
 # “TEMPLATE NOT FOUND” IN MOD_WSGI/MOD_PYTHON
-bottle.TEMPLATE_PATH.insert(0, '/home/karavanjow/projects/metro4all/metroaccess/web/views/')
+bottle.TEMPLATE_PATH.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), 'views'))
 
 
 # Инициализация графа
