@@ -131,9 +131,29 @@
                         }
                     }
                 ).addTo(m4a.viewmodel.mainMap);
+                this.bindPortalMarkersTooltips(type);
             }
         },
 
+        bindPortalMarkersTooltips: function (type) {
+            var portalMarkerId,
+                portalMarker,
+                $portalMarkerIcon;
+
+            for (portalMarkerId in this.portals[type].markers) {
+                    if (this.portals[type].markers.hasOwnProperty(portalMarkerId)) {
+                        portalMarker = this.portals[type].markers[portalMarkerId];
+
+                        if (!portalMarker._icon || !portalMarker.feature.properties || !portalMarker.feature.properties.name) {
+                            continue;
+                        }
+
+                        $portalMarkerIcon = $(portalMarker._icon);
+                        new Opentip($portalMarkerIcon, portalMarker.feature.properties.name);
+//                        debugger;
+                    }
+                }
+        },
 
         selectPortal: function (type, feature, marker) {
             var view = m4a.view,

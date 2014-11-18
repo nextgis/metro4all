@@ -34,6 +34,8 @@
     <!-- lightbox2 styles -->
     <link href="static/lightbox2/css/lightbox.css" rel="stylesheet">
 
+    <link href="static/opentip/opentip.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -109,6 +111,7 @@
         }
     </script>
     <script src="static/jquery-1.11.1.min.js"></script>
+    <script src="static/opentip/opentip-jquery-excanvas.js"></script>
     <script src="static/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
     <script src="static/select2-3.4.2/select2.js"></script>
     <script src="static/select2-3.4.2/select2_locale_ru.js"></script>
