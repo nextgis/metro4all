@@ -4,7 +4,7 @@ $(document).ready(function () {
     var url = m4a.viewmodel.url.proxy,
         viewmodel = m4a.viewmodel,
         view = m4a.view;
-    
+
     viewmodel.mainMap = L.map('mainMap').setView(global_config.mainmap.center, global_config.mainmap.zoom);
     (new L.Control.Extent()).addTo(viewmodel.mainMap);
     viewmodel.stationMarkers = [];
@@ -15,14 +15,70 @@ $(document).ready(function () {
         if (typeof data == 'string' || data instanceof String) {
             data = JSON.parse(data);
         }
-        viewmodel.lineSegments = L.geoJson(data, {
-            style: function(feature) {
-                return {
-                    opacity: 1,
-                    color: feature.properties.color
-                };
+        if (global_config.city != "ams") {
+            viewmodel.lineSegments = L.geoJson(data, {
+                style: function(feature) {
+                    return {
+                        opacity: 1,
+                        color: feature.properties.color
+                    };
+                }
+            });
+        } else {
+            // Amsterdam lines hack ---
+            var ends = [],
+                lineColors = [null, '#44b85c', '#f58631', '#ed1b35', '#ffcb31'],
+                lineWeight = 6;
+
+            viewmodel.lineSegments = L.featureGroup();
+
+            function addStop(ll) {
+                for(var i=0, found=false; i<ends.length && !found; i++) {
+                    found = (ends[i].lat == ll.lat && ends[i].lng == ll.lng);
+                }
+                if(!found) {
+                    ends.push(ll);
+                }
             }
-        });
+
+            data.features.forEach(function(lineSegment) {
+                segmentCoords = L.GeoJSON.coordsToLatLngs(lineSegment.geometry.coordinates, 0);
+                linesOnSegment = lineSegment.properties.lines.split(',');
+                segmentWidth = linesOnSegment.length * (lineWeight + 1);
+
+                // Белая обводка
+                L.polyline(segmentCoords, {
+                    color: '#fff',
+                    weight: segmentWidth + 3,
+                    opacity: 1
+                }).addTo(viewmodel.lineSegments);
+
+                // Собственно линии
+                for(var j=0;j<linesOnSegment.length;j++) {
+                    L.polyline(segmentCoords, {
+                        color: lineColors[linesOnSegment[j]],
+                        weight: lineWeight,
+                        opacity: 1,
+                        offset: j * (lineWeight + 1) - (segmentWidth / 2) + ((lineWeight + 1) / 2)
+                    }).addTo(viewmodel.lineSegments);
+                }
+
+                addStop(segmentCoords[segmentCoords.length - 1]);
+            });
+
+            // Сочленения линий
+            ends.forEach(function(endCoords) {
+                var circle = L.circleMarker(endCoords, {
+                    color: '#ccc',
+                    fillColor: '#ccc',
+                    fillOpacity: 0.9,
+                    radius: 10,
+                    weight: 2,
+                    opacity: 0.9
+                }).addTo(viewmodel.lineSegments);
+            });
+            // Amsterdam lines hack END ---
+        }
         viewmodel.lineSegments.addTo(viewmodel.mainMap);
     });
 

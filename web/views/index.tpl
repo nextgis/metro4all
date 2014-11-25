@@ -130,6 +130,10 @@
     <script src="static/m4a/inline.js"></script>
     <script src="static/lightbox2/js/lightbox.js"></script>
     <script src="static/blockui/jquery.blockUI.js"></script>
+    <script src="static/leaflet.polylineoffset/contrib/jsts/lib/javascript.util.js"></script>
+    <script src="static/leaflet.polylineoffset/contrib/jsts/lib/jsts.js"></script>
+    <script src="static/leaflet.polylineoffset/leaflet.polylineoffset.js"></script>
+
 
     <script>
         % if request.environ['HTTP_HOST'] == 'demo.nextgis.ru':
