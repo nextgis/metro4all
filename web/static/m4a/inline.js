@@ -20,7 +20,8 @@ $(document).ready(function () {
                 style: function(feature) {
                     return {
                         opacity: 1,
-                        color: feature.properties.color
+                        color: feature.properties.color,
+                        clickable: false
                     };
                 }
             });
@@ -50,7 +51,8 @@ $(document).ready(function () {
                 L.polyline(segmentCoords, {
                     color: '#fff',
                     weight: segmentWidth + 3,
-                    opacity: 1
+                    opacity: 1,
+                    clickable: false
                 }).addTo(viewmodel.lineSegments);
 
                 // Собственно линии
@@ -59,6 +61,7 @@ $(document).ready(function () {
                         color: lineColors[linesOnSegment[j]],
                         weight: lineWeight,
                         opacity: 1,
+                        clickable: false,
                         offset: j * (lineWeight + 1) - (segmentWidth / 2) + ((lineWeight + 1) / 2)
                     }).addTo(viewmodel.lineSegments);
                 }
@@ -74,7 +77,8 @@ $(document).ready(function () {
                     fillOpacity: 0.9,
                     radius: 10,
                     weight: 2,
-                    opacity: 0.9
+                    opacity: 0.9,
+                    clickable: false
                 }).addTo(viewmodel.lineSegments);
             });
             // Amsterdam lines hack END ---
