@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24.65625"
+   height="24.6875"
+   preserveAspectRatio="xMinYMin meet"
+   viewBox="0 0 24.65625 24.6875"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="question_icon.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutM"
+       style="overflow:visible">
+      <path
+         id="path3905"
+         d="M 5.77,0 -2.88,5 -2.88,-5 5.77,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="scale(0.4,0.4)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL"
+       style="overflow:visible">
+      <path
+         id="path3902"
+         d="M 5.77,0 -2.88,5 -2.88,-5 5.77,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="scale(0.8,0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.8344731"
+     inkscape:cx="-35.217267"
+     inkscape:cy="15.441661"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3774"
+     showgrid="false"
+     fit-margin-top="1"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:window-width="1920"
+     inkscape:window-height="1125"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="g3774"
+     transform="translate(-21.117984,0.5761471)">
+    <path
+       transform="translate(20.805484,-2.1698971)"
+       d="M 22.975381,13.939799 C 22.975381,19.649828 18.346488,24.278721 12.636459,24.278721 6.9264307,24.278721 2.2975378,19.649828 2.2975378,13.939799 2.2975378,8.2297706 6.9264307,3.6008778 12.636459,3.6008778 18.346488,3.6008778 22.975381,8.2297706 22.975381,13.939799 z"
+       sodipodi:ry="10.338922"
+       sodipodi:rx="10.338922"
+       sodipodi:cy="13.939799"
+       sodipodi:cx="12.636459"
+       id="path2988"
+       style="fill:none;stroke:#33b7da;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc" />
+    <text
+       sodipodi:linespacing="110%"
+       id="text3770"
+       y="19.379539"
+       x="27.605717"
+       style="font-size:20.51946831px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:110.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#33b7da;fill-opacity:1;stroke:none;font-family:Verdana;-inkscape-font-specification:Verdana Bold"
+       xml:space="preserve"><tspan
+         y="19.379539"
+         x="27.605717"
+         id="tspan3772"
+         sodipodi:role="line">?</tspan></text>
+  </g>
+</svg>

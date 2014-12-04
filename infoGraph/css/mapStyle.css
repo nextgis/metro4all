@@ -1,0 +1,310 @@
+.shema-infoGraph {
+  display: block;
+  width: 97%;
+  overflow: hidden;
+  border: 2px solid #eee;
+}
+
+.shema-infoGraph > h3 {
+  margin: 5px auto;
+  text-align: center;
+  font: 100 23px/27px 'EngraversGothicBold';
+  color: #000;
+  letter-spacing: 1.2px;  
+}
+
+.metroShema {
+  display: block;
+  margin: auto 5px;
+}
+
+.hidden{
+  display:none;
+}
+/*
+.stationLabel {
+  stroke: #ffffff;
+  font-weight: bold;
+  stroke-width: 0.5px;
+}
+*/
+.dim {
+  opacity: 0.2;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+svg {
+  background: #FFF;
+  pointer-events: all;
+}
+
+.zone {
+  stroke-width: .5px;
+  stroke-linejoin: round;
+  cursor: pointer;
+}
+
+.stationTooltip {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+  background: #fff;
+  padding: 3px;
+  text-align: left;
+  border: solid #ccc 1px;
+  color: #666;
+  font-size: 14px;
+  font-family: sans-serif;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;  
+}
+
+.pointLabel {   
+  position: absolute;
+  display: none;
+  text-align: center;            
+  padding: 2px;      
+  font-size: 12px;
+  font-family: sans-serif;  
+  pointer-events: none;         
+}
+
+.stationLabel {
+  font-size: 10px;
+}
+
+.lineLabel {
+  font-size: 8px;
+}
+
+.transferLabel {
+  font-size: 10px;
+}
+
+.infoLabel {   
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
+  display: none;
+  border: solid #ccc 1px;
+  color: #666;
+  background: #FFFFFF;    
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 3px #99FF66;
+  -moz-box-shadow: 0px 0px 3px #99FF66;
+  box-shadow: 0px 0px 3px #99FF66;
+  text-align: left;            
+  padding: 2px;      
+  font-size: 12px;
+  font-family: sans-serif; 
+  pointer-events: none;       
+}
+
+.infoLabel span {
+  margin: 0px 5px;
+}
+
+#zoomControls {
+  position:relative;
+  float: left;
+  top:20px;
+  left:10px;
+  width:41px;
+  height:82px;
+}
+
+#zoomControls input[name="zoomIn"] {
+  margin: 10px 10px 10px 10px;
+  width: 23px;
+  height: 23px;
+  border: 1px solid #33b7da;
+  background: url('../img/plus_sign.svg') 0 0 no-repeat;
+  cursor: pointer;
+}
+
+#zoomControls input[name="zoomOut"] {
+  margin: 10px 10px 10px 10px;
+  width: 23px;
+  height: 23px;
+  border: 1px solid #33b7da;
+  background: url('../img/minus_sign.svg') 0 0 no-repeat;
+  cursor: pointer;
+}
+
+input[name="reload"].reset{
+  float: right;  
+  margin: 30px 20px 10px 10px;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  background: url('../img/reload_icon.svg') 0 0 no-repeat;
+  cursor: pointer; 
+}
+
+
+#accessControls .hidden{
+  display: hidden;  
+}
+
+div.accessTooltip {
+  display: none;
+  font:  500 12px/14px sans-serif;
+}
+
+img.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle;
+}
+
+img.symbol {
+  width: 16px;
+  height: 16px;
+}
+
+img#questionSymbol {
+  width: 18px;
+  height: 18px;
+  cursor: help;
+  margin-right: 5px;
+  margin-bottom: 0;
+  display: inline;
+  vertical-align: top;
+}
+
+ul.tooltipList {
+  margin-left: 35px;
+  list-style-type: disc;
+}
+
+/*p.listHeader {
+  margin-left: 16px;
+}
+
+p.listHeader::first-line b {
+  margin-left: 0;
+}*/
+
+.content > .infoGraph-mainTitle {
+  margin: 5px auto;
+  text-align: center;
+  font: 100 28px/32px 'EngraversGothicBold';
+  color: #000;
+  letter-spacing: 1.2px;
+}
+
+.form-inline {
+  display: inline-block;
+}
+
+.form-group {
+  display: inline-block;
+  /*margin: 0 auto;*/
+  margin: 0 auto 0 20px;  
+  vertical-align: middle;
+}
+
+.form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+.dropdownList {
+  font: 16px/18px 'Roboto';
+  margin-top: 5px;
+  padding-left: 5px;
+  /*width: 350px !important;*/
+  /*background:url(http://imgur.com/MJyZM.png) 0 0 no-repeat;
+  border-width:0;
+  -webkit-appearance: none;
+  -moz-appearance:none;
+  appearance: none;*/
+}
+
+.dropdownList option {
+  margin: 0;
+  padding-left: 5px;
+  border: 1px dashed #fafafa;
+}
+
+.menu-infoGraph {
+  width: 90%;
+  padding: 5px 35px;
+}
+
+.menu-infoGraph > .form-inline{
+  width: 100%;
+}
+
+.menu-infoGraph > .title {
+  margin: 5px 0;
+  font: 100 26px/28px 'EngraversGothicBold';
+  color: #000;
+  letter-spacing: 1.2px;
+}
+
+.menu-infoGraph > form .subtitle {
+  display: inline-block !important;
+  /*margin: 0 5px 0 20px !important;*/
+  margin: 0 5px 0 0 !important;
+  padding-bottom: 10px;
+  vertical-align: middle !important;
+  font: 100 26px/28px 'EngraversGothicBold' !important;
+  color: #000;
+}
+
+.menu-infoGraph > label {
+  /*margin: 0 0 4px 0;*/
+  font: 100 16px/18px 'Roboto';
+  color: #000;
+}
+
+.data-infoGraph {
+  width: 97%;
+  padding: 5px 35px 35px;
+}
+
+.data-infoGraph > .title {
+  margin: 5px 5px;
+  font: 100 24px/26px 'EngraversGothicBold';
+  color: #000;
+  letter-spacing: 1.2px;
+}
+
+.data-infoGraph > .subtitle {
+  margin: 5px 5px;
+  font: 100 18px/20px 'EngraversGothicBold';
+  color: #000;
+  letter-spacing: 1.2px;
+}
+
+.data-infoGraph > .column {
+  display: inline-block;
+  width: 30%;
+  min-width: 170px;
+  font: 100 10px/14px 'Roboto';
+  /*vertical-align:top;*/
+}
+
+table.tabulated td {
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.data-infoGraph > .column > p.column-title {
+  font: 100 16px/18px 'EngraversGothicBold';
+  padding: 5px 5px;
+  text-align: left;
+  /*vertical-align:top;*/
+}
