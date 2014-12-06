@@ -272,7 +272,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
                             stationIcons.filter(function() {
                               if (stationDataById[splitId(this.id)].handicappedFriendlyRoutes != 0) {return this.id;}
                             }).attr("xlink:href", "img/aged_icon.svg").classed("hidden", false);
-                            shemaHeader.html('Станции с маршрутами, доступными для людей с затруднениями предвижения').classed("hidden", false);
+                            shemaHeader.html('Станции с маршрутами, доступными для людей с затруднениями передвижения').classed("hidden", false);
                             break;
 
       case "luggageFriendly": lines.classed("dim", true);
