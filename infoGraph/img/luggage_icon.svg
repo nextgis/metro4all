@@ -1,79 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.0"
-   id="Layer_1"
-   x="0px"
-   y="0px"
-   width="97.192551"
-   height="103.62971"
-   viewBox="0 0 97.19255 103.62972"
-   enable-background="new 0 0 93.124 100"
-   xml:space="preserve"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="icon_601.svg"><metadata
-   id="metadata21"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
-   id="defs19" /><sodipodi:namedview
-   pagecolor="#ffffff"
-   bordercolor="#666666"
-   borderopacity="1"
-   objecttolerance="10"
-   gridtolerance="10"
-   guidetolerance="10"
-   inkscape:pageopacity="0"
-   inkscape:pageshadow="2"
-   inkscape:window-width="1280"
-   inkscape:window-height="738"
-   id="namedview17"
-   showgrid="false"
-   fit-margin-top="5"
-   fit-margin-left="5"
-   fit-margin-right="5"
-   fit-margin-bottom="5"
-   inkscape:zoom="2.36"
-   inkscape:cx="51.562753"
-   inkscape:cy="54.999997"
-   inkscape:window-x="-8"
-   inkscape:window-y="-8"
-   inkscape:window-maximized="1"
-   inkscape:current-layer="Layer_1" />
-
-
-
-
-<g
-   id="g2998"
-   transform="matrix(0.93629832,0,0,0.93629832,5.0007045,4.9998799)"><path
-     id="path3"
-     d="m 11.623,42.23 c 0,16.961 18.245,30.711 40.751,30.711 22.507,0 40.75,-13.75 40.75,-30.711 H 11.623 z"
-     inkscape:connector-curvature="0" /><path
-     id="path5"
-     d="m 31.164,100 c -7.395,0 -13.411,-6.017 -13.411,-13.41 0,-7.395 6.016,-13.409 13.411,-13.409 7.394,0 13.409,6.015 13.409,13.409 0,7.393 -6.015,13.41 -13.409,13.41 l 0,0 z m 0,-21.684 c -4.563,0 -8.275,3.711 -8.275,8.273 0,4.562 3.712,8.274 8.275,8.274 4.562,0 8.273,-3.713 8.273,-8.274 0.001,-4.562 -3.711,-8.273 -8.273,-8.273 l 0,0 z"
-     inkscape:connector-curvature="0" /><path
-     id="path7"
-     d="m 73.05,100 c -7.396,0 -13.411,-6.017 -13.411,-13.41 0,-7.395 6.016,-13.409 13.411,-13.409 7.393,0 13.407,6.015 13.407,13.409 0,7.393 -6.015,13.41 -13.407,13.41 l 0,0 z m 0,-21.684 c -4.563,0 -8.275,3.711 -8.275,8.273 0,4.562 3.712,8.274 8.275,8.274 4.561,0 8.272,-3.713 8.272,-8.274 0,-4.562 -3.712,-8.273 -8.272,-8.273 l 0,0 z"
-     inkscape:connector-curvature="0" /><g
-     id="g9">
-	<path
-   id="path11"
-   d="m 11.623,38.787 h 5.131 c 0,-0.006 10e-4,-0.011 10e-4,-0.018 -0.186,-8.503 -4.561,-18.695 -14.277,-19.122 -3.312,-0.146 -3.298,4.991 0,5.136 6.664,0.292 9.022,8.544 9.142,13.986 0.001,0.006 0.002,0.012 0.003,0.018 z"
-   inkscape:connector-curvature="0" />
-	<path
-   id="path13"
-   d="m 14.223,41.25 c 0.013,0 0.027,0 0.041,0 h -0.041 z"
-   inkscape:connector-curvature="0" />
-</g><path
-     id="path15"
-     d="m 67.047,3.927 0,0 C 67.115,3.679 67.186,3.431 67.254,3.182 68.145,-0.015 63.19,-1.369 62.302,1.816 62.24,2.038 62.179,2.26 62.116,2.482 58.811,14.357 55.507,26.23 52.203,38.104 c -0.066,0.24 -0.092,0.466 -0.097,0.683 H 93.124 C 93.124,22.926 82.31,9.379 67.047,3.927 z"
-     inkscape:connector-curvature="0" /></g>
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.0"
+  width="97.192551"
+  height="103.62971"
+  viewBox="0 0 97.19255 103.62972"
+  id="buggy_icon"
+  xml:space="preserve">
+  <metadata id="metadata21">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs id="defs19" />
+  <g transform="matrix(0.93629832,0,0,0.93629832,5.0007045,4.9998799)" id="g2998">
+    <path d="m 11.623,42.23 c 0,16.961 18.245,30.711 40.751,30.711 22.507,0 40.75,-13.75 40.75,-30.711 H 11.623 z" id="path3" />
+    <path d="m 31.164,100 c -7.395,0 -13.411,-6.017 -13.411,-13.41 0,-7.395 6.016,-13.409 13.411,-13.409 7.394,0 13.409,6.015 13.409,13.409 0,7.393 -6.015,13.41 -13.409,13.41 l 0,0 z m 0,-21.684 c -4.563,0 -8.275,3.711 -8.275,8.273 0,4.562 3.712,8.274 8.275,8.274 4.562,0 8.273,-3.713 8.273,-8.274 0.001,-4.562 -3.711,-8.273 -8.273,-8.273 l 0,0 z" id="path5" />
+    <path d="m 73.05,100 c -7.396,0 -13.411,-6.017 -13.411,-13.41 0,-7.395 6.016,-13.409 13.411,-13.409 7.393,0 13.407,6.015 13.407,13.409 0,7.393 -6.015,13.41 -13.407,13.41 l 0,0 z m 0,-21.684 c -4.563,0 -8.275,3.711 -8.275,8.273 0,4.562 3.712,8.274 8.275,8.274 4.561,0 8.272,-3.713 8.272,-8.274 0,-4.562 -3.712,-8.273 -8.272,-8.273 l 0,0 z" id="path7" />
+    <g id="g9">
+      <path d="m 11.623,38.787 h 5.131 c 0,-0.006 10e-4,-0.011 10e-4,-0.018 -0.186,-8.503 -4.561,-18.695 -14.277,-19.122 -3.312,-0.146 -3.298,4.991 0,5.136 6.664,0.292 9.022,8.544 9.142,13.986 0.001,0.006 0.002,0.012 0.003,0.018 z" id="path11" />
+      <path d="m 14.223,41.25 c 0.013,0 0.027,0 0.041,0 h -0.041 z" id="path13" />
+    </g>
+    <path d="m 67.047,3.927 0,0 C 67.115,3.679 67.186,3.431 67.254,3.182 68.145,-0.015 63.19,-1.369 62.302,1.816 62.24,2.038 62.179,2.26 62.116,2.482 58.811,14.357 55.507,26.23 52.203,38.104 c -0.066,0.24 -0.092,0.466 -0.097,0.683 H 93.124 C 93.124,22.926 82.31,9.379 67.047,3.927 z" id="path15" />
+  </g>
 </svg>

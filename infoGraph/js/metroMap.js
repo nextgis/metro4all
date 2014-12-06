@@ -272,7 +272,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
                             stationIcons.filter(function() {
                               if (stationDataById[splitId(this.id)].handicappedFriendlyRoutes != 0) {return this.id;}
                             }).attr("xlink:href", "img/aged_icon.svg").classed("hidden", false);
-                            shemaHeader.html('Станции с маршрутами, доступными для людей с затруднениями предвижения').classed("hidden", false);
+                            shemaHeader.html('Станции с маршрутами, доступными для людей с затруднениями передвижения').classed("hidden", false);
                             break;
 
       case "luggageFriendly": lines.classed("dim", true);
@@ -283,7 +283,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
                         stationIcons.filter(function() {
                           if (stationDataById[splitId(this.id)].luggageFriendlyRoutes != 0) {return this.id;}
                         }).attr("xlink:href", "img/luggage_icon.svg").classed("hidden", false);
-                        shemaHeader.html('Станции с маршрутами, доступными для людей с детскими колясками и габаритным багажом').classed("hidden", false);
+                        shemaHeader.html('Станции с маршрутами, доступными для людей с детскими колясками').classed("hidden", false);
                         break;
     };
     scrollToFocus("metroMap");
@@ -400,8 +400,8 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
       {factor: 'Количество маршрутов на выход, доступных для инвалидов-колясочников', value: stationData.wheelchairFriendlyRoutesOut},
       {factor: 'Количество маршрутов на вход, доступных для людей с затруднениями передвижения', value: stationData.handicappedFriendlyRoutesIn},
       {factor: 'Количество маршрутов на выход, доступных для людей с затруднениями передвижения', value: stationData.handicappedFriendlyRoutesOut},
-      {factor: 'Количество маршрутов на вход, доступных для людей с детскими колясками и габаритным багажом', value: stationData.luggageFriendlyRoutesIn},
-      {factor: 'Количество маршрутов на выход, доступных для людей с детскими колясками и габаритным багажом', value: stationData.luggageFriendlyRoutesOut}
+      {factor: 'Количество маршрутов на вход, доступных для людей с детскими колясками', value: stationData.luggageFriendlyRoutesIn},
+      {factor: 'Количество маршрутов на выход, доступных для людей с детскими колясками', value: stationData.luggageFriendlyRoutesOut}
     );
 
     targetAccessData = tableData;
@@ -458,7 +458,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     tableData.push(
       {factor: 'Доступен ли переход для инвалидов-колясочников', value: (transferData[0].wheelchairFriendlyRoutes == 0 ? 'нет' : 'да')},
       {factor: 'Доступен ли переход для людей с затруднениями передвижения', value: transferData[0].handicappedFriendlyRoutes == 0 ? 'нет' : 'да'},
-      {factor: 'Доступен ли переход для людей с детскими колясками и габаритным багажом', value: transferData[0].luggageFriendlyRoutes == 0 ? 'нет' : 'да'}
+      {factor: 'Доступен ли переход для людей с детскими колясками', value: transferData[0].luggageFriendlyRoutes == 0 ? 'нет' : 'да'}
     );
 
     targetAccessData = tableData;
@@ -612,8 +612,8 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
                  d.factor == 'Количество маршрутов, доступных для инвалидов-колясочников' ||
                  d.factor == 'Количество станций с маршрутами, доступными для людей с затруднениями передвижения' ||
                  d.factor == 'Количество маршрутов, доступных для людей с затруднениями передвижения' ||
-                 d.factor == 'Количество станций с маршрутами, доступными  для людей с детскими колясками и габаритным багажом' ||
-                 d.factor == 'Количество маршрутов, доступных для людей с детскими колясками и габаритным багажом') {
+                 d.factor == 'Количество станций с маршрутами, доступными  для людей с детскими колясками' ||
+                 d.factor == 'Количество маршрутов, доступных для людей с детскими колясками') {
         targetAccessData.push(d);
       };
     });
