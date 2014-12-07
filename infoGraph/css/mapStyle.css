@@ -305,6 +305,7 @@ table.tabulated td {
 .data-infoGraph > .column > p.column-title {
   font: 100 16px/18px 'EngraversGothicBold';
   padding: 5px 5px 1px;
+  margin-bottom: 5px;
   text-align: left;
   /*vertical-align:top;*/
 }
