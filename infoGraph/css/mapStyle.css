@@ -1,8 +1,8 @@
 .shema-infoGraph {
   display: block;
-  width: 97%;
+  width: 100%;
   overflow: hidden;
-  border: 2px solid #eee;
+  /*border: 2px solid #eee;*/
 }
 
 .shema-infoGraph > h3 {
@@ -114,14 +114,14 @@ svg {
 #zoomControls {
   position:relative;
   float: left;
-  top:20px;
+  top:5px;
   left:10px;
   width:41px;
   height:82px;
 }
 
 #zoomControls input[name="zoomIn"] {
-  margin: 10px 10px 10px 10px;
+  margin: 5px 10px 5px 10px;
   width: 23px;
   height: 23px;
   border: 1px solid #33b7da;
@@ -130,7 +130,7 @@ svg {
 }
 
 #zoomControls input[name="zoomOut"] {
-  margin: 10px 10px 10px 10px;
+  margin: 5px 10px 5px 10px;
   width: 23px;
   height: 23px;
   border: 1px solid #33b7da;
@@ -283,7 +283,7 @@ p.listHeader::first-line b {
 }
 
 .data-infoGraph > .subtitle {
-  margin: 5px 5px;
+  margin: 5px 5px 8px;
   font: 100 18px/20px 'EngraversGothicBold';
   color: #000;
   letter-spacing: 1.2px;
@@ -304,7 +304,7 @@ table.tabulated td {
 
 .data-infoGraph > .column > p.column-title {
   font: 100 16px/18px 'EngraversGothicBold';
-  padding: 5px 5px;
+  padding: 5px 5px 1px;
   text-align: left;
   /*vertical-align:top;*/
 }
