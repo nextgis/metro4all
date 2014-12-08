@@ -42,21 +42,22 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   d3.select("#metroMap").node().appendChild(importedNode);
 
   var svg = d3.select("svg#svgCanvas"),
-  svgWidth = svg.attr("width"),
-  svgHeight = svg.attr("height");
+  svgWidth = (svg.style("width")).replace('px', ''),
+  svgHeight = (svg.style("height")).replace('px', '');
 
+  /*
   d3.select(window).on('resize', resize);
   function resize() {
-    /*console.log(d3.select("#metroMap").attr("width"));
+    console.log(d3.select("#metroMap").attr("width"));
     console.log(svg.style());
-    console.log(svg.attr("id"));*/
+    console.log(svg.attr("id"));
     //svgWidth = d3.select('div.shema-infoGraph').attr("width"),
     //svgHeight = d3.select('div.shema-infoGraph').attr("height");
-  };
+  };*/
 
   var zoom = d3.behavior.zoom()
     .scaleExtent([0.7, 3])
-    //.size([svgWidth, svgHeight])
+    .size([svgWidth, svgHeight])
     .on("zoom", zooming);
 
   svg.call(zoom);
@@ -729,7 +730,9 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     //Hide all icons
     d3.select("g#stations").selectAll("image").attr("xlink:href", "").classed("hidden", true);
     //Reset zoom and translate
-    mainG.attr("transform", "");  
+    mainG.attr("transform", "");
+    zoom.scale(1);
+    zoom.translate([0,0]);
     //return false;
   };
 
@@ -763,7 +766,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   function zoomEvent() {
     var //clicked = d3.event.target,
     //direction = 1,
-    factor = 1,
+    factor = 0.2,
     //target_zoom = 1,
     center = [svgWidth / 2, svgHeight / 2],
     extent = zoom.scaleExtent(),
@@ -773,10 +776,10 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     view = {x: translate[0], y: translate[1], k: zoom.scale()};
   
     //d3.event.preventDefault();
-    console.log(center);
+    //console.log(center);
     factor = (this.name === 'zoomIn') ? factor : -factor;
     targetZoom = zoom.scale() + factor;// * (1 + factor);
-    console.log(targetZoom);
+    //console.log(targetZoom);
 
     if (targetZoom < extent[0]) {
       targetZoom = extent[0];
