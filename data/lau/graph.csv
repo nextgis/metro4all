@@ -1,29 +1,29 @@
-id_from,id_to,name_from,name_to,cost
-1,2,Lausanne-Flon ,Vigie ,3
-2,3,Vigie ,Montelly,3
-3,4,Montelly,Provence,3
-4,5,Provence,Malley,3
-5,6,Malley,Bourdonnette,3
-6,7,Bourdonnette,UNIL-Dorigny,3
-7,8,UNIL-Dorigny,UNIL-Mouline,3
-8,9,UNIL-Mouline,UNIL-Sorge,3
-9,10,UNIL-Sorge,EPFL,3
-10,11,EPFL,Bassenges,3
-11,12,Bassenges,Cerisaie,3
-12,13,Cerisaie,Crochy,3
-13,14,Crochy,Epenex,3
-14,15,Epenex,Renens-Gare ,3
-16,17,Ouchy,Jordils,3
-17,18,Jordils,Délices,3
-18,19,Délices,Grancy,3
-19,20,Grancy,Lausanne-Gare,3
-20,21,Lausanne-Gare,Lausanne-Flon,3
-21,22,Lausanne-Flon,Riponne - Maurice Béjart,3
-22,23,Riponne - Maurice Béjart,Bessières,3
-23,24,Bessières,Ours,3
-24,25,Ours,CHUV,3
-25,26,CHUV,La Sallaz,3
-26,27,La Sallaz,Fourmi,3
-27,28,Fourmi,Vennes,3
-28,29,Vennes,Les Croisettes ,3
-1,21,Lausanne-Flon ,Lausanne-Flon ,5
+id_from;id_to;name_from;name_to;cost
+1;2;Lausanne-Flon ;Vigie ;3
+2;3;Vigie ;Montelly;3
+3;4;Montelly;Provence;3
+4;5;Provence;Malley;3
+5;6;Malley;Bourdonnette;3
+6;7;Bourdonnette;UNIL-Dorigny;3
+7;8;UNIL-Dorigny;UNIL-Mouline;3
+8;9;UNIL-Mouline;UNIL-Sorge;3
+9;10;UNIL-Sorge;EPFL;3
+10;11;EPFL;Bassenges;3
+11;12;Bassenges;Cerisaie;3
+12;13;Cerisaie;Crochy;3
+13;14;Crochy;Epenex;3
+14;15;Epenex;Renens-Gare ;3
+16;17;Ouchy;Jordils;3
+17;18;Jordils;Délices;3
+18;19;Délices;Grancy;3
+19;20;Grancy;Lausanne-Gare;3
+20;21;Lausanne-Gare;Lausanne-Flon;3
+21;22;Lausanne-Flon;Riponne - Maurice Béjart;3
+22;23;Riponne - Maurice Béjart;Bessières;3
+23;24;Bessières;Ours;3
+24;25;Ours;CHUV;3
+25;26;CHUV;La Sallaz;3
+26;27;La Sallaz;Fourmi;3
+27;28;Fourmi;Vennes;3
+28;29;Vennes;Les Croisettes ;3
+1;21;Lausanne-Flon ;Lausanne-Flon ;5
