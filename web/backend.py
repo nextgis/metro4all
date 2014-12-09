@@ -117,7 +117,7 @@ def main(city):
             route_css_class='city-8'
          ),
         'lau': dict(
-            mainmap=dict(center=[46.5218,6.6327], zoom=11),
+            mainmap=dict(center=[46.5218,6.6327], zoom=13),
             city='lau',
             route_css_class='city-9'
          )
