@@ -5,7 +5,8 @@ How to update data
 ------
 
 1. Download up to date source files from google docs
-2. Install [pandas](http://pandas.pydata.org) and all dependencies from [SciPy Stack](http://www.scipy.org)
+2. Install [pandas](http://pandas.pydata.org) and all dependencies from [SciPy Stack](http://www.scipy.org):
+`sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose`
 3. Use python scripts from `metro4all/utils` for recalculating statistics:
   - `python nodes.py nodes.csv elements.csv`
   - `python stations.py stations.csv portals.csv`
