@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov, polimax@mail.ru
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2013,2014 NextGIS
 *
@@ -23,6 +23,7 @@ package com.nextgis.metroaccess;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -215,40 +216,42 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    changeCityBases.setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	public boolean onPreferenceClick(Preference preference) {
         		//Add and remove bases
-        		
+
         		MAGraph oGraph = MainActivity.GetGraph();
-        		
-        		File oDataFolder = new File(getExternalFilesDir(""), MainActivity.GetRemoteMetaFile());			
+
+        		File oDataFolder = new File(getExternalFilesDir(""), MainActivity.GetRemoteMetaFile());
     			String sJSON = MainActivity.readFromFile(oDataFolder);
         		oGraph.OnUpdateMeta(sJSON, false);
-        		
+
         		final List<GraphDataItem> new_items = oGraph.HasChanges();
-        		final List<GraphDataItem> exist_items = new ArrayList<GraphDataItem>(oGraph.GetRouteMetadata().values()); 
-    		    
+                Collections.sort(new_items);
+        		final List<GraphDataItem> exist_items = new ArrayList<GraphDataItem>(oGraph.GetRouteMetadata().values());
+                Collections.sort(exist_items);
+
         	    int count = new_items.size() + exist_items.size();
         	    if(count == 0)
         	    	return false;
-        	    
+
         	    final boolean[] checkedItems = new boolean[count];
         	    final CharSequence[] checkedItemStrings = new CharSequence[count];
-        	    
+
+                for(int i = 0; i < exist_items.size(); i++){
+                    checkedItems[i] = true;
+                }
+
+                for(int i = 0; i < exist_items.size(); i++){
+                    checkedItemStrings[i] = exist_items.get(i).GetLocaleName();
+                }
+
         	    for(int i = 0; i < new_items.size(); i++){
-        	    	checkedItems[i] = false;
+        	    	checkedItems[i + exist_items.size()] = false;
         	    }
-        	    
+
         	    for(int i = 0; i < new_items.size(); i++){
-        	    	checkedItemStrings[i] = new_items.get(i).GetFullName();
+        	    	checkedItemStrings[i + exist_items.size()] = new_items.get(i).GetFullName();
         	    }
-        	    
-        	    for(int i = 0; i < exist_items.size(); i++){
-        	    	checkedItems[i + new_items.size()] = true;
-        	    }
-        	    
-        	    for(int i = 0; i < exist_items.size(); i++){
-        	    	checkedItemStrings[i + new_items.size()] = exist_items.get(i).GetLocaleName();
-        	    }       	    
-        	    
-        	    
+
+
         	    AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
         		builder.setTitle(R.string.sPrefChangeCityBasesTitle)
         			   .setMultiChoiceItems(checkedItemStrings, checkedItems,
@@ -262,24 +265,29 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         						new DialogInterface.OnClickListener() {
         							@Override
         							public void onClick(DialogInterface dialog, int id) {
-        								
+
         								m_asDownloadData.clear();
-        								
+
         								for (int i = 0; i < checkedItems.length; i++) {
         									//check if no change
         									//1. item is unchecked and was unchecked
-        									if(!checkedItems[i] && i < new_items.size()){
+                                            //if(!checkedItems[i] && i < new_items.size()){
+                                            if(!checkedItems[i] && i >= exist_items.size()){
         										continue;
         									}
-        									else if(i < new_items.size()){
-        										m_asDownloadData.add(new DownloadData(PreferencesActivity.this, new_items.get(i), MainActivity.GetDownloadURL() + new_items.get(i).GetPath() + ".zip", m_oGetJSONHandler));										
+                                            //else if(i < new_items.size()){
+        									else if(i >= exist_items.size()){  // add
+                                                //m_asDownloadData.add(new DownloadData(PreferencesActivity.this, new_items.get(i), MainActivity.GetDownloadURL() + new_items.get(i).GetPath() + ".zip", m_oGetJSONHandler));
+        										m_asDownloadData.add(new DownloadData(PreferencesActivity.this, new_items.get(i - exist_items.size()), MainActivity.GetDownloadURL() + new_items.get(i - exist_items.size()).GetPath() + ".zip", m_oGetJSONHandler));
         									}
         									//2. item is checked and was checked
-        									else if (checkedItems[i] && i >= new_items.size()){
+                                            //else if (checkedItems[i] && i >= new_items.size()){
+                                            else if (checkedItems[i] && i < exist_items.size()){
         										continue;
         									}
         									else{//delete
-        										File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()), exist_items.get(i - new_items.size()).GetPath());
+        										//File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()), exist_items.get(i - new_items.size()).GetPath());
+                                                File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()), exist_items.get(i).GetPath());
         										DeleteRecursive(oDataFolder);
         									}
         								}

@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov, polimax@mail.ru
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2013 NextGIS
 *
@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -262,6 +263,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         int nCurrentCity = 0;
         mCities.clear();
         final List<GraphDataItem> city_list = new ArrayList<GraphDataItem>(m_oGraph.GetRouteMetadata().values());
+        Collections.sort(city_list);
+
         for(int i = 0; i < city_list.size(); i++){
             items.add(city_list.get(i).GetLocaleName());
             mCities.add(city_list.get(i).GetPath());
@@ -351,6 +354,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 		m_oGraph.OnUpdateMeta(sJSON, true);
 		final List<GraphDataItem> items = m_oGraph.HasChanges();
+        Collections.sort(items);
 
 		int count = items.size();
 		if(count < 1){
@@ -410,6 +414,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		//ask user for download
 		m_oGraph.OnUpdateMeta(sJSON, false);
 		final List<GraphDataItem> items = m_oGraph.HasChanges();
+        Collections.sort(items);
 
 	    int count = items.size();
 	    if(count == 0)
