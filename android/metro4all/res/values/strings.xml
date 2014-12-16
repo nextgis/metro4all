@@ -14,7 +14,7 @@
 	<string name="sAbout">About</string>
 	<string name="sNetworkGetErr">Getting data failed</string>
 	<string name="sNetworkUnreachErr">Network is not available</string>
-    <string name="sDownLoading">Downloading &#8230;</string>
+    <string name="sDownLoading">Downloading:</string>
     <string name="sZipExtractionProcess">Extracting &#8230;</string>
     <string name="sSearching">Searching &#8230;</string>
 	<string name="sNetworkInvalidData">The data are invalid</string>

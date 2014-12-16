@@ -14,7 +14,7 @@
 	<string name="sAbout">О программе</string>
 	<string name="sNetworkGetErr">Ошибка получения данных</string>
 	<string name="sNetworkUnreachErr">Отсутствует подключение к сети</string>
-    <string name="sDownLoading">Загружается &#8230;</string>    
+    <string name="sDownLoading">Загружается:</string>
     <string name="sSearching">Поиск &#8230;</string>
     <string name="sZipExtractionProcess">Распаковка &#8230;</string>
 	<string name="sNetworkInvalidData">Ошибка в данных</string>

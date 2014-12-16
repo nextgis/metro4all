@@ -14,7 +14,7 @@
 	<string name="sAbout">Пра дадатак</string>
 	<string name="sNetworkGetErr">Памылка атрыманых дадзеных</string>
 	<string name="sNetworkUnreachErr">Сетка недасяжная</string>
-    <string name="sDownLoading">Спампаванне &#8230;</string>
+    <string name="sDownLoading">Спампаванне:</string>
     <string name="sZipExtractionProcess">Выманне &#8230;</string>
     <string name="sSearching">Пошук &#8230;</string>
 	<string name="sNetworkInvalidData">Памылковыя дадзеныя</string>

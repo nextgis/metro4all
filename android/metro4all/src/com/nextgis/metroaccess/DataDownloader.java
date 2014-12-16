@@ -42,6 +42,7 @@ import com.nextgis.metroaccess.data.GraphDataItem;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -49,7 +50,7 @@ import android.os.Message;
 
 import static com.nextgis.metroaccess.Constants.*;
 
-public class DataDownloader extends AsyncTask<String, String, String> {
+public class DataDownloader extends AsyncTask<String, Integer, String> {
     private Context m_oContext;
     private boolean m_bSucces = true;
     private ProgressDialog m_oDownloadDialog;
@@ -79,6 +80,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
 		m_oDownloadDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		m_oDownloadDialog.setMessage(m_sDownloadDialogMsg);
 		m_oDownloadDialog.setCancelable(false);
+        m_oDownloadDialog.setIndeterminate(true);
 		m_oDownloadDialog.show();
     } 
     
@@ -89,7 +91,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		URL url = new URL(aurl[0]);
     		URLConnection connetion = url.openConnection();
     		connetion.connect();
-    		int lenghtOfFile = connetion.getContentLength();
+    		int lenghtOfFile = connetion.getContentLength() / 1024;
     		if(lenghtOfFile <= 0){
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
@@ -108,7 +110,7 @@ public class DataDownloader extends AsyncTask<String, String, String> {
     		long total = 0;
     		while ((count = input.read(data)) != -1) {
     			total += count;
-    			publishProgress(""+(int)((total*100)/lenghtOfFile));
+    			publishProgress((int) total / 1024, lenghtOfFile);
     			output.write(data, 0, count);
     		}
     		output.close();
@@ -119,20 +121,30 @@ public class DataDownloader extends AsyncTask<String, String, String> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
             bundle.putInt(BUNDLE_EVENTSRC_KEY, 2);
-            bundle.putString(BUNDLE_MSG_KEY, e.getLocalizedMessage());
+            //bundle.putString(BUNDLE_MSG_KEY, e.getLocalizedMessage());
+            bundle.putString(BUNDLE_MSG_KEY, m_oContext.getString(R.string.sNetworkUnreachErr));
             
             Message msg = new Message();
             msg.setData(bundle);
             if(m_oEventReceiver != null){
             	m_oEventReceiver.sendMessage(msg);
-            } 		
+            }
     		
     	}
     	return null;
 	}
     
-    protected void onProgressUpdate(String... progress) {
-    	m_oDownloadDialog.setProgress(Integer.parseInt(progress[0]));
+    protected void onProgressUpdate(Integer... progress) {
+        if (m_oDownloadDialog.isIndeterminate()) // connection established
+        {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB)  // set format for api 11+
+                m_oDownloadDialog.setProgressNumberFormat("%1d / %2d Kb");
+
+            m_oDownloadDialog.setIndeterminate(false); // turn off indeterminate
+            m_oDownloadDialog.setMax(progress[1]); // max value in kb
+        }
+
+    	m_oDownloadDialog.setProgress(progress[0]);
     }
     
     @Override

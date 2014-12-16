@@ -14,7 +14,7 @@
 	<string name="sAbout">O aplikacji</string>
 	<string name="sNetworkGetErr">Wystąpił błąd pobierania danych</string>
 	<string name="sNetworkUnreachErr">Brak połączenia z internetem</string>
-    <string name="sDownLoading">Pobieranie &#8230;</string>
+    <string name="sDownLoading">Pobieranie:</string>
     <string name="sZipExtractionProcess">Wypakowywanie &#8230;</string>
     <string name="sSearching">Wyszukiwanie &#8230;</string>
 	<string name="sNetworkInvalidData">Otrzymano niepoprawne dane</string>

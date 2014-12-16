@@ -40,7 +40,7 @@ public class DownloadData {
 	}
 	
 	public void OnDownload(){
-		DataDownloader uploader = new DataDownloader(m_Context, m_oItem, m_Context.getResources().getString(R.string.sDownLoading) + "\n(" + m_oItem.GetLocaleName() + ")", m_EventReceiver);
+		DataDownloader uploader = new DataDownloader(m_Context, m_oItem, m_Context.getResources().getString(R.string.sDownLoading) + "\n" + m_oItem.GetLocaleName(), m_EventReceiver);
 		uploader.execute(m_sURL);			
 	}
 }
