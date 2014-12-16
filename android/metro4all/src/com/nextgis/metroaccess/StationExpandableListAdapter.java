@@ -294,7 +294,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	                if (moOriginalStationList != null && moOriginalStationList.size() > 0) {
 	                    for (final StationItem station : moOriginalStationList) {
 	                        if (station.GetName().toLowerCase()
-	                                .contains(constraint.toString()))
+	                                .contains(constraint.toString().toLowerCase()))
 	                            results.add(station);
 	                    }
 	                }

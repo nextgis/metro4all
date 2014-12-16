@@ -41,9 +41,10 @@ public class StationImageView extends SherlockActivity {
 	WebView mWebView;
 	float width;
     float height;
-	float currentHeight;
+//	float currentHeight;
 	String msPath;
     boolean isForLegend;
+    private boolean isPortrait;
     private boolean mIsRootActivity;
     private int mStationID;
     private boolean mIsPortalIn;
@@ -69,7 +70,8 @@ public class StationImageView extends SherlockActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         height = displaymetrics.heightPixels;
         width = displaymetrics.widthPixels;
-        currentHeight = height;
+//        currentHeight = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? height : width;
+        isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -113,7 +115,10 @@ public class StationImageView extends SherlockActivity {
         }
 
 		String sPath = "file://" + sFolder + "/";
-		String sCmd = "<html><center><img src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></center></html>";
+        String fix = isPortrait ? "width=\"100%\" height=\"auto\"" : "width=\"auto\" height=\"100%\"";
+
+        String sCmd = "<html><center><img style=\"position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0; max-width: 100%; max-height: 100%;\" " + fix + " src=\"" + sName + "\"></center></html>";
+//		String sCmd = "<html><center><img width=\"100%\" height=\"auto\" src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></center></html>";
 
         mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
 			//This loads the image at the center of thee screen
@@ -123,13 +128,13 @@ public class StationImageView extends SherlockActivity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig){
 		if(newConfig.equals(Configuration.ORIENTATION_LANDSCAPE)){
-
-			currentHeight=width; 
+            isPortrait = false;
+//			currentHeight=width;
 			loadImage();                 
 
 		}if(newConfig.equals(Configuration.ORIENTATION_PORTRAIT)){
-
-			currentHeight=height;
+            isPortrait = true;
+//			currentHeight=height;
 			loadImage();
 
 		}
