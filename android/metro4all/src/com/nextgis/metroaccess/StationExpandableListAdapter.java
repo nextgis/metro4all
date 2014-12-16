@@ -231,14 +231,17 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
                         try {
                             Log.d(TAG, schemaFile.getPath());
 
+                            SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
+
                             Bundle bundle = new Bundle();
-                            bundle.putString("image_path", schemaFile.getPath());
-                            Intent intentView = new Intent(mContext,
-                                    com.nextgis.metroaccess.StationImageView.class);
+                            bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
+                            bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
+                            bundle.putBoolean(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+                            bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
+                            Intent intentView = new Intent(parentActivity, StationImageView.class);
                             intentView.putExtras(bundle);
 
-                            mContext.startActivity(intentView);
-
+                            parentActivity.startActivityForResult(intentView, PORTAL_MAP_RESULT);
                         } catch (ActivityNotFoundException e) {
                             Log.e(TAG, "Call failed", e);
                         }
@@ -258,6 +261,8 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
                     Intent intent = new Intent(parentActivity, StationMapActivity.class);
                     intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
                     intent.putExtra(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+                    intent.putExtra(PARAM_SCHEME_PATH, schemaFile.getPath());
+                    intent.putExtra(PARAM_ROOT_ACTIVITY, true);
                     parentActivity.startActivityForResult(intent, PORTAL_MAP_RESULT);
                 }
             });

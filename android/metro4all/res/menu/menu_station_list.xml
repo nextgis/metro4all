@@ -2,7 +2,7 @@
 <!--
 	Project:  Metro4All
  	Purpose:  Routing in subway
-    Author:   Dmitry Baryshnikov, polimax@mail.ru
+    Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
     Copyright (C) 2014 NextGIS
 
     This program is free software: you can redistribute it and/or modify
@@ -22,9 +22,16 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-		android:id="@+id/btn_legend"
+        android:id="@+id/btn_map"
+        android:icon="@drawable/ic_action_map"
+        android:orderInCategory="0"
+        android:title="@string/sMap"
+        android:showAsAction="always"/>
+    <item
+        android:id="@+id/btn_legend"
+        android:title="@string/sLegend"
         android:icon="@drawable/ic_action_help"
-		android:orderInCategory="0"
-		android:showAsAction="always"/>
+        android:orderInCategory="0"
+        android:showAsAction="always"/>
 
 </menu>

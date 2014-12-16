@@ -20,8 +20,6 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.io.File;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -35,6 +33,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import java.io.File;
+
+import static com.nextgis.metroaccess.Constants.*;
+
 public class StationImageView extends SherlockActivity {
 	WebView mWebView;
 	float width;
@@ -42,8 +44,11 @@ public class StationImageView extends SherlockActivity {
 	float currentHeight;
 	String msPath;
     boolean isForLegend;
+    private boolean mIsRootActivity;
+    private int mStationID;
+    private boolean mIsPortalIn;
 
-	public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.station_image_view);
@@ -68,7 +73,11 @@ public class StationImageView extends SherlockActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            msPath = extras.getString("image_path");
+            msPath = extras.getString(PARAM_SCHEME_PATH);
+            mIsRootActivity = extras.getBoolean(PARAM_ROOT_ACTIVITY);
+            mStationID = extras.getInt(PARAM_SEL_STATION_ID, 0);
+            mIsPortalIn = extras.getBoolean(PARAM_PORTAL_DIRECTION, true);
+            setTitle(getString(R.string.sSchema) + "\"" + MainActivity.GetGraph().GetStation(mStationID).GetName() + "\"");
         } else {
             isForLegend = true;
             setTitle(R.string.sLegend);
@@ -131,6 +140,7 @@ public class StationImageView extends SherlockActivity {
         MenuInflater infl = getSupportMenuInflater();
         infl.inflate(R.menu.menu_station_list, menu);
         menu.findItem(R.id.btn_legend).setEnabled(!isForLegend).setVisible(!isForLegend);
+        menu.findItem(R.id.btn_map).setEnabled(!isForLegend).setVisible(!isForLegend);
         return true;
     }
 
@@ -144,6 +154,16 @@ public class StationImageView extends SherlockActivity {
                 //startActivity(intent);
             	finish();
                 return true;
+            case R.id.btn_map:
+                if (mIsRootActivity) {
+                    Intent intentMap = new Intent(this, StationMapActivity.class);
+                    intentMap.putExtra(PARAM_SEL_STATION_ID, mStationID);
+                    intentMap.putExtra(PARAM_PORTAL_DIRECTION, mIsPortalIn);
+                    intentMap.putExtra(PARAM_ROOT_ACTIVITY, false);
+                    startActivityForResult(intentMap, PORTAL_MAP_RESULT);
+                } else
+                    finish();
+                return true;
             case R.id.btn_legend:
                 onLegendClick();
                 return true;
@@ -155,5 +175,19 @@ public class StationImageView extends SherlockActivity {
     public void onLegendClick() {
         Intent intentView = new Intent(this, StationImageView.class);
         startActivity(intentView);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PORTAL_MAP_RESULT:
+                if (resultCode == RESULT_OK) {
+                    setResult(RESULT_OK, data);
+                    finish();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

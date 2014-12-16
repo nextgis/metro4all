@@ -38,8 +38,10 @@
 	<string name="sFromStation">Stacja początkowa</string>
 	<string name="sToStation">Stacja końcowa</string>
 	<string name="sRoute">Wariant</string>
-	<string name="sSchema">Schemat</string>
+	<string name="sSchema">"Schemat st. "</string>
     <string name="sLegend">Legenda do schematów</string>
+    <string name="sLocate">Moje położenie</string>
+    <string name="sMap">Mapa</string>
 	<string name="sStationName">Stacja</string>
 	<string name="sEntranceName">Wejście</string>
 	<string name="sExitName">Wyjście</string>

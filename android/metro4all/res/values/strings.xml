@@ -38,8 +38,10 @@
 	<string name="sFromStation">From</string>
 	<string name="sToStation">To</string>
 	<string name="sRoute">Option</string>
-	<string name="sSchema">Layout</string>
+	<string name="sSchema">"Layout of "</string>
     <string name="sLegend">Legend</string>
+    <string name="sLocate">Locate</string>
+    <string name="sMap">Map</string>
 	<string name="sStationName">Name</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>

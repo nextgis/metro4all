@@ -82,6 +82,8 @@ public class StationMapActivity extends SherlockActivity {
     private int mStationID;
     private boolean mIsPortalIn;
     private List<StationItem> stationList;
+    private String mSchemePath;
+    private boolean mIsRootActivity;
 
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
@@ -97,6 +99,8 @@ public class StationMapActivity extends SherlockActivity {
         Intent inIntent = getIntent();
         mStationID = inIntent.getIntExtra(PARAM_SEL_STATION_ID, 0);
         mIsPortalIn = inIntent.getBooleanExtra(PARAM_PORTAL_DIRECTION, true);
+        mSchemePath = inIntent.getStringExtra(PARAM_SCHEME_PATH);
+        mIsRootActivity = inIntent.getBooleanExtra(PARAM_ROOT_ACTIVITY, true);
 
         StationItem station = MainActivity.GetGraph().GetStation(mStationID);
 
@@ -424,6 +428,18 @@ public class StationMapActivity extends SherlockActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.btn_layout:
+                if (mIsRootActivity) {
+                    Intent intentView = new Intent(this, StationImageView.class);
+                    intentView.putExtra(PARAM_SEL_STATION_ID, mStationID);
+                    intentView.putExtra(PARAM_SCHEME_PATH, mSchemePath);
+                    intentView.putExtra(PARAM_ROOT_ACTIVITY, false);
+
+                    startActivity(intentView);
+                } else
+                    finish();
+
                 return true;
             case R.id.btn_location_found:
                 onLocationFoundClick();

@@ -38,8 +38,10 @@
 	<string name="sFromStation">Откуда</string>
 	<string name="sToStation">Куда</string>
 	<string name="sRoute">Вариант</string>
-	<string name="sSchema">Схема</string>
+	<string name="sSchema">"Схема ст. "</string>
     <string name="sLegend">Условные обозначения</string>
+    <string name="sLocate">Определить местоположение</string>
+    <string name="sMap">Карта</string>
 	<string name="sStationName">Станция</string>
 	<string name="sEntranceName">Вход</string>
 	<string name="sExitName">Выход</string>
