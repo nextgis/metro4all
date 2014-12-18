@@ -113,11 +113,12 @@ svg {
 
 #zoomControls {
   position:relative;
+  z-index: 100;
   float: left;
   top:5px;
   left:10px;
-  width:41px;
-  height:82px;
+  height:0;
+  overflow: visible;
 }
 
 #zoomControls input[name="zoomIn"] {
@@ -138,12 +139,11 @@ svg {
   cursor: pointer;
 }
 
-input[name="reload"].reset{
-  float: right;  
-  margin: 30px 20px 10px 10px;
-  width: 26px;
-  height: 26px;
-  border: 0;
+input[name="reload"].reset{ 
+  margin: 20px 10px 5px 10px;
+  width: 23px;
+  height: 23px;
+  border: 1px solid #33b7da;
   background: url('../img/reload_icon.svg') 0 0 no-repeat;
   cursor: pointer; 
 }
