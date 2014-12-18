@@ -44,7 +44,7 @@ public class StationImageView extends SherlockActivity {
 //	float currentHeight;
 	String msPath;
     boolean isForLegend;
-    private boolean isPortrait;
+    private boolean isPortrait, isCrossReference = false;
     private boolean mIsRootActivity;
     private int mStationID;
     private boolean mIsPortalIn;
@@ -75,8 +75,10 @@ public class StationImageView extends SherlockActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            msPath = extras.getString(PARAM_SCHEME_PATH);
+            // PARAM_ROOT_ACTIVITY - determine is it called from StationMapActivity or StationExpandableListAdapter
             mIsRootActivity = extras.getBoolean(PARAM_ROOT_ACTIVITY);
+            isCrossReference = extras.containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
+            msPath = extras.getString(PARAM_SCHEME_PATH);
             mStationID = extras.getInt(PARAM_SEL_STATION_ID, 0);
             mIsPortalIn = extras.getBoolean(PARAM_PORTAL_DIRECTION, true);
             setTitle(getString(R.string.sSchema) + "\"" + MainActivity.GetGraph().GetStation(mStationID).GetName() + "\"");
@@ -145,7 +147,7 @@ public class StationImageView extends SherlockActivity {
         MenuInflater infl = getSupportMenuInflater();
         infl.inflate(R.menu.menu_station_list, menu);
         menu.findItem(R.id.btn_legend).setEnabled(!isForLegend).setVisible(!isForLegend);
-        menu.findItem(R.id.btn_map).setEnabled(!isForLegend).setVisible(!isForLegend);
+        menu.findItem(R.id.btn_map).setEnabled(!isForLegend && isCrossReference).setVisible(!isForLegend && isCrossReference);
         return true;
     }
 

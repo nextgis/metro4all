@@ -141,7 +141,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-		RouteItem entry = (RouteItem) getGroup(groupPosition);		
+		final RouteItem entry = (RouteItem) getGroup(groupPosition);
 		if (convertView == null) {
 			convertView = mInfalInflater.inflate(R.layout.station_row_layout, null);
 		}
@@ -206,7 +206,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				    	Log.d(TAG, schemaFile.getPath());
 				    	
 				    	Bundle bundle = new Bundle();
-				    	bundle.putString("image_path", schemaFile.getPath());
+				    	bundle.putString(Constants.PARAM_SCHEME_PATH, schemaFile.getPath());
+                        bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
 				        Intent intentView = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
 				    	
 				    	intentView.putExtras(bundle);
