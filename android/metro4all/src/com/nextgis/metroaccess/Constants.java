@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov, polimax@mail.ru
+ * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
  *   Copyright (C) 2013 NextGIS
  *
@@ -60,4 +60,8 @@ public interface Constants {
 
     public final static String PARAM_SCHEME_PATH = "image_path";
     public final static String PARAM_ROOT_ACTIVITY = "root_activity";
+
+    public final int STATUS_INTERRUPT_LOCATING = 0;
+    public final int STATUS_FINISH_LOCATING = 1;
+    public final int LOCATING_TIMEOUT = 15000;
 }

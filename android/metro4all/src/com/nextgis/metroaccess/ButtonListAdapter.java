@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov, polimax@mail.ru
+ * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2014 NextGIS
 *
@@ -23,11 +23,14 @@ package com.nextgis.metroaccess;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ButtonListAdapter extends BaseAdapter {
@@ -38,7 +41,9 @@ public class ButtonListAdapter extends BaseAdapter {
 	protected String m_sFromEntranceName;
 	protected String m_sToStationName;
 	protected String m_sToEntranceName;
-	
+    protected ImageButton ibtnLocateFrom;
+	protected View.OnClickListener ibtnLocateFromListener;
+
 	public ButtonListAdapter(Context c) {
 		this.m_oContext = c;
 		this.m_oInfalInflater = (LayoutInflater) m_oContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,7 +89,19 @@ public class ButtonListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, null);
 		}
-		
+
+        if (ibtnLocateFrom == null) {   // add "locate me" button
+            ibtnLocateFrom = new ImageButton(convertView.getContext());
+            ibtnLocateFrom.setImageResource(R.drawable.ic_action_location_found);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.gravity = Gravity.CENTER;
+            ibtnLocateFrom.setLayoutParams(lp);
+            ibtnLocateFrom.setBackgroundResource(0);
+            ibtnLocateFrom.setFocusable(false);
+            ibtnLocateFrom.setOnClickListener(ibtnLocateFromListener);
+            ((LinearLayout) convertView).addView(ibtnLocateFrom);
+        }
+
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 		ivIcon.setImageResource(R.drawable.ic_geomarker_a);
 		TextView tvPaneName = (TextView)convertView.findViewById(R.id.tvPaneName);
@@ -105,8 +122,8 @@ public class ButtonListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, null);
 		}
-		
-		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
+
+        ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 		ivIcon.setImageResource(R.drawable.ic_geomarker_b);
 		TextView tvPaneName = (TextView)convertView.findViewById(R.id.tvPaneName);
 		tvPaneName.setText(R.string.sToStation);
@@ -173,5 +190,9 @@ public class ButtonListAdapter extends BaseAdapter {
         this.m_sToEntranceName = sNotSet;
 
         notifyDataSetChanged();
+    }
+
+    public void setOnLocateFromListener(View.OnClickListener listener) {
+        ibtnLocateFromListener = listener;
     }
 }

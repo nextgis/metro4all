@@ -6,7 +6,7 @@
     <string name="sDetailpage">http://metro4all.org</string>
     
     <string name="about_app">Это приложение расcчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. \n\nПодробнее:</string>
-	
+
     <string name="credits_caption">Информация об авторах:</string>
     <string name="credits_text">Некоторые иконки, использованные в приложении, взяты с &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;, лицензия &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt;</string>
 
@@ -23,7 +23,15 @@
 	<string name="sCannotGetPath">Не найден путь</string>
 	<string name="sInvalidCSVData">Некорректные данные в csv, неправильное число полей. Файл: </string>
 	<string name="sNoOrEmptyData">Отсутствуют данные для построения маршрутов или данные повреждены. Обновите данные</string>
-		
+
+    <string name="sLocationFail">Невозможно определить местоположение</string>
+    <string name="sLocationDisabled">Определение местоположения отключено</string>
+    <string name="sLocationDisabledMsg">Приложение не может определить, где вы находитесь. Включите функцию "Мое местоположение".</string>
+    <string name="sLocationAccuracy">Точность местоположения</string>
+    <string name="sLocationInaccuracy">Вы можете повысить точность местоположения, включив следующие функции:</string>
+    <string name="sLocationStart">Определение местоположения…</string>
+    <string name="sLocationNetwork">По координатам сети</string>
+
 	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>
 	<string name="sDownload">Загрузить</string>

@@ -23,7 +23,16 @@
 	<string name="sCannotGetPath">Cannot find path</string>
 	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
 	<string name="sNoOrEmptyData">The data are absent or invalid. Please download the database.</string>
-	
+
+	<string name="sLocationFail">Cannot locate your device</string>
+    <string name="sLocationDisabled">Location services disabled</string>
+    <string name="sLocationDisabledMsg">Application needs access to your location. Please turn on location access.</string>
+    <string name="sLocationAccuracy">Location accuracy</string>
+	<string name="sLocationInaccuracy">You can improve the accuracy of your location by turning on:</string>
+	<string name="sLocationStart">Locating…</string>
+	<string name="sLocationGPS">GPS</string>
+	<string name="sLocationNetwork">Network</string>
+
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data update is available</string>
 	<string name="sDownload">Download</string>

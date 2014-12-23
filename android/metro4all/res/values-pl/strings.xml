@@ -23,6 +23,8 @@
 	<string name="sCannotGetPath">Błędna ścieżka do pliku</string>
 	<string name="sInvalidCSVData">Niepoprawna ilość pól w pliku csv: </string>
 	<string name="sNoOrEmptyData">Brak danych lub dane niepoprawne. Proszę ściągnąć aktualizację bazy danych.</string>
+
+    <string name="sLocationFail">Nie udało się ustalić twojej lokalizacji</string>
 	
 	<string name="sSelectDataToDownload">Wybierz dane do pobrania</string>
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
