@@ -552,7 +552,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 	    final boolean[] checkedItems = new boolean[count];
 	    for(int i = 0; i < count; i++){
-	    	checkedItems[i] = true;
+	    	checkedItems[i] = false;
 	    }
 
 	    final CharSequence[] checkedItemStrings = new CharSequence[count];
