@@ -40,7 +40,7 @@
 	<string name="sFromStation">Stacja początkowa</string>
 	<string name="sToStation">Stacja końcowa</string>
 	<string name="sRoute">Wariant</string>
-	<string name="sSchema">"Schemat st. "</string>
+	<string name="sSchema">Schemat st. %1$s</string>
     <string name="sLegend">Legenda do schematów</string>
     <string name="sLocate">Moje położenie</string>
     <string name="sMap">Mapa</string>
@@ -48,9 +48,9 @@
 	<string name="sEntranceName">Wejście</string>
 	<string name="sExitName">Wyjście</string>
     <string name="sStationPortalName">Stacja: %1$s\n%2$s: %3$s</string>
-    <string name="sNearestStation">Najbliższa stacja to \"%1$s\"</string>
-    <string name="sInPortalMapTitle">Wejścia stacji \"%1$s\"</string>
-    <string name="sOutPortalMapTitle">Wyjścia stacji \"%1$s\"</string>
+    <string name="sNearestStation">Najbliższa stacja to %1$s</string>
+    <string name="sInPortalMapTitle">Wejścia stacji %1$s</string>
+    <string name="sOutPortalMapTitle">Wyjścia stacji %1$s</string>
 	<string name="sNotSet">Wybierz</string>
 	<string name="sSelFromStation">Wybierz stację początkową</string>
 	<string name="sSelToStation">Wybierz stację docelową</string>

@@ -81,7 +81,7 @@ public class StationImageView extends SherlockActivity {
             msPath = extras.getString(PARAM_SCHEME_PATH);
             mStationID = extras.getInt(PARAM_SEL_STATION_ID, 0);
             mIsPortalIn = extras.getBoolean(PARAM_PORTAL_DIRECTION, true);
-            setTitle(getString(R.string.sSchema) + "\"" + MainActivity.GetGraph().GetStation(mStationID).GetName() + "\"");
+            setTitle(String.format(getString(R.string.sSchema), MainActivity.GetGraph().GetStation(mStationID).GetName()));
         } else {
             isForLegend = true;
             setTitle(R.string.sLegend);
@@ -117,7 +117,12 @@ public class StationImageView extends SherlockActivity {
         }
 
 		String sPath = "file://" + sFolder + "/";
-        String fix = isPortrait ? "width=\"100%\" height=\"auto\"" : "width=\"auto\" height=\"100%\"";
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        double deviceRatio = 1.0 * metrics.heightPixels / metrics.widthPixels;
+        double imageRatio = 1.0 * BitmapOfMyImage.getHeight() / BitmapOfMyImage.getWidth();
+        String fix = deviceRatio > imageRatio ? "width=\"100%\" height=\"auto\"" : "width=\"auto\" height=\"100%\"";
 
         String sCmd = "<html><center><img style=\"position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0; max-width: 100%; max-height: 100%;\" " + fix + " src=\"" + sName + "\"></center></html>";
 //		String sCmd = "<html><center><img width=\"100%\" height=\"auto\" src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></center></html>";

@@ -40,7 +40,7 @@
 	<string name="sFromStation">Адкуль</string>
 	<string name="sToStation">Куды</string>
 	<string name="sRoute">Варыянт</string>
-	<string name="sSchema">"Макет ст. "</string>
+	<string name="sSchema">Макет ст. %1$s</string>
     <string name="sLegend">Умоўныя абазначэнні</string>
     <string name="sLocate">Маё месцазнаходжанне</string>
     <string name="sMap">Карта</string>
@@ -48,9 +48,9 @@
 	<string name="sEntranceName">Уваход</string>
 	<string name="sExitName">Выхад</string>
     <string name="sStationPortalName">Стацыя: %1$s\n%2$s: %3$s</string>
-    <string name="sNearestStation">Бліжэйшая станцыя \"%1$s\"</string>
-    <string name="sInPortalMapTitle">Уваходы ў cт. \"%1$s\"</string>
-    <string name="sOutPortalMapTitle">Выхады з ст. \"%1$s\"</string>
+    <string name="sNearestStation">Бліжэйшая станцыя %1$s</string>
+    <string name="sInPortalMapTitle">Уваходы ў cт. %1$s</string>
+    <string name="sOutPortalMapTitle">Выхады з ст. %1$s</string>
 	<string name="sNotSet">Не ўсталявана</string>
 	<string name="sSelFromStation">Абярыце станцыю адпраўлення</string>
 	<string name="sSelToStation">Абярыце станцыю прыбыцця</string>

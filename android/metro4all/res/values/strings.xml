@@ -47,7 +47,7 @@
 	<string name="sFromStation">From</string>
 	<string name="sToStation">To</string>
 	<string name="sRoute">Option</string>
-	<string name="sSchema">"Layout of "</string>
+	<string name="sSchema">Layout of %1$s</string>
     <string name="sLegend">Legend</string>
     <string name="sLocate">Locate</string>
     <string name="sMap">Map</string>
@@ -55,9 +55,9 @@
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
     <string name="sStationPortalName">Station: %1$s\n%2$s: %3$s</string>
-    <string name="sNearestStation">Nearest station is \"%1$s\"</string>
-    <string name="sInPortalMapTitle">Entrances of \"%1$s\"</string>
-    <string name="sOutPortalMapTitle">Exits of \"%1$s\"</string>
+    <string name="sNearestStation">Nearest station is %1$s</string>
+    <string name="sInPortalMapTitle">Entrances of %1$s</string>
+    <string name="sOutPortalMapTitle">Exits of %1$s</string>
 	<string name="sNotSet">Not set</string>
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>

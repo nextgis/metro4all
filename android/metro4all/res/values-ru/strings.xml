@@ -26,7 +26,7 @@
 
     <string name="sLocationFail">Невозможно определить местоположение</string>
     <string name="sLocationDisabled">Определение местоположения отключено</string>
-    <string name="sLocationDisabledMsg">Приложение не может определить, где вы находитесь. Включите функцию "Мое местоположение".</string>
+    <string name="sLocationDisabledMsg">Приложение не может определить, где вы находитесь. Включите функцию \"Мое местоположение\".</string>
     <string name="sLocationAccuracy">Точность местоположения</string>
     <string name="sLocationInaccuracy">Вы можете повысить точность местоположения, включив следующие функции:</string>
     <string name="sLocationStart">Определение местоположения…</string>
@@ -46,7 +46,7 @@
 	<string name="sFromStation">Откуда</string>
 	<string name="sToStation">Куда</string>
 	<string name="sRoute">Вариант</string>
-	<string name="sSchema">"Схема ст. "</string>
+	<string name="sSchema">Схема ст. %1$s</string>
     <string name="sLegend">Условные обозначения</string>
     <string name="sLocate">Определить местоположение</string>
     <string name="sMap">Карта</string>
@@ -54,9 +54,9 @@
 	<string name="sEntranceName">Вход</string>
 	<string name="sExitName">Выход</string>
     <string name="sStationPortalName">Станция: %1$s\n%2$s: %3$s</string>
-    <string name="sNearestStation">Ближайшая станция \"%1$s\"</string>
-    <string name="sInPortalMapTitle">Входы ст. \"%1$s\"</string>
-    <string name="sOutPortalMapTitle">Выходы ст. \"%1$s\"</string>
+    <string name="sNearestStation">Ближайшая станция %1$s</string>
+    <string name="sInPortalMapTitle">Входы ст. %1$s</string>
+    <string name="sOutPortalMapTitle">Выходы ст. %1$s</string>
 	<string name="sNotSet">Не выбрано</string>
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>

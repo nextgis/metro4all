@@ -226,12 +226,17 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		m_laListButtons = new ButtonListAdapter(this);
         final Context ctx = this;
         m_laListButtons.setOnLocateFromListener(new View.OnClickListener() {    // find closest entrance using osmdroid GpsMyLocationProvider
+            private View btn;
+            StationItem stationClosest = null;
+            PortalItem portalClosest = null;
+
             @Override
             public void onClick(View view) {
                 LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
                 final boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                 final boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
                 final boolean isLocationDisabled = !isGPSEnabled && !isNetworkEnabled;
+                btn = view;
 
                 if (!isGPSEnabled || !isNetworkEnabled) {   // one of them is turned off
                     String network, gps, info;
@@ -273,7 +278,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             }
 
             void locate() {
-                Toast.makeText(ctx, R.string.sLocationStart, Toast.LENGTH_LONG).show();
+                btn.setEnabled(false);
+                Toast.makeText(ctx, R.string.sLocationStart, Toast.LENGTH_SHORT).show();
 
                 final Handler h = new Handler(){
                     private boolean isLocationFound = false;
@@ -286,6 +292,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                             case STATUS_FINISH_LOCATING:
                                 gpsMyLocationProvider.stopLocationProvider();
                                 isLocationFound = true;
+                                btn.setEnabled(true);
                                 break;
                         }
                     }
@@ -307,8 +314,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                         float shortest = Float.MAX_VALUE;
                         float distance[] = new float[1];
                         List<StationItem> stations = new ArrayList<StationItem>(m_oGraph.GetStations().values());
-                        StationItem stationClosest = null;
-                        PortalItem portalClosest = null;
 
                         for (int i = 0; i < stations.size(); i++) {  // find closest station first
                             Location.distanceBetween(currentLat, currentLon, stations.get(i).GetLatitude(), stations.get(i).GetLongitude(), distance);
@@ -339,6 +344,10 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                         }
 
                         h.sendEmptyMessage(STATUS_FINISH_LOCATING);
+
+                        if(stationClosest != null && portalClosest != null)
+                            Toast.makeText(getApplicationContext(), String.format(getString(R.string.sStationPortalName), stationClosest.GetName(), getString(R.string.sEntranceName), portalClosest.GetName()), Toast.LENGTH_LONG).show();
+
                         //gpsMyLocationProvider.stopLocationProvider();
                     }
                 });
