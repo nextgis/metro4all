@@ -80,10 +80,12 @@ public class StationMapActivity extends SherlockActivity {
     private float scaledDensity;
 
     private int mStationID;
+    private int mPortalID;
     private boolean mIsPortalIn;
     private List<StationItem> stationList;
     private String mSchemePath;
     private boolean mIsRootActivity;
+    private boolean isCrossReference;
 
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
@@ -98,9 +100,11 @@ public class StationMapActivity extends SherlockActivity {
 
         Intent inIntent = getIntent();
         mStationID = inIntent.getIntExtra(PARAM_SEL_STATION_ID, 0);
+        mPortalID = inIntent.getIntExtra(PARAM_SEL_PORTAL_ID, 0);
         mIsPortalIn = inIntent.getBooleanExtra(PARAM_PORTAL_DIRECTION, true);
         mSchemePath = inIntent.getStringExtra(PARAM_SCHEME_PATH);
         mIsRootActivity = inIntent.getBooleanExtra(PARAM_ROOT_ACTIVITY, true);
+        isCrossReference = inIntent.getExtras().containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
 
         StationItem station = MainActivity.GetGraph().GetStation(mStationID);
 
@@ -193,6 +197,13 @@ public class StationMapActivity extends SherlockActivity {
                         (int) (scaledDensity * original.getWidth()),
                         (int) (scaledDensity * original.getHeight()), false));
 
+        original = BitmapFactory.decodeResource(mAppContext.getResources(),
+                R.drawable.portal_checked);
+        Drawable markerCheckedPortal = new BitmapDrawable(mAppContext.getResources(),
+                Bitmap.createScaledBitmap(original,
+                        (int) (scaledDensity * original.getWidth()),
+                        (int) (scaledDensity * original.getHeight()), false));
+
         markerTransparentPortal.setAlpha(127);
         markerTransparentInvalidPortal.setAlpha(127);
 
@@ -251,7 +262,10 @@ public class StationMapActivity extends SherlockActivity {
                 }
 
                 if (isSelectedStation) {
-                    itemPortal.setMarker(isInvalidPortal ? markerInvalidPortal : markerPortal);
+                    if (portal.GetId() == mPortalID)
+                        itemPortal.setMarker(markerCheckedPortal);
+                    else
+                        itemPortal.setMarker(isInvalidPortal ? markerInvalidPortal : markerPortal);
 
                     double portalLat = portal.GetLatitude();
                     double portalLong = portal.GetLongitude();
@@ -420,6 +434,7 @@ public class StationMapActivity extends SherlockActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater infl = getSupportMenuInflater();
         infl.inflate(R.menu.menu_station_map, menu);
+        menu.findItem(R.id.btn_layout).setEnabled(isCrossReference).setVisible(isCrossReference);
         return true;
     }
 

@@ -52,6 +52,8 @@ public interface Constants {
     public final static int ARRIVAL_RESULT = 2;
     public final static int PREF_RESULT = 3;
     public final static int PORTAL_MAP_RESULT = 4;
+    public final static int PORTAL_MAP_MAIN_FROM_RESULT = 5;
+    public final static int PORTAL_MAP_MAIN_TO_RESULT = 6;
     public final static int MAX_RECENT_ITEMS = 10;
 
     public final static String PARAM_SEL_STATION_ID = "SEL_STATION_ID";

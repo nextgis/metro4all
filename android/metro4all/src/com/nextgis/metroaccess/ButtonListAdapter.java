@@ -20,10 +20,13 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,19 +37,34 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
+
 import java.io.File;
+
+import static com.nextgis.metroaccess.Constants.BUNDLE_ENTRANCE_KEY;
+import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
+import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
+import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_PORTAL_ID;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
+import static com.nextgis.metroaccess.Constants.PORTAL_MAP_MAIN_FROM_RESULT;
+import static com.nextgis.metroaccess.Constants.PORTAL_MAP_MAIN_TO_RESULT;
+import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 
 public class ButtonListAdapter extends BaseAdapter {
 
 	protected Context m_oContext;
 	protected LayoutInflater m_oInfalInflater;
-	protected int m_sFromStationLine;
-    protected int m_sToStationLine;
-	protected String m_sFromStationName;
-	protected String m_sFromEntranceName;
-	protected String m_sToStationName;
-	protected String m_sToEntranceName;
-    protected String sNotSet;
+    protected StationItem nullStation, fromStation, toStation;
+    protected PortalItem fromPortal, toPortal;
+//	protected int m_sFromStationLine;
+//    protected int m_sToStationLine;
+//	protected String m_sFromStationName;
+//	protected String m_sFromEntranceName;
+//	protected String m_sToStationName;
+//	protected String m_sToEntranceName;
+//    protected String sNotSet;
     protected ImageButton ibtnLocateFrom;
 	protected View.OnClickListener ibtnLocateFromListener;
 
@@ -54,11 +72,13 @@ public class ButtonListAdapter extends BaseAdapter {
 		this.m_oContext = c;
 		this.m_oInfalInflater = (LayoutInflater) m_oContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		sNotSet = (String) m_oContext.getResources().getText(R.string.sNotSet);
-		this.m_sFromStationName = sNotSet;
-		this.m_sToStationName = sNotSet;
-		this.m_sFromEntranceName = sNotSet;
-		this.m_sToEntranceName = sNotSet;
+//		sNotSet = (String) m_oContext.getResources().getText(R.string.sNotSet);
+        fromStation = toStation = nullStation = new StationItem(-1, m_oContext.getString(R.string.sStationName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, -1, -1, -1, -1);
+        nullPortals(true, true);
+//		this.m_sFromStationName = sNotSet;
+//		this.m_sToStationName = sNotSet;
+//		this.m_sFromEntranceName = sNotSet;
+//		this.m_sToEntranceName = sNotSet;
 	}
 	
 	@Override
@@ -96,24 +116,46 @@ public class ButtonListAdapter extends BaseAdapter {
 			convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, null);
 		}
 
+        ImageView ibtnMap = (ImageView) convertView.findViewById(R.id.ibtnMap);
+
         if (ibtnLocateFrom == null) {   // add "locate me" button
             ibtnLocateFrom = new ImageButton(convertView.getContext());
             ibtnLocateFrom.setImageResource(R.drawable.ic_action_location_found);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.gravity = Gravity.CENTER;
             ibtnLocateFrom.setLayoutParams(lp);
+            ibtnLocateFrom.setPadding(ibtnMap.getPaddingLeft(), ibtnMap.getPaddingTop(), ibtnMap.getPaddingRight(), ibtnMap.getPaddingBottom());
             ibtnLocateFrom.setBackgroundResource(0);
             ibtnLocateFrom.setFocusable(false);
             ibtnLocateFrom.setOnClickListener(ibtnLocateFromListener);
-            ((LinearLayout) convertView).addView(ibtnLocateFrom);
+            ((LinearLayout) convertView.findViewById(R.id.llPaneButtons)).addView(ibtnLocateFrom, 0);
         }
+
+        if (fromStation != nullStation) {
+            ibtnMap.setVisibility(View.VISIBLE);
+            ibtnMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(PARAM_SEL_STATION_ID, fromStation.GetId());
+                    bundle.putInt(PARAM_SEL_PORTAL_ID, fromPortal.GetId());
+                    bundle.putBoolean(PARAM_PORTAL_DIRECTION, true);
+                    Intent intent = new Intent(m_oContext, StationMapActivity.class);
+                    intent.putExtras(bundle);
+
+                    Activity parent = (Activity) m_oContext;
+                    parent.startActivityForResult(intent, PORTAL_MAP_MAIN_FROM_RESULT);
+                }
+            });
+        } else
+            ibtnMap.setVisibility(View.GONE);
 
 		ImageView ivMarkIcon = (ImageView)convertView.findViewById(R.id.ivMarkIcon);
 		ivMarkIcon.setImageResource(R.drawable.ic_geomarker_a);
 
         ImageView ivSmallIcon = (ImageView)convertView.findViewById(R.id.ivSmallIcon);
 
-        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", m_sFromStationLine + "5.png");
+        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", fromStation.GetLine() + "5.png");
         if(imgFile.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
@@ -132,28 +174,49 @@ public class ButtonListAdapter extends BaseAdapter {
 		TextView tvPaneName = (TextView)convertView.findViewById(R.id.tvPaneName);
 		tvPaneName.setText(R.string.sFromStation);
 
-		String sStationName = !m_sFromStationName.equals(sNotSet) ? m_sFromStationName : m_oContext.getResources().getText(R.string.sStationName) + ": " + m_sFromStationName;
+		String sStationName = fromStation.GetName();
 		TextView tvStationName = (TextView)convertView.findViewById(R.id.tvStationName);
 		tvStationName.setText(sStationName);
 		
-		String sEntranceName = !m_sFromEntranceName.equals(sNotSet) ? m_sFromEntranceName : m_oContext.getResources().getText(R.string.sEntranceName) + ": " + m_sFromEntranceName;
+		String sEntranceName = fromPortal.GetName();
 		TextView tvEntranceName = (TextView)convertView.findViewById(R.id.tvEntranceName);
 		tvEntranceName.setText(sEntranceName);
 		
 		return convertView;
 	}
 
-	protected View CreateToPane(View convertView){
+    protected View CreateToPane(View convertView){
 		if (convertView == null) {
 			convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, null);
 		}
+
+        ImageView ibtnMap = (ImageView) convertView.findViewById(R.id.ibtnMap);
+
+        if (toStation != nullStation) {
+            ibtnMap.setVisibility(View.VISIBLE);
+            ibtnMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(PARAM_SEL_STATION_ID, toStation.GetId());
+                    bundle.putInt(PARAM_SEL_PORTAL_ID, toPortal.GetId());
+                    bundle.putBoolean(PARAM_PORTAL_DIRECTION, false);
+                    Intent intent = new Intent(m_oContext, StationMapActivity.class);
+                    intent.putExtras(bundle);
+
+                    Activity parent = (Activity) m_oContext;
+                    parent.startActivityForResult(intent, PORTAL_MAP_MAIN_TO_RESULT);
+                }
+            });
+        } else
+            ibtnMap.setVisibility(View.GONE);
 
         ImageView ivMarkIcon = (ImageView)convertView.findViewById(R.id.ivMarkIcon);
         ivMarkIcon.setImageResource(R.drawable.ic_geomarker_b);
 
         ImageView ivSmallIcon = (ImageView)convertView.findViewById(R.id.ivSmallIcon);
 
-        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", m_sToStationLine + "5.png");
+        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", toStation.GetLine() + "5.png");
         if(imgFile.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
@@ -172,11 +235,11 @@ public class ButtonListAdapter extends BaseAdapter {
 		TextView tvPaneName = (TextView)convertView.findViewById(R.id.tvPaneName);
 		tvPaneName.setText(R.string.sToStation);
 
-        String sStationName = !m_sToStationName.equals(sNotSet) ? m_sToStationName : m_oContext.getResources().getText(R.string.sStationName) + ": " + m_sToStationName;
+        String sStationName = toStation.GetName();
 		TextView tvStationName = (TextView)convertView.findViewById(R.id.tvStationName);
 		tvStationName.setText(sStationName);
 		
-		String sExitName = !m_sToEntranceName.equals(sNotSet) ? m_sToEntranceName : m_oContext.getResources().getText(R.string.sExitName) + ": " + m_sToEntranceName;
+		String sExitName = toPortal.GetName();
 		TextView tvExitName = (TextView)convertView.findViewById(R.id.tvEntranceName);
 		tvExitName.setText(sExitName);
 
@@ -194,53 +257,93 @@ public class ButtonListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-    public void setFromStationLine(int sFromStationLine) {
-        this.m_sFromStationLine = sFromStationLine;
+    public void setFromStation(StationItem fromStation) {
+        if (fromStation != null)
+            this.fromStation = fromStation;
+        else
+            this.fromStation = nullStation;
     }
 
-	public String getFromStationName() {
-		return m_sFromStationName;
-	}
-
-	public void setFromStationName(String sFromStationName) {
-		this.m_sFromStationName = sFromStationName;
-	}
-
-	public String getFromEntranceName() {
-		return m_sFromEntranceName;
-	}
-
-	public void setFromEntranceName(String sFromEntranceName) {
-		this.m_sFromEntranceName = sFromEntranceName;
-	}
-
-    public void setToStationLine(int sToStationLine) {
-        this.m_sToStationLine = sToStationLine;
+    public void setToStation(StationItem toStation) {
+        if (toStation != null)
+            this.toStation = toStation;
+        else
+            this.toStation = nullStation;
     }
 
-	public String getToStationName() {
-		return m_sToStationName;
-	}
+    public void setFromPortal(int portalId) {
+        if (fromStation != nullStation)
+            fromPortal = fromStation.GetPortal(portalId);
+        else
+            nullPortals(true, false);
+    }
 
-	public void setToStationName(String sToStationName) {
-		this.m_sToStationName = sToStationName;
-	}
+    public void setToPortal(int portalId) {
+        if (toStation != nullStation)
+            toPortal = toStation.GetPortal(portalId);
+        else
+            nullPortals(false, true);
+    }
 
-	public String getToEntranceName() {
-		return m_sToEntranceName;
-	}
+//    public void setFromStationLine(int sFromStationLine) {
+//        this.m_sFromStationLine = sFromStationLine;
+//    }
 
-	public void setToEntranceName(String sToEntranceName) {
-		this.m_sToEntranceName = sToEntranceName;
-	}
+//	public String getFromStationName() {
+//		return m_sFromStationName;
+//	}
+
+//	public void setFromStationName(String sFromStationName) {
+//		this.m_sFromStationName = sFromStationName;
+//	}
+
+//	public String getFromEntranceName() {
+//		return m_sFromEntranceName;
+//	}
+
+//	public void setFromEntranceName(String sFromEntranceName) {
+//		this.m_sFromEntranceName = sFromEntranceName;
+//	}
+
+//    public void setToStationLine(int sToStationLine) {
+//        this.m_sToStationLine = sToStationLine;
+//    }
+
+//	public String getToStationName() {
+//		return m_sToStationName;
+//	}
+
+//	public void setToStationName(String sToStationName) {
+//		this.m_sToStationName = sToStationName;
+//	}
+
+//	public String getToEntranceName() {
+//		return m_sToEntranceName;
+//	}
+
+//	public void setToEntranceName(String sToEntranceName) {
+//		this.m_sToEntranceName = sToEntranceName;
+//	}
 
     public void clear(){
-        this.m_sFromStationName = sNotSet;
-        this.m_sToStationName = sNotSet;
-        this.m_sFromEntranceName = sNotSet;
-        this.m_sToEntranceName = sNotSet;
+        fromStation = toStation = nullStation;
+        nullPortals(true, true);
+//        this.m_sFromStationName = sNotSet;
+//        this.m_sToStationName = sNotSet;
+//        this.m_sFromEntranceName = sNotSet;
+//        this.m_sToEntranceName = sNotSet;
+//        this.m_sFromStationLine = -1;
+//        this.m_sToStationLine = -1;
 
         notifyDataSetChanged();
+    }
+
+    private void nullPortals(boolean from, boolean to) {
+        if (from)
+            fromPortal = new PortalItem(-1, m_oContext.getString(R.string.sEntranceName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, null, -1, -1);
+
+        if (to)
+            toPortal = new PortalItem(-1, m_oContext.getString(R.string.sExitName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, null, -1, -1);
     }
 
     public void setOnLocateFromListener(View.OnClickListener listener) {

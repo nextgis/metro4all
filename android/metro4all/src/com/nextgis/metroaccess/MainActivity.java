@@ -762,10 +762,23 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     	int nPortalId = -1;
 
     	if(data != null){
-    		nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
-    		nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+            switch (requestCode) {
+                case PORTAL_MAP_MAIN_FROM_RESULT:
+                    nStationId = data.getIntExtra(PARAM_SEL_STATION_ID, -1);
+                    nPortalId = data.getIntExtra(PARAM_SEL_PORTAL_ID, -1);
+                    requestCode = DEPARTURE_RESULT;
+                    break;
+                case PORTAL_MAP_MAIN_TO_RESULT:
+                    nStationId = data.getIntExtra(PARAM_SEL_STATION_ID, -1);
+                    nPortalId = data.getIntExtra(PARAM_SEL_PORTAL_ID, -1);
+                    requestCode = ARRIVAL_RESULT;
+                    break;
+                default:
+                    nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
+                    nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+                    break;
+            }
     	}
-
 
 		final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
 
@@ -807,43 +820,51 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 		if(m_oGraph.HasStations()){
 	    	StationItem dep_sit = m_oGraph.GetStation(m_nDepartureStationId);
-	    	String sNotSet = getString(R.string.sNotSet);
+//	    	String sNotSet = getString(R.string.sNotSet);
 	    	if(dep_sit != null && m_laListButtons != null){
-	    		m_laListButtons.setFromStationName(dep_sit.GetName());
-	    		m_laListButtons.setFromStationLine(dep_sit.GetLine());
+                m_laListButtons.setFromStation(dep_sit);
+                m_laListButtons.setFromPortal(m_nDeparturePortalId);
+//	    		m_laListButtons.setFromStationName(dep_sit.GetName());
+//	    		m_laListButtons.setFromStationLine(dep_sit.GetLine());
 	    		PortalItem pit = dep_sit.GetPortal(m_nDeparturePortalId);
 	    		if(pit != null){
-	    			m_laListButtons.setFromEntranceName(pit.GetName());
+//	    			m_laListButtons.setFromEntranceName(pit.GetName());
 	    		}
 	    		else{
-	    			m_laListButtons.setFromEntranceName(sNotSet);
+//	    			m_laListButtons.setFromEntranceName(sNotSet);
 	    			m_nDeparturePortalId = -1;
 	    		}
 	    	}
 	    	else{
-	    		m_laListButtons.setFromStationName(sNotSet);
-	    		m_laListButtons.setFromEntranceName(sNotSet);
-                m_laListButtons.setFromStationLine(-1);
+//	    		m_laListButtons.setFromStationName(sNotSet);
+//	    		m_laListButtons.setFromEntranceName(sNotSet);
+//                m_laListButtons.setFromStationLine(-1);
+                m_laListButtons.setFromStation(null);
+                m_laListButtons.setFromPortal(0);
 	    		m_nDepartureStationId = -1;
 	    	}
 
 	    	StationItem arr_sit = m_oGraph.GetStation(m_nArrivalStationId);
 	    	if(arr_sit != null && m_laListButtons != null){
-	    		m_laListButtons.setToStationName(arr_sit.GetName());
-	    		m_laListButtons.setToStationLine(arr_sit.GetLine());
+                m_laListButtons.setToStation(arr_sit);
+                m_laListButtons.setToPortal(m_nArrivalPortalId);
+//	    		m_laListButtons.setToStationName(arr_sit.GetName());
+//	    		m_laListButtons.setToStationLine(arr_sit.GetLine());
 	    		PortalItem pit = arr_sit.GetPortal(m_nArrivalPortalId);
 	    		if(pit != null){
-	    			m_laListButtons.setToEntranceName(pit.GetName());
+//	    			m_laListButtons.setToEntranceName(pit.GetName());
 	    		}
 	    		else{
-	    			m_laListButtons.setToEntranceName(sNotSet);
+//	    			m_laListButtons.setToEntranceName(sNotSet);
 	    			m_nArrivalPortalId = -1;
 	    		}
 	    	}
 	    	else{
-	    		m_laListButtons.setToStationName(sNotSet);
-	    		m_laListButtons.setToEntranceName(sNotSet);
-                m_laListButtons.setToStationLine(-1);
+                m_laListButtons.setToStation(null);
+                m_laListButtons.setToPortal(0);
+//	    		m_laListButtons.setToStationName(sNotSet);
+//	    		m_laListButtons.setToEntranceName(sNotSet);
+//                m_laListButtons.setToStationLine(-1);
 	    		m_nArrivalStationId = -1;
 	    	}
 		}
