@@ -85,7 +85,7 @@ public class StationMapActivity extends SherlockActivity {
     private List<StationItem> stationList;
     private String mSchemePath;
     private boolean mIsRootActivity;
-    private boolean isCrossReference;
+//    private boolean isCrossReference;
 
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
@@ -104,7 +104,7 @@ public class StationMapActivity extends SherlockActivity {
         mIsPortalIn = inIntent.getBooleanExtra(PARAM_PORTAL_DIRECTION, true);
         mSchemePath = inIntent.getStringExtra(PARAM_SCHEME_PATH);
         mIsRootActivity = inIntent.getBooleanExtra(PARAM_ROOT_ACTIVITY, true);
-        isCrossReference = inIntent.getExtras().containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
+//        isCrossReference = inIntent.getExtras().containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
 
         StationItem station = MainActivity.GetGraph().GetStation(mStationID);
 
@@ -434,7 +434,7 @@ public class StationMapActivity extends SherlockActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater infl = getSupportMenuInflater();
         infl.inflate(R.menu.menu_station_map, menu);
-        menu.findItem(R.id.btn_layout).setEnabled(isCrossReference).setVisible(isCrossReference);
+//        menu.findItem(R.id.btn_layout).setEnabled(isCrossReference).setVisible(isCrossReference);
         return true;
     }
 

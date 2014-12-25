@@ -136,10 +136,13 @@ public class ButtonListAdapter extends BaseAdapter {
             ibtnMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    File schemaFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/schemes", "" + fromStation.GetNode() + ".png");
                     Bundle bundle = new Bundle();
                     bundle.putInt(PARAM_SEL_STATION_ID, fromStation.GetId());
                     bundle.putInt(PARAM_SEL_PORTAL_ID, fromPortal.GetId());
                     bundle.putBoolean(PARAM_PORTAL_DIRECTION, true);
+                    bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
+                    bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
                     Intent intent = new Intent(m_oContext, StationMapActivity.class);
                     intent.putExtras(bundle);
 
@@ -197,10 +200,13 @@ public class ButtonListAdapter extends BaseAdapter {
             ibtnMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    File schemaFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/schemes", "" + toStation.GetNode() + ".png");
                     Bundle bundle = new Bundle();
                     bundle.putInt(PARAM_SEL_STATION_ID, toStation.GetId());
                     bundle.putInt(PARAM_SEL_PORTAL_ID, toPortal.GetId());
                     bundle.putBoolean(PARAM_PORTAL_DIRECTION, false);
+                    bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
+                    bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
                     Intent intent = new Intent(m_oContext, StationMapActivity.class);
                     intent.putExtras(bundle);
 
