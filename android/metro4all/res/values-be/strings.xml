@@ -24,8 +24,15 @@
 	<string name="sInvalidCSVData">Памылковыя дадзеныя csv. Сума ў полі памылковая. Файл: </string>
 	<string name="sNoOrEmptyData">Дадзеныя адсутнічаюць альбо памылковыя. Калі ласка, запампуйце базу дадзеных.</string>
 
-	<string name="sLocationFail">Немагчыма вызначыць месцазнаходжанне</string>
-	
+    <string name="sLocationFail">Немагчыма вызначыць месцазнаходжанне</string>
+    <string name="sLocationDisabled">Вызначэнне месцазнаходжання адключана</string>
+    <string name="sLocationDisabledMsg">Дастасаванне ня можа вызначыць, дзе вы знаходзіцеся. Уключыце функцыю \"Маё месцазнаходжанне\".</string>
+    <string name="sLocationAccuracy">Точность местоположения</string>
+    <string name="sLocationInaccuracy">Вы можете повысить точность местоположения, включив следующие функции:</string>
+    <string name="sLocationStart">Вызначэнне месцазнаходжання…</string>
+    <string name="sLocationGPS">GPS</string>
+    <string name="sLocationNetwork">По координатам сети</string>
+    
 	<string name="sSelectDataToDownload">Абярыце дадзеныя для запампавання</string>
 	<string name="sUpdateAvaliable">Аднаўленне дадзеных дасяжнае</string>
 	<string name="sDownload">Спампаваць</string>
