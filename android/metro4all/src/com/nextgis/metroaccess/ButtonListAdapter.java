@@ -23,6 +23,7 @@ package com.nextgis.metroaccess;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,14 +34,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+
 public class ButtonListAdapter extends BaseAdapter {
 
 	protected Context m_oContext;
 	protected LayoutInflater m_oInfalInflater;
+	protected int m_sFromStationLine;
+    protected int m_sToStationLine;
 	protected String m_sFromStationName;
 	protected String m_sFromEntranceName;
 	protected String m_sToStationName;
 	protected String m_sToEntranceName;
+    protected String sNotSet;
     protected ImageButton ibtnLocateFrom;
 	protected View.OnClickListener ibtnLocateFromListener;
 
@@ -48,7 +54,7 @@ public class ButtonListAdapter extends BaseAdapter {
 		this.m_oContext = c;
 		this.m_oInfalInflater = (LayoutInflater) m_oContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		String sNotSet = (String) m_oContext.getResources().getText(R.string.sNotSet);
+		sNotSet = (String) m_oContext.getResources().getText(R.string.sNotSet);
 		this.m_sFromStationName = sNotSet;
 		this.m_sToStationName = sNotSet;
 		this.m_sFromEntranceName = sNotSet;
@@ -102,16 +108,35 @@ public class ButtonListAdapter extends BaseAdapter {
             ((LinearLayout) convertView).addView(ibtnLocateFrom);
         }
 
+		ImageView ivMarkIcon = (ImageView)convertView.findViewById(R.id.ivMarkIcon);
+		ivMarkIcon.setImageResource(R.drawable.ic_geomarker_a);
+
+        ImageView ivSmallIcon = (ImageView)convertView.findViewById(R.id.ivSmallIcon);
+
+        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", m_sFromStationLine + "5.png");
+        if(imgFile.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            myBitmap = Bitmap.createBitmap(myBitmap, myBitmap.getWidth()/4, 0, myBitmap.getWidth()/2, myBitmap.getHeight(), matrix, true);
+
+            ivSmallIcon.setImageBitmap(myBitmap);
+            ivSmallIcon.setVisibility(View.VISIBLE);
+        } else
+            ivSmallIcon.setVisibility(View.GONE);
+
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
-		ivIcon.setImageResource(R.drawable.ic_geomarker_a);
+//		ivIcon.setImageResource(R.drawable.ic_geomarker_a);
+        ivIcon.setVisibility(View.GONE);
 		TextView tvPaneName = (TextView)convertView.findViewById(R.id.tvPaneName);
 		tvPaneName.setText(R.string.sFromStation);
 
-		String sStationName = m_oContext.getResources().getText(R.string.sStationName) + ": " + m_sFromStationName;
+		String sStationName = !m_sFromStationName.equals(sNotSet) ? m_sFromStationName : m_oContext.getResources().getText(R.string.sStationName) + ": " + m_sFromStationName;
 		TextView tvStationName = (TextView)convertView.findViewById(R.id.tvStationName);
 		tvStationName.setText(sStationName);
 		
-		String sEntranceName = m_oContext.getResources().getText(R.string.sEntranceName) + ": " + m_sFromEntranceName;		
+		String sEntranceName = !m_sFromEntranceName.equals(sNotSet) ? m_sFromEntranceName : m_oContext.getResources().getText(R.string.sEntranceName) + ": " + m_sFromEntranceName;
 		TextView tvEntranceName = (TextView)convertView.findViewById(R.id.tvEntranceName);
 		tvEntranceName.setText(sEntranceName);
 		
@@ -123,16 +148,35 @@ public class ButtonListAdapter extends BaseAdapter {
 			convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, null);
 		}
 
+        ImageView ivMarkIcon = (ImageView)convertView.findViewById(R.id.ivMarkIcon);
+        ivMarkIcon.setImageResource(R.drawable.ic_geomarker_b);
+
+        ImageView ivSmallIcon = (ImageView)convertView.findViewById(R.id.ivSmallIcon);
+
+        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", m_sToStationLine + "5.png");
+        if(imgFile.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            myBitmap = Bitmap.createBitmap(myBitmap, myBitmap.getWidth()/4, 0, myBitmap.getWidth()/2, myBitmap.getHeight(), matrix, true);
+
+            ivSmallIcon.setImageBitmap(myBitmap);
+            ivSmallIcon.setVisibility(View.VISIBLE);
+        } else
+            ivSmallIcon.setVisibility(View.GONE);
+
         ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
-		ivIcon.setImageResource(R.drawable.ic_geomarker_b);
+//		ivIcon.setImageResource(R.drawable.ic_geomarker_b);
+        ivIcon.setVisibility(View.GONE);
 		TextView tvPaneName = (TextView)convertView.findViewById(R.id.tvPaneName);
 		tvPaneName.setText(R.string.sToStation);
-		
-		String sStationName = m_oContext.getResources().getText(R.string.sStationName) + ": " + m_sToStationName;
+
+        String sStationName = !m_sToStationName.equals(sNotSet) ? m_sToStationName : m_oContext.getResources().getText(R.string.sStationName) + ": " + m_sToStationName;
 		TextView tvStationName = (TextView)convertView.findViewById(R.id.tvStationName);
 		tvStationName.setText(sStationName);
 		
-		String sExitName = m_oContext.getResources().getText(R.string.sExitName) + ": " + m_sToEntranceName;		
+		String sExitName = !m_sToEntranceName.equals(sNotSet) ? m_sToEntranceName : m_oContext.getResources().getText(R.string.sExitName) + ": " + m_sToEntranceName;
 		TextView tvExitName = (TextView)convertView.findViewById(R.id.tvEntranceName);
 		tvExitName.setText(sExitName);
 
@@ -150,6 +194,10 @@ public class ButtonListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+    public void setFromStationLine(int sFromStationLine) {
+        this.m_sFromStationLine = sFromStationLine;
+    }
+
 	public String getFromStationName() {
 		return m_sFromStationName;
 	}
@@ -165,6 +213,10 @@ public class ButtonListAdapter extends BaseAdapter {
 	public void setFromEntranceName(String sFromEntranceName) {
 		this.m_sFromEntranceName = sFromEntranceName;
 	}
+
+    public void setToStationLine(int sToStationLine) {
+        this.m_sToStationLine = sToStationLine;
+    }
 
 	public String getToStationName() {
 		return m_sToStationName;
@@ -183,7 +235,6 @@ public class ButtonListAdapter extends BaseAdapter {
 	}
 
     public void clear(){
-        String sNotSet = (String) m_oContext.getResources().getText(R.string.sNotSet);
         this.m_sFromStationName = sNotSet;
         this.m_sToStationName = sNotSet;
         this.m_sFromEntranceName = sNotSet;

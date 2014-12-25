@@ -810,6 +810,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    	String sNotSet = getString(R.string.sNotSet);
 	    	if(dep_sit != null && m_laListButtons != null){
 	    		m_laListButtons.setFromStationName(dep_sit.GetName());
+	    		m_laListButtons.setFromStationLine(dep_sit.GetLine());
 	    		PortalItem pit = dep_sit.GetPortal(m_nDeparturePortalId);
 	    		if(pit != null){
 	    			m_laListButtons.setFromEntranceName(pit.GetName());
@@ -822,12 +823,14 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    	else{
 	    		m_laListButtons.setFromStationName(sNotSet);
 	    		m_laListButtons.setFromEntranceName(sNotSet);
+                m_laListButtons.setFromStationLine(-1);
 	    		m_nDepartureStationId = -1;
 	    	}
 
 	    	StationItem arr_sit = m_oGraph.GetStation(m_nArrivalStationId);
 	    	if(arr_sit != null && m_laListButtons != null){
 	    		m_laListButtons.setToStationName(arr_sit.GetName());
+	    		m_laListButtons.setToStationLine(arr_sit.GetLine());
 	    		PortalItem pit = arr_sit.GetPortal(m_nArrivalPortalId);
 	    		if(pit != null){
 	    			m_laListButtons.setToEntranceName(pit.GetName());
@@ -840,6 +843,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    	else{
 	    		m_laListButtons.setToStationName(sNotSet);
 	    		m_laListButtons.setToEntranceName(sNotSet);
+                m_laListButtons.setToStationLine(-1);
 	    		m_nArrivalStationId = -1;
 	    	}
 		}
