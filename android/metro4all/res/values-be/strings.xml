@@ -27,11 +27,11 @@
     <string name="sLocationFail">Немагчыма вызначыць месцазнаходжанне</string>
     <string name="sLocationDisabled">Вызначэнне месцазнаходжання адключана</string>
     <string name="sLocationDisabledMsg">Дастасаванне ня можа вызначыць, дзе вы знаходзіцеся. Уключыце функцыю \"Маё месцазнаходжанне\".</string>
-    <string name="sLocationAccuracy">Точность местоположения</string>
-    <string name="sLocationInaccuracy">Вы можете повысить точность местоположения, включив следующие функции:</string>
+    <string name="sLocationAccuracy">Дакладнасць месцазнаходжання</string>
+    <string name="sLocationInaccuracy">Вы можаце павысіць дакладнасць месцазнаходжання, ўключыўшы наступныя функцыі:</string>
     <string name="sLocationStart">Вызначэнне месцазнаходжання…</string>
     <string name="sLocationGPS">GPS</string>
-    <string name="sLocationNetwork">По координатам сети</string>
+    <string name="sLocationNetwork">Па каардынатам сеткі</string>
     
 	<string name="sSelectDataToDownload">Абярыце дадзеныя для запампавання</string>
 	<string name="sUpdateAvaliable">Аднаўленне дадзеных дасяжнае</string>
