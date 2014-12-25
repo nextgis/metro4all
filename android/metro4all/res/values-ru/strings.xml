@@ -31,7 +31,7 @@
     <string name="sLocationInaccuracy">Вы можете повысить точность местоположения, включив следующие функции:</string>
     <string name="sLocationStart">Определение местоположения…</string>
     <string name="sLocationGPS">GPS</string>
-    <string name="sLocationNetwork">По координатам сети</string>
+    <string name="sLocationNetwork">По Wi-Fi и координатам сети</string>
 
 	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>
