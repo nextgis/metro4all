@@ -25,6 +25,13 @@
 	<string name="sNoOrEmptyData">Brak danych lub dane niepoprawne. Proszę ściągnąć aktualizację bazy danych.</string>
 
     <string name="sLocationFail">Nie udało się ustalić twojej lokalizacji</string>
+    <string name="sLocationDisabled">Usługi lokalizacyjne są wyłączone</string>
+    <string name="sLocationDisabledMsg">Aplikacji potrzebują dostępu do informacji o Twojej lokalizacji. Włacz go.</string>
+    <string name="sLocationAccuracy">Dokładność lokalizacji</string>
+	<string name="sLocationInaccuracy">Dokładność lokalizacji możesz zwiększyć, włączając:</string>
+	<string name="sLocationStart">Locating…</string>
+	<string name="sLocationGPS">GPS</string>
+	<string name="sLocationNetwork">Wi-Fi and mobile network coordinates</string>
 	
 	<string name="sSelectDataToDownload">Wybierz dane do pobrania</string>
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
