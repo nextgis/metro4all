@@ -31,7 +31,7 @@
 	<string name="sLocationInaccuracy">You can improve the accuracy of your location by turning on:</string>
 	<string name="sLocationStart">Locating…</string>
 	<string name="sLocationGPS">GPS</string>
-	<string name="sLocationNetwork">Wi-Fi and mobile network</string>
+	<string name="sLocationNetwork">Wi-Fi and mobile network coordinates</string>
 
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data update is available</string>
