@@ -1,10 +1,15 @@
 ## v.2.4 (unreleased)
 - UI changes:
 	* Added cross-reference layout/map buttons in map/layout screens
-	* Cities ascending sorting in main screen menu list and downloading dialog
-	* Percentage in download dialog shows remaining/total size in Kb
+	* Added "locate nearest entrance" button to main screen
+	* Added map buttons for From/To stations to main screen 
+	* Added line-coloured icon for From/To stations to main screen
+	* Added space for entrance/exit description to main screen
 	
-* Bugfixes:
+- Bugfixes:
+	* Cities ascending sorting in main screen menu list and downloading dialog
+	* Cities are deselected in the first downloading dialog 
+	* Percentage in download dialog shows remaining/total size in Kb
 	* Fixed stations name filter - now it accepts CAPITALS
 	* Fixed small pictures in layout screen - now it fits height/width
 
