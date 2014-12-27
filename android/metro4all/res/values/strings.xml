@@ -120,8 +120,8 @@
 	<string name="sPrefCityLocSummary">Choose language</string>
 	<string name="sPrefCityLocTitle">Choose language for names</string>
 	<string name="stationFilterHintText">Start entering name of the station</string>
-    <string name="sPrefGA">Disable Google Analytics</string>
-    <string name="sPrefGASum">Collects data to enhance performance</string>
+    <string name="sPrefGA">Enable Google Analytics</string>
+    <string name="sPrefGASum">Collects data to enhance app performance</string>
 	
 	<string name="switch_on">On</string>
 	<string name="switch_off">Off</string>
