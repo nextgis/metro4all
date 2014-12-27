@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov, polimax@mail.ru
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2014 NextGIS
 *
@@ -29,7 +29,7 @@ import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class GraphDataItem implements Parcelable {
+public class GraphDataItem implements Parcelable, Comparable<GraphDataItem> {
 	
 	private int m_nVersion;
 	private String m_sName;
@@ -165,4 +165,9 @@ public class GraphDataItem implements Parcelable {
 		}
 		return false;
 	}
+
+    @Override
+    public int compareTo(GraphDataItem o) {
+        return this.GetLocaleName().compareTo(o.GetLocaleName());
+    }
 }

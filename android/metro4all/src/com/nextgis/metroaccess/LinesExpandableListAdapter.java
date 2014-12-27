@@ -56,7 +56,8 @@ public class LinesExpandableListAdapter extends StationIndexedExpandableListAdap
 				mDigitIndexer.put(ch, x);
 
 				String sName = ""+ ch + ". " + momLines.get(ch);
-				StationItem sit = new StationItem(-1, sName, -1, -1, -1, -1);
+				StationItem sit =
+                        new StationItem(-1, sName, -1, -1, -1, -1, -1, -1);
 				mStationList.add(x, sit);
 			}     
 		}  

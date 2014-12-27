@@ -13,7 +13,7 @@ fieldmap = (
     ('name_ru', 'name_ru'),
     ('name_en', 'name_en'),
     ('name_pl', 'name_pl'),
-    ('name_by', 'name_by'),
+    ('name_be', 'name_be'),
     ('Код станции', 'id_station'),
     ('Направление', 'direction'),
     ('0_y', 'lat'),
@@ -25,7 +25,8 @@ fieldmap = (
     ('Лифт отнимает ступенек', 'lift_minus_step'),
     ('Мин. ширина рельс', 'min_rail_width'),
     ('Макс. ширина рельс', 'max_rail_width'),
-    ('Макс. угол', 'max_angle')
+    ('Макс. угол', 'max_angle'),
+    ('Количество эскалаторов на маршруте', 'escalator')
 )
 
 #create new list of fieldnames with only langs present in the source file

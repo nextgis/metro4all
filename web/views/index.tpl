@@ -34,6 +34,8 @@
     <!-- lightbox2 styles -->
     <link href="static/lightbox2/css/lightbox.css" rel="stylesheet">
 
+    <link href="static/opentip/opentip.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -108,7 +110,8 @@
           language: "ru"
         }
     </script>
-    <script src="static/bootstrap-3.0.0/assets/js/jquery.js"></script>
+    <script src="static/jquery-1.11.1.min.js"></script>
+    <script src="static/opentip/opentip-jquery-excanvas.js"></script>
     <script src="static/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
     <script src="static/select2-3.4.2/select2.js"></script>
     <script src="static/select2-3.4.2/select2_locale_ru.js"></script>
@@ -123,9 +126,14 @@
     <script src="static/m4a/m4a.url.js"></script>
     <script src="static/m4a/m4a.profiles.js"></script>
     <script src="static/m4a/m4a.routes.js"></script>
+    <script src="static/m4a/mapControls/m4a.extent.js"></script>
     <script src="static/m4a/inline.js"></script>
     <script src="static/lightbox2/js/lightbox.js"></script>
     <script src="static/blockui/jquery.blockUI.js"></script>
+    <script src="static/leaflet.polylineoffset/contrib/jsts/lib/javascript.util.js"></script>
+    <script src="static/leaflet.polylineoffset/contrib/jsts/lib/jsts.js"></script>
+    <script src="static/leaflet.polylineoffset/leaflet.polylineoffset.js"></script>
+
 
     <script>
         % if request.environ['HTTP_HOST'] == 'demo.nextgis.ru':

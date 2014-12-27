@@ -7,11 +7,14 @@
     
     <string name="about_app">Aplikacja ta pozwala na nawigację w metrze dla osób z ograniczeniami ruchu. Obliczy dla Ciebie najbardziej dostępną trasę podróży. \n\nWięcej informacji znajdziesz na:</string>
 
+    <string name="credits_caption">Informacje prawne:</string>
+    <string name="credits_text">Część użytych w aplikacji ikon zostało pobranych na licencji &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt; z serwisu &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;</string>
+	
 	<string name="sSettings">Ustawienia</string>
 	<string name="sAbout">O aplikacji</string>
 	<string name="sNetworkGetErr">Wystąpił błąd pobierania danych</string>
 	<string name="sNetworkUnreachErr">Brak połączenia z internetem</string>
-    <string name="sDownLoading">Pobieranie &#8230;</string>
+    <string name="sDownLoading">Pobieranie:</string>
     <string name="sZipExtractionProcess">Wypakowywanie &#8230;</string>
     <string name="sSearching">Wyszukiwanie &#8230;</string>
 	<string name="sNetworkInvalidData">Otrzymano niepoprawne dane</string>
@@ -20,6 +23,16 @@
 	<string name="sCannotGetPath">Błędna ścieżka do pliku</string>
 	<string name="sInvalidCSVData">Niepoprawna ilość pól w pliku csv: </string>
 	<string name="sNoOrEmptyData">Brak danych lub dane niepoprawne. Proszę ściągnąć aktualizację bazy danych.</string>
+
+    <string name="sLocationFail">Nie udało się ustalić twojej lokalizacji</string>
+    <string name="sLocationDisabled">Usługi lokalizacyjne są wyłączone</string>
+    <string name="sLocationDisabledMsg">Aplikacji potrzebują dostępu do informacji o Twojej lokalizacji. Włacz go.</string>
+    <string name="sLocationAccuracy">Dokładność lokalizacji</string>
+	<string name="sLocationInaccuracy">Dokładność lokalizacji możesz zwiększyć, włączając:</string>
+	<string name="sLocationStart">Locating…</string>
+	<string name="sLocationGPS">GPS</string>
+	<string name="sLocationNetwork">Wi-Fi and mobile network coordinates</string>
+	
 	<string name="sSelectDataToDownload">Wybierz dane do pobrania</string>
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
 	<string name="sDownload">Pobierz</string>
@@ -34,25 +47,36 @@
 	<string name="sFromStation">Stacja początkowa</string>
 	<string name="sToStation">Stacja końcowa</string>
 	<string name="sRoute">Wariant</string>
-	<string name="sSchema">Schemat</string>
+	<string name="sSchema">Schemat st. %1$s</string>
+    <string name="sLegend">Legenda do schematów</string>
+    <string name="sLocate">Moje położenie</string>
+    <string name="sMap">Mapa</string>
 	<string name="sStationName">Stacja</string>
 	<string name="sEntranceName">Wejście</string>
 	<string name="sExitName">Wyjście</string>
+    <string name="sStationPortalName">Stacja: %1$s\n%2$s: %3$s</string>
+    <string name="sNearestStation">Najbliższa stacja to %1$s</string>
+    <string name="sInPortalMapTitle">Wejścia stacji %1$s</string>
+    <string name="sOutPortalMapTitle">Wyjścia stacji %1$s</string>
 	<string name="sNotSet">Wybierz</string>
 	<string name="sSelFromStation">Wybierz stację początkową</string>
 	<string name="sSelToStation">Wybierz stację docelową</string>
 	<string name="sBarriersExist">Kliknij, aby zobaczyć bariery&#8230;</string>
 	<string name="sBarriersConflict">Uwaga: występują bariery potencjalnie nie do przejścia</string>
-	<string name="sMaxWCWidth">Szerokość wózka</string>
+	<string name="sMaxWCWidth">Minimalna szerokość przejścia</string>
 	<string name="sStairsCount">Ilość schodów</string>
+	<string name="sStairsEconomy">Steps saved by elevators, ramps and rails</string>
+	<string name="sStairsLeft">Steps to climb</string>
 	<string name="sStairsWORails">W tym bez szyn i ramp</string>
 	<string name="sLift">Winda</string>
+	<string name="sEscalator">Eskalator</string>
 	<string name="sLiftEconomy">Ilość schodów ominięta z użyciem windy</string>
 	<string name="sCM">cm</string>
 	<string name="sKB">Kb</string>
 	<string name="sMB">Mb</string>
 	<string name="sMinRailWidth">Minimalna odległość między kołami</string>
 	<string name="sMaxRailWidth">Maksymalna odległość między kołami</string>
+	<string name="sRailWidth">Odległość między kołami</string>
 	<string name="sMaxAngle">Maksymalne nachylenie szyn/rampy</string>
 	<string name="sDownloadData">Ściągnąć nowe dane?</string>
 	<string name="sDeleteData">Usunąć istniejące dane?</string>
@@ -87,6 +111,8 @@
 	<string name="sPrefChangeCityBasesTitle">Przechowywane mapy metra</string>
 	<string name="sPrefChangeCityBasesBtn">Ustaw</string>
 	<string name="sPrefChangeCityBasesSummary">Kliknij, aby dodać/usunąć miasta</string>
+    <string name="sPrefLegend">Legenda do schematów</string>
+    <string name="sPrefLegendSummary">Legenda do schematów stacji</string>
 	<string name="sPrefCity">Miasto</string>
 	<string name="sPrefCitySummary">Wybierz miasto</string>
 	<string name="sPrefCityTitle">Wybierz miasto z listy</string>

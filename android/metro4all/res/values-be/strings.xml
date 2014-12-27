@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Metro4All</string>
+    <string name="sHomepage">http://nextgis.org</string>
+    <string name="sDetailpage">http://metro4all.org</string>
+    
+    <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар\'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
+
+    <string name="credits_caption">Iнфармацыя пра аўтараў:</string>
+    <string name="credits_text">Некаторыя iконкi, якiя ўжываюцца ў дадатку, ўзятыя з &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;, лiцэнзiя &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt;</string>
+	
+	<string name="sSettings">Наладкі</string>
+	<string name="sAbout">Пра дадатак</string>
+	<string name="sNetworkGetErr">Памылка атрыманых дадзеных</string>
+	<string name="sNetworkUnreachErr">Сетка недасяжная</string>
+    <string name="sDownLoading">Спампаванне:</string>
+    <string name="sZipExtractionProcess">Выманне &#8230;</string>
+    <string name="sSearching">Пошук &#8230;</string>
+	<string name="sNetworkInvalidData">Памылковыя дадзеныя</string>
+	<string name="sFileNotFound">Файл не знойдзены</string>
+	<string name="sCannotReadFile">Немагчыма прачытаць файл</string>
+	<string name="sCannotGetPath">Шлях не знойдзены</string>
+	<string name="sInvalidCSVData">Памылковыя дадзеныя csv. Сума ў полі памылковая. Файл: </string>
+	<string name="sNoOrEmptyData">Дадзеныя адсутнічаюць альбо памылковыя. Калі ласка, запампуйце базу дадзеных.</string>
+
+    <string name="sLocationFail">Немагчыма вызначыць месцазнаходжанне</string>
+    <string name="sLocationDisabled">Вызначэнне месцазнаходжання адключана</string>
+    <string name="sLocationDisabledMsg">Дастасаванне ня можа вызначыць, дзе вы знаходзіцеся. Уключыце функцыю \"Маё месцазнаходжанне\".</string>
+    <string name="sLocationAccuracy">Дакладнасць месцазнаходжання</string>
+    <string name="sLocationInaccuracy">Вы можаце павысіць дакладнасць месцазнаходжання, ўключыўшы наступныя функцыі:</string>
+    <string name="sLocationStart">Вызначэнне месцазнаходжання…</string>
+    <string name="sLocationGPS">GPS</string>
+    <string name="sLocationNetwork">Па каардынатам сеткі i Wi-Fi</string>
+    
+	<string name="sSelectDataToDownload">Абярыце дадзеныя для запампавання</string>
+	<string name="sUpdateAvaliable">Аднаўленне дадзеных дасяжнае</string>
+	<string name="sDownload">Спампаваць</string>
+	<string name="sDelete">Выдаліць</string>
+	<string name="sYes">Так</string>
+	<string name="sNo">Не</string>	
+	<string name="sOk">Ok</string>
+	<string name="sCancel">Адмена</string>
+	<string name="sQuestion">Абнавіць усе дадзеныя</string>
+	<string name="sAreYouSure">Вы ўпэўненыя?</string>
+	<string name="sSearch">Пошук</string>
+	<string name="sFromStation">Адкуль</string>
+	<string name="sToStation">Куды</string>
+	<string name="sRoute">Варыянт</string>
+	<string name="sSchema">Макет ст. %1$s</string>
+    <string name="sLegend">Умоўныя абазначэнні</string>
+    <string name="sLocate">Маё месцазнаходжанне</string>
+    <string name="sMap">Карта</string>
+	<string name="sStationName">Імя</string>
+	<string name="sEntranceName">Уваход</string>
+	<string name="sExitName">Выхад</string>
+    <string name="sStationPortalName">Стацыя: %1$s\n%2$s: %3$s</string>
+    <string name="sNearestStation">Бліжэйшая станцыя %1$s</string>
+    <string name="sInPortalMapTitle">Уваходы ў cт. %1$s</string>
+    <string name="sOutPortalMapTitle">Выхады з ст. %1$s</string>
+	<string name="sNotSet">Не ўсталявана</string>
+	<string name="sSelFromStation">Абярыце станцыю адпраўлення</string>
+	<string name="sSelToStation">Абярыце станцыю прыбыцця</string>
+	<string name="sBarriersExist">Націсніце, каб пабачыць перашкоду&#8230;</string>
+	<string name="sBarriersConflict">Канфлікт параметраў</string>
+	<string name="sMaxWCWidth">Мін. шырыня праходу</string>
+	<string name="sStairsCount">Усяго прыступак</string>
+	<string name="sStairsEconomy">Прытупак захавана праз ліфты, пандусы і рэйкі</string>
+	<string name="sStairsLeft">Прыступак пераадолець</string>
+	<string name="sStairsWORails">З іх без рэек і рампаў</string>
+	<string name="sLift">Ліфт</string>
+	<string name="sEscalator">Эскалатар</string>
+	<string name="sLiftEconomy">Колькасць прыступак, якую эканоміць ліфт</string>
+	<string name="sCM">cm</string>
+	<string name="sKB">Kb</string>
+	<string name="sMB">Mb</string>
+	<string name="sMinRailWidth">Мін. адлегласць паміж коламі</string>
+	<string name="sMaxRailWidth">Mакс. адлегласць паміж коламі</string>
+	<string name="sRailWidth">Адлегласць паміж коламі</string>
+	<string name="sMaxAngle">Максімальны нахіл</string>
+	<string name="sDownloadData">Запампаваць новыя дадзеныя?</string>
+	<string name="sDeleteData">Выдаліць існуючыя адзеныя?</string>
+	<string name="sConflictNotes">Канфлікт з зададзенымі абмежаваннямі паказваецца чырвоным</string>
+	<string name="sLimits">Абмежаванні</string>	
+	<string name="sLimitsSet">Задаць мае абмежаванні</string>
+	<string name="sLimitsHave">Абмежаванні</string>
+	<string name="sSummary">Выдаць маршрут</string>		
+	<string name="sSummaryClick">Больш інфармацыі</string>		
+	<!-- tabs -->
+	<string name="sSelAlphabeticalTab">A&#8230;Я</string>
+	<string name="sSelLinesTab">Лініі</string>
+	<string name="sSelRecentTab">Апошняе</string>
+	<!-- dialogs -->
+	<string name="sPrefTitle">Настройкі</string>
+	<string name="sPrefCatMain">Асноўныя</string>
+	<string name="sPrefCatData">Дадзеныя</string>
+	<string name="sPrefNaviType">Тып навігацыі</string>
+	<string name="sPrefNaviTypeSummary">Тып навігацыі ўплывае на маршрут</string>
+	<string name="sPrefNaviTypeTitle">Выбраць тып навігацыі</string>
+	<string name="sPrefWheelBaseSize">Шырыня паміж коламі</string>
+	<string name="sPrefWheelBaseSizeSummary">Шырыня паміж коламі (см)</string>
+	<string name="sPrefWheelBaseSizeTitle">Задаць шырыню паміж коламі (см)</string>		
+	<string name="sPrefCarriageSize">Шырыня інваліднага/дзіцячага вазку</string>
+	<string name="sPrefCarriageSizeSummary">Шырыня інваліднага/дзіцячага вазку (см)</string>
+	<string name="sPrefCarriageSizeTitle">Задаць макс. шырыню інваліднага/дзіцячага вазку (см)</string>	
+	<string name="sPrefDataPath">URL дадзеных для скачвання</string>
+	<string name="sPrefDataPathSummary">Спасылку для скачвання дадзеных маршрута</string>
+	<string name="sPrefDataPathTitle">Увесці URL дадзеных</string>
+	<string name="sPrefUpdDataSummary">Націснуць, каб абнавіць дадзеныя</string>
+	<string name="sPrefUpdDataTitle">Абнавіць дадзеныя</string>
+	<string name="sPrefChangeCityBasesTitle">Дадаць/Выдаліць горад</string>
+	<string name="sPrefChangeCityBasesBtn">Змяніць</string>
+	<string name="sPrefChangeCityBasesSummary">Выбраць гарады</string>
+    <string name="sPrefLegend">Legend</string>
+    <string name="sPrefLegendSummary">Умоўныя абазначэнні для схемы станцыі</string>
+	<string name="sPrefCity">Цяперашні горад</string>
+	<string name="sPrefCitySummary">Выбраць горад</string>
+	<string name="sPrefCityTitle">Выбраць горад са спісу</string>
+	<string name="sPrefCityLoc">Мова</string>
+	<string name="sPrefCityLocSummary">Выбраць мову</string>
+	<string name="sPrefCityLocTitle">Выбраць мову для назваў</string>
+	<string name="stationFilterHintText">Пачніце ўвод назвы станцыі</string>
+	
+	<string name="switch_on">УКЛ</string>
+	<string name="switch_off">ВЫКЛ</string>
+</resources>

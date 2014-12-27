@@ -5,7 +5,7 @@ http://metro4all.org
 
 Metro navigation and accessibility for people with special needs.
 
-Now available for: Moscow, Saint-Petersburg, Warsaw, Kazan (upcoming)
+Now available for: Amsterdam, Ekaterinburg, Kazan, Lausanne, Minsk, Moscow, Nizhny Novgorod, Saint-Petersburg, Warsaw, Glasgo (upcoming), Novosibirsk (upcoming), Samara (upcoming), Volgograd (upcoming).
 
 Metro4all is:
 
@@ -14,4 +14,10 @@ Metro4all is:
 * Android-app: same as above
 * Website with additional information
 
-Read more about data structures, running aps etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
+Read more about data structures, running apps, etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
+
+
+License information:
+
+* Code - GPL v2
+* Data - CC-BY-SA 4.0 International

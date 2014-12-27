@@ -18,6 +18,24 @@
             "#acbfe1": 12
         },
 
+        TERMINAL_STATIONS: {
+            ENTER: {
+                className: 'enter',
+                resourceName: 'entr',
+                portalName: 'portal_from',
+                obstacleResourceName: 'obt_arent_sh_en'
+            },
+
+            EXIT: {
+                className: 'exit',
+                resourceName: 'exit',
+                portalName: 'portal_to',
+                obstacleResourceName: 'obt_arent_sh_ex'
+            }
+        },
+
+        route: null,
+
         buildRoutes: function (data) {
             var context = this,
                 routes = data.result;
@@ -39,55 +57,150 @@
                 if (zoom === undefined) {
                     context.zoomRoute(routes[route_index].route);
                 }
-                // m4a.view.$document.triggerHandler('/url/update', ['route', route_index + 1]);
             });
         },
 
+        clickPageRoute: function (event, zoom) {
 
+        },
+
+        indexForHidden: 0,
         fillBarriers: function (barriers) {
-            var c = "";
-            c += "<ul class='obstacles'>";
-            c += "<li><strong>" + m4a.resources.routes.wch_w + "</strong> " +
-                m4a.resources.routes.wch_w1 + barriers['max_width'] + m4a.resources.routes.wch_w2 + "</li>";
-            if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
-                c += "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
-            } else {
-                c += "<li><strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>";
-                c += "<li><strong>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
-            }
-            c += "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
+            var isStationAvailable = true,
+                isIndicatorAvailable,
+                context = this,
+                c = "",
+                profileName = m4a.viewmodel.profile.name,
+                profileBarriersIndicators = m4a.profiles.barriersIndicatorsByProfile[profileName];
 
-            // Лифт
-            if (barriers['lift']) {
-                c += m4a.resources.routes.elev_y_1 + barriers['lift_minus_step'] + m4a.resources.routes.elev_y_2;
-            }
-            c += "</li>";
+            $.each(profileBarriersIndicators.visible, function (index, indicatorName) {
+                isIndicatorAvailable = true;
+                if (context.barriersIndicators[indicatorName]) {
+                    if (m4a.profiles.profileBarriersRestrictions[profileName][indicatorName]) {
+                        isIndicatorAvailable = m4a.profiles.profileBarriersRestrictions[profileName][indicatorName](barriers);
+                        if (!isIndicatorAvailable && isStationAvailable) {
+                            isStationAvailable = false;
+                        }
+                    }
+                    c += context.barriersIndicators[indicatorName](barriers, isIndicatorAvailable);
 
-            // Аппарели
-            if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
-                c += "<li><strong>" + m4a.resources.routes.min_max + "</strong> "
-                    + barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width'] + m4a.resources.routes.cm;
-            } else {
-                c += "<li class='empty'>" + m4a.resources.routes.no_r;
-            }
-            c += "</li>";
+                } else {
+                    console.log('Barrier indicator is not found: ' + indicatorName);
+                }
+            });
 
-            // Наклонные поверхности
-            if (barriers['max_angle']) {
-                c += "<li><strong>" + m4a.resources.routes.slope + "</strong> "
-                    + barriers['max_angle'] + "&deg;";
-            } else {
-                c += "<li class='empty'>" + m4a.resources.routes.no_lev_surf;
+            this.indexForHidden += 1;
+            c += '<li class="show-hidden-params" data-state="hidden" data-hidden-id="' + this.indexForHidden + '">' +
+                m4a.resources.routes.show + '</li>'
+
+            c += '<ul class="barries-hidden-' + this.indexForHidden + '" style="display: none;">';
+
+            $.each(profileBarriersIndicators.hidden, function (index, controlName) {
+                if (context.barriersIndicators[controlName]) {
+                    c += context.barriersIndicators[controlName](barriers, true);
+                } else {
+                    console.log('Control is not found: ' + controlName);
+                }
+            });
+
+            c += '</ul>';
+
+            return '<ul class="' + (isStationAvailable ? 'obstacles available' : 'obstacles unavailable') + '">' + c + '</ul>';
+        },
+
+
+        barriersIndicators: {
+            max_width: function (barriers, isIndicatorAvailable) {
+                return (isIndicatorAvailable ? "<li><strong>" : "<li class='invalid'><strong>") + m4a.resources.routes.wch_w + "</strong> " +
+                    m4a.resources.routes.wch_w1 + barriers['max_width'] + m4a.resources.routes.wch_w2 + "</li>";
+            },
+
+            min_step: function (barriers, isIndicatorAvailable) {
+                var c = '';
+
+                if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
+                    c += "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
+                } else {
+                    c += "<li><strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>";
+                    c += "<li><strong>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
+                }
+
+                return c;
+            },
+
+            min_step_min_step_ramp: function (barriers, isIndicatorAvailable) {
+                if ((barriers['min_step'] == 0) && (barriers['min_step_ramp'] == 0)) {
+                    return "<li class='empty'>" + m4a.resources.routes.n_str + "</li>";
+                } else {
+                    return isIndicatorAvailable ? "<li>" : "<li class='invalid'>" + "<strong>" + m4a.resources.routes.stps + "</strong> " + barriers['min_step'] + "</li>" +
+                        isIndicatorAvailable ? "<li>" : "<li class='invalid'>" + m4a.resources.routes.n_ramp + "</strong> " + barriers['min_step_ramp'] + "</li>";
+                }
+            },
+
+
+            lift: function (barriers, isIndicatorAvailable) {
+                var c = "<li>" + {true: m4a.resources.routes.elev_y, false: m4a.resources.routes.elev_n}[barriers['lift']];
+
+                if (barriers['lift']) {
+                    c += m4a.resources.routes.elev_y_1 + barriers['lift_minus_step'] + m4a.resources.routes.elev_y_2;
+                }
+                c += "</li>";
+
+                return c;
+            },
+
+            min_max_rail_width: function (barriers, isIndicatorAvailable) {
+                var c = '';
+
+                if ((barriers['min_rail_width']) && (barriers['max_rail_width'])) {
+                    c += (isIndicatorAvailable ? '<li><strong>' : '<li class="invalid"><strong>')
+                        + m4a.resources.routes.min_max + "</strong> "
+                        + barriers['min_rail_width'] + " &ndash; " + barriers['max_rail_width']
+                        + m4a.resources.routes.cm;
+                } else {
+                    c += "<li class='empty'>" + m4a.resources.routes.no_r;
+                }
+                c += "</li>";
+
+                return c;
+            },
+
+            max_angle: function (barriers, isIndicatorAvailable) {
+                var c = '';
+
+                if (barriers['max_angle']) {
+                    c += "<li><strong>" + m4a.resources.routes.slope + "</strong> "
+                        + barriers['max_angle'] + "&deg;";
+                } else {
+                    c += "<li class='empty'>" + m4a.resources.routes.no_lev_surf;
+                }
+
+                c += "</li>";
+
+                return c;
+            },
+
+            escalator: function (barriers, isIndicatorAvailable) {
+                var c = '';
+
+                if (barriers['escalator'] && barriers['escalator'] > 0) {
+                    c += (isIndicatorAvailable ? '<li><strong>' : '<li class="invalid"><strong>')
+                        + m4a.resources.routes.escal_y + '</strong> '
+                        + barriers['escalator'];
+                } else {
+                    c += "<li class='empty'>" + m4a.resources.routes.escal_n;
+                }
+
+                c += "</li>";
+
+                return c;
             }
-            c += "</li>";
-            c += "</ul>";
-            return c;
         },
 
         schemeIconTemplate: Mustache.compile('{{#schemeExists}}<a class="scheme"' +
             ' href="{{path}}" data-lightbox="{{schemeExists}}" title="{{name}}"></a>{{/schemeExists}}'),
 
-        zoomRoute: function(route) {
+        zoomRoute: function (route) {
             // Охват на маршрут
             var xmin = route[0].coordinates[1],
                 ymin = route[0].coordinates[0],
@@ -108,29 +221,18 @@
         showRoute: function (routes, index) {
             // Вывод списка станций, входящих в маршрут
             var context = this,
+                view = m4a.view,
                 content = "<ul class='route'>",
-                lineClass = routes[index].route && routes[index].route.length > 0 ?
-                    ' line-' + m4a.routes.COLORS[routes[index].route[0].station_line.color] : '';
+                currentRoute = routes[index].route;
 
-            content += "<li class='enter" + lineClass + "'>" + m4a.resources.routes.entr;
-            if (routes[index].portals.portal_from) {
-                var barriers = routes[index].portals.portal_from.barriers;
-                if (barriers) {
-                    content += this.fillBarriers(barriers);
-                }
-            } else {
-                content += "<ul class='obstacles'>";
-                content += "<li>" + m4a.resources.routes.obt_arent_sh_en + "</li>";
-                content += "</ul>";
-            }
-            content += "</li>";
+            content += this._addTerminalStation('ENTER', routes[index]);
 
-            $.each(routes[index].route, function (i, item) {
+            $.each(currentRoute, function (i, item) {
                 var condition = (i == 0) ? item.station_type == 'regular' :
-                    (item.station_type == 'regular' && routes[index].route[i - 1].station_type != 'interchange')
+                    (item.station_type == 'regular' && currentRoute[i - 1].station_type != 'interchange');
 
                 if (condition) {
-                    content += "<li class=" + "'station line-" + m4a.routes.COLORS[item.station_line.color] + "'>" + item.station_name +
+                    content += "<li class='station line-" + context._getLineIndexForRouteItem(item) + "'>" + item.station_name +
                         context.schemeIconTemplate({
                             schemeExists: item.schema,
                             path: m4a.viewmodel.pathToSchemes + item.schema,
@@ -138,15 +240,16 @@
                         }) +
                         "</li>"
                 } else if (item.station_type == 'interchange') {
-                    content += "<li class=" + "'transition from-line-" + m4a.routes.COLORS[item.station_line.color] + " to-line-" +
-                        m4a.routes.COLORS[routes[index].route[i + 1].station_line.color] + "'>" + item.station_name +
-                        " (" + item.station_line.name + ")" + " &rarr; " + routes[index].route[i + 1].station_name +
-                        " (" + routes[index].route[i + 1].station_line.name + ")" +
+                    var nextStation = currentRoute[i + 1];
+                    content += "<li class=" + "'transition from-line-" + context._getLineIndexForRouteItem(item) + " to-line-" +
+                        context._getLineIndexForRouteItem(nextStation) + "'>" + item.station_name +
+                        " (" + item.station_line.name + ")" + " &rarr; " + nextStation.station_name +
+                        " (" + nextStation.station_line.name + ")" +
                         context.schemeIconTemplate({
-                            schemeExists: routes[index].route[i + 1].schema,
-                            path: m4a.viewmodel.pathToSchemes + routes[index].route[i + 1].schema,
-                            name: routes[index].route[i + 1].station_name
-                        })
+                            schemeExists: nextStation.schema,
+                            path: m4a.viewmodel.pathToSchemes + nextStation.schema,
+                            name: nextStation.station_name
+                        });
                     if (item.barriers) {
                         content += context.fillBarriers(item.barriers);
                     }
@@ -154,44 +257,47 @@
                 }
             });
 
-            content += "<li class='exit'>" + m4a.resources.routes.exit;
-            if (routes[index].portals.portal_to) {
-                var barriers = routes[index].portals.portal_to.barriers;
-                if (barriers) {
-                    content += this.fillBarriers(barriers);
-                }
-            } else {
-                content += "<ul class='obstacles'>";
-                content += "<li>" + m4a.resources.routes.obt_arent_sh_ex + "</li>";
-                content += "</ul>";
-            }
-            content += "</li>";
+            content += this._addTerminalStation('EXIT', routes[index]);
             content += "</ul>";
+            content += '<a href="' + m4a.resources.routes.help_link + '" target="_blank">' + m4a.resources.routes.help + '</a>';
+
             m4a.view.$routePanel.append(content);
 
+            this.bindIndicatorsEvents();
+
             // Отображение маршрута на карте
-            if (typeof route !== 'undefined') {
-                m4a.viewmodel.mainMap.removeLayer(route);
+            if (this.route !== null) {
+                m4a.viewmodel.mainMap.removeLayer(this.route);
             }
-            route = L.layerGroup();
-            $.each(routes[index].route, function (i, item) {
-            // Маркеры станций
-                route.addLayer(L.marker(
-                    item.coordinates,
-                    {
-                        icon: L.divIcon({
-                            className: 'marker-station marker-line-' + m4a.routes.COLORS[item.station_line.color] +
-                                (i == 0 ? ' marker-enter' : (i == (routes[index].route.length - 1) ? ' marker-exit' : '')),
-                            iconSize: [16, 16]
+            this.route = L.layerGroup();
+
+            // Прозрачность слоя станций и линий
+            $.each(m4a.viewmodel.stationMarkers, function (i, item) {
+                item.setOpacity(0.3);
+            });
+            m4a.viewmodel.lineSegments.setStyle({opacity: 0.1});
+
+            $.each(currentRoute, function (i, item) {
+                // Маркеры станций
+                context.route.addLayer(L.marker(
+                        item.coordinates,
+                        {
+                            icon: L.divIcon({
+                                className: 'marker-station marker-line-' + context._getLineIndexForRouteItem(item) +
+                                    (i == 0 ? ' marker-enter' : (i == (currentRoute.length - 1) ? ' marker-exit' : '')),
+                                iconSize: [16, 16]
+                            }),
+                            riseOnHover: true
                         })
-                    }).bindLabel(item.station_name)
+                        .bindLabel(item.station_name)
+                        .on('click', m4a.stations.selectStationFromMap.bind(item))
                 ).addTo(m4a.viewmodel.mainMap);
 
                 // Сегменты маршрута
                 if (i != 0) {
-                    route.addLayer(
+                    context.route.addLayer(
                         L.polyline(
-                            [routes[index].route[i - 1].coordinates, item.coordinates],
+                            [currentRoute[i - 1].coordinates, item.coordinates],
                             {
                                 color: item.station_line.color,
                                 opacity: 1
@@ -199,6 +305,57 @@
                     ).addTo(m4a.viewmodel.mainMap);
                 }
             });
+            m4a.view.$document.triggerHandler('/url/update', ['route', index + 1]);
+            m4a.view.$document.triggerHandler('/url/update', ['profile', m4a.viewmodel.profile.name]);
+        },
+
+        _addTerminalStation: function (index, route) {
+            var settings = m4a.routes.TERMINAL_STATIONS[index];
+            var currentRoute = route.route;
+            var portal = route.portals[settings.portalName];
+            var i = index == 'ENTER' ? 0 : currentRoute.length - 1;
+            var lineClass = currentRoute && currentRoute.length > 0 ?
+                    ' line-' + this._getLineIndexForRouteItem(currentRoute[i]) : '',
+                fullClassName = [settings.className, lineClass].join(' '),
+                result = "<li class='" + fullClassName + "'>" + m4a.resources.routes[settings.resourceName];
+
+            if (portal) {
+                var barriers = portal.barriers;
+                if (barriers) {
+                    result += this.fillBarriers(barriers);
+                }
+            } else {
+                result += "<ul class='obstacles'>";
+                result += "<li>" + m4a.resources.routes[settings.obstacleResourceName] + "</li>";
+                result += "</ul>";
+            }
+            result += "</li>";
+            return result;
+        },
+
+        _getLineIndexByStationColor: function (stationColor) {
+            return m4a.routes.COLORS[stationColor];
+        },
+
+        _getLineIndexForRouteItem: function (routeItem) {
+            return this._getLineIndexByStationColor(routeItem.station_line.color);
+        },
+
+        bindIndicatorsEvents: function () {
+            $('li.show-hidden-params').off('click').on('click', function () {
+                $('ul.barries-hidden-' + $(this).data('hidden-id')).toggle("start", function () {
+                    var $toggleHiddenIndicators = $(this).siblings('li.show-hidden-params'),
+                        previousState = $toggleHiddenIndicators.data('state');
+                    if (previousState === 'hidden') {
+                        $toggleHiddenIndicators.text(m4a.resources.routes.hide);
+                        $toggleHiddenIndicators.data('state', 'visible');
+                    } else if (previousState === 'visible') {
+                        $toggleHiddenIndicators.text(m4a.resources.routes.show);
+                        $toggleHiddenIndicators.data('state', 'hidden');
+                    }
+                });
+            });
         }
     })
-})(jQuery, m4a)
+})
+(jQuery, m4a)

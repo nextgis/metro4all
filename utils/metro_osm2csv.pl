@@ -32,6 +32,7 @@ while(<>) {
             $station->{"name_en"} = $tags{'name:en'};
             $station->{"name_pl"} = $tags{'name:pl'} || $tags{'name:en'};
             $station->{ref} = $tags{ref};
+            $station->{map} = $tags{map_ref} || $tags{ref};
             $stations{$id} = $station;
         } elsif( $1 eq 'node' && $tags{railway} eq 'subway_entrance' ) {
             # subway entrance
@@ -124,9 +125,8 @@ printf LINES "%d;%s;%s;%s;%s\n", $_->{ref}, $_->{name_ru}, $_->{name_en}, $_->{n
 close LINES;
 
 open STATIONS, '>stations.csv' or die "Cannot open stations.csv: $!";
-my $node = 1;
 print STATIONS "id_station;id_line;id_node;name_ru;name_en;name_pl;lat;lon\n";
-printf STATIONS "%d;%d;%d;%s;%s;%s;%s;%s\n", $_->{ref}, $_->{line}, $node++, $_->{name_ru}, $_->{name_en}, $_->{name_pl}, $_->{lat}, $_->{lon} foreach sort {$a->{ref} <=> $b->{ref}} values %stations;
+printf STATIONS "%d;%d;%d;%s;%s;%s;%s;%s\n", $_->{ref}, $_->{line}, $_->{map}, $_->{name_ru}, $_->{name_en}, $_->{name_pl}, $_->{lat}, $_->{lon} foreach sort {$a->{ref} <=> $b->{ref}} values %stations;
 close STATIONS;
 
 open GRAPH, '>graph.csv' or die "Cannot open graph.csv: $!";

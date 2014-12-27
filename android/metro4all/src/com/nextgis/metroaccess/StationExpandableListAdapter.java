@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.*;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 
@@ -40,79 +44,77 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import static com.nextgis.metroaccess.Constants.*;
 
 public class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
+
 	protected Context mContext;
 	protected List <StationItem> mStationList;
-	
+
 	protected int mnType;
 	protected int mnMaxWidth, mnWheelWidth;
 	protected boolean m_bHaveLimits;
-	
+
 	protected LayoutInflater mInfalInflater;
 	protected List<StationItem> moOriginalStationList;
-	
+
 	protected boolean m_bIn;
-	
+
 	public StationExpandableListAdapter(Context c) {
 		mContext = c;
 
 		mInfalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
+
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
 		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-		
+
 		SelectStationActivity act = (SelectStationActivity)mContext;
 		m_bIn = act.IsIn();
     }
-	
+
 	protected void FillArrays(){
 		mStationList.clear();
-		
+
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		Map<Integer, StationItem> omStations = MainActivity.GetGraph().GetStations();
-		
+
 		if(m_bIn){
 			int size = prefs.getInt("recent_dep_counter", 0);
 			for(int i = 0; i < size; i++){
-				int nStationId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
+				int nStationId = prefs.getInt("recent_dep_" + BUNDLE_STATIONID_KEY+i, -1);
 				//int nPortalId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
-				
-				StationItem sit = omStations.get(nStationId);
-				if(sit != null && !mStationList.contains(sit)){
-					mStationList.add(sit);
-				}
-			}				
-		}
-		else{
-			int size = prefs.getInt("recent_arr_counter", 0);
-			for(int i = 0; i < size; i++){
-				int nStationId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_STATIONID_KEY+i, -1);
-				//int nPortalId = prefs.getInt("recent_arr_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
-				
+
 				StationItem sit = omStations.get(nStationId);
 				if(sit != null && !mStationList.contains(sit)){
 					mStationList.add(sit);
 				}
 			}
-		}		
+		}
+		else{
+			int size = prefs.getInt("recent_arr_counter", 0);
+			for(int i = 0; i < size; i++){
+				int nStationId = prefs.getInt("recent_arr_" + BUNDLE_STATIONID_KEY+i, -1);
+				//int nPortalId = prefs.getInt("recent_arr_" + BUNDLE_PORTALID_KEY+i, -1);
+
+				StationItem sit = omStations.get(nStationId);
+				if(sit != null && !mStationList.contains(sit)){
+					mStationList.add(sit);
+				}
+			}
+		}
 	}
-	
+
 	protected void onInit(){
 		mStationList = new ArrayList<StationItem>();
-		
+
 		//load recent data
 		FillArrays();
 	}
-	
+
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		StationItem sit = mStationList.get(groupPosition);
@@ -143,14 +145,16 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		//
 		if(mnType > 1){
 			boolean bSmallWidth = entry.GetDetailes()[0] < mnMaxWidth;
-			boolean bCanRoll = entry.GetDetailes()[5] < mnWheelWidth && entry.GetDetailes()[6] > mnWheelWidth;
+			boolean bCanRoll = entry.GetDetailes()[7] == 0
+                    || entry.GetDetailes()[5] <= mnWheelWidth
+                    && (entry.GetDetailes()[6] == 0 || mnWheelWidth <= entry.GetDetailes()[6]);
 			if(m_bHaveLimits && (bSmallWidth || !bCanRoll)){
 				item.setTextColor(Color.RED);
 			}
 			else{
 				TypedValue tv = new TypedValue();
 				mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
-				item.setTextColor(mContext.getResources().getColor(tv.resourceId));	
+				item.setTextColor(mContext.getResources().getColor(tv.resourceId));
 			}
 		}
 		//
@@ -191,7 +195,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-		StationItem entry = (StationItem) getGroup(groupPosition);
+		final StationItem entry = (StationItem) getGroup(groupPosition);
 		if(entry.GetId() == -1){
 			if (convertView == null || convertView.findViewById(R.id.tvCategoryName) == null) {
 				convertView = mInfalInflater.inflate(R.layout.select_category_row_layout, null);
@@ -209,13 +213,59 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 			ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 
 			String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
-			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
-			Log.d(MainActivity.TAG, imgFile.getPath());
+			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");
+			Log.d(TAG, imgFile.getPath());
 			if(imgFile.exists()){
-			
+
 			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 			    ivIcon.setImageBitmap(myBitmap);
-			}	
+			}
+
+            TextView tvSchemeButton = (TextView) convertView.findViewById(R.id.tvStationSchemeButton);
+            final File schemaFile =
+                    new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
+
+            if (schemaFile.exists()) {
+                tvSchemeButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        try {
+                            Log.d(TAG, schemaFile.getPath());
+
+                            SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
+                            bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
+                            bundle.putBoolean(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+                            bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
+                            Intent intentView = new Intent(parentActivity, StationImageView.class);
+                            intentView.putExtras(bundle);
+
+                            parentActivity.startActivityForResult(intentView, PORTAL_MAP_RESULT);
+                        } catch (ActivityNotFoundException e) {
+                            Log.e(TAG, "Call failed", e);
+                        }
+                    }
+                });
+
+                tvSchemeButton.setVisibility(View.VISIBLE);
+            } else {
+                tvSchemeButton.setVisibility(View.INVISIBLE);
+            }
+
+
+            TextView tvMapButton = (TextView) convertView.findViewById(R.id.tvPortalMapButton);
+            tvMapButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
+                    Intent intent = new Intent(parentActivity, StationMapActivity.class);
+                    intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
+                    intent.putExtra(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+                    intent.putExtra(PARAM_SCHEME_PATH, schemaFile.getPath());
+                    intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+                    parentActivity.startActivityForResult(intent, PORTAL_MAP_RESULT);
+                }
+            });
 		}
 		return convertView;
 	}
@@ -244,7 +294,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	                if (moOriginalStationList != null && moOriginalStationList.size() > 0) {
 	                    for (final StationItem station : moOriginalStationList) {
 	                        if (station.GetName().toLowerCase()
-	                                .contains(constraint.toString()))
+	                                .contains(constraint.toString().toLowerCase()))
 	                            results.add(station);
 	                    }
 	                }
@@ -262,14 +312,14 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	        }
 	    };
 	}
-	
+
 	public void Update(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
 		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
 		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
 		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-		
+
 		FillArrays();
 	}
 }

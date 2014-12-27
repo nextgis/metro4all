@@ -1,1 +1,0 @@
-Frontend php application for metro4all.ru

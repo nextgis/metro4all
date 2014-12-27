@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov, polimax@mail.ru
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2013,2014 NextGIS
 *
@@ -23,11 +23,13 @@ package com.nextgis.metroaccess;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -49,6 +51,8 @@ import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
 	
 	public static final String KEY_PREF_USER_TYPE = "user_type";
@@ -59,6 +63,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	public static final String KEY_PREF_CHANGE_CITY_BASES = "change_city_bases";
 	public static final String KEY_PREF_DATA_LOCALE = "data_loc";
 	public static final String KEY_PREF_HAVE_LIMITS = "limits";
+    public static final String KEY_PREF_LEGEND = "legend";
 	public static final String KEY_PREF_CITY = "city";
 	public static final String KEY_PREF_CITYLANG = "city_lang";
 	public static final String KEY_PREF_MAX_ROUTE_COUNT = "max_route_count";
@@ -67,7 +72,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	protected static Handler m_oGetJSONHandler; 
 	
 	protected ListPreference m_CityLangPref;
-	protected ListPreference m_CityPref;
+//	protected ListPreference m_CityPref;
 	
 	protected EditTextPreference m_etMaxWidthPref;
 	protected EditTextPreference m_etWheelWidthPref;
@@ -88,11 +93,11 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             	super.handleMessage(msg);
             	
             	Bundle resultData = msg.getData();
-            	boolean bHaveErr = resultData.getBoolean(MainActivity.BUNDLE_ERRORMARK_KEY);
-            	int nEventSource = resultData.getInt(MainActivity.BUNDLE_EVENTSRC_KEY);
-            	String sPayload = resultData.getString(MainActivity.BUNDLE_PAYLOAD_KEY);
+            	boolean bHaveErr = resultData.getBoolean(BUNDLE_ERRORMARK_KEY);
+            	int nEventSource = resultData.getInt(BUNDLE_EVENTSRC_KEY);
+            	String sPayload = resultData.getString(BUNDLE_PAYLOAD_KEY);
             	if(bHaveErr){
-            		Toast.makeText(PreferencesActivity.this, resultData.getString(MainActivity.BUNDLE_MSG_KEY), Toast.LENGTH_LONG).show();
+            		Toast.makeText(PreferencesActivity.this, resultData.getString(BUNDLE_MSG_KEY), Toast.LENGTH_LONG).show();
             	}
 
             	switch(nEventSource){
@@ -124,27 +129,41 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
 	    
 	    MAGraph oGraph = MainActivity.GetGraph();
-	    
-	    m_CityPref = (ListPreference) findPreference(KEY_PREF_CITY);
-        if(m_CityPref != null){
-        	UpdateCityList();
-            int index = m_CityPref.findIndexOfValue( m_CityPref.getValue() );           
-            if(index >= 0){
-            	m_CityPref.setSummary(m_CityPref.getEntries()[index]);
-            }
-            else{
-            	m_CityPref.setSummary((String) m_CityPref.getSummary()); //.getValue()
-            }
+
+        Preference legendPref = (Preference) findPreference(KEY_PREF_LEGEND);
+        if(legendPref != null){
+            legendPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intentView = new Intent(getApplicationContext(), StationImageView.class);
+                    startActivity(intentView);
+                    return true;
+                }
+            });
         }
-        
+
+//	    m_CityPref = (ListPreference) findPreference(KEY_PREF_CITY);
+//        if(m_CityPref != null){
+//        	UpdateCityList();
+//            int index = m_CityPref.findIndexOfValue( m_CityPref.getValue() );
+//            if(index >= 0){
+//            	m_CityPref.setSummary(m_CityPref.getEntries()[index]);
+//            }
+//        }
+
         m_CityLangPref = (ListPreference) findPreference(KEY_PREF_CITYLANG);
-        if(m_CityLangPref != null){
-            int index = m_CityLangPref.findIndexOfValue( m_CityLangPref.getValue() );           
-            if(index >= 0){
-            	m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
-            }
-            else{
-            	m_CityLangPref.setSummary((String) m_CityLangPref.getSummary()); 
+        if (m_CityLangPref != null) {
+            int index = m_CityLangPref.findIndexOfValue(m_CityLangPref.getValue());
+
+            if (index >= 0) {
+                m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
+            } else {
+                String currCityLang = MainActivity.GetGraph().GetLocale();
+                index = m_CityLangPref.findIndexOfValue(currCityLang);
+                if (index < 0) {
+                    index = 0;
+                }
+                m_CityLangPref.setValue((String) m_CityLangPref.getEntryValues()[index]);
+                m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
             }
         }
         
@@ -197,43 +216,44 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    changeCityBases.setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	public boolean onPreferenceClick(Preference preference) {
         		//Add and remove bases
-        		
+
         		MAGraph oGraph = MainActivity.GetGraph();
-        		
-        		File oDataFolder = new File(getExternalFilesDir(""), MainActivity.GetRemoteMetaFile());			
+
+        		File oDataFolder = new File(getExternalFilesDir(""), MainActivity.GetRemoteMetaFile());
     			String sJSON = MainActivity.readFromFile(oDataFolder);
         		oGraph.OnUpdateMeta(sJSON, false);
-        		
+
         		final List<GraphDataItem> new_items = oGraph.HasChanges();
-        		final List<GraphDataItem> exist_items = new ArrayList<GraphDataItem>(oGraph.GetRouteMetadata().values()); 
-    		    
+                Collections.sort(new_items);
+        		final List<GraphDataItem> exist_items = new ArrayList<GraphDataItem>(oGraph.GetRouteMetadata().values());
+                Collections.sort(exist_items);
+
         	    int count = new_items.size() + exist_items.size();
         	    if(count == 0)
         	    	return false;
-        	    
+
         	    final boolean[] checkedItems = new boolean[count];
         	    final CharSequence[] checkedItemStrings = new CharSequence[count];
-        	    
+
+                for(int i = 0; i < exist_items.size(); i++){
+                    checkedItems[i] = true;
+                }
+
+                for(int i = 0; i < exist_items.size(); i++){
+                    checkedItemStrings[i] = exist_items.get(i).GetLocaleName();
+                }
+
         	    for(int i = 0; i < new_items.size(); i++){
-        	    	checkedItems[i] = false;
+        	    	checkedItems[i + exist_items.size()] = false;
         	    }
-        	    
+
         	    for(int i = 0; i < new_items.size(); i++){
-        	    	checkedItemStrings[i] = new_items.get(i).GetFullName();
+        	    	checkedItemStrings[i + exist_items.size()] = new_items.get(i).GetFullName();
         	    }
-        	    
-        	    for(int i = 0; i < exist_items.size(); i++){
-        	    	checkedItems[i + new_items.size()] = true;
-        	    }
-        	    
-        	    for(int i = 0; i < exist_items.size(); i++){
-        	    	checkedItemStrings[i + new_items.size()] = exist_items.get(i).GetLocaleName();
-        	    }       	    
-        	    
-        	    
+
+
         	    AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
         		builder.setTitle(R.string.sPrefChangeCityBasesTitle)
-        			   .setCancelable(false)
         			   .setMultiChoiceItems(checkedItemStrings, checkedItems,
         						new DialogInterface.OnMultiChoiceClickListener() {
         							@Override
@@ -245,24 +265,29 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         						new DialogInterface.OnClickListener() {
         							@Override
         							public void onClick(DialogInterface dialog, int id) {
-        								
+
         								m_asDownloadData.clear();
-        								
+
         								for (int i = 0; i < checkedItems.length; i++) {
         									//check if no change
         									//1. item is unchecked and was unchecked
-        									if(!checkedItems[i] && i < new_items.size()){
+                                            //if(!checkedItems[i] && i < new_items.size()){
+                                            if(!checkedItems[i] && i >= exist_items.size()){
         										continue;
         									}
-        									else if(i < new_items.size()){
-        										m_asDownloadData.add(new DownloadData(PreferencesActivity.this, new_items.get(i), MainActivity.GetDownloadURL() + new_items.get(i).GetPath() + ".zip", m_oGetJSONHandler));										
+                                            //else if(i < new_items.size()){
+        									else if(i >= exist_items.size()){  // add
+                                                //m_asDownloadData.add(new DownloadData(PreferencesActivity.this, new_items.get(i), MainActivity.GetDownloadURL() + new_items.get(i).GetPath() + ".zip", m_oGetJSONHandler));
+        										m_asDownloadData.add(new DownloadData(PreferencesActivity.this, new_items.get(i - exist_items.size()), MainActivity.GetDownloadURL() + new_items.get(i - exist_items.size()).GetPath() + ".zip", m_oGetJSONHandler));
         									}
         									//2. item is checked and was checked
-        									else if (checkedItems[i] && i >= new_items.size()){
+                                            //else if (checkedItems[i] && i >= new_items.size()){
+                                            else if (checkedItems[i] && i < exist_items.size()){
         										continue;
         									}
         									else{//delete
-        										File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()), exist_items.get(i - new_items.size()).GetPath());
+        										//File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()), exist_items.get(i - new_items.size()).GetPath());
+                                                File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()), exist_items.get(i).GetPath());
         										DeleteRecursive(oDataFolder);
         									}
         								}
@@ -330,15 +355,15 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     		if(newVal.length() > 0)
             	Pref.setSummary(newVal  + " " + getString(R.string.sCM));
         }
-		else if(key.equals(KEY_PREF_CITY)){
-			newVal = sharedPreferences.getString(key, "msk");
-			int nIndex = m_CityPref.findIndexOfValue((String) newVal);
-            if(nIndex >= 0){
-            	m_CityPref.setSummary((String) m_CityPref.getEntries()[nIndex]);
-            }
-            MainActivity.GetGraph().SetCurrentCity((String) newVal);
-            return;
-		}
+//		else if(key.equals(KEY_PREF_CITY)){
+//			newVal = sharedPreferences.getString(key, "msk");
+//			int nIndex = m_CityPref.findIndexOfValue((String) newVal);
+//            if(nIndex >= 0){
+//            	m_CityPref.setSummary((String) m_CityPref.getEntries()[nIndex]);
+//            }
+//            MainActivity.GetGraph().SetCurrentCity((String) newVal);
+//            return;
+//		}
 		else if(key.equals(KEY_PREF_CITYLANG)){
 			newVal = sharedPreferences.getString(key, "en");
 			int nIndex = m_CityLangPref.findIndexOfValue((String) newVal);
@@ -411,14 +436,18 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 				ent_val[nCounter] = entry.getKey();
 				nCounter++;
 			}
-    		
-    		m_CityPref.setEntries(ent);
-    		m_CityPref.setEntryValues(ent_val);
-    		
-    		m_CityPref.setEnabled(true);
+
+//    		m_CityPref.setEntries(ent);
+//    		m_CityPref.setEntryValues(ent_val);
+//
+//            int index = m_CityPref.findIndexOfValue(m_CityPref.getValue());
+//            if (index < 0)
+//                m_CityPref.setValue(oGraph.GetCurrentCity());
+//
+//    		m_CityPref.setEnabled(true);
     	}
-    	else{
-    		m_CityPref.setEnabled(false);
-    	}
+//    	else{
+//    		m_CityPref.setEnabled(false);
+//    	}
 	}
 }

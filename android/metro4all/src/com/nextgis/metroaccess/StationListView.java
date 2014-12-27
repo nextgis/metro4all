@@ -43,6 +43,8 @@ import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.RouteItem;
 import com.nextgis.metroaccess.data.StationItem;
 
+import static com.nextgis.metroaccess.Constants.*;
+
 public class StationListView extends SherlockActivity implements OnNavigationListener{
 	
 	protected int mnType;
@@ -76,10 +78,10 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 
 	    Bundle extras = getIntent().getExtras(); 
 	    if(extras != null) {
-	    	mnDeparturePortalId = extras.getInt("dep_" + MainActivity.BUNDLE_PORTALID_KEY);
-	    	mnArrivalPortalId = extras.getInt("arr_" + MainActivity.BUNDLE_PORTALID_KEY);
+	    	mnDeparturePortalId = extras.getInt("dep_" + BUNDLE_PORTALID_KEY);
+	    	mnArrivalPortalId = extras.getInt("arr_" + BUNDLE_PORTALID_KEY);
 	    	
-	    	mnPathCount = extras.getInt(MainActivity.BUNDLE_PATHCOUNT_KEY);
+	    	mnPathCount = extras.getInt(BUNDLE_PATHCOUNT_KEY);
 	    	mmoStations = MainActivity.GetGraph().GetStations();//(Map<Integer, StationItem>) extras.getSerializable(MainActivity.BUNDLE_STATIONMAP_KEY);
 	    	mmoCrosses = MainActivity.GetGraph().GetCrosses();//(Map<String, int[]>) extras.getSerializable(MainActivity.BUNDLE_CROSSESMAP_KEY);
 
@@ -99,7 +101,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 		    if(mnPathCount > 0){
 		    	moAdapters = new RouteExpandableListAdapter[mnPathCount];
 			    for(int i = 0; i < mnPathCount; i++){
-			    	List<Integer> list = extras.getIntegerArrayList(MainActivity.BUNDLE_PATH_KEY + i);
+			    	List<Integer> list = extras.getIntegerArrayList(BUNDLE_PATH_KEY + i);
 			    	moAdapters[i] = CreateAndFillAdapter(list);
 			    }
 		    }
@@ -134,7 +136,6 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	    		int nId = list.get(i);
 	    		int nType = 5;
 				if(bCross){
-					bCross = false;
 					if(i != list.size() - 1){
 						int nNextId = list.get(i + 1);
 						int nLineFrom = mmoStations.get(nId).GetLine();
@@ -182,7 +183,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			routeList.add(FillBarriersForExit(oExit, mnArrivalPortalId));
 			//routeList.add(oExit);
 		
-			int[] naBarriers = {0,0,0,0,0,0,0,0};
+			int[] naBarriers = {0,0,0,0,0,0,0,0,0};
 			for(RouteItem rit : routeList){
 				List<BarrierItem> bits = rit.GetProblems();
 				if(bits != null){
@@ -222,6 +223,11 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 								naBarriers[7] = bit.GetValue();
 							}
 						}
+                        else if(bit.GetId() == 8){
+                            if(naBarriers[8] < bit.GetValue()){
+                                naBarriers[8] = bit.GetValue();
+                            }
+                        }
 					}
 				}
 			}
@@ -233,7 +239,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			
 	        // create new adapter
 		    RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, routeList);
-	        
+
 		    return expListAdapter;
    		}
    		return null;
@@ -241,7 +247,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 
 	protected RouteItem FillBarriers(RouteItem it, int StationFromId, int StationToId){
 		int[] naBarriers = mmoCrosses.get("" + StationFromId + "->" + StationToId);
-		if(naBarriers != null && naBarriers.length == 8){
+		if(naBarriers != null && naBarriers.length == 9){
 			FillWithData(naBarriers, it, false);
 		}
 		return it;
@@ -273,12 +279,32 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 
 	protected void FillWithData(int[] naBarriers, RouteItem it, boolean bWithZeroes){
 		if(bWithZeroes || naBarriers[0] > 0){//max_width
-			boolean bProblem = naBarriers[0] < mnMaxWidth && m_bHaveLimits;
+			boolean bProblem = m_bHaveLimits && naBarriers[0] < mnMaxWidth;
 			String sName = getString(R.string.sMaxWCWidth) + ": " + naBarriers[0] / 10 + " " + getString(R.string.sCM);
 			BarrierItem bit = new BarrierItem(0, sName, bProblem, naBarriers[0]);
 			it.AddBarrier(bit);
 		}
-		if(bWithZeroes || naBarriers[1] > 0){//min_step
+        if(bWithZeroes || naBarriers[8] > 0){//escalator
+            String sName = getString(R.string.sEscalator) + ": " + naBarriers[8];
+            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
+            it.AddBarrier(bit);
+        }
+        else{
+            String sName = getString(R.string.sEscalator) + ": " + getString(R.string.sNo);
+            BarrierItem bit = new BarrierItem(8, sName, false, naBarriers[8]);
+            it.AddBarrier(bit);
+        }
+        if(bWithZeroes || naBarriers[3] > 0){//lift
+            String sName = getString(R.string.sLift) + ": " + naBarriers[3];
+            BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
+            it.AddBarrier(bit);
+        }
+        else{
+            String sName = getString(R.string.sLift) + ": " + getString(R.string.sNo);
+            BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
+            it.AddBarrier(bit);
+        }
+        if(bWithZeroes || naBarriers[1] > 0){//min_step
 			String sName = getString(R.string.sStairsCount) + ": " + naBarriers[1];
 			BarrierItem bit = new BarrierItem(1, sName, false, naBarriers[1]);
 			it.AddBarrier(bit);
@@ -288,22 +314,20 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			BarrierItem bit = new BarrierItem(2, sName, false, naBarriers[2]);
 			it.AddBarrier(bit);
 		}
-		if(bWithZeroes || naBarriers[3] > 0){//lift
-			String sName = getString(R.string.sLift) + ": " + naBarriers[3];
-			BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
-			it.AddBarrier(bit);
-		}	
-		else{
-			String sName = getString(R.string.sLift) + ": " + getString(R.string.sNo);
-			BarrierItem bit = new BarrierItem(3, sName, false, naBarriers[3]);
-			it.AddBarrier(bit);
-		}
 		if(bWithZeroes || naBarriers[4] > 0){//lift_minus_step
 			String sName = getString(R.string.sLiftEconomy) + ": " + naBarriers[4];
 			BarrierItem bit = new BarrierItem(4, sName, false, naBarriers[4]);
 			it.AddBarrier(bit);
 		}
-		if(bWithZeroes || naBarriers[5] > 0){//min_rail_width
+        if(bWithZeroes || naBarriers[5] > 0 || naBarriers[6] > 0){
+           String sName = getString(R.string.sRailWidth) +  ": " + naBarriers[5] / 10 + " - "  + naBarriers[6] / 10 + " " + getString(R.string.sCM);
+            boolean bCanRoll = !m_bHaveLimits || naBarriers[7] == 0
+                    || naBarriers[5] <= mnWheelWidth
+                    && (naBarriers[6] == 0 || mnWheelWidth <= naBarriers[6]);
+            BarrierItem bit = new BarrierItem(56, sName, !bCanRoll, naBarriers[6] - naBarriers[5]);
+            it.AddBarrier(bit);
+        }
+		/*if(bWithZeroes || naBarriers[5] > 0){//min_rail_width
 			String sName = getString(R.string.sMinRailWidth) + ": " + naBarriers[5] / 10 + " " + getString(R.string.sCM);
 			boolean bCanRoll = naBarriers[5] < mnWheelWidth && naBarriers[6] > mnWheelWidth;
 			if(!bCanRoll && !m_bHaveLimits)
@@ -318,13 +342,13 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 				bCanRoll = true;
 			BarrierItem bit = new BarrierItem(6, sName, !bCanRoll, naBarriers[6]);
 			it.AddBarrier(bit);
-		}
+		}*/
 		if(bWithZeroes || naBarriers[7] > 0){//max_angle
 			String sName = getString(R.string.sMaxAngle) + ": " + naBarriers[7] + DEGREE_CHAR;
 			BarrierItem bit = new BarrierItem(7, sName, false, naBarriers[7]);
 			it.AddBarrier(bit);
-		}		
-	}
+		}
+    }
 	
 	
     @Override

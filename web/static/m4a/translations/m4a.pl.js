@@ -8,9 +8,9 @@
             "wch_d": "Jestem na wózku",
             "wch_d2": "Jestem na wózku szerokością ",
             "wch_d3": " cm",
-            "trl_html": "Szerokość torby, cm",
-            "trl_d": "Jestem z torbą",
-            "trl_d2": "Jestem z torbą szerokością ",
+            "trl_html": "Szerokość wózka dziecięcego, cm",
+            "trl_d": "Jestem z wózkiem dziecięcym",
+            "trl_d2": "Jestem z wózkiem szerokością ",
             "trl_d3": " cm",
         },
         routes: {
@@ -33,12 +33,23 @@
             "obt_arent_sh_en": "Przeszkody nie są wyświetlane ponieważ nie wybrałeś wejście",
             "exit": "Wyjście",
             "obt_arent_sh_ex": "Przeszkody nie są wyświetlane ponieważ nie wybrałeś wyjście",
+            "show": "Jeszcze...",
+            "hide": "Schować",
+            "help": "Looking for official assistance service?",
+            "help_link": "http://metro4all.org/official-assistance/",
+            "from": "Od",
+            "to": "Do",
+            "escal_y": "Schodkowych",
+            "escal_n": "Brak schodkowychów"
         },
         inline: {
             "start_st": "Wybierz stacje wejścia lub wyjścia",
             "eq_st": "Wybrałeś takie same stacje",
             "st_st": "Wybierz stację początkową",
             "end_st": "Wybierz stację końcową",
+        },
+        map: {
+            "extent": "Pokaż całe miasto"
         }
     })
 })(jQuery, m4a)

@@ -15,7 +15,7 @@ fieldmap = (
     ('name_en', 'name_en'),
     ('name_ru', 'name_ru'),
     ('name_pl', 'name_pl'),
-    ('name_by', 'name_by'),
+    ('name_be', 'name_be'),
     ('lat', 'lat'),
     ('lon', 'lon')
 )

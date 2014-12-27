@@ -5,13 +5,16 @@
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
     
-    <string name="about_app">Это приложение расcчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. Вы можете выбрать более оптимальный маршрут. \n\nПодробнее:</string>
+    <string name="about_app">Это приложение расcчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. \n\nПодробнее:</string>
+
+    <string name="credits_caption">Информация об авторах:</string>
+    <string name="credits_text">Некоторые иконки, использованные в приложении, взяты с &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;, лицензия &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt;</string>
 
 	<string name="sSettings">Настройки</string>
 	<string name="sAbout">О программе</string>
 	<string name="sNetworkGetErr">Ошибка получения данных</string>
 	<string name="sNetworkUnreachErr">Отсутствует подключение к сети</string>
-    <string name="sDownLoading">Загружается &#8230;</string>    
+    <string name="sDownLoading">Загружается:</string>
     <string name="sSearching">Поиск &#8230;</string>
     <string name="sZipExtractionProcess">Распаковка &#8230;</string>
 	<string name="sNetworkInvalidData">Ошибка в данных</string>
@@ -20,7 +23,16 @@
 	<string name="sCannotGetPath">Не найден путь</string>
 	<string name="sInvalidCSVData">Некорректные данные в csv, неправильное число полей. Файл: </string>
 	<string name="sNoOrEmptyData">Отсутствуют данные для построения маршрутов или данные повреждены. Обновите данные</string>
-		
+
+    <string name="sLocationFail">Невозможно определить местоположение</string>
+    <string name="sLocationDisabled">Определение местоположения отключено</string>
+    <string name="sLocationDisabledMsg">Приложение не может определить, где вы находитесь. Включите функцию \"Мое местоположение\".</string>
+    <string name="sLocationAccuracy">Точность местоположения</string>
+    <string name="sLocationInaccuracy">Вы можете повысить точность местоположения, включив следующие функции:</string>
+    <string name="sLocationStart">Определение местоположения…</string>
+    <string name="sLocationGPS">GPS</string>
+    <string name="sLocationNetwork">По Wi-Fi и координатам сети</string>
+
 	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>
 	<string name="sDownload">Загрузить</string>
@@ -35,26 +47,37 @@
 	<string name="sFromStation">Откуда</string>
 	<string name="sToStation">Куда</string>
 	<string name="sRoute">Вариант</string>
-	<string name="sSchema">Схема</string>
+	<string name="sSchema">Схема ст. %1$s</string>
+    <string name="sLegend">Условные обозначения</string>
+    <string name="sLocate">Определить местоположение</string>
+    <string name="sMap">Карта</string>
 	<string name="sStationName">Станция</string>
 	<string name="sEntranceName">Вход</string>
-	<string name="sExitName">Выход</string>		
-	<string name="sNotSet">Не выбрано</string>	
+	<string name="sExitName">Выход</string>
+    <string name="sStationPortalName">Станция: %1$s\n%2$s: %3$s</string>
+    <string name="sNearestStation">Ближайшая станция %1$s</string>
+    <string name="sInPortalMapTitle">Входы ст. %1$s</string>
+    <string name="sOutPortalMapTitle">Выходы ст. %1$s</string>
+	<string name="sNotSet">Не выбрано</string>
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>
 	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
 	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
-	<string name="sMaxWCWidth">Ширина коляски</string>
-	<string name="sStairsCount">Ступенек всего</string>
+	<string name="sMaxWCWidth">Мин. ширина прохода</string>
+	<string name="sStairsCount">Всего ступеней</string>
+	<string name="sStairsEconomy">Можно сэкономить ступеней (за счет лифтов, пандусов, рельс)</string>
+	<string name="sStairsLeft">Остается пройти ступеней</string>
 	<string name="sStairsWORails">Из них без рельс и пандусов</string>
-	<string name="sLift">Лифт</string>
-	<string name="sLiftEconomy">Лифт экономит ступенек</string>
+	<string name="sLift">Лифтов</string>
+	<string name="sEscalator">Эскалаторов</string>
+	<string name="sLiftEconomy">Лифт экономит ступеней</string>
 	<string name="sCM">см</string>
 	<string name="sKB">Кб</string>
 	<string name="sMB">Мб</string>
 	<string name="sMinRailWidth">Мин. расстояние между колесами</string>
 	<string name="sMaxRailWidth">Макс. расстояние между колесами</string>
-	<string name="sMaxAngle">Угол наклона</string>
+	<string name="sRailWidth">Расстояние между колесами</string>
+	<string name="sMaxAngle">Макс. угол наклона</string>
 	<string name="sDownloadData">Загрузить данные по маршрутам?</string>
 	<string name="sDeleteData">Удалить данные по маршрутам?</string>	
 	<string name="sConflictNotes">Входы, конфликтующие с вашими ограничениями, отмечены красным</string>
@@ -66,7 +89,7 @@
 		<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>
-	<string name="sSelRecentTab">Недавние</string>	
+	<string name="sSelRecentTab">Недавние</string>
 	<!-- dialogs -->
 	<string name="sPrefTitle">Настройки</string>
 	<string name="sPrefCatMain">Основные</string>
@@ -88,14 +111,16 @@
 	<string name="sPrefChangeCityBasesBtn">Изменить</string>
 	<string name="sPrefChangeCityBasesTitle">Добавить/Удалить город</string>
 	<string name="sPrefChangeCityBasesSummary">Нажмите, чтобы выбрать загружаемые города</string>
-	<string name="sPrefCity">Текущий город</string>
+    <string name="sPrefLegend">Условные обозначения</string>
+    <string name="sPrefLegendSummary">Условные обозначения схемы станции</string>
+    <string name="sPrefCity">Текущий город</string>
 	<string name="sPrefCitySummary">Выберите город</string>
 	<string name="sPrefCityTitle">Выберите город из списка</string>
 	<string name="sPrefCityLoc">Язык названий</string>
 	<string name="sPrefCityLocSummary">Выбор языка названий</string>
 	<string name="sPrefCityLocTitle">Выберите язык названий</string>
 	<string name="stationFilterHintText">Введите часть названия станции</string>
-	
+
 	<string name="switch_on">Вкл</string>
 	<string name="switch_off">Выкл</string>		
 </resources>
