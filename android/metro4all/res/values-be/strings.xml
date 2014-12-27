@@ -8,7 +8,7 @@
     <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар\'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
 
     <string name="credits_caption">Iнфармацыя пра аўтараў:</string>
-    <string name="credits_text">Некаторыя iконкi, якiя ўжываюцца ў дадатку, ўзятыя з &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;, лiцэнзiя &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt;</string>
+    <string name="credits_text">Некаторыя iконкi, якiя ўжываюцца ў дадатку, ўзятыя з &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;, лiцэнзiя &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt;&lt;br&gt;&lt;br&gt;Это приложение собирает и обрабатывает данные об использовании приложения с помощью Google Analytics. Данные обезличены, строго конфиденциальны и используются в целях улучшения производительности приложения. Это поведение можно отключить в настройках приложения.</string>
 	
 	<string name="sSettings">Наладкі</string>
 	<string name="sAbout">Пра дадатак</string>
@@ -120,6 +120,8 @@
 	<string name="sPrefCityLocSummary">Выбраць мову</string>
 	<string name="sPrefCityLocTitle">Выбраць мову для назваў</string>
 	<string name="stationFilterHintText">Пачніце ўвод назвы станцыі</string>
+    <string name="sPrefGA">Включить Google Analytics</string>
+    <string name="sPrefGASum">Собирает данные для улучшения производительности приложения</string>
 	
 	<string name="switch_on">УКЛ</string>
 	<string name="switch_off">ВЫКЛ</string>
