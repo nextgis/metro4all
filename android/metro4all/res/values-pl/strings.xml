@@ -8,7 +8,7 @@
     <string name="about_app">Aplikacja ta pozwala na nawigację w metrze dla osób z ograniczeniami ruchu. Obliczy dla Ciebie najbardziej dostępną trasę podróży. \n\nWięcej informacji znajdziesz na:</string>
 
     <string name="credits_caption">Informacje prawne:</string>
-    <string name="credits_text">Część użytych w aplikacji ikon zostało pobranych na licencji &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt; z serwisu &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;&lt;br&gt;&lt;br&gt;This app collects and processes users\' performance data using Google Analytics. All data are depersonalized, strictly confidential and used to enhance app performance. You can disable this activity in Settings.</string>
+    <string name="credits_text">Część użytych w aplikacji ikon zostało pobranych na licencji &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt; z serwisu &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;&lt;br&gt;&lt;br&gt;Ta aplikacja zbiera i analizuje korzystanie z aplikacji przy pomocy Google Analytics. Wszystkie dane są anonimizowane i wykorzystywane wyłącznie do poprawy jakości aplikacji. Możesz wyłączyć zbieranie danych w Ustawieniach.</string>
 	
 	<string name="sSettings">Ustawienia</string>
 	<string name="sAbout">O aplikacji</string>
@@ -120,8 +120,8 @@
 	<string name="sPrefCityLocSummary">Wybierz język</string>
 	<string name="sPrefCityLocTitle">Wybierz język</string>
 	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>	
-    <string name="sPrefGA">Enable Google Analytics</string>
-    <string name="sPrefGASum">Collects data to enhance app performance</string>
+    <string name="sPrefGA">Włącz Google Analytics</string>
+    <string name="sPrefGASum">Zbieranie danych w celu poprawy jakości aplikacji</string>
 	
 	<string name="switch_on">Wł</string>
 	<string name="switch_off">Wył</string>
