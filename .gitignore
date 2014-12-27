@@ -34,4 +34,5 @@ android/MetroDataCollector/docs
 #lock files
 *.~lock*
 
+#IDE configs
 .idea
