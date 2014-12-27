@@ -2,61 +2,71 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nextgis.metroaccess"
     android:versionCode="12"
-    android:versionName="2.3" >
+    android:versionName="2.3">
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    
-    <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-	<supports-screens android:largeScreens="true" android:smallScreens="true" android:anyDensity="true" android:normalScreens="true" android:xlargeScreens="true" android:resizeable="true"/>    
-	
-	<uses-feature android:name="android.hardware.telephony" android:required="false" />
-	<uses-feature android:name="android.hardware.wifi" android:required="false" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Sherlock.Light" >
+        android:theme="@style/Theme.Sherlock.Light"
+        android:name=".Analytics">
         <activity
             android:name="com.nextgis.metroaccess.MainActivity"
-            android:label="@string/app_name" 
-        android:screenOrientation="portrait" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-    		android:name="com.nextgis.metroaccess.AboutActivity"
-    		android:label="@string/sAbout">
-		</activity>  
-        <activity 
-    		android:name="com.nextgis.metroaccess.StationListView"
-    		android:label="@string/sRoute">
-		</activity> 		      
-        <activity 
-    		android:name="com.nextgis.metroaccess.StationImageView"
-    		android:label="@string/sSchema">
-		</activity> 		      
-        <activity 
-    		android:name="com.nextgis.metroaccess.SelectStationActivity" android:configChanges="keyboardHidden" android:windowSoftInputMode="stateHidden">
-		</activity>
-        <activity 
-    		android:name="com.nextgis.metroaccess.PreferencesActivity"
-    		android:label="@string/sPrefTitle">
-		</activity>
         <activity
-            android:name="com.nextgis.metroaccess.StationMapActivity">
-        </activity>
-      </application>
+            android:name="com.nextgis.metroaccess.AboutActivity"
+            android:label="@string/sAbout"></activity>
+        <activity
+            android:name="com.nextgis.metroaccess.StationListView"
+            android:label="@string/sRoute"></activity>
+        <activity
+            android:name="com.nextgis.metroaccess.StationImageView"
+            android:label="@string/sSchema"></activity>
+        <activity
+            android:name="com.nextgis.metroaccess.SelectStationActivity"
+            android:configChanges="keyboardHidden"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name="com.nextgis.metroaccess.PreferencesActivity"
+            android:label="@string/sPrefTitle"></activity>
+        <activity android:name="com.nextgis.metroaccess.StationMapActivity"></activity>
+    </application>
 
 </manifest>

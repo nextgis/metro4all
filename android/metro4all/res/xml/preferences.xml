@@ -28,6 +28,11 @@
             android:title="@string/sPrefLegend"
             android:summary="@string/sPrefLegendSummary"
             />
+        <CheckBoxPreference android:key="ga_enabled"
+            android:defaultValue="false"
+            android:title="@string/sPrefGA"
+            android:summary="@string/sPrefGASum"
+            />
         <!-- EditTextPreference
             android:key="download_path"
             android:title="@string/sPrefDataPath"

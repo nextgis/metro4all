@@ -47,6 +47,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
@@ -67,7 +68,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	public static final String KEY_PREF_CITY = "city";
 	public static final String KEY_PREF_CITYLANG = "city_lang";
 	public static final String KEY_PREF_MAX_ROUTE_COUNT = "max_route_count";
-	
+	public static final String KEY_PREF_GA = "ga_enabled";
+
 	protected List<DownloadData> m_asDownloadData;
 	protected static Handler m_oGetJSONHandler; 
 	
@@ -310,6 +312,16 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         });
 	    
 	    targetCategory.addPreference(changeCityBases);
+
+        Preference gaPreference = (Preference) findPreference(KEY_PREF_GA);
+        gaPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                boolean disableGA = (Boolean)o;
+                ((Analytics) getApplication()).reload(disableGA);
+                return true;
+            }
+        });
     }
     
     @Override

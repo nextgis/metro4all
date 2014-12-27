@@ -124,7 +124,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         // initialize the default settings
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		m_sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, m_sUrl);
+        m_sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, m_sUrl);
 
 		String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
 		String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
@@ -145,9 +145,12 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			GetRoutingData();
 		}
 
+        boolean disableGA = prefs.getBoolean(PreferencesActivity.KEY_PREF_GA, false);
+        ((Analytics) getApplication()).reload(disableGA);
+//        GoogleAnalytics.getInstance(this).setDryRun(true);
 	}
 
-	protected void CreateHandler(){
+    protected void CreateHandler(){
 
 		m_oGetJSONHandler = new Handler() {
             public void handleMessage(Message msg) {
