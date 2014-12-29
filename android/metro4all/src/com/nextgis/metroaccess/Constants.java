@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
- *   Copyright (C) 2013 NextGIS
+ *   Copyright (C) 2013,2014 NextGIS
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by

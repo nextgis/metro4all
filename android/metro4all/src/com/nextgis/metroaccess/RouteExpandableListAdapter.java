@@ -26,6 +26,7 @@ import java.util.List;
 import com.nextgis.metroaccess.data.BarrierItem;
 import com.nextgis.metroaccess.data.RouteItem;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -204,6 +205,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				public void onClick(View arg0) {
 				    try {
 				    	Log.d(TAG, schemaFile.getPath());
+                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
 				    	
 				    	Bundle bundle = new Bundle();
 				    	bundle.putString(Constants.PARAM_SCHEME_PATH, schemaFile.getPath());

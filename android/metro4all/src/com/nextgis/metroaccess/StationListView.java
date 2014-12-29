@@ -52,7 +52,8 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	protected ExpandableListView mExpListView;
 	protected int mnPathCount, mnDeparturePortalId, mnArrivalPortalId;
 	protected boolean m_bHaveLimits;
-    
+	protected boolean firstLaunch = true;   // fix for GA, first item selected onCreate by default
+
 	protected Map<Integer, StationItem> mmoStations;
 	protected Map<String, int[]> mmoCrosses;
 	public static final char DEGREE_CHAR = (char) 0x00B0;
@@ -120,8 +121,8 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
         
         //mExpListView.setOnGroupClickListener(this);
     }
-	
-	protected RouteExpandableListAdapter CreateAndFillAdapter(List<Integer> list) {
+
+    protected RouteExpandableListAdapter CreateAndFillAdapter(List<Integer> list) {
    		boolean bCross = false;
    		boolean bCrossCross = false;
    		if(list != null){
@@ -355,16 +356,31 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
      public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-            	finish();
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BACK, Analytics.SCREEN_ROUTING);
+
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        ((Analytics) getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BACK, Analytics.SCREEN_ROUTING);
+
+        super.onBackPressed();
+    }
+
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
     	// set adapter to list view
+
+        if (firstLaunch)
+            firstLaunch = false;
+        else
+            ((Analytics) getApplication()).addEvent(Analytics.SCREEN_ROUTING, "Selected option " + itemPosition + 1, Analytics.ACTION_ITEM);
+
 	    mExpListView.setAdapter(moAdapters[itemPosition]);
 
 		return true;

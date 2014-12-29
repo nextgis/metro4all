@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2014 NextGIS
 *
@@ -42,15 +42,7 @@ import com.nextgis.metroaccess.data.StationItem;
 
 import java.io.File;
 
-import static com.nextgis.metroaccess.Constants.BUNDLE_ENTRANCE_KEY;
-import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
-import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
-import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_PORTAL_ID;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_MAIN_FROM_RESULT;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_MAIN_TO_RESULT;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
+import static com.nextgis.metroaccess.Constants.*;
 
 public class ButtonListAdapter extends BaseAdapter {
 
@@ -136,6 +128,8 @@ public class ButtonListAdapter extends BaseAdapter {
             ibtnMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_MAP, Analytics.FROM + " " + Analytics.PANE);
+
                     File schemaFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/schemes", "" + fromStation.GetNode() + ".png");
                     Bundle bundle = new Bundle();
                     bundle.putInt(PARAM_SEL_STATION_ID, fromStation.GetId());
@@ -200,6 +194,8 @@ public class ButtonListAdapter extends BaseAdapter {
             ibtnMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_MAP, Analytics.TO + " " + Analytics.PANE);
+
                     File schemaFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/schemes", "" + toStation.GetNode() + ".png");
                     Bundle bundle = new Bundle();
                     bundle.putInt(PARAM_SEL_STATION_ID, toStation.GetId());

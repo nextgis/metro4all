@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -160,6 +160,8 @@ public class StationImageView extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, Analytics.BACK, Analytics.SCREEN_LAYOUT);
+
                 // app icon in action bar clicked; go home
                 //Intent intent = new Intent(this, StationListView.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -167,6 +169,8 @@ public class StationImageView extends SherlockActivity {
             	finish();
                 return true;
             case R.id.btn_map:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, Analytics.BTN_MAP, Analytics.ACTION_BAR);
+
                 if (mIsRootActivity) {
                     Intent intentMap = new Intent(this, StationMapActivity.class);
                     intentMap.putExtra(PARAM_SEL_STATION_ID, mStationID);
@@ -177,11 +181,19 @@ public class StationImageView extends SherlockActivity {
                     finish();
                 return true;
             case R.id.btn_legend:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, "Legend", Analytics.ACTION_BAR);
                 onLegendClick();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, Analytics.BACK, Analytics.SCREEN_LAYOUT);
+
+        super.onBackPressed();
     }
 
     public void onLegendClick() {

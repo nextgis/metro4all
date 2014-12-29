@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov , polimax@mail.ru
+ * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petiakov
  ******************************************************************************
 *   Copyright (C) 2013,2014 NextGIS
 *
@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
@@ -194,7 +195,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 	}
 
 	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
 		final StationItem entry = (StationItem) getGroup(groupPosition);
 		if(entry.GetId() == -1){
 			if (convertView == null || convertView.findViewById(R.id.tvCategoryName) == null) {
@@ -233,6 +234,11 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 
                             SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
 
+                            int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
+                            String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
+                            String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
+                            ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
+
                             Bundle bundle = new Bundle();
                             bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
                             bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
@@ -258,6 +264,12 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
             tvMapButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
+
+                    int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
+                    String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
+                    String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
+                    ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
+
                     Intent intent = new Intent(parentActivity, StationMapActivity.class);
                     intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
                     intent.putExtra(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());

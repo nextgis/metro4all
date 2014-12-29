@@ -27,7 +27,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -313,12 +315,18 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	    
 	    targetCategory.addPreference(changeCityBases);
 
+        final Activity act = this;
         Preference gaPreference = (Preference) findPreference(KEY_PREF_GA);
         gaPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                boolean disableGA = (Boolean)o;
-                ((Analytics) getApplication()).reload(disableGA);
+                final boolean isGAEnabled = (Boolean)o;
+
+                if (isGAEnabled)
+                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_PREFERENCE, "Enable GA", Analytics.PREFERENCE);
+
+                ((Analytics) getApplication()).reload(isGAEnabled);
+
                 return true;
             }
         });
@@ -388,7 +396,13 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 		}
 		else if(key.equals(KEY_PREF_HAVE_LIMITS)){
 			boolean bHaveLimits = sharedPreferences.getBoolean(key, false);
-			m_etMaxWidthPref.setEnabled(bHaveLimits);
+
+            if (bHaveLimits)
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_PREFERENCE, "Enable " + Analytics.LIMITATIONS, Analytics.PREFERENCE);
+            else
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_PREFERENCE, "Disable " + Analytics.LIMITATIONS, Analytics.PREFERENCE);
+
+            m_etMaxWidthPref.setEnabled(bHaveLimits);
 			m_etWheelWidthPref.setEnabled(bHaveLimits);
 		}
 		/*else if(key.equals(KEY_PREF_USER_TYPE))

@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -65,18 +65,38 @@ public class RecentStationListFragment extends SherlockFragment {
         m_oExpListView.setOnChildClickListener(new OnChildClickListener() {
  
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            	final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
+                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.PORTAL, Analytics.TAB_RECENT);
+
+                final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
             	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
             	parentActivity.Finish(selected.GetStationId(), selected.GetId());
                 return true;
+            }
+        });
+
+        m_oExpListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int i) {
+                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_EXPAND, Analytics.TAB_RECENT);
+            }
+        });
+
+        m_oExpListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int i) {
+                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_COLLAPSE, Analytics.TAB_RECENT);
             }
         });
         
         return view;
 
     }
-    
-	public void Update(){
+
+    private String getDirection() { // for GA
+        return ((SelectStationActivity) getSherlockActivity()).IsIn() ? Analytics.FROM : Analytics.TO;
+    }
+
+    public void Update(){
 		if( m_tvNotes != null){
 			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
 			if(parentActivity.HasLimits()){

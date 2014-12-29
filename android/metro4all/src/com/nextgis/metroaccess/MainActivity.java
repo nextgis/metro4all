@@ -3,7 +3,7 @@
  * Purpose:  Routing in subway.
  * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -37,6 +37,9 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
@@ -145,7 +148,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			GetRoutingData();
 		}
 
-        boolean disableGA = prefs.getBoolean(PreferencesActivity.KEY_PREF_GA, false);
+        boolean disableGA = prefs.getBoolean(PreferencesActivity.KEY_PREF_GA, true);
         ((Analytics) getApplication()).reload(disableGA);
 //        GoogleAnalytics.getInstance(this).setDryRun(true);
 	}
@@ -235,6 +238,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
             @Override
             public void onClick(View view) {
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Locate closest entrance", Analytics.FROM + " " + Analytics.PANE);
+
                 LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
                 final boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                 final boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -363,12 +368,15 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	        	switch(position){
 	        	case 0: //from
+                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.FROM, Analytics.PANE);
 	        		onSelectDepatrure();
 	        		break;
 	        	case 1: //to
+                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.TO, Analytics.PANE);
 	        		onSelectArrival();
 	        		break;
 	        	case 2:
+                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Limitations", Analytics.PANE);
 	        		onSettings();
 	        		break;
 	        	}
@@ -379,6 +387,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		m_oSearchButton = (Button) findViewById(R.id.btSearch);
 		m_oSearchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Search route", Analytics.SCREEN_MAIN);
             	onSearch();
              }
         });
@@ -466,9 +475,11 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         	return true;
         case MENU_SETTINGS:
             // app icon in action bar clicked; go home
+            ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_SETTINGS, Analytics.MENU);
             onSettings();
             return true;
         case MENU_ABOUT:
+            ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_ABOUT, Analytics.MENU);
             Intent intentAbout = new Intent(this, AboutActivity.class);
             intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentAbout);

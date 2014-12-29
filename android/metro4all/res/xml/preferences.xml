@@ -2,7 +2,7 @@
 <!--
 	Project:  Metro Access
  	Purpose:  Routing in subway for disabled.
-    Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+    Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
     Copyright (C) 2013,2014 NextGIS
 
     This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@
             android:summary="@string/sPrefLegendSummary"
             />
         <CheckBoxPreference android:key="ga_enabled"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:title="@string/sPrefGA"
             android:summary="@string/sPrefGASum"
             />

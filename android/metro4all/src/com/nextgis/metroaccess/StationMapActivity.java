@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
- *   Copyright (C) 2013 NextGIS
+ *   Copyright (C) 2013,2014 NextGIS
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -442,9 +442,13 @@ public class StationMapActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.BACK, Analytics.SCREEN_MAP);
+
                 finish();
                 return true;
             case R.id.btn_layout:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.BTN_LAYOUT, Analytics.ACTION_BAR);
+
                 if (mIsRootActivity) {
                     Intent intentView = new Intent(this, StationImageView.class);
                     intentView.putExtra(PARAM_SEL_STATION_ID, mStationID);
@@ -457,11 +461,24 @@ public class StationMapActivity extends SherlockActivity {
 
                 return true;
             case R.id.btn_location_found:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), "Find nearest station", Analytics.ACTION_BAR);
+
                 onLocationFoundClick();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private String getDirection() {
+        return mIsPortalIn ? Analytics.FROM : Analytics.TO;
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.BACK, Analytics.SCREEN_MAP);
+
+        super.onBackPressed();
     }
 
     public void onLocationFoundClick() {

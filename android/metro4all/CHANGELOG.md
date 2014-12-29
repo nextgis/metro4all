@@ -1,4 +1,4 @@
-## v.2.4 (unreleased)
+## v.2.4 (29.12.2014)
 - UI changes:
 	* Added cross-reference layout/map buttons in map/layout screens
 	* Added "locate nearest entrance" button to main screen

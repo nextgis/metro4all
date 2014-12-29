@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2014 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -206,19 +206,39 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.BACK, getTab());
+
                 finish();
                 return true;
             case MENU_SETTINGS:
                 // app icon in action bar clicked; go home
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.MENU_SETTINGS, getTab());
                 onSettings();
                 return true;
             case MENU_ABOUT:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.MENU_ABOUT, getTab());
                 Intent intentAbout = new Intent(this, AboutActivity.class);
                 intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentAbout);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.BACK, getTab());
+
+        super.onBackPressed();
+    }
+
+    private String getDirection() {
+        return m_bIn ? Analytics.FROM : Analytics.TO;
+    }
+
+    private String getTab() {
+        int i = getSupportActionBar().getSelectedTab().getPosition();
+        return i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
     }
 
     public void Finish(int nStationId, int nPortalId) {
@@ -244,6 +264,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                 break;
             case PORTAL_MAP_RESULT:
                 if (resultCode == RESULT_OK) {
+                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.PORTAL, Analytics.SCREEN_MAP);
+
                     int stationID = data.getIntExtra(PARAM_SEL_STATION_ID, 0);
                     int portalID = data.getIntExtra(PARAM_SEL_PORTAL_ID, 0);
                     Finish(stationID, portalID);
