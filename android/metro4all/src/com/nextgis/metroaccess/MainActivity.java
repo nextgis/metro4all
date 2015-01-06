@@ -3,7 +3,7 @@
  * Purpose:  Routing in subway.
  * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
+*   Copyright (C) 2013-2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -37,6 +37,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -44,12 +46,22 @@ import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
 import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.RouteItem;
 import com.nextgis.metroaccess.data.StationItem;
 
 import edu.asu.emit.qyan.alg.model.Path;
 import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.PictureDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -150,7 +162,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
         boolean disableGA = prefs.getBoolean(PreferencesActivity.KEY_PREF_GA, true);
         ((Analytics) getApplication()).reload(disableGA);
-//        GoogleAnalytics.getInstance(this).setDryRun(true);
+        GoogleAnalytics.getInstance(this).setDryRun(true);
 	}
 
     protected void CreateHandler(){
@@ -1059,4 +1071,148 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         }
         return true;
     }
+
+    /**
+     * Get proper icon bitmap from file
+     *
+     * @param line  line color
+     * @param type  icon type
+     * @return      Bitmap
+     */
+    public static Bitmap getBitmapFromFile(int line, int type) {
+        Bitmap bitmap = null;
+
+        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", line + "" + type + ".png");
+
+        if(imgFile.exists())
+            bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+        return bitmap;
+    }
+
+    /**
+     * Get bitmap from SVG file
+     *
+     * @param path  Path to SVG file
+     * @return      Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(String path) {
+        File svgFile = new File(path);
+        SVG svg = null;
+
+        try {
+            FileInputStream is = new FileInputStream(svgFile);
+            svg = SVG.getFromInputStream(is);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (SVGParseException e) {
+            e.printStackTrace();
+        }
+
+        return getBitmapFromSVG(svg, Color.TRANSPARENT);
+    }
+
+    /**
+     * Get bitmap from SVG resource file
+     *
+     * @param context   Current context
+     * @param id        SVG resource id
+     * @return          Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(Context context, int id) {
+        return getBitmapFromSVG(context, id, Color.TRANSPARENT);
+    }
+
+    /**
+     * Get bitmap from SVG resource file with color overlay
+     *
+     * @param context   Current context
+     * @param id        SVG resource id
+     * @param color     Color to overlay
+     * @return          Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(Context context, int id, int color) {
+        SVG svg = null;
+
+        try {
+            svg = SVG.getFromResource(context, id);
+        } catch (SVGParseException e) {
+            e.printStackTrace();
+        }
+
+        return getBitmapFromSVG(svg, color);
+    }
+
+    /**
+     * Get bitmap from SVG with color overlay
+     *
+     * @param svg       SVG object
+     * @param color     Color to overlay. Color.TRANSPARENT = no overlay
+     * @return          Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(SVG svg, int color) {
+        Bitmap bitmap = null;
+
+        if (svg != null && svg.getDocumentWidth() != -1) {
+            PictureDrawable pd = new PictureDrawable(svg.renderToPicture());
+            bitmap = Bitmap.createBitmap(pd.getIntrinsicWidth(), pd.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            canvas.drawPicture(pd.getPicture());
+
+            if (color != Color.TRANSPARENT) {   // overlay color
+                Paint p = new Paint();
+                ColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+                p.setColorFilter(filter);
+
+                canvas = new Canvas(bitmap);
+                canvas.drawBitmap(bitmap, 0, 0, p);
+            }
+        }
+
+        return bitmap;
+    }
+
+    /**
+     * Get bitmap from SVG resource file with proper station icon and color overlay
+     *
+     * @param context   Current context
+     * @param station   StationItem to get it's color
+     * @return          Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(Context context, StationItem station) {
+        String color = MainActivity.GetGraph().GetLineColor(station.GetLine());
+        Bitmap bitmap = null;
+
+        if (color != null) {
+            int c = Color.parseColor(color);
+            bitmap = getBitmapFromSVG(context, R.raw._0, c);
+        } else {
+            bitmap = getBitmapFromFile(station.GetLine(), station.GetType());
+        }
+
+        return bitmap;
+    }
+
+    /**
+     * Get bitmap from SVG resource file with proper route item icon and color overlay
+     *
+     * @param context   Current context
+     * @param entry     RouteItem to get it's color and icon type
+     * @param subItem   SubItem = _8.svg
+     * @return          Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(Context context, RouteItem entry, boolean subItem) {
+        String color = MainActivity.GetGraph().GetLineColor(entry.GetLine());
+        Bitmap bitmap = null;
+
+        if (color != null) {
+            int c = Color.parseColor(color);
+            bitmap = getBitmapFromSVG(context, subItem ? R.raw._8 : ICONS_RAW[entry.GetType()], c);
+        } else {
+            bitmap = getBitmapFromFile(entry.GetLine(), entry.GetType());
+        }
+
+        return bitmap;
+    }
+
 }

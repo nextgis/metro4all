@@ -68,7 +68,8 @@ public class MAGraph {
 	protected Map<Integer, StationItem> m_moStations;
 	protected Map<String, int[]> m_moCrosses;
 	protected Map<Integer, String> m_omLines;
-	
+	protected Map<Integer, String> m_omLinesColors;
+
 	protected String m_sCurrentCity;
 	protected String m_sCurrentCityName;
 
@@ -93,10 +94,11 @@ public class MAGraph {
 		m_moStations = new HashMap<Integer, StationItem>();
 		m_moCrosses = new HashMap<String, int[]>();
 		m_omLines = new HashMap<Integer, String>();
-		
+		m_omLinesColors = new HashMap<Integer, String>();
+
 		m_oGraph = new VariableGraph();
 		
-		FillRouteMetadata();		
+		FillRouteMetadata(sCurrentCity);
 		
 		SetCurrentCity(sCurrentCity);
 	}
@@ -385,7 +387,8 @@ public class MAGraph {
 	
 	protected boolean LoadLines(){
 		m_omLines.clear();
-    	try {        	
+		m_omLinesColors.clear();
+    	try {
 		    //fill with lines list
     		String sFileName = "lines_" + m_sLocale + ".csv";	
     		File oRouteDataDir = new File(GetCurrentRouteDataPath());
@@ -405,8 +408,12 @@ public class MAGraph {
 		             
 					 String sName = RowData[1];
 					 int nLineId = Integer.parseInt(RowData[0]);
-					 
-					 m_omLines.put(nLineId, sName);
+                    m_omLines.put(nLineId, sName);
+
+                    if (RowData.length > 2) {
+                        String sLineColor = RowData[2];
+                        m_omLinesColors.put(nLineId, sLineColor);
+                    }
 		        }
 			        
 		        reader.close();
@@ -430,8 +437,12 @@ public class MAGraph {
     	
     	return true;
 	}
-	
-	public void FillRouteMetadata(){
+
+    public void FillRouteMetadata(){
+        FillRouteMetadata(m_sCurrentCity);
+    }
+
+	public void FillRouteMetadata(String sCurrentCity){
 		m_moRouteMetadata.clear();
 		m_sFirstCity = "";
 		boolean bHaveCity = false;
@@ -469,7 +480,7 @@ public class MAGraph {
 			        	
 			        	m_moRouteMetadata.put(inFile.getName(), Item);	
 			        	
-			        	if(!bHaveCity && inFile.getName().equals(m_sCurrentCity))
+			        	if(!bHaveCity && inFile.getName().equals(sCurrentCity))
 			        		bHaveCity = true;
 			        	
 			        	if(m_sFirstCity.length() < 2){
@@ -645,6 +656,10 @@ public class MAGraph {
 	public Map<Integer, String> GetLines() {
 		return m_omLines;
 	}
+
+    public String GetLineColor(int lineID) {
+        return lineID >= 0 ? m_omLinesColors.get(lineID) : null;
+    }
 	
 	public Map<Integer, StationItem> GetStations(){
 		return m_moStations;

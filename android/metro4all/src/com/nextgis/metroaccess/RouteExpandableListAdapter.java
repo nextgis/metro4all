@@ -100,10 +100,15 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 		// set data to display
 		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
-	    File imgFile = new File(sRouteDataPath + "/icons", "" + rit.GetLine() + "8.png");		
-		Log.d(TAG, imgFile.getPath());
-		if(rit.GetType() != 7 && imgFile.exists()){
-		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+//	    File imgFile = new File(sRouteDataPath + "/icons", "" + rit.GetLine() + "8.png");
+//		Log.d(TAG, imgFile.getPath());
+
+        Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, rit, true);
+
+//		if(rit.GetType() != 7 && imgFile.exists()){
+		if(rit.GetType() != 7 && myBitmap != null){
+//		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
 		    ivIcon.setVisibility(View.VISIBLE);
 		}	
@@ -185,10 +190,15 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 		// set data to display
 		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
-	    File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");		
-		Log.d(TAG, imgFile.getPath());
-		if(imgFile.exists()){
-		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+//	    File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");
+//		Log.d(TAG, imgFile.getPath());
+
+        Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, entry, false);
+
+//        if(imgFile.exists()){
+        if(myBitmap != null){
+//		    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 		    ivIcon.setImageBitmap(myBitmap);
 		    ivIcon.setVisibility(View.VISIBLE);
 		}

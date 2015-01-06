@@ -214,13 +214,16 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 			ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 
 			String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
-			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");
-			Log.d(TAG, imgFile.getPath());
-			if(imgFile.exists()){
 
-			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-			    ivIcon.setImageBitmap(myBitmap);
-			}
+//			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");
+//			Log.d(TAG, imgFile.getPath());
+//			if(imgFile.exists()){
+//
+//			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//			    ivIcon.setImageBitmap(myBitmap);
+//			}
+            Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, entry);
+            ivIcon.setImageBitmap(myBitmap);
 
             TextView tvSchemeButton = (TextView) convertView.findViewById(R.id.tvStationSchemeButton);
             final File schemaFile =
