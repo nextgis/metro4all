@@ -65,7 +65,8 @@ def split_lines(csv_in):
 
             fieldmap = (
                 ('id_line', 'id_line'),
-                ('name_' + lang, 'name')
+                ('name_' + lang, 'name'),
+                ('color', 'color')
             )
 
             output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
