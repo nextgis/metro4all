@@ -227,7 +227,7 @@ def upload_sftp(city,ver,USERNAME,PASSWORD):
 if __name__ == '__main__':
 
     repo_root_path = '..'
-    data_minimum_version = '2.3'
+    data_minimum_version = '2.5'
     os.chdir(repo_root_path)
     if not os.path.exists('temp'):
         os.makedirs('temp')
