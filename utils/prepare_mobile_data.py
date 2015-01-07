@@ -65,7 +65,8 @@ def split_lines(csv_in):
 
             fieldmap = (
                 ('id_line', 'id_line'),
-                ('name_' + lang, 'name')
+                ('name_' + lang, 'name'),
+                ('color', 'color')
             )
 
             output_f = csv.DictWriter(open(csv_out, 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
@@ -172,10 +173,10 @@ def createzip(city):
         for filename in files:
             zf.write(os.path.join(dirname, filename))
 
-    for dirname, subdirs, files in os.walk('icons'):
+    #for dirname, subdirs, files in os.walk('icons'):
         #zf.write('icons')
-        for filename in files:
-            zf.write(os.path.join(dirname, filename))
+    #    for filename in files:
+    #        zf.write(os.path.join(dirname, filename))
 
     items = ('stations','lines','portals')
     for lang in langs:
@@ -183,7 +184,10 @@ def createzip(city):
             fn = item + '_' + lang + '.csv'
             if os.path.exists(fn):
                 zf.write(fn)
-
+    
+    os.chdir('icons')
+    zf.write('icons\metro.svg')
+    
     zf.close()
     os.chdir('..')
 
@@ -226,7 +230,7 @@ def upload_sftp(city,ver,USERNAME,PASSWORD):
 if __name__ == '__main__':
 
     repo_root_path = '..'
-    data_minimum_version = '2.3'
+    data_minimum_version = '2.5'
     os.chdir(repo_root_path)
     if not os.path.exists('temp'):
         os.makedirs('temp')
