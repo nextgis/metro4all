@@ -58,9 +58,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Rect;
 import android.graphics.drawable.PictureDrawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -71,11 +73,16 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
@@ -91,6 +98,7 @@ import org.osmdroid.views.overlay.mylocation.IMyLocationConsumer;
 import org.osmdroid.views.overlay.mylocation.IMyLocationProvider;
 
 import static com.nextgis.metroaccess.Constants.*;
+import static com.nextgis.metroaccess.MainActivity.getBitmapFromSVG;
 
 //https://code.google.com/p/k-shortest-paths/
 
@@ -109,7 +117,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 	protected List<DownloadData> m_asDownloadData;
 
-	public static String m_sUrl = "http://metro4all.org/data/v2.3/";
+	public static String m_sUrl = "http://metro4all.org/data/v2.5/";
 	public static MAGraph m_oGraph;
 
 	protected ListView m_lvListButtons;
@@ -120,6 +128,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     List<String> mCities;
 
     GpsMyLocationProvider gpsMyLocationProvider;
+
+    Rect mLimitationsRect;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +247,39 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 		m_bInterfaceLoaded = true;
 		setContentView(R.layout.activity_main);
+
+        View view = findViewById(R.id.llLimitations);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Limitations", Analytics.SCREEN_MAIN);
+                onSettings();
+            }
+        });
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mLimitationsRect =  new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+                        setLimitationsColor(view.getContext(), getResources().getColor(R.color.btnOnGradientStart));
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if (mLimitationsRect.contains(view.getLeft() + (int) motionEvent.getX(), view.getTop() + (int) motionEvent.getY()))
+                            break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        setLimitationsColor(view.getContext(), getResources().getColor(R.color.metrocolorlight));
+                        break;
+                }
+
+                return false;
+            }
+        });
+
+        setLimitationsColor(this, getResources().getColor(R.color.metrocolorlight));
 
         fillActionBarList();
 
@@ -387,10 +430,10 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
                     ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.TO, Analytics.PANE);
 	        		onSelectArrival();
 	        		break;
-	        	case 2:
-                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Limitations", Analytics.PANE);
-	        		onSettings();
-	        		break;
+//	        	case 2:
+//                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Limitations", Analytics.PANE);
+//	        		onSettings();
+//	        		break;
 	        	}
 	        }
 	    });
@@ -418,6 +461,18 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     	}
 
 	}
+
+    private void setLimitationsColor(Context ctx, int color) {
+        ImageView iv = (ImageView) findViewById(R.id.ivLimitations1);
+        Bitmap bitmap = getBitmapFromSVG(this, R.raw.luggage_icon, color);
+        iv.setImageBitmap(bitmap);
+        iv = (ImageView) findViewById(R.id.ivLimitations2);
+        bitmap = getBitmapFromSVG(this, R.raw.wheelchair_icon, color);
+        iv.setImageBitmap(bitmap);
+        iv = (ImageView) findViewById(R.id.ivLimitations3);
+        bitmap = getBitmapFromSVG(this, R.raw.bag_icon, color);
+        iv.setImageBitmap(bitmap);
+    }
 
     protected void fillActionBarList() {
         ActionBar actionBar = getSupportActionBar();
@@ -1068,7 +1123,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             edit.putString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
 
             edit.commit();
-            
+
             m_oSearchButton.setEnabled(false);
         }
         return true;
@@ -1200,18 +1255,19 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
      *
      * @param context   Current context
      * @param entry     RouteItem to get it's color and icon type
-     * @param subItem   SubItem = _8.svg
+     * @param subItem   SubItem = _8.svg / x8.png
      * @return          Bitmap
      */
     public static Bitmap getBitmapFromSVG(Context context, RouteItem entry, boolean subItem) {
         String color = MainActivity.GetGraph().GetLineColor(entry.GetLine());
         Bitmap bitmap = null;
+        int type = subItem ? 8 : entry.GetType();
 
         if (color != null) {
             int c = Color.parseColor(color);
-            bitmap = getBitmapFromSVG(context, subItem ? R.raw._8 : ICONS_RAW[entry.GetType()], c);
+            bitmap = getBitmapFromSVG(context, ICONS_RAW[type], c);
         } else {
-            bitmap = getBitmapFromFile(entry.GetLine(), entry.GetType());
+            bitmap = getBitmapFromFile(entry.GetLine(), type);
         }
 
         return bitmap;

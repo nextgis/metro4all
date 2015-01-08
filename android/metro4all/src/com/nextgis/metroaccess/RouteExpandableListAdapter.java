@@ -86,14 +86,10 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		BarrierItem bit = (BarrierItem)getChild(groupPosition, childPosition);
 		TextView item = (TextView) convertView.findViewById(R.id.txBarrierName);
 		//
-		if(bit.IsProblem()){
+		if(bit.IsProblem())
 			item.setTextColor(Color.RED);
-		}
-		else{
-			TypedValue tv = new TypedValue();
-			mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
-			item.setTextColor(mContext.getResources().getColor(tv.resourceId));	
-		}			
+		else
+			item.setTextColor(mContext.getResources().getColor(R.color.bkColorStrongDark));
 		//
 		item.setText(bit.GetName());
 		
@@ -154,6 +150,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		
 		TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
 		item.setText(entry.GetName());
+//        item.setTextAppearance(mContext, entry.GetType() != 5 ? android.R.style.TextAppearance_Medium : android.R.style.TextAppearance_Small);
+//        item.setTextColor(mContext.getResources().getColor(entry.GetType() != 5 ? android.R.color.black : R.color.darkGray));
 		
 		TextView subitem = (TextView) convertView.findViewById(R.id.tvBarriersExist);
 		if(entry.GetProblems().size() > 0){
@@ -177,14 +175,11 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				// + " " + mContext.getString(R.string.sBarriersConflict));
 				subitem.setTextColor(Color.RED);
 			}
-			else{
-				TypedValue tv = new TypedValue();
-				mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
-				subitem.setTextColor(mContext.getResources().getColor(tv.resourceId));	
-			}
+			else
+				subitem.setTextColor(mContext.getResources().getColor(R.color.bkColorStrongDark));
 		}
 		else{
-			subitem.setVisibility(View.INVISIBLE);
+			subitem.setVisibility(View.GONE);
 		}
 		
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);

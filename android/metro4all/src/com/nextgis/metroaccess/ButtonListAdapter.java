@@ -70,7 +70,7 @@ public class ButtonListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 3;//TODO: add "set my conditions" and "set from map"
+        return 2;//TODO: add "set my conditions" and "set from map"
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ButtonListAdapter extends BaseAdapter {
             case 1://create to pane
                 return CreateToPane(convertView);
             case 2://create from map pane
-                return CreateAdds(convertView, (String) m_oContext.getResources().getText(R.string.sLimits));
+//                return CreateAdds(convertView, (String) m_oContext.getResources().getText(R.string.sLimits));
             case 3://create conditions pane
                 break;
         }
@@ -127,6 +127,8 @@ public class ButtonListAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, null);
         }
+//        else
+//            return convertView;
 
         final int paneTitle, requestCode;
         final String gaPane;
@@ -171,7 +173,7 @@ public class ButtonListAdapter extends BaseAdapter {
 
             // set selected line icon, entrance metro icon and arrow icon
             Bitmap metroIcon = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
-            Bitmap arrowIcon = getBitmapFromSVG(m_oContext, R.raw.arrow);
+            Bitmap arrowIcon = getBitmapFromSVG(m_oContext, R.raw.arrow, m_oContext.getResources().getColor(R.color.bkColorStrongDark));
             Bitmap lineIcon = getBitmapFromSVG(m_oContext, station);
 
             if (isFromPane) {   // from pane > rotate arrow 180 degree
@@ -220,16 +222,16 @@ public class ButtonListAdapter extends BaseAdapter {
             view.setVisibility(View.GONE);
     }
 
-    protected View CreateAdds(View convertView, String sText) {
-        if (convertView == null) {
-            convertView = m_oInfalInflater.inflate(R.layout.additional_layout, null);
-        }
-
-        TextView tvPaneName = (TextView) convertView.findViewById(R.id.tvPaneName);
-        tvPaneName.setText(sText);
-
-        return convertView;
-    }
+//    protected View CreateAdds(View convertView, String sText) {
+//        if (convertView == null) {
+//            convertView = m_oInfalInflater.inflate(R.layout.additional_layout, null);
+//        }
+//
+//        TextView tvPaneName = (TextView) convertView.findViewById(R.id.tvPaneName);
+//        tvPaneName.setText(sText);
+//
+//        return convertView;
+//    }
 
     public void setFromStation(StationItem fromStation) {
         if (fromStation != null)
@@ -246,15 +248,23 @@ public class ButtonListAdapter extends BaseAdapter {
     }
 
     public void setFromPortal(int portalId) {
-        if (fromStation != nullStation)
-            fromPortal = fromStation.GetPortal(portalId);
+        if (fromStation != nullStation) {
+            PortalItem newPortal = fromStation.GetPortal(portalId);
+
+            if (newPortal != null)
+                fromPortal = newPortal;
+        }
         else
             nullPortals(true, false);
     }
 
     public void setToPortal(int portalId) {
-        if (toStation != nullStation)
-            toPortal = toStation.GetPortal(portalId);
+        if (toStation != nullStation) {
+            PortalItem newPortal = toStation.GetPortal(portalId);
+
+            if (newPortal != null)
+                toPortal = newPortal;
+        }
         else
             nullPortals(false, true);
     }

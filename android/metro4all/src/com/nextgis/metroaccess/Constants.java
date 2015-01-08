@@ -22,7 +22,8 @@ package com.nextgis.metroaccess;
 
 
 public interface Constants {
-    public final static int[] ICONS_RAW = { R.raw._0, R.raw._1, R.raw._2, R.raw._3, R.raw._4, R.raw._5, R.raw._6, R.raw._7, R.raw._8, R.raw._9 };
+//    public final static int[] ICONS_RAW = { R.raw._0, R.raw._1, R.raw._2, R.raw._3, R.raw._4, R.raw._5, R.raw._6, R.raw._7, R.raw._8, R.raw._9 };
+    public final static int[] ICONS_RAW = { R.raw._0, R.raw._5, R.raw._5, R.raw._3, R.raw._4, R.raw._5, R.raw._6, R.raw._7, R.raw._8, R.raw._9 };
 
     public final static String TAG = "metro4all";
 
