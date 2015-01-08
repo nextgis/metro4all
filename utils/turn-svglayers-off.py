@@ -6,6 +6,8 @@
 # About: For each SVG file in a set folder, turn off visibility for specified layers.
 # Created: 07.04.2014
 # Usage example: python turn-svglayers-off.py /usr/local/work/svg/92.svg
+#               batch, win: for %i in (*.svg) do c:\python27\python d:\Thematic\metro4all\repo\utils\turn-svglayers-off.py %i
+#                      lin: 
 # ---------------------------------------------------------------------------
 
 import shutil
