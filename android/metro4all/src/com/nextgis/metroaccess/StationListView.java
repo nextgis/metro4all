@@ -169,11 +169,11 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 				
 	    		StationItem entry = mmoStations.get(nId);
 
-                if (entry.GetPortal(mnArrivalPortalId) != null)
-				    nType = 2;
-
-                if (entry.GetPortal(mnDeparturePortalId) != null)
-                    nType = 1;
+//                if (entry.GetPortal(mnArrivalPortalId) != null)   // bug, use entry.GetId() and separate fields mDep/mArr
+//				    nType = 2;
+//
+//                if (entry.GetPortal(mnDeparturePortalId) != null)
+//                    nType = 1;
 
                 RouteItem oSta = new RouteItem(entry.GetId(), entry.GetName(), entry.GetLine(), entry.GetNode(), nType);
 

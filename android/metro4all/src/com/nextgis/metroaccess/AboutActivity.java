@@ -56,9 +56,12 @@ public class AboutActivity extends SherlockActivity {
         btnCredits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog builder = new AlertDialog.Builder(view.getContext()).setTitle(R.string.acknowledgements_caption).setMessage(Html.fromHtml(getString(R.string.acknowledgements_text))).setPositiveButton(android.R.string.ok, null).create();
+                AlertDialog builder = new AlertDialog.Builder(view.getContext()).setTitle(R.string.acknowledgements_caption)
+                        .setMessage(R.string.acknowledgements_text)
+                        .setPositiveButton(android.R.string.ok, null).create();
                 builder.show();
                 ((TextView) builder.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                ((TextView) builder.findViewById(android.R.id.message)).setLinksClickable(true);
             }
         });
 
