@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 	Project:  Metro Access
  	Purpose:  Routing in subway for disabled.
-    Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
-    Copyright (C) 2013 NextGIS
+    Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+    Copyright (C) 2013-2015 NextGIS
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,82 +19,82 @@
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:padding="5dp">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/txtAbout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"
-            android:text="@string/app_name"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtVersion"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="x.x"/>
+            android:text="x.x"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/txtDescription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/about_app"/>
+            android:text="@string/about_app"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/txtLinks"
-            android:autoLink="web"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/sDetailpage"/>
+            android:autoLink="web"
+            android:text="@string/sDetailpage"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageView
             android:id="@+id/imgLogo"
-            android:src="@drawable/nextgis"
-            android:padding="10dp"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:src="@drawable/nextgis" />
 
         <TextView
             android:id="@+id/txtLinksNG"
-            android:autoLink="web"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sHomepage"
             android:layout_gravity="center"
+            android:autoLink="web"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:text="@string/sHomepage"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/txtCreditsCaption"
-            android:layout_marginTop="24dp"
+            android:id="@+id/txtGAText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/credits_caption"/>
+            android:layout_marginTop="24dp"
+            android:text="@string/ga_text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/txtCreditsText"
-            android:layout_width="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnAcknowledgements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:text="@string/acknowledgements_caption" />
 
     </LinearLayout>
 </ScrollView>

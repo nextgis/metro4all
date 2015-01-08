@@ -4,13 +4,11 @@
     <string name="app_name">Metro4All</string>
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
-    
-    <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар\'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
 
-    <string name="credits_caption">Iнфармацыя пра аўтараў:</string>
-    <string name="credits_text">Некаторыя iконкi, якiя ўжываюцца ў дадатку, ўзятыя з &lt;a href="http://icons8.com/android-icons"&gt;Icons8.com&lt;/a&gt;, лiцэнзiя &lt;a href="http://creativecommons.org/licenses/by-nd/3.0/"&gt;CC BY-ND 3.0 license&lt;/a&gt;&lt;br&gt;&lt;br&gt;Это приложение собирает и обрабатывает данные об использовании приложения с помощью Google Analytics. Данные обезличены, строго конфиденциальны и используются в целях улучшения производительности приложения. Это поведение можно отключить в настройках приложения.</string>
-	
-	<string name="sSettings">Наладкі</string>
+    <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар\'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
+    <string name="ga_text">Это приложение собирает и обрабатывает данные об использовании приложения с помощью Google Analytics. Данные обезличены, строго конфиденциальны и используются в целях улучшения производительности приложения. Это поведение можно отключить в настройках приложения.</string>
+
+    <string name="sSettings">Наладкі</string>
 	<string name="sAbout">Пра дадатак</string>
 	<string name="sNetworkGetErr">Памылка атрыманых дадзеных</string>
 	<string name="sNetworkUnreachErr">Сетка недасяжная</string>
