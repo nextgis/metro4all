@@ -170,7 +170,7 @@ public class ButtonListAdapter extends BaseAdapter {
             });
 
             // set selected line icon, entrance metro icon and arrow icon
-            Bitmap metroIcon = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");    // TODO icon path
+            Bitmap metroIcon = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
             Bitmap arrowIcon = getBitmapFromSVG(m_oContext, R.raw.arrow);
             Bitmap lineIcon = getBitmapFromSVG(m_oContext, station);
 

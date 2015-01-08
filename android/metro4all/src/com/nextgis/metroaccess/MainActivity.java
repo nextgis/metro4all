@@ -1068,6 +1068,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             edit.putString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
 
             edit.commit();
+            
+            m_oSearchButton.setEnabled(false);
         }
         return true;
     }

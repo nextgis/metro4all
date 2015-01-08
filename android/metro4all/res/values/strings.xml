@@ -51,7 +51,7 @@
     <string name="sLegend">Legend</string>
     <string name="sLocate">Locate</string>
     <string name="sMap">Map</string>
-	<string name="sStationName">Name</string>
+	<string name="sStationName">Station</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
     <string name="sStationPortalName">Station: %1$s\n%2$s: %3$s</string>

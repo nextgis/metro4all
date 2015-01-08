@@ -3,7 +3,7 @@
 	Project:  Metro Access
  	Purpose:  Routing in subway for disabled.
     Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
-    Copyright (C) 2013-2015 NextGIS
+    Copyright (C) 2013,2014 NextGIS
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,6 +33,18 @@
             android:title="@string/sPrefGA"
             android:summary="@string/sPrefGASum"
             />
+        <!-- EditTextPreference
+            android:key="download_path"
+            android:title="@string/sPrefDataPath"
+            android:summary="@string/sPrefDataPathSummary"
+            android:defaultValue="http://metro4all.ru/data/"
+            android:dialogTitle="@string/sPrefDataPathTitle" /-->
+		<!--<ListPreference-->
+		    <!--android:key="city"-->
+		    <!--android:title="@string/sPrefCity"-->
+		    <!--android:summary="@string/sPrefCitySummary"-->
+		    <!--android:dialogTitle="@string/sPrefCityTitle"-->
+		    <!--/>    	 -->
    		<ListPreference
 		    android:key="city_lang"
 		    android:title="@string/sPrefCityLoc"
@@ -45,10 +57,20 @@
     <PreferenceCategory
         android:title="@string/sLimits"
         android:key="main_cat">
-        <CheckBoxPreference
+        <!-- ListPreference
+            android:key="user_type"
+            android:title="@string/sPrefNaviType"
+            android:summary="@string/sPrefNaviTypeSummary"
+            android:defaultValue="1"
+            android:entries="@array/navi_type"
+            android:entryValues="@array/navi_type_val"
+            android:dialogTitle="@string/sPrefNaviTypeTitle" /-->
+        <SwitchPreference
             android:key="limits"
             android:title="@string/sLimitsHave"
-            android:defaultValue="false"/>
+            android:defaultValue="false"
+            android:switchTextOn="@string/switch_on"
+            android:switchTextOff="@string/switch_off"/>
         <EditTextPreference
             android:key="max_width"
             android:title="@string/sPrefCarriageSize"
