@@ -48,6 +48,6 @@ id_from;id_to;name_from;name_to;cost
 40;41;Gondel;Meent;3
 41;42;Meent;Brink;3
 42;43;Brink;Poortwachter;3
-43;44;Poortwachter;Spinnerij;20
-44;45;Spinnerij;Sacharovlaan;21
-45;46;Sacharovlaan;Westwijk ;22
+43;44;Poortwachter;Spinnerij;3
+44;45;Spinnerij;Sacharovlaan;3
+45;46;Sacharovlaan;Westwijk;3
