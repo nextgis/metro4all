@@ -32,6 +32,8 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.io.File;
 
@@ -86,6 +88,10 @@ public class StationImageView extends SherlockActivity {
         } else {
             isForLegend = true;
             setTitle(R.string.sLegend);
+
+            Tracker t = ((Analytics) getApplication()).getTracker();
+            t.setScreenName(Analytics.SCREEN_LAYOUT + " " + Analytics.LEGEND);
+            t.send(new HitBuilders.AppViewBuilder().build());
         }
 
         loadImage();

@@ -38,6 +38,8 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 import org.osmdroid.ResourceProxy;
@@ -108,6 +110,10 @@ public class StationMapActivity extends SherlockActivity {
 //        isCrossReference = inIntent.getExtras().containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
 
         StationItem station = MainActivity.GetGraph().GetStation(mStationID);
+
+        Tracker t = ((Analytics) getApplication()).getTracker();
+        t.setScreenName(Analytics.SCREEN_MAP + " " + getDirection());
+        t.send(new HitBuilders.AppViewBuilder().build());
 
         mAppContext = getApplicationContext();
         mResourceProxy = new ResourceProxyImpl(mAppContext);

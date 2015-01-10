@@ -59,6 +59,7 @@ public class Analytics extends Application {
     final static String PORTAL = "Portal selected";
     final static String STATION_EXPAND = "Station expanded";
     final static String STATION_COLLAPSE = "Station collapsed";
+    final static String LEGEND = "Legend";
 
     private Tracker tracker;
 
