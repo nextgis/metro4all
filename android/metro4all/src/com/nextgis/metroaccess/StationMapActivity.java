@@ -3,7 +3,7 @@
  * Purpose:  Routing in subway for disabled.
  * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
- *   Copyright (C) 2013,2014 NextGIS
+ *   Copyright (C) 2013-2015 NextGIS
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -84,7 +84,7 @@ public class StationMapActivity extends SherlockActivity {
     private boolean mIsPortalIn;
     private List<StationItem> stationList;
     private String mSchemePath;
-    private boolean mIsRootActivity;
+    private boolean mIsRootActivity, mNeedResult;
 //    private boolean isCrossReference;
 
     //overlays
@@ -103,6 +103,7 @@ public class StationMapActivity extends SherlockActivity {
         mPortalID = inIntent.getIntExtra(PARAM_SEL_PORTAL_ID, 0);
         mIsPortalIn = inIntent.getBooleanExtra(PARAM_PORTAL_DIRECTION, true);
         mSchemePath = inIntent.getStringExtra(PARAM_SCHEME_PATH);
+        mNeedResult = inIntent.getBooleanExtra(PARAM_ACTIVITY_FOR_RESULT, true);
         mIsRootActivity = inIntent.getBooleanExtra(PARAM_ROOT_ACTIVITY, true);
 //        isCrossReference = inIntent.getExtras().containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
 
@@ -303,6 +304,11 @@ public class StationMapActivity extends SherlockActivity {
 
                         public boolean onItemSingleTapUp(final int index,
                                                          final OverlayItem item) {
+                            if(!mNeedResult) {
+                                Toast.makeText(mAppContext, item.getSnippet(), Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+
                             StationItem selectedStation = MainActivity.GetGraph()
                                     .GetStation(Integer.parseInt(item.getUid()));
 
@@ -449,7 +455,7 @@ public class StationMapActivity extends SherlockActivity {
             case R.id.btn_layout:
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.BTN_LAYOUT, Analytics.ACTION_BAR);
 
-                if (mIsRootActivity) {
+                if (mIsRootActivity && mSchemePath != null && !mSchemePath.equals("")) {    // TODO global / scheme path null > StationImageView make handler
                     Intent intentView = new Intent(this, StationImageView.class);
                     intentView.putExtra(PARAM_SEL_STATION_ID, mStationID);
                     intentView.putExtra(PARAM_SCHEME_PATH, mSchemePath);

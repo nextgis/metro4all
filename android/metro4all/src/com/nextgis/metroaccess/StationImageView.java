@@ -46,7 +46,7 @@ public class StationImageView extends SherlockActivity {
     boolean isForLegend;
     private boolean isPortrait, isCrossReference = false;
     private boolean mIsRootActivity;
-    private int mStationID;
+    private int mStationID, mPortaID;
     private boolean mIsPortalIn;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class StationImageView extends SherlockActivity {
             isCrossReference = extras.containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
             msPath = extras.getString(PARAM_SCHEME_PATH);
             mStationID = extras.getInt(PARAM_SEL_STATION_ID, 0);
+            mPortaID = extras.getInt(PARAM_SEL_PORTAL_ID, 0);   // TODO global / pass bundle to map activity and vs
             mIsPortalIn = extras.getBoolean(PARAM_PORTAL_DIRECTION, true);
             setTitle(String.format(getString(R.string.sSchema), MainActivity.GetGraph().GetStation(mStationID).GetName()));
         } else {
@@ -175,13 +176,14 @@ public class StationImageView extends SherlockActivity {
                     Intent intentMap = new Intent(this, StationMapActivity.class);
                     intentMap.putExtra(PARAM_SEL_STATION_ID, mStationID);
                     intentMap.putExtra(PARAM_PORTAL_DIRECTION, mIsPortalIn);
+                    intentMap.putExtra(PARAM_SEL_PORTAL_ID, mPortaID);
                     intentMap.putExtra(PARAM_ROOT_ACTIVITY, false);
                     startActivityForResult(intentMap, PORTAL_MAP_RESULT);
                 } else
                     finish();
                 return true;
             case R.id.btn_legend:
-                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, "Legend", Analytics.ACTION_BAR);
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, Analytics.LEGEND, Analytics.ACTION_BAR);
                 onLegendClick();
                 return true;
             default:
