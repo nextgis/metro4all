@@ -93,6 +93,7 @@ def split_portals(csv_in):
 
             fieldmap = (
                 ('id_entrance', 'id_entrance'),
+                ('meetcode', 'meetcode'),
                 ('name_' + lang, 'name'),
                 ('id_station', 'id_station'),
                 ('direction', 'direction'),
@@ -173,10 +174,10 @@ def createzip(city):
         for filename in files:
             zf.write(os.path.join(dirname, filename))
 
-    #for dirname, subdirs, files in os.walk('icons'):
+    for dirname, subdirs, files in os.walk('icons'):
         #zf.write('icons')
-    #    for filename in files:
-    #        zf.write(os.path.join(dirname, filename))
+        for filename in files:
+            zf.write(os.path.join(dirname, filename))
 
     items = ('stations','lines','portals')
     for lang in langs:
@@ -184,9 +185,6 @@ def createzip(city):
             fn = item + '_' + lang + '.csv'
             if os.path.exists(fn):
                 zf.write(fn)
-    
-    os.chdir('icons')
-    zf.write('icons\metro.svg')
     
     zf.close()
     os.chdir('..')

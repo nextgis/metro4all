@@ -10,6 +10,7 @@ csv_path = sys.argv[1]
 
 fieldmap = (
     ('id2', 'id_entrance'),
+    ('Код для встречи', 'meetcode'),
     ('name_ru', 'name_ru'),
     ('name_en', 'name_en'),
     ('name_pl', 'name_pl'),
