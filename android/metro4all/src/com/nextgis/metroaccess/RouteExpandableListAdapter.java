@@ -31,11 +31,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +48,8 @@ import static com.nextgis.metroaccess.Constants.*;
 public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 	protected Context mContext;
 	protected List <RouteItem> maRouteList;
-	
+    protected int mDeparturePortalId, mArrivalPortalId, mDepartureStationId, mArrivalStationId;
+
 	protected LayoutInflater mInfalInflater;
 	
 	public RouteExpandableListAdapter(Context c, List<RouteItem> RouteList) {
@@ -95,8 +94,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		
 		ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
 		// set data to display
-		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
-
+//		String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
 //	    File imgFile = new File(sRouteDataPath + "/icons", "" + rit.GetLine() + "8.png");
 //		Log.d(TAG, imgFile.getPath());
 
@@ -204,35 +202,81 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		ImageButton showSchemaButton = (ImageButton) convertView.findViewById(R.id.show_sheme);
 		showSchemaButton.setFocusable(false);
 		final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");		
-		if(schemaFile.exists()){
-			showSchemaButton.setOnClickListener(new OnClickListener() {
- 
-				public void onClick(View arg0) {
-				    try {
-				    	Log.d(TAG, schemaFile.getPath());
-                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
-				    	
-				    	Bundle bundle = new Bundle();
-				    	bundle.putString(Constants.PARAM_SCHEME_PATH, schemaFile.getPath());
-                        bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
-				        Intent intentView = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
-				    	
-				    	intentView.putExtras(bundle);
-				    	
-				    	mContext.startActivity(intentView);
-				    } catch (ActivityNotFoundException e) {
-				        Log.e(TAG, "Call failed", e);
-				    }
-				}
-	 
-			});
-			showSchemaButton.setVisibility(View.VISIBLE);
-		}
-		else{
-			showSchemaButton.setVisibility(View.INVISIBLE);
-		}
 
-		return convertView;
+        ImageButton showMapButton = (ImageButton) convertView.findViewById(R.id.show_map);
+
+        int portalId = 0;
+        boolean crossButton = false;
+
+        if (mDeparturePortalId != 0 && entry.GetId() == mDepartureStationId)
+            portalId = mDeparturePortalId;
+
+        if (mArrivalPortalId != 0 && entry.GetId() == mArrivalStationId)
+            portalId = mArrivalPortalId;
+
+        final boolean IsIn = portalId == mDeparturePortalId ? true : false;
+        final int pid = portalId;
+
+        if (portalId != 0){
+            crossButton = true;
+
+            showMapButton.setOnClickListener(new OnClickListener() {
+
+                public void onClick(View arg0) {
+                    try {
+                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_MAP, Analytics.ACTION_ITEM);
+
+                        Intent intent = new Intent(mContext, StationMapActivity.class);
+                        intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
+                        intent.putExtra(PARAM_SEL_PORTAL_ID, pid);
+                        intent.putExtra(PARAM_PORTAL_DIRECTION, IsIn);
+                        intent.putExtra(PARAM_SCHEME_PATH, schemaFile.getPath());
+                        intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+                        intent.putExtra(PARAM_ACTIVITY_FOR_RESULT, false);
+
+                        mContext.startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        Log.e(TAG, "Call failed", e);
+                    }
+                }
+
+            });
+            showMapButton.setVisibility(View.VISIBLE);
+        }
+
+        if(schemaFile.exists()){
+            final boolean root = crossButton;
+
+            showSchemaButton.setOnClickListener(new OnClickListener() {
+
+                public void onClick(View arg0) {
+                    try {
+                        Log.d(TAG, schemaFile.getPath());
+                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
+
+                        Intent intent = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
+                        intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
+                        intent.putExtra(PARAM_SEL_PORTAL_ID, pid);
+                        intent.putExtra(PARAM_PORTAL_DIRECTION, IsIn);
+                        intent.putExtra(PARAM_SCHEME_PATH, schemaFile.getPath());
+
+                        if(root)
+                            intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+
+                        mContext.startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        Log.e(TAG, "Call failed", e);
+                    }
+                }
+
+            });
+            showSchemaButton.setVisibility(View.VISIBLE);
+        }
+        else{
+            showSchemaButton.setVisibility(View.GONE);
+        }
+
+        return convertView;
 	}
 
 	@Override
@@ -244,4 +288,15 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return false;
 	}
+
+    public void setDepartureArrivalPortals(int dep, int arr) {
+        mDeparturePortalId = dep;
+        mArrivalPortalId = arr;
+    }
+
+    public void setDepartureArrivalStations(int dep, int arr) {
+        mDepartureStationId = dep;
+        mArrivalStationId = arr;
+    }
+
 }

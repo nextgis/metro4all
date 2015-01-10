@@ -21,15 +21,8 @@
 package com.nextgis.metroaccess;
 
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,12 +42,20 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
 
-import static com.nextgis.metroaccess.Constants.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import static com.nextgis.metroaccess.Constants.BUNDLE_ERRORMARK_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_EVENTSRC_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_MSG_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PAYLOAD_KEY;
 
 public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
 	
@@ -138,6 +139,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         if(legendPref != null){
             legendPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
+                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_PREFERENCE, Analytics.LEGEND, Analytics.PREFERENCE);
                     Intent intentView = new Intent(getApplicationContext(), StationImageView.class);
                     startActivity(intentView);
                     return true;

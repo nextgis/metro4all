@@ -40,6 +40,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.StationItem;
 
 import static com.nextgis.metroaccess.Constants.*;
@@ -107,6 +109,11 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         if (extras != null) {
             int nType = extras.getInt(BUNDLE_EVENTSRC_KEY);
             m_bIn = extras.getBoolean(BUNDLE_ENTRANCE_KEY);
+
+            Tracker t = ((Analytics) getApplication()).getTracker();
+            t.setScreenName(Analytics.SCREEN_SELECT_STATION + " " + getDirection());
+            t.send(new HitBuilders.AppViewBuilder().build());
+
             switch (nType) {
                 case DEPARTURE_RESULT:
                     setTitle(R.string.sFromStation);
