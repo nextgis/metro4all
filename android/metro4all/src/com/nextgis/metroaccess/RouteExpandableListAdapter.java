@@ -80,6 +80,12 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		if (convertView == null) {
 			convertView = mInfalInflater.inflate(R.layout.barrier_row_layout, null);
 		}
+
+        if (childPosition == 0)
+            convertView.setPadding(0, 6, 0, 0);
+
+        if (childPosition == getChildrenCount(groupPosition) - 1)
+            convertView.setPadding(0, 0, 0, 6);
 		
 		RouteItem rit = (RouteItem)getGroup(groupPosition);
 		BarrierItem bit = (BarrierItem)getChild(groupPosition, childPosition);
@@ -145,7 +151,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		if (convertView == null) {
 			convertView = mInfalInflater.inflate(R.layout.station_row_layout, null);
 		}
-		
+
 		TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
 		item.setText(entry.GetName());
 //        item.setTextAppearance(mContext, entry.GetType() != 5 ? android.R.style.TextAppearance_Medium : android.R.style.TextAppearance_Small);
@@ -201,10 +207,10 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		
 		ImageButton showSchemaButton = (ImageButton) convertView.findViewById(R.id.show_sheme);
 		showSchemaButton.setFocusable(false);
-		final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");		
-
         ImageButton showMapButton = (ImageButton) convertView.findViewById(R.id.show_map);
+        showMapButton.setFocusable(false);
 
+        final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
         int portalId = 0;
         boolean crossButton = false;
 
@@ -242,7 +248,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 
             });
             showMapButton.setVisibility(View.VISIBLE);
-        }
+        } else
+            showMapButton.setVisibility(View.GONE);
 
         if(schemaFile.exists()){
             final boolean root = crossButton;
