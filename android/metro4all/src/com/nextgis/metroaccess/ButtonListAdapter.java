@@ -278,10 +278,10 @@ public class ButtonListAdapter extends BaseAdapter {
 
     private void nullPortals(boolean from, boolean to) {
         if (from)
-            fromPortal = new PortalItem(-1, m_oContext.getString(R.string.sEntranceName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, null, -1, -1);
+            fromPortal = new PortalItem(-1, m_oContext.getString(R.string.sEntranceName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, null, -1, -1, -1);
 
         if (to)
-            toPortal = new PortalItem(-1, m_oContext.getString(R.string.sExitName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, null, -1, -1);
+            toPortal = new PortalItem(-1, m_oContext.getString(R.string.sExitName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, null, -1, -1, -1);
     }
 
     public void setOnLocateFromListener(View.OnClickListener listener) {

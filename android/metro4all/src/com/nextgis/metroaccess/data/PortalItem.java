@@ -27,14 +27,14 @@ import android.os.Parcelable;
 public class PortalItem implements Parcelable {
 	private String sName;
 	private int nDirection;// 1 - in, 2 - out, 3 - both
-	private int nId;
+	private int nId, nMeetCode = -1;
 	private int nStationId;
 	private int[] anDetails;
     private double nLatitude;
     private double nLongitude;
 
 	public PortalItem(int nId, String sName, int nStationId, int nDirection,
-                      int[] anDetails, double nLat, double nLong) {
+                      int[] anDetails, double nLat, double nLong, int nMeetCode) {
 		this.sName = sName;
 		this.nId = nId;
 		this.nDirection = nDirection;
@@ -43,13 +43,14 @@ public class PortalItem implements Parcelable {
 		this.anDetails = anDetails;
         this.nLatitude = nLat;
         this.nLongitude = nLong;
+        this.nMeetCode = nMeetCode;
 	}
 	
 	public String GetName(){
 		if(sName.length() == 0){
 			return "#" + nId;
 		}
-		return sName;
+		return nMeetCode == -1 ? sName : "#" + nMeetCode + " " + sName;
 	}
 	
 	public int GetId(){
@@ -75,6 +76,10 @@ public class PortalItem implements Parcelable {
     public double GetLongitude(){
         return nLongitude;
     }
+
+//    public String GetMeetCode() {
+//        return sMeetCode;
+//    }
 
     @Override
 	public int describeContents() {

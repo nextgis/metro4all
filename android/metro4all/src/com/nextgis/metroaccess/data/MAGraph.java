@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -238,6 +239,12 @@ public class MAGraph {
                 while ((line = reader.readLine()) != null) {
                     String[] RowData = line.split(CSV_CHAR);
 
+                    List<String> list = new ArrayList<String>(Arrays.asList(RowData));
+                    String meetcode = list.get(1);
+                    list.remove(1);
+                    list.add(meetcode);
+                    RowData = list.toArray(RowData);
+
                     if (RowData.length < 6) {
                         m_sErr = m_oContext.getString(R.string.sInvalidCSVData) + "portals.csv";
                         return false;
@@ -288,11 +295,13 @@ public class MAGraph {
                         tmp = RowData[14];
                         escalator = tmp.length() == 0 ? 0 : Integer.parseInt(tmp);
                     }
-                    int[] detailes = {min_width, min_step, min_step_ramp, lift, lift_minus_step, min_rail_width, max_rail_width, max_angle, escalator};
-                    PortalItem pt = new PortalItem(nID, sName, nStationId,
-                            nDirection, detailes, nLat, nLong);
 
+                    int[] detailes = {min_width, min_step, min_step_ramp, lift, lift_minus_step, min_rail_width, max_rail_width, max_angle, escalator};
+                    int nMeetCode = meetcode.equals("") ? -1 : Integer.parseInt(meetcode);
+
+                    PortalItem pt = new PortalItem(nID, sName, nStationId, nDirection, detailes, nLat, nLong, nMeetCode);
                     StationItem item = m_moStations.get(nStationId);
+
                     if (item == null) {
                         m_sErr = "Station #" + nStationId + " is underfined.";
                         Log.d(TAG, m_sErr);
@@ -410,10 +419,10 @@ public class MAGraph {
 					 int nLineId = Integer.parseInt(RowData[0]);
                     m_omLines.put(nLineId, sName);
 
-                    if (RowData.length > 2) {
+//                    if (RowData.length > 2) { // data back compatibility
                         String sLineColor = RowData[2];
                         m_omLinesColors.put(nLineId, sLineColor);
-                    }
+//                    }
 		        }
 			        
 		        reader.close();
