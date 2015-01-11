@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -93,6 +94,7 @@ import edu.asu.emit.qyan.alg.model.Path;
 import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
 
 import static com.nextgis.metroaccess.Constants.*;
+import static com.nextgis.metroaccess.PreferencesActivity.DeleteRecursive;
 
 //https://code.google.com/p/k-shortest-paths/
 
@@ -146,6 +148,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         m_sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, m_sUrl);
+
+        updateApplicationStructure(prefs);
 
 		String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
 		String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
@@ -1180,6 +1184,25 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     }
 
     /**
+     * Get bitmap from SVG resource file with proper station icon and color overlay
+     *
+     * @param context   Current context
+     * @param id        SVG resource id
+     * @param color     String color to overlay
+     * @return          Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(Context context, int id, String color) {
+        Bitmap bitmap = null;
+
+        if (color != null) {
+            int c = Color.parseColor(color);
+            bitmap = getBitmapFromSVG(context, id, c);
+        }
+
+        return bitmap;
+    }
+
+    /**
      * Get bitmap from SVG resource file with color overlay
      *
      * @param context   Current context
@@ -1229,27 +1252,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     }
 
     /**
-     * Get bitmap from SVG resource file with proper station icon and color overlay
-     *
-     * @param context   Current context
-     * @param station   StationItem to get it's color
-     * @return          Bitmap
-     */
-    public static Bitmap getBitmapFromSVG(Context context, StationItem station) {
-        String color = MainActivity.GetGraph().GetLineColor(station.GetLine());
-        Bitmap bitmap = null;
-
-        if (color != null) {
-            int c = Color.parseColor(color);
-            bitmap = getBitmapFromSVG(context, R.raw._0, c);
-        } else {
-            bitmap = getBitmapFromFile(station.GetLine(), station.GetType());
-        }
-
-        return bitmap;
-    }
-
-    /**
      * Get bitmap from SVG resource file with proper route item icon and color overlay
      *
      * @param context   Current context
@@ -1265,56 +1267,27 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         if (color != null) {
             int c = Color.parseColor(color);
             bitmap = getBitmapFromSVG(context, ICONS_RAW[type], c);
-
-            if (type == 6 || type == 7) {
-//                Canvas canvas = new Canvas(bitmap);
-//
-//                if (type == 7)
-//                    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-//                else {
-//                    Bitmap crop = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 + bitmap.getHeight() / 8, bitmap.getWidth(),
-//                            bitmap.getHeight()/2 - bitmap.getHeight() / 8);
-//                    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-//                    canvas.drawBitmap(crop, 0, bitmap.getHeight() / 2 + bitmap.getHeight() / 8, null);
-//                }
-
-//                Bitmap metroIcon = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
-                return getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
-
-//                float max = 1;
-//                if (bitmap.getWidth() < metroIcon.getWidth() || bitmap.getWidth() < metroIcon.getHeight())
-//                    max = metroIcon.getWidth() < metroIcon.getHeight() ? metroIcon.getHeight() : metroIcon.getWidth();
-//
-//                max /= bitmap.getWidth();
-//                int w = (int) (metroIcon.getWidth() / max / 2f);
-//                int h = (int) (metroIcon.getHeight() / max / 2f);
-//
-////                Matrix matrix = new Matrix();
-////                matrix.postScale(1 / (max * 2f), 1 / (max * 2f));
-////                matrix.postScale(bitmap.getWidth() / 2f / metroIcon.getWidth(), bitmap.getWidth() / 2f / metroIcon.getWidth());
-////                metroIcon = Bitmap.createBitmap(metroIcon, 0, 0, metroIcon.getWidth(), metroIcon.getHeight(), matrix, true);
-//
-////                metroIcon = Bitmap.createScaledBitmap(metroIcon, w, h, false);
-//
-//                Bitmap scaledBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-//
-//                float ratioX = w / (float) metroIcon.getWidth();
-//                float ratioY = h / (float) metroIcon.getHeight();
-//
-//                Matrix scaleMatrix = new Matrix();
-//                scaleMatrix.setScale(ratioX, ratioY);
-//
-//                Canvas cnv = new Canvas(scaledBitmap);
-//                cnv.setMatrix(scaleMatrix);
-//                cnv.drawBitmap(metroIcon, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
-//
-//                canvas.drawBitmap(scaledBitmap, (bitmap.getWidth() - scaledBitmap.getWidth()) / 2, (bitmap.getHeight() - scaledBitmap.getHeight()) / 4, null);
-            }
-        } else {
-            bitmap = getBitmapFromFile(entry.GetLine(), type);
         }
+
+        if (type == 6 || type == 7)
+            bitmap = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
 
         return bitmap;
     }
 
+    private void updateApplicationStructure(SharedPreferences prefs) {
+        try {
+            if(prefs.getInt(APP_VERSION, 0) < getPackageManager().getPackageInfo(getPackageName(), 0).versionCode) { // update from previous version or clean install
+                // ==========Improvement==========
+                File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()).getPath());
+                DeleteRecursive(oDataFolder);
+                // ==========End Improvement==========
+
+                // save current version to preferences
+                prefs.edit().putInt(APP_VERSION, getPackageManager().getPackageInfo(getPackageName(), 0).versionCode).commit();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

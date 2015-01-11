@@ -222,7 +222,8 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 //			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 //			    ivIcon.setImageBitmap(myBitmap);
 //			}
-            Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, entry);
+            String color = MainActivity.GetGraph().GetLineColor(entry.GetLine());
+            Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, R.raw._0, color);
             ivIcon.setImageBitmap(myBitmap);
 
             TextView tvSchemeButton = (TextView) convertView.findViewById(R.id.tvStationSchemeButton);

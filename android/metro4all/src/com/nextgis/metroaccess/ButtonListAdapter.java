@@ -172,7 +172,8 @@ public class ButtonListAdapter extends BaseAdapter {
             // set selected line icon, entrance metro icon and arrow icon
             Bitmap metroIcon = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
             Bitmap arrowIcon = getBitmapFromSVG(m_oContext, R.raw.arrow, m_oContext.getResources().getColor(R.color.bkColorStrongDark));
-            Bitmap lineIcon = getBitmapFromSVG(m_oContext, station);
+            String color = MainActivity.GetGraph().GetLineColor(station.GetLine());
+            Bitmap lineIcon = getBitmapFromSVG(m_oContext, R.raw._0, color);
 
             if (isFromPane) {   // from pane > rotate arrow 180 degree
                 Matrix matrix = new Matrix();

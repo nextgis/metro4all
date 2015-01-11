@@ -430,7 +430,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 		}
 	}	
 	
-	protected void DeleteRecursive(File fileOrDirectory) {
+	public static void DeleteRecursive(File fileOrDirectory) {
 	    if (fileOrDirectory.isDirectory())
 	        for (File child : fileOrDirectory.listFiles())
 	            DeleteRecursive(child);
