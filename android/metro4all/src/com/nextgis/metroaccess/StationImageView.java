@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
+*   Copyright (C) 2013-2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@
 package com.nextgis.metroaccess;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -37,19 +37,18 @@ import com.google.android.gms.analytics.Tracker;
 
 import java.io.File;
 
-import static com.nextgis.metroaccess.Constants.*;
+import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
+import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
+import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 
 public class StationImageView extends SherlockActivity {
-	WebView mWebView;
-	float width;
-    float height;
-//	float currentHeight;
-	String msPath;
-    boolean isForLegend;
-    private boolean isPortrait, isCrossReference = false;
-    private boolean mIsRootActivity;
-    private int mStationID, mPortaID;
-    private boolean mIsPortalIn;
+	private WebView mWebView;
+    private Bundle bundle;
+
+	private String msPath;
+    private boolean isCrossReference = false;
+    private boolean mIsRootActivity, isForLegend;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,23 +67,13 @@ public class StationImageView extends SherlockActivity {
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setUseWideViewPort(true);
 
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        height = displaymetrics.heightPixels;
-        width = displaymetrics.widthPixels;
-//        currentHeight = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? height : width;
-        isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        bundle = getIntent().getExtras();
+        if(bundle!= null) {
             // PARAM_ROOT_ACTIVITY - determine is it called from StationMapActivity or StationExpandableListAdapter
-            mIsRootActivity = extras.getBoolean(PARAM_ROOT_ACTIVITY);
-            isCrossReference = extras.containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
-            msPath = extras.getString(PARAM_SCHEME_PATH);
-            mStationID = extras.getInt(PARAM_SEL_STATION_ID, 0);
-            mPortaID = extras.getInt(PARAM_SEL_PORTAL_ID, 0);   // TODO global / pass bundle to map activity and vs
-            mIsPortalIn = extras.getBoolean(PARAM_PORTAL_DIRECTION, true);
-            setTitle(String.format(getString(R.string.sSchema), MainActivity.GetGraph().GetStation(mStationID).GetName()));
+            mIsRootActivity = bundle.getBoolean(PARAM_ROOT_ACTIVITY);
+            isCrossReference = bundle.containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
+            msPath = bundle.getString(PARAM_SCHEME_PATH);
+            setTitle(String.format(getString(R.string.sSchema), MainActivity.GetGraph().GetStation(bundle.getInt(PARAM_SEL_STATION_ID, 0)).GetName()));
         } else {
             isForLegend = true;
             setTitle(R.string.sLegend);
@@ -94,33 +83,32 @@ public class StationImageView extends SherlockActivity {
             t.send(new HitBuilders.AppViewBuilder().build());
         }
 
-        loadImage();
-        // simply, just load an image
-        //mWebView.loadUrl("file://" + extras.getString("image_path"));
+        if (!loadImage()) {
+            mWebView.setVisibility(View.GONE);
+            findViewById(R.id.tvLayoutError).setVisibility(View.VISIBLE);
+        }
     }
 	
-	protected void loadImage(){
-		//mWebView.loadUrl("file://" + msPath);
-
+	protected boolean loadImage(){
         Bitmap BitmapOfMyImage;
-        String sFolder;
-        String sName;
+        String sFolder, sName;
 
         if (isForLegend) {
-            BitmapOfMyImage = BitmapFactory
-                    .decodeResource(getResources(), R.raw.schemes_legend);
-
+            BitmapOfMyImage = BitmapFactory.decodeResource(getResources(), R.raw.schemes_legend);
             sFolder = "/android_res/raw";
             sName = "schemes_legend.png";
 
             mWebView.clearCache(true);
-
         } else {
-            BitmapOfMyImage = BitmapFactory.decodeFile(msPath);
-
             File f = new File(msPath);
-            sFolder = f.getParent();
-            sName = f.getName();
+
+            if (!f.exists()) {
+                return false;
+            } else {
+                BitmapOfMyImage = BitmapFactory.decodeFile(msPath);
+                sFolder = f.getParent();
+                sName = f.getName();
+            }
         }
 
 		String sPath = "file://" + sFolder + "/";
@@ -131,27 +119,12 @@ public class StationImageView extends SherlockActivity {
         double imageRatio = 1.0 * BitmapOfMyImage.getHeight() / BitmapOfMyImage.getWidth();
         String fix = deviceRatio > imageRatio ? "width=\"100%\" height=\"auto\"" : "width=\"auto\" height=\"100%\"";
 
-        String sCmd = "<html><center><img style=\"position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0; max-width: 100%; max-height: 100%;\" " + fix + " src=\"" + sName + "\"></center></html>";
-//		String sCmd = "<html><center><img width=\"100%\" height=\"auto\" src=\"" + sName + "\" vspace=" + (currentHeight / 2 - (BitmapOfMyImage.getHeight() / 2 )) + "></center></html>";
+        String sCmd = "<html><center><img style=\"position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;max-width:100%;max-height:100%;\" " +
+                fix + " src=\"" + sName + "\"></center></html>";
 
         mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
-			//This loads the image at the center of thee screen
-	}
-	
-	//this function will set the current height according to screen orientation
-	@Override
-	public void onConfigurationChanged(Configuration newConfig){
-		if(newConfig.equals(Configuration.ORIENTATION_LANDSCAPE)){
-            isPortrait = false;
-//			currentHeight=width;
-			loadImage();                 
 
-		}if(newConfig.equals(Configuration.ORIENTATION_PORTRAIT)){
-            isPortrait = true;
-//			currentHeight=height;
-			loadImage();
-
-		}
+        return true;
 	}
 
     @Override
@@ -180,9 +153,7 @@ public class StationImageView extends SherlockActivity {
 
                 if (mIsRootActivity) {
                     Intent intentMap = new Intent(this, StationMapActivity.class);
-                    intentMap.putExtra(PARAM_SEL_STATION_ID, mStationID);
-                    intentMap.putExtra(PARAM_PORTAL_DIRECTION, mIsPortalIn);
-                    intentMap.putExtra(PARAM_SEL_PORTAL_ID, mPortaID);
+                    intentMap.putExtras(bundle);
                     intentMap.putExtra(PARAM_ROOT_ACTIVITY, false);
                     startActivityForResult(intentMap, PORTAL_MAP_RESULT);
                 } else

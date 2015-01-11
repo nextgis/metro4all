@@ -1,7 +1,7 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
  *   Copyright (C) 2013-2015 NextGIS
  *
@@ -81,18 +81,16 @@ public class StationMapActivity extends SherlockActivity {
     private ResourceProxy mResourceProxy;
     private float scaledDensity;
 
-    private int mStationID;
-    private int mPortalID;
-    private boolean mIsPortalIn;
+    private int mStationID, mPortalID;
     private List<StationItem> stationList;
-    private String mSchemePath;
-    private boolean mIsRootActivity, mNeedResult;
+    private boolean mIsRootActivity, mIsPortalIn, mNeedResult;
 //    private boolean isCrossReference;
 
     //overlays
     private MyLocationNewOverlay mLocationOverlay;
     private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
 
+    private Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,10 +99,11 @@ public class StationMapActivity extends SherlockActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent inIntent = getIntent();
+        bundle = inIntent.getExtras();
+
         mStationID = inIntent.getIntExtra(PARAM_SEL_STATION_ID, 0);
         mPortalID = inIntent.getIntExtra(PARAM_SEL_PORTAL_ID, 0);
         mIsPortalIn = inIntent.getBooleanExtra(PARAM_PORTAL_DIRECTION, true);
-        mSchemePath = inIntent.getStringExtra(PARAM_SCHEME_PATH);
         mNeedResult = inIntent.getBooleanExtra(PARAM_ACTIVITY_FOR_RESULT, true);
         mIsRootActivity = inIntent.getBooleanExtra(PARAM_ROOT_ACTIVITY, true);
 //        isCrossReference = inIntent.getExtras().containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
@@ -247,12 +246,11 @@ public class StationMapActivity extends SherlockActivity {
             }
 
             for (PortalItem portal : portalList) {
-                OverlayItem itemPortal = new OverlayItem(
-                        station.GetId() + "", portal.GetId() + "",
-                        String.format(getString(R.string.sStationPortalName), station.GetName(),
-                                getString(mIsPortalIn
-                                        ? R.string.sEntranceName : R.string.sExitName),
-                                portal.GetNameWithMeetCode()),
+                String portalName = portal.GetReadableMeetCode();
+                portalName = portalName.equals("") ? ": " + portal.GetName() : " " + portalName + ": " + portal.GetName();
+
+                OverlayItem itemPortal = new OverlayItem(station.GetId() + "", portal.GetId() + "",
+                        String.format(getString(R.string.sStationPortalName), station.GetName(), getString(mIsPortalIn ? R.string.sEntranceName : R.string.sExitName), portalName),
                         new GeoPoint(portal.GetLatitude(), portal.GetLongitude()));
 
                 boolean isInvalidPortal = false;
@@ -461,12 +459,10 @@ public class StationMapActivity extends SherlockActivity {
             case R.id.btn_layout:
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.BTN_LAYOUT, Analytics.ACTION_BAR);
 
-                if (mIsRootActivity && mSchemePath != null && !mSchemePath.equals("")) {    // TODO global / scheme path null > StationImageView make handler
+                if (mIsRootActivity) {
                     Intent intentView = new Intent(this, StationImageView.class);
-                    intentView.putExtra(PARAM_SEL_STATION_ID, mStationID);
-                    intentView.putExtra(PARAM_SCHEME_PATH, mSchemePath);
+                    intentView.putExtras(bundle);
                     intentView.putExtra(PARAM_ROOT_ACTIVITY, false);
-
                     startActivity(intentView);
                 } else
                     finish();

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2013-2015 NextGIS
 *
@@ -21,32 +21,41 @@
 
 package com.nextgis.metroaccess;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.*;
-import com.nextgis.metroaccess.data.PortalItem;
-import com.nextgis.metroaccess.data.StationItem;
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import static com.nextgis.metroaccess.Constants.*;
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
+import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
+import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
+import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
+import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
+import static com.nextgis.metroaccess.Constants.TAG;
 
 public class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
 
@@ -229,58 +238,42 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
             ivIcon.setImageBitmap(myBitmap);
 
             TextView tvSchemeButton = (TextView) convertView.findViewById(R.id.tvStationSchemeButton);
-            final File schemaFile =
-                    new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
+            final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
+            final SelectStationActivity parentActivity = (SelectStationActivity) tvSchemeButton.getContext();
 
-            if (schemaFile.exists()) {
-                tvSchemeButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        try {
-                            Log.d(TAG, schemaFile.getPath());
+            final Bundle bundle = new Bundle();
+            bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
+            bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
+            bundle.putBoolean(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+            bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
 
-                            SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
+            int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
+            final String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
+            final String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
 
-                            int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
-                            String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
-                            String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
-                            ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
+            tvSchemeButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        Log.d(TAG, schemaFile.getPath());
 
-                            Bundle bundle = new Bundle();
-                            bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
-                            bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
-                            bundle.putBoolean(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
-                            bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
-                            Intent intentView = new Intent(parentActivity, StationImageView.class);
-                            intentView.putExtras(bundle);
+                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
 
-                            parentActivity.startActivityForResult(intentView, PORTAL_MAP_RESULT);
-                        } catch (ActivityNotFoundException e) {
-                            Log.e(TAG, "Call failed", e);
-                        }
+                        Intent intentView = new Intent(parentActivity, StationImageView.class);
+                        intentView.putExtras(bundle);
+                        parentActivity.startActivityForResult(intentView, PORTAL_MAP_RESULT);
+                    } catch (ActivityNotFoundException e) {
+                        Log.e(TAG, "Call failed", e);
                     }
-                });
-
-                tvSchemeButton.setVisibility(View.VISIBLE);
-            } else {
-                tvSchemeButton.setVisibility(View.INVISIBLE);
-            }
-
+                }
+            });
 
             TextView tvMapButton = (TextView) convertView.findViewById(R.id.tvPortalMapButton);
             tvMapButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    SelectStationActivity parentActivity = (SelectStationActivity) v.getContext();
-
-                    int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
-                    String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
-                    String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
                     ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
 
                     Intent intent = new Intent(parentActivity, StationMapActivity.class);
-                    intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
-                    intent.putExtra(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
-                    intent.putExtra(PARAM_SCHEME_PATH, schemaFile.getPath());
-                    intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+                    intent.putExtras(bundle);
                     parentActivity.startActivityForResult(intent, PORTAL_MAP_RESULT);
                 }
             });
