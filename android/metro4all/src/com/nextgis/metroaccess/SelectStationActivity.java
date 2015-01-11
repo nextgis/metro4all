@@ -25,6 +25,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
@@ -32,7 +33,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -51,6 +56,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 
     private FragmentRollAdapter mAdapter;
     private ViewPager mPager;
+    private TextView tvNotes;
 
     protected static AlphabeticalStationListFragment mAlphaStListFragment;
     protected static LinesStationListFragment mLinesStListFragment;
@@ -123,6 +129,35 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                     break;
             }
         }
+
+        tvNotes = (TextView) findViewById(R.id.tvNotes);
+
+        // http://stackoverflow.com/a/9108219
+        final int softKeyboardHeight = getResources().getDisplayMetrics().heightPixels / 5;
+        final View activityRootView = findViewById(R.id.select_station_layout);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Rect r = new Rect();
+                        //r will be populated with the coordinates of your view
+                        // that area still visible.
+                        activityRootView.getWindowVisibleDisplayFrame(r);
+                        int heightDiff = activityRootView.getRootView().getHeight() - r.height();
+
+                        // if more than 1/5 of display, its probably a keyboard...
+                        if (heightDiff > softKeyboardHeight)
+                            tvNotes.setVisibility(View.GONE);
+                        else
+                            tvNotes.setVisibility(View.VISIBLE);
+                    }
+                });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvNotes.setVisibility(HasLimits() ? View.VISIBLE : View.GONE);
     }
 
     public boolean IsIn() {
