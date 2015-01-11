@@ -35,26 +35,15 @@ import android.os.Bundle;
 public class RecentStationListFragment extends SherlockFragment {
 	protected ExpandableListView m_oExpListView;
 	protected StationExpandableListAdapter m_oExpListAdapter;
-	
-	protected TextView m_tvNotes;
-	
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-    	
-    	
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	this.setRetainInstance(true);
     	
      	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
     	
     	View view = inflater.inflate(R.layout.recent_stationlist_fragment, container, false);
-		
-        m_tvNotes = (TextView)view.findViewById(R.id.tvNotes);   
-		if( m_tvNotes != null){
-			if(!parentActivity.HasLimits()){
-				m_tvNotes.setVisibility(View.INVISIBLE);
-			}
-		}
-		
+
     	m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
     	m_oExpListAdapter = new StationExpandableListAdapter(parentActivity);
     	m_oExpListAdapter.onInit();
@@ -97,16 +86,6 @@ public class RecentStationListFragment extends SherlockFragment {
     }
 
     public void Update(){
-		if( m_tvNotes != null){
-			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-			if(parentActivity.HasLimits()){
-				m_tvNotes.setVisibility(View.VISIBLE);
-			}
-			else{
-				m_tvNotes.setVisibility(View.INVISIBLE);
-			}
-		}
-		
 		if(m_oExpListAdapter != null){
 			m_oExpListAdapter.Update();
 			m_oExpListAdapter.notifyDataSetChanged();

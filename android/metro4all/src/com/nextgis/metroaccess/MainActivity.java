@@ -20,45 +20,19 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.nextgis.metroaccess.data.DownloadData;
-import com.nextgis.metroaccess.data.GraphDataItem;
-import com.nextgis.metroaccess.data.MAGraph;
-import com.nextgis.metroaccess.data.PortalItem;
-import com.nextgis.metroaccess.data.RouteItem;
-import com.nextgis.metroaccess.data.StationItem;
-
-import edu.asu.emit.qyan.alg.model.Path;
-import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
-
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -73,32 +47,54 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.nextgis.metroaccess.data.DownloadData;
+import com.nextgis.metroaccess.data.GraphDataItem;
+import com.nextgis.metroaccess.data.MAGraph;
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.RouteItem;
+import com.nextgis.metroaccess.data.StationItem;
 
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.IMyLocationConsumer;
 import org.osmdroid.views.overlay.mylocation.IMyLocationProvider;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+import edu.asu.emit.qyan.alg.model.Path;
+import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
+
 import static com.nextgis.metroaccess.Constants.*;
-import static com.nextgis.metroaccess.MainActivity.getBitmapFromSVG;
+import static com.nextgis.metroaccess.PreferencesActivity.DeleteRecursive;
 
 //https://code.google.com/p/k-shortest-paths/
 
@@ -131,6 +127,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
     Rect mLimitationsRect;
 
+    Menu menu;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -150,6 +148,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         m_sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, m_sUrl);
+
+        updateApplicationStructure(prefs);
 
 		String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
 		String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
@@ -285,137 +285,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
 		m_lvListButtons = (ListView)findViewById(R.id.lvButtList);
 		m_laListButtons = new ButtonListAdapter(this);
-        final Context ctx = this;
-        m_laListButtons.setOnLocateFromListener(new View.OnClickListener() {    // find closest entrance using osmdroid GpsMyLocationProvider
-            private View btn;
-            StationItem stationClosest = null;
-            PortalItem portalClosest = null;
-
-            @Override
-            public void onClick(View view) {
-                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Locate closest entrance", Analytics.FROM + " " + Analytics.PANE);
-
-                LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-                final boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                final boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-                final boolean isLocationDisabled = !isGPSEnabled && !isNetworkEnabled;
-                btn = view;
-
-                if (!isGPSEnabled || !isNetworkEnabled) {   // one of them is turned off
-                    String network, gps, info;
-                    network = gps = "";
-
-                    if (!isNetworkEnabled)
-                        network = "\r\n- " + ctx.getString(R.string.sLocationNetwork);
-
-                    if(!isGPSEnabled)
-                        gps = "\r\n- " + ctx.getString(R.string.sLocationGPS);
-
-                    if (isLocationDisabled)
-                        info = ctx.getString(R.string.sLocationDisabledMsg);
-                    else
-                        info = ctx.getString(R.string.sLocationInaccuracy) + network + gps;
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                    builder.setTitle(R.string.sLocationAccuracy).setMessage(info)
-                            .setPositiveButton(R.string.sSettings,
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                                        }
-                                    })
-                            .setNegativeButton(R.string.sCancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if (isLocationDisabled)
-                                        Toast.makeText(ctx, R.string.sLocationFail, Toast.LENGTH_LONG).show();
-                                    else
-                                        locate();
-                                }
-                            });
-                    builder.create();
-                    builder.show();
-                } else
-                    locate();
-            }
-
-            void locate() {
-                btn.setEnabled(false);
-                Toast.makeText(ctx, R.string.sLocationStart, Toast.LENGTH_SHORT).show();
-
-                final Handler h = new Handler(){
-                    private boolean isLocationFound = false;
-
-                    public void handleMessage(Message msg) {
-                        switch (msg.what) {
-                            case STATUS_INTERRUPT_LOCATING:
-                                if(!isLocationFound)
-                                    Toast.makeText(getApplicationContext(), R.string.sLocationFail, Toast.LENGTH_LONG).show();
-                            case STATUS_FINISH_LOCATING:
-                                gpsMyLocationProvider.stopLocationProvider();
-                                isLocationFound = true;
-                                btn.setEnabled(true);
-                                break;
-                        }
-                    }
-                };
-
-                new Handler().postDelayed(new Runnable(){
-                    @Override
-                    public void run() {
-                        h.sendEmptyMessage(STATUS_INTERRUPT_LOCATING);
-                    }
-                }, LOCATING_TIMEOUT);
-
-                gpsMyLocationProvider.startLocationProvider(new IMyLocationConsumer() {
-                    @Override
-                    public void onLocationChanged(Location location, IMyLocationProvider iMyLocationProvider) {
-                        double currentLat = location.getLatitude();
-                        double currentLon = location.getLongitude();
-
-                        float shortest = Float.MAX_VALUE;
-                        float distance[] = new float[1];
-                        List<StationItem> stations = new ArrayList<StationItem>(m_oGraph.GetStations().values());
-
-                        for (int i = 0; i < stations.size(); i++) {  // find closest station first
-                            Location.distanceBetween(currentLat, currentLon, stations.get(i).GetLatitude(), stations.get(i).GetLongitude(), distance);
-
-                            if (distance[0] < shortest) {
-                                shortest = distance[0];
-                                stationClosest = stations.get(i);
-                            }
-                        }
-
-                        if (stationClosest != null) {  // and then closest station's portal
-                            shortest = Float.MAX_VALUE;
-                            List<PortalItem> portals = stationClosest.GetPortals(true);
-
-                            for (int i = 0; i < portals.size(); i++) {
-                                Location.distanceBetween(currentLat, currentLon, portals.get(i).GetLatitude(), portals.get(i).GetLongitude(), distance);
-
-                                if (distance[0] < shortest) {
-                                    shortest = distance[0];
-                                    portalClosest = portals.get(i);
-                                }
-                            }
-
-                            Intent intent = new Intent();
-                            intent.putExtra(BUNDLE_STATIONID_KEY, stationClosest.GetId());
-                            intent.putExtra(BUNDLE_PORTALID_KEY, portalClosest.GetId());
-                            onActivityResult(DEPARTURE_RESULT, RESULT_OK, intent);
-                        }
-
-                        h.sendEmptyMessage(STATUS_FINISH_LOCATING);
-
-                        if(stationClosest != null && portalClosest != null)
-                            Toast.makeText(getApplicationContext(), String.format(getString(R.string.sStationPortalName), stationClosest.GetName(), getString(R.string.sEntranceName), portalClosest.GetName()), Toast.LENGTH_LONG).show();
-
-                        //gpsMyLocationProvider.stopLocationProvider();
-                    }
-                });
-            }
-        });
 		// set adapter to list view
 		m_lvListButtons.setAdapter(m_laListButtons);
 		m_lvListButtons.setOnItemClickListener(new OnItemClickListener() {
@@ -520,6 +389,12 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		m_oSearchMenuItem.setEnabled(false);
 		m_oSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);	
 		 */
+        this.menu = menu;
+
+		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_LOCATE_CLOSEST, com.actionbarsherlock.view.Menu.NONE, R.string.sLocate)
+       .setIcon(R.drawable.ic_action_location_found)
+       .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
 		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_SETTINGS, com.actionbarsherlock.view.Menu.NONE, R.string.sSettings)
        .setIcon(R.drawable.ic_action_settings)
        .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -551,9 +426,137 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentAbout);
             return true;
+        case MENU_LOCATE_CLOSEST:
+            if (!item.isEnabled()) return true;
+
+            ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Locate closest entrance", Analytics.ACTION_BAR);
+
+            LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            final boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            final boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            final boolean isLocationDisabled = !isGPSEnabled && !isNetworkEnabled;
+
+            if (!isGPSEnabled || !isNetworkEnabled) {   // one of them is turned off
+                String network, gps, info;
+                network = gps = "";
+
+                if (!isNetworkEnabled)
+                    network = "\r\n- " + getString(R.string.sLocationNetwork);
+
+                if(!isGPSEnabled)
+                    gps = "\r\n- " + getString(R.string.sLocationGPS);
+
+                if (isLocationDisabled)
+                    info = getString(R.string.sLocationDisabledMsg);
+                else
+                    info = getString(R.string.sLocationInaccuracy) + network + gps;
+
+                final Activity context = this;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.sLocationAccuracy).setMessage(info)
+                        .setPositiveButton(R.string.sSettings,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                    }
+                                })
+                        .setNegativeButton(R.string.sCancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (isLocationDisabled)
+                                    Toast.makeText(context, R.string.sLocationFail, Toast.LENGTH_LONG).show();
+                                else
+                                    locateClosestEntrance();
+                            }
+                        });
+                builder.create();
+                builder.show();
+            } else
+                locateClosestEntrance();
+            break;
         }
 		return super.onOptionsItemSelected(item);
 	}
+
+    private void locateClosestEntrance() {
+        menu.findItem(MENU_LOCATE_CLOSEST).setEnabled(false);
+        Toast.makeText(this, R.string.sLocationStart, Toast.LENGTH_SHORT).show();
+
+        final Handler h = new Handler(){
+            private boolean isLocationFound = false;
+
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case STATUS_INTERRUPT_LOCATING:
+                        if(!isLocationFound)
+                            Toast.makeText(getApplicationContext(), R.string.sLocationFail, Toast.LENGTH_LONG).show();
+                    case STATUS_FINISH_LOCATING:
+                        gpsMyLocationProvider.stopLocationProvider();
+                        isLocationFound = true;
+                        menu.findItem(MENU_LOCATE_CLOSEST).setEnabled(true);
+                        break;
+                }
+            }
+        };
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                h.sendEmptyMessage(STATUS_INTERRUPT_LOCATING);
+            }
+        }, LOCATING_TIMEOUT);
+
+        gpsMyLocationProvider.startLocationProvider(new IMyLocationConsumer() {
+            StationItem stationClosest = null;
+            PortalItem portalClosest = null;
+
+            @Override
+            public void onLocationChanged(Location location, IMyLocationProvider iMyLocationProvider) {
+                double currentLat = location.getLatitude();
+                double currentLon = location.getLongitude();
+
+                float shortest = Float.MAX_VALUE;
+                float distance[] = new float[1];
+                List<StationItem> stations = new ArrayList<StationItem>(m_oGraph.GetStations().values());
+
+                for (int i = 0; i < stations.size(); i++) {  // find closest station first
+                    Location.distanceBetween(currentLat, currentLon, stations.get(i).GetLatitude(), stations.get(i).GetLongitude(), distance);
+
+                    if (distance[0] < shortest) {
+                        shortest = distance[0];
+                        stationClosest = stations.get(i);
+                    }
+                }
+
+                if (stationClosest != null) {  // and then closest station's portal
+                    shortest = Float.MAX_VALUE;
+                    List<PortalItem> portals = stationClosest.GetPortals(true);
+
+                    for (int i = 0; i < portals.size(); i++) {
+                        Location.distanceBetween(currentLat, currentLon, portals.get(i).GetLatitude(), portals.get(i).GetLongitude(), distance);
+
+                        if (distance[0] < shortest) {
+                            shortest = distance[0];
+                            portalClosest = portals.get(i);
+                        }
+                    }
+
+                    Intent intent = new Intent();
+                    intent.putExtra(BUNDLE_STATIONID_KEY, stationClosest.GetId());
+                    intent.putExtra(BUNDLE_PORTALID_KEY, portalClosest.GetId());
+                    onActivityResult(DEPARTURE_RESULT, RESULT_OK, intent);
+                }
+
+                h.sendEmptyMessage(STATUS_FINISH_LOCATING);
+
+                if(stationClosest != null && portalClosest != null)
+                    Toast.makeText(getApplicationContext(), String.format(getString(R.string.sStationPortalName), stationClosest.GetName(), getString(R.string.sEntranceName), portalClosest.GetNameWithMeetCode()), Toast.LENGTH_LONG).show();
+
+                //gpsMyLocationProvider.stopLocationProvider();
+            }
+        });
+    }
 
 	protected void CheckForUpdates(){
 		MetaDownloader uploader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), m_oGetJSONHandler, true);
@@ -1181,6 +1184,25 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     }
 
     /**
+     * Get bitmap from SVG resource file with proper station icon and color overlay
+     *
+     * @param context   Current context
+     * @param id        SVG resource id
+     * @param color     String color to overlay
+     * @return          Bitmap
+     */
+    public static Bitmap getBitmapFromSVG(Context context, int id, String color) {
+        Bitmap bitmap = null;
+
+        if (color != null) {
+            int c = Color.parseColor(color);
+            bitmap = getBitmapFromSVG(context, id, c);
+        }
+
+        return bitmap;
+    }
+
+    /**
      * Get bitmap from SVG resource file with color overlay
      *
      * @param context   Current context
@@ -1230,27 +1252,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     }
 
     /**
-     * Get bitmap from SVG resource file with proper station icon and color overlay
-     *
-     * @param context   Current context
-     * @param station   StationItem to get it's color
-     * @return          Bitmap
-     */
-    public static Bitmap getBitmapFromSVG(Context context, StationItem station) {
-        String color = MainActivity.GetGraph().GetLineColor(station.GetLine());
-        Bitmap bitmap = null;
-
-        if (color != null) {
-            int c = Color.parseColor(color);
-            bitmap = getBitmapFromSVG(context, R.raw._0, c);
-        } else {
-            bitmap = getBitmapFromFile(station.GetLine(), station.GetType());
-        }
-
-        return bitmap;
-    }
-
-    /**
      * Get bitmap from SVG resource file with proper route item icon and color overlay
      *
      * @param context   Current context
@@ -1266,11 +1267,27 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         if (color != null) {
             int c = Color.parseColor(color);
             bitmap = getBitmapFromSVG(context, ICONS_RAW[type], c);
-        } else {
-            bitmap = getBitmapFromFile(entry.GetLine(), type);
         }
+
+        if (type == 6 || type == 7)
+            bitmap = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
 
         return bitmap;
     }
 
+    private void updateApplicationStructure(SharedPreferences prefs) {
+        try {
+            if(prefs.getInt(APP_VERSION, 0) < getPackageManager().getPackageInfo(getPackageName(), 0).versionCode) { // update from previous version or clean install
+                // ==========Improvement==========
+                File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()).getPath());
+                DeleteRecursive(oDataFolder);
+                // ==========End Improvement==========
+
+                // save current version to preferences
+                prefs.edit().putInt(APP_VERSION, getPackageManager().getPackageInfo(getPackageName(), 0).versionCode).commit();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

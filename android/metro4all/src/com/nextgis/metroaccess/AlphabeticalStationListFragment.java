@@ -3,7 +3,7 @@
  * Purpose:  Routing in subway for disabled.
  * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
- *   Copyright (C) 2013,2014 NextGIS
+ *   Copyright (C) 2013-2015 NextGIS
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -46,9 +46,7 @@ import static com.nextgis.metroaccess.Constants.*;
 public class AlphabeticalStationListFragment extends SherlockFragment {
 	protected ExpandableListView m_oExpListView;
 	protected StationIndexedExpandableListAdapter m_oExpListAdapter;
-	
-	protected TextView m_tvNotes;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -57,14 +55,6 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 
 		SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
 		View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
-		
-        m_tvNotes = (TextView)view.findViewById(R.id.tvNotes);        
-        
-		if( m_tvNotes != null){
-			if(!parentActivity.HasLimits()){
-				m_tvNotes.setVisibility(View.INVISIBLE);
-			}
-		}
 
 		m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
 		m_oExpListAdapter = new StationIndexedExpandableListAdapter(parentActivity, parentActivity.GetStationList());
@@ -129,31 +119,6 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 		};
 		stationFilterEdit.addTextChangedListener(searchTextWatcher);
 
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        parentActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        final int softKeyboardHeight = displaymetrics.heightPixels / 5;
-
-        // http://stackoverflow.com/a/9108219
-        final View activityRootView = parentActivity.findViewById(R.id.select_station_layout);
-        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        Rect r = new Rect();
-                        //r will be populated with the coordinates of your view
-                        // that area still visible.
-                        activityRootView.getWindowVisibleDisplayFrame(r);
-                        int heightDiff =
-                                activityRootView.getRootView().getHeight() - r.height();
-
-                        // if more than 1/5 of display, its probably a keyboard...
-                        if (heightDiff > softKeyboardHeight)
-                            m_tvNotes.setVisibility(View.GONE);
-                        else
-                            m_tvNotes.setVisibility(View.VISIBLE);
-                    }
-                });
-
         return view;
 	}
 
@@ -162,16 +127,6 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
     }
 	
 	public void Update(){
-		if( m_tvNotes != null){
-			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-			if(parentActivity.HasLimits()){
-				m_tvNotes.setVisibility(View.VISIBLE);
-			}
-			else{
-				m_tvNotes.setVisibility(View.INVISIBLE);
-			}
-		}
-		
 		if(m_oExpListAdapter != null){
 			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
 			m_oExpListAdapter.Update(parentActivity.GetStationList());

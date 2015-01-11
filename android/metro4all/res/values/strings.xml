@@ -55,14 +55,14 @@
 	<string name="sStationName">Station</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
-    <string name="sStationPortalName">Station: %1$s\n%2$s: %3$s</string>
+    <string name="sStationPortalName">Station %1$s\n%2$s: %3$s</string>
     <string name="sNearestStation">Nearest station is %1$s</string>
     <string name="sInPortalMapTitle">Entrances of %1$s</string>
     <string name="sOutPortalMapTitle">Exits of %1$s</string>
 	<string name="sNotSet">Not set</string>
 	<string name="sSelFromStation">Select departure station</string>
 	<string name="sSelToStation">Select arrival station</string>
-	<string name="sBarriersExist">Click here to see barriers&#8230;</string>
+	<string name="sBarriersExist">Barriers…</string>
 	<string name="sBarriersConflict">You have a conflict with your parameters</string>
 	<string name="sMaxWCWidth">Passway min width</string>
 	<string name="sStairsCount">Steps total</string>
@@ -86,7 +86,7 @@
 	<string name="sLimitsSet">Set my limitations</string>
 	<string name="sLimitsHave">Limitations</string>
 	<string name="sSummary">Route summary</string>
-	<string name="sSummaryClick">Press for details</string>
+	<string name="sSummaryClick">Details…</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>

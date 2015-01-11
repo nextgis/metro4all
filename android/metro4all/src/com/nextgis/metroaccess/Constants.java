@@ -30,6 +30,7 @@ public interface Constants {
     public final static String META = "meta.json";
     final static String REMOTE_METAFILE = "remotemeta_v2.3.json";
     final static String ROUTE_DATA_DIR = "rdata_v2.3";
+    final static String APP_VERSION = "app_version";
 
     public final static String CSV_CHAR = ";";
 
@@ -49,6 +50,7 @@ public interface Constants {
     public final static int MENU_SEARCH = 3;
     public final static int MENU_SETTINGS = 4;
     public final static int MENU_ABOUT = 5;
+    public final static int MENU_LOCATE_CLOSEST = 6;
 
     public final static int DEPARTURE_RESULT = 1;
     public final static int ARRIVAL_RESULT = 2;

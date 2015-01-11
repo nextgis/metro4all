@@ -46,18 +46,6 @@
             android:layout_weight="1" >
             <requestFocus/>
         </ExpandableListView>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:id="@+id/tvNotes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sConflictNotes"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 
 </FrameLayout>
