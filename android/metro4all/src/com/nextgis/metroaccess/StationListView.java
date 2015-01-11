@@ -129,7 +129,17 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
     			
 			//add entrance
 	   		List<RouteItem> routeList = new ArrayList<RouteItem>();
-	   		RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName), list.get(0), -1, 6);
+            StationItem sit = mmoStations.get(list.get(0));
+            PortalItem pit = null;
+            String meetcode = "";
+
+            if (sit != null)
+                pit = sit.GetPortal(mnDeparturePortalId);
+
+            if (pit != null)
+                meetcode += pit.GetMeetCode() == -1 ? "" : " (#" + pit.GetMeetCode() + ")";
+
+            RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName) + meetcode, list.get(0), -1, 6);
 	   		routeList.add(FillBarriersForEntrance(oEntrance, list.get(0)));
 
 		    for(int i = 0; i < list.size(); i++){
@@ -190,7 +200,17 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 //		    StationItem sit = mmoStations.get(list.get(list.size() - 1));
 //			RouteItem oExit = new RouteItem(sit.GetId(), getString(R.string.sExitName), sit.GetLine(), -1, 7);
 //			routeList.add(FillBarriersForExit(oExit, mnArrivalPortalId));
-            RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName), list.get(list.size() - 1), -1, 7);
+            sit = mmoStations.get(list.get((list.size() - 1)));
+            pit = null;
+            meetcode = "";
+
+            if (sit != null)
+                pit = sit.GetPortal(mnArrivalPortalId);
+
+            if (pit != null)
+                meetcode += pit.GetMeetCode() == -1 ? "" : " (#" + pit.GetMeetCode() + ")";
+
+            RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName) + meetcode, list.get(list.size() - 1), -1, 7);
             routeList.add(FillBarriersForEntrance(oExit, list.get(list.size() - 1)));
 		
 			int[] naBarriers = {0,0,0,0,0,0,0,0,0};
@@ -245,8 +265,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 			RouteItem oSumm = new RouteItem(-1, getString(R.string.sSummary), 0, 0, 0);
 			FillWithData(naBarriers, oSumm, false);	    		
 			routeList.add(0, oSumm);
-			
-			
+
 	        // create new adapter
 		    RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, routeList);
             expListAdapter.setDepartureArrivalStations(list.get(0), list.get(list.size() - 1));

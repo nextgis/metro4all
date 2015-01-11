@@ -59,7 +59,7 @@
 	<string name="sNotSet">Не выбрано</string>
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>
-	<string name="sBarriersExist">Нажмите, чтобы увидеть препятствия&#8230;</string>
+	<string name="sBarriersExist">Препятствия…</string>
 	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
 	<string name="sMaxWCWidth">Мин. ширина прохода</string>
 	<string name="sStairsCount">Всего ступеней</string>
@@ -83,7 +83,7 @@
 	<string name="sLimitsSet">Установить мои ограничения</string>
 	<string name="sLimitsHave">Ограничения</string>
 	<string name="sSummary">Сводка по маршруту</string>
-	<string name="sSummaryClick">Выберите для просмотра деталей</string>	
+	<string name="sSummaryClick">Подробно…</string>
 		<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>
