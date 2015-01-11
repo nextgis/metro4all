@@ -20,45 +20,17 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.nextgis.metroaccess.data.DownloadData;
-import com.nextgis.metroaccess.data.GraphDataItem;
-import com.nextgis.metroaccess.data.MAGraph;
-import com.nextgis.metroaccess.data.PortalItem;
-import com.nextgis.metroaccess.data.RouteItem;
-import com.nextgis.metroaccess.data.StationItem;
-
-import edu.asu.emit.qyan.alg.model.Path;
-import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
-
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -73,32 +45,52 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.nextgis.metroaccess.data.DownloadData;
+import com.nextgis.metroaccess.data.GraphDataItem;
+import com.nextgis.metroaccess.data.MAGraph;
+import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.RouteItem;
+import com.nextgis.metroaccess.data.StationItem;
 
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.IMyLocationConsumer;
 import org.osmdroid.views.overlay.mylocation.IMyLocationProvider;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+import edu.asu.emit.qyan.alg.model.Path;
+import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
+
 import static com.nextgis.metroaccess.Constants.*;
-import static com.nextgis.metroaccess.MainActivity.getBitmapFromSVG;
 
 //https://code.google.com/p/k-shortest-paths/
 
@@ -1266,6 +1258,51 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         if (color != null) {
             int c = Color.parseColor(color);
             bitmap = getBitmapFromSVG(context, ICONS_RAW[type], c);
+
+            if (type == 6 || type == 7) {
+//                Canvas canvas = new Canvas(bitmap);
+//
+//                if (type == 7)
+//                    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+//                else {
+//                    Bitmap crop = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 + bitmap.getHeight() / 8, bitmap.getWidth(),
+//                            bitmap.getHeight()/2 - bitmap.getHeight() / 8);
+//                    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+//                    canvas.drawBitmap(crop, 0, bitmap.getHeight() / 2 + bitmap.getHeight() / 8, null);
+//                }
+
+//                Bitmap metroIcon = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
+                return getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
+
+//                float max = 1;
+//                if (bitmap.getWidth() < metroIcon.getWidth() || bitmap.getWidth() < metroIcon.getHeight())
+//                    max = metroIcon.getWidth() < metroIcon.getHeight() ? metroIcon.getHeight() : metroIcon.getWidth();
+//
+//                max /= bitmap.getWidth();
+//                int w = (int) (metroIcon.getWidth() / max / 2f);
+//                int h = (int) (metroIcon.getHeight() / max / 2f);
+//
+////                Matrix matrix = new Matrix();
+////                matrix.postScale(1 / (max * 2f), 1 / (max * 2f));
+////                matrix.postScale(bitmap.getWidth() / 2f / metroIcon.getWidth(), bitmap.getWidth() / 2f / metroIcon.getWidth());
+////                metroIcon = Bitmap.createBitmap(metroIcon, 0, 0, metroIcon.getWidth(), metroIcon.getHeight(), matrix, true);
+//
+////                metroIcon = Bitmap.createScaledBitmap(metroIcon, w, h, false);
+//
+//                Bitmap scaledBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+//
+//                float ratioX = w / (float) metroIcon.getWidth();
+//                float ratioY = h / (float) metroIcon.getHeight();
+//
+//                Matrix scaleMatrix = new Matrix();
+//                scaleMatrix.setScale(ratioX, ratioY);
+//
+//                Canvas cnv = new Canvas(scaledBitmap);
+//                cnv.setMatrix(scaleMatrix);
+//                cnv.drawBitmap(metroIcon, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
+//
+//                canvas.drawBitmap(scaledBitmap, (bitmap.getWidth() - scaledBitmap.getWidth()) / 2, (bitmap.getHeight() - scaledBitmap.getHeight()) / 4, null);
+            }
         } else {
             bitmap = getBitmapFromFile(entry.GetLine(), type);
         }

@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -41,6 +41,7 @@ import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import static com.nextgis.metroaccess.Constants.*;
@@ -81,12 +82,6 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 			convertView = mInfalInflater.inflate(R.layout.barrier_row_layout, null);
 		}
 
-        if (childPosition == 0)
-            convertView.setPadding(0, 6, 0, 0);
-
-        if (childPosition == getChildrenCount(groupPosition) - 1)
-            convertView.setPadding(0, 0, 0, 6);
-		
 		RouteItem rit = (RouteItem)getGroup(groupPosition);
 		BarrierItem bit = (BarrierItem)getChild(groupPosition, childPosition);
 		TextView item = (TextView) convertView.findViewById(R.id.txBarrierName);
@@ -114,7 +109,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		}	
 		else{
 			ivIcon.setVisibility(View.INVISIBLE);
-		}		
+		}
 
 		return convertView;
 	}
@@ -194,6 +189,15 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 //		Log.d(TAG, imgFile.getPath());
 
         Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, entry, false);
+
+        int padding = 0;
+
+        if (entry.GetType() == 6 || entry.GetType() == 7) {
+            float value = 10 * mContext.getResources().getDisplayMetrics().density;
+            padding = (int) value;
+        }
+
+        ivIcon.setPadding(padding, padding, padding, padding);
 
 //        if(imgFile.exists()){
         if(myBitmap != null){
