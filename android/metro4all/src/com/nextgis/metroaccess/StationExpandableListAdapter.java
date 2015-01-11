@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway.
- * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petiakov
+ * Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
+*   Copyright (C) 2013-2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -143,6 +143,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		}
 		PortalItem entry = (PortalItem) getChild(groupPosition, childPosition);
 		TextView item = (TextView) convertView.findViewById(R.id.txPortalName);
+		TextView meetcode = (TextView) convertView.findViewById(R.id.tvPortalMeetCode);
 		//
 		if(mnType > 1){
 			boolean bSmallWidth = entry.GetDetailes()[0] < mnMaxWidth;
@@ -160,6 +161,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 		}
 		//
 		item.setText(entry.GetName());
+		meetcode.setText(entry.GetReadableMeetCode());
 
 		return convertView;
 	}

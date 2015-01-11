@@ -252,7 +252,7 @@ public class StationMapActivity extends SherlockActivity {
                         String.format(getString(R.string.sStationPortalName), station.GetName(),
                                 getString(mIsPortalIn
                                         ? R.string.sEntranceName : R.string.sExitName),
-                                portal.GetName()),
+                                portal.GetNameWithMeetCode()),
                         new GeoPoint(portal.GetLatitude(), portal.GetLongitude()));
 
                 boolean isInvalidPortal = false;

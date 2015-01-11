@@ -207,7 +207,7 @@ public class ButtonListAdapter extends BaseAdapter {
         TextView tvStationName = (TextView) convertView.findViewById(R.id.tvStationName);
         tvStationName.setText(sStationName);
 
-        String sEntranceName = portal.GetName();
+        String sEntranceName = portal.GetNameWithMeetCode();
         TextView tvEntranceName = (TextView) convertView.findViewById(R.id.tvEntranceName);
         tvEntranceName.setText(sEntranceName);
 

@@ -52,7 +52,7 @@
 	<string name="sStationName">Stacja</string>
 	<string name="sEntranceName">Wejście</string>
 	<string name="sExitName">Wyjście</string>
-    <string name="sStationPortalName">Stacja: %1$s\n%2$s: %3$s</string>
+    <string name="sStationPortalName">Stacja %1$s\n%2$s: %3$s</string>
     <string name="sNearestStation">Najbliższa stacja to %1$s</string>
     <string name="sInPortalMapTitle">Wejścia stacji %1$s</string>
     <string name="sOutPortalMapTitle">Wyjścia stacji %1$s</string>

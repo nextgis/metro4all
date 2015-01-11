@@ -50,7 +50,7 @@ public class PortalItem implements Parcelable {
 		if(sName.length() == 0){
 			return "#" + nId;
 		}
-		return nMeetCode == -1 ? sName : "#" + nMeetCode + " " + sName;
+		return sName;
 	}
 	
 	public int GetId(){
@@ -77,9 +77,17 @@ public class PortalItem implements Parcelable {
         return nLongitude;
     }
 
-//    public String GetMeetCode() {
-//        return sMeetCode;
-//    }
+    public int GetMeetCode() {
+        return nMeetCode;
+    }
+
+    public String GetReadableMeetCode() {
+        return nMeetCode == -1 ? "" : "#" + nMeetCode;
+    }
+
+    public String GetNameWithMeetCode() {
+        return GetMeetCode() == -1 ? GetName() : GetReadableMeetCode() + ": " + GetName();
+    }
 
     @Override
 	public int describeContents() {

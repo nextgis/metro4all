@@ -137,7 +137,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
                 pit = sit.GetPortal(mnDeparturePortalId);
 
             if (pit != null)
-                meetcode += pit.GetMeetCode() == -1 ? "" : " (#" + pit.GetMeetCode() + ")";
+                meetcode += " " + pit.GetReadableMeetCode();
 
             RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName) + meetcode, list.get(0), -1, 6);
 	   		routeList.add(FillBarriersForEntrance(oEntrance, list.get(0)));
@@ -208,7 +208,7 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
                 pit = sit.GetPortal(mnArrivalPortalId);
 
             if (pit != null)
-                meetcode += pit.GetMeetCode() == -1 ? "" : " (#" + pit.GetMeetCode() + ")";
+                meetcode += " " + pit.GetReadableMeetCode();
 
             RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName) + meetcode, list.get(list.size() - 1), -1, 7);
             routeList.add(FillBarriersForEntrance(oExit, list.get(list.size() - 1)));
