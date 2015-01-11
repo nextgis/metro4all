@@ -49,6 +49,7 @@ public interface Constants {
     public final static int MENU_SEARCH = 3;
     public final static int MENU_SETTINGS = 4;
     public final static int MENU_ABOUT = 5;
+    public final static int MENU_LOCATE_CLOSEST = 6;
 
     public final static int DEPARTURE_RESULT = 1;
     public final static int ARRIVAL_RESULT = 2;

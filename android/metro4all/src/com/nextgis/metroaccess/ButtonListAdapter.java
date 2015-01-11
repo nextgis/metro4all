@@ -57,9 +57,6 @@ public class ButtonListAdapter extends BaseAdapter {
     protected StationItem nullStation, fromStation, toStation;
     protected PortalItem fromPortal, toPortal;
 
-    protected ImageButton ibtnLocateFrom;
-    protected View.OnClickListener ibtnLocateFromListener;
-
     public ButtonListAdapter(Context c) {
         this.m_oContext = c;
         this.m_oInfalInflater = (LayoutInflater) m_oContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -101,21 +98,6 @@ public class ButtonListAdapter extends BaseAdapter {
     protected View CreateFromPane(View convertView) {
         convertView = CreatePane(convertView, true, fromStation, fromPortal);
 
-        ImageView ibtnMap = (ImageView) convertView.findViewById(R.id.ibtnMap);
-
-        if (ibtnLocateFrom == null) {   // add "locate me" button
-            ibtnLocateFrom = new ImageButton(convertView.getContext());
-            ibtnLocateFrom.setImageResource(R.drawable.ic_action_location_found);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.gravity = Gravity.CENTER;
-            ibtnLocateFrom.setLayoutParams(lp);
-            ibtnLocateFrom.setPadding(ibtnMap.getPaddingLeft(), ibtnMap.getPaddingTop(), ibtnMap.getPaddingRight(), ibtnMap.getPaddingBottom());
-            ibtnLocateFrom.setBackgroundResource(0);
-            ibtnLocateFrom.setFocusable(false);
-            ibtnLocateFrom.setOnClickListener(ibtnLocateFromListener);
-            ((LinearLayout) convertView.findViewById(R.id.llPaneButtons)).addView(ibtnLocateFrom, 0);
-        }
-
         return convertView;
     }
 
@@ -145,9 +127,18 @@ public class ButtonListAdapter extends BaseAdapter {
 
         // set map button
         ImageView ibtnMap = (ImageView) convertView.findViewById(R.id.ibtnMap);
+        ImageView ibtnLayout = (ImageView) convertView.findViewById(R.id.ibtnLayout);
         ImageView ivMetroIconLeft = (ImageView) convertView.findViewById(R.id.ivMetroIconLeft);
         ImageView ivMetroIconRight = (ImageView) convertView.findViewById(R.id.ivMetroIconRight);
         ImageView ivSmallIcon = (ImageView) convertView.findViewById(R.id.ivSmallIcon);
+
+        File schemaFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/schemes", "" + station.GetNode() + ".png");
+        final Bundle bundle = new Bundle();
+        bundle.putInt(PARAM_SEL_STATION_ID, station.GetId());
+        bundle.putInt(PARAM_SEL_PORTAL_ID, portal.GetId());
+        bundle.putBoolean(PARAM_PORTAL_DIRECTION, isFromPane);
+        bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
+        bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
 
         if (station != nullStation) {
             ibtnMap.setVisibility(View.VISIBLE);
@@ -156,14 +147,21 @@ public class ButtonListAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_MAP, gaPane + " " + Analytics.PANE);
 
-                    File schemaFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/schemes", "" + station.GetNode() + ".png");
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(PARAM_SEL_STATION_ID, station.GetId());
-                    bundle.putInt(PARAM_SEL_PORTAL_ID, portal.GetId());
-                    bundle.putBoolean(PARAM_PORTAL_DIRECTION, isFromPane);
-                    bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
-                    bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
                     Intent intent = new Intent(m_oContext, StationMapActivity.class);
+                    intent.putExtras(bundle);
+
+                    Activity parent = (Activity) m_oContext;
+                    parent.startActivityForResult(intent, requestCode);
+                }
+            });
+
+            ibtnLayout.setVisibility(View.VISIBLE);
+            ibtnLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_LAYOUT, gaPane + " " + Analytics.PANE);
+
+                    Intent intent = new Intent(m_oContext, StationImageView.class);
                     intent.putExtras(bundle);
 
                     Activity parent = (Activity) m_oContext;
@@ -187,6 +185,7 @@ public class ButtonListAdapter extends BaseAdapter {
             setImageToImageView(ivSmallIcon, lineIcon);
         } else {    // hide all icons if statiton is not selected
             ibtnMap.setVisibility(View.GONE);
+            ibtnLayout.setVisibility(View.GONE);
             ivMetroIconLeft.setVisibility(View.GONE);
             ivMetroIconRight.setVisibility(View.GONE);
             ivSmallIcon.setVisibility(View.GONE);
@@ -282,9 +281,5 @@ public class ButtonListAdapter extends BaseAdapter {
 
         if (to)
             toPortal = new PortalItem(-1, m_oContext.getString(R.string.sExitName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, null, -1, -1, -1);
-    }
-
-    public void setOnLocateFromListener(View.OnClickListener listener) {
-        ibtnLocateFromListener = listener;
     }
 }
