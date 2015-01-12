@@ -402,3 +402,8 @@ div.extent-earth {
     height: 33px;
     background: url(../img/m4a.png) no-repeat -139px 0px;
 }
+
+.portal-name {
+    color: #777;
+    font-weight: normal;
+}
