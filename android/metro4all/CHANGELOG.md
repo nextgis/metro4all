@@ -1,3 +1,8 @@
+## v. 2.5 (upcoming)
+- UI changes (icons design changed)
+- all entrances and exits in all cities now have a meetcode (a number which can be used to explain a route, arrange a meeting, etc.)
+
+
 ## v.2.4 (29.12.2014)
 - UI changes:
 	* Added cross-reference layout/map buttons in map/layout screens
