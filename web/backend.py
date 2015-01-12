@@ -186,6 +186,7 @@ def get_portals(lang, city):
                 ),
                 properties=dict(
                     name=portal.get('name_' + lang, portal.get('name_en')),
+                    meetcode=portal['meetcode'],
                     direction=portal['direction'],
                     barriers=get_barriers(portal)
                 )
