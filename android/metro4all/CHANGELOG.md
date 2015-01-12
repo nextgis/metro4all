@@ -1,17 +1,35 @@
 ## v. 2.5 (upcoming)
-- UI changes (icons design changed)
-- all entrances and exits in all cities now have a meetcode (a number which can be used to explain a route, arrange a meeting, etc.)
++ Added layout button to From / To panes on main screen
++ Added map button for source and destination stations on routing screen
++ Added acknowledgements dialog on about screen
++ All entrances and exits in all cities now have a meetcode (a number which can be used to explain a route, arrange a meeting, etc.)
++ Other small improvements
++ Code refactoring
 
++ UI changes:
+	* Locate closest entrance moved to actionbar
+	* A/B marker icons removed, added metro and arrow icon on main screen
+	* Icons design changed - now they are flat
+	* Items on select station screen redesigned
+	* Items on routing screen redesigned
+	* Limitations pane iconized and moved to bottom
+	* Limitations info on select station screen is hidden when it's disabled
+	
++ Bugfixing:
+	* App crash on inflating preferences below Android 4.0
+	* Search button stayed active on changing city
+	* Selected station stays selected after select station screen closed and nothing was selected
+	* Rare app crash when station was deselected
 
 ## v.2.4 (29.12.2014)
-- UI changes:
++ UI changes:
 	* Added cross-reference layout/map buttons in map/layout screens
 	* Added "locate nearest entrance" button to main screen
 	* Added map buttons for From/To stations to main screen 
 	* Added line-coloured icon for From/To stations to main screen
 	* Added space for entrance/exit description to main screen
 	
-- Bugfixes:
++ Bugfixes:
 	* Cities ascending sorting in main screen menu list and downloading dialog
 	* Cities are deselected in the first downloading dialog 
 	* Percentage in download dialog shows remaining/total size in Kb

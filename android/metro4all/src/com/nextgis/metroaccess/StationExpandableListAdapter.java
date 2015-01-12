@@ -53,7 +53,6 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
 import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 import static com.nextgis.metroaccess.Constants.TAG;
 
@@ -245,7 +244,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
             bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
             bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
             bundle.putBoolean(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
-            bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
+            bundle.putInt(BUNDLE_STATIONID_KEY, entry.GetId());
 
             int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
             final String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;

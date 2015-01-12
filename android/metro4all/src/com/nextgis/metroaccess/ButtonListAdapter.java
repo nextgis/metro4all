@@ -38,13 +38,13 @@ import com.nextgis.metroaccess.data.StationItem;
 
 import java.io.File;
 
+import static com.nextgis.metroaccess.Constants.ARRIVAL_RESULT;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
+import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_PORTAL_ID;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_MAIN_FROM_RESULT;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_MAIN_TO_RESULT;
 import static com.nextgis.metroaccess.MainActivity.getBitmapFromSVG;
 
 public class ButtonListAdapter extends BaseAdapter {
@@ -115,11 +115,13 @@ public class ButtonListAdapter extends BaseAdapter {
         if (isFromPane) {
             paneTitle = R.string.sFromStation;
             gaPane = Analytics.FROM;
-            requestCode = PORTAL_MAP_MAIN_FROM_RESULT;
+//            requestCode = PORTAL_MAP_MAIN_FROM_RESULT;
+            requestCode = DEPARTURE_RESULT;
         } else {
             paneTitle = R.string.sToStation;
             gaPane = Analytics.TO;
-            requestCode = PORTAL_MAP_MAIN_TO_RESULT;
+//            requestCode = PORTAL_MAP_MAIN_TO_RESULT;
+            requestCode = ARRIVAL_RESULT;
         }
 
         // set map button
@@ -131,8 +133,8 @@ public class ButtonListAdapter extends BaseAdapter {
 
         File schemaFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/schemes", "" + station.GetNode() + ".png");
         final Bundle bundle = new Bundle();
-        bundle.putInt(PARAM_SEL_STATION_ID, station.GetId());
-        bundle.putInt(PARAM_SEL_PORTAL_ID, portal.GetId());
+        bundle.putInt(BUNDLE_STATIONID_KEY, station.GetId());
+        bundle.putInt(BUNDLE_PORTALID_KEY, portal.GetId());
         bundle.putBoolean(PARAM_PORTAL_DIRECTION, isFromPane);
         bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
         bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
@@ -191,10 +193,6 @@ public class ButtonListAdapter extends BaseAdapter {
 
 //        ImageView ivMarkIcon = (ImageView)convertView.findViewById(R.id.ivMarkIcon);
 //        ivMarkIcon.setImageResource(R.drawable.ic_geomarker_a);   // _b
-
-        // hide big icon
-        ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
-        ivIcon.setVisibility(View.GONE);
 
         // set texts
         TextView tvPaneName = (TextView) convertView.findViewById(R.id.tvPaneName);

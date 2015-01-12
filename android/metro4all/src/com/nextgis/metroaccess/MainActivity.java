@@ -859,26 +859,23 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
     	int nStationId = -1;
     	int nPortalId = -1;
 
-    	if(data != null){
+    	if(data != null) {
+            nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
+            nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+        } else {
             switch (requestCode) {
-                case PORTAL_MAP_MAIN_FROM_RESULT:
-                    nStationId = data.getIntExtra(PARAM_SEL_STATION_ID, -1);
-                    nPortalId = data.getIntExtra(PARAM_SEL_PORTAL_ID, -1);
-                    requestCode = DEPARTURE_RESULT;
+                case DEPARTURE_RESULT:
+                    nStationId = m_nDepartureStationId;
+                    nPortalId = m_nDeparturePortalId;
                     break;
-                case PORTAL_MAP_MAIN_TO_RESULT:
-                    nStationId = data.getIntExtra(PARAM_SEL_STATION_ID, -1);
-                    nPortalId = data.getIntExtra(PARAM_SEL_PORTAL_ID, -1);
-                    requestCode = ARRIVAL_RESULT;
-                    break;
-                default:
-                    nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
-                    nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+                case ARRIVAL_RESULT:
+                    nStationId = m_nArrivalStationId;
+                    nPortalId = m_nArrivalPortalId;
                     break;
             }
-    	}
+        }
 
-		final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
 
 	    switch(requestCode){
 	    case DEPARTURE_RESULT:

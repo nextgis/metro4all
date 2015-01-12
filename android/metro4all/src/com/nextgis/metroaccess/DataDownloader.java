@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
+*   Copyright (C) 2013-2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -96,7 +96,7 @@ public class DataDownloader extends AsyncTask<String, Integer, String> {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(BUNDLE_ERRORMARK_KEY, true);
                 bundle.putInt(BUNDLE_EVENTSRC_KEY, 2);
-                bundle.putString(BUNDLE_MSG_KEY, m_oContext.getString(R.string.sNetworkUnreachErr));
+                bundle.putString(BUNDLE_MSG_KEY, m_oContext.getString(R.string.sNetworkGetErr));
                 
                 Message msg = new Message();
                 msg.setData(bundle);

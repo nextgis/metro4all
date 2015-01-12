@@ -43,12 +43,12 @@ import com.nextgis.metroaccess.data.RouteItem;
 import java.io.File;
 import java.util.List;
 
+import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_PORTAL_ID;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
 import static com.nextgis.metroaccess.Constants.TAG;
 
 public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
@@ -233,8 +233,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
         final int pid = portalId;
 
         final Bundle bundle = new Bundle();
-        bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
-        bundle.putInt(PARAM_SEL_PORTAL_ID, pid);
+        bundle.putInt(BUNDLE_STATIONID_KEY, entry.GetId());
+        bundle.putInt(BUNDLE_PORTALID_KEY, pid);
         bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
         bundle.putBoolean(PARAM_PORTAL_DIRECTION, IsIn);
         bundle.putBoolean(PARAM_ACTIVITY_FOR_RESULT, false);
@@ -265,24 +265,29 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 
         final boolean root = crossButton;
 
-        showSchemaButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
-                try {
-                    Log.d(TAG, schemaFile.getPath());
-                    ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
+        if (entry.GetType() == 6 || entry.GetType() == 7 || entry.GetType() == 0)
+            showSchemaButton.setVisibility(View.GONE);
+        else {
+            showSchemaButton.setVisibility(View.VISIBLE);
+            showSchemaButton.setOnClickListener(new OnClickListener() {
+                public void onClick(View arg0) {
+                    try {
+                        Log.d(TAG, schemaFile.getPath());
+                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
 
-                    Intent intent = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
-                    intent.putExtras(bundle);
+                        Intent intent = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
+                        intent.putExtras(bundle);
 
-                    if (root)
-                        intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+                        if (root)
+                            intent.putExtra(PARAM_ROOT_ACTIVITY, true);
 
-                    mContext.startActivity(intent);
-                } catch (ActivityNotFoundException e) {
-                    Log.e(TAG, "Call failed", e);
+                        mContext.startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        Log.e(TAG, "Call failed", e);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         return convertView;
 	}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 	Project:  Metro4All
  	Purpose:  Routing in subway
-    Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
+    Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
     Copyright (C) 2014,2015 NextGIS
 
     This program is free software: you can redistribute it and/or modify
@@ -19,37 +19,22 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/list_pane_selector"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/ivIcon"
-        android:layout_width="45dip"
-        android:layout_height="64dip"
-        android:layout_marginBottom="25dip"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
-        android:layout_marginTop="25dip" />
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/list_pane_selector"
+              android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="vertical"
+        android:layout_weight="1"
         android:padding="5dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ivMarkIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvPaneName"
@@ -58,7 +43,7 @@
                 android:ellipsize="marquee"
                 android:gravity="center_vertical"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <LinearLayout
@@ -69,10 +54,10 @@
             <ImageView
                 android:id="@+id/ivSmallIcon"
                 android:layout_width="24dp"
-                android:layout_gravity="center"
                 android:layout_height="18dp"
+                android:layout_gravity="center"
                 android:layout_margin="4dp"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvStationName"
@@ -82,38 +67,37 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/ivMetroIconLeft"
                 android:layout_width="24dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="4dp"
-                android:layout_height="18dp"/>
+                android:layout_marginLeft="4dp"/>
 
             <ImageView
                 android:id="@+id/ivMetroIconRight"
                 android:layout_width="24dp"
-                android:layout_gravity="center"
-                android:layout_height="16dp" />
+                android:layout_height="16dp"
+                android:layout_gravity="center"/>
 
             <TextView
-            android:id="@+id/tvEntranceName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="3"
-            android:textColor="@color/bkColorStrongDark"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:id="@+id/tvEntranceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="3"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/bkColorStrongDark"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -122,8 +106,8 @@
         android:id="@+id/llPaneButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:focusable="false"
+        android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:padding="5dp">
@@ -133,11 +117,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="5dp"
             android:background="@null"
             android:focusable="false"
+            android:padding="5dp"
             android:src="@drawable/ic_action_map"
-            android:visibility="gone" />
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ibtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:focusable="false"
+            android:padding="5dp"
+            android:src="@drawable/ic_action_schema"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -144,12 +144,17 @@
                     if (this.portals[type].markers.hasOwnProperty(portalMarkerId)) {
                         portalMarker = this.portals[type].markers[portalMarkerId];
 
-                        if (!portalMarker._icon || !portalMarker.feature.properties || !portalMarker.feature.properties.name) {
+                        if (!portalMarker._icon || !portalMarker.feature.properties || !portalMarker.feature.properties.name || !portalMarker.feature.properties.meetcode) {
                             continue;
                         }
 
                         $portalMarkerIcon = $(portalMarker._icon);
-                        new Opentip($portalMarkerIcon, portalMarker.feature.properties.name);
+                        new Opentip(
+                            $portalMarkerIcon, '#' + portalMarker.feature.properties.meetcode + ': ' + portalMarker.feature.properties.name,
+                            {
+                                background: '#d6f1f8',
+                                borderColor: '#85d4e9'
+                            });
 //                        debugger;
                     }
                 }
