@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
 *   Copyright (C) 2013,2015 NextGIS
 *
@@ -20,12 +20,6 @@
 *******************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.io.File;
-import java.util.List;
-
-import com.nextgis.metroaccess.data.BarrierItem;
-import com.nextgis.metroaccess.data.RouteItem;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -36,15 +30,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import static com.nextgis.metroaccess.Constants.*;
+import com.nextgis.metroaccess.data.BarrierItem;
+import com.nextgis.metroaccess.data.RouteItem;
+
+import java.io.File;
+import java.util.List;
+
+import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
+import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
+import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
+import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_PORTAL_ID;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
+import static com.nextgis.metroaccess.Constants.TAG;
 
 public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 	protected Context mContext;
@@ -224,8 +229,15 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
         if (mArrivalPortalId != 0 && entry.GetId() == mArrivalStationId)
             portalId = mArrivalPortalId;
 
-        final boolean IsIn = portalId == mDeparturePortalId ? true : false;
+        final boolean IsIn = portalId == mDeparturePortalId;
         final int pid = portalId;
+
+        final Bundle bundle = new Bundle();
+        bundle.putInt(PARAM_SEL_STATION_ID, entry.GetId());
+        bundle.putInt(PARAM_SEL_PORTAL_ID, pid);
+        bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
+        bundle.putBoolean(PARAM_PORTAL_DIRECTION, IsIn);
+        bundle.putBoolean(PARAM_ACTIVITY_FOR_RESULT, false);
 
         if (portalId != 0){
             crossButton = true;
@@ -237,12 +249,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
                         ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_MAP, Analytics.ACTION_ITEM);
 
                         Intent intent = new Intent(mContext, StationMapActivity.class);
-                        intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
-                        intent.putExtra(PARAM_SEL_PORTAL_ID, pid);
-                        intent.putExtra(PARAM_PORTAL_DIRECTION, IsIn);
-                        intent.putExtra(PARAM_SCHEME_PATH, schemaFile.getPath());
+                        intent.putExtras(bundle);
                         intent.putExtra(PARAM_ROOT_ACTIVITY, true);
-                        intent.putExtra(PARAM_ACTIVITY_FOR_RESULT, false);
 
                         mContext.startActivity(intent);
                     } catch (ActivityNotFoundException e) {
@@ -255,37 +263,26 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
         } else
             showMapButton.setVisibility(View.GONE);
 
-        if(schemaFile.exists()){
-            final boolean root = crossButton;
+        final boolean root = crossButton;
 
-            showSchemaButton.setOnClickListener(new OnClickListener() {
+        showSchemaButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                try {
+                    Log.d(TAG, schemaFile.getPath());
+                    ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
 
-                public void onClick(View arg0) {
-                    try {
-                        Log.d(TAG, schemaFile.getPath());
-                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
+                    Intent intent = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
+                    intent.putExtras(bundle);
 
-                        Intent intent = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
-                        intent.putExtra(PARAM_SEL_STATION_ID, entry.GetId());
-                        intent.putExtra(PARAM_SEL_PORTAL_ID, pid);
-                        intent.putExtra(PARAM_PORTAL_DIRECTION, IsIn);
-                        intent.putExtra(PARAM_SCHEME_PATH, schemaFile.getPath());
+                    if (root)
+                        intent.putExtra(PARAM_ROOT_ACTIVITY, true);
 
-                        if(root)
-                            intent.putExtra(PARAM_ROOT_ACTIVITY, true);
-
-                        mContext.startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Log.e(TAG, "Call failed", e);
-                    }
+                    mContext.startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Log.e(TAG, "Call failed", e);
                 }
-
-            });
-            showSchemaButton.setVisibility(View.VISIBLE);
-        }
-        else{
-            showSchemaButton.setVisibility(View.GONE);
-        }
+            }
+        });
 
         return convertView;
 	}

@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
+*   Copyright (C) 2013-2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -20,9 +20,6 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -33,7 +30,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -49,7 +45,22 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.StationItem;
 
-import static com.nextgis.metroaccess.Constants.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.nextgis.metroaccess.Constants.ARRIVAL_RESULT;
+import static com.nextgis.metroaccess.Constants.BUNDLE_ENTRANCE_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_EVENTSRC_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
+import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
+import static com.nextgis.metroaccess.Constants.MENU_ABOUT;
+import static com.nextgis.metroaccess.Constants.MENU_SETTINGS;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_PORTAL_ID;
+import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
+import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
+import static com.nextgis.metroaccess.Constants.PREF_RESULT;
+import static com.nextgis.metroaccess.Constants.TAG;
 
 public class SelectStationActivity extends SherlockFragmentActivity {
     private static final int NUM_ITEMS = 3;
@@ -139,6 +150,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
+                        if (!HasLimits()) return;
+
                         Rect r = new Rect();
                         //r will be populated with the coordinates of your view
                         // that area still visible.

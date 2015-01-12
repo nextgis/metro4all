@@ -85,10 +85,6 @@ public class PortalItem implements Parcelable {
         return nMeetCode == -1 ? "" : "#" + nMeetCode;
     }
 
-    public String GetNameWithMeetCode() {
-        return GetMeetCode() == -1 ? GetName() : GetReadableMeetCode() + ": " + GetName();
-    }
-
     @Override
 	public int describeContents() {
 		// TODO Auto-generated method stub

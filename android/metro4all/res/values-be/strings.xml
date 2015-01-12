@@ -52,7 +52,7 @@
 	<string name="sStationName">Імя</string>
 	<string name="sEntranceName">Уваход</string>
 	<string name="sExitName">Выхад</string>
-    <string name="sStationPortalName">Стацыя %1$s\n%2$s: %3$s</string>
+    <string name="sStationPortalName">Стацыя: %1$s\n%2$s%3$s</string>
     <string name="sNearestStation">Бліжэйшая станцыя %1$s</string>
     <string name="sInPortalMapTitle">Уваходы ў cт. %1$s</string>
     <string name="sOutPortalMapTitle">Выхады з ст. %1$s</string>

@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013 NextGIS
+*   Copyright (C) 2013,2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -21,29 +21,30 @@
 
 package com.nextgis.metroaccess;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.BarrierItem;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.RouteItem;
 import com.nextgis.metroaccess.data.StationItem;
 
-import static com.nextgis.metroaccess.Constants.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static com.nextgis.metroaccess.Constants.BUNDLE_PATHCOUNT_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PATH_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
 
 public class StationListView extends SherlockActivity implements OnNavigationListener{
 	

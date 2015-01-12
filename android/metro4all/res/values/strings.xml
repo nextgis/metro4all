@@ -24,6 +24,7 @@
 	<string name="sCannotGetPath">Cannot find path</string>
 	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
 	<string name="sNoOrEmptyData">The data are absent or invalid. Please download the database.</string>
+	<string name="sNoImage">There is no image or image is invalid. Please update the data.</string>
 
 	<string name="sLocationFail">Cannot locate your device</string>
     <string name="sLocationDisabled">Location services disabled</string>
@@ -55,7 +56,7 @@
 	<string name="sStationName">Station</string>
 	<string name="sEntranceName">Entrance</string>
 	<string name="sExitName">Exit</string>
-    <string name="sStationPortalName">Station %1$s\n%2$s: %3$s</string>
+    <string name="sStationPortalName">Station: %1$s\n%2$s%3$s</string>
     <string name="sNearestStation">Nearest station is %1$s</string>
     <string name="sInPortalMapTitle">Entrances of %1$s</string>
     <string name="sOutPortalMapTitle">Exits of %1$s</string>

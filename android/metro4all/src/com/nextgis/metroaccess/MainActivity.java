@@ -550,8 +550,13 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
                 h.sendEmptyMessage(STATUS_FINISH_LOCATING);
 
-                if(stationClosest != null && portalClosest != null)
-                    Toast.makeText(getApplicationContext(), String.format(getString(R.string.sStationPortalName), stationClosest.GetName(), getString(R.string.sEntranceName), portalClosest.GetNameWithMeetCode()), Toast.LENGTH_LONG).show();
+                if(stationClosest != null && portalClosest != null) {
+                    String portalName = portalClosest.GetReadableMeetCode();
+                    portalName = portalName.equals("") ? ": " + portalClosest.GetName() : " " + portalName + ": " + portalClosest.GetName();
+
+                    Toast.makeText(getApplicationContext(), String.format(getString(R.string.sStationPortalName), stationClosest.GetName(),
+                            getString(R.string.sEntranceName), portalName), Toast.LENGTH_LONG).show();
+                }
 
                 //gpsMyLocationProvider.stopLocationProvider();
             }

@@ -2,8 +2,8 @@
 <!-- 
 	Project:  Metro Access
  	Purpose:  Routing in subway for disabled.
-    Author:   Baryshnikov Dmitriy (aka Bishop), polimax@mail.ru
-    Copyright (C) 2013 NextGIS
+    Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+    Copyright (C) 2013,2015 NextGIS
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
       android:id="@+id/ivIcon"
       android:layout_width="24dip"
       android:layout_height="24dip"
-      android:layout_margin="15dip"
+      android:layout_margin="10dip"
       />
 
   <TextView
@@ -39,7 +39,7 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:textStyle="bold"
-      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textSize="20sp"
       android:ellipsize="marquee"
       />
 

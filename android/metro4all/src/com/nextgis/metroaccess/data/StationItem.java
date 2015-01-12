@@ -20,13 +20,15 @@
  ****************************************************************************/
 package com.nextgis.metroaccess.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import android.os.Parcel;
-import android.os.Parcelable;
 
 public class StationItem implements Parcelable {
 	private String sName;
@@ -51,7 +53,7 @@ public class StationItem implements Parcelable {
         this.nLatitude = nLat;
         this.nLongitude = nLong;
 	}
-	
+
 	public String GetName(){
 		return sName;
 	}
@@ -153,6 +155,13 @@ public class StationItem implements Parcelable {
 				ret.add(pit);
 			}
 		}
+
+        Collections.sort(ret, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Comparable) ((PortalItem) (o1)).GetMeetCode()).compareTo(((PortalItem) (o2)).GetMeetCode());
+            }
+        });
+
 		return ret;
 	}
 	

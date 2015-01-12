@@ -26,14 +26,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nextgis.metroaccess.data.PortalItem;
@@ -207,7 +204,7 @@ public class ButtonListAdapter extends BaseAdapter {
         TextView tvStationName = (TextView) convertView.findViewById(R.id.tvStationName);
         tvStationName.setText(sStationName);
 
-        String sEntranceName = portal.GetNameWithMeetCode();
+        String sEntranceName = portal.GetReadableMeetCode().equals("") ? portal.GetName() : portal.GetReadableMeetCode() + ": " + portal.GetName();
         TextView tvEntranceName = (TextView) convertView.findViewById(R.id.tvEntranceName);
         tvEntranceName.setText(sEntranceName);
 
