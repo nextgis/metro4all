@@ -21,6 +21,7 @@
 	<string name="sCannotGetPath">Шлях не знойдзены</string>
 	<string name="sInvalidCSVData">Памылковыя дадзеныя csv. Сума ў полі памылковая. Файл: </string>
 	<string name="sNoOrEmptyData">Дадзеныя адсутнічаюць альбо памылковыя. Калі ласка, запампуйце базу дадзеных.</string>
+	<string name="sNoImage">Няма выявы або яна пашкоджана. Калі ласка, запампуйце базу дадзеных.</string>
 
     <string name="sLocationFail">Немагчыма вызначыць месцазнаходжанне</string>
     <string name="sLocationDisabled">Вызначэнне месцазнаходжання адключана</string>
