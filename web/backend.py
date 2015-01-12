@@ -285,9 +285,33 @@ def get_routes(lang, city, delta=5, limit=3):
                 route.append(unit)
 
             # Заполняем информацию о входах
+            if portal_from is not None:
+                portal_from_obj = filter(
+                    lambda portal: portal['id_entrance'] == str(portal_from),
+                    PORTALS[city]
+                )[0]
+
+            if portal_to is not None:
+                portal_to_obj = filter(
+                    lambda portal: portal['id_entrance'] == str(portal_to),
+                    PORTALS[city]
+                )[0]
+
             portals = dict(
-                portal_from=dict(barriers=portal_barriers(portal_from)) if portal_from else None,
-                portal_to=dict(barriers=portal_barriers(portal_to)) if portal_to else None
+                portal_from=dict(
+                    barriers=portal_barriers(portal_from),
+                    name= '#%s: %s' % (
+                        portal_from_obj['meetcode'],
+                        portal_from_obj.get('name_' + lang, 'name_en')
+                    )
+                ) if portal_from else None,
+                portal_to=dict(
+                    barriers=portal_barriers(portal_to),
+                    name= '#%s: %s' % (
+                        portal_to_obj['meetcode'],
+                        portal_to_obj.get('name_' + lang, 'name_en')
+                    )
+                ) if portal_to else None
             )
 
             routes.append(dict(route=route, portals=portals))

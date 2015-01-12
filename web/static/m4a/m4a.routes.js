@@ -320,6 +320,7 @@
                 result = "<li class='" + fullClassName + "'>" + m4a.resources.routes[settings.resourceName];
 
             if (portal) {
+                result += " " + portal.name;
                 var barriers = portal.barriers;
                 if (barriers) {
                     result += this.fillBarriers(barriers);
