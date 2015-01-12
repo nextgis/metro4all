@@ -149,7 +149,12 @@
                         }
 
                         $portalMarkerIcon = $(portalMarker._icon);
-                        new Opentip($portalMarkerIcon, '#' + portalMarker.feature.properties.meetcode + ': ' + portalMarker.feature.properties.name);
+                        new Opentip(
+                            $portalMarkerIcon, '#' + portalMarker.feature.properties.meetcode + ': ' + portalMarker.feature.properties.name,
+                            {
+                                background: '#d6f1f8',
+                                borderColor: '#85d4e9'
+                            });
 //                        debugger;
                     }
                 }
