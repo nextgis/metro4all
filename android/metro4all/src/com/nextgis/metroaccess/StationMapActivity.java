@@ -101,8 +101,8 @@ public class StationMapActivity extends SherlockActivity {
         Intent inIntent = getIntent();
         bundle = inIntent.getExtras();
 
-        mStationID = inIntent.getIntExtra(PARAM_SEL_STATION_ID, 0);
-        mPortalID = inIntent.getIntExtra(PARAM_SEL_PORTAL_ID, 0);
+        mStationID = inIntent.getIntExtra(BUNDLE_STATIONID_KEY, 0);
+        mPortalID = inIntent.getIntExtra(BUNDLE_PORTALID_KEY, 0);
         mIsPortalIn = inIntent.getBooleanExtra(PARAM_PORTAL_DIRECTION, true);
         mNeedResult = inIntent.getBooleanExtra(PARAM_ACTIVITY_FOR_RESULT, true);
         mIsRootActivity = inIntent.getBooleanExtra(PARAM_ROOT_ACTIVITY, true);
@@ -123,13 +123,15 @@ public class StationMapActivity extends SherlockActivity {
         mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
         m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
 
-        setTitle(String.format(
-                getString(mIsPortalIn
-                        ? R.string.sInPortalMapTitle : R.string.sOutPortalMapTitle),
-                station.GetName()));
+        String title = station == null ? getString(R.string.sNotSet) : station.GetName();
+        setTitle(String.format(getString(mIsPortalIn ? R.string.sInPortalMapTitle : R.string.sOutPortalMapTitle), title));
+
+        double lat, lon;
+        lat = station == null ? 0 : station.GetLatitude();
+        lon = station == null ? 0 : station.GetLongitude();
 
         mMapView = new StationMapView(mAppContext, 256, mResourceProxy,
-                new GeoPoint(station.GetLatitude(), station.GetLongitude()));
+                new GeoPoint(lat, lon));
 
         InitMap();
 
@@ -332,10 +334,8 @@ public class StationMapActivity extends SherlockActivity {
                             }
 
                             Intent outIntent = new Intent();
-                            outIntent.putExtra(PARAM_SEL_STATION_ID,
-                                    selectedPortal.GetStationId());
-                            outIntent.putExtra(PARAM_SEL_PORTAL_ID,
-                                    selectedPortal.GetId());
+                            outIntent.putExtra(BUNDLE_STATIONID_KEY, selectedPortal.GetStationId());
+                            outIntent.putExtra(BUNDLE_PORTALID_KEY, selectedPortal.GetId());
                             setResult(RESULT_OK, outIntent);
                             finish();
 

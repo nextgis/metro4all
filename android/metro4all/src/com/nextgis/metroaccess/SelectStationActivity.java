@@ -56,8 +56,6 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
 import static com.nextgis.metroaccess.Constants.MENU_ABOUT;
 import static com.nextgis.metroaccess.Constants.MENU_SETTINGS;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_PORTAL_ID;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
 import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 import static com.nextgis.metroaccess.Constants.PREF_RESULT;
 import static com.nextgis.metroaccess.Constants.TAG;
@@ -321,8 +319,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                 if (resultCode == RESULT_OK) {
                     ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.PORTAL, Analytics.SCREEN_MAP);
 
-                    int stationID = data.getIntExtra(PARAM_SEL_STATION_ID, 0);
-                    int portalID = data.getIntExtra(PARAM_SEL_PORTAL_ID, 0);
+                    int stationID = data.getIntExtra(BUNDLE_STATIONID_KEY, 0);
+                    int portalID = data.getIntExtra(BUNDLE_PORTALID_KEY, 0);
                     Finish(stationID, portalID);
                 }
                 break;

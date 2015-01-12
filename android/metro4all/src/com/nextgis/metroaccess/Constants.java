@@ -60,10 +60,7 @@ public interface Constants {
     public final static int PORTAL_MAP_MAIN_TO_RESULT = 6;
     public final static int MAX_RECENT_ITEMS = 10;
 
-    public final static String PARAM_SEL_STATION_ID = "SEL_STATION_ID";
-    public final static String PARAM_SEL_PORTAL_ID = "SEL_PORTAL_ID";
     public final static String PARAM_PORTAL_DIRECTION = "PORTAL_DIRECTION";
-
     public final static String PARAM_SCHEME_PATH = "image_path";
     public final static String PARAM_ROOT_ACTIVITY = "root_activity";
     public final static String PARAM_ACTIVITY_FOR_RESULT = "NEED_RESULT";

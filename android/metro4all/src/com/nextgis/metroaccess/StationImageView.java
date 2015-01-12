@@ -34,12 +34,13 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.nextgis.metroaccess.data.StationItem;
 
 import java.io.File;
 
+import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
-import static com.nextgis.metroaccess.Constants.PARAM_SEL_STATION_ID;
 import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 
 public class StationImageView extends SherlockActivity {
@@ -73,7 +74,10 @@ public class StationImageView extends SherlockActivity {
             mIsRootActivity = bundle.getBoolean(PARAM_ROOT_ACTIVITY);
             isCrossReference = bundle.containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
             msPath = bundle.getString(PARAM_SCHEME_PATH);
-            setTitle(String.format(getString(R.string.sSchema), MainActivity.GetGraph().GetStation(bundle.getInt(PARAM_SEL_STATION_ID, 0)).GetName()));
+
+            StationItem station = MainActivity.GetGraph().GetStation(bundle.getInt(BUNDLE_STATIONID_KEY, 0));
+            String title = station == null ? getString(R.string.sFileNotFound) : String.format(getString(R.string.sSchema), station.GetName());
+            setTitle(title);
         } else {
             isForLegend = true;
             setTitle(R.string.sLegend);
