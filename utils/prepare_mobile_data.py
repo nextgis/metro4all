@@ -4,6 +4,7 @@
 # Data will be put here: /usr/home/karavanjow/projects/metro4all/metroaccess/frontend/data/v2/
 #                    or: metro4all.org/data/v2/
 # example: python prepare_mobile_data.py city USERNAME PASSWORD
+# batch: for i in ams ekb kzn lau min msk niz spb waw; do python prepare_mobile_data.py $i USERNAME PASSWORD; done
 
 import csv
 import os
