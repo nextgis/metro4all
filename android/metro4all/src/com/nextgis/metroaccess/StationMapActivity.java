@@ -91,6 +91,7 @@ public class StationMapActivity extends SherlockActivity {
     private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
 
     private Bundle bundle;
+    private StationItem selectedStation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,7 +109,11 @@ public class StationMapActivity extends SherlockActivity {
         mIsRootActivity = inIntent.getBooleanExtra(PARAM_ROOT_ACTIVITY, true);
 //        isCrossReference = inIntent.getExtras().containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
 
+//        selectedStation = MainActivity.GetGraph().GetStation(mStationID);
         StationItem station = MainActivity.GetGraph().GetStation(mStationID);
+
+//        if (selectedStation == null)
+//            selectedStation = new StationItem(-1, getString(R.string.sStationName) + ": " + m_oContext.getString(R.string.sNotSet), -1, -1, -1, -1, -1, -1);
 
         Tracker t = ((Analytics) getApplication()).getTracker();
         t.setScreenName(Analytics.SCREEN_MAP + " " + getDirection());
@@ -243,8 +248,11 @@ public class StationMapActivity extends SherlockActivity {
             List<PortalItem> portalList = station.GetPortals(mIsPortalIn);
 
             if (isSelectedStation) {
-                minLat = maxLat = portalList.get(0).GetLatitude();
-                minLong = maxLong = portalList.get(0).GetLongitude();
+                minLat = maxLat = station.GetLatitude();
+                minLong = maxLong = station.GetLongitude();
+
+                if (portalList.size() == 0)
+                    Toast.makeText(this, getString(R.string.sNoPortals), Toast.LENGTH_SHORT).show();
             }
 
             for (PortalItem portal : portalList) {

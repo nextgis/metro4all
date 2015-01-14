@@ -171,5 +171,10 @@ public class StationItem implements Parcelable {
 
 	public PortalItem GetPortal(int nPortalId) {
 		return maoPortals.get(nPortalId);
-	}
+
+		}
+
+    public int GetPortalsCount() {
+        return maoPortals.size();
+    }
 }

@@ -63,7 +63,7 @@ public class StationImageView extends SherlockActivity {
         mWebView = (WebView) findViewById(R.id.webView);
         // (*) this line make uses of the Zoom control
         mWebView.getSettings().setBuiltInZoomControls(true);
-        mWebView.getSettings().setJavaScriptEnabled(true);
+//        mWebView.getSettings().setJavaScriptEnabled(true);
 
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setUseWideViewPort(true);
@@ -123,8 +123,9 @@ public class StationImageView extends SherlockActivity {
         double imageRatio = 1.0 * BitmapOfMyImage.getHeight() / BitmapOfMyImage.getWidth();
         String fix = deviceRatio > imageRatio ? "width=\"100%\" height=\"auto\"" : "width=\"auto\" height=\"100%\"";
 
-        String sCmd = "<html><center><img style=\"position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;max-width:100%;max-height:100%;\" " +
-                fix + " src=\"" + sName + "\"></center></html>";
+        // background-color: rgba(0, 0, 0, 0.01); is a fix for showing image on some webkit versions
+        String sCmd = "<html><center><img style=\"background-color:rgba(0,0,0,0.01);position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;max-width:100%;max-height:100%;\" " +
+                fix + " src=\"" + sName + "\" alt=\"TEST\"></center></html>";
 
         mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
 

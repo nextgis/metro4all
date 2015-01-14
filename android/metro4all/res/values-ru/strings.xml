@@ -87,6 +87,7 @@
 	<string name="sLimitsHave">Ограничения</string>
 	<string name="sSummary">Сводка по маршруту</string>
 	<string name="sSummaryClick">Подробно…</string>
+    <string name="sNoPortals">У станции сейчас нет рабочих входов или выходов.</string>
 		<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>

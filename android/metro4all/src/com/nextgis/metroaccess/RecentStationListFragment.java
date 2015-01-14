@@ -22,15 +22,19 @@ package com.nextgis.metroaccess;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class RecentStationListFragment extends SherlockFragment {
 	protected ExpandableListView m_oExpListView;
@@ -60,6 +64,20 @@ public class RecentStationListFragment extends SherlockFragment {
             	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
             	parentActivity.Finish(selected.GetStationId(), selected.GetId());
                 return true;
+            }
+        });
+
+        m_oExpListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                if (((StationItem) m_oExpListAdapter.getGroup(groupPosition)).GetPortalsCount() == 0)
+                    Toast.makeText(getActivity(), getString(R.string.sNoPortals), Toast.LENGTH_SHORT).show();
+
+                return false;
             }
         });
 

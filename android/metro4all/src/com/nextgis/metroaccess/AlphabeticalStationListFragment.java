@@ -25,6 +25,7 @@ import android.util.DisplayMetrics;
 import android.view.ViewTreeObserver;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.nextgis.metroaccess.data.PortalItem;
+import com.nextgis.metroaccess.data.StationItem;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +41,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import static com.nextgis.metroaccess.Constants.*;
 
@@ -80,7 +82,11 @@ public class AlphabeticalStationListFragment extends SherlockFragment {
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);				
+				imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                if (((StationItem)m_oExpListAdapter.getGroup(groupPosition)).GetPortalsCount() == 0)
+                    Toast.makeText(getActivity(), getString(R.string.sNoPortals), Toast.LENGTH_SHORT).show();
+
 				return false;
 			}			
 		});

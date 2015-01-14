@@ -88,6 +88,7 @@
 	<string name="sLimitsHave">Limitations</string>
 	<string name="sSummary">Route summary</string>
 	<string name="sSummaryClick">Details…</string>
+	<string name="sNoPortals">There are no working entrances or exits now.</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>
