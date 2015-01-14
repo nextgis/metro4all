@@ -4,6 +4,8 @@
     <string name="app_name">Metro4All</string>
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
+    
+    <string name="acknowledgements_caption">Licencje</string>
 
     <string name="about_app">Aplikacja ta pozwala na nawigację w metrze dla osób z ograniczeniami ruchu. Obliczy dla Ciebie najbardziej dostępną trasę podróży. \n\nWięcej informacji znajdziesz na:</string>
     <string name="ga_text">Ta aplikacja zbiera i analizuje korzystanie z aplikacji przy pomocy Google Analytics. Wszystkie dane są anonimizowane i wykorzystywane wyłącznie do poprawy jakości aplikacji. Możesz wyłączyć zbieranie danych w Ustawieniach.</string>
@@ -21,7 +23,7 @@
 	<string name="sCannotGetPath">Błędna ścieżka do pliku</string>
 	<string name="sInvalidCSVData">Niepoprawna ilość pól w pliku csv: </string>
 	<string name="sNoOrEmptyData">Brak danych lub dane niepoprawne. Proszę ściągnąć aktualizację bazy danych.</string>
-	<string name="sNoImage">Brak obrazu lub obraz jest nieprawidłowy. Proszę ściągnąć aktualizację bazy danych.</string>
+	<string name="sNoImage">Brak lub niepoprawny format grafiki. Uzupełnij dane.</string>
 
     <string name="sLocationFail">Nie udało się ustalić twojej lokalizacji</string>
     <string name="sLocationDisabled">Usługi lokalizacyjne są wyłączone</string>
@@ -84,7 +86,8 @@
 	<string name="sLimitsSet">Ustaw ograniczenia</string>
 	<string name="sLimitsHave">Status</string>
 	<string name="sSummary">Podsumowanie podróży</string>		
-	<string name="sSummaryClick">Kliknij, aby zobaczyć szczegóły</string>		
+	<string name="sSummaryClick">Kliknij, aby zobaczyć szczegóły</string>	
+	<string name="sNoPortals">Wszystkie wyjścia lub wejścia tej stacji są okresowo zamkniete.</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Linie</string>
