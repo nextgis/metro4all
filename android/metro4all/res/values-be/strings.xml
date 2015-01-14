@@ -4,6 +4,8 @@
     <string name="app_name">Metro4All</string>
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
+    
+    <string name="acknowledgements_caption">Ліцэнзіі</string>
 
     <string name="about_app">Гэты апп вылічвае маршрут у метро і паказвае інфармацыю пра бар\'еры, якія вас чакаюць на шляху. \n\nБольш інфармацыі:</string>
     <string name="ga_text">Это приложение собирает и обрабатывает данные об использовании приложения с помощью Google Analytics. Данные обезличены, строго конфиденциальны и используются в целях улучшения производительности приложения. Это поведение можно отключить в настройках приложения.</string>
@@ -85,6 +87,7 @@
 	<string name="sLimitsHave">Абмежаванні</string>
 	<string name="sSummary">Выдаць маршрут</string>		
 	<string name="sSummaryClick">Больш інфармацыі</string>		
+	<string name="sNoPortals">У станции сейчас нет работающих входов или выходов.</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Я</string>
 	<string name="sSelLinesTab">Лініі</string>
