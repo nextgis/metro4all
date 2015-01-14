@@ -5,6 +5,8 @@
     <string name="sHomepage">http://nextgis.org</string>
     <string name="sDetailpage">http://metro4all.org</string>
 
+    <string name="acknowledgements_caption">Лицензии</string>
+
     <string name="about_app">Это приложение расcчитывает маршрут по метро и показывает препятствия, которые встретятся вам на пути. \n\nПодробнее:</string>
     <string name="ga_text">Это приложение собирает и обрабатывает данные об использовании приложения с помощью Google Analytics. Данные обезличены, строго конфиденциальны и используются в целях улучшения производительности приложения. Это поведение можно отключить в настройках приложения.</string>
 
@@ -37,8 +39,8 @@
 	<string name="sDownload">Загрузить</string>
 	<string name="sDelete">Удалить</string>
 	<string name="sYes">Да</string>
-	<string name="sNo">Нет</string>	
-	<string name="sOk">Ok</string>	
+	<string name="sNo">Нет</string>
+	<string name="sOk">Ok</string>
 	<string name="sCancel">Отмена</string>
 	<string name="sQuestion">Обновить все данные</string>
 	<string name="sAreYouSure">Уверены?</string>
@@ -61,7 +63,7 @@
 	<string name="sSelFromStation">Выберите станцию</string>
 	<string name="sSelToStation">Выберите станцию</string>
 	<string name="sBarriersExist">Препятствия…</string>
-	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>		
+	<string name="sBarriersConflict">Есть конфликты с вашими параметрами</string>
 	<string name="sMaxWCWidth">Мин. ширина прохода</string>
 	<string name="sStairsCount">Всего ступеней</string>
 	<string name="sStairsEconomy">Можно сэкономить ступеней (за счет лифтов, пандусов, рельс)</string>
@@ -78,9 +80,9 @@
 	<string name="sRailWidth">Расстояние между колесами</string>
 	<string name="sMaxAngle">Макс. угол наклона</string>
 	<string name="sDownloadData">Загрузить данные по маршрутам?</string>
-	<string name="sDeleteData">Удалить данные по маршрутам?</string>	
+	<string name="sDeleteData">Удалить данные по маршрутам?</string>
 	<string name="sConflictNotes">Входы, конфликтующие с вашими ограничениями, отмечены красным</string>
-	<string name="sLimits">Ограничения</string>		
+	<string name="sLimits">Ограничения</string>
 	<string name="sLimitsSet">Установить мои ограничения</string>
 	<string name="sLimitsHave">Ограничения</string>
 	<string name="sSummary">Сводка по маршруту</string>
@@ -98,15 +100,15 @@
 	<string name="sPrefNaviTypeTitle">Выбрать тип навигации</string>
 	<string name="sPrefWheelBaseSize">Ширина колесной базы</string>
 	<string name="sPrefWheelBaseSizeSummary">Расстояние между колесами (см)</string>
-	<string name="sPrefWheelBaseSizeTitle">Введите расстояние между колесами (см)</string>		
+	<string name="sPrefWheelBaseSizeTitle">Введите расстояние между колесами (см)</string>
 	<string name="sPrefCarriageSize">Ширина коляски</string>
 	<string name="sPrefCarriageSizeSummary">Максимальная ширина коляски (см)</string>
-	<string name="sPrefCarriageSizeTitle">Введите ширину коляски (см)</string>	
+	<string name="sPrefCarriageSizeTitle">Введите ширину коляски (см)</string>
 	<string name="sPrefDataPath">Загружать данные по ссылке</string>
 	<string name="sPrefDataPathSummary">Ссылка для загрузки данных маршрутизации</string>
 	<string name="sPrefDataPathTitle">Ввести ссылку для загрузки данных</string>
 	<string name="sPrefUpdDataSummary">Нажмите, чтобы обновить данные</string>
-	<string name="sPrefUpdDataTitle">Обновить данные</string>	
+	<string name="sPrefUpdDataTitle">Обновить данные</string>
 	<string name="sPrefChangeCityBasesBtn">Изменить</string>
 	<string name="sPrefChangeCityBasesTitle">Добавить/Удалить город</string>
 	<string name="sPrefChangeCityBasesSummary">Нажмите, чтобы выбрать загружаемые города</string>
@@ -123,5 +125,5 @@
     <string name="sPrefGASum">Собирает данные для улучшения производительности приложения</string>
 
 	<string name="switch_on">Вкл</string>
-	<string name="switch_off">Выкл</string>		
+	<string name="switch_off">Выкл</string>
 </resources>
