@@ -1,4 +1,10 @@
-## v. 2.5 (upcoming)
+## v. 2.5.1 (16.01.2015)
+* Improved icons quality and markers position on map screen
+* Fixed app crash on bringing foreground
+* Fixed app crash on map screen for stations that doesn't have portals
+* Fixed schemes visibility on some devices
+
+## v. 2.5 (12.01.2015)
 + Added layout button to From / To panes on main screen
 + Added map button for source and destination stations on routing screen
 + Added acknowledgements dialog on about screen
