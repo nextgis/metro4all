@@ -135,10 +135,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
         gpsMyLocationProvider = new GpsMyLocationProvider(this);
 		setContentView(R.layout.empty_activity_main);
-		m_nDepartureStationId = m_nArrivalStationId = -1;
-		m_nDeparturePortalId = m_nArrivalPortalId = -1;
 
-		m_aoDepRecentIds = new ArrayList<Pair<Integer, Integer>>();
+        m_aoDepRecentIds = new ArrayList<Pair<Integer, Integer>>();
 		m_aoArrRecentIds = new ArrayList<Pair<Integer, Integer>>();
         mCities = new ArrayList<String>();
 
@@ -147,13 +145,19 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         // initialize the default settings
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        m_nDepartureStationId = prefs.getInt("dep_"+BUNDLE_STATIONID_KEY, -1);
+        m_nArrivalStationId = prefs.getInt("arr_"+BUNDLE_STATIONID_KEY, -1);
+        m_nDeparturePortalId = prefs.getInt("dep_"+BUNDLE_PORTALID_KEY, -1);
+        m_nArrivalPortalId = prefs.getInt("arr_"+BUNDLE_PORTALID_KEY, -1);
+
         m_sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, m_sUrl);
 
         updateApplicationStructure(prefs);
 
-		String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
-		String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
-		m_oGraph = new MAGraph(this.getBaseContext(), sCurrentCity, getExternalFilesDir(null), sCurrentCityLang);
+//        String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
+//        String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
+//        m_oGraph = new MAGraph(this.getBaseContext(), sCurrentCity, getExternalFilesDir(null), sCurrentCityLang);
+        m_oGraph = Analytics.getGraph();
 
 		//create downloading queue empty initially
 		m_asDownloadData = new ArrayList<DownloadData>();
@@ -1090,6 +1094,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	}
 
 	public static MAGraph GetGraph(){
+        if (m_oGraph == null)
+            m_oGraph = Analytics.getGraph();
+
 		return m_oGraph;
 	}
 
@@ -1132,24 +1139,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             m_oSearchButton.setEnabled(false);
         }
         return true;
-    }
-
-    /**
-     * Get proper icon bitmap from file
-     *
-     * @param line  line color
-     * @param type  icon type
-     * @return      Bitmap
-     */
-    public static Bitmap getBitmapFromFile(int line, int type) {
-        Bitmap bitmap = null;
-
-        File imgFile = new File(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons", line + "" + type + ".png");
-
-        if(imgFile.exists())
-            bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-        return bitmap;
     }
 
     /**
@@ -1279,17 +1268,28 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
     private void updateApplicationStructure(SharedPreferences prefs) {
         try {
-            if(prefs.getInt(APP_VERSION, 0) < getPackageManager().getPackageInfo(getPackageName(), 0).versionCode) { // update from previous version or clean install
-                // ==========Improvement==========
-                File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()).getPath());
-                DeleteRecursive(oDataFolder);
-                // ==========End Improvement==========
+            int currentVersionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            int savedVersionCode = prefs.getInt(APP_VERSION, 0);
 
+            switch (savedVersionCode) {
+                case 14:
+                    break;
+                case 0:
+                    // ==========Improvement==========
+                    File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()).getPath());
+                    DeleteRecursive(oDataFolder);
+                    // ==========End Improvement==========
+                    break;
+                default:
+                    break;
+            }
+
+            if(savedVersionCode < currentVersionCode) { // update from previous version or clean install
                 // save current version to preferences
-                prefs.edit().putInt(APP_VERSION, getPackageManager().getPackageInfo(getPackageName(), 0).versionCode).commit();
+                prefs.edit().putInt(APP_VERSION, currentVersionCode).commit();
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 }

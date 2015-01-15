@@ -21,13 +21,19 @@
 package com.nextgis.metroaccess;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.nextgis.metroaccess.data.MAGraph;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class Analytics extends Application {
 //    private static final String PROPERTY_ID = "UA-57998948-1";
@@ -62,6 +68,20 @@ public class Analytics extends Application {
     final static String LEGEND = "Legend";
 
     private Tracker tracker;
+    private static MAGraph mGraph;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
+        String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
+        mGraph = new MAGraph(this, sCurrentCity, getExternalFilesDir(null), sCurrentCityLang);
+    }
+
+    public static MAGraph getGraph(){
+		return mGraph;
+	}
 
     synchronized Tracker getTracker() {
         if (tracker == null) {
