@@ -25,15 +25,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
+
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -42,21 +46,29 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
+
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.overlay.*;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nextgis.metroaccess.Constants.*;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
+import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
+import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
+import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 
 public class StationMapActivity extends SherlockActivity {
+    private enum MARKERS_TYPE { ENTRANCE, EXIT, CHECKED, INVALID };
+    private int[] MARKERS_ID = { R.raw.portal_in, R.raw.portal_in, R.raw.portal_checked, R.raw.portal_invalid };
 
     protected int mnType;
     protected int mnMaxWidth, mnWheelWidth;
@@ -176,46 +188,55 @@ public class StationMapActivity extends SherlockActivity {
                 prefs.getInt(PREFS_SCROLL_Y, 0));
     }
 
-    protected void LoadPortalsToOverlay() {
-        scaledDensity = getBaseContext().getResources().getDisplayMetrics().scaledDensity;
+    private Drawable getMarkerDrawable(MARKERS_TYPE type) {
+        Drawable result = null;
+        Bitmap original, scaledBitmap;
 
+        original = MainActivity.getBitmapFromSVG(this, MARKERS_ID[type.ordinal()]);
+//        int size = (int) (original.getWidth() / scaledDensity / 2);
+        int size = dpToPx(32);
+
+        Matrix matrix = new Matrix();
+
+        if (type == MARKERS_TYPE.EXIT) {
+            matrix.postRotate(180);
+            original = Bitmap.createBitmap(original, 0, 0, original.getWidth(), original.getHeight(), matrix, true);
+        }
+
+        scaledBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+
+        float ratioX = size / (float) original.getWidth();
+        float ratioY = size / (float) original.getHeight();
+
+        matrix = new Matrix();
+        matrix.setScale(ratioX, ratioY);
+
+        Canvas cnv = new Canvas(scaledBitmap);
+        cnv.setMatrix(matrix);
+        cnv.drawBitmap(original, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
+
+        result = new BitmapDrawable(mAppContext.getResources(), scaledBitmap);
+
+        return result;
+    }
+
+    private int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
+
+    protected void LoadPortalsToOverlay() {
         ArrayList<OverlayItem> overlayPortals = new ArrayList<OverlayItem>();
         ArrayList<OverlayItem> overlayTransparentPortals = new ArrayList<OverlayItem>();
 
-        Bitmap original = BitmapFactory.decodeResource(mAppContext.getResources(),
-                mIsPortalIn ? R.drawable.portal_in : R.drawable.portal_out);
-        Drawable markerPortal = new BitmapDrawable(mAppContext.getResources(),
-                Bitmap.createScaledBitmap(original,
-                        (int) (scaledDensity * original.getWidth()),
-                        (int) (scaledDensity * original.getHeight()), false));
+        scaledDensity = getBaseContext().getResources().getDisplayMetrics().scaledDensity;
 
-        original = BitmapFactory.decodeResource(mAppContext.getResources(),
-                mIsPortalIn ? R.drawable.portal_in_tr : R.drawable.portal_out_tr);
-        Drawable markerTransparentPortal = new BitmapDrawable(mAppContext.getResources(),
-                Bitmap.createScaledBitmap(original,
-                        (int) (scaledDensity * original.getWidth()),
-                        (int) (scaledDensity * original.getHeight()), false));
-
-        original = BitmapFactory.decodeResource(mAppContext.getResources(),
-                R.drawable.portal_invalid);
-        Drawable markerInvalidPortal = new BitmapDrawable(mAppContext.getResources(),
-                Bitmap.createScaledBitmap(original,
-                        (int) (scaledDensity * original.getWidth()),
-                        (int) (scaledDensity * original.getHeight()), false));
-
-        original = BitmapFactory.decodeResource(mAppContext.getResources(),
-                R.drawable.portal_invalid_tr);
-        Drawable markerTransparentInvalidPortal = new BitmapDrawable(mAppContext.getResources(),
-                Bitmap.createScaledBitmap(original,
-                        (int) (scaledDensity * original.getWidth()),
-                        (int) (scaledDensity * original.getHeight()), false));
-
-        original = BitmapFactory.decodeResource(mAppContext.getResources(),
-                R.drawable.portal_checked);
-        Drawable markerCheckedPortal = new BitmapDrawable(mAppContext.getResources(),
-                Bitmap.createScaledBitmap(original,
-                        (int) (scaledDensity * original.getWidth()),
-                        (int) (scaledDensity * original.getHeight()), false));
+        Drawable markerPortal  = getMarkerDrawable(mIsPortalIn ? MARKERS_TYPE.ENTRANCE: MARKERS_TYPE.EXIT);
+        Drawable markerTransparentPortal = markerPortal.getConstantState().newDrawable().mutate();
+        Drawable markerInvalidPortal = getMarkerDrawable(MARKERS_TYPE.INVALID);
+        Drawable markerTransparentInvalidPortal = markerInvalidPortal.getConstantState().newDrawable().mutate();
+        Drawable markerCheckedPortal = getMarkerDrawable(MARKERS_TYPE.CHECKED);
 
         markerTransparentPortal.setAlpha(127);
         markerTransparentInvalidPortal.setAlpha(127);
