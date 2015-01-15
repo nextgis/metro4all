@@ -34,7 +34,6 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -67,7 +66,7 @@ import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 
 public class StationMapActivity extends SherlockActivity {
-    private enum MARKERS_TYPE { ENTRANCE, EXIT, CHECKED, INVALID };
+    private enum MARKERS_TYPE { ENTRANCE, EXIT, CHECKED, INVALID }
     private int[] MARKERS_ID = { R.raw.portal_in, R.raw.portal_in, R.raw.portal_checked, R.raw.portal_invalid };
 
     protected int mnType;
@@ -103,7 +102,8 @@ public class StationMapActivity extends SherlockActivity {
     private ItemizedIconOverlay<OverlayItem> mPointsOverlay;
 
     private Bundle bundle;
-    private StationItem selectedStation;
+
+    private int spanLat, spanLong;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,6 +153,13 @@ public class StationMapActivity extends SherlockActivity {
         InitMap();
 
         setContentView(mMapView);
+
+        mMapView.postDelayed(new Runnable() {   // there is no callback on map loaded
+            @Override
+            public void run() {
+                mMapView.getController().zoomToSpan(spanLat, spanLong);
+            }
+        }, 1500);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -183,9 +190,9 @@ public class StationMapActivity extends SherlockActivity {
 
         mMapView.setMultiTouchControls(true);
         mMapView.setBuiltInZoomControls(true);
-        mMapView.getController().setZoom(prefs.getInt(PREFS_ZOOM_LEVEL, 15));
-        mMapView.scrollTo(prefs.getInt(PREFS_SCROLL_X, 0),
-                prefs.getInt(PREFS_SCROLL_Y, 0));
+//        mMapView.getController().setZoom(prefs.getInt(PREFS_ZOOM_LEVEL, 15));
+        mMapView.getController().setZoom(mMapView.getMaxZoomLevel());
+        mMapView.scrollTo(prefs.getInt(PREFS_SCROLL_X, 0), prefs.getInt(PREFS_SCROLL_Y, 0));
     }
 
     private Drawable getMarkerDrawable(MARKERS_TYPE type) {
@@ -194,7 +201,8 @@ public class StationMapActivity extends SherlockActivity {
 
         original = MainActivity.getBitmapFromSVG(this, MARKERS_ID[type.ordinal()]);
 //        int size = (int) (original.getWidth() / scaledDensity / 2);
-        int size = dpToPx(32);
+//        int size = dpToPx(24);
+        int size = (int) (24 * scaledDensity);
 
         Matrix matrix = new Matrix();
 
@@ -220,19 +228,13 @@ public class StationMapActivity extends SherlockActivity {
         return result;
     }
 
-    private int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
-    }
-
     protected void LoadPortalsToOverlay() {
         ArrayList<OverlayItem> overlayPortals = new ArrayList<OverlayItem>();
         ArrayList<OverlayItem> overlayTransparentPortals = new ArrayList<OverlayItem>();
 
         scaledDensity = getBaseContext().getResources().getDisplayMetrics().scaledDensity;
 
-        Drawable markerPortal  = getMarkerDrawable(mIsPortalIn ? MARKERS_TYPE.ENTRANCE: MARKERS_TYPE.EXIT);
+        Drawable markerPortal = getMarkerDrawable(mIsPortalIn ? MARKERS_TYPE.ENTRANCE: MARKERS_TYPE.EXIT);
         Drawable markerTransparentPortal = markerPortal.getConstantState().newDrawable().mutate();
         Drawable markerInvalidPortal = getMarkerDrawable(MARKERS_TYPE.INVALID);
         Drawable markerTransparentInvalidPortal = markerInvalidPortal.getConstantState().newDrawable().mutate();
@@ -243,7 +245,7 @@ public class StationMapActivity extends SherlockActivity {
 
         stationList = new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
 
-        double minLat = 0, minLong = 0, maxLat = 0, maxLong = 0;
+        double minLat = Double.MAX_VALUE, minLong = Double.MAX_VALUE, maxLat = Double.MIN_VALUE, maxLong = Double.MIN_VALUE;
 
         int stationListSize = stationList.size();
         int i = 0;
@@ -269,11 +271,11 @@ public class StationMapActivity extends SherlockActivity {
             List<PortalItem> portalList = station.GetPortals(mIsPortalIn);
 
             if (isSelectedStation) {
-                minLat = maxLat = station.GetLatitude();
-                minLong = maxLong = station.GetLongitude();
-
-                if (portalList.size() == 0)
+                if (portalList.size() == 0) {
+                    minLat = maxLat = station.GetLatitude();
+                    minLong = maxLong = station.GetLongitude();
                     Toast.makeText(this, getString(R.string.sNoPortals), Toast.LENGTH_SHORT).show();
+                }
             }
 
             for (PortalItem portal : portalList) {
@@ -306,14 +308,10 @@ public class StationMapActivity extends SherlockActivity {
                     double portalLat = portal.GetLatitude();
                     double portalLong = portal.GetLongitude();
 
-                    if (portalLat < minLat)
-                        minLat = portalLat;
-                    if (portalLat > maxLat)
-                        maxLat = portalLat;
-                    if (portalLong < minLong)
-                        minLong = portalLong;
-                    if (portalLong > maxLong)
-                        maxLong = portalLong;
+                    maxLat = Math.max(portalLat, maxLat);
+                    minLat = Math.min(portalLat, minLat);
+                    maxLong = Math.max(portalLong, maxLong);
+                    minLong = Math.min(portalLong, minLong);
 
                     overlayPortals.add(itemPortal);
 
@@ -322,14 +320,20 @@ public class StationMapActivity extends SherlockActivity {
                             ? markerTransparentInvalidPortal : markerTransparentPortal);
                     overlayTransparentPortals.add(itemPortal);
                 }
+
+                itemPortal.setMarkerHotspot(OverlayItem.HotspotPlace.CENTER);
             }
 
             ++i;
             isForSelectedStation = !isForSelectedStation && (i == stationListSize);
         }
 
-        mMapView.setMapCenter(new GeoPoint((maxLat - minLat) / 2 + minLat,
-                (maxLong - minLong) / 2 + minLong));
+        GeoPoint stationCenter = new GeoPoint((maxLat + minLat) / 2, (maxLong + minLong) / 2);
+        mMapView.setMapCenter(stationCenter);
+
+        double padding = 1.2;
+        spanLat = (int) (Math.abs(maxLat * 1E6 - minLat * 1E6) * padding);
+        spanLong = (int) (Math.abs(maxLong * 1E6 - minLong * 1E6) * padding);
 
         ArrayList<OverlayItem> overlayItems = overlayTransparentPortals;
 
