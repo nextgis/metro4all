@@ -19,44 +19,46 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="?android:attr/listPreferredItemHeight"
-  android:gravity="center_vertical"
-  android:orientation="horizontal"
-  >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
+    >
 
-  <ImageView
-      android:id="@+id/ivIcon"
-      android:layout_width="24dip"
-      android:layout_height="24dip"
-      android:layout_margin="10dip"
-      />
-
-  <TextView
-      android:id="@+id/tvStationName"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:textStyle="bold"
-      android:textSize="20sp"
-      android:ellipsize="marquee"
-      />
-
-    <TextView
-      android:id="@+id/tvPortalMapButton"
-      android:background="@drawable/ic_action_map"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="15dip"
-      />
-
-    <TextView
-        android:id="@+id/tvStationSchemeButton"
-        android:background="@drawable/ic_action_schema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dip"
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="24dip"
+        android:layout_height="24dip"
+        android:layout_margin="10dip"
         />
+
+    <TextView
+        android:id="@+id/tvStationName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="marquee"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <ImageButton
+        android:id="@+id/ibtnMap"
+        android:layout_width="45dp"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:scaleType="center"
+        android:src="@drawable/ic_action_map"/>
+
+    <ImageButton
+        android:id="@+id/ibtnLayout"
+        android:layout_width="45dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dp"
+        android:background="@null"
+        android:scaleType="center"
+        android:src="@drawable/ic_action_schema"/>
 
 </LinearLayout>

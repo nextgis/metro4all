@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -95,7 +96,6 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 			int size = prefs.getInt("recent_dep_counter", 0);
 			for(int i = 0; i < size; i++){
 				int nStationId = prefs.getInt("recent_dep_" + BUNDLE_STATIONID_KEY+i, -1);
-				//int nPortalId = prefs.getInt("recent_dep_"+MainActivity.BUNDLE_PORTALID_KEY+i, -1);
 
 				StationItem sit = omStations.get(nStationId);
 				if(sit != null && !mStationList.contains(sit)){
@@ -107,7 +107,6 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 			int size = prefs.getInt("recent_arr_counter", 0);
 			for(int i = 0; i < size; i++){
 				int nStationId = prefs.getInt("recent_arr_" + BUNDLE_STATIONID_KEY+i, -1);
-				//int nPortalId = prefs.getInt("recent_arr_" + BUNDLE_PORTALID_KEY+i, -1);
 
 				StationItem sit = omStations.get(nStationId);
 				if(sit != null && !mStationList.contains(sit)){
@@ -225,20 +224,13 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
 
 			String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
 
-//			File imgFile = new File(sRouteDataPath + "/icons", "" + entry.GetLine() + "" + entry.GetType() + ".png");
-//			Log.d(TAG, imgFile.getPath());
-//			if(imgFile.exists()){
-//
-//			    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-//			    ivIcon.setImageBitmap(myBitmap);
-//			}
             String color = MainActivity.GetGraph().GetLineColor(entry.GetLine());
             Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, R.raw._0, color);
             ivIcon.setImageBitmap(myBitmap);
 
-            TextView tvSchemeButton = (TextView) convertView.findViewById(R.id.tvStationSchemeButton);
+            ImageButton ibtnLayout = (ImageButton) convertView.findViewById(R.id.ibtnLayout);
             final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
-            final SelectStationActivity parentActivity = (SelectStationActivity) tvSchemeButton.getContext();
+            final SelectStationActivity parentActivity = (SelectStationActivity) ibtnLayout.getContext();
 
             final Bundle bundle = new Bundle();
             bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
@@ -250,7 +242,7 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
             final String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
             final String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
 
-            tvSchemeButton.setOnClickListener(new View.OnClickListener() {
+            ibtnLayout.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     try {
                         Log.d(TAG, schemaFile.getPath());
@@ -266,8 +258,8 @@ public class StationExpandableListAdapter extends BaseExpandableListAdapter impl
                 }
             });
 
-            TextView tvMapButton = (TextView) convertView.findViewById(R.id.tvPortalMapButton);
-            tvMapButton.setOnClickListener(new View.OnClickListener() {
+            ImageButton ibtnMap = (ImageButton) convertView.findViewById(R.id.ibtnMap);
+            ibtnMap.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
 
