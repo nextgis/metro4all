@@ -5,13 +5,13 @@
         <customproperties/>
         <layer-tree-group expanded="0" checked="Qt::Checked" name="AMS">
             <customproperties/>
-            <layer-tree-layer expanded="0" checked="Qt::Checked" id="stations20150110115423969" name="ams-stations">
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="stations20150110115423969" name="ams-stations">
                 <customproperties/>
             </layer-tree-layer>
             <layer-tree-layer expanded="1" checked="Qt::Checked" id="portals20150110115343625" name="ams-portals">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="0" checked="Qt::Checked" id="lines20150110115631442" name="ams-lines">
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="lines20150110115631442" name="ams-lines">
                 <customproperties/>
             </layer-tree-layer>
         </layer-tree-group>
@@ -123,107 +123,107 @@
                 <customproperties/>
             </layer-tree-layer>
         </layer-tree-group>
-        <layer-tree-layer expanded="1" checked="Qt::Checked" id="OpenStreetMap_mapnik20141002230349773" name="OpenStreetMap mapnik">
+        <layer-tree-layer expanded="1" checked="Qt::Checked" id="OSM_Mapnik_style20150116221053182" name="OSM Mapnik style">
             <customproperties/>
         </layer-tree-layer>
     </layer-tree-group>
     <relations/>
     <mapcanvas>
-        <units>meters</units>
+        <units>degrees</units>
         <extent>
-            <xmin>-21039383.75992870703339577</xmin>
-            <ymin>-21039383.75991977378726006</ymin>
-            <xmax>21039383.75992870703339577</xmax>
-            <ymax>21039383.75991974771022797</ymax>
+            <xmin>-77.65841584158415856</xmin>
+            <ymin>-19.76372379751729014</ymin>
+            <xmax>111.34158415841584144</xmax>
+            <ymax>69.5399614212796422</ymax>
         </extent>
         <rotation>0</rotation>
         <projections>1</projections>
         <destinationsrs>
             <spatialrefsys>
-                <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
-                <srsid>3857</srsid>
-                <srid>3857</srid>
-                <authid>EPSG:3857</authid>
-                <description>WGS 84 / Pseudo Mercator</description>
-                <projectionacronym>merc</projectionacronym>
+                <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+                <srsid>3452</srsid>
+                <srid>4326</srid>
+                <authid>EPSG:4326</authid>
+                <description>WGS 84</description>
+                <projectionacronym>longlat</projectionacronym>
                 <ellipsoidacronym>WGS84</ellipsoidacronym>
-                <geographicflag>false</geographicflag>
+                <geographicflag>true</geographicflag>
             </spatialrefsys>
         </destinationsrs>
         <layer_coordinate_transform_info>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002230104375"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002230034037"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004161550593"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225943819"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002230049919"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="OpenStreetMap_mapnik20141002230349773"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20150110115423969"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004162247759"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141106164353732"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20150110115631442"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002230021188"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004165425748"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141106164103550"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002230004994"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225826862"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141106170009326"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20150110114307457"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004202944146"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225713099"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141024223254106"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225626815"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004164812921"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002225650453"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141024223123082"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141024223222192"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20150110114501753"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20150110115343625"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20150110114418692"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002225905788"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004170124029"/>
-            <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002225737725"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002230104375"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002230034037"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004161550593"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002230049919"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225943819"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20150110115423969"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004162247759"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141106164353732"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20150110115631442"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002230021188"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004165425748"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141106164103550"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002230004994"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004202944146"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225826862"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20150110114307457"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141106170009326"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225713099"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141024223254106"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141002225626815"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004164812921"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002225650453"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="OSM_Mapnik_style20150116221053182"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141024223123082"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20141024223222192"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20150110114501753"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20150110115343625"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="portals20150110114418692"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002225905788"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="lines20141004170124029"/>
+            <layer_coordinate_transform destAuthId="EPSG:4326" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="stations20141002225737725"/>
         </layer_coordinate_transform_info>
     </mapcanvas>
     <visibility-presets/>
     <layer-tree-canvas>
         <custom-order enabled="0">
-            <item>portals20141002225626815</item>
-            <item>stations20141002225650453</item>
-            <item>portals20141002225713099</item>
-            <item>stations20141002225737725</item>
-            <item>portals20141002225826862</item>
-            <item>stations20141002225905788</item>
-            <item>portals20141002225943819</item>
-            <item>stations20141002230004994</item>
-            <item>portals20141002230021188</item>
-            <item>stations20141002230034037</item>
-            <item>portals20141002230049919</item>
-            <item>stations20141002230104375</item>
-            <item>OpenStreetMap_mapnik20141002230349773</item>
-            <item>lines20141004161550593</item>
-            <item>lines20141004162247759</item>
-            <item>lines20141004164812921</item>
-            <item>lines20141004165425748</item>
-            <item>lines20141004170124029</item>
-            <item>lines20141004202944146</item>
+            <item>stations20150110115423969</item>
+            <item>portals20150110115343625</item>
+            <item>lines20150110115631442</item>
             <item>stations20141024223123082</item>
             <item>portals20141024223222192</item>
             <item>lines20141024223254106</item>
+            <item>stations20141002225737725</item>
+            <item>portals20141002225713099</item>
+            <item>lines20141004162247759</item>
+            <item>stations20141002225905788</item>
+            <item>portals20141002225826862</item>
+            <item>lines20141004164812921</item>
+            <item>stations20141002230004994</item>
+            <item>portals20141002225943819</item>
+            <item>lines20141004161550593</item>
+            <item>stations20141002230034037</item>
+            <item>portals20141002230021188</item>
+            <item>lines20141004165425748</item>
+            <item>stations20141002225650453</item>
+            <item>portals20141002225626815</item>
+            <item>lines20141004170124029</item>
             <item>stations20141106164103550</item>
             <item>portals20141106164353732</item>
             <item>lines20141106170009326</item>
             <item>stations20150110114307457</item>
             <item>portals20150110114418692</item>
             <item>lines20150110114501753</item>
-            <item>portals20150110115343625</item>
-            <item>stations20150110115423969</item>
-            <item>lines20150110115631442</item>
+            <item>stations20141002230104375</item>
+            <item>portals20141002230049919</item>
+            <item>lines20141004202944146</item>
+            <item>OSM_Mapnik_style20150116221053182</item>
         </custom-order>
     </layer-tree-canvas>
     <legend updateDrawingOrder="true">
         <legendgroup open="false" checked="Qt::Checked" name="AMS">
-            <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="ams-stations" showFeatureCount="0">
-                <filegroup open="false" hidden="false">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="ams-stations" showFeatureCount="0">
+                <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="stations20150110115423969" visible="1"/>
                 </filegroup>
             </legendlayer>
@@ -232,8 +232,8 @@
                     <legendlayerfile isInOverview="0" layerid="portals20150110115343625" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="ams-lines" showFeatureCount="0">
-                <filegroup open="false" hidden="false">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="ams-lines" showFeatureCount="0">
+                <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="lines20150110115631442" visible="1"/>
                 </filegroup>
             </legendlayer>
@@ -391,50 +391,47 @@
                 </filegroup>
             </legendlayer>
         </legendgroup>
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="OpenStreetMap mapnik" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="OSM Mapnik style" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="OpenStreetMap_mapnik20141002230349773" visible="1"/>
+                <legendlayerfile isInOverview="0" layerid="OSM_Mapnik_style20150116221053182" visible="1"/>
             </filegroup>
         </legendlayer>
     </legend>
     <projectlayers layercount="31">
-        <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
-            <id>OpenStreetMap_mapnik20141002230349773</id>
-            <datasource>crs=EPSG:4326&amp;dpiMode=7&amp;featureCount=10&amp;format=image/png&amp;layers=osm&amp;styles=&amp;url=http://irs.gis-lab.info/</datasource>
+        <maplayer minimumScale="0" maximumScale="1e+08" type="plugin" hasScaleBasedVisibilityFlag="0" name="PyTiledLayer">
+            <id>OSM_Mapnik_style20150116221053182</id>
+            <datasource>.</datasource>
             <title></title>
             <abstract></abstract>
             <keywordList>
                 <value></value>
             </keywordList>
-            <layername>OpenStreetMap mapnik</layername>
+            <attribution href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</attribution>
+            <layername>OSM Mapnik style</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-                    <srsid>3452</srsid>
-                    <srid>4326</srid>
-                    <authid>EPSG:4326</authid>
-                    <description>WGS 84</description>
-                    <projectionacronym>longlat</projectionacronym>
+                    <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+                    <srsid>3857</srsid>
+                    <srid>3857</srid>
+                    <authid>EPSG:3857</authid>
+                    <description>WGS 84 / Pseudo Mercator</description>
+                    <projectionacronym>merc</projectionacronym>
                     <ellipsoidacronym>WGS84</ellipsoidacronym>
-                    <geographicflag>true</geographicflag>
+                    <geographicflag>false</geographicflag>
                 </spatialrefsys>
             </srs>
             <customproperties>
-                <property key="identify/format" value="Undefined"/>
+                <property key="blendMode" value="SourceOver"/>
+                <property key="credit" value="© OpenStreetMap contributors, CC-BY-SA"/>
+                <property key="creditVisibility" value="0"/>
+                <property key="serviceUrl" value="http://tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                <property key="smoothRender" value="1"/>
+                <property key="title" value="OSM Mapnik style"/>
+                <property key="transparency" value="0"/>
+                <property key="yOriginTop" value="1"/>
+                <property key="zmax" value="19"/>
+                <property key="zmin" value="0"/>
             </customproperties>
-            <provider>wms</provider>
-            <noData>
-                <noDataList bandNo="1" useSrcNoData="0"/>
-            </noData>
-            <pipe>
-                <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
-                    <rasterTransparency/>
-                </rasterrenderer>
-                <brightnesscontrast brightness="0" contrast="0"/>
-                <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
-                <rasterresampler maxOversampling="2"/>
-            </pipe>
-            <blendMode>0</blendMode>
         </maplayer>
         <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
             <id>lines20141004161550593</id>
@@ -2023,7 +2020,7 @@
                 </edittype>
             </edittypes>
         </maplayer>
-        <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
             <id>lines20141004170124029</id>
             <datasource>../data/spb/lines.geojson</datasource>
             <title></title>
@@ -2126,7 +2123,7 @@
                             <prop k="customdash_unit" v="MM"/>
                             <prop k="draw_inside_polygon" v="0"/>
                             <prop k="joinstyle" v="bevel"/>
-                            <prop k="line_color" v="68,184,92,255"/>
+                            <prop k="line_color" v="31,120,180,255"/>
                             <prop k="line_style" v="solid"/>
                             <prop k="line_width" v="1.2"/>
                             <prop k="line_width_unit" v="MM"/>
@@ -2162,7 +2159,7 @@
                             <prop k="customdash_unit" v="MM"/>
                             <prop k="draw_inside_polygon" v="0"/>
                             <prop k="joinstyle" v="bevel"/>
-                            <prop k="line_color" v="0,120,191,255"/>
+                            <prop k="line_color" v="51,160,44,255"/>
                             <prop k="line_style" v="solid"/>
                             <prop k="line_width" v="1.2"/>
                             <prop k="line_width_unit" v="MM"/>
@@ -2181,7 +2178,7 @@
                             <prop k="customdash_unit" v="MM"/>
                             <prop k="draw_inside_polygon" v="0"/>
                             <prop k="joinstyle" v="bevel"/>
-                            <prop k="line_color" v="170,85,0,255"/>
+                            <prop k="line_color" v="255,127,0,255"/>
                             <prop k="line_style" v="solid"/>
                             <prop k="line_width" v="0"/>
                             <prop k="line_width_unit" v="MM"/>
@@ -2198,7 +2195,7 @@
                             <prop k="customdash_unit" v="MM"/>
                             <prop k="draw_inside_polygon" v="0"/>
                             <prop k="joinstyle" v="bevel"/>
-                            <prop k="line_color" v="25,193,243,255"/>
+                            <prop k="line_color" v="255,127,0,255"/>
                             <prop k="line_style" v="solid"/>
                             <prop k="line_width" v="1.2"/>
                             <prop k="line_width_unit" v="MM"/>
@@ -2217,7 +2214,7 @@
                             <prop k="customdash_unit" v="MM"/>
                             <prop k="draw_inside_polygon" v="0"/>
                             <prop k="joinstyle" v="bevel"/>
-                            <prop k="line_color" v="170,85,0,255"/>
+                            <prop k="line_color" v="137,46,137,255"/>
                             <prop k="line_style" v="solid"/>
                             <prop k="line_width" v="0"/>
                             <prop k="line_width_unit" v="MM"/>
@@ -2234,7 +2231,7 @@
                             <prop k="customdash_unit" v="MM"/>
                             <prop k="draw_inside_polygon" v="0"/>
                             <prop k="joinstyle" v="bevel"/>
-                            <prop k="line_color" v="137,78,53,255"/>
+                            <prop k="line_color" v="137,46,137,255"/>
                             <prop k="line_style" v="solid"/>
                             <prop k="line_width" v="1.2"/>
                             <prop k="line_width_unit" v="MM"/>
@@ -4214,6 +4211,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -4465,6 +4465,9 @@
             <attributeactions/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -4543,6 +4546,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -4796,6 +4802,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -4870,6 +4879,9 @@
             <expressionfields/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -5126,6 +5138,9 @@
             <attributeactions/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -5542,6 +5557,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -5795,6 +5813,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -5869,6 +5890,9 @@
             <expressionfields/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -6124,6 +6148,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -6198,6 +6225,9 @@
             <expressionfields/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -6453,6 +6483,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -6527,6 +6560,9 @@
             <expressionfields/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -6782,6 +6818,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -6856,6 +6895,9 @@
             <expressionfields/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -7109,6 +7151,9 @@
             <attributeactions/>
             <edittypes>
                 <edittype widgetv2type="TextEdit" name="id_entrance">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
@@ -7187,6 +7232,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -7440,6 +7488,9 @@
                 <edittype widgetv2type="TextEdit" name="id_entrance">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
+                <edittype widgetv2type="TextEdit" name="meetcode">
+                    <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+                </edittype>
                 <edittype widgetv2type="TextEdit" name="name_ru">
                     <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
                 </edittype>
@@ -7487,7 +7538,7 @@
                 </edittype>
             </edittypes>
         </maplayer>
-        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+        <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
             <id>stations20141002225650453</id>
             <datasource>file:../data/spb/stations.csv?type=csv&amp;delimiter=%5Ct;&amp;xField=lon&amp;yField=lat&amp;spatialIndex=no&amp;subsetIndex=no&amp;watchFile=no</datasource>
             <title></title>
@@ -7590,7 +7641,7 @@
                     <symbol alpha="1" type="marker" name="1">
                         <layer pass="0" class="SimpleMarker" locked="0">
                             <prop k="angle" v="0"/>
-                            <prop k="color" v="68,184,92,255"/>
+                            <prop k="color" v="31,120,180,255"/>
                             <prop k="horizontal_anchor_point" v="1"/>
                             <prop k="name" v="circle"/>
                             <prop k="offset" v="0,0"/>
@@ -7630,7 +7681,7 @@
                     <symbol alpha="1" type="marker" name="2">
                         <layer pass="0" class="SimpleMarker" locked="0">
                             <prop k="angle" v="0"/>
-                            <prop k="color" v="0,120,191,255"/>
+                            <prop k="color" v="51,160,44,255"/>
                             <prop k="horizontal_anchor_point" v="1"/>
                             <prop k="name" v="circle"/>
                             <prop k="offset" v="0,0"/>
@@ -7670,7 +7721,7 @@
                     <symbol alpha="1" type="marker" name="3">
                         <layer pass="0" class="SimpleMarker" locked="0">
                             <prop k="angle" v="0"/>
-                            <prop k="color" v="25,193,243,255"/>
+                            <prop k="color" v="255,127,0,255"/>
                             <prop k="horizontal_anchor_point" v="1"/>
                             <prop k="name" v="circle"/>
                             <prop k="offset" v="0,0"/>
@@ -7710,7 +7761,7 @@
                     <symbol alpha="1" type="marker" name="4">
                         <layer pass="0" class="SimpleMarker" locked="0">
                             <prop k="angle" v="0"/>
-                            <prop k="color" v="137,78,53,255"/>
+                            <prop k="color" v="137,46,137,255"/>
                             <prop k="horizontal_anchor_point" v="1"/>
                             <prop k="name" v="circle"/>
                             <prop k="offset" v="0,0"/>
@@ -7804,7 +7855,7 @@
                 <property key="labeling/fieldName" value="name_ru"/>
                 <property key="labeling/fontBold" value="false"/>
                 <property key="labeling/fontCapitals" value="0"/>
-                <property key="labeling/fontFamily" value="Ubuntu"/>
+                <property key="labeling/fontFamily" value="MS Shell Dlg 2"/>
                 <property key="labeling/fontItalic" value="false"/>
                 <property key="labeling/fontLetterSpacing" value="0"/>
                 <property key="labeling/fontLimitPixelSize" value="false"/>
@@ -7833,7 +7884,7 @@
                 <property key="labeling/minFeatureSize" value="0"/>
                 <property key="labeling/multilineAlign" value="0"/>
                 <property key="labeling/multilineHeight" value="1"/>
-                <property key="labeling/namedStyle" value="Medium"/>
+                <property key="labeling/namedStyle" value="Обычный"/>
                 <property key="labeling/obstacle" value="true"/>
                 <property key="labeling/placeDirectionSymbol" value="0"/>
                 <property key="labeling/placement" value="0"/>
@@ -11746,8 +11797,8 @@
             <DegreeFormat type="QString">D</DegreeFormat>
         </PositionPrecision>
         <WCSUrl type="QString"></WCSUrl>
-        <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
         <WMSContactPhone type="QString"></WMSContactPhone>
+        <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
         <WMSServiceAbstract type="QString"></WMSServiceAbstract>
         <WMSAddWktGeometry type="bool">false</WMSAddWktGeometry>
         <Measure>
@@ -11769,12 +11820,167 @@
             <CanvasColorBluePart type="int">255</CanvasColorBluePart>
         </Gui>
         <Digitizing>
-            <LayerSnappingList type="QStringList"/>
-            <LayerSnappingEnabledList type="QStringList"/>
+            <LayerSnappingList type="QStringList">
+                <value>lines20141004161550593</value>
+                <value>lines20141004162247759</value>
+                <value>lines20141004164812921</value>
+                <value>lines20141004165425748</value>
+                <value>lines20141004170124029</value>
+                <value>lines20141004202944146</value>
+                <value>lines20141024223254106</value>
+                <value>lines20141106170009326</value>
+                <value>lines20150110114501753</value>
+                <value>lines20150110115631442</value>
+                <value>portals20141002225626815</value>
+                <value>portals20141002225713099</value>
+                <value>portals20141002225826862</value>
+                <value>portals20141002225943819</value>
+                <value>portals20141002230021188</value>
+                <value>portals20141002230049919</value>
+                <value>portals20141024223222192</value>
+                <value>portals20141106164353732</value>
+                <value>portals20150110114418692</value>
+                <value>portals20150110115343625</value>
+                <value>stations20141002225650453</value>
+                <value>stations20141002225737725</value>
+                <value>stations20141002225905788</value>
+                <value>stations20141002230004994</value>
+                <value>stations20141002230034037</value>
+                <value>stations20141002230104375</value>
+                <value>stations20141024223123082</value>
+                <value>stations20141106164103550</value>
+                <value>stations20150110114307457</value>
+                <value>stations20150110115423969</value>
+            </LayerSnappingList>
+            <LayerSnappingEnabledList type="QStringList">
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+                <value>enabled</value>
+            </LayerSnappingEnabledList>
             <AvoidIntersectionsList type="QStringList"/>
-            <LayerSnappingToleranceUnitList type="QStringList"/>
-            <LayerSnapToList type="QStringList"/>
-            <LayerSnappingToleranceList type="QStringList"/>
+            <LayerSnappingToleranceUnitList type="QStringList">
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+                <value>0</value>
+            </LayerSnappingToleranceUnitList>
+            <LayerSnapToList type="QStringList">
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+                <value>to_vertex</value>
+            </LayerSnapToList>
+            <LayerSnappingToleranceList type="QStringList">
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+                <value>0.000000</value>
+            </LayerSnappingToleranceList>
         </Digitizing>
         <Identify>
             <disabledLayers type="QStringList"/>
@@ -11788,9 +11994,9 @@
             <filterByMap type="bool">false</filterByMap>
         </Legend>
         <SpatialRefSys>
-            <ProjectCRSProj4String type="QString">+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</ProjectCRSProj4String>
-            <ProjectCrs type="QString">EPSG:3857</ProjectCrs>
-            <ProjectCRSID type="int">3857</ProjectCRSID>
+            <ProjectCRSProj4String type="QString">+proj=longlat +datum=WGS84 +no_defs</ProjectCRSProj4String>
+            <ProjectCrs type="QString">EPSG:4326</ProjectCrs>
+            <ProjectCRSID type="int">3452</ProjectCRSID>
             <ProjectionsEnabled type="int">1</ProjectionsEnabled>
         </SpatialRefSys>
         <DefaultStyles>
