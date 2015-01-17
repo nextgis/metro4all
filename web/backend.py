@@ -120,6 +120,11 @@ def main(city):
             mainmap=dict(center=[46.5218,6.6327], zoom=13),
             city='lau',
             route_css_class='city-9'
+         ),
+         'gla': dict(
+            mainmap=dict(center=[55,861147,-4,2499891], zoom=13),
+            city='gla',
+            route_css_class='city-11'
          )
     }
     city = city if city in cities else 'msk'
