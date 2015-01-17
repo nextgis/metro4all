@@ -3,20 +3,20 @@
  * Purpose:  Routing in subway for disabled.
  * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
- *   Copyright (C) 2013-2015 NextGIS
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
- *
- *    You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*   Copyright (C) 2013-2015 NextGIS
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
@@ -39,7 +39,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -50,8 +49,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
-import com.nhaarman.supertooltips.ToolTip;
-import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -64,15 +61,13 @@ import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
 import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 
 public class StationImageView extends SherlockActivity {
-    private WebView mWebView;
+	private WebView mWebView;
     private Bundle bundle;
 
-    private String msPath;
+	private String msPath;
     private boolean isCrossReference = false;
     private boolean mIsRootActivity, isForLegend;
     RecyclerView rvPortals;
-    ToolTip toolTip;
-    ToolTipRelativeLayout toolTipRelativeLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +79,7 @@ public class StationImageView extends SherlockActivity {
         rvPortals = ((RecyclerView) findViewById(R.id.rvPortals));
         rvPortals.setLayoutManager(mLayoutManager);
 
-        getSupportActionBar().setHomeButtonEnabled(true);
+       	getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // load view
@@ -113,27 +108,6 @@ public class StationImageView extends SherlockActivity {
                 rvPortals.setHasFixedSize(true);
                 rvPortals.setItemAnimator(new DefaultItemAnimator());
                 rvPortals.setVisibility(View.VISIBLE);
-
-                toolTipRelativeLayout = (ToolTipRelativeLayout) findViewById(R.id.ttPortals);
-                toolTipRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getApplicationContext(), "Tooltip clicked", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                String portalDirection = bundle.getBoolean(PARAM_PORTAL_DIRECTION, true) ? getString(R.string.sEntranceName) : getString(R.string.sExitName);
-                toolTip = new ToolTip()
-                        .withText(String.format(getString(R.string.sToolTipPortalFromLayout), portalDirection))
-                        .withColor(getResources().getColor(R.color.metrocolorlight))
-                        .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW);
-
-                rvPortals.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        toolTipRelativeLayout.showToolTipForView(toolTip, rvPortals.getChildAt(0).findViewById(R.id.btnPortal));
-                    }
-                });
             }
         } else {
             isForLegend = true;
@@ -147,44 +121,15 @@ public class StationImageView extends SherlockActivity {
         mWebView.post(new Runnable() {
             @Override
             public void run() {
-                final ProgressBar pbLoadingImage = (ProgressBar) findViewById(R.id.pdLoadingImage);
-                final Animation fadeOut = AnimationUtils.loadAnimation(mWebView.getContext(), R.anim.fade_out);
-
-                fadeOut.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        pbLoadingImage.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-
                 if (!loadImage()) {
-                    pbLoadingImage.startAnimation(fadeOut);
                     mWebView.setVisibility(View.GONE);
                     findViewById(R.id.tvLayoutError).setVisibility(View.VISIBLE);
                 }
-
-                mWebView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        super.onPageFinished(view, url);
-                        pbLoadingImage.startAnimation(fadeOut);
-                    }
-                });
             }
         });
     }
-
-    protected boolean loadImage(){
+	
+	protected boolean loadImage(){
         Bitmap overlaidImage;
 
         if (isForLegend) {
@@ -235,7 +180,7 @@ public class StationImageView extends SherlockActivity {
         mWebView.loadData(sCmd, "text/html", "utf-8");
 
         return true;
-    }
+	}
 
     private void overlayBitmap(Canvas canvas, Bitmap bitmap) {
         if (bitmap != null)
@@ -261,7 +206,7 @@ public class StationImageView extends SherlockActivity {
                 //Intent intent = new Intent(this, StationListView.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //startActivity(intent);
-                finish();
+            	finish();
                 return true;
             case R.id.btn_map:
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, Analytics.BTN_MAP, Analytics.ACTION_BAR);

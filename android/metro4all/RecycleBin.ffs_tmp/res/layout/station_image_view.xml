@@ -20,45 +20,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvPortals"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/strip_height"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/white"
-        android:clipToPadding="false"
-        android:paddingLeft="@dimen/strip_margin_left"
-        android:visibility="gone"
-        />
+    android:orientation="vertical">
 
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rvPortals"
-        />
-
-    <ProgressBar
-        android:id="@+id/pdLoadingImage"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:indeterminate="true"/>
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/tvLayoutError"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/sNoImage"
@@ -66,12 +43,4 @@
         android:textStyle="bold"
         android:visibility="gone"/>
 
-    <com.nhaarman.supertooltips.ToolTipRelativeLayout
-        android:id="@+id/ttPortals"
-        android:layout_marginTop="@dimen/strip_height"
-        android:layout_marginLeft="@dimen/strip_margin_left"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
-</RelativeLayout>
+</LinearLayout>

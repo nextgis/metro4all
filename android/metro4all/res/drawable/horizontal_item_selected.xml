@@ -18,8 +18,11 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/horizontal_item" android:state_window_focused="false"/>
-    <item android:drawable="@drawable/horizontal_item_selected" android:state_focused="true"/>
-    <item android:drawable="@drawable/horizontal_item_selected" android:state_pressed="true"/>
-</selector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="@dimen/horizontal_item_margin" android:right="@dimen/horizontal_item_margin">
+        <shape>
+            <solid android:color="@color/metrocolorlight" />
+            <stroke android:width="@dimen/horizontal_item_thickness" android:color="@color/horizontalItemStroke" />
+        </shape>
+    </item>
+</layer-list>
