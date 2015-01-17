@@ -45,6 +45,15 @@
         android:layout_below="@id/rvPortals"
         />
 
+    <ProgressBar
+        android:id="@+id/pdLoadingImage"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:indeterminate="true"/>
+
     <TextView
         android:id="@+id/tvLayoutError"
         android:layout_width="wrap_content"

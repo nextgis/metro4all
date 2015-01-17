@@ -39,6 +39,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -121,10 +122,39 @@ public class StationImageView extends SherlockActivity {
         mWebView.post(new Runnable() {
             @Override
             public void run() {
+                final ProgressBar pbLoadingImage = (ProgressBar) findViewById(R.id.pdLoadingImage);
+                final Animation fadeOut = AnimationUtils.loadAnimation(mWebView.getContext(), R.anim.fade_out);
+
+                fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        pbLoadingImage.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
                 if (!loadImage()) {
+                    pbLoadingImage.startAnimation(fadeOut);
                     mWebView.setVisibility(View.GONE);
                     findViewById(R.id.tvLayoutError).setVisibility(View.VISIBLE);
                 }
+
+                mWebView.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
+                        pbLoadingImage.startAnimation(fadeOut);
+                    }
+                });
             }
         });
     }
