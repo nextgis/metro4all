@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Metro</title>
+	<meta name='description' content='Some description' />
+	<meta name='keywords' content='Some keywords' />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, target-densityDpi=device-dpi">
+	<meta name="format-detection" content="telephone=no" />
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+
+
+	<link rel="stylesheet" href="css/mapStyle.css" />
+	<link rel="stylesheet" href="css/jquery.qtip.min.css" />
+ 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="js/d3.min.js"></script>
+    <script src="js/queue.v1.min.js"></script>
+    <script src="js/jquery.qtip.min.js"></script>
+    <!--<script src="js/jquery.imagesloaded.pkg.min.js"></script>-->
+
+	<!--[if lt IE 9]>
+		<link rel='stylesheet' href='css/ie78.css'>
+		<script type="text/javascript" src="js/selectivizr-min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+
+<div class="wrapper">
+
+	<div class="content">
+		<p class="infoGraph-mainTitle">Московский метрополитен — инфраструктура и доступность</p>
+		<div class="accessTooltip">
+		  <p class="listHeader">
+		  	<img class="symbol" src="img/man_icon.svg" alt="Все станции">
+		  	<b>Все станции</b>
+		  </p>
+		  <p class="listHeader">
+		  	<img class="symbol" src="img/wheelchair_icon.svg" alt="Станции с маршрутами, доступными для инвалидов-колясочников">
+		  	<b>Станции с маршрутами, доступными для инвалидов-колясочников:</b>
+		  	<ul class="tooltipList">
+		  		<li>без эскалаторов</li>
+		  		<li>без лестниц, не продублированных лифтами или пандусами</li>
+		  		<li>без пандусов, недоступных для инвалидов-колясочников (не соответствующих санитарно-техническим нормам)</li>
+		  		<li>с шириной прохода не менее 78 см</li>
+		  	</ul>
+		  </p>
+		  <p class="listHeader">
+		  	<img class="symbol" src="img/aged_icon.svg" alt="Станции с маршрутами, доступными для людей с затруднениями предвижения">
+		  	<b>Станции с маршрутами, доступными для людей с затруднениями передвижения:</b>
+		  	<ul class="tooltipList">
+		  		<li>без лестниц, не продублированных лифтами, эскалаторами или пандусами (допускается наличие одиночных ступеней)</li>
+		  		<li>с уклоном пандуса не более 15% (8°)</li>
+		  	</ul>
+		  </p>
+		  <p class="listHeader">
+		  	<img class="symbol" src="img/luggage_icon.svg" alt="Станции с маршрутами, доступными для людей с детскими колясками и габаритным багажом">
+		  	<b>Станции с маршрутами, доступными для людей с детскими колясками:</b>
+		  	<ul class="tooltipList">
+		  		<li>без лестниц, не продублированных лифтами, эскалаторами, пандусами или рельсами (допускается наличие одиночных ступеней)</li>
+		  		<li>с шириной прохода не менее 70 см</li>
+		  	</ul>
+		  </p>
+		  <p>Подробнее о критериях доступности можно узнать в <a href="#" title="Докладе "Москва: доступность метро"">Докладе "Москва: доступность метро".</a></p>
+		</div>		
+		<div class="menu-infoGraph">      	            	
+           	<form id="accessControls" class"form-inline">
+           		<span class="subtitle">
+           			<img id="questionSymbol" src="img/question_icon.svg" alt="Классификация доступности">Доступность станций:
+           		</span>          		
+           		<div class="form-group">
+           		  <input type="radio" class="form-control" id="allStations" name="stationAccess" value="allStations" checked>
+           	      <label for="allStations">
+           	      	<img class="icon" src="img/man_icon.svg" alt="Все станции">
+           	      </label>
+           	    </div>
+           	    <div class="form-group">
+           		  <input type="radio" class="form-control" id="wheelchairFriendly" name="stationAccess" value="wheelchairFriendly">
+           	      <label for="wheelchairFriendly">
+           	      	<img class="icon" src="img/wheelchair_icon.svg" alt="Станции с маршрутами, доступными для инвалидов-колясочников">
+           	      </label>
+           	    </div>
+           	    <div class="form-group">
+           	      <input type="radio" class="form-control" id="handicappedFriendly" name="stationAccess" value="handicappedFriendly">
+           	      <label for="handicappedFriendly">
+           	      	<img class="icon" src="img/aged_icon.svg" alt="Станции с маршрутами, доступными для людей с затруднениями предвижения">
+           	      </label>
+           	    </div>
+           	    <div class="form-group">
+           	      <input type="radio" class="form-control" id="luggageFriendly" name="stationAccess" value="luggageFriendly">
+           	      <label for="luggageFriendly">
+           	      	<img class="icon" src="img/luggage_icon.svg" alt="Станции с маршрутами, доступными для людей с детскими колясками">
+           	      </label>
+           	    </div>
+           	    <div class="form-group">         	
+           	      <span class="subtitle">Показатели:</span>
+           	      <select id="infra-select" class="dropdownList form-control">     		
+           	        <option value = "routesIn">Количество маршрутов на вход</option>
+           	        <option value = "routesOut">Количество маршрутов на выход</option>
+           	        <option value = "minTaper">Самое узкое место на маршрутах</option>
+           	        <option value = "lift" selected>Наличие работающих лифтов</option>
+           	        <option value = "stairway">Наличие эскалаторов</option>
+           	        <option value = "pandus">Наличие пандусов</option>
+           	        <option value = "friendlyPandus">Наличие пандусов, доступных для инвалидов-колясочников</option>          	  
+           	        <option value = "avStairs">Средняя протяжённость лестниц на маршрутах</option>
+           	        <option value = "avRailsStairs">Средняя протяжённость лестниц на маршрутах с учетом рельс и пандусов</option>
+           	        <option value = "avLiftStairs">Средняя протяжённость лестниц на маршрутах с учетом лифта</option>
+           	      </select>
+           	    </div>
+           	</form>
+		</div>		
+		<div id="metroMap" class="shema-infoGraph">
+			<h3 id="shemaHeader" class="hidden"></h3>
+            <script src="js/metroMap.js"></script>
+            <form id="zoomControls">
+            	<ul>
+            		<li><input type="button" name="zoomIn"></li>
+            		<li><input type="button" name="zoomOut"></li>
+            		<li><input type="button" id="resetAll" name="reload" class="reset"></li>
+            	</ul>
+            </form>		
+		</div>
+		<div id="infoPanel" class="data-infoGraph">
+			<p class="title">Общая статистика <span id="targetDescr">по метро</span></p>
+			<p id="nodeDescr" class="subtitle hidden"></p>
+			<div id="infrastructure" class="column">
+				<p class="column-title">Инфраструктура</p>
+				<div id="nodeInfo"></div>
+			</div>
+			<div id="routes" class="column">
+				<p class="column-title">Маршруты</p>
+				<div id="targetInfo"></div>
+			</div>
+			<div id="accessibility" class="column">
+				<p class="column-title">Доступность</p>
+				<div id="targetAccess"></div>
+			</div>
+		</div>		
+	</div>
+</div>
+
+</body>
+</html>

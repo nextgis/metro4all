@@ -21,9 +21,9 @@ sourceDf['luggageFriendlyRoutes'] = ((sourceDf['minLiftStairs'] < 3) | (sourceDf
 '''
 sourceDf['minLiftStairs'] = sourceDf['minStairs'] - sourceDf['liftStairsEconomy']
 
-vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', names=['stationId', 'lineId', 'id_node', 'name', 'name_en', 'lon', 'lat', 'line'])
+vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', names=['stationId', 'lineId', 'id_node', 'id_osm','name', 'name_en', 'lon', 'lat', 'line'])
 
-vocabDf = vocabDf.drop(['id_node', 'name', 'name_en', 'lon', 'lat'], axis=1, level=None)
+vocabDf = vocabDf.drop(['id_node', 'id_osm', 'name', 'name_en', 'lon', 'lat'], axis=1, level=None)
 
 sourceDf = pd.merge(sourceDf, vocabDf, left_on='fromId', right_on='stationId', how='left', sort=False)
 del sourceDf['stationId']

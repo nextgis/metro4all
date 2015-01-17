@@ -1,0 +1,43 @@
+plugins:
+
+  - removeDoctype: false
+  - removeXMLProcInst: true
+  - removeComments: true
+  - removeMetadata: true
+  - removeEditorsNSData: true
+  - cleanupAttrs:
+      newlines: true
+      trim: true
+      spaces: true
+  - convertStyleToAttrs: false
+  - removeRasterImages: true
+  - cleanupNumericValues: false
+  - cleanupListOfValues: false
+  - convertColors: false
+  - removeUnknownsAndDefaults:
+      SVGid: false
+      unknownContent: true
+      unknownAttrs: true
+      defaultAttrs: true
+      uselessOverrides: true
+  - removeNonInheritableGroupAttrs: false
+  - removeUselessStrokeAndFill: false
+  - removeViewBox: false
+  - cleanupEnableBackground: true
+  - removeHiddenElems: false
+  - removeEmptyText: true
+  - convertShapeToPath: false
+  - moveElemsAttrsToGroup: false
+  - moveGroupAttrsToElems: true
+  - collapseGroups: false
+  - convertPathData: false
+  - convertTransform: true
+  - removeEmptyAttrs: true
+  - removeEmptyContainers: true
+  - mergePaths: false
+  - cleanupIDs: false
+  - removeUnusedNS: true
+  - transformsWithOnePath: false
+  - sortAttrs: false
+  - removeTitle: false
+  - removeDesc: true
