@@ -16,7 +16,7 @@ vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=
 del vocabDf['id_osm']
 del vocabDf['lat']
 del vocabDf['lon']
-sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'portalName_ru', 'portalName_en','station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
+sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'meetcode', 'station', 'line', 'portalName_ru', 'portalName_en','station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
 
 ''' Calculated columns
 sourceDf['max_slope'] = np.tan(np.radians(sourceDf['max_angle'])) * 100
