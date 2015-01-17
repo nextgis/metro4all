@@ -21,12 +21,25 @@
 package com.nextgis.metroaccess;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.preference.PreferenceManager;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -34,11 +47,15 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.List;
 
 import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
+import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
 import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
@@ -50,12 +67,18 @@ public class StationImageView extends SherlockActivity {
 	private String msPath;
     private boolean isCrossReference = false;
     private boolean mIsRootActivity, isForLegend;
+    RecyclerView rvPortals;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.station_image_view);
- 
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, getResources().getConfiguration().orientation == Configuration
+                .ORIENTATION_PORTRAIT ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
+        rvPortals = ((RecyclerView) findViewById(R.id.rvPortals));
+        rvPortals.setLayoutManager(mLayoutManager);
+
        	getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -78,6 +101,14 @@ public class StationImageView extends SherlockActivity {
             StationItem station = MainActivity.GetGraph().GetStation(bundle.getInt(BUNDLE_STATIONID_KEY, 0));
             String title = station == null ? getString(R.string.sFileNotFound) : String.format(getString(R.string.sSchema), station.GetName());
             setTitle(title);
+
+            if (station != null && station.GetPortalsCount() > 0) {
+                RVPortalAdapter adapter = new RVPortalAdapter(station.GetPortals(bundle.getBoolean(PARAM_PORTAL_DIRECTION, true)));
+                rvPortals.setAdapter(adapter);
+                rvPortals.setHasFixedSize(true);
+                rvPortals.setItemAnimator(new DefaultItemAnimator());
+                rvPortals.setVisibility(View.VISIBLE);
+            }
         } else {
             isForLegend = true;
             setTitle(R.string.sLegend);
@@ -87,50 +118,74 @@ public class StationImageView extends SherlockActivity {
             t.send(new HitBuilders.AppViewBuilder().build());
         }
 
-        if (!loadImage()) {
-            mWebView.setVisibility(View.GONE);
-            findViewById(R.id.tvLayoutError).setVisibility(View.VISIBLE);
-        }
+        mWebView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!loadImage()) {
+                    mWebView.setVisibility(View.GONE);
+                    findViewById(R.id.tvLayoutError).setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 	
 	protected boolean loadImage(){
-        Bitmap BitmapOfMyImage;
-        String sFolder, sName;
+        Bitmap overlaidImage;
 
         if (isForLegend) {
-            BitmapOfMyImage = BitmapFactory.decodeResource(getResources(), R.raw.schemes_legend);
-            sFolder = "/android_res/raw";
-            sName = "schemes_legend.png";
-
+            overlaidImage = BitmapFactory.decodeResource(getResources(), R.raw.schemes_legend);
             mWebView.clearCache(true);
         } else {
             File f = new File(msPath);
+            String sParent = f.getParent();
+            String sName = f.getName();
+//            f = new File(f.getParent(), "/base/" + sName);
 
             if (!f.exists()) {
                 return false;
             } else {
-                BitmapOfMyImage = BitmapFactory.decodeFile(msPath);
-                sFolder = f.getParent();
-                sName = f.getName();
+                Bitmap baseBitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
+                overlaidImage = baseBitmap.copy(Bitmap.Config.ARGB_8888, true);
+                Canvas canvas = new Canvas(overlaidImage);
+
+                baseBitmap = BitmapFactory.decodeFile(sParent + "/titles/" + sName);    // TODO localization
+                overlayBitmap(canvas, baseBitmap);
+
+                if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false)) {
+                    baseBitmap = BitmapFactory.decodeFile(sParent + "/interchanges/" + sName);
+                    overlayBitmap(canvas, baseBitmap);
+                }
+
+                baseBitmap = BitmapFactory.decodeFile(sParent + "/info/" + sName);
+                overlayBitmap(canvas, baseBitmap);
             }
         }
 
-		String sPath = "file://" + sFolder + "/";
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        overlaidImage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] byteArray = baos.toByteArray();
+        String imageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        double deviceRatio = 1.0 * metrics.heightPixels / metrics.widthPixels;
-        double imageRatio = 1.0 * BitmapOfMyImage.getHeight() / BitmapOfMyImage.getWidth();
+//        DisplayMetrics metrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//        double deviceRatio = 1.0 * metrics.heightPixels / metrics.widthPixels;
+        double deviceRatio = 1.0 * mWebView.getHeight() / mWebView.getWidth();
+        double imageRatio = 1.0 * overlaidImage.getHeight() / overlaidImage.getWidth();
         String fix = deviceRatio > imageRatio ? "width=\"100%\" height=\"auto\"" : "width=\"auto\" height=\"100%\"";
 
-        // background-color: rgba(0, 0, 0, 0.01); is a fix for showing image on some webkit versions
-        String sCmd = "<html><center><img style=\"background-color:rgba(0,0,0,0.01);position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;max-width:100%;max-height:100%;\" " +
-                fix + " src=\"" + sName + "\" alt=\"TEST\"></center></html>";
+        // background-color: rgba(255, 255, 255, 0.01); alpha channel is a fix for showing image on some webkit versions
+        String sCmd = "<html><center><img style='background-color:rgba(255,255,255,0.01);position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;" +
+                "max-width:100%;max-height:100%;' " + fix + " src='data:image/png;base64," + imageBase64 + "'></center></html>";
 
-        mWebView.loadDataWithBaseURL(sPath, sCmd, "text/html", "utf-8", "");
+        mWebView.loadData(sCmd, "text/html", "utf-8");
 
         return true;
 	}
+
+    private void overlayBitmap(Canvas canvas, Bitmap bitmap) {
+        if (bitmap != null)
+            canvas.drawBitmap(bitmap, 0, 0, null);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -196,6 +251,36 @@ public class StationImageView extends SherlockActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    class RVPortalAdapter extends RecyclerView.Adapter<ViewHolder> implements ViewHolder.IViewHolderClick {
+        private List<PortalItem> mPortals;
+
+        public RVPortalAdapter (List<PortalItem> portals) {
+            mPortals = portals;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            final View sView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.single_portal_item, viewGroup, false);
+            return new ViewHolder(sView);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+            viewHolder.setOnClickListener(this);
+            viewHolder.setName(mPortals.get(i).GetReadableMeetCode());
+        }
+
+        @Override
+        public int getItemCount() {
+            return mPortals.size();
+        }
+
+        @Override
+        public void onItemClick(View caller, int position) {
+            Toast.makeText(getApplicationContext(), mPortals.get(position).GetReadableMeetCode(), Toast.LENGTH_SHORT).show();
         }
     }
 }

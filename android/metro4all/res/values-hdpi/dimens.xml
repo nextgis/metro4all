@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="strip_height">44dp</dimen>
+    <dimen name="strip_margin_left">2dp</dimen>
+    <dimen name="strip_margin_top">4dp</dimen>
+    <dimen name="horizontal_item_margin">-1dp</dimen>
+    <dimen name="horizontal_item_divider">2dp</dimen>
+    <dimen name="horizontal_item_thickness">1dp</dimen>
+</resources>

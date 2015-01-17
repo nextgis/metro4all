@@ -29,9 +29,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvPortals"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/strip_height"
+        android:layout_width="@dimen/strip_height"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:background="@android:color/white"
         android:clipToPadding="false"
         android:paddingLeft="@dimen/strip_margin_left"
@@ -42,7 +43,7 @@
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rvPortals"
+        android:layout_toRightOf="@id/rvPortals"
         />
 
     <TextView

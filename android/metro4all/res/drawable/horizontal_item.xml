@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="@dimen/horizontal_item_margin" android:left="@dimen/horizontal_item_margin">
+        <shape>
+            <solid android:color="@color/horizontalItemFill" />
+            <stroke android:width="@dimen/horizontal_item_thickness" android:color="@color/horizontalItemStroke" />
+        </shape>
+    </item>
+</layer-list>
