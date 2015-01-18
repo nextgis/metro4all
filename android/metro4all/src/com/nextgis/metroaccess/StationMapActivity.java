@@ -64,6 +64,7 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
+import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 
 public class StationMapActivity extends SherlockActivity {
     private enum MARKERS_TYPE { ENTRANCE, EXIT, CHECKED, INVALID }
@@ -496,7 +497,7 @@ public class StationMapActivity extends SherlockActivity {
                     Intent intentView = new Intent(this, StationImageView.class);
                     intentView.putExtras(bundle);
                     intentView.putExtra(PARAM_ROOT_ACTIVITY, false);
-                    startActivity(intentView);
+                    startActivityForResult(intentView, PORTAL_MAP_RESULT);
                 } else
                     finish();
 
@@ -508,6 +509,20 @@ public class StationMapActivity extends SherlockActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PORTAL_MAP_RESULT:
+                if (resultCode == RESULT_OK) {
+                    setResult(RESULT_OK, data);
+                    finish();
+                }
+                break;
+            default:
+                break;
         }
     }
 

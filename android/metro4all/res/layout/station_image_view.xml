@@ -68,10 +68,9 @@
 
     <com.nhaarman.supertooltips.ToolTipRelativeLayout
         android:id="@+id/ttPortals"
-        android:layout_marginTop="@dimen/strip_height"
-        android:layout_marginLeft="@dimen/strip_margin_left"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/strip_margin_left"
         />
 
 </RelativeLayout>

@@ -25,13 +25,13 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +52,15 @@ import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
+import com.nhaarman.supertooltips.ToolTipView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
+import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
+import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
@@ -78,9 +81,9 @@ public class StationImageView extends SherlockActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.station_image_view);
+        boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, getResources().getConfiguration().orientation == Configuration
-                .ORIENTATION_PORTRAIT ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, isPortrait ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
         rvPortals = ((RecyclerView) findViewById(R.id.rvPortals));
         rvPortals.setLayoutManager(mLayoutManager);
 
@@ -107,7 +110,7 @@ public class StationImageView extends SherlockActivity {
             String title = station == null ? getString(R.string.sFileNotFound) : String.format(getString(R.string.sSchema), station.GetName());
             setTitle(title);
 
-            if (station != null && station.GetPortalsCount() > 0) {
+            if (station != null && station.GetPortalsCount() > 0 && bundle.getBoolean(PARAM_ACTIVITY_FOR_RESULT, true)) {
                 RVPortalAdapter adapter = new RVPortalAdapter(station.GetPortals(bundle.getBoolean(PARAM_PORTAL_DIRECTION, true)));
                 rvPortals.setAdapter(adapter);
                 rvPortals.setHasFixedSize(true);
@@ -118,7 +121,7 @@ public class StationImageView extends SherlockActivity {
                 toolTipRelativeLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getApplicationContext(), "Tooltip clicked", Toast.LENGTH_SHORT).show();
+                        hideHint(view);
                     }
                 });
 
@@ -131,7 +134,17 @@ public class StationImageView extends SherlockActivity {
                 rvPortals.post(new Runnable() {
                     @Override
                     public void run() {
-                        toolTipRelativeLayout.showToolTipForView(toolTip, rvPortals.getChildAt(0).findViewById(R.id.btnPortal));
+                        ToolTipView hint = toolTipRelativeLayout.showToolTipForView(toolTip, rvPortals.getChildAt(0).findViewById(R.id.btnPortal));
+                        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+                        int top = Math.round(getResources().getDimension(R.dimen.strip_height) * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+//                        int left = Math.round(getResources().getDimension(R.dimen.strip_margin_left) * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+                        hint.setPadding(0, top, 0 ,0);
+                        hint.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+                            @Override
+                            public void onToolTipViewClicked(ToolTipView toolTipView) {
+                                hideHint(toolTipRelativeLayout);
+                            }
+                        });
                     }
                 });
             }
@@ -182,6 +195,11 @@ public class StationImageView extends SherlockActivity {
                 });
             }
         });
+    }
+
+    private void hideHint(View toolTipOverlay) {
+        Toast.makeText(getApplicationContext(), "Tooltip clicked", Toast.LENGTH_SHORT).show();
+        toolTipOverlay.setVisibility(View.GONE);
     }
 
     protected boolean loadImage(){
@@ -335,7 +353,13 @@ public class StationImageView extends SherlockActivity {
 
         @Override
         public void onItemClick(View caller, int position) {
-            Toast.makeText(getApplicationContext(), mPortals.get(position).GetReadableMeetCode(), Toast.LENGTH_SHORT).show();
+            Intent outIntent = new Intent();
+            outIntent.putExtra(BUNDLE_STATIONID_KEY, bundle.getInt(BUNDLE_STATIONID_KEY, 0));
+            outIntent.putExtra(BUNDLE_PORTALID_KEY, mPortals.get(position).GetId());
+            setResult(RESULT_OK, outIntent);
+            finish();
+
+//            Toast.makeText(getApplicationContext(), mPortals.get(position).GetReadableMeetCode(), Toast.LENGTH_SHORT).show();
         }
     }
 }
