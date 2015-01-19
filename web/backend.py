@@ -52,7 +52,7 @@ def get_barriers(item):
         escalator=int(item['escalator']) if (item['escalator'].isdigit()) else 0
     )
 
-cities = ['msk','spb','waw','min','kzn','ekb','niz','ams','lau']
+cities = ['msk','spb','waw','min','kzn','ekb','niz','ams','lau', 'gla']
 datavars = ['lines','stations','portals','interchanges']
 
 LINES = {}
@@ -122,7 +122,7 @@ def main(city):
             route_css_class='city-9'
          ),
          'gla': dict(
-            mainmap=dict(center=[55,861147,-4,2499891], zoom=13),
+            mainmap=dict(center=[55.861147,-4.2499891], zoom=13),
             city='gla',
             route_css_class='city-11'
          )
