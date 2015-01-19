@@ -15,7 +15,7 @@ $(document).ready(function () {
         if (typeof data == 'string' || data instanceof String) {
             data = JSON.parse(data);
         }
-        if (global_config.city != "ams") {
+        if ((global_config.city != "ams") && (global_config.city != "vog")) {
             viewmodel.lineSegments = L.geoJson(data, {
                 style: function(feature) {
                     return {
@@ -26,9 +26,12 @@ $(document).ready(function () {
                 }
             });
         } else {
-            // Amsterdam lines hack ---
+            // Multiline metro system hack ---
             var ends = [],
-                lineColors = [null, '#44b85c', '#f58631', '#ed1b35', '#ffcb31'],
+                lineColors = {
+                    "ams": [null, '#44b85c', '#f58631', '#ed1b35', '#ffcb31'],
+                    "vog": [null, '#ed1b35', '#0078bf']
+                }[global_config.city],
                 lineWeight = 6;
 
             viewmodel.lineSegments = L.featureGroup();
