@@ -262,7 +262,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
                            stationIcons.filter(function() {
                              if (stationDataById[splitId(this.id)].wheelchairFriendlyRoutes != 0) {return this.id;}
                            }).attr("xlink:href", "img/wheelchair_icon.svg").classed("hidden", false);
-                           shemaHeader.html('Станции с маршрутами, доступными для инвалидов-колясочников').classed("hidden", false);
+                           shemaHeader.html(tr.shemaHeader.wheelchairFriendly).classed("hidden", false);
                            break;
 
       case "handicappedFriendly": lines.classed("dim", true);
@@ -273,7 +273,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
                             stationIcons.filter(function() {
                               if (stationDataById[splitId(this.id)].handicappedFriendlyRoutes != 0) {return this.id;}
                             }).attr("xlink:href", "img/aged_icon.svg").classed("hidden", false);
-                            shemaHeader.html('Станции с маршрутами, доступными для людей с затруднениями передвижения').classed("hidden", false);
+                            shemaHeader.html(tr.shemaHeader.handicappedFriendly).classed("hidden", false);
                             break;
 
       case "luggageFriendly": lines.classed("dim", true);
@@ -284,7 +284,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
                         stationIcons.filter(function() {
                           if (stationDataById[splitId(this.id)].luggageFriendlyRoutes != 0) {return this.id;}
                         }).attr("xlink:href", "img/luggage_icon.svg").classed("hidden", false);
-                        shemaHeader.html('Станции с маршрутами, доступными для людей с детскими колясками').classed("hidden", false);
+                        shemaHeader.html(tr.shemaHeader.luggageFriendly).classed("hidden", false);
                         break;
     };
     scrollToFocus("metroMap");
@@ -318,91 +318,91 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     var stationData = stationDataById[splitId(this.id)];
     var tableData = [];
     tableData.push(
-      {factor: 'Количество маршрутов на вход', value: stationData.routesIn},
-      {factor: 'Количество маршрутов на выход', value: stationData.routesOut},
-      {factor: 'Самое узкое место на маршрутах, мм', value: stationData.minTaper},
-      {factor: 'Минимальное количество эскалаторов на маршрутах', value: stationData.minStairways},
-      {factor: 'Максимальное количество лифтов на маршрутах', value: stationData.maxLiftAmount},
-      {factor: 'Минимальная протяжённость лестниц на маршрутах, ступенек', value: stationData.minStairs},
-      {factor: 'Средняя протяжённость лестниц на маршрутах, ступенек', value: stationData.avStairs},
-      {factor: 'Максимальная протяжённость лестниц на маршрутах, ступенек', value: stationData.maxStairs},
-      {factor: 'Минимальная протяжённость лестниц на маршрутах с учетом рельс и пандусов, ступенек', value: stationData.minRailsStairs},
-      {factor: 'Средняя протяжённость лестниц на маршрутах с учетом рельс и пандусов, ступенек', value: stationData.avRailsStairs},
-      {factor: 'Максимальная протяжённость лестниц на маршрутах с учетом рельс и пандусов, ступенек', value: stationData.maxRailsStairs}
+      {factor: tr.stationHeader.routesIn, value: stationData.routesIn},
+      {factor: tr.stationHeader.routesOut, value: stationData.routesOut},
+      {factor: tr.stationHeader.minTaper, value: stationData.minTaper},
+      {factor: tr.stationHeader.minStairways, value: stationData.minStairways},
+      {factor: tr.stationHeader.maxLiftAmount, value: stationData.maxLiftAmount},
+      {factor: tr.stationHeader.minStairs, value: stationData.minStairs},
+      {factor: tr.stationHeader.avStairs, value: stationData.avStairs},
+      {factor: tr.stationHeader.maxStairs, value: stationData.maxStairs},
+      {factor: tr.stationHeader.minRailsStairs, value: stationData.minRailsStairs},
+      {factor: tr.stationHeader.avRailsStairs, value: stationData.avRailsStairs},
+      {factor: tr.stationHeader.maxRailsStairs, value: stationData.maxRailsStairs}
     );
 
     if (stationData.maxLiftAmount > 0) {
       tableData.push(
-        {factor: 'Минимальная протяжённость лестниц на маршрутах с учетом лифтов, ступенек', value: stationData.minLiftStairs},
-        {factor: 'Средняя протяжённость лестниц на маршрутах с учетом лифтов, ступенек', value: stationData.avLiftStairs},
-        {factor: 'Максимальная протяжённость лестниц на маршрутах с учетом лифтов, ступенек', value: stationData.maxLiftStairs}
+        {factor: tr.stationHeader.minLiftStairs, value: stationData.minLiftStairs},
+        {factor: tr.stationHeader.avLiftStairs, value: stationData.avLiftStairs},
+        {factor: tr.stationHeader.maxLiftStairs, value: stationData.maxLiftStairs}
       );      
     };  
 
     targetInfoData = tableData;
-    targetDescription.html("по станции " +  "‹‹" + stationData.stationName + "››");
+    targetDescription.html(tr.target.station +  "‹‹" + stationData.stationName + "››");
 
     //Infrastructure by stations (node's data)
     var nodeData = nodeDataById[stationData.nodeId];
     var tableData = [];
     tableData.push(
-      {factor: 'Количество элементов инфраструктуры узла', value: nodeData.totalElements},
-      {factor: 'Количество эскалаторов', value: nodeData.stairwaysAmount},
-      {factor: 'Количество дверей', value: nodeData.doorsAndTapersAmount},
-      {factor: 'Минимальная ширина дверей, мм', value: nodeData.minDoorAndTaperWidth},
-      {factor: 'Количество турникетов', value: nodeData.turnstilesAmount},
-      {factor: 'Минимальная ширина турникетов, мм', value: nodeData.minturnstileWidth}
+      {factor: tr.nodeHeader.totalElements, value: nodeData.totalElements},
+      {factor: tr.nodeHeader.stairwaysAmount, value: nodeData.stairwaysAmount},
+      {factor: tr.nodeHeader.doorsAndTapersAmount, value: nodeData.doorsAndTapersAmount},
+      {factor: tr.nodeHeader.minDoorAndTaperWidth, value: nodeData.minDoorAndTaperWidth},
+      {factor: tr.nodeHeader.turnstilesAmount, value: nodeData.turnstilesAmount},
+      {factor: tr.nodeHeader.minturnstileWidth, value: nodeData.minturnstileWidth}
     );
 
     if (nodeData.liftAmount > 0) {
       tableData.push(
-        {factor: 'Количество лифтов', value: nodeData.liftAmount},
-        {factor: 'Количество лифтов на уровень перехода', value: nodeData.hallLevelLiftsAmount},
-        {factor: 'Количество лифтов на уровень платформы', value: nodeData.trainLevelLiftsAmount},
-        {factor: 'Количество лифтов на уровень поверхности', value: nodeData.surfaceLevelLiftsAmount},
-        {factor: 'Минимальная ширина дверей лифтов, мм', value: nodeData.minLiftWidth}
+        {factor: tr.nodeHeader.liftAmount, value: nodeData.liftAmount},
+        {factor: tr.nodeHeader.hallLevelLiftsAmount, value: nodeData.hallLevelLiftsAmount},
+        {factor: tr.nodeHeader.trainLevelLiftsAmount, value: nodeData.trainLevelLiftsAmount},
+        {factor: tr.nodeHeader.surfaceLevelLiftsAmount, value: nodeData.surfaceLevelLiftsAmount},
+        {factor: tr.nodeHeader.minLiftWidth, value: nodeData.minLiftWidth}
       );      
     };
 
     if (nodeData.pandusAmount > 0) {
       tableData.push(
-        {factor: 'Количество пандусов', value: nodeData.pandusAmount},
-        {factor: 'Максимальный уклон пандусов, %', value: nodeData.pandusMaxSlope},
-        {factor: 'Количество пандусов, доступных для инвалидов-колясочников', value: nodeData.pandusAvailableAmount}
+        {factor: tr.nodeHeader.pandusAmount, value: nodeData.pandusAmount},
+        {factor: tr.nodeHeader.pandusMaxSlope, value: nodeData.pandusMaxSlope},
+        {factor: tr.nodeHeader.pandusAvailableAmount, value: nodeData.pandusAvailableAmount}
       );      
     };
 
     if (nodeData.stairsAmount > 0) {
       tableData.push(
-        {factor: 'Количество лестниц', value: nodeData.stairsAmount},
-        {factor: 'Количество лестниц без перил', value: nodeData.railsStairsAmount},
-        {factor: 'Количество одиночных ступеней', value: nodeData.coupleStairsAmount}        
+        {factor: tr.nodeHeader.stairsAmount, value: nodeData.stairsAmount},
+        {factor: tr.nodeHeader.noRailingAmount, value: nodeData.noRailingAmount},
+        {factor: tr.nodeHeader.coupleStairsAmount, value: nodeData.coupleStairsAmount}
       );      
     };
       
     if (nodeData.railsStairsAmount > 0) {
       tableData.push(
-        {factor: 'Количество лестниц с рельсами', value: nodeData.railsStairsAmount},
-        {factor: 'Минимальная ширина рельс, мм', value: nodeData.minRailsWidth},
-        {factor: 'Максимальная ширина рельс, мм', value: nodeData.maxRailsWidth},
-        {factor: 'Максимальный уклон рельс, %', value: nodeData.maxRailsSlope}      
+        {factor: tr.nodeHeader.railsStairsAmount, value: nodeData.railsStairsAmount},
+        {factor: tr.nodeHeader.minRailsWidth, value: nodeData.minRailsWidth},
+        {factor: tr.nodeHeader.maxRailsWidth, value: nodeData.maxRailsWidth},
+        {factor: tr.nodeHeader.maxRailsSlope, value: nodeData.maxRailsSlope}
       );      
     };
 
     nodeInfoData = tableData;
 
-    nodeDescription.html("Входит в состав узла " + "‹‹" + nodeData.nodeName + "››");
+    nodeDescription.html(tr.target.node + "‹‹" + nodeData.nodeName + "››");
     nodeDescription.classed('hidden', false);
 
     //Accessibility by stations (station's data)
     var tableData = [];
     tableData.push(
-      {factor: 'Количество маршрутов на вход, доступных для инвалидов-колясочников', value: stationData.wheelchairFriendlyRoutesIn},
-      {factor: 'Количество маршрутов на выход, доступных для инвалидов-колясочников', value: stationData.wheelchairFriendlyRoutesOut},
-      {factor: 'Количество маршрутов на вход, доступных для людей с затруднениями передвижения', value: stationData.handicappedFriendlyRoutesIn},
-      {factor: 'Количество маршрутов на выход, доступных для людей с затруднениями передвижения', value: stationData.handicappedFriendlyRoutesOut},
-      {factor: 'Количество маршрутов на вход, доступных для людей с детскими колясками', value: stationData.luggageFriendlyRoutesIn},
-      {factor: 'Количество маршрутов на выход, доступных для людей с детскими колясками', value: stationData.luggageFriendlyRoutesOut}
+      {factor: tr.accessibilityHeader.wheelchairFriendlyRoutesIn, value: stationData.wheelchairFriendlyRoutesIn},
+      {factor: tr.accessibilityHeader.wheelchairFriendlyRoutesOut, value: stationData.wheelchairFriendlyRoutesOut},
+      {factor: tr.accessibilityHeader.handicappedFriendlyRoutesIn, value: stationData.handicappedFriendlyRoutesIn},
+      {factor: tr.accessibilityHeader.handicappedFriendlyRoutesOut, value: stationData.handicappedFriendlyRoutesOut},
+      {factor: tr.accessibilityHeader.luggageFriendlyRoutesIn, value: stationData.luggageFriendlyRoutesIn},
+      {factor: tr.accessibilityHeader.luggageFriendlyRoutesOut, value: stationData.luggageFriendlyRoutesOut}
     );
 
     targetAccessData = tableData;
@@ -429,37 +429,37 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     var transferData = transferDataById[splitId(this.id)];
     //console.log(transferData);    
     var tableData = [
-      {factor: 'Самое узкое место, мм', value: transferData[0].minWidth},
-      {factor: 'Общая протяжённость лестниц, ступенек', value: transferData[0].minStairs},
-      {factor: 'Протяжённость лестниц с учетом рельс и пандусов, ступенек', value: transferData[0].minRailsStairs}
+      {factor: tr.transferHeader.minWidth, value: transferData[0].minWidth},
+      {factor: tr.transferHeader.minStairs, value: transferData[0].minStairs},
+      {factor: tr.transferHeader.minRailsStairs, value: transferData[0].minRailsStairs}
     ];
 
     if (transfersData.lift > 0) {
-      tableData.push({factor: 'Протяжённость лестниц с учетом лифтов, ступенек', value: transferData.minLiftStairs});
+      tableData.push({factor: tr.transferHeader.minLiftStairs, value: transferData.minLiftStairs});
     };
 
     targetInfoData = tableData;
 
-    targetDescription.html("по переходу " + "‹‹" + transferData[0].fromStation + " - " + transferData[0].toStation + "››");
+    targetDescription.html(tr.target.transfer + "‹‹" + transferData[0].fromStation + " - " + transferData[0].toStation + "››");
 
     //Infrastructure by transfers (node's data)
     var nodeData = nodeDataById[transferData[0].nodeId];
     var tableData = [
-      {factor: "Количество эскалаторов", value: nodeData.stairwaysAmount},
-      {factor: "Количество лифтов", value: nodeData.liftAmount}
+      {factor: tr.transferHeader.stairwaysAmount, value: nodeData.stairwaysAmount},
+      {factor: tr.transferHeader.liftAmount, value: nodeData.liftAmount}
       ];
 
     nodeInfoData = tableData;
 
-    nodeDescription.html("Входит в состав узла " + "‹‹" + nodeData.nodeName + "››");
+    nodeDescription.html(tr.target.node + "‹‹" + nodeData.nodeName + "››");
     nodeDescription.classed('hidden', false);
 
     //Accessibility by transfers (transfer's data)
     var tableData = [];
     tableData.push(
-      {factor: 'Доступен ли переход для инвалидов-колясочников', value: (transferData[0].wheelchairFriendlyRoutes == 0 ? 'нет' : 'да')},
-      {factor: 'Доступен ли переход для людей с затруднениями передвижения', value: transferData[0].handicappedFriendlyRoutes == 0 ? 'нет' : 'да'},
-      {factor: 'Доступен ли переход для людей с детскими колясками', value: transferData[0].luggageFriendlyRoutes == 0 ? 'нет' : 'да'}
+      {factor: tr.transferHeader.wheelchairFriendlyRoutes, value: transferData[0].wheelchairFriendlyRoutes == 0 ? tr.booleanWords.no : tr.booleanWords.yes},
+      {factor: tr.transferHeader.handicappedFriendlyRoutes, value: transferData[0].handicappedFriendlyRoutes == 0 ? tr.booleanWords.no : tr.booleanWords.yes},
+      {factor: tr.transferHeader.luggageFriendlyRoutes, value: transferData[0].luggageFriendlyRoutes == 0 ? tr.booleanWords.no : tr.booleanWords.yes}
     );
 
     targetAccessData = tableData;
