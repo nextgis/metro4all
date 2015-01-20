@@ -24,13 +24,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by 4eRT on 1/17/2015.
- */
-
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private Button mPortalNameButton;
     private IViewHolderClick mViewHolderClick;
+
+    public void setChecked() {
+        mPortalNameButton.setBackgroundColor(mPortalNameButton.getResources().getColor(R.color.portalChecked));
+    }
+
+    public void setNormal() {
+        mPortalNameButton.setBackgroundDrawable(mPortalNameButton.getResources().getDrawable(R.drawable.horizontal_item_selector));
+    }
+
+    public void setInvalid() {
+        mPortalNameButton.setBackgroundColor(mPortalNameButton.getResources().getColor(R.color.portalInvalid));
+    }
 
     public static interface IViewHolderClick {
         public void onItemClick(View caller, int position);

@@ -36,5 +36,8 @@
   	<color name="horizontalItemText">#4c4c4c</color>
   	<color name="horizontalItemStroke">#b2b2b2</color>
   	<color name="horizontalItemFill">#ddd</color>
+  	<color name="portalChecked">#00b200</color>
+  	<color name="portalInvalid">#a00</color>
+  	<color name="portalNormal">#424251</color>
 
 </resources>

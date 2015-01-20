@@ -72,6 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/strip_margin_left"
+        android:visibility="gone"
         />
 
 </RelativeLayout>
