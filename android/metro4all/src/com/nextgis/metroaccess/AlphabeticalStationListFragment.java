@@ -20,123 +20,73 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import android.graphics.Rect;
-import android.util.DisplayMetrics;
-import android.view.ViewTreeObserver;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.nextgis.metroaccess.data.PortalItem;
-import com.nextgis.metroaccess.data.StationItem;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.TextView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.content.Context;
-import android.os.Bundle;
-import android.widget.Toast;
+import android.widget.SectionIndexer;
 
-import static com.nextgis.metroaccess.Constants.*;
+import com.nextgis.metroaccess.data.StationItem;
 
-public class AlphabeticalStationListFragment extends SherlockFragment {
-	protected ExpandableListView m_oExpListView;
-	protected StationIndexedExpandableListAdapter m_oExpListAdapter;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+public class AlphabeticalStationListFragment extends SelectStationListFragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View result = super.onCreateView(inflater, container, savedInstanceState);
 
-		this.setRetainInstance(true);
+        mTab = Analytics.TAB_AZ;
+        SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+        m_oExpListAdapter = new AlphabeticalExpandableListAdapter(parentActivity, parentActivity.GetStationList());
+        m_oExpListView.setAdapter(m_oExpListAdapter);
 
-		SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-		View view = inflater.inflate(R.layout.alphabetical_stationlist_fragment, container, false);
-
-		m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-		m_oExpListAdapter = new StationIndexedExpandableListAdapter(parentActivity, parentActivity.GetStationList());
-		m_oExpListAdapter.onInit();
-		m_oExpListView.setAdapter(m_oExpListAdapter);
-		m_oExpListView.setFastScrollEnabled(true);
-		m_oExpListView.setGroupIndicator(null);
-
-		m_oExpListView.setOnChildClickListener(new OnChildClickListener() {
-
-			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.PORTAL, Analytics.TAB_AZ);
-
-                final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
-				SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-				parentActivity.Finish(selected.GetStationId(), selected.GetId());
-				return true;
-			}
-		});
-		
-		m_oExpListView.setOnGroupClickListener(new OnGroupClickListener() {
-
-			@Override
-			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-                if (((StationItem)m_oExpListAdapter.getGroup(groupPosition)).GetPortalsCount() == 0)
-                    Toast.makeText(getActivity(), getString(R.string.sNoPortals), Toast.LENGTH_SHORT).show();
-
-				return false;
-			}			
-		});
-
-        m_oExpListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int i) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_EXPAND, Analytics.TAB_AZ);
-            }
-        });
-
-        m_oExpListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-            @Override
-            public void onGroupCollapse(int i) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_COLLAPSE, Analytics.TAB_AZ);
-            }
-        });
-
-		EditText stationFilterEdit = (EditText) view.findViewById(R.id.etStationFilterEdit);
-		TextWatcher searchTextWatcher = new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				// ignore
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// ignore
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				Log.d(TAG, "*** Search value changed: " + s.toString());
-				m_oExpListAdapter.getFilter().filter(s.toString());
-			}
-		};
-		stationFilterEdit.addTextChangedListener(searchTextWatcher);
-
-        return view;
-	}
-
-    private String getDirection() { // for GA
-        return ((SelectStationActivity) getSherlockActivity()).IsIn() ? Analytics.FROM : Analytics.TO;
+        return result;
     }
-	
-	public void Update(){
-		if(m_oExpListAdapter != null){
-			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-			m_oExpListAdapter.Update(parentActivity.GetStationList());
-			m_oExpListAdapter.notifyDataSetChanged();
-		}
-	}
+
+    public void Update() {
+        super.Update();
+
+        if (m_oExpListAdapter != null) {
+            SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+            ((StationIndexedExpandableListAdapter) m_oExpListAdapter).Update(parentActivity.GetStationList());
+            m_oExpListAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class AlphabeticalExpandableListAdapter extends StationIndexedExpandableListAdapter implements SectionIndexer {
+
+        public AlphabeticalExpandableListAdapter(Context c, List<StationItem> stationList) {
+            super(c, stationList);
+
+            onInit();
+        }
+
+        @Override
+        protected void onInit() {
+            Collections.sort(mStationList, new StationItemComparator());
+
+            for (int i = 0; i < mStationList.size(); i++) {
+                String stationName = mStationList.get(i).GetName();
+                String firstChar = stationName.substring(0, 1).toUpperCase();
+
+                if (!mSections.contains(firstChar)) {
+                    mSections.add(firstChar);
+                    mItems.add(new SectionItem(firstChar));
+                    mIndexer.put(firstChar, i + mIndexer.size());
+                }
+
+                mItems.add(mStationList.get(i));
+            }
+        }
+
+        protected class StationItemComparator implements Comparator<StationItem>
+        {
+            public int compare(StationItem left, StationItem right) {
+                return left.GetName().compareTo( right.GetName() );
+            }
+        }
+    }
 }

@@ -1,9 +1,9 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
+*   Copyright (C) 2013-2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -20,87 +20,35 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.nextgis.metroaccess.data.PortalItem;
-import com.nextgis.metroaccess.data.StationItem;
-
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ExpandableListView;
-import android.widget.TextView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.os.Bundle;
-import android.widget.Toast;
 
-public class RecentStationListFragment extends SherlockFragment {
-	protected ExpandableListView m_oExpListView;
-	protected StationExpandableListAdapter m_oExpListAdapter;
+import com.nextgis.metroaccess.data.StationItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.Map;
+
+import static com.nextgis.metroaccess.SelectStationActivity.getRecentStations;
+
+public class RecentStationListFragment extends SelectStationListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    	this.setRetainInstance(true);
-    	
+        View result = super.onCreateView(inflater, container, savedInstanceState);
+
+        mTab = Analytics.TAB_RECENT;
      	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-    	
-    	View view = inflater.inflate(R.layout.recent_stationlist_fragment, container, false);
-
-    	m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-    	m_oExpListAdapter = new StationExpandableListAdapter(parentActivity);
-    	m_oExpListAdapter.onInit();
+    	m_oExpListAdapter = new RecentExpandableListAdapter(parentActivity);
         m_oExpListView.setAdapter(m_oExpListAdapter);
-        m_oExpListView.setFastScrollEnabled(true); 
-        m_oExpListView.setGroupIndicator(null);
-
-        m_oExpListView.setOnChildClickListener(new OnChildClickListener() {
- 
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.PORTAL, Analytics.TAB_RECENT);
-
-                final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
-            	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-            	parentActivity.Finish(selected.GetStationId(), selected.GetId());
-                return true;
-            }
-        });
-
-        m_oExpListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-                if (((StationItem) m_oExpListAdapter.getGroup(groupPosition)).GetPortalsCount() == 0)
-                    Toast.makeText(getActivity(), getString(R.string.sNoPortals), Toast.LENGTH_SHORT).show();
-
-                return false;
-            }
-        });
-
-        m_oExpListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int i) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_EXPAND, Analytics.TAB_RECENT);
-            }
-        });
-
-        m_oExpListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-            @Override
-            public void onGroupCollapse(int i) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_COLLAPSE, Analytics.TAB_RECENT);
-            }
-        });
+        result.findViewById(R.id.etStationFilterEdit).setVisibility(View.GONE);
         
-        return view;
-
-    }
-
-    private String getDirection() { // for GA
-        return ((SelectStationActivity) getSherlockActivity()).IsIn() ? Analytics.FROM : Analytics.TO;
+        return result;
     }
 
     public void Update(){
@@ -109,4 +57,34 @@ public class RecentStationListFragment extends SherlockFragment {
 			m_oExpListAdapter.notifyDataSetChanged();
 		}
 	}
+
+    private class RecentExpandableListAdapter extends StationExpandableListAdapter {
+
+        public RecentExpandableListAdapter(Context c) {
+            super(c);
+            onInit();
+        }
+
+        protected void onInit() {
+            mStationList.clear();
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            Map<Integer, StationItem> omStations = MainActivity.GetGraph().GetStations();
+            JSONArray stationsIds = getRecentStations(prefs, m_bIn);
+
+            if (stationsIds != null)
+                for (int i = stationsIds.length() - 1; i >= 0; i--) {
+                    StationItem sit = null;
+
+                    try {
+                        sit = omStations.get(stationsIds.getInt(i));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (sit != null && !mStationList.contains(sit))
+                        mStationList.add(sit);
+                }
+        }
+    }
 }

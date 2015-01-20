@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Project:  Metro4All
  * Purpose:  Routing in subway for disabled.
- * Author:   Dmitry Baryshnikov, polimax@mail.ru
+ * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
+*   Copyright (C) 2013-2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -21,64 +21,41 @@
 
 package com.nextgis.metroaccess;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.SectionIndexer;
+import android.widget.TextView;
 
+import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.widget.SectionIndexer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class StationIndexedExpandableListAdapter extends StationExpandableListAdapter implements SectionIndexer {
-
-	protected HashMap<String, Integer> mAlphaIndexer; 
-	
-	protected String[] msaSections;
+public abstract class StationIndexedExpandableListAdapter extends StationExpandableListAdapter implements SectionIndexer {
+	protected HashMap<String, Integer> mIndexer;
+    protected ArrayList mItems, mSections;
 
 	public StationIndexedExpandableListAdapter(Context c, List<StationItem> stationList) {
 		super(c);
 
-		mStationList = new ArrayList <StationItem>();
-		mStationList.addAll(stationList);
-		//mStationList = stationList;
-		mAlphaIndexer = new HashMap<String, Integer>();
+        mStationList.addAll(stationList);
+        mItems = new ArrayList();
+        mSections = new ArrayList();
+		mIndexer = new HashMap<String, Integer>();
 	}
 	
-	@Override
-	protected void onInit(){
-    	Collections.sort(mStationList, new StationItemComparator()); 
-
-		for (int x = 0; x < mStationList.size(); x++) {  
-			String s = mStationList.get(x).GetName();  
-			String ch = s.substring(0, 1);  
-			ch = ch.toUpperCase();  
-			if (!mAlphaIndexer.containsKey(ch)){
-				mAlphaIndexer.put(ch, x);
-
-				StationItem sit =
-                        new StationItem(-1, ch, -1, -1, -1, -1, -1, -1);
-				mStationList.add(x, sit);
-
-			}     
-		}  	
-        
-        List<String> sectionList = new ArrayList<String>( mAlphaIndexer.keySet() );  
-
-        Collections.sort(sectionList);  
-        
-        msaSections = new String[sectionList.size()];  
-
-        sectionList.toArray(msaSections);
-	}
+	abstract void onInit();
 	
 	@Override
-	public int getPositionForSection(int arg0) {
-		return mAlphaIndexer.get(msaSections[arg0]);
+	public int getPositionForSection(int position) {
+        if (position >= mSections.size())
+            return 0;
+
+		return mIndexer.get(mSections.get(position));
 	}
 
 	@Override
@@ -86,27 +63,134 @@ public class StationIndexedExpandableListAdapter extends StationExpandableListAd
 		return 0;
 	}
 
+    private int getPositionsCountBeforeId(int id) {
+        int count = 0;
+
+        for (Map.Entry<String, Integer> entry : mIndexer.entrySet())
+            if (entry.getValue() < id) count++;
+
+        return count;
+    }
+
+    private int getStationPosition(int id) {
+        return id - getPositionsCountBeforeId(id);
+    }
+
 	@Override
 	public Object[] getSections() {
-		return msaSections;
+		return mSections.toArray();
 	}
 
-	protected class StationItemComparator implements Comparator<StationItem>
-	{
-	    public int compare(StationItem left, StationItem right) {
-	    	return left.GetName().compareTo( right.GetName() );
-	    }
-	}
-	
-	public void Update(List<StationItem> stationList){
-		super.Update();
+    @Override
+    public int getGroupCount() {
+        return mItems.size();
+    }
 
-		mStationList.clear();
-		mStationList.addAll(stationList);
-		//mStationList = stationList;
-		mAlphaIndexer.clear();
-		
-		onInit();
+    @Override
+    public Object getGroup(int groupPosition) {
+        return mItems.get(groupPosition);
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        if (mItems.get(groupPosition).getClass() == SectionItem.class)
+            return -1;
+
+        StationItem sit = mStationList.get(getStationPosition(groupPosition));
+
+        if (sit != null)
+            return sit.GetId();
+
+        return -1;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
+        if (mItems.get(groupPosition).getClass() == SectionItem.class) {
+            if (convertView == null || convertView.findViewById(R.id.tvSection) == null) {
+                convertView = mInfalInflater.inflate(R.layout.select_station_section, null);
+            }
+
+            SectionItem section = (SectionItem) mItems.get(groupPosition);
+            TextView item = (TextView) convertView.findViewById(R.id.tvSection);
+            item.setText(section.getTitle());
+        } else {
+            convertView = getGroupView(convertView, mStationList.get(getStationPosition(groupPosition)));
+        }
+
+        return convertView;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        clearSections();
+        mItems.clear();
+
+        super.notifyDataSetChanged();
+
+        onInit();
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        if (mItems.get(groupPosition).getClass() == SectionItem.class)
+            return 0;
+
+        StationItem sit = mStationList.get(getStationPosition(groupPosition));
+
+        if (sit != null) {
+            List<PortalItem> ls = sit.GetPortals(m_bIn);
+
+            if (ls == null)
+                return 0;
+
+            return ls.size();
+        }
+
+        return 0;
+    }
+
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        StationItem sit = mStationList.get(getStationPosition(groupPosition));
+
+        if (sit != null) {
+            List<PortalItem> lpit = sit.GetPortals(m_bIn);
+
+            if (lpit != null)
+                return lpit.get(childPosition);
+        }
+
+        return null;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        return getChildView(convertView, (PortalItem) getChild(groupPosition, childPosition));
+    }
+
+    public void Update(List<StationItem> stationList){
+        clearSections();
+        mItems.clear();
+        mStationList.clear();
+        mStationList.addAll(stationList);
+        super.Update();
 	}
 
+    private void clearSections() {
+        mIndexer.clear();
+        mSections.clear();
+    }
+
+    protected class SectionItem {
+        private final String title;
+
+        public SectionItem(String title) {
+            this.title = title;
+        }
+
+        public String getTitle(){
+            return title;
+        }
+    }
 }

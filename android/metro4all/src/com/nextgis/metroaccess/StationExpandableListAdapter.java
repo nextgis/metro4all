@@ -3,21 +3,21 @@
  * Purpose:  Routing in subway.
  * Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013-2015 NextGIS
-*
-*    This program is free software: you can redistribute it and/or modify
-*    it under the terms of the GNU General Public License as published by
-*    the Free Software Foundation, either version 3 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU General Public License for more details.
-*
-*    You should have received a copy of the GNU General Public License
-*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*******************************************************************************/
+ *   Copyright (C) 2013-2015 NextGIS
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 
 package com.nextgis.metroaccess;
 
@@ -48,7 +48,6 @@ import com.nextgis.metroaccess.data.StationItem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
@@ -57,271 +56,248 @@ import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
 import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 import static com.nextgis.metroaccess.Constants.TAG;
 
-public class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
+public abstract class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable {
+    protected Context mContext;
+    protected List<StationItem> mStationList;
 
-	protected Context mContext;
-	protected List <StationItem> mStationList;
+    protected int mnType;
+    protected int mnMaxWidth, mnWheelWidth;
+    protected boolean m_bHaveLimits;
 
-	protected int mnType;
-	protected int mnMaxWidth, mnWheelWidth;
-	protected boolean m_bHaveLimits;
+    protected LayoutInflater mInfalInflater;
+    protected List<StationItem> moOriginalStationList;
 
-	protected LayoutInflater mInfalInflater;
-	protected List<StationItem> moOriginalStationList;
+    protected boolean m_bIn;
 
-	protected boolean m_bIn;
+    public StationExpandableListAdapter(Context c) {
+        mContext = c;
+        mStationList = new ArrayList<StationItem>();
+        mInfalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-	public StationExpandableListAdapter(Context c) {
-		mContext = c;
+        loadPreferences();
 
-		mInfalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
-		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
-		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
-		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-
-		SelectStationActivity act = (SelectStationActivity)mContext;
-		m_bIn = act.IsIn();
+        SelectStationActivity act = (SelectStationActivity) mContext;
+        m_bIn = act.IsIn();
     }
 
-	protected void FillArrays(){
-		mStationList.clear();
+    abstract void onInit();
 
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-		Map<Integer, StationItem> omStations = MainActivity.GetGraph().GetStations();
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        StationItem sit = mStationList.get(groupPosition);
 
-		if(m_bIn){
-			int size = prefs.getInt("recent_dep_counter", 0);
-			for(int i = 0; i < size; i++){
-				int nStationId = prefs.getInt("recent_dep_" + BUNDLE_STATIONID_KEY+i, -1);
+        if (sit != null) {
+            List<PortalItem> lpit = sit.GetPortals(m_bIn);
 
-				StationItem sit = omStations.get(nStationId);
-				if(sit != null && !mStationList.contains(sit)){
-					mStationList.add(sit);
-				}
-			}
-		}
-		else{
-			int size = prefs.getInt("recent_arr_counter", 0);
-			for(int i = 0; i < size; i++){
-				int nStationId = prefs.getInt("recent_arr_" + BUNDLE_STATIONID_KEY+i, -1);
+            if (lpit != null)
+                return lpit.get(childPosition);
+        }
 
-				StationItem sit = omStations.get(nStationId);
-				if(sit != null && !mStationList.contains(sit)){
-					mStationList.add(sit);
-				}
-			}
-		}
-	}
+        return null;
+    }
 
-	protected void onInit(){
-		mStationList = new ArrayList<StationItem>();
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        PortalItem pit = (PortalItem) getChild(groupPosition, childPosition);
 
-		//load recent data
-		FillArrays();
-	}
+        if (pit != null)
+            return pit.GetId();
 
-	@Override
-	public Object getChild(int groupPosition, int childPosition) {
-		StationItem sit = mStationList.get(groupPosition);
-		if(sit != null){
-			List<PortalItem> lpit = sit.GetPortals(m_bIn);
-			if(lpit != null)
-				return lpit.get(childPosition);
-		}
+        return -1;
+    }
 
-		return null;
-	}
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        PortalItem entry = (PortalItem) getChild(groupPosition, childPosition);
+        return getChildView(convertView, entry);
+    }
 
-	@Override
-	public long getChildId(int groupPosition, int childPosition) {
-		PortalItem pit = (PortalItem)getChild(groupPosition, childPosition);
-		if(pit != null)
-			return pit.GetId();
-		return -1;
-	}
+    protected View getChildView(View convertView, PortalItem entry) {
+        if (convertView == null) {
+            convertView = mInfalInflater.inflate(R.layout.select_portal_row_layout, null);
+        }
 
-	@Override
-	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = mInfalInflater.inflate(R.layout.select_portal_row_layout, null);
-		}
-		PortalItem entry = (PortalItem) getChild(groupPosition, childPosition);
-		TextView item = (TextView) convertView.findViewById(R.id.txPortalName);
-		TextView meetcode = (TextView) convertView.findViewById(R.id.tvPortalMeetCode);
-		//
-		if(mnType > 1){
-			boolean bSmallWidth = entry.GetDetailes()[0] < mnMaxWidth;
-			boolean bCanRoll = entry.GetDetailes()[7] == 0
-                    || entry.GetDetailes()[5] <= mnWheelWidth
+        TextView item = (TextView) convertView.findViewById(R.id.txPortalName);
+        TextView meetcode = (TextView) convertView.findViewById(R.id.tvPortalMeetCode);
+
+        if (mnType > 1) {
+            boolean bSmallWidth = entry.GetDetailes()[0] < mnMaxWidth;
+            boolean bCanRoll = entry.GetDetailes()[7] == 0 || entry.GetDetailes()[5] <= mnWheelWidth
                     && (entry.GetDetailes()[6] == 0 || mnWheelWidth <= entry.GetDetailes()[6]);
-			if(m_bHaveLimits && (bSmallWidth || !bCanRoll)){
-				item.setTextColor(Color.RED);
-			}
-			else{
-				TypedValue tv = new TypedValue();
-				mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
-				item.setTextColor(mContext.getResources().getColor(tv.resourceId));
-			}
-		}
-		//
-		item.setText(entry.GetName());
-		meetcode.setText(entry.GetReadableMeetCode());
 
-		return convertView;
-	}
+            if (m_bHaveLimits && (bSmallWidth || !bCanRoll)) {
+                item.setTextColor(Color.RED);
+            } else {
+                TypedValue tv = new TypedValue();
+                mContext.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
+                item.setTextColor(mContext.getResources().getColor(tv.resourceId));
+            }
+        }
 
-	@Override
-	public int getChildrenCount(int groupPosition) {
-		StationItem sit = mStationList.get(groupPosition);
-		if(sit != null){
-			List<PortalItem> ls = sit.GetPortals(m_bIn);
-			if(ls == null)
-				return 0;
-			return ls.size();
-		}
-		return 0;
-	}
+        item.setText(entry.GetName());
+        meetcode.setText(entry.GetReadableMeetCode());
 
-	@Override
-	public Object getGroup(int groupPosition) {
-		return mStationList.get(groupPosition);
-	}
+        return convertView;
+    }
 
-	@Override
-	public int getGroupCount() {
-		return mStationList.size();
-	}
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        StationItem sit = mStationList.get(groupPosition);
 
-	@Override
-	public long getGroupId(int groupPosition) {
-		StationItem sit = (StationItem)mStationList.get(groupPosition);
-		if(sit != null)
-			return sit.GetId();
-		return -1;
-	}
+        if (sit != null) {
+            List<PortalItem> ls = sit.GetPortals(m_bIn);
 
-	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
-		final StationItem entry = (StationItem) getGroup(groupPosition);
-		if(entry.GetId() == -1){
-			if (convertView == null || convertView.findViewById(R.id.tvCategoryName) == null) {
-				convertView = mInfalInflater.inflate(R.layout.select_category_row_layout, null);
-			}
-			TextView item = (TextView) convertView.findViewById(R.id.tvCategoryName);
-			item.setText(entry.GetName());
-		}
-		else{
-			if (convertView == null || convertView.findViewById(R.id.tvStationName) == null) {
-				convertView = mInfalInflater.inflate(R.layout.select_station_row_layout, null);
-			}
-			TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
-			item.setText(entry.GetName());
+            if (ls == null)
+                return 0;
 
-			ImageView ivIcon = (ImageView)convertView.findViewById(R.id.ivIcon);
+            return ls.size();
+        }
 
-			String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
+        return 0;
+    }
 
-            String color = MainActivity.GetGraph().GetLineColor(entry.GetLine());
-            Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, R.raw._0, color);
-            ivIcon.setImageBitmap(myBitmap);
+    @Override
+    public Object getGroup(int groupPosition) {
+        return mStationList.get(groupPosition);
+    }
 
-            ImageButton ibtnLayout = (ImageButton) convertView.findViewById(R.id.ibtnLayout);
-            final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
-            final SelectStationActivity parentActivity = (SelectStationActivity) ibtnLayout.getContext();
+    @Override
+    public int getGroupCount() {
+        return mStationList.size();
+    }
 
-            final Bundle bundle = new Bundle();
-            bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
-            bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
-            bundle.putBoolean(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
-            bundle.putInt(BUNDLE_STATIONID_KEY, entry.GetId());
+    @Override
+    public long getGroupId(int groupPosition) {
+        StationItem sit = mStationList.get(groupPosition);
 
-            int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
-            final String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
-            final String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
+        if (sit != null)
+            return sit.GetId();
 
-            ibtnLayout.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    try {
-                        Log.d(TAG, schemaFile.getPath());
+        return -1;
+    }
 
-                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
+        final StationItem entry = (StationItem) getGroup(groupPosition);
+        return getGroupView(convertView, entry);
+    }
 
-                        Intent intentView = new Intent(parentActivity, StationImageView.class);
-                        intentView.putExtras(bundle);
-                        parentActivity.startActivityForResult(intentView, PORTAL_MAP_RESULT);
-                    } catch (ActivityNotFoundException e) {
-                        Log.e(TAG, "Call failed", e);
+    protected View getGroupView(View convertView, StationItem entry) {
+        if (convertView == null || convertView.findViewById(R.id.tvStationName) == null) {
+            convertView = mInfalInflater.inflate(R.layout.select_station_row_layout, null);
+        }
+
+        TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
+        item.setText(entry.GetName());
+
+        ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
+
+        String sRouteDataPath = MainActivity.GetGraph().GetCurrentRouteDataPath();
+
+        String color = MainActivity.GetGraph().GetLineColor(entry.GetLine());
+        Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, R.raw._0, color);
+        ivIcon.setImageBitmap(myBitmap);
+
+        ImageButton ibtnLayout = (ImageButton) convertView.findViewById(R.id.ibtnLayout);
+        final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
+        final SelectStationActivity parentActivity = (SelectStationActivity) ibtnLayout.getContext();
+
+        final Bundle bundle = new Bundle();
+        bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
+        bundle.putBoolean(PARAM_ROOT_ACTIVITY, true);
+        bundle.putBoolean(PARAM_PORTAL_DIRECTION, parentActivity.IsIn());
+        bundle.putInt(BUNDLE_STATIONID_KEY, entry.GetId());
+
+        int i = parentActivity.getSupportActionBar().getSelectedTab().getPosition();
+        final String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
+        final String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
+
+        ibtnLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    Log.d(TAG, schemaFile.getPath());
+
+                    ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
+
+                    Intent intentView = new Intent(parentActivity, StationImageView.class);
+                    intentView.putExtras(bundle);
+                    parentActivity.startActivityForResult(intentView, PORTAL_MAP_RESULT);
+                } catch (ActivityNotFoundException e) {
+                    Log.e(TAG, "Call failed", e);
+                }
+            }
+        });
+
+        ImageButton ibtnMap = (ImageButton) convertView.findViewById(R.id.ibtnMap);
+        ibtnMap.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
+
+                Intent intent = new Intent(parentActivity, StationMapActivity.class);
+                intent.putExtras(bundle);
+                parentActivity.startActivityForResult(intent, PORTAL_MAP_RESULT);
+            }
+        });
+
+        return convertView;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<StationItem> results = new ArrayList<StationItem>();
+
+                if (constraint != null) {
+                    if (moOriginalStationList == null)
+                        moOriginalStationList = mStationList;
+
+                    if (moOriginalStationList != null && moOriginalStationList.size() > 0) {
+                        for (final StationItem station : moOriginalStationList) {
+                            if (station.GetName().toLowerCase().contains(constraint.toString().toLowerCase()))
+                                results.add(station);
+                        }
                     }
+
+                    oReturn.values = results;
                 }
-            });
 
-            ImageButton ibtnMap = (ImageButton) convertView.findViewById(R.id.ibtnMap);
-            ibtnMap.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
+                return oReturn;
+            }
 
-                    Intent intent = new Intent(parentActivity, StationMapActivity.class);
-                    intent.putExtras(bundle);
-                    parentActivity.startActivityForResult(intent, PORTAL_MAP_RESULT);
-                }
-            });
-		}
-		return convertView;
-	}
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mStationList = (ArrayList<StationItem>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
-	@Override
-	public boolean hasStableIds() {
-		return true;
-	}
+    public void Update() {
+        loadPreferences();
+        moOriginalStationList = null;
+        onInit();
+    }
 
-	@Override
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		return true;
-	}
-
-	@Override
-	public Filter getFilter() {
-		return new Filter() {
-
-	        @Override
-	        protected FilterResults performFiltering(CharSequence constraint) {
-	            final FilterResults oReturn = new FilterResults();
-	            final ArrayList<StationItem> results = new ArrayList<StationItem>();
-	            if (moOriginalStationList == null)
-	            	moOriginalStationList = mStationList;
-	            if (constraint != null) {
-	                if (moOriginalStationList != null && moOriginalStationList.size() > 0) {
-	                    for (final StationItem station : moOriginalStationList) {
-	                        if (station.GetName().toLowerCase()
-	                                .contains(constraint.toString().toLowerCase()))
-	                            results.add(station);
-	                    }
-	                }
-	                oReturn.values = results;
-	            }
-	            return oReturn;
-	        }
-
-	        @SuppressWarnings("unchecked")
-	        @Override
-	        protected void publishResults(CharSequence constraint,
-	                FilterResults results) {
-	        	mStationList = (ArrayList<StationItem>) results.values;
-	            notifyDataSetChanged();
-	        }
-	    };
-	}
-
-	public void Update(){
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-		mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
-		mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
-		mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
-		m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-
-		FillArrays();
-	}
+    private void loadPreferences() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
+        mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
+        mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
+        m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
+    }
 }

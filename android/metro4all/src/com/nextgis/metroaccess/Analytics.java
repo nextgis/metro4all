@@ -63,6 +63,7 @@ public class Analytics extends Application {
     final static String BACK = "Back";
     final static String LIMITATIONS = "Limitations";
     final static String PORTAL = "Portal selected";
+    final static String HEADER = "Header clicked";
     final static String STATION_EXPAND = "Station expanded";
     final static String STATION_COLLAPSE = "Station collapsed";
     final static String LEGEND = "Legend";

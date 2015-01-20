@@ -1,140 +1,102 @@
 /******************************************************************************
  * Project:  Metro Access
  * Purpose:  Routing in subway for disabled.
- * Author:   Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
+ * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013,2014 NextGIS
-*
-*    This program is free software: you can redistribute it and/or modify
-*    it under the terms of the GNU General Public License as published by
-*    the Free Software Foundation, either version 3 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU General Public License for more details.
-*
-*    You should have received a copy of the GNU General Public License
-*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   Copyright (C) 2013-2015 NextGIS
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.nextgis.metroaccess.data.PortalItem;
-import com.nextgis.metroaccess.data.StationItem;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.TextView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.widget.Toast;
+import android.widget.SectionIndexer;
 
-import static com.nextgis.metroaccess.Constants.*;
+import com.nextgis.metroaccess.data.StationItem;
 
-public class LinesStationListFragment extends SherlockFragment {
-	protected ExpandableListView m_oExpListView;
-	protected LinesExpandableListAdapter m_oExpListAdapter;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
+public class LinesStationListFragment extends SelectStationListFragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-    	
-    	this.setRetainInstance(true);
-    	
-     	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-    	
-    	View view = inflater.inflate(R.layout.line_stationlist_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View result = super.onCreateView(inflater, container, savedInstanceState);
 
-    	m_oExpListView = (ExpandableListView) view.findViewById(R.id.lvStationList);
-    	m_oExpListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), MainActivity.GetGraph().GetLines());
-    	m_oExpListAdapter.onInit();
+        mTab = Analytics.TAB_LINES;
+        SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+        m_oExpListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), MainActivity.GetGraph().GetLines());
         m_oExpListView.setAdapter(m_oExpListAdapter);
-        m_oExpListView.setFastScrollEnabled(true); 
-        m_oExpListView.setGroupIndicator(null);
-        m_oExpListView.setOnChildClickListener(new OnChildClickListener() {
- 
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.PORTAL, Analytics.TAB_LINES);
 
-            	final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
-            	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-            	parentActivity.Finish(selected.GetStationId(), selected.GetId());
-                return true;
-            }
-        });
-        
-        m_oExpListView.setOnGroupClickListener(new OnGroupClickListener() {
-
-			@Override
-			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-				InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-                if (((StationItem)m_oExpListAdapter.getGroup(groupPosition)).GetPortalsCount() == 0)
-                    Toast.makeText(getActivity(), getString(R.string.sNoPortals), Toast.LENGTH_SHORT).show();
-
-                return false;
-			}			
-		});
-
-        m_oExpListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-            @Override
-            public void onGroupCollapse(int i) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_COLLAPSE, Analytics.TAB_LINES);
-            }
-        });
-
-        m_oExpListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int i) {
-                ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_EXPAND, Analytics.TAB_LINES);
-            }
-        });
-		
-        EditText stationFilterEdit = (EditText) view.findViewById(R.id.etStationFilterEdit);
-		TextWatcher searchTextWatcher = new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				// ignore
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// ignore
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				Log.d(TAG, "*** Search value changed: " + s.toString());
-				m_oExpListAdapter.getFilter().filter(s.toString());
-			}
-		};
-		stationFilterEdit.addTextChangedListener(searchTextWatcher);
-
-		return view;
+        return result;
     }
 
-    private String getDirection() { // for GA
-        return ((SelectStationActivity) getSherlockActivity()).IsIn() ? Analytics.FROM : Analytics.TO;
+    public void Update() {
+        super.Update();
+
+        if (m_oExpListAdapter != null) {
+            SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+            ((LinesExpandableListAdapter) m_oExpListAdapter).Update(parentActivity.GetStationList());
+            m_oExpListAdapter.notifyDataSetChanged();
+        }
     }
 
-    public void Update(){
-		if(m_oExpListAdapter != null){
-			SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
-			m_oExpListAdapter.Update(parentActivity.GetStationList());
-			m_oExpListAdapter.notifyDataSetChanged();
-		}
-	}
+    private class LinesExpandableListAdapter extends StationIndexedExpandableListAdapter implements SectionIndexer {
+        protected Map<Integer, String> momLines;
+
+        public LinesExpandableListAdapter(Context c, List<StationItem> stationList, Map<Integer, String> omLines) {
+            super(c, stationList);
+
+            momLines = omLines;
+            onInit();
+        }
+
+        @Override
+        protected void onInit() {
+            Collections.sort(mStationList, new StationItemComparator());
+
+            StationItem station;
+
+            for (int i = 0; i < mStationList.size(); i++) {
+                station = mStationList.get(i);
+                int stationLine = station.GetLine();
+                String lineName = stationLine + ". " + momLines.get(stationLine);
+
+                if (!mSections.contains(stationLine + "")) {
+                    mSections.add(stationLine + "");
+                    mItems.add(new SectionItem(lineName));
+                    mIndexer.put(stationLine + "", i + mIndexer.size());
+                }
+
+                mItems.add(station);
+            }
+        }
+
+        protected class StationItemComparator implements Comparator<StationItem>
+        {
+            public int compare(StationItem left, StationItem right) {
+                if(left.GetLine() == right.GetLine())
+                    return left.GetOrder()  - right.GetOrder();//left.GetName().compareTo( right.GetName() );
+                else {
+                    return left.GetLine() - right.GetLine();
+                }
+            }
+        }
+    }
 }
