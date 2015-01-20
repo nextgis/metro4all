@@ -46,6 +46,7 @@ public interface Constants {
     final static String BUNDLE_STATIONID_KEY = "stationid";
     final static String BUNDLE_PORTALID_KEY = "portalid";
     final static String BUNDLE_METAMAP_KEY = "metamap";
+    final static String BUNDLE_CITY_CHANGED = "city_changed";
 
     public final static int MENU_SEARCH = 3;
     public final static int MENU_SETTINGS = 4;
@@ -56,14 +57,16 @@ public interface Constants {
     public final static int ARRIVAL_RESULT = 2;
     public final static int PREF_RESULT = 3;
     public final static int PORTAL_MAP_RESULT = 4;
-    public final static int PORTAL_MAP_MAIN_FROM_RESULT = 5;
-    public final static int PORTAL_MAP_MAIN_TO_RESULT = 6;
     public final static int MAX_RECENT_ITEMS = 10;
 
     public final static String PARAM_PORTAL_DIRECTION = "PORTAL_DIRECTION";
     public final static String PARAM_SCHEME_PATH = "image_path";
     public final static String PARAM_ROOT_ACTIVITY = "root_activity";
     public final static String PARAM_ACTIVITY_FOR_RESULT = "NEED_RESULT";
+
+    public static final String KEY_PREF_RECENT_DEP_STATIONS = "recent_dep_stations";
+    public static final String KEY_PREF_RECENT_ARR_STATIONS = "recent_arr_stations";
+    public static final String KEY_PREF_TOOLTIPS = "tooltips_showed";
 
     public final int STATUS_INTERRUPT_LOCATING = 0;
     public final int STATUS_FINISH_LOCATING = 1;

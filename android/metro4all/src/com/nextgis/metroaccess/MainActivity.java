@@ -73,6 +73,7 @@ import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.RouteItem;
 import com.nextgis.metroaccess.data.StationItem;
 
+import org.json.JSONArray;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.IMyLocationConsumer;
 import org.osmdroid.views.overlay.mylocation.IMyLocationProvider;
@@ -95,10 +96,13 @@ import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
 
 import static com.nextgis.metroaccess.Constants.*;
 import static com.nextgis.metroaccess.PreferencesActivity.DeleteRecursive;
+import static com.nextgis.metroaccess.PreferencesActivity.clearRecent;
+import static com.nextgis.metroaccess.SelectStationActivity.getRecentStations;
+import static com.nextgis.metroaccess.SelectStationActivity.indexOf;
 
 //https://code.google.com/p/k-shortest-paths/
 
-public class MainActivity extends SherlockActivity implements OnNavigationListener {
+public class MainActivity extends SherlockActivity {
 
 	protected boolean m_bInterfaceLoaded;
 
@@ -107,7 +111,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected Button m_oSearchButton;
 	protected MenuItem m_oSearchMenuItem;
 
-	protected List<Pair<Integer, Integer>> m_aoDepRecentIds, m_aoArrRecentIds;
 	protected int m_nDepartureStationId, m_nArrivalStationId;
 	protected int m_nDeparturePortalId, m_nArrivalPortalId;
 
@@ -119,9 +122,9 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	protected ListView m_lvListButtons;
     protected ButtonListAdapter m_laListButtons;
 
-    protected int mCurrentItemPosition;
+//    protected int mCurrentItemPosition;
 
-    List<String> mCities;
+//    List<String> mCities;
 
     GpsMyLocationProvider gpsMyLocationProvider;
 
@@ -136,9 +139,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         gpsMyLocationProvider = new GpsMyLocationProvider(this);
 		setContentView(R.layout.empty_activity_main);
 
-        m_aoDepRecentIds = new ArrayList<Pair<Integer, Integer>>();
-		m_aoArrRecentIds = new ArrayList<Pair<Integer, Integer>>();
-        mCities = new ArrayList<String>();
+//        mCities = new ArrayList<String>();
 
 		m_bInterfaceLoaded = false;
 
@@ -285,7 +286,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
         setLimitationsColor(this, getResources().getColor(R.color.metrocolorlight));
 
-        fillActionBarList();
+//        fillActionBarList();
 
 		m_lvListButtons = (ListView)findViewById(R.id.lvButtList);
 		m_laListButtons = new ButtonListAdapter(this);
@@ -347,34 +348,34 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
         iv.setImageBitmap(bitmap);
     }
 
-    protected void fillActionBarList() {
-        ActionBar actionBar = getSupportActionBar();
-        Context context = actionBar.getThemedContext();
-        ArrayList<String> items = new ArrayList<String>();
-        int nCurrentCity = 0;
-        mCities.clear();
-        final List<GraphDataItem> city_list = new ArrayList<GraphDataItem>(m_oGraph.GetRouteMetadata().values());
-        Collections.sort(city_list);
-
-        for(int i = 0; i < city_list.size(); i++){
-            items.add(city_list.get(i).GetLocaleName());
-            mCities.add(city_list.get(i).GetPath());
-            if(m_oGraph.GetCurrentCity().equals(city_list.get(i).GetPath())){
-                nCurrentCity = i;
-            }
-        }
-
-        //ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.sherlock_spinner_dropdown_item, items.toArray(new String[items.size()]));
-//ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.views, R.layout.sherlock_spinner_dropdown_item);
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.citydropdown, items.toArray(new String[items.size()]));
-        adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks((SpinnerAdapter) adapter, this);
-        actionBar.setSelectedNavigationItem(nCurrentCity);
-
-        mCurrentItemPosition = nCurrentCity;
-    }
+//    protected void fillActionBarList() {
+//        ActionBar actionBar = getSupportActionBar();
+//        Context context = actionBar.getThemedContext();
+////        ArrayList<String> items = new ArrayList<String>();
+//        int nCurrentCity = 0;
+//        mCities.clear();
+//        final List<GraphDataItem> city_list = new ArrayList<GraphDataItem>(m_oGraph.GetRouteMetadata().values());
+//        Collections.sort(city_list);
+//
+//        for(int i = 0; i < city_list.size(); i++){
+//            items.add(city_list.get(i).GetLocaleName());
+//            mCities.add(city_list.get(i).GetPath());
+//            if(m_oGraph.GetCurrentCity().equals(city_list.get(i).GetPath())){
+//                nCurrentCity = i;
+//            }
+//        }
+//
+//        //ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.sherlock_spinner_dropdown_item, items.toArray(new String[items.size()]));
+////ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.views, R.layout.sherlock_spinner_dropdown_item);
+////        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.citydropdown, items.toArray(new String[items.size()]));
+////        adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+////        actionBar.setDisplayShowTitleEnabled(false);
+////        actionBar.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_LIST);
+////        actionBar.setListNavigationCallbacks((SpinnerAdapter) adapter, this);
+////        actionBar.setSelectedNavigationItem(nCurrentCity);
+//
+//        mCurrentItemPosition = nCurrentCity;
+//    }
 
     protected void onSettings() {
         Intent intentSet = new Intent(this, PreferencesActivity.class);
@@ -762,28 +763,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 		edit.putInt("dep_" + BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
 		edit.putInt("arr_" + BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
 
-		int nbeg = m_aoDepRecentIds.size() < MAX_RECENT_ITEMS ? 0 : m_aoDepRecentIds.size() - MAX_RECENT_ITEMS;
-		int nsize = m_aoDepRecentIds.size() - nbeg;
-		int counter = 0;
-		for(int i = nbeg; i < nsize; i++){
-			edit.putInt("recent_dep_" + BUNDLE_STATIONID_KEY+counter, m_aoDepRecentIds.get(i).first);
-			edit.putInt("recent_dep_" + BUNDLE_PORTALID_KEY+counter, m_aoDepRecentIds.get(i).second);
-
-			counter++;
-		}
-		edit.putInt("recent_dep_counter",counter);
-
-		nbeg = m_aoArrRecentIds.size() < MAX_RECENT_ITEMS ? 0 : m_aoArrRecentIds.size() - MAX_RECENT_ITEMS;
-		nsize = m_aoArrRecentIds.size() - nbeg;
-		counter = 0;
-		for(int i = nbeg; i < nsize; i++){
-			edit.putInt("recent_arr_" + BUNDLE_STATIONID_KEY+counter, m_aoArrRecentIds.get(i).first);
-			edit.putInt("recent_arr_" + BUNDLE_PORTALID_KEY+counter, m_aoArrRecentIds.get(i).second);
-
-			counter++;
-		}
-		edit.putInt("recent_arr_counter",counter);
-
 		edit.commit();
 
 		super.onPause();
@@ -798,28 +777,6 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    m_nArrivalStationId = prefs.getInt("arr_"+BUNDLE_STATIONID_KEY, -1);
 	    m_nDeparturePortalId = prefs.getInt("dep_"+BUNDLE_PORTALID_KEY, -1);
 	    m_nArrivalPortalId = prefs.getInt("arr_"+BUNDLE_PORTALID_KEY, -1);
-
-		int size = prefs.getInt("recent_dep_counter", 0);
-		for(int i = 0; i < size; i++){
-			int nB = prefs.getInt("recent_dep_"+BUNDLE_STATIONID_KEY+i, -1);
-			int nE = prefs.getInt("recent_dep_"+BUNDLE_PORTALID_KEY+i, -1);
-
-			Pair<Integer, Integer> pair = Pair.create(nB, nE);
-			if(!m_aoDepRecentIds.contains(pair)){
-				m_aoDepRecentIds.add(Pair.create(nB, nE));
-			}
-		}
-
-		size = prefs.getInt("recent_arr_counter", 0);
-		for(int i = 0; i < size; i++){
-			int nB = prefs.getInt("recent_arr_"+BUNDLE_STATIONID_KEY+i, -1);
-			int nE = prefs.getInt("recent_arr_"+BUNDLE_PORTALID_KEY+i, -1);
-			Pair<Integer, Integer> pair = Pair.create(nB, nE);
-			if(!m_aoArrRecentIds.contains(pair)){
-				m_aoArrRecentIds.add(Pair.create(nB, nE));
-			}
-		}
-
 
 		//check if routing data changed
 		m_oGraph.FillRouteMetadata();
@@ -840,6 +797,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    bundle.putInt(BUNDLE_EVENTSRC_KEY, DEPARTURE_RESULT);
         //bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
         bundle.putBoolean(BUNDLE_ENTRANCE_KEY, true);
+        bundle.putInt(BUNDLE_STATIONID_KEY, m_nDepartureStationId);
+        bundle.putInt(BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
 	    intent.putExtras(bundle);
 	    startActivityForResult(intent, DEPARTURE_RESULT);
 	}
@@ -850,6 +809,8 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 	    bundle.putInt(BUNDLE_EVENTSRC_KEY, ARRIVAL_RESULT);
         //bundle.putSerializable(BUNDLE_STATIONMAP_KEY, (Serializable) mmoStations);
         bundle.putBoolean(BUNDLE_ENTRANCE_KEY, false);
+        bundle.putInt(BUNDLE_STATIONID_KEY, m_nArrivalStationId);
+        bundle.putInt(BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
 	    intent.putExtras(bundle);
 	    startActivityForResult(intent, ARRIVAL_RESULT);
 	}
@@ -862,10 +823,12 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
     	int nStationId = -1;
     	int nPortalId = -1;
+        boolean isCityChanged = false;
 
     	if(data != null) {
             nStationId = data.getIntExtra(BUNDLE_STATIONID_KEY, -1);
             nPortalId = data.getIntExtra(BUNDLE_PORTALID_KEY, -1);
+            isCityChanged = data.getBooleanExtra(BUNDLE_CITY_CHANGED, false);
         } else {
             switch (requestCode) {
                 case DEPARTURE_RESULT:
@@ -881,41 +844,53 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
         final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
 
-	    switch(requestCode){
+	    switch(requestCode) {
 	    case DEPARTURE_RESULT:
-	    	m_aoDepRecentIds.add(Pair.create(nStationId, nPortalId));
 	       	m_nDepartureStationId = nStationId;
 	    	m_nDeparturePortalId = nPortalId;
-			edit.putInt("dep_"+BUNDLE_STATIONID_KEY, m_nDepartureStationId);
-			edit.putInt("dep_"+BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
-	       	break;
+
+            if (isCityChanged && nStationId != -1)
+                m_nArrivalPortalId = m_nArrivalStationId = -1;
+
+                    break;
 	    case ARRIVAL_RESULT:
-	    	m_aoArrRecentIds.add(Pair.create(nStationId, nPortalId));
 	    	m_nArrivalStationId = nStationId;
 	    	m_nArrivalPortalId = nPortalId;
-			edit.putInt("arr_"+BUNDLE_STATIONID_KEY, m_nArrivalStationId);
-			edit.putInt("arr_"+BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
-	    	break;
+
+            if (isCityChanged && nStationId != -1)
+                m_nDeparturePortalId = m_nDepartureStationId = -1;
+
+            break;
 	    case PREF_RESULT:
 	    	break;
     	default:
     		break;
 	    }
 
-	    edit.commit();
+        if (isCityChanged) {
+            if (nStationId == -1)
+                m_nArrivalPortalId = m_nDeparturePortalId = m_nDepartureStationId = m_nArrivalStationId = -1;
 
-	    if(m_bInterfaceLoaded){
+            clearRecent(PreferenceManager.getDefaultSharedPreferences(this));
+        }
+
+        edit.putInt("dep_"+BUNDLE_STATIONID_KEY, m_nDepartureStationId);
+        edit.putInt("dep_"+BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
+        edit.putInt("arr_"+BUNDLE_STATIONID_KEY, m_nArrivalStationId);
+        edit.putInt("arr_"+BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
+
+	    edit.apply();
+
+	    if (m_bInterfaceLoaded)
 	    	UpdateUI();
-    	}
-	    else{
+        else
 	    	LoadInterface();
-    	}
 	}
 
 	protected void UpdateUI(){
 
         //update current city
-        fillActionBarList();
+//        fillActionBarList();
 
 		if(m_oGraph.HasStations()){
 	    	StationItem dep_sit = m_oGraph.GetStation(m_nDepartureStationId);
@@ -1120,26 +1095,26 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
      * @param itemId       ID of the item clicked.
      * @return True if the event was handled, false otherwise.
      */
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        if(itemPosition != mCurrentItemPosition) {
-            m_oGraph.SetCurrentCity(mCities.get(itemPosition));
-            m_laListButtons.clear();
-            m_nDepartureStationId = -1;
-            m_nArrivalStationId = -1;
-            m_nDeparturePortalId = -1;
-            m_nArrivalPortalId = -1;
-
-            final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
-
-            edit.putString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
-
-            edit.commit();
-
-            m_oSearchButton.setEnabled(false);
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+//        if(itemPosition != mCurrentItemPosition) {
+//            m_oGraph.SetCurrentCity(mCities.get(itemPosition));
+//            m_laListButtons.clear();
+//            m_nDepartureStationId = -1;
+//            m_nArrivalStationId = -1;
+//            m_nDeparturePortalId = -1;
+//            m_nArrivalPortalId = -1;
+//
+//            final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
+//
+//            edit.putString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
+//
+//            edit.commit();
+//
+//            m_oSearchButton.setEnabled(false);
+//        }
+//        return true;
+//    }
 
     /**
      * Get bitmap from SVG file
@@ -1272,13 +1247,40 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
             int savedVersionCode = prefs.getInt(APP_VERSION, 0);
 
             switch (savedVersionCode) {
-                case 14:
-                    break;
                 case 0:
                     // ==========Improvement==========
                     File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()).getPath());
                     DeleteRecursive(oDataFolder);
                     // ==========End Improvement==========
+                case 14:
+                case 15:
+                    // delete unnecessary data
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove("recent_dep_counter");
+                    editor.remove("recent_arr_counter");
+
+                    JSONArray depStationsIds = getRecentStations(prefs, true);
+                    JSONArray arrStationsIds = getRecentStations(prefs, false);
+
+                    // convert recent stations to new format
+                    for (int i = 0; i < 10; i++) {
+                        int dep = prefs.getInt("recent_dep_stationid" + i, -1);
+                        int arr = prefs.getInt("recent_arr_stationid" + i, -1);
+                        editor.remove("recent_dep_stationid" + i);
+                        editor.remove("recent_arr_stationid" + i);
+                        editor.remove("recent_dep_portalid" + i);
+                        editor.remove("recent_arr_portalid" + i);
+
+                        if(dep != -1 && indexOf(depStationsIds, dep) == -1)
+                            depStationsIds.put(dep);
+
+                        if(arr != -1 && indexOf(arrStationsIds, arr) == -1)
+                            arrStationsIds.put(arr);
+                    }
+
+                    editor.putString(KEY_PREF_RECENT_DEP_STATIONS, depStationsIds.toString());
+                    editor.putString(KEY_PREF_RECENT_ARR_STATIONS, arrStationsIds.toString());
+                    editor.apply();
                     break;
                 default:
                     break;
@@ -1286,7 +1288,7 @@ public class MainActivity extends SherlockActivity implements OnNavigationListen
 
             if(savedVersionCode < currentVersionCode) { // update from previous version or clean install
                 // save current version to preferences
-                prefs.edit().putInt(APP_VERSION, currentVersionCode).commit();
+                prefs.edit().putInt(APP_VERSION, currentVersionCode).apply();
             }
         } catch (PackageManager.NameNotFoundException e) {
 //            e.printStackTrace();

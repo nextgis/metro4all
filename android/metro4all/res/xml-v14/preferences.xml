@@ -39,12 +39,12 @@
             android:summary="@string/sPrefDataPathSummary"
             android:defaultValue="http://metro4all.ru/data/"
             android:dialogTitle="@string/sPrefDataPathTitle" /-->
-		<!--<ListPreference-->
-		    <!--android:key="city"-->
-		    <!--android:title="@string/sPrefCity"-->
-		    <!--android:summary="@string/sPrefCitySummary"-->
-		    <!--android:dialogTitle="@string/sPrefCityTitle"-->
-		    <!--/>    	 -->
+		<ListPreference
+		    android:key="city"
+		    android:title="@string/sPrefCity"
+		    android:summary="@string/sPrefCitySummary"
+		    android:dialogTitle="@string/sPrefCityTitle"
+		    />
    		<ListPreference
 		    android:key="city_lang"
 		    android:title="@string/sPrefCityLoc"

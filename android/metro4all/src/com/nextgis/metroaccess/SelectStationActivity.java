@@ -3,20 +3,20 @@
  * Purpose:  Routing in subway for disabled.
  * Authors:  Baryshnikov Dmitriy aka Bishop (polimax@mail.ru), Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2013-2015 NextGIS
-*
-*    This program is free software: you can redistribute it and/or modify
-*    it under the terms of the GNU General Public License as published by
-*    the Free Software Foundation, either version 3 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU General Public License for more details.
-*
-*    You should have received a copy of the GNU General Public License
-*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   Copyright (C) 2013-2015 NextGIS
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
@@ -45,20 +45,28 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.StationItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.nextgis.metroaccess.Constants.ARRIVAL_RESULT;
+import static com.nextgis.metroaccess.Constants.BUNDLE_CITY_CHANGED;
 import static com.nextgis.metroaccess.Constants.BUNDLE_ENTRANCE_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_EVENTSRC_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
+import static com.nextgis.metroaccess.Constants.MAX_RECENT_ITEMS;
 import static com.nextgis.metroaccess.Constants.MENU_ABOUT;
 import static com.nextgis.metroaccess.Constants.MENU_SETTINGS;
 import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
 import static com.nextgis.metroaccess.Constants.PREF_RESULT;
 import static com.nextgis.metroaccess.Constants.TAG;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
+import static com.nextgis.metroaccess.PreferencesActivity.clearRecent;
 
 public class SelectStationActivity extends SherlockFragmentActivity {
     private static final int NUM_ITEMS = 3;
@@ -71,7 +79,9 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     protected static LinesStationListFragment mLinesStListFragment;
     protected static RecentStationListFragment mRecentStListFragment;
 
-    protected boolean m_bIn;
+    protected boolean m_bIn, isCityChanged = false;
+    private int mStationId, mPortalId;
+    private Intent resultIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +89,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.select_station);
+        resultIntent = new Intent();
 
         // setup action bar for tabs
         final ActionBar actionBar = getSupportActionBar();
@@ -124,6 +135,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         if (extras != null) {
             int nType = extras.getInt(BUNDLE_EVENTSRC_KEY);
             m_bIn = extras.getBoolean(BUNDLE_ENTRANCE_KEY);
+            mStationId = extras.getInt(BUNDLE_STATIONID_KEY);
+            mPortalId = extras.getInt(BUNDLE_PORTALID_KEY);
 
             Tracker t = ((Analytics) getApplication()).getTracker();
             t.setScreenName(Analytics.SCREEN_SELECT_STATION + " " + getDirection());
@@ -295,12 +308,39 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     }
 
     public void Finish(int nStationId, int nPortalId) {
-        Intent intent = new Intent();
-        intent.putExtra(BUNDLE_STATIONID_KEY, nStationId);
-        intent.putExtra(BUNDLE_PORTALID_KEY, nPortalId);
-        setResult(RESULT_OK, intent);
-        finish();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        JSONArray stationsIds = getRecentStations(prefs, IsIn());
+        String direction = IsIn() ? KEY_PREF_RECENT_DEP_STATIONS : KEY_PREF_RECENT_ARR_STATIONS;
+        int index = indexOf(stationsIds, nStationId);
+
+        if (index == -1 && stationsIds.length() == MAX_RECENT_ITEMS) {
+            stationsIds = remove(stationsIds, 0);
+            stationsIds.put(nStationId);
+        }
+
+        if (index == -1 && stationsIds.length() < MAX_RECENT_ITEMS)
+            stationsIds.put(nStationId);
+
+        if (index != -1) {
+            stationsIds = remove(stationsIds, index);
+            stationsIds.put(nStationId);
+        }
+
+        prefs.edit().putString(direction, stationsIds.toString()).apply();
+
+        mStationId = nStationId;
+        mPortalId = nPortalId;
+        finish();
+    }
+
+    @Override
+    public void finish() {
+        resultIntent.putExtra(BUNDLE_STATIONID_KEY, mStationId);
+        resultIntent.putExtra(BUNDLE_PORTALID_KEY, mPortalId);
+        resultIntent.putExtra(BUNDLE_CITY_CHANGED, isCityChanged);
+        setResult(RESULT_OK, resultIntent);
+        super.finish();
     }
 
     @Override
@@ -308,6 +348,16 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         //update fragments to new data
         switch (requestCode) {
             case PREF_RESULT:
+                if (data != null) {
+                    isCityChanged = isCityChanged ? isCityChanged : data.getBooleanExtra(BUNDLE_CITY_CHANGED, false);
+
+                    if (isCityChanged) {
+                        clearRecent(PreferenceManager.getDefaultSharedPreferences(this));
+                        mStationId = -1;
+                        mPortalId = -1;
+                    }
+                }
+
                 if (mAlphaStListFragment != null)
                     mAlphaStListFragment.Update();
                 if (mLinesStListFragment != null)
@@ -338,5 +388,45 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         return prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
 
+    }
+
+    public static JSONArray getRecentStations(SharedPreferences prefs, boolean isDeparture) {
+        String direction = isDeparture ? KEY_PREF_RECENT_DEP_STATIONS : KEY_PREF_RECENT_ARR_STATIONS;
+        JSONArray stationIds = new JSONArray();
+
+        try {
+            stationIds = new JSONArray(prefs.getString(direction, "[]"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return stationIds;
+    }
+
+    public static int indexOf(JSONArray array, int item) {
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                if (item == array.get(i))
+                    return i;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return -1;
+    }
+
+    public static JSONArray remove(JSONArray array, int index) {
+        JSONArray replacedIds = new JSONArray();
+
+        for (int i = 0; i < array.length(); i++)
+            if (i != index)
+                try {
+                    replacedIds.put(array.get(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+        return replacedIds;
     }
 }

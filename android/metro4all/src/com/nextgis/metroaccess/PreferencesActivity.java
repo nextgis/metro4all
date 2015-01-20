@@ -52,10 +52,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.nextgis.metroaccess.Constants.BUNDLE_CITY_CHANGED;
 import static com.nextgis.metroaccess.Constants.BUNDLE_ERRORMARK_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_EVENTSRC_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_MSG_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PAYLOAD_KEY;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
 
 public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
 	
@@ -77,7 +80,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	protected static Handler m_oGetJSONHandler; 
 	
 	protected ListPreference m_CityLangPref;
-//	protected ListPreference m_CityPref;
+	protected ListPreference m_CityPref;
 	
 	protected EditTextPreference m_etMaxWidthPref;
 	protected EditTextPreference m_etWheelWidthPref;
@@ -147,14 +150,14 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             });
         }
 
-//	    m_CityPref = (ListPreference) findPreference(KEY_PREF_CITY);
-//        if(m_CityPref != null){
-//        	UpdateCityList();
-//            int index = m_CityPref.findIndexOfValue( m_CityPref.getValue() );
-//            if(index >= 0){
-//            	m_CityPref.setSummary(m_CityPref.getEntries()[index]);
-//            }
-//        }
+	    m_CityPref = (ListPreference) findPreference(KEY_PREF_CITY);
+        if(m_CityPref != null){
+        	UpdateCityList();
+            int index = m_CityPref.findIndexOfValue( m_CityPref.getValue() );
+            if(index >= 0){
+            	m_CityPref.setSummary(m_CityPref.getEntries()[index]);
+            }
+        }
 
         m_CityLangPref = (ListPreference) findPreference(KEY_PREF_CITYLANG);
         if (m_CityLangPref != null) {
@@ -377,15 +380,16 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     		if(newVal.length() > 0)
             	Pref.setSummary(newVal  + " " + getString(R.string.sCM));
         }
-//		else if(key.equals(KEY_PREF_CITY)){
-//			newVal = sharedPreferences.getString(key, "msk");
-//			int nIndex = m_CityPref.findIndexOfValue((String) newVal);
-//            if(nIndex >= 0){
-//            	m_CityPref.setSummary((String) m_CityPref.getEntries()[nIndex]);
-//            }
-//            MainActivity.GetGraph().SetCurrentCity((String) newVal);
-//            return;
-//		}
+		else if(key.equals(KEY_PREF_CITY)){
+			newVal = sharedPreferences.getString(key, "msk");
+			int nIndex = m_CityPref.findIndexOfValue((String) newVal);
+            if(nIndex >= 0){
+            	m_CityPref.setSummary((String) m_CityPref.getEntries()[nIndex]);
+            }
+            MainActivity.GetGraph().SetCurrentCity((String) newVal);
+            setResult(RESULT_OK, new Intent().putExtra(BUNDLE_CITY_CHANGED, true));
+            return;
+		}
 		else if(key.equals(KEY_PREF_CITYLANG)){
 			newVal = sharedPreferences.getString(key, "en");
 			int nIndex = m_CityLangPref.findIndexOfValue((String) newVal);
@@ -465,17 +469,20 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 				nCounter++;
 			}
 
-//    		m_CityPref.setEntries(ent);
-//    		m_CityPref.setEntryValues(ent_val);
-//
-//            int index = m_CityPref.findIndexOfValue(m_CityPref.getValue());
-//            if (index < 0)
-//                m_CityPref.setValue(oGraph.GetCurrentCity());
-//
-//    		m_CityPref.setEnabled(true);
+    		m_CityPref.setEntries(ent);
+    		m_CityPref.setEntryValues(ent_val);
+
+            int index = m_CityPref.findIndexOfValue(m_CityPref.getValue());
+            if (index < 0)
+                m_CityPref.setValue(oGraph.GetCurrentCity());
+
+    		m_CityPref.setEnabled(true);
+    	} else {
+    		m_CityPref.setEnabled(false);
     	}
-//    	else{
-//    		m_CityPref.setEnabled(false);
-//    	}
 	}
+
+    public static void clearRecent(SharedPreferences prefs) {
+        prefs.edit().remove(KEY_PREF_RECENT_DEP_STATIONS).remove(KEY_PREF_RECENT_ARR_STATIONS).apply();
+    }
 }

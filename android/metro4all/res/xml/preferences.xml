@@ -33,6 +33,12 @@
             android:title="@string/sPrefGA"
             android:summary="@string/sPrefGASum"
             />
+        <ListPreference
+            android:key="city"
+            android:title="@string/sPrefCity"
+            android:summary="@string/sPrefCitySummary"
+            android:dialogTitle="@string/sPrefCityTitle"
+            />
    		<ListPreference
 		    android:key="city_lang"
 		    android:title="@string/sPrefCityLoc"
