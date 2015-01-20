@@ -385,9 +385,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     }
 
     public boolean HasLimits() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        return prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
-
+        return LimitationsActivity.hasLimitations(this);
     }
 
     public static JSONArray getRecentStations(SharedPreferences prefs, boolean isDeparture) {

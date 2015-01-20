@@ -218,7 +218,7 @@ public class StationImageView extends SherlockActivity {
                 baseBitmap = BitmapFactory.decodeFile(sParent + "/titles/" + sName);    // TODO localization
                 overlayBitmap(canvas, baseBitmap);
 
-                if (prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false)) {
+                if (LimitationsActivity.hasLimitations(this)) {
                     baseBitmap = BitmapFactory.decodeFile(sParent + "/interchanges/" + sName);
                     overlayBitmap(canvas, baseBitmap);
                 }

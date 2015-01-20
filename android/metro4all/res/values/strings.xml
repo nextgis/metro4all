@@ -98,6 +98,7 @@
 	<string name="sPrefTitle">Preferences</string>
 	<string name="sPrefCatMain">Main</string>
 	<string name="sPrefCatData">Data</string>
+	<string name="sPrefCatOther">Other</string>
 	<string name="sPrefNaviType">Navigation type</string>
 	<string name="sPrefNaviTypeSummary">Navigation type affects routing</string>
 	<string name="sPrefNaviTypeTitle">Select navigation type</string>

@@ -259,7 +259,7 @@ public class MainActivity extends SherlockActivity {
             @Override
             public void onClick(View view) {
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Limitations", Analytics.SCREEN_MAIN);
-                onSettings();
+                onSettings(true);
             }
         });
 
@@ -377,13 +377,17 @@ public class MainActivity extends SherlockActivity {
 //        mCurrentItemPosition = nCurrentCity;
 //    }
 
-    protected void onSettings() {
-        Intent intentSet = new Intent(this, PreferencesActivity.class);
+    protected void onSettings(boolean isLimitations) {
+        if (isLimitations)
+            startActivity(new Intent(this, LimitationsActivity.class));
+        else {
+            startActivityForResult(new Intent(this, PreferencesActivity.class), PREF_RESULT);
+        }
+
         //intentSet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);        
         //Bundle bundle = new Bundle();
         //bundle.putParcelable(BUNDLE_METAMAP_KEY, m_oGraph);
-        //intentSet.putExtras(bundle);            
-        startActivityForResult(intentSet, PREF_RESULT);
+        //intentSet.putExtras(bundle);
 	}
 
 	@Override
@@ -423,7 +427,7 @@ public class MainActivity extends SherlockActivity {
         case MENU_SETTINGS:
             // app icon in action bar clicked; go home
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_SETTINGS, Analytics.MENU);
-            onSettings();
+            onSettings(false);
             return true;
         case MENU_ABOUT:
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_ABOUT, Analytics.MENU);

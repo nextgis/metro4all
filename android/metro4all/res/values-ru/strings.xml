@@ -97,6 +97,7 @@
 	<string name="sPrefTitle">Настройки</string>
 	<string name="sPrefCatMain">Основные</string>
 	<string name="sPrefCatData">Данные</string>
+    <string name="sPrefCatOther">Прочее</string>
 	<string name="sPrefNaviType">Тип навигации</string>
 	<string name="sPrefNaviTypeSummary">Тип навигации влияет на маршрут</string>
 	<string name="sPrefNaviTypeTitle">Выбрать тип навигации</string>

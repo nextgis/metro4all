@@ -18,56 +18,63 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/sPrefTitle" >
-	<PreferenceCategory
-		android:title="@string/sPrefCatData"
-		android:key="data_cat">
-        <Preference
-            android:key="legend"
-            android:title="@string/sPrefLegend"
-            android:summary="@string/sPrefLegendSummary"
-            />
-        <CheckBoxPreference android:key="ga_enabled"
-            android:defaultValue="true"
-            android:title="@string/sPrefGA"
-            android:summary="@string/sPrefGASum"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/sPrefTitle">
+
+    <PreferenceCategory
+        android:key="data_cat"
+        android:title="@string/sPrefCatMain">
+        <!-- EditTextPreference
+            android:key="download_path"
+            android:title="@string/sPrefDataPath"
+            android:summary="@string/sPrefDataPathSummary"
+            android:defaultValue="http://metro4all.ru/data/"
+            android:dialogTitle="@string/sPrefDataPathTitle" /-->
+        <ListPreference
+            android:dialogTitle="@string/sPrefCityTitle"
+            android:key="city"
+            android:summary="@string/sPrefCitySummary"
+            android:title="@string/sPrefCity"
             />
         <ListPreference
-            android:key="city"
-            android:title="@string/sPrefCity"
-            android:summary="@string/sPrefCitySummary"
-            android:dialogTitle="@string/sPrefCityTitle"
+            android:dialogTitle="@string/sPrefCityLocTitle"
+            android:entries="@array/locales"
+            android:entryValues="@array/locales_val"
+            android:key="city_lang"
+            android:summary="@string/sPrefCityLocSummary"
+            android:title="@string/sPrefCityLoc"
             />
-   		<ListPreference
-		    android:key="city_lang"
-		    android:title="@string/sPrefCityLoc"
-		    android:summary="@string/sPrefCityLocSummary"
-		    android:entries="@array/locales"
-			android:entryValues="@array/locales_val"
-		    android:dialogTitle="@string/sPrefCityLocTitle"
-		    />     		
-	</PreferenceCategory>
+    </PreferenceCategory>
+
     <PreferenceCategory
-        android:title="@string/sLimits"
-        android:key="main_cat">
+        android:key="other_cat"
+        android:title="@string/sPrefCatOther">
+        <!-- ListPreference
+            android:key="user_type"
+            android:title="@string/sPrefNaviType"
+            android:summary="@string/sPrefNaviTypeSummary"
+            android:defaultValue="1"
+            android:entries="@array/navi_type"
+            android:entryValues="@array/navi_type_val"
+            android:dialogTitle="@string/sPrefNaviTypeTitle" /-->
+        <Preference
+            android:key="legend"
+            android:title="@string/sPrefLegend"/>
+
+        <Preference
+            android:title="@string/sLimits">
+            <intent
+                android:targetPackage="com.nextgis.metroaccess"
+                android:targetClass="com.nextgis.metroaccess.LimitationsActivity"/>
+        </Preference>
+
+
         <CheckBoxPreference
-            android:key="limits"
-            android:title="@string/sLimitsHave"
-            android:defaultValue="false"/>
-        <EditTextPreference
-            android:key="max_width"
-            android:title="@string/sPrefCarriageSize"
-            android:summary="@string/sPrefCarriageSizeSummary"
-            android:defaultValue="40"
-            android:inputType="number"
-            android:dialogTitle="@string/sPrefCarriageSizeTitle" />
-        <EditTextPreference
-            android:key="wheel_width"
-            android:title="@string/sPrefWheelBaseSize"
-            android:summary="@string/sPrefWheelBaseSizeSummary"
-            android:defaultValue="40"
-            android:inputType="number"
-            android:dialogTitle="@string/sPrefWheelBaseSizeTitle" />
+            android:defaultValue="true"
+            android:key="ga_enabled"
+            android:summary="@string/sPrefGASum"
+            android:title="@string/sPrefGA"
+            />
     </PreferenceCategory>
 </PreferenceScreen>

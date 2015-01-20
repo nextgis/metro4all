@@ -21,7 +21,6 @@
 package com.nextgis.metroaccess;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,7 +30,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -57,19 +55,17 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_ERRORMARK_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_EVENTSRC_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_MSG_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PAYLOAD_KEY;
-import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
 import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
 
 public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
-	
+	public static final String KEY_CAT_DATA = "data_cat";
+
 	public static final String KEY_PREF_USER_TYPE = "user_type";
-	public static final String KEY_PREF_MAX_WIDTH = "max_width";
-	public static final String KEY_PREF_WHEEL_WIDTH = "wheel_width";
 	public static final String KEY_PREF_DOWNLOAD_PATH = "download_path";
 	public static final String KEY_PREF_UPDROUTEDATA = "update_route_data";
 	public static final String KEY_PREF_CHANGE_CITY_BASES = "change_city_bases";
 	public static final String KEY_PREF_DATA_LOCALE = "data_loc";
-	public static final String KEY_PREF_HAVE_LIMITS = "limits";
     public static final String KEY_PREF_LEGEND = "legend";
 	public static final String KEY_PREF_CITY = "city";
 	public static final String KEY_PREF_CITYLANG = "city_lang";
@@ -81,19 +77,14 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	
 	protected ListPreference m_CityLangPref;
 	protected ListPreference m_CityPref;
-	
-	protected EditTextPreference m_etMaxWidthPref;
-	protected EditTextPreference m_etWheelWidthPref;
-	
-	//protected EditTextPreference m_etWheelWidthPref;
-	
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        
+
         m_asDownloadData = new ArrayList<DownloadData>();
 		
 		m_oGetJSONHandler = new Handler() {
@@ -120,25 +111,13 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         
         addPreferencesFromResource(R.xml.preferences);
         PreferenceManager preferenceManager = getPreferenceManager();
-        
-        m_etMaxWidthPref = (EditTextPreference) findPreference(KEY_PREF_MAX_WIDTH);
-        m_etMaxWidthPref.setSummary((String) m_etMaxWidthPref.getText() + " " + getString(R.string.sCM));
-        if(!preferenceManager.getSharedPreferences().getBoolean(KEY_PREF_HAVE_LIMITS, false)){
-        	m_etMaxWidthPref.setEnabled(false);
-        }
-	    
-        m_etWheelWidthPref = (EditTextPreference) findPreference(KEY_PREF_WHEEL_WIDTH);
-        m_etWheelWidthPref.setSummary((String) m_etWheelWidthPref.getText() + " " + getString(R.string.sCM));
-        if(!preferenceManager.getSharedPreferences().getBoolean(KEY_PREF_HAVE_LIMITS, false)){
-	    	m_etWheelWidthPref.setEnabled(false);
-        }
-	    
+
 	    //add button update data
-	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference("data_cat");
+	    PreferenceCategory targetCategory = (PreferenceCategory)findPreference(KEY_CAT_DATA);
 	    
 	    MAGraph oGraph = MainActivity.GetGraph();
 
-        Preference legendPref = (Preference) findPreference(KEY_PREF_LEGEND);
+        Preference legendPref = findPreference(KEY_PREF_LEGEND);
         if(legendPref != null){
             legendPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
@@ -175,53 +154,50 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
                 m_CityLangPref.setSummary(m_CityLangPref.getEntries()[index]);
             }
         }
-        
-	    
+
 	    Preference checkUpd = new Preference(this);
 	    checkUpd.setKey(KEY_PREF_UPDROUTEDATA);
 	    checkUpd.setTitle(R.string.sPrefUpdDataTitle);
-	    checkUpd.setSummary(R.string.sPrefUpdDataSummary);
+//	    checkUpd.setSummary(R.string.sPrefUpdDataSummary);
 	    checkUpd.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-        	public boolean onPreferenceClick(Preference preference) {
-        		
-        		AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
-        		builder.setMessage(R.string.sAreYouSure)
-        	       	   .setTitle(R.string.sQuestion)
-        	       	   .setPositiveButton(R.string.sYes, new DialogInterface.OnClickListener() {
-        	               public void onClick(DialogInterface dialog, int id) {
-        	           		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);		
-        	        		String sUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.GetDownloadURL());
-        	        		
-        	        		m_asDownloadData.clear();
-        	        		
-        	        		MAGraph oGraph = MainActivity.GetGraph();
-        	        		
-        	        		for(GraphDataItem oItem : oGraph.GetRouteMetadata().values()){
-        	        			m_asDownloadData.add(new DownloadData(PreferencesActivity.this, oItem, sUrl + oItem.GetPath() + ".zip", m_oGetJSONHandler));
-        	        		}
+            public boolean onPreferenceClick(Preference preference) {
 
-        	        		OnDownloadData();
-        	               }
-        	           })
-        	           .setNegativeButton(R.string.sNo, new DialogInterface.OnClickListener() {
-        	               public void onClick(DialogInterface dialog, int id) {
-        	                   // User cancelled the dialog
-        	               }
-        	           });
+                AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
+                builder.setMessage(R.string.sAreYouSure)
+                        .setTitle(R.string.sQuestion)
+                        .setPositiveButton(R.string.sYes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(PreferencesActivity.this);
+                                String sUrl = sharedPref.getString(KEY_PREF_DOWNLOAD_PATH, MainActivity.GetDownloadURL());
 
-        	    builder.create();
-        		builder.show();
-        		
-				return true;
-        	}
+                                m_asDownloadData.clear();
+
+                                MAGraph oGraph = MainActivity.GetGraph();
+
+                                for (GraphDataItem oItem : oGraph.GetRouteMetadata().values()) {
+                                    m_asDownloadData.add(new DownloadData(PreferencesActivity.this, oItem, sUrl + oItem.GetPath() + ".zip", m_oGetJSONHandler));
+                                }
+
+                                OnDownloadData();
+                            }
+                        })
+                        .setNegativeButton(R.string.sNo, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+
+                builder.create();
+                builder.show();
+
+                return true;
+            }
         });
-	    
-	    targetCategory.addPreference(checkUpd);
-	    
+
 	    Preference changeCityBases = new Preference(this);
 	    changeCityBases.setKey(KEY_PREF_CHANGE_CITY_BASES);
 	    changeCityBases.setTitle(R.string.sPrefChangeCityBasesTitle);
-	    changeCityBases.setSummary(R.string.sPrefChangeCityBasesSummary);
+//	    changeCityBases.setSummary(R.string.sPrefChangeCityBasesSummary);
 	    changeCityBases.setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	public boolean onPreferenceClick(Preference preference) {
         		//Add and remove bases
@@ -319,9 +295,9 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         });
 	    
 	    targetCategory.addPreference(changeCityBases);
+        targetCategory.addPreference(checkUpd);
 
-        final Activity act = this;
-        Preference gaPreference = (Preference) findPreference(KEY_PREF_GA);
+        Preference gaPreference = findPreference(KEY_PREF_GA);
         gaPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -359,28 +335,17 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     @Override
 	public void onResume() {
         super.onResume();
-        
+
  		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
  		sharedPref.registerOnSharedPreferenceChangeListener(this);
-    }	
-    
-	
+    }
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		CharSequence newVal = "";
 		Preference Pref = findPreference(key);
-		if(key.equals(KEY_PREF_WHEEL_WIDTH) || key.equals(KEY_PREF_MAX_WIDTH))
-		{
-			newVal = sharedPreferences.getString(key, "40");
-        	String toIntStr = (String) newVal;
-    		Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-    		editor.putInt(key + "_int", Integer.parseInt(toIntStr) * 10);
-    		editor.commit();
-    		
-    		if(newVal.length() > 0)
-            	Pref.setSummary(newVal  + " " + getString(R.string.sCM));
-        }
-		else if(key.equals(KEY_PREF_CITY)){
+
+        if(key.equals(KEY_PREF_CITY)){
 			newVal = sharedPreferences.getString(key, "msk");
 			int nIndex = m_CityPref.findIndexOfValue((String) newVal);
             if(nIndex >= 0){
@@ -399,17 +364,6 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             MainActivity.GetGraph().SetLocale((String) newVal);
             return;
 			
-		}
-		else if(key.equals(KEY_PREF_HAVE_LIMITS)){
-			boolean bHaveLimits = sharedPreferences.getBoolean(key, false);
-
-            if (bHaveLimits)
-                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_PREFERENCE, "Enable " + Analytics.LIMITATIONS, Analytics.PREFERENCE);
-            else
-                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_PREFERENCE, "Disable " + Analytics.LIMITATIONS, Analytics.PREFERENCE);
-
-            m_etMaxWidthPref.setEnabled(bHaveLimits);
-			m_etWheelWidthPref.setEnabled(bHaveLimits);
 		}
 		/*else if(key.equals(KEY_PREF_USER_TYPE))
 		{
@@ -432,8 +386,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
             	MainActivity.SetDownloadURL(sUrl);
     		}
 		}
-	}	
-	
+	}
+
 	public static void DeleteRecursive(File fileOrDirectory) {
 	    if (fileOrDirectory.isDirectory())
 	        for (File child : fileOrDirectory.listFiles())

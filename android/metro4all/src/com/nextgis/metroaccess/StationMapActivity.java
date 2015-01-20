@@ -137,9 +137,9 @@ public class StationMapActivity extends SherlockActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mAppContext);
         mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
-        mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
-        mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
-        m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
+        mnMaxWidth = LimitationsActivity.getMaxWidth(this);
+        mnWheelWidth = LimitationsActivity.getWheelWidth(this);
+        m_bHaveLimits = LimitationsActivity.hasLimitations(this);
 
         String title = station == null ? getString(R.string.sNotSet) : station.GetName();
         setTitle(String.format(getString(mIsPortalIn ? R.string.sInPortalMapTitle : R.string.sOutPortalMapTitle), title));

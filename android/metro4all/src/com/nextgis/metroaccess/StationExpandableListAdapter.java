@@ -296,8 +296,8 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
     private void loadPreferences() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         mnType = prefs.getInt(PreferencesActivity.KEY_PREF_USER_TYPE + "_int", 2);
-        mnMaxWidth = prefs.getInt(PreferencesActivity.KEY_PREF_MAX_WIDTH + "_int", 400);
-        mnWheelWidth = prefs.getInt(PreferencesActivity.KEY_PREF_WHEEL_WIDTH + "_int", 400);
-        m_bHaveLimits = prefs.getBoolean(PreferencesActivity.KEY_PREF_HAVE_LIMITS, false);
+        mnMaxWidth = LimitationsActivity.getMaxWidth(mContext);
+        mnWheelWidth = LimitationsActivity.getWheelWidth(mContext);
+        m_bHaveLimits = LimitationsActivity.hasLimitations(mContext);
     }
 }
