@@ -22,25 +22,31 @@
 package com.nextgis.metroaccess;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.support.v7.widget.PopupMenu;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
@@ -53,8 +59,7 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
-import static com.nextgis.metroaccess.Constants.TAG;
+import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 
 public abstract class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable {
     protected Context mContext;
@@ -187,7 +192,7 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
             convertView = mInfalInflater.inflate(R.layout.select_station_row_layout, null);
         }
 
-        TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
+        final TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
         item.setText(entry.GetName());
 
         ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
@@ -198,9 +203,11 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
         Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, R.raw._0, color);
         ivIcon.setImageBitmap(myBitmap);
 
-        ImageButton ibtnLayout = (ImageButton) convertView.findViewById(R.id.ibtnLayout);
+//        ImageButton ibtnLayout = (ImageButton) convertView.findViewById(R.id.ibtnLayout);
+        final ImageButton ibtnMenu = (ImageButton) convertView.findViewById(R.id.ibtnMenu);
         final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
-        final SelectStationActivity parentActivity = (SelectStationActivity) ibtnLayout.getContext();
+//        final SelectStationActivity parentActivity = (SelectStationActivity) ibtnLayout.getContext();
+        final SelectStationActivity parentActivity = (SelectStationActivity) ibtnMenu.getContext();
 
         final Bundle bundle = new Bundle();
         bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
@@ -212,30 +219,59 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
         final String gaParent = i == 0 ? Analytics.TAB_AZ : i == 1 ? Analytics.TAB_LINES : Analytics.TAB_RECENT;
         final String direction = parentActivity.IsIn() ? Analytics.FROM : Analytics.TO;
 
-        ibtnLayout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        ibtnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 try {
-                    Log.d(TAG, schemaFile.getPath());
+                    LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View layout = mInflater.inflate(R.layout.stationlist_popup_menu, null);
 
-                    ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
+//                    PopupWindow mDropdown = new PopupWindow(layout, FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, true);
+                    PopupWindow mDropdown = new PopupWindow(layout, 200, 100);
+                    mDropdown.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    mDropdown.setFocusable(true);
 
-                    Intent intentView = new Intent(parentActivity, StationImageView.class);
-                    intentView.putExtras(bundle);
-                    parentActivity.startActivityForResult(intentView, PORTAL_MAP_RESULT);
-                } catch (ActivityNotFoundException e) {
-                    Log.e(TAG, "Call failed", e);
+                    final TextView itemMap = (TextView) layout.findViewById(R.id.tvMap);
+                    final TextView itemLayout = (TextView) layout.findViewById(R.id.tvLayout);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                    // fix for items full-width background fill
+                    if (itemMap.getLayoutParams().width > itemLayout.getLayoutParams().width)
+                        itemLayout.setLayoutParams(lp);
+                    else
+                        itemMap.setLayoutParams(lp);
+
+                    itemMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
+
+                            Intent intent = new Intent(parentActivity, StationMapActivity.class);
+                            intent.putExtras(bundle);
+                            parentActivity.startActivityForResult(intent, SUBSCREEN_PORTAL_RESULT);
+                        }
+                    });
+
+                    itemLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
+
+                            Intent intentView = new Intent(parentActivity, StationImageView.class);
+                            intentView.putExtras(bundle);
+                            parentActivity.startActivityForResult(intentView, SUBSCREEN_PORTAL_RESULT);
+                        }
+                    });
+
+                    layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+                    Drawable background = mContext.getResources().getDrawable(R.drawable.abc_popup_background_mtrl_mult);
+                    mDropdown.setBackgroundDrawable(background);
+                    mDropdown.showAsDropDown(view, -10, -10);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }
-        });
-
-        ImageButton ibtnMap = (ImageButton) convertView.findViewById(R.id.ibtnMap);
-        ibtnMap.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
-
-                Intent intent = new Intent(parentActivity, StationMapActivity.class);
-                intent.putExtras(bundle);
-                parentActivity.startActivityForResult(intent, PORTAL_MAP_RESULT);
             }
         });
 

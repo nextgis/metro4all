@@ -22,9 +22,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
+    android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:descendantFocusability="blocksDescendants"
+    android:paddingRight="?android:scrollbarSize"
     >
 
     <ImageView
@@ -41,24 +42,15 @@
         android:layout_weight="1"
         android:ellipsize="marquee"
         android:textSize="20sp"
-        android:textStyle="bold"
         />
 
     <ImageButton
-        android:id="@+id/ibtnMap"
+        android:id="@+id/ibtnMenu"
         android:layout_width="45dp"
         android:layout_height="match_parent"
         android:background="@null"
         android:scaleType="center"
-        android:src="@drawable/ic_action_map"/>
-
-    <ImageButton
-        android:id="@+id/ibtnLayout"
-        android:layout_width="45dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
-        android:background="@null"
-        android:scaleType="center"
-        android:src="@drawable/ic_action_schema"/>
+        android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+        android:tint="@color/portalNormal"/>
 
 </LinearLayout>

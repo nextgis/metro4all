@@ -20,8 +20,8 @@
     <style name="Theme.Application" parent="@style/Theme.AppCompat.Light">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textColorPrimary">@android:color/black</item>
-        <item name="android:textColorPrimaryInverse">@color/metrocolormid</item>
-        <item name="actionMenuTextColor">@color/metrocolormid</item>
+        <item name="android:textColorSecondary">@android:color/black</item>
+        <item name="colorPrimary">@color/horizontalItemFill</item>
     </style>
 
     <style name="Theme.Settings" parent="@style/Theme.Application">
@@ -33,13 +33,6 @@
     <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
         <item name="navigationIcon">?attr/homeAsUpIndicator</item>
-        <item name="android:textColorPrimary">@color/metrocolormid</item>
-        <item name="android:textColorPrimaryInverse">@color/metrocolormid</item>
-        <item name="actionMenuTextColor">@color/metrocolormid</item>
-        <item name="android:textColor">@color/metrocolormid</item>
-        <item name="colorPrimary">@color/metrocolormid</item>
-        <item name="colorAccent">@color/metrocolormid</item>
-        <item name="colorPrimaryDark">@color/metrocolormid</item>
     </style>
 
 </resources>

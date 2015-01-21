@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Project:  Metro4All
+ 	Purpose:  Routing in subway
+    Authors:  Stanislav Petriakov
+    Copyright (C) 2015 NextGIS
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout
+    style="@style/Widget.AppCompat.PopupMenu"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="16dp"
+        android:background="@drawable/abc_list_selector_holo_light"
+        android:text="@string/sMap"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:ignore="HardcodedText"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@android:drawable/divider_horizontal_textfield"/>
+
+    <TextView
+        android:id="@+id/tvLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/abc_list_selector_holo_light"
+        android:paddingLeft="5dp"
+        android:paddingRight="16dp"
+        android:text="@string/sLayout"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:ignore="HardcodedText"/>
+</LinearLayout>
