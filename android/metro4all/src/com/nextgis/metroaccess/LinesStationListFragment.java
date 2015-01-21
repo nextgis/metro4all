@@ -40,7 +40,7 @@ public class LinesStationListFragment extends SelectStationListFragment {
         View result = super.onCreateView(inflater, container, savedInstanceState);
 
         mTab = Analytics.TAB_LINES;
-        SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+        SelectStationActivity parentActivity = (SelectStationActivity) getActivity();
         m_oExpListAdapter = new LinesExpandableListAdapter(parentActivity, parentActivity.GetStationList(), MainActivity.GetGraph().GetLines());
         m_oExpListView.setAdapter(m_oExpListAdapter);
 
@@ -51,7 +51,7 @@ public class LinesStationListFragment extends SelectStationListFragment {
         super.Update();
 
         if (m_oExpListAdapter != null) {
-            SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+            SelectStationActivity parentActivity = (SelectStationActivity) getActivity();
             ((LinesExpandableListAdapter) m_oExpListAdapter).Update(parentActivity.GetStationList());
             m_oExpListAdapter.notifyDataSetChanged();
         }

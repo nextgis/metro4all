@@ -43,7 +43,7 @@ public class RecentStationListFragment extends SelectStationListFragment {
         View result = super.onCreateView(inflater, container, savedInstanceState);
 
         mTab = Analytics.TAB_RECENT;
-     	SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+     	SelectStationActivity parentActivity = (SelectStationActivity) getActivity();
     	m_oExpListAdapter = new RecentExpandableListAdapter(parentActivity);
         m_oExpListView.setAdapter(m_oExpListAdapter);
         result.findViewById(R.id.etStationFilterEdit).setVisibility(View.GONE);

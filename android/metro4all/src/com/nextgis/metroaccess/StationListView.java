@@ -25,14 +25,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SpinnerAdapter;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.BarrierItem;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.RouteItem;
@@ -46,7 +45,7 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_PATHCOUNT_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PATH_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
 
-public class StationListView extends SherlockActivity implements OnNavigationListener{
+public class StationListView extends ActionBarActivity implements ActionBar.OnNavigationListener {
 	
 	protected int mnType;
 	protected int mnMaxWidth, mnWheelWidth;	
@@ -91,12 +90,12 @@ public class StationListView extends SherlockActivity implements OnNavigationLis
 	    	for(int i = 0; i < mnPathCount; i++){
 	    		data[i] = getString(R.string.sRoute) + " " + (i + 1);
 	    	}
-	    			
-			ArrayAdapter<CharSequence> adapter= new ArrayAdapter<CharSequence>(context, R.layout.sherlock_spinner_dropdown_item, data);
-			adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-		    
+
+		    ArrayAdapter<CharSequence> adapter= new ArrayAdapter<CharSequence>(context, android.R.layout.simple_spinner_dropdown_item, data);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 		    actionBar.setDisplayShowTitleEnabled(false);
-		    actionBar.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_LIST);
+		    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		    actionBar.setListNavigationCallbacks((SpinnerAdapter)adapter, this);   
 		    
 

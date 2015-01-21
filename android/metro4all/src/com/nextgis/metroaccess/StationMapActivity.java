@@ -34,13 +34,13 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.PortalItem;
@@ -64,9 +64,9 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
+import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 
-public class StationMapActivity extends SherlockActivity {
+public class StationMapActivity extends ActionBarActivity {
     private enum MARKERS_TYPE { ENTRANCE, EXIT, CHECKED, INVALID }
     private int[] MARKERS_ID = { R.raw.portal_in, R.raw.portal_in, R.raw.portal_checked, R.raw.portal_invalid };
 
@@ -476,7 +476,7 @@ public class StationMapActivity extends SherlockActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater infl = getSupportMenuInflater();
+        MenuInflater infl = getMenuInflater();
         infl.inflate(R.menu.menu_station_map, menu);
 //        menu.findItem(R.id.btn_layout).setEnabled(isCrossReference).setVisible(isCrossReference);
         return true;
@@ -497,7 +497,7 @@ public class StationMapActivity extends SherlockActivity {
                     Intent intentView = new Intent(this, StationImageView.class);
                     intentView.putExtras(bundle);
                     intentView.putExtra(PARAM_ROOT_ACTIVITY, false);
-                    startActivityForResult(intentView, PORTAL_MAP_RESULT);
+                    startActivityForResult(intentView, SUBSCREEN_PORTAL_RESULT);
                 } else
                     finish();
 
@@ -515,7 +515,7 @@ public class StationMapActivity extends SherlockActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case PORTAL_MAP_RESULT:
+            case SUBSCREEN_PORTAL_RESULT:
                 if (resultCode == RESULT_OK) {
                     setResult(RESULT_OK, data);
                     finish();

@@ -33,13 +33,19 @@ import android.os.Message;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
@@ -58,7 +64,7 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_PAYLOAD_KEY;
 import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
 import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
 
-public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
+public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	public static final String KEY_CAT_DATA = "data_cat";
 
 	public static final String KEY_PREF_USER_TYPE = "user_type";
@@ -78,12 +84,14 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	protected ListPreference m_CityLangPref;
 	protected ListPreference m_CityPref;
 
+    private Toolbar mActionBar;
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+//        ActionBar ab = getSupportActionBar();
+//        ab.setDisplayHomeAsUpEnabled(true);
 
         m_asDownloadData = new ArrayList<DownloadData>();
 		
@@ -110,6 +118,9 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         };
         
         addPreferencesFromResource(R.xml.preferences);
+
+        mActionBar.setTitle(R.string.sSettings);
+
         PreferenceManager preferenceManager = getPreferenceManager();
 
 	    //add button update data
@@ -311,6 +322,24 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
                 return true;
             }
         });
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_preferences, new LinearLayout(this), false);
+
+        mActionBar = (Toolbar) contentView.findViewById(R.id.action_bar);
+        mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
+        LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
+
+        getWindow().setContentView(contentView);
     }
     
     @Override

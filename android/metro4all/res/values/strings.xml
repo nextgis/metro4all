@@ -50,6 +50,7 @@
 	<string name="sToStation">To</string>
 	<string name="sRoute">Option</string>
 	<string name="sSchema">Layout of %1$s</string>
+	<string name="sLayout">Layout</string>
     <string name="sLegend">Legend</string>
     <string name="sLocate">Locate</string>
     <string name="sMap">Map</string>

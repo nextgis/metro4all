@@ -22,10 +22,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/sLimits">
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="limits"
-        android:title="@string/sLimitsHave"/>
     <EditTextPreference
         android:defaultValue="40"
         android:dialogTitle="@string/sPrefCarriageSizeTitle"

@@ -39,7 +39,7 @@ public class AlphabeticalStationListFragment extends SelectStationListFragment {
         View result = super.onCreateView(inflater, container, savedInstanceState);
 
         mTab = Analytics.TAB_AZ;
-        SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+        SelectStationActivity parentActivity = (SelectStationActivity) getActivity();
         m_oExpListAdapter = new AlphabeticalExpandableListAdapter(parentActivity, parentActivity.GetStationList());
         m_oExpListView.setAdapter(m_oExpListAdapter);
 
@@ -50,7 +50,7 @@ public class AlphabeticalStationListFragment extends SelectStationListFragment {
         super.Update();
 
         if (m_oExpListAdapter != null) {
-            SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+            SelectStationActivity parentActivity = (SelectStationActivity) getActivity();
             ((StationIndexedExpandableListAdapter) m_oExpListAdapter).Update(parentActivity.GetStationList());
             m_oExpListAdapter.notifyDataSetChanged();
         }

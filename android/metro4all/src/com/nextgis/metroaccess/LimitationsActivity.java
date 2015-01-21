@@ -1,26 +1,27 @@
 package com.nextgis.metroaccess;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.SwitchCompat;
+import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
-
-public class LimitationsActivity extends SherlockPreferenceActivity implements Preference.OnPreferenceChangeListener {
+public class LimitationsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     public static final String KEY_PREF_HAVE_LIMITS = "limits";
     public static final String KEY_PREF_MAX_WIDTH = "max_width";
     public static final String KEY_PREF_WHEEL_WIDTH = "wheel_width";
 
-    private ActionBar actionBar;
+    private Toolbar mActionBar;
     private SharedPreferences prefs;
     private Preference mPreferenceWheel, mPreferenceMaxWidth;
 
@@ -29,46 +30,48 @@ public class LimitationsActivity extends SherlockPreferenceActivity implements P
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.limitations);
+        mActionBar.setTitle(R.string.sLimits);
+
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        actionBar = getSupportActionBar();
-
-        boolean isLimitationsEnabled = hasLimitations(this);
         mPreferenceMaxWidth = findPreference(KEY_PREF_MAX_WIDTH);
         mPreferenceWheel = findPreference(KEY_PREF_WHEEL_WIDTH);
         mPreferenceMaxWidth.setSummary(prefs.getString(KEY_PREF_MAX_WIDTH, "40") + " " + getString(R.string.sCM));
         mPreferenceWheel.setSummary(prefs.getString(KEY_PREF_WHEEL_WIDTH, "40") + " " + getString(R.string.sCM));
         mPreferenceMaxWidth.setOnPreferenceChangeListener(this);
         mPreferenceWheel.setOnPreferenceChangeListener(this);
-        setDependency(isLimitationsEnabled);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-            initSwitch(isLimitationsEnabled);
-        else
-            findPreference(KEY_PREF_HAVE_LIMITS).setOnPreferenceChangeListener(this);
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        setDependency(hasLimitations(this));
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void initSwitch(boolean state) {
-        actionBar.setCustomView(R.layout.actionbar_switch);
-        ((TextView) actionBar.getCustomView().findViewById(R.id.tvLimitationsTitle)).setText(R.string.sLimits);
+    @Override
+    public void setContentView(int layoutResID) {
+        ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_preferences, new LinearLayout(this), false);
 
-        Switch swLimits = (Switch) actionBar.getCustomView().findViewById(R.id.swLimitations);
-        swLimits.setChecked(state);
-        getPreferenceScreen().removePreference(findPreference(KEY_PREF_HAVE_LIMITS));
+        mActionBar = (Toolbar) contentView.findViewById(R.id.action_bar);
+        mActionBar.inflateMenu(R.menu.menu_switch);
 
-        swLimits.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        SwitchCompat switchLimitations = (SwitchCompat) mActionBar.findViewById(R.id.swLimitations);
+        switchLimitations.setChecked(hasLimitations(this));
+
+        switchLimitations.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                prefs.edit().putBoolean(KEY_PREF_HAVE_LIMITS, b).apply();
-                switchLimitations(b);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                prefs.edit().putBoolean(KEY_PREF_HAVE_LIMITS, isChecked).apply();
+                switchLimitations(isChecked);
             }
         });
 
-        int opts = android.app.ActionBar.DISPLAY_SHOW_HOME | android.app.ActionBar.DISPLAY_SHOW_CUSTOM;
-        actionBar.setDisplayOptions(opts);
+        mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
+        LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
+
+        getWindow().setContentView(contentView);
     }
 
     @Override
@@ -98,10 +101,10 @@ public class LimitationsActivity extends SherlockPreferenceActivity implements P
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference.getKey().equals(KEY_PREF_HAVE_LIMITS)) {
-            switchLimitations((Boolean) newValue);
-            return true;
-        } else {//if (preference.getKey().equals(KEY_PREF_MAX_WIDTH) || preference.getKey().equals(KEY_PREF_WHEEL_WIDTH))
+//        if (preference.getKey().equals(KEY_PREF_HAVE_LIMITS)) {
+//            switchLimitations((Boolean) newValue);
+//            return true;
+//        } else {//if (preference.getKey().equals(KEY_PREF_MAX_WIDTH) || preference.getKey().equals(KEY_PREF_WHEEL_WIDTH))
         	String sNewValue = ((String) newValue).trim();
 
             if (isInt(sNewValue)) {
@@ -109,11 +112,16 @@ public class LimitationsActivity extends SherlockPreferenceActivity implements P
                 preference.setSummary(sNewValue + " " + getString(R.string.sCM));
                 return true;
             } else return false;
-        }
+//        }
     }
 
     private static boolean isInt(String str) {
-        return str.matches("^[0-9]+$");
+        try {
+            return Integer.parseInt(str) > 0;
+        } catch (NumberFormatException nfe) {}
+
+        return false;
+//        return str.matches("^[0-9]+$");
     }
 
     public static boolean hasLimitations(Context context) {

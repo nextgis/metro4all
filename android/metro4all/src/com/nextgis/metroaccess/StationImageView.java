@@ -28,11 +28,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -41,10 +45,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.PortalItem;
@@ -64,9 +64,9 @@ import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
+import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 
-public class StationImageView extends SherlockActivity {
+public class StationImageView extends ActionBarActivity {
     private WebView mWebView;
     private Bundle bundle;
 
@@ -253,8 +253,8 @@ public class StationImageView extends SherlockActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater infl = getSupportMenuInflater();
-        infl.inflate(R.menu.menu_station_list, menu);
+        MenuInflater infl = getMenuInflater();
+        infl.inflate(R.menu.menu_station_layout, menu);
         menu.findItem(R.id.btn_legend).setEnabled(!isForLegend).setVisible(!isForLegend);
         menu.findItem(R.id.btn_map).setEnabled(!isForLegend && isCrossReference).setVisible(!isForLegend && isCrossReference);
         return true;
@@ -274,7 +274,7 @@ public class StationImageView extends SherlockActivity {
                     Intent intentMap = new Intent(this, StationMapActivity.class);
                     intentMap.putExtras(bundle);
                     intentMap.putExtra(PARAM_ROOT_ACTIVITY, false);
-                    startActivityForResult(intentMap, PORTAL_MAP_RESULT);
+                    startActivityForResult(intentMap, SUBSCREEN_PORTAL_RESULT);
                 } else
                     finish();
                 return true;
@@ -302,7 +302,7 @@ public class StationImageView extends SherlockActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case PORTAL_MAP_RESULT:
+            case SUBSCREEN_PORTAL_RESULT:
                 if (resultCode == RESULT_OK) {
                     setResult(RESULT_OK, data);
                     finish();

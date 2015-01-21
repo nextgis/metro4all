@@ -25,22 +25,21 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.StationItem;
@@ -59,16 +58,14 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
 import static com.nextgis.metroaccess.Constants.MAX_RECENT_ITEMS;
-import static com.nextgis.metroaccess.Constants.MENU_ABOUT;
-import static com.nextgis.metroaccess.Constants.MENU_SETTINGS;
-import static com.nextgis.metroaccess.Constants.PORTAL_MAP_RESULT;
+import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 import static com.nextgis.metroaccess.Constants.PREF_RESULT;
 import static com.nextgis.metroaccess.Constants.TAG;
 import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
 import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
 import static com.nextgis.metroaccess.PreferencesActivity.clearRecent;
 
-public class SelectStationActivity extends SherlockFragmentActivity {
+public class SelectStationActivity extends ActionBarActivity {
     private static final int NUM_ITEMS = 3;
 
     private FragmentRollAdapter mAdapter;
@@ -115,19 +112,19 @@ public class SelectStationActivity extends SherlockFragmentActivity {
             }
         });
 
-        Tab tab = actionBar.newTab()
+        ActionBar.Tab tab = actionBar.newTab()
                 .setText(R.string.sSelAlphabeticalTab)
-                .setTabListener(new TabListener<SherlockFragment>(0 + "", mPager));
+                .setTabListener(new TabListener(0 + "", mPager));
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
                 .setText(R.string.sSelLinesTab)
-                .setTabListener(new TabListener<SherlockFragment>(1 + "", mPager));
+                .setTabListener(new TabListener(1 + "", mPager));
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
                 .setText(R.string.sSelRecentTab)
-                .setTabListener(new TabListener<SherlockFragment>(2 + "", mPager));
+                .setTabListener(new TabListener(2 + "", mPager));
         actionBar.addTab(tab);
 
         //get location from calling class
@@ -189,10 +186,10 @@ public class SelectStationActivity extends SherlockFragmentActivity {
     }
 
     public List<StationItem> GetStationList() {
-        return new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
+        return new ArrayList<>(MainActivity.GetGraph().GetStations().values());
     }
 
-    public static class TabListener<T extends SherlockFragment> implements ActionBar.TabListener {
+    public static class TabListener implements ActionBar.TabListener {
         private final String m_Tag;
         private ViewPager m_Pager;
 
@@ -201,22 +198,19 @@ public class SelectStationActivity extends SherlockFragmentActivity {
             m_Pager = pager;
         }
 
-
         @Override
-        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
             int nTag = Integer.parseInt(m_Tag);
             m_Pager.setCurrentItem(nTag);
         }
 
         @Override
-        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-            // TODO Auto-generated method stub
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
         }
 
         @Override
-        public void onTabReselected(Tab tab, FragmentTransaction ft) {
-            // TODO Auto-generated method stub
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
         }
     }
@@ -238,17 +232,17 @@ public class SelectStationActivity extends SherlockFragmentActivity {
         }
 
         @Override
-        public SherlockFragment getItem(int arg0) {
+        public Fragment getItem(int arg0) {
             switch (arg0) {
                 case 0:
                     mAlphaStListFragment = new AlphabeticalStationListFragment();
-                    return (SherlockFragment) mAlphaStListFragment;//
+                    return mAlphaStListFragment;//
                 case 1:
                     mLinesStListFragment = new LinesStationListFragment();
-                    return (SherlockFragment) mLinesStListFragment;//
+                    return mLinesStListFragment;//
                 case 2:
                     mRecentStListFragment = new RecentStationListFragment();
-                    return (SherlockFragment) mRecentStListFragment;//
+                    return mRecentStListFragment;//
                 default:
                     return null;
             }
@@ -257,14 +251,8 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getSupportMenuInflater().inflate(R.menu.main, menu);
-        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.sSettings)
-                .setIcon(R.drawable.ic_action_settings)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.sAbout)
-                .setIcon(R.drawable.ic_action_about)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.btn_locate).setVisible(false);
         return true;
     }
 
@@ -276,12 +264,12 @@ public class SelectStationActivity extends SherlockFragmentActivity {
 
                 finish();
                 return true;
-            case MENU_SETTINGS:
+            case R.id.btn_settings:
                 // app icon in action bar clicked; go home
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.MENU_SETTINGS, getTab());
                 onSettings();
                 return true;
-            case MENU_ABOUT:
+            case R.id.btn_about:
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.MENU_ABOUT, getTab());
                 Intent intentAbout = new Intent(this, AboutActivity.class);
                 intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -365,7 +353,7 @@ public class SelectStationActivity extends SherlockFragmentActivity {
                 if (mRecentStListFragment != null)
                     mRecentStListFragment.Update();
                 break;
-            case PORTAL_MAP_RESULT:
+            case SUBSCREEN_PORTAL_RESULT:
                 if (resultCode == RESULT_OK) {
                     ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.PORTAL, Analytics.SCREEN_MAP);
 

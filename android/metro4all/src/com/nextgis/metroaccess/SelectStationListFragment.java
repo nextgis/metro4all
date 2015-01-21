@@ -22,6 +22,7 @@ package com.nextgis.metroaccess;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,13 +34,12 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
 
 import static com.nextgis.metroaccess.Constants.TAG;
 
-public abstract class SelectStationListFragment extends SherlockFragment {
+public abstract class SelectStationListFragment extends Fragment {
     protected StationExpandableListView m_oExpListView;
     protected StationExpandableListAdapter m_oExpListAdapter;
     protected String mTab;
@@ -61,7 +61,7 @@ public abstract class SelectStationListFragment extends SherlockFragment {
                 ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.PORTAL, mTab);
 
                 final PortalItem selected = (PortalItem) m_oExpListAdapter.getChild(groupPosition, childPosition);
-                SelectStationActivity parentActivity = (SelectStationActivity) getSherlockActivity();
+                SelectStationActivity parentActivity = (SelectStationActivity) getActivity();
                 parentActivity.Finish(selected.GetStationId(), selected.GetId());
                 return true;
             }
@@ -131,7 +131,7 @@ public abstract class SelectStationListFragment extends SherlockFragment {
     }
 
     private String getDirection() { // for GA
-        return ((SelectStationActivity) getSherlockActivity()).IsIn() ? Analytics.FROM : Analytics.TO;
+        return ((SelectStationActivity) getActivity()).IsIn() ? Analytics.FROM : Analytics.TO;
     }
 
     public void Update(){

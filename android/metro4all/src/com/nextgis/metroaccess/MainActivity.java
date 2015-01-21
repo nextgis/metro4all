@@ -29,7 +29,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -45,24 +44,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.util.Pair;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -89,12 +83,34 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import edu.asu.emit.qyan.alg.model.Path;
 import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
 
-import static com.nextgis.metroaccess.Constants.*;
+import static com.nextgis.metroaccess.Constants.APP_VERSION;
+import static com.nextgis.metroaccess.Constants.ARRIVAL_RESULT;
+import static com.nextgis.metroaccess.Constants.BUNDLE_CITY_CHANGED;
+import static com.nextgis.metroaccess.Constants.BUNDLE_ENTRANCE_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_ERRORMARK_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_EVENTSRC_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_MSG_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PATHCOUNT_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PATH_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PAYLOAD_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
+import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
+import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
+import static com.nextgis.metroaccess.Constants.ICONS_RAW;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
+import static com.nextgis.metroaccess.Constants.LOCATING_TIMEOUT;
+import static com.nextgis.metroaccess.Constants.META;
+import static com.nextgis.metroaccess.Constants.PREF_RESULT;
+import static com.nextgis.metroaccess.Constants.REMOTE_METAFILE;
+import static com.nextgis.metroaccess.Constants.ROUTE_DATA_DIR;
+import static com.nextgis.metroaccess.Constants.STATUS_FINISH_LOCATING;
+import static com.nextgis.metroaccess.Constants.STATUS_INTERRUPT_LOCATING;
+import static com.nextgis.metroaccess.Constants.TAG;
 import static com.nextgis.metroaccess.PreferencesActivity.DeleteRecursive;
 import static com.nextgis.metroaccess.PreferencesActivity.clearRecent;
 import static com.nextgis.metroaccess.SelectStationActivity.getRecentStations;
@@ -102,7 +118,7 @@ import static com.nextgis.metroaccess.SelectStationActivity.indexOf;
 
 //https://code.google.com/p/k-shortest-paths/
 
-public class MainActivity extends SherlockActivity {
+public class MainActivity extends ActionBarActivity {
 
 	protected boolean m_bInterfaceLoaded;
 
@@ -391,29 +407,17 @@ public class MainActivity extends SherlockActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-		/*m_oSearchMenuItem = menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_SEARCH, com.actionbarsherlock.view.Menu.NONE, R.string.sSearch)
+	public boolean onCreateOptionsMenu(Menu menu) {
+		/*m_oSearchMenuItem = menu.add(Menu.NONE, MENU_SEARCH, Menu.NONE, R.string.sSearch)
 		.setIcon(R.drawable.ic_action_search);
 		m_oSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		m_oSearchMenuItem.setEnabled(false);
-		m_oSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);	
+		m_oSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		 */
         this.menu = menu;
 
-		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_LOCATE_CLOSEST, com.actionbarsherlock.view.Menu.NONE, R.string.sLocate)
-       .setIcon(R.drawable.ic_action_location_found)
-       .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_SETTINGS, com.actionbarsherlock.view.Menu.NONE, R.string.sSettings)
-       .setIcon(R.drawable.ic_action_settings)
-       .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-		menu.add(com.actionbarsherlock.view.Menu.NONE, MENU_ABOUT, com.actionbarsherlock.view.Menu.NONE, R.string.sAbout)
-		.setIcon(R.drawable.ic_action_about)
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 		return true;
-//		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -421,21 +425,21 @@ public class MainActivity extends SherlockActivity {
 		switch (item.getItemId()) {
         case android.R.id.home:
             return false;
-        case MENU_SEARCH:
-        	onSearch();
-        	return true;
-        case MENU_SETTINGS:
+//        case MENU_SEARCH:
+//        	onSearch();
+//        	return true;
+        case R.id.btn_settings:
             // app icon in action bar clicked; go home
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_SETTINGS, Analytics.MENU);
             onSettings(false);
             return true;
-        case MENU_ABOUT:
+        case R.id.btn_about:
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_ABOUT, Analytics.MENU);
             Intent intentAbout = new Intent(this, AboutActivity.class);
             intentAbout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentAbout);
             return true;
-        case MENU_LOCATE_CLOSEST:
+        case R.id.btn_locate:
             if (!item.isEnabled()) return true;
 
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Locate closest entrance", Analytics.ACTION_BAR);
@@ -489,7 +493,7 @@ public class MainActivity extends SherlockActivity {
 	}
 
     private void locateClosestEntrance() {
-        menu.findItem(MENU_LOCATE_CLOSEST).setEnabled(false);
+        menu.findItem(R.id.btn_locate).setEnabled(false);
         Toast.makeText(this, R.string.sLocationStart, Toast.LENGTH_SHORT).show();
 
         final Handler h = new Handler(){
@@ -503,7 +507,7 @@ public class MainActivity extends SherlockActivity {
                     case STATUS_FINISH_LOCATING:
                         gpsMyLocationProvider.stopLocationProvider();
                         isLocationFound = true;
-                        menu.findItem(MENU_LOCATE_CLOSEST).setEnabled(true);
+                        menu.findItem(R.id.btn_locate).setEnabled(true);
                         break;
                 }
             }

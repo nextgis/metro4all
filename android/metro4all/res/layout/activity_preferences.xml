@@ -2,8 +2,8 @@
 <!--
 	Project:  Metro4All
  	Purpose:  Routing in subway
-    Author:   Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
-    Copyright (C) 2014 NextGIS
+    Authors:  Stanislav Petriakov
+    Copyright (C) 2015 NextGIS
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,22 +18,21 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<menu
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
-    <item
-        android:id="@+id/btn_layout"
-        android:title="@string/sSchema"
-        android:icon="@drawable/ic_action_schema"
-        android:orderInCategory="0"
-        app:showAsAction="always"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize" />
 
-    <item
-		android:id="@+id/btn_location_found"
-        android:title="@string/sLocate"
-        android:icon="@drawable/ic_action_location_found"
-		android:orderInCategory="1"
-		app:showAsAction="always"/>
+    <FrameLayout
+        android:id="@+id/content_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-</menu>
+</LinearLayout>

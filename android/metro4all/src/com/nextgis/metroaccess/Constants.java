@@ -48,15 +48,10 @@ public interface Constants {
     final static String BUNDLE_METAMAP_KEY = "metamap";
     final static String BUNDLE_CITY_CHANGED = "city_changed";
 
-    public final static int MENU_SEARCH = 3;
-    public final static int MENU_SETTINGS = 4;
-    public final static int MENU_ABOUT = 5;
-    public final static int MENU_LOCATE_CLOSEST = 6;
-
     public final static int DEPARTURE_RESULT = 1;
     public final static int ARRIVAL_RESULT = 2;
     public final static int PREF_RESULT = 3;
-    public final static int PORTAL_MAP_RESULT = 4;
+    public final static int SUBSCREEN_PORTAL_RESULT = 4;
     public final static int MAX_RECENT_ITEMS = 10;
 
     public final static String PARAM_PORTAL_DIRECTION = "PORTAL_DIRECTION";
