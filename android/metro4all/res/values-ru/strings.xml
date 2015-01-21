@@ -49,6 +49,7 @@
 	<string name="sToStation">Куда</string>
 	<string name="sRoute">Вариант</string>
 	<string name="sSchema">Схема ст. %1$s</string>
+    <string name="sLayout">Схема</string>
     <string name="sLegend">Условные обозначения</string>
     <string name="sLocate">Определить местоположение</string>
     <string name="sMap">Карта</string>
