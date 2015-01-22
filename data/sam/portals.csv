@@ -1,5 +1,5 @@
 id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle;escalator
-120010;1;Район Юнгородок;Yungorodok district ;101;both;53.2128042287199;50.2835194445255;720;9;9;0;0;0;0;0;0
+120010;1;Район Юнгородок;Yungorodok district;101;both;53.2128640691;50.283521899;720;9;9;0;0;0;0;0;0
 120020;1;Рынок;Market;102;both;53.2113143413501;50.2681069566414;860;31;0;0;0;300;690;22;1
 120030;1;пер. Роликовый, городская поликлиника № 10;pereulok Rolikovyj, city policlinic № 10;103;both;53.2133553632;50.2490702577;720;65;27;0;0;370;730;19;0
 120040;2;пер. Славный;pereulok Slavnyj;103;both;53.2135620263;50.2495397451;720;63;63;0;0;0;0;0;0
