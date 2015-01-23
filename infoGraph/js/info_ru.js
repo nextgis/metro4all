@@ -1,4 +1,5 @@
 var tr = {
+	'language': 'rus',
 	'shemaHeader': {
 		'wheelchairFriendly': 'Станции с маршрутами, доступными для инвалидов-колясочников',
 		'handicappedFriendly': 'Станции с маршрутами, доступными для людей с затруднениями предвижения',
@@ -65,10 +66,38 @@ var tr = {
 	'target': {
 		'station': 'по станции ',
 		'node': 'Входит в состав узла ',
-		'transfer': 'по переходу '
+		'transfer': 'по переходу ',
+		'metro': 'по метро '
 	},
 	'booleanWords': {
 		'yes': 'да',
 		'no': 'нет'
+	},
+	'metroStatHeader': {
+		'totalElements': 'Количество элементов инфраструктуры',
+		'totalRoutesIn': 'Количество маршрутов на вход',
+		'totalRoutesOut': 'Количество маршрутов на выход',
+		'totalTransfers': 'Количество переходов',
+		'totalNodesWithTransfers': 'Количество узлов, на которых есть переходы',
+		'totalLifts': 'Количество лифтов - всего',
+		'totalHallLevelLifts': 'Количество лифтов на уровень перехода',
+		'totalTrainLevelLifts': 'Количество лифтов на уровень платформы',
+		'totalSurfaceLevelLifts': 'Количество лифтов на уровень поверхности',
+		'totalNodesWithLifts': 'Количество узлов, оборудованных лифтами любого уровня',
+		'totalNodesWithHallLevelLifts': 'Количество узлов, оборудованных лифтами до уровня перехода',
+		'totalNodesWithTrainLevelLifts': 'Количество узлов, оборудованных лифтами до уровня платформы',
+		'totalNodesWithSurfaceLevelLifts': 'Количество узлов, оборудованных лифтами до уровня поверхности',
+		'totalPanduses': 'Количество пандусов - всего',
+		'totalPandusesAvailable': 'Количество пандусов, доступных для инвалидов-колясочников',
+		'totalNodesWithPanduses': 'Количество узлов, оборудованных пандусами',
+		'totalNodesWithPandusesAvailable': 'Количество узлов, оборудованных пандусами, доступными для инвалидов-колясочников',
+		'totalNodesWithStairway': 'Количество узлов, оборудованных эскалаторами',
+		'totalCoupleStairs': 'Количество одиночных ступеней',
+		'totalStationsWithWheelchairFriendlyRoutes': 'Количество станций с маршрутами, доступными для инвалидов-колясочников',
+		'totalWheelchairFriendlyRoutes': 'Количество маршрутов, доступных для инвалидов-колясочников',
+		'totalStationsWithHandicappedFriendlyRoutes': 'Количество станций с маршрутами, доступными для людей с затруднениями передвижения',
+		'totalHandicappedFriendlyRoutes': 'Количество маршрутов, доступных для людей с затруднениями передвижения',
+		'totalStationsWithLuggageFriendlyRoutes': 'Количество станций с маршрутами, доступными  для людей с детскими колясками',
+		'totalLuggageFriendlyRoutes': 'Количество маршрутов, доступных для людей с детскими колясками'
 	}
 }

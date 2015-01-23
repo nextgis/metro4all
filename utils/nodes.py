@@ -11,7 +11,7 @@ import numpy as np
 vocabPath = sys.argv[1]
 filePath = sys.argv[2]
 
-vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=1, names=['nodeName', 'node_id'])
+vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=2, names=['nodeName', 'nodeName_en', 'node_id'])
 sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['node_id', 'transfer_id', 'element_id', 'node_name', 'element', 'stairs', 'stairs_with_railing', 'couple_stairs', 'railing', 'width', 'min_width', 'max_width', 'angle', 'slope', 'lift_class', 'working_status', 'pandusAvailability'])
 '''
 sourceDf['liftSurfaceToTrain'] = (sourceDf['lift_class'] == 3) * 1
