@@ -91,7 +91,7 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 	    		data[i] = getString(R.string.sRoute) + " " + (i + 1);
 	    	}
 
-		    ArrayAdapter<CharSequence> adapter= new ArrayAdapter<CharSequence>(context, android.R.layout.simple_spinner_dropdown_item, data);
+		    ArrayAdapter<CharSequence> adapter= new ArrayAdapter<CharSequence>(context, android.R.layout.simple_spinner_item, data);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		    actionBar.setDisplayShowTitleEnabled(false);

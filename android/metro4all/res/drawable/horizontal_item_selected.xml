@@ -21,8 +21,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:bottom="@dimen/horizontal_item_margin" android:right="@dimen/horizontal_item_margin">
         <shape>
-            <solid android:color="@color/metrocolorlight" />
-            <stroke android:width="@dimen/horizontal_item_thickness" android:color="@color/horizontalItemStroke" />
+            <solid android:color="@color/metro_color_main" />
+            <stroke android:width="@dimen/horizontal_item_thickness" android:color="@color/horizontal_item_stroke" />
         </shape>
     </item>
 </layer-list>

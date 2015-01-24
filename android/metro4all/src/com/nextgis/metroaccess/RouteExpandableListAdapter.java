@@ -94,7 +94,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 		if(bit.IsProblem())
 			item.setTextColor(Color.RED);
 		else
-			item.setTextColor(mContext.getResources().getColor(R.color.bkColorStrongDark));
+			item.setTextColor(mContext.getResources().getColor(R.color.grey_dark));
 		//
 		item.setText(bit.GetName());
 		
@@ -180,7 +180,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 				subitem.setTextColor(Color.RED);
 			}
 			else
-				subitem.setTextColor(mContext.getResources().getColor(R.color.bkColorStrongDark));
+				subitem.setTextColor(mContext.getResources().getColor(R.color.grey_dark));
 		}
 		else{
 			subitem.setVisibility(View.GONE);

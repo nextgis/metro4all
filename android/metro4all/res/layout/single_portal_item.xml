@@ -23,7 +23,7 @@
           android:layout_width="40dp"
           android:layout_height="40dp"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="@color/horizontalItemText"
+          android:textColor="@color/horizontal_item_text"
           android:gravity="center"
           android:layout_gravity="center"
           android:layout_marginRight="@dimen/horizontal_item_divider"

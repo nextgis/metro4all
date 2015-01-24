@@ -19,25 +19,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-    <color name="metrocolorlight">#50C0DB</color> 
- 	<color name="metrocolordark">#AFEEEE</color> 
- 	<color name="metrocolormid">#ADD8E6</color>
- 	<color name="btnOnColor">#1D3F58</color>
- 	<color name="btnOnGradientStart">#436884</color>
- 	<color name="btnOnGradientEnd">#224560</color>
-	<color name="btnOffColor">#2A4D68</color>
- 	<color name="btnOffGradientStart">#81B0D5</color>
- 	<color name="btnOffGradientEnd">#335F81</color>
- 	<color name="btnTextColor">#ffffff</color>
- 	<color name="btnBorderColor">#8ab7d7</color>
- 	<color name="bkColorLight">#ececea</color>
-  	<color name="bkColorDark">#d4d4d2</color>
-  	<color name="bkColorStrongDark">#737373</color>
-  	<color name="horizontalItemText">#4c4c4c</color>
-  	<color name="horizontalItemStroke">#b2b2b2</color>
-  	<color name="horizontalItemFill">#ddd</color>
-  	<color name="portalChecked">#00b200</color>
-  	<color name="portalInvalid">#a00</color>
-  	<color name="portalNormal">#424251</color>
+    <color name="metro_color_main">#50C0DB</color>
+
+ 	<color name="metro_material_main">#6CBCD0</color>
+    <color name="metro_material_dark">#335F81</color>
+
+ 	<color name="grey_light">#ececea</color>
+  	<color name="grey">#d4d4d2</color>
+  	<color name="grey_dark">#737373</color>
+
+  	<color name="horizontal_item_text">#4c4c4c</color>
+  	<color name="horizontal_item_stroke">#b2b2b2</color>
+  	<color name="horizontal_item_fill">#ddd</color>
+
+  	<color name="portal_checked">#00b200</color>
+  	<color name="portal_invalid">#a00</color>
+  	<color name="portal_normal">#424251</color>
 
 </resources>

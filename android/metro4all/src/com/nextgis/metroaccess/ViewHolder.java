@@ -29,7 +29,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     private IViewHolderClick mViewHolderClick;
 
     public void setChecked() {
-        mPortalNameButton.setBackgroundColor(mPortalNameButton.getResources().getColor(R.color.portalChecked));
+        mPortalNameButton.setBackgroundColor(mPortalNameButton.getResources().getColor(R.color.portal_checked));
     }
 
     public void setNormal() {
@@ -37,7 +37,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     }
 
     public void setInvalid() {
-        mPortalNameButton.setBackgroundColor(mPortalNameButton.getResources().getColor(R.color.portalInvalid));
+        mPortalNameButton.setBackgroundColor(mPortalNameButton.getResources().getColor(R.color.portal_invalid));
     }
 
     public static interface IViewHolderClick {

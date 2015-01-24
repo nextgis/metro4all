@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
+<!-- 
 	Project:  Metro4All
  	Purpose:  Routing in subway
     Authors:  Stanislav Petriakov
@@ -18,11 +18,16 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:top="@dimen/horizontal_item_margin" android:left="@dimen/horizontal_item_margin">
-        <shape>
-            <solid android:color="@color/horizontal_item_fill" />
-            <stroke android:width="@dimen/horizontal_item_thickness" android:color="@color/horizontal_item_stroke" />
-        </shape>
-    </item>
-</layer-list>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/btn_disabled"
+        android:state_enabled="false"/>
+    <item
+        android:drawable="@drawable/btn_off"
+        android:state_focused="true"/>
+    <item
+        android:drawable="@drawable/btn_on"
+        android:state_pressed="true"/>
+    <item
+        android:drawable="@drawable/btn_off"/>
+</selector>

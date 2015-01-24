@@ -419,10 +419,10 @@ public class MAGraph {
 					 int nLineId = Integer.parseInt(RowData[0]);
                     m_omLines.put(nLineId, sName);
 
-//                    if (RowData.length > 2) { // data back compatibility
+                    if (RowData.length > 2) { // data back compatibility?
                         String sLineColor = RowData[2];
                         m_omLinesColors.put(nLineId, sLineColor);
-//                    }
+                    }
 		        }
 			        
 		        reader.close();

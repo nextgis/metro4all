@@ -18,16 +18,41 @@
     </style>
 
     <style name="Theme.Application" parent="@style/Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/metro_material_main</item>
+        <item name="colorAccent">@color/metro_material_dark</item>
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/black</item>
-        <item name="colorPrimary">@color/horizontalItemFill</item>
+        <item name="android:textColorLink">@color/metro_material_main</item>
+
+        <item name="editTextColor">@android:color/black</item>
+        <item name="android:spinnerItemStyle">@style/Theme.Application.Spinner</item>
+        <item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
+    </style>
+
+    <style name="Theme.Application.Spinner" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Title</item>
     </style>
 
     <style name="Theme.Settings" parent="@style/Theme.Application">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
+        <item name="actionBarStyle">@style/Widget.Toolbar</item>
+        <!--<item name="android:preferenceCategoryStyle">@style/Theme.Settings.Category</item>-->
+        <item name="android:textColorSecondary">@android:color/secondary_text_light</item>
+
+        <item name="colorSwitchThumbNormal">@color/metro_material_dark</item>
+        <item name="android:colorForeground">@color/metro_material_dark</item>
+
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Settings.Limitations" parent="@style/Theme.Settings">
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
     <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">

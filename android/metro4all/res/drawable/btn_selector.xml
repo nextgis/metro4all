@@ -18,20 +18,16 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-    <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-        <item android:state_enabled="false" android:drawable="@drawable/btn_disabled"/>
-        <item
-            android:drawable="@drawable/btn_off"
-            android:state_focused="true"
-            android:state_pressed="false"/>
-        <item
-            android:drawable="@drawable/btn_on"
-            android:state_focused="true"
-            android:state_pressed="true"/>
-        <item
-            android:drawable="@drawable/btn_on"
-            android:state_focused="false"
-            android:state_pressed="true"/>
-        <item android:drawable="@drawable/btn_off"/>
-    	<item android:state_enabled="true" android:drawable="@drawable/btn_off"/>
-    </selector>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/btn_disabled"
+        android:state_enabled="false"/>
+    <item
+        android:drawable="@drawable/btn_off"
+        android:state_focused="true"/>
+    <item
+        android:drawable="@drawable/btn_on"
+        android:state_pressed="true"/>
+    <item
+        android:drawable="@drawable/btn_off"/>
+</selector>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
 	Project:  Metro4All
  	Purpose:  Routing in subway
-    Author:   Dmitry Baryshnikov, polimax@mail.ru
-    Copyright (C) 2014 NextGIS
+    Authors:  Dmitry Baryshnikov (polimax@mail.ru), Stanislav Petriakov
+    Copyright (C) 2014,2015 NextGIS
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,9 +20,5 @@
 -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
-    <gradient
-		android:endColor="@color/bkColorLight" 
-		android:startColor="@color/bkColorDark"
-		android:angle="270"
-	/>
+    <solid android:color="@color/grey" />
 </shape>

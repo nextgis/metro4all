@@ -20,12 +20,15 @@
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingRight="?android:scrollbarSize"
+    android:paddingBottom="2dp"
+    android:paddingRight="@dimen/station_row_padding_right"
+    android:paddingTop="2dp"
     >
 
     <ImageView
@@ -33,7 +36,7 @@
         android:layout_width="24dip"
         android:layout_height="24dip"
         android:layout_margin="10dip"
-        />
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/tvStationName"
@@ -41,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ellipsize="marquee"
-        android:textSize="20sp"
+        android:textSize="@dimen/station_row_text_size"
         />
 
     <ImageButton
@@ -51,6 +54,7 @@
         android:background="@null"
         android:scaleType="center"
         android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
-        android:tint="@color/portalNormal"/>
+        android:tint="@color/portal_normal"
+        tools:ignore="ContentDescription"/>
 
 </LinearLayout>

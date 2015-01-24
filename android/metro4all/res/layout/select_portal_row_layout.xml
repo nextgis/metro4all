@@ -21,8 +21,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
     >
 
     <TextView
@@ -37,6 +39,7 @@
         android:id="@+id/txPortalName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_margin="10dp"
         android:checkMark="@android:color/transparent"
         android:ellipsize="marquee"
