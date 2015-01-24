@@ -20,12 +20,14 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -65,6 +67,7 @@ import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
 import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
+import static com.nextgis.metroaccess.MainActivity.tintIcons;
 
 public class StationImageView extends ActionBarActivity {
     private WebView mWebView;
@@ -75,13 +78,15 @@ public class StationImageView extends ActionBarActivity {
     private boolean mIsRootActivity, isForLegend;
     RecyclerView rvPortals;
 
-    private SharedPreferences prefs;
+    private boolean mIsHintNotShowed = false;
+    private boolean mIsPortalIn = false;
+    private String mHintScreenName;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.station_image_view);
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, isPortrait ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
@@ -106,19 +111,24 @@ public class StationImageView extends ActionBarActivity {
             mIsRootActivity = bundle.getBoolean(PARAM_ROOT_ACTIVITY);
             isCrossReference = bundle.containsKey(PARAM_ROOT_ACTIVITY); // if PARAM_ROOT_ACTIVITY not contains, it called from another
             msPath = bundle.getString(PARAM_SCHEME_PATH);
+            mIsPortalIn = bundle.getBoolean(PARAM_PORTAL_DIRECTION, true);
 
             StationItem station = MainActivity.GetGraph().GetStation(bundle.getInt(BUNDLE_STATIONID_KEY, 0));
-            String title = station == null ? getString(R.string.sFileNotFound) : String.format(getString(R.string.sSchema), station.GetName());
+            String title = station == null ? getString(R.string.sFileNotFound) :
+                    String.format(getString(R.string.sSchema), getString(R.string.sLayout), station.GetName());
             setTitle(title);
 
             if (station != null && station.GetPortalsCount() > 0 && bundle.getBoolean(PARAM_ACTIVITY_FOR_RESULT, true)) {
-                RVPortalAdapter adapter = new RVPortalAdapter(station.GetPortals(bundle.getBoolean(PARAM_PORTAL_DIRECTION, true)));
+                RVPortalAdapter adapter = new RVPortalAdapter(station.GetPortals(mIsPortalIn));
                 rvPortals.setAdapter(adapter);
                 rvPortals.setHasFixedSize(true);
                 rvPortals.setItemAnimator(new DefaultItemAnimator());
                 rvPortals.setVisibility(View.VISIBLE);
 
-                if (!prefs.getString(KEY_PREF_TOOLTIPS, "").contains(getClass().getSimpleName()))
+                mHintScreenName = getClass().getSimpleName();
+                mIsHintNotShowed = !prefs.getString(KEY_PREF_TOOLTIPS, "").contains(mHintScreenName);
+
+                if (mIsHintNotShowed)
                     showHint();
             }
         } else {
@@ -169,13 +179,16 @@ public class StationImageView extends ActionBarActivity {
     }
 
     private void showHint() {
-        String portalDirection = bundle.getBoolean(PARAM_PORTAL_DIRECTION, true) ? getString(R.string.sEntranceName) : getString(R.string.sExitName);
+        String portalDirection = mIsPortalIn ? getString(R.string.sEntranceName) : getString(R.string.sExitName);
         final ToolTipRelativeLayout toolTipOverlay = (ToolTipRelativeLayout) findViewById(R.id.ttPortals);
         toolTipOverlay.setVisibility(View.VISIBLE);
         final ToolTip toolTip = new ToolTip()
                 .withText(String.format(getString(R.string.sToolTipPortalFromLayout), portalDirection))
-                .withColor(getResources().getColor(R.color.metrocolorlight))
+                .withColor(getResources().getColor(R.color.metro_color_main))
                 .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW);
+
+        if (Build.VERSION.SDK_INT <= 10)
+            toolTip.withAnimationType(ToolTip.AnimationType.NONE);
 
         rvPortals.post(new Runnable() {
             @Override
@@ -185,20 +198,26 @@ public class StationImageView extends ActionBarActivity {
                 hint.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
                     @Override
                     public void onToolTipViewClicked(ToolTipView toolTipView) {
-                        hideHint();
+                        hideHint(getApplicationContext(), mHintScreenName);
                     }
                 });
             }
         });
     }
 
-    private void hideHint() {
-        prefs.edit().putString(KEY_PREF_TOOLTIPS, getClass().getSimpleName() + ",").apply();
+    public static void hideHint(Context context, String screen) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String savedHintScreens = prefs.getString(KEY_PREF_TOOLTIPS, "");
+
+        if(!savedHintScreens.contains(screen))
+            prefs.edit().putString(KEY_PREF_TOOLTIPS, savedHintScreens + screen + ",").apply();
     }
 
     protected boolean loadImage() {
         Bitmap overlaidImage;
 
+        // TODO OutOfMemoryError Bitmap on low memory devices
         if (isForLegend) {
             overlaidImage = BitmapFactory.decodeResource(getResources(), R.raw.schemes_legend);
             mWebView.clearCache(true);
@@ -232,14 +251,22 @@ public class StationImageView extends ActionBarActivity {
         overlaidImage.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] byteArray = baos.toByteArray();
         String imageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String fix;
 
-        double deviceRatio = 1.0 * mWebView.getHeight() / mWebView.getWidth();
-        double imageRatio = 1.0 * overlaidImage.getHeight() / overlaidImage.getWidth();
-        String fix = deviceRatio > imageRatio ? "width=\"100%\" height=\"auto\"" : "width=\"auto\" height=\"100%\"";
+        if (Build.VERSION.SDK_INT > 10) {   // fix for old webkit versions
+            fix = "max-width:100%;max-height:100%;'";
+
+            double deviceRatio = 1.0 * mWebView.getHeight() / mWebView.getWidth();
+            double imageRatio = 1.0 * overlaidImage.getHeight() / overlaidImage.getWidth();
+            fix += deviceRatio > imageRatio ? "width='100%' height='auto'" : "width='auto' height='100%'";
+        } else
+            fix = "'";
 
         // background-color: rgba(255, 255, 255, 0.01); alpha channel is a fix for showing image on some webkit versions
-        String sCmd = "<html><center><img style='background-color:rgba(255,255,255,0.01);position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;" +
-                "max-width:100%;max-height:100%;' " + fix + " src='data:image/png;base64," + imageBase64 + "'></center></html>";
+        String sCmd = "<html><center><img style='background-color:rgba(255,255,255,0.01);position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;" + fix +
+                " src='data:image/png;base64," + imageBase64 + "'></center></html>";
+//        String sCmd = "<html><center><img style='background-color:rgba(255,255,255,0.01);position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;" +
+//                "max-width:100%;max-height:100%;' " + fix + " src='data:image/png;base64," + imageBase64 + "'></center></html>";
 
         mWebView.loadData(sCmd, "text/html", "utf-8");
 
@@ -257,6 +284,7 @@ public class StationImageView extends ActionBarActivity {
         infl.inflate(R.menu.menu_station_layout, menu);
         menu.findItem(R.id.btn_legend).setEnabled(!isForLegend).setVisible(!isForLegend);
         menu.findItem(R.id.btn_map).setEnabled(!isForLegend && isCrossReference).setVisible(!isForLegend && isCrossReference);
+        tintIcons(menu, this);
         return true;
     }
 
@@ -350,8 +378,9 @@ public class StationImageView extends ActionBarActivity {
 
         @Override
         public void onItemClick(View caller, int position) {
-            hideHint();
-			
+            if (mIsHintNotShowed)
+                hideHint(caller.getContext(), mHintScreenName);
+
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT + " " + getDirection(), Analytics.PORTAL, Analytics.SCREEN_LAYOUT);
 
             Intent outIntent = new Intent();

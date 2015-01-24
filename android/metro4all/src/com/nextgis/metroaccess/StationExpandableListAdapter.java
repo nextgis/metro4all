@@ -30,23 +30,18 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.PopupMenu;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.StationItem;
@@ -60,6 +55,7 @@ import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
 import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
+import static com.nextgis.metroaccess.StationImageView.hideHint;
 
 public abstract class StationExpandableListAdapter extends BaseExpandableListAdapter implements Filterable {
     protected Context mContext;
@@ -73,16 +69,20 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
     protected List<StationItem> moOriginalStationList;
 
     protected boolean m_bIn;
+    private boolean mIsHintNotShowed;
+    private String mHintScreenName;
 
     public StationExpandableListAdapter(Context c) {
         mContext = c;
-        mStationList = new ArrayList<StationItem>();
+        mStationList = new ArrayList<>();
         mInfalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         loadPreferences();
 
         SelectStationActivity act = (SelectStationActivity) mContext;
         m_bIn = act.IsIn();
+        mIsHintNotShowed = act.isHintNotShowed();
+        mHintScreenName = act.getHintScreenName();
     }
 
     abstract void onInit();
@@ -114,12 +114,12 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         PortalItem entry = (PortalItem) getChild(groupPosition, childPosition);
-        return getChildView(convertView, entry);
+        return getChildView(convertView, entry, parent);
     }
 
-    protected View getChildView(View convertView, PortalItem entry) {
+    protected View getChildView(View convertView, PortalItem entry, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInfalInflater.inflate(R.layout.select_portal_row_layout, null);
+            convertView = mInfalInflater.inflate(R.layout.select_portal_row_layout, parent, false);
         }
 
         TextView item = (TextView) convertView.findViewById(R.id.txPortalName);
@@ -162,7 +162,7 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
+    public StationIndexedExpandableListAdapter.IndexedListItem getGroup(int groupPosition) {
         return mStationList.get(groupPosition);
     }
 
@@ -184,12 +184,12 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
         final StationItem entry = (StationItem) getGroup(groupPosition);
-        return getGroupView(convertView, entry);
+        return getGroupView(convertView, entry, parent);
     }
 
-    protected View getGroupView(View convertView, StationItem entry) {
+    protected View getGroupView(View convertView, StationItem entry, final ViewGroup parent) {
         if (convertView == null || convertView.findViewById(R.id.tvStationName) == null) {
-            convertView = mInfalInflater.inflate(R.layout.select_station_row_layout, null);
+            convertView = mInfalInflater.inflate(R.layout.select_station_row_layout, parent, false);
         }
 
         final TextView item = (TextView) convertView.findViewById(R.id.tvStationName);
@@ -221,15 +221,15 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
 
         ibtnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 try {
-                    LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View layout = mInflater.inflate(R.layout.stationlist_popup_menu, null);
+                    if (mIsHintNotShowed) {
+                        hideHint(mContext, mHintScreenName);
+                        view.getRootView().getRootView().findViewById(R.id.ttSelectStation).setVisibility(View.GONE);
+                    }
 
-//                    PopupWindow mDropdown = new PopupWindow(layout, FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, true);
-                    PopupWindow mDropdown = new PopupWindow(layout, 200, 100);
-                    mDropdown.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    mDropdown.setFocusable(true);
+                    LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View layout = mInflater.inflate(R.layout.stationlist_popup_menu, parent, false);
 
                     final TextView itemMap = (TextView) layout.findViewById(R.id.tvMap);
                     final TextView itemLayout = (TextView) layout.findViewById(R.id.tvLayout);
@@ -241,11 +241,22 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
                     else
                         itemMap.setLayoutParams(lp);
 
+                    layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+                    final PopupWindow mDropdown = new PopupWindow(layout, itemLayout.getMeasuredWidth(),
+                            itemMap.getMeasuredHeight() + itemLayout.getMeasuredHeight(), true);
+                    mDropdown.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                    Drawable background = mContext.getResources().getDrawable(R.drawable.abc_popup_background_mtrl_mult);
+                    mDropdown.setBackgroundDrawable(background);
+                    mDropdown.showAsDropDown(view, -itemLayout.getMeasuredWidth() / 2, -10);
+
                     itemMap.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_MAP, gaParent);
 
+                            mDropdown.dismiss();
                             Intent intent = new Intent(parentActivity, StationMapActivity.class);
                             intent.putExtras(bundle);
                             parentActivity.startActivityForResult(intent, SUBSCREEN_PORTAL_RESULT);
@@ -257,18 +268,12 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
                         public void onClick(View v) {
                             ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + direction, Analytics.BTN_LAYOUT, gaParent);
 
+                            mDropdown.dismiss();
                             Intent intentView = new Intent(parentActivity, StationImageView.class);
                             intentView.putExtras(bundle);
                             parentActivity.startActivityForResult(intentView, SUBSCREEN_PORTAL_RESULT);
                         }
                     });
-
-                    layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-
-                    Drawable background = mContext.getResources().getDrawable(R.drawable.abc_popup_background_mtrl_mult);
-                    mDropdown.setBackgroundDrawable(background);
-                    mDropdown.showAsDropDown(view, -10, -10);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -295,7 +300,7 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 final FilterResults oReturn = new FilterResults();
-                final ArrayList<StationItem> results = new ArrayList<StationItem>();
+                final ArrayList<StationItem> results = new ArrayList<>();
 
                 if (constraint != null) {
                     if (moOriginalStationList == null)
@@ -317,8 +322,10 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mStationList = (ArrayList<StationItem>) results.values;
-                notifyDataSetChanged();
+                if (results != null && results.values != null) {
+                    mStationList = (ArrayList<StationItem>) results.values;
+                    notifyDataSetChanged();
+                }
             }
         };
     }

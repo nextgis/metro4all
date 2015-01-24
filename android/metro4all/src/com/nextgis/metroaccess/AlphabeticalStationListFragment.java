@@ -21,6 +21,7 @@
 package com.nextgis.metroaccess;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,20 +29,28 @@ import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 
 import com.nextgis.metroaccess.data.StationItem;
+import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipRelativeLayout;
+import com.nhaarman.supertooltips.ToolTipView;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.nextgis.metroaccess.StationImageView.hideHint;
+
 public class AlphabeticalStationListFragment extends SelectStationListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View result = super.onCreateView(inflater, container, savedInstanceState);
+        final View result = super.onCreateView(inflater, container, savedInstanceState);
 
         mTab = Analytics.TAB_AZ;
         SelectStationActivity parentActivity = (SelectStationActivity) getActivity();
         m_oExpListAdapter = new AlphabeticalExpandableListAdapter(parentActivity, parentActivity.GetStationList());
         m_oExpListView.setAdapter(m_oExpListAdapter);
+
+        if (parentActivity.isHintNotShowed())
+            showHint(result);
 
         return result;
     }
@@ -54,6 +63,51 @@ public class AlphabeticalStationListFragment extends SelectStationListFragment {
             ((StationIndexedExpandableListAdapter) m_oExpListAdapter).Update(parentActivity.GetStationList());
             m_oExpListAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void showHint(final View anchor) {
+        m_oExpListView.post(new Runnable() {
+            @Override
+            public void run() {
+                View c = m_oExpListView.getChildAtPosition(3);
+
+                View button = c.findViewById(R.id.ibtnMenu);
+                int counter = 3;
+
+                while (button == null && counter < m_oExpListView.getCount()) {
+                    c = m_oExpListView.getChildAtPosition(++counter);
+                    button = c.findViewById(R.id.ibtnMenu);
+                }
+
+                if (button == null)
+                    return;
+
+                final ToolTipRelativeLayout toolTipOverlay = (ToolTipRelativeLayout) anchor.findViewById(R.id.ttSelectStation);
+                toolTipOverlay.setVisibility(View.VISIBLE);
+                final ToolTip toolTip = new ToolTip()
+                        .withText(getString(R.string.sToolTipPopupMapLayout))
+                        .withColor(getResources().getColor(R.color.metro_color_main))
+                        .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW);
+
+                if (Build.VERSION.SDK_INT <= 10)
+                    toolTip.withAnimationType(ToolTip.AnimationType.NONE);
+
+                final View b = button;
+                button.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToolTipView hint = toolTipOverlay.showToolTipForView(toolTip, b);
+                        hint.setPadding(0, 44, 0, 0);
+                        hint.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+                            @Override
+                            public void onToolTipViewClicked(ToolTipView toolTipView) {
+                                hideHint(getActivity(), ((SelectStationActivity) getActivity()).getHintScreenName());
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     private class AlphabeticalExpandableListAdapter extends StationIndexedExpandableListAdapter implements SectionIndexer {
