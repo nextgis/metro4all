@@ -24,7 +24,7 @@
 
     <item
         android:id="@+id/btn_layout"
-        android:title="@string/sSchema"
+        android:title="@string/sLayout"
         android:icon="@drawable/ic_action_schema"
         android:orderInCategory="0"
         app:showAsAction="always"/>

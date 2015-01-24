@@ -48,7 +48,7 @@
 	<string name="sFromStation">Откуда</string>
 	<string name="sToStation">Куда</string>
 	<string name="sRoute">Вариант</string>
-	<string name="sSchema">Схема ст. %1$s</string>
+	<string name="sSchema">%1$s ст. %2$s</string>
     <string name="sLayout">Схема</string>
     <string name="sLegend">Условные обозначения</string>
     <string name="sLocate">Определить местоположение</string>
@@ -89,7 +89,8 @@
 	<string name="sSummary">Сводка по маршруту</string>
 	<string name="sSummaryClick">Подробно…</string>
     <string name="sNoPortals">У станции сейчас нет работающих входов или выходов.</string>
-    <string name="sToolTipPortalFromLayout">Выбери %1$s через миткод!</string>
+    <string name="sToolTipPortalFromLayout">Выбери %1$s через миткод.</string>
+    <string name="sToolTipPopupMapLayout">Быстрый переход к Карте и Схеме.</string>
 		<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>

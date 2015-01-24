@@ -313,6 +313,10 @@ public class StationImageView extends ActionBarActivity {
         }
     }
 
+    private String getDirection() {
+        return mIsPortalIn ? Analytics.FROM : Analytics.TO;
+    }
+
     class RVPortalAdapter extends RecyclerView.Adapter<ViewHolder> implements ViewHolder.IViewHolderClick {
         private List<PortalItem> mPortals;
 
@@ -347,6 +351,9 @@ public class StationImageView extends ActionBarActivity {
         @Override
         public void onItemClick(View caller, int position) {
             hideHint();
+			
+            ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT + " " + getDirection(), Analytics.PORTAL, Analytics.SCREEN_LAYOUT);
+
             Intent outIntent = new Intent();
             outIntent.putExtra(BUNDLE_STATIONID_KEY, bundle.getInt(BUNDLE_STATIONID_KEY, 0));
             outIntent.putExtra(BUNDLE_PORTALID_KEY, mPortals.get(position).GetId());

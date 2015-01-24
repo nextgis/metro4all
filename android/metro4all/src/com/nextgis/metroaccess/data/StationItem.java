@@ -23,6 +23,8 @@ package com.nextgis.metroaccess.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.nextgis.metroaccess.StationIndexedExpandableListAdapter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StationItem implements Parcelable {
+public class StationItem extends StationIndexedExpandableListAdapter.IndexedListItem implements Parcelable {
 	private String sName;
 	private int nType;// 1 - src, 2 - dest, 3 - cross from, 4 - cross to, 5 - transit
 	private int nId;
@@ -43,7 +45,7 @@ public class StationItem implements Parcelable {
 	
 	public StationItem(int nId, String sName, int nLine, int nNode, int nType,
                        int nOrder, double nLat, double nLong) {
-		this.maoPortals = new HashMap<Integer, PortalItem>();
+		this.maoPortals = new HashMap<>();
 		this.sName = sName;
 		this.nId = nId;
 		this.nType = nType;
@@ -128,7 +130,7 @@ public class StationItem implements Parcelable {
         nLatitude = in.readDouble();
         nLongitude = in.readDouble();
 
-		maoPortals = new HashMap<Integer, PortalItem>();
+		maoPortals = new HashMap<>();
 		int nSize = in.readInt();
 		for(int i = 0; i < nSize; i++){
 			PortalItem it = (PortalItem) in.readValue(PortalItem.class.getClassLoader());
@@ -146,7 +148,7 @@ public class StationItem implements Parcelable {
 	}
 	
 	public List<PortalItem> GetPortals(boolean bIn){
-		List<PortalItem> ret = new ArrayList<PortalItem>();
+		List<PortalItem> ret = new ArrayList<>();
 		for(PortalItem pit : maoPortals.values()){
 			if(bIn && (pit.GetDirection() == 1 || pit.GetDirection() == 3)){
 				ret.add(pit);
@@ -176,5 +178,10 @@ public class StationItem implements Parcelable {
 
     public int GetPortalsCount() {
         return maoPortals.size();
+    }
+
+    @Override
+    public boolean isSection() {
+        return false;
     }
 }

@@ -25,7 +25,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,8 +35,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -378,9 +375,9 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 			newVal = sharedPreferences.getString(key, "msk");
 			int nIndex = m_CityPref.findIndexOfValue((String) newVal);
             if(nIndex >= 0){
-            	m_CityPref.setSummary((String) m_CityPref.getEntries()[nIndex]);
+            	m_CityPref.setSummary(m_CityPref.getEntries()[nIndex]);
             }
-            MainActivity.GetGraph().SetCurrentCity((String) newVal);
+            MainActivity.GetGraph().SetCurrentCity((String) newVal);    // FIXME wait until selected city is not loaded
             setResult(RESULT_OK, new Intent().putExtra(BUNDLE_CITY_CHANGED, true));
             return;
 		}

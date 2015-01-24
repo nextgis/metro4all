@@ -57,19 +57,18 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_EVENTSRC_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
-import static com.nextgis.metroaccess.Constants.MAX_RECENT_ITEMS;
-import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
-import static com.nextgis.metroaccess.Constants.PREF_RESULT;
-import static com.nextgis.metroaccess.Constants.TAG;
 import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
 import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_TOOLTIPS;
+import static com.nextgis.metroaccess.Constants.MAX_RECENT_ITEMS;
+import static com.nextgis.metroaccess.Constants.PREF_RESULT;
+import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
+import static com.nextgis.metroaccess.Constants.TAG;
 import static com.nextgis.metroaccess.PreferencesActivity.clearRecent;
 
 public class SelectStationActivity extends ActionBarActivity {
     private static final int NUM_ITEMS = 3;
 
-    private FragmentRollAdapter mAdapter;
-    private ViewPager mPager;
     private TextView tvNotes;
 
     protected static AlphabeticalStationListFragment mAlphaStListFragment;
@@ -79,6 +78,8 @@ public class SelectStationActivity extends ActionBarActivity {
     protected boolean m_bIn, isCityChanged = false;
     private int mStationId, mPortalId;
     private Intent resultIntent;
+
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +95,11 @@ public class SelectStationActivity extends ActionBarActivity {
         //actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        mAdapter = new FragmentRollAdapter(getSupportFragmentManager());
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        FragmentRollAdapter mAdapter = new FragmentRollAdapter(getSupportFragmentManager());
         mAdapter.setActionBar(actionBar);
-        mPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         mPager.setOnPageChangeListener(new OnPageChangeListener() {
 
@@ -183,6 +186,14 @@ public class SelectStationActivity extends ActionBarActivity {
 
     public boolean IsIn() {
         return m_bIn;
+    }
+
+    public boolean isHintNotShowed() {
+        return !prefs.getString(KEY_PREF_TOOLTIPS, "").contains(getClass().getSimpleName());
+    }
+
+    public String getHintScreenName() {
+        return getClass().getSimpleName();
     }
 
     public List<StationItem> GetStationList() {
@@ -296,8 +307,6 @@ public class SelectStationActivity extends ActionBarActivity {
     }
 
     public void Finish(int nStationId, int nPortalId) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         JSONArray stationsIds = getRecentStations(prefs, IsIn());
         String direction = IsIn() ? KEY_PREF_RECENT_DEP_STATIONS : KEY_PREF_RECENT_ARR_STATIONS;
         int index = indexOf(stationsIds, nStationId);
@@ -355,8 +364,6 @@ public class SelectStationActivity extends ActionBarActivity {
                 break;
             case SUBSCREEN_PORTAL_RESULT:
                 if (resultCode == RESULT_OK) {
-                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.PORTAL, Analytics.SCREEN_MAP);
-
                     int stationID = data.getIntExtra(BUNDLE_STATIONID_KEY, 0);
                     int portalID = data.getIntExtra(BUNDLE_PORTALID_KEY, 0);
                     Finish(stationID, portalID);

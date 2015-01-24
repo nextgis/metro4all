@@ -48,7 +48,8 @@
 	<string name="sFromStation">Адкуль</string>
 	<string name="sToStation">Куды</string>
 	<string name="sRoute">Варыянт</string>
-	<string name="sSchema">Макет ст. %1$s</string>
+	<string name="sSchema">%1$s ст. %2$s</string>
+	<string name="sLayout">Макет</string>
     <string name="sLegend">Умоўныя абазначэнні</string>
     <string name="sLocate">Маё месцазнаходжанне</string>
     <string name="sMap">Карта</string>

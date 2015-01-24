@@ -81,9 +81,9 @@ public class ButtonListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         switch (position) {
             case 0://create from pane
-                return CreateFromPane(convertView);
+                return CreatePane(convertView, parent, true, fromStation, fromPortal);
             case 1://create to pane
-                return CreateToPane(convertView);
+                return CreatePane(convertView, parent, false, toStation, toPortal);
             case 2://create from map pane
 //                return CreateAdds(convertView, (String) m_oContext.getResources().getText(R.string.sLimits));
             case 3://create conditions pane
@@ -92,22 +92,10 @@ public class ButtonListAdapter extends BaseAdapter {
         return null;
     }
 
-    protected View CreateFromPane(View convertView) {
-        convertView = CreatePane(convertView, true, fromStation, fromPortal);
-
-        return convertView;
-    }
-
-    protected View CreateToPane(View convertView) {
-        return CreatePane(convertView, false, toStation, toPortal);
-    }
-
-    private View CreatePane(View convertView, final boolean isFromPane, final StationItem station, final PortalItem portal) {
+    private View CreatePane(View convertView, ViewGroup parent, final boolean isFromPane, final StationItem station, final PortalItem portal) {
         if (convertView == null) {
-            convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, null);
+            convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, parent, false);
         }
-//        else
-//            return convertView;
 
         final int paneTitle, requestCode;
         final String gaPane;
@@ -170,7 +158,7 @@ public class ButtonListAdapter extends BaseAdapter {
 
             // set selected line icon, entrance metro icon and arrow icon
             Bitmap metroIcon = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
-            Bitmap arrowIcon = getBitmapFromSVG(m_oContext, R.raw.arrow, m_oContext.getResources().getColor(R.color.bkColorStrongDark));
+            Bitmap arrowIcon = getBitmapFromSVG(m_oContext, R.raw.arrow, m_oContext.getResources().getColor(R.color.grey_dark));
             String color = MainActivity.GetGraph().GetLineColor(station.GetLine());
             Bitmap lineIcon = getBitmapFromSVG(m_oContext, R.raw._0, color);
 
@@ -190,9 +178,6 @@ public class ButtonListAdapter extends BaseAdapter {
             ivMetroIconRight.setVisibility(View.GONE);
             ivSmallIcon.setVisibility(View.GONE);
         }
-
-//        ImageView ivMarkIcon = (ImageView)convertView.findViewById(R.id.ivMarkIcon);
-//        ivMarkIcon.setImageResource(R.drawable.ic_geomarker_a);   // _b
 
         // set texts
         TextView tvPaneName = (TextView) convertView.findViewById(R.id.tvPaneName);
@@ -216,17 +201,6 @@ public class ButtonListAdapter extends BaseAdapter {
         } else
             view.setVisibility(View.GONE);
     }
-
-//    protected View CreateAdds(View convertView, String sText) {
-//        if (convertView == null) {
-//            convertView = m_oInfalInflater.inflate(R.layout.additional_layout, null);
-//        }
-//
-//        TextView tvPaneName = (TextView) convertView.findViewById(R.id.tvPaneName);
-//        tvPaneName.setText(sText);
-//
-//        return convertView;
-//    }
 
     public void setFromStation(StationItem fromStation) {
         if (fromStation != null)

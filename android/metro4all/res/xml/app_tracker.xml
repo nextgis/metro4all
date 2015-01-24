@@ -43,6 +43,9 @@
     <screenName name="com.nextgis.metroaccess.PreferencesActivity">
         Preferences Screen
     </screenName>
+    <screenName name="com.nextgis.metroaccess.LimitationsActivity">
+        Limitations Screen
+    </screenName>
 
     <string name="ga_trackingId">UA-57998948-1</string>
 </resources>

@@ -73,7 +73,7 @@ public abstract class SelectStationListFragment extends Fragment {
                 InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-                if (m_oExpListAdapter.getGroup(groupPosition).getClass() == StationIndexedExpandableListAdapter.SectionItem.class) {
+                if (m_oExpListAdapter.getGroup(groupPosition).isSection()) {
                     ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.HEADER, mTab);
 
                     int scrollTo = groupPosition;
@@ -94,7 +94,7 @@ public abstract class SelectStationListFragment extends Fragment {
         m_oExpListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int i) {
-                if (m_oExpListAdapter.getGroup(i).getClass() != StationIndexedExpandableListAdapter.SectionItem.class)
+                if (!m_oExpListAdapter.getGroup(i).isSection())
                     ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_EXPAND, mTab);
             }
         });
@@ -102,7 +102,7 @@ public abstract class SelectStationListFragment extends Fragment {
         m_oExpListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int i) {
-                if (m_oExpListAdapter.getGroup(i).getClass() != StationIndexedExpandableListAdapter.SectionItem.class)
+                if (!m_oExpListAdapter.getGroup(i).isSection())
                     ((Analytics) getActivity().getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.STATION_COLLAPSE, mTab);
             }
         });

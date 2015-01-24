@@ -3,7 +3,7 @@
  * Purpose:  Routing in subway.
  * Authors:  Stanislav Petriakov
  ******************************************************************************
-*   Copyright (C) 2014 NextGIS
+*   Copyright (C) 2014,2015 NextGIS
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -21,18 +21,15 @@
 package com.nextgis.metroaccess;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.nextgis.metroaccess.data.MAGraph;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 public class Analytics extends Application {

@@ -35,7 +35,8 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -46,9 +47,9 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -138,13 +139,7 @@ public class MainActivity extends ActionBarActivity {
 	protected ListView m_lvListButtons;
     protected ButtonListAdapter m_laListButtons;
 
-//    protected int mCurrentItemPosition;
-
-//    List<String> mCities;
-
     GpsMyLocationProvider gpsMyLocationProvider;
-
-    Rect mLimitationsRect;
 
     Menu menu;
 
@@ -154,8 +149,6 @@ public class MainActivity extends ActionBarActivity {
 
         gpsMyLocationProvider = new GpsMyLocationProvider(this);
 		setContentView(R.layout.empty_activity_main);
-
-//        mCities = new ArrayList<String>();
 
 		m_bInterfaceLoaded = false;
 
@@ -171,13 +164,10 @@ public class MainActivity extends ActionBarActivity {
 
         updateApplicationStructure(prefs);
 
-//        String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
-//        String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
-//        m_oGraph = new MAGraph(this.getBaseContext(), sCurrentCity, getExternalFilesDir(null), sCurrentCityLang);
         m_oGraph = Analytics.getGraph();
 
 		//create downloading queue empty initially
-		m_asDownloadData = new ArrayList<DownloadData>();
+		m_asDownloadData = new ArrayList<>();
 
 		CreateHandler();
 
@@ -269,7 +259,7 @@ public class MainActivity extends ActionBarActivity {
 		m_bInterfaceLoaded = true;
 		setContentView(R.layout.activity_main);
 
-        View view = findViewById(R.id.llLimitations);
+        View view = findViewById(R.id.ivLimitations);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,34 +269,12 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mLimitationsRect =  new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-                        setLimitationsColor(view.getContext(), getResources().getColor(R.color.btnOnGradientStart));
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        if (mLimitationsRect.contains(view.getLeft() + (int) motionEvent.getX(), view.getTop() + (int) motionEvent.getY()))
-                            break;
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        setLimitationsColor(view.getContext(), getResources().getColor(R.color.metrocolorlight));
-                        break;
-                }
-
-                return false;
-            }
-        });
-
-        setLimitationsColor(this, getResources().getColor(R.color.metrocolorlight));
-
-//        fillActionBarList();
+        setLimitationsColor(getLimitationsColor());
 
 		m_lvListButtons = (ListView)findViewById(R.id.lvButtList);
 		m_laListButtons = new ButtonListAdapter(this);
 		// set adapter to list view
+        m_lvListButtons.addFooterView(new View(this), null, true);
 		m_lvListButtons.setAdapter(m_laListButtons);
 		m_lvListButtons.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -320,10 +288,6 @@ public class MainActivity extends ActionBarActivity {
                     ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.TO, Analytics.PANE);
 	        		onSelectArrival();
 	        		break;
-//	        	case 2:
-//                    ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Limitations", Analytics.PANE);
-//	        		onSettings();
-//	        		break;
 	        	}
 	        }
 	    });
@@ -352,50 +316,24 @@ public class MainActivity extends ActionBarActivity {
 
 	}
 
-    private void setLimitationsColor(Context ctx, int color) {
-        ImageView iv = (ImageView) findViewById(R.id.ivLimitations1);
-        Bitmap bitmap = getBitmapFromSVG(this, R.raw.luggage_icon, color);
-        iv.setImageBitmap(bitmap);
-        iv = (ImageView) findViewById(R.id.ivLimitations2);
-        bitmap = getBitmapFromSVG(this, R.raw.wheelchair_icon, color);
-        iv.setImageBitmap(bitmap);
-        iv = (ImageView) findViewById(R.id.ivLimitations3);
-        bitmap = getBitmapFromSVG(this, R.raw.bag_icon, color);
+    private int getLimitationsColor() {
+        return LimitationsActivity.hasLimitations(this) ? getResources().getColor(android.R.color.white) : getResources().getColor(R.color.metro_material_dark);
+    }
+
+    private void setLimitationsColor(int color) {
+        if (LimitationsActivity.hasLimitations(this))
+            findViewById(R.id.ivLimitations).setBackgroundResource(R.drawable.btn_selector);
+        else
+            findViewById(R.id.ivLimitations).setBackgroundResource(R.drawable.btn_limitations_off_selector);
+
+        ImageView iv = (ImageView) findViewById(R.id.ivLimitations);
+        Bitmap bitmap = getBitmapFromSVG(this, R.raw.wheelchair_icon, color);
         iv.setImageBitmap(bitmap);
     }
 
-//    protected void fillActionBarList() {
-//        ActionBar actionBar = getSupportActionBar();
-//        Context context = actionBar.getThemedContext();
-////        ArrayList<String> items = new ArrayList<String>();
-//        int nCurrentCity = 0;
-//        mCities.clear();
-//        final List<GraphDataItem> city_list = new ArrayList<GraphDataItem>(m_oGraph.GetRouteMetadata().values());
-//        Collections.sort(city_list);
-//
-//        for(int i = 0; i < city_list.size(); i++){
-//            items.add(city_list.get(i).GetLocaleName());
-//            mCities.add(city_list.get(i).GetPath());
-//            if(m_oGraph.GetCurrentCity().equals(city_list.get(i).GetPath())){
-//                nCurrentCity = i;
-//            }
-//        }
-//
-//        //ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.sherlock_spinner_dropdown_item, items.toArray(new String[items.size()]));
-////ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.views, R.layout.sherlock_spinner_dropdown_item);
-////        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(context, R.layout.citydropdown, items.toArray(new String[items.size()]));
-////        adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-////        actionBar.setDisplayShowTitleEnabled(false);
-////        actionBar.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_LIST);
-////        actionBar.setListNavigationCallbacks((SpinnerAdapter) adapter, this);
-////        actionBar.setSelectedNavigationItem(nCurrentCity);
-//
-//        mCurrentItemPosition = nCurrentCity;
-//    }
-
     protected void onSettings(boolean isLimitations) {
         if (isLimitations)
-            startActivity(new Intent(this, LimitationsActivity.class));
+            startActivityForResult(new Intent(this, LimitationsActivity.class), PREF_RESULT);
         else {
             startActivityForResult(new Intent(this, PreferencesActivity.class), PREF_RESULT);
         }
@@ -408,15 +346,10 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		/*m_oSearchMenuItem = menu.add(Menu.NONE, MENU_SEARCH, Menu.NONE, R.string.sSearch)
-		.setIcon(R.drawable.ic_action_search);
-		m_oSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		m_oSearchMenuItem.setEnabled(false);
-		m_oSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		 */
         this.menu = menu;
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        tintIcons(menu, this);
 		return true;
 	}
 
@@ -425,9 +358,6 @@ public class MainActivity extends ActionBarActivity {
 		switch (item.getItemId()) {
         case android.R.id.home:
             return false;
-//        case MENU_SEARCH:
-//        	onSearch();
-//        	return true;
         case R.id.btn_settings:
             // app icon in action bar clicked; go home
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_SETTINGS, Analytics.MENU);
@@ -531,7 +461,7 @@ public class MainActivity extends ActionBarActivity {
 
                 float shortest = Float.MAX_VALUE;
                 float distance[] = new float[1];
-                List<StationItem> stations = new ArrayList<StationItem>(m_oGraph.GetStations().values());
+                List<StationItem> stations = new ArrayList<>(m_oGraph.GetStations().values());
 
                 for (int i = 0; i < stations.size(); i++) {  // find closest station first
                     Location.distanceBetween(currentLat, currentLon, stations.get(i).GetLatitude(), stations.get(i).GetLongitude(), distance);
@@ -570,8 +500,6 @@ public class MainActivity extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), String.format(getString(R.string.sStationPortalName), stationClosest.GetName(),
                             getString(R.string.sEntranceName), portalName), Toast.LENGTH_LONG).show();
                 }
-
-                //gpsMyLocationProvider.stopLocationProvider();
             }
         });
     }
@@ -771,7 +699,7 @@ public class MainActivity extends ActionBarActivity {
 		edit.putInt("dep_" + BUNDLE_PORTALID_KEY, m_nDeparturePortalId);
 		edit.putInt("arr_" + BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
 
-		edit.commit();
+		edit.apply();
 
 		super.onPause();
 	}
@@ -797,7 +725,7 @@ public class MainActivity extends ActionBarActivity {
 			}
 			UpdateUI();
 		}
-	}
+    }
 
 	protected void 	onSelectDepatrure(){
 	    Intent intent = new Intent(this, SelectStationActivity.class);
@@ -896,57 +824,36 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	protected void UpdateUI(){
-
-        //update current city
-//        fillActionBarList();
-
 		if(m_oGraph.HasStations()){
 	    	StationItem dep_sit = m_oGraph.GetStation(m_nDepartureStationId);
-//	    	String sNotSet = getString(R.string.sNotSet);
+
 	    	if(dep_sit != null && m_laListButtons != null){
                 m_laListButtons.setFromStation(dep_sit);
                 m_laListButtons.setFromPortal(m_nDeparturePortalId);
-//	    		m_laListButtons.setFromStationName(dep_sit.GetName());
-//	    		m_laListButtons.setFromStationLine(dep_sit.GetLine());
+
 	    		PortalItem pit = dep_sit.GetPortal(m_nDeparturePortalId);
-	    		if(pit != null){
-//	    			m_laListButtons.setFromEntranceName(pit.GetName());
-	    		}
-	    		else{
-//	    			m_laListButtons.setFromEntranceName(sNotSet);
-	    			m_nDeparturePortalId = -1;
-	    		}
-	    	}
-	    	else{
-//	    		m_laListButtons.setFromStationName(sNotSet);
-//	    		m_laListButtons.setFromEntranceName(sNotSet);
-//                m_laListButtons.setFromStationLine(-1);
+
+	    		if(pit == null)
+                    m_nDeparturePortalId = -1;
+	    	} else {
                 m_laListButtons.setFromStation(null);
                 m_laListButtons.setFromPortal(0);
 	    		m_nDepartureStationId = -1;
 	    	}
 
 	    	StationItem arr_sit = m_oGraph.GetStation(m_nArrivalStationId);
+
 	    	if(arr_sit != null && m_laListButtons != null){
                 m_laListButtons.setToStation(arr_sit);
                 m_laListButtons.setToPortal(m_nArrivalPortalId);
-//	    		m_laListButtons.setToStationName(arr_sit.GetName());
-//	    		m_laListButtons.setToStationLine(arr_sit.GetLine());
+
 	    		PortalItem pit = arr_sit.GetPortal(m_nArrivalPortalId);
-	    		if(pit != null){
-//	    			m_laListButtons.setToEntranceName(pit.GetName());
-	    		}
-	    		else{
-//	    			m_laListButtons.setToEntranceName(sNotSet);
-	    			m_nArrivalPortalId = -1;
-	    		}
-	    	}
-	    	else{
+
+	    		if(pit == null)
+                    m_nArrivalPortalId = -1;
+	    	} else {
                 m_laListButtons.setToStation(null);
                 m_laListButtons.setToPortal(0);
-//	    		m_laListButtons.setToStationName(sNotSet);
-//	    		m_laListButtons.setToEntranceName(sNotSet);
-//                m_laListButtons.setToStationLine(-1);
 	    		m_nArrivalStationId = -1;
 	    	}
 		}
@@ -966,6 +873,8 @@ public class MainActivity extends ActionBarActivity {
 
 	    if(m_laListButtons != null)
 	    	m_laListButtons.notifyDataSetChanged();
+
+        setLimitationsColor(getLimitationsColor());
 	}
 
 	protected void onSearch(){
@@ -1032,7 +941,7 @@ public class MainActivity extends ActionBarActivity {
 			        bundle.putInt("arr_" + BUNDLE_PORTALID_KEY, m_nArrivalPortalId);
 
 			        for (Path path : shortest_paths_list) {
-						ArrayList<Integer> IndexPath = new  ArrayList<Integer>();
+						ArrayList<Integer> IndexPath = new  ArrayList<>();
 						Log.d(TAG, "Route# " + nCounter);
 			            for (BaseVertex v : path.get_vertices()) {
 			            	IndexPath.add(v.get_id());
@@ -1096,35 +1005,6 @@ public class MainActivity extends ActionBarActivity {
 	}
 
     /**
-     * This method is called whenever a navigation item in your action bar
-     * is selected.
-     *
-     * @param itemPosition Position of the item clicked.
-     * @param itemId       ID of the item clicked.
-     * @return True if the event was handled, false otherwise.
-     */
-//    @Override
-//    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-//        if(itemPosition != mCurrentItemPosition) {
-//            m_oGraph.SetCurrentCity(mCities.get(itemPosition));
-//            m_laListButtons.clear();
-//            m_nDepartureStationId = -1;
-//            m_nArrivalStationId = -1;
-//            m_nDeparturePortalId = -1;
-//            m_nArrivalPortalId = -1;
-//
-//            final SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
-//
-//            edit.putString(PreferencesActivity.KEY_PREF_CITY, m_oGraph.GetCurrentCity());
-//
-//            edit.commit();
-//
-//            m_oSearchButton.setEnabled(false);
-//        }
-//        return true;
-//    }
-
-    /**
      * Get bitmap from SVG file
      *
      * @param path  Path to SVG file
@@ -1137,9 +1017,7 @@ public class MainActivity extends ActionBarActivity {
         try {
             FileInputStream is = new FileInputStream(svgFile);
             svg = SVG.getFromInputStream(is);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (SVGParseException e) {
+        } catch (FileNotFoundException | SVGParseException e) {
             e.printStackTrace();
         }
 
@@ -1247,6 +1125,42 @@ public class MainActivity extends ActionBarActivity {
             bitmap = getBitmapFromSVG(MainActivity.GetGraph().GetCurrentRouteDataPath() + "/icons/metro.svg");
 
         return bitmap;
+    }
+
+    public static void tintIcons(Menu menu, Context context) {
+        MenuItem item;
+        Drawable tintIcon;
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.textColorPrimary, typedValue, true);
+//        int color = typedValue.data;
+        int color = Color.WHITE;
+        int colorDark = Color.BLACK;
+
+        for(int i = 0; i < menu.size(); i++) {
+            item = menu.getItem(i);
+            tintIcon = item.getIcon();
+
+            if (tintIcon != null) {
+                Bitmap bitmap = Bitmap.createBitmap(tintIcon.getIntrinsicWidth(), tintIcon.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+
+                tintIcon.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+                tintIcon.draw(canvas);
+
+                Paint p = new Paint();
+                ColorFilter filter = new PorterDuffColorFilter(colorDark, PorterDuff.Mode.SRC_ATOP);
+                p.setColorFilter(filter);
+                canvas.drawBitmap(bitmap, 0, 0, p);
+                canvas.drawBitmap(bitmap, 0, 0, p);
+//                canvas.drawBitmap(bitmap, 0, 0, p);
+                filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+                p.setColorFilter(filter);
+                canvas.drawBitmap(bitmap, 0, 0, p);
+
+//                tintIcon.mutate().setColorFilter(colorDark, PorterDuff.Mode.SRC_ATOP);
+                item.setIcon(new BitmapDrawable(context.getResources(), bitmap));
+            }
+        }
     }
 
     private void updateApplicationStructure(SharedPreferences prefs) {

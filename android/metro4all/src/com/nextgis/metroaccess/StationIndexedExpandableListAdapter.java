@@ -37,15 +37,16 @@ import java.util.Map;
 
 public abstract class StationIndexedExpandableListAdapter extends StationExpandableListAdapter implements SectionIndexer {
 	protected HashMap<String, Integer> mIndexer;
-    protected ArrayList mItems, mSections;
+    protected ArrayList<IndexedListItem> mItems;
+    protected ArrayList<String> mSections;
 
 	public StationIndexedExpandableListAdapter(Context c, List<StationItem> stationList) {
 		super(c);
 
         mStationList.addAll(stationList);
-        mItems = new ArrayList();
-        mSections = new ArrayList();
-		mIndexer = new HashMap<String, Integer>();
+        mItems = new ArrayList<>();
+        mSections = new ArrayList<>();
+		mIndexer = new HashMap<>();
 	}
 	
 	abstract void onInit();
@@ -87,13 +88,13 @@ public abstract class StationIndexedExpandableListAdapter extends StationExpanda
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
+    public IndexedListItem getGroup(int groupPosition) {
         return mItems.get(groupPosition);
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-        if (mItems.get(groupPosition).getClass() == SectionItem.class)
+        if (mItems.get(groupPosition).isSection())
             return -1;
 
         StationItem sit = mStationList.get(getStationPosition(groupPosition));
@@ -106,16 +107,16 @@ public abstract class StationIndexedExpandableListAdapter extends StationExpanda
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
-        if (mItems.get(groupPosition).getClass() == SectionItem.class) {
+        if (mItems.get(groupPosition).isSection()) {
             if (convertView == null || convertView.findViewById(R.id.tvSection) == null) {
-                convertView = mInfalInflater.inflate(R.layout.select_station_section, null);
+                convertView = mInfalInflater.inflate(R.layout.select_station_section, parent, false);
             }
 
             SectionItem section = (SectionItem) mItems.get(groupPosition);
             TextView item = (TextView) convertView.findViewById(R.id.tvSection);
             item.setText(section.getTitle());
         } else {
-            convertView = getGroupView(convertView, mStationList.get(getStationPosition(groupPosition)));
+            convertView = getGroupView(convertView, mStationList.get(getStationPosition(groupPosition)), parent);
         }
 
         return convertView;
@@ -133,7 +134,7 @@ public abstract class StationIndexedExpandableListAdapter extends StationExpanda
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        if (mItems.get(groupPosition).getClass() == SectionItem.class)
+        if (mItems.get(groupPosition).isSection())
             return 0;
 
         StationItem sit = mStationList.get(getStationPosition(groupPosition));
@@ -166,7 +167,7 @@ public abstract class StationIndexedExpandableListAdapter extends StationExpanda
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        return getChildView(convertView, (PortalItem) getChild(groupPosition, childPosition));
+        return getChildView(convertView, (PortalItem) getChild(groupPosition, childPosition), parent);
     }
 
     public void Update(List<StationItem> stationList){
@@ -182,7 +183,11 @@ public abstract class StationIndexedExpandableListAdapter extends StationExpanda
         mSections.clear();
     }
 
-    protected class SectionItem {
+    public static abstract class IndexedListItem {
+        public abstract boolean isSection();
+    }
+
+    protected class SectionItem extends IndexedListItem {
         private final String title;
 
         public SectionItem(String title) {
@@ -191,6 +196,11 @@ public abstract class StationIndexedExpandableListAdapter extends StationExpanda
 
         public String getTitle(){
             return title;
+        }
+
+        @Override
+        public boolean isSection() {
+            return true;
         }
     }
 }

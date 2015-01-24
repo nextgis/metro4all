@@ -8,7 +8,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,6 +71,12 @@ public class LimitationsActivity extends PreferenceActivity implements Preferenc
         LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
 
         getWindow().setContentView(contentView);
+    }
+
+    @Override
+    public void finish() {
+        setResult(RESULT_OK);
+        super.finish();
     }
 
     @Override

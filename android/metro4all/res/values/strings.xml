@@ -49,7 +49,7 @@
 	<string name="sFromStation">From</string>
 	<string name="sToStation">To</string>
 	<string name="sRoute">Option</string>
-	<string name="sSchema">Layout of %1$s</string>
+	<string name="sSchema">%1$s of %2$s</string>
 	<string name="sLayout">Layout</string>
     <string name="sLegend">Legend</string>
     <string name="sLocate">Locate</string>
@@ -90,7 +90,8 @@
 	<string name="sSummary">Route summary</string>
 	<string name="sSummaryClick">Details…</string>
 	<string name="sNoPortals">There are no working entrances or exits now.</string>
-	<string name="sToolTipPortalFromLayout">Select %1$s by meetcode!</string>
+	<string name="sToolTipPortalFromLayout">Select %1$s by meetcode.</string>
+	<string name="sToolTipPopupMapLayout">Go to Map and Layout.</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>

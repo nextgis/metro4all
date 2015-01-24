@@ -97,7 +97,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="3"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/bkColorStrongDark"/>
+                android:textColor="@color/grey_dark"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -109,17 +109,17 @@
         android:focusable="false"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/ibtnMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:background="@null"
             android:focusable="false"
-            android:padding="5dp"
+            android:padding="10dp"
             android:src="@drawable/ic_action_map"
             android:visibility="gone"/>
 
@@ -127,10 +127,13 @@
             android:id="@+id/ibtnLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:background="@null"
             android:focusable="false"
-            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
             android:src="@drawable/ic_action_schema"
             android:visibility="gone"/>
     </LinearLayout>
