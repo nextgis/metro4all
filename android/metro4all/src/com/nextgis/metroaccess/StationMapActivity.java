@@ -26,8 +26,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -65,10 +67,11 @@ import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
+import static com.nextgis.metroaccess.MainActivity.tintIcons;
 
 public class StationMapActivity extends ActionBarActivity {
     private enum MARKERS_TYPE { ENTRANCE, EXIT, CHECKED, INVALID }
-    private int[] MARKERS_ID = { R.raw.portal_in, R.raw.portal_in, R.raw.portal_checked, R.raw.portal_invalid };
+    private int[] MARKERS_COLOR = { R.color.portal_normal, R.color.portal_normal, R.color.portal_checked, R.color.portal_invalid};
 
     protected int mnType;
     protected int mnMaxWidth, mnWheelWidth;
@@ -197,27 +200,18 @@ public class StationMapActivity extends ActionBarActivity {
     }
 
     private Drawable getMarkerDrawable(MARKERS_TYPE type) {
-        Drawable result = null;
+        Drawable result;
         Bitmap original, scaledBitmap;
 
-        original = MainActivity.getBitmapFromSVG(this, MARKERS_ID[type.ordinal()]);
-//        int size = (int) (original.getWidth() / scaledDensity / 2);
-//        int size = dpToPx(24);
+        original = MainActivity.getBitmapFromSVG(this, R.raw.portal, getResources().getColor(MARKERS_COLOR[type.ordinal()]));
         int size = (int) (24 * scaledDensity);
-
-        Matrix matrix = new Matrix();
-
-        if (type == MARKERS_TYPE.EXIT) {
-            matrix.postRotate(180);
-            original = Bitmap.createBitmap(original, 0, 0, original.getWidth(), original.getHeight(), matrix, true);
-        }
 
         scaledBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
 
         float ratioX = size / (float) original.getWidth();
         float ratioY = size / (float) original.getHeight();
 
-        matrix = new Matrix();
+        Matrix matrix = new Matrix();
         matrix.setScale(ratioX, ratioY);
 
         Canvas cnv = new Canvas(scaledBitmap);
@@ -229,9 +223,30 @@ public class StationMapActivity extends ActionBarActivity {
         return result;
     }
 
+    private Drawable overlayMeetcode(Drawable drawable, int meetcode) {
+        Bitmap bm = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTypeface(Typeface.DEFAULT);
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(scaledDensity * 16);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setAntiAlias(true);
+
+        Canvas canvas = new Canvas(bm);
+        drawable.setBounds(0, 0, bm.getWidth(), bm.getHeight());
+        drawable.draw(canvas);
+
+        int yCenter = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2)) ;
+        canvas.drawText(meetcode + "", bm.getWidth() / 2, yCenter, paint);
+
+        return new BitmapDrawable(getResources(), bm);
+    }
+
     protected void LoadPortalsToOverlay() {
-        ArrayList<OverlayItem> overlayPortals = new ArrayList<OverlayItem>();
-        ArrayList<OverlayItem> overlayTransparentPortals = new ArrayList<OverlayItem>();
+        ArrayList<OverlayItem> overlayPortals = new ArrayList<>();
+        ArrayList<OverlayItem> overlayTransparentPortals = new ArrayList<>();
 
         scaledDensity = getBaseContext().getResources().getDisplayMetrics().scaledDensity;
 
@@ -244,7 +259,7 @@ public class StationMapActivity extends ActionBarActivity {
         markerTransparentPortal.setAlpha(127);
         markerTransparentInvalidPortal.setAlpha(127);
 
-        stationList = new ArrayList<StationItem>(MainActivity.GetGraph().GetStations().values());
+        stationList = new ArrayList<>(MainActivity.GetGraph().GetStations().values());
 
         double minLat = Double.MAX_VALUE, minLong = Double.MAX_VALUE, maxLat = Double.MIN_VALUE, maxLong = Double.MIN_VALUE;
 
@@ -300,11 +315,15 @@ public class StationMapActivity extends ActionBarActivity {
                     }
                 }
 
+                Drawable marker;
+
                 if (isSelectedStation) {
                     if (portal.GetId() == mPortalID)
-                        itemPortal.setMarker(markerCheckedPortal);
-                    else
-                        itemPortal.setMarker(isInvalidPortal ? markerInvalidPortal : markerPortal);
+                        itemPortal.setMarker(overlayMeetcode(markerCheckedPortal, portal.GetMeetCode()));
+                    else {
+                        marker = isInvalidPortal ? markerInvalidPortal : markerPortal;
+                        itemPortal.setMarker(overlayMeetcode(marker, portal.GetMeetCode()));
+                    }
 
                     double portalLat = portal.GetLatitude();
                     double portalLong = portal.GetLongitude();
@@ -317,8 +336,8 @@ public class StationMapActivity extends ActionBarActivity {
                     overlayPortals.add(itemPortal);
 
                 } else {
-                    itemPortal.setMarker(isInvalidPortal
-                            ? markerTransparentInvalidPortal : markerTransparentPortal);
+                    marker = isInvalidPortal ? markerTransparentInvalidPortal : markerTransparentPortal;
+                    itemPortal.setMarker(overlayMeetcode(marker, portal.GetMeetCode()));
                     overlayTransparentPortals.add(itemPortal);
                 }
 
@@ -339,7 +358,7 @@ public class StationMapActivity extends ActionBarActivity {
         ArrayList<OverlayItem> overlayItems = overlayTransparentPortals;
 
         for (int j = 0; j < 2; ++j) {
-            mPointsOverlay = new ItemizedIconOverlay<OverlayItem>(overlayItems,
+            mPointsOverlay = new ItemizedIconOverlay<>(overlayItems,
                     new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
 
                         public boolean onItemSingleTapUp(final int index,
@@ -348,6 +367,8 @@ public class StationMapActivity extends ActionBarActivity {
                                 Toast.makeText(mAppContext, item.getSnippet(), Toast.LENGTH_LONG).show();
                                 return true;
                             }
+
+                            ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.PORTAL, Analytics.SCREEN_MAP);
 
                             StationItem selectedStation = MainActivity.GetGraph()
                                     .GetStation(Integer.parseInt(item.getUid()));
@@ -449,7 +470,7 @@ public class StationMapActivity extends ActionBarActivity {
 //        edit.putBoolean(PREFS_SHOW_LOCATION, mLocationOverlay.isMyLocationEnabled());
 //        edit.putBoolean(PREFS_SHOW_COMPASS, mLocationOverlay.isCompassEnabled());
 
-        edit.commit();
+        edit.apply();
 
         mLocationOverlay.disableMyLocation();
 //        mLocationOverlay.disableCompass();
@@ -478,6 +499,7 @@ public class StationMapActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater infl = getMenuInflater();
         infl.inflate(R.menu.menu_station_map, menu);
+        tintIcons(menu, this);
 //        menu.findItem(R.id.btn_layout).setEnabled(isCrossReference).setVisible(isCrossReference);
         return true;
     }
