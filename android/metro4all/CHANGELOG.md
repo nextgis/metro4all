@@ -1,3 +1,19 @@
+## v. 2.6 (unreleased)
++ Added hints to show app features for users
++ Added meetcodes-strip to layout screen
++ Added meetcodes to map instead icons
++ Code refactoring
+
++ UI changes:
+	* New design
+	* Popup menu for stations on select station screen
+	* Separate Limitations screen
+	* City selecting moved to settings
+
++ Bugfixing:
+	* Layout sometimes was not shown on API <=10
+	* Recent stations now work correct
+
 ## v. 2.5.1 (16.01.2015)
 * Improved icons quality and markers position on map screen
 * Fixed app crash on bringing foreground
