@@ -100,8 +100,4 @@ var tr = {
 		'totalStationsWithLuggageFriendlyRoutes': 'Total number of stations with routes accessible for people with baby-strollers',
 		'totalLuggageFriendlyRoutes': 'Total number of routes accessible for people with baby-strollers'
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a1367839719432a4b59852709b6991a2667014dd
