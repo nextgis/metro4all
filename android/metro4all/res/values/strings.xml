@@ -90,8 +90,8 @@
 	<string name="sSummary">Route summary</string>
 	<string name="sSummaryClick">Details…</string>
 	<string name="sNoPortals">There are no working entrances or exits now.</string>
-	<string name="sToolTipPortalFromLayout">Select %1$s by meetcode.</string>
-	<string name="sToolTipPopupMapLayout">Go to Map and Layout.</string>
+	<string name="sToolTipPortalFromLayout">Select %1$s by meetcode</string>
+	<string name="sToolTipPopupMapLayout">Go to Map and Layout</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Lines</string>

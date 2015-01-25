@@ -89,8 +89,8 @@
 	<string name="sSummary">Сводка по маршруту</string>
 	<string name="sSummaryClick">Подробно…</string>
     <string name="sNoPortals">У станции сейчас нет работающих входов или выходов.</string>
-    <string name="sToolTipPortalFromLayout">Выбери %1$s через миткод.</string>
-    <string name="sToolTipPopupMapLayout">Быстрый переход к Карте и Схеме.</string>
+    <string name="sToolTipPortalFromLayout">Выбери %1$s через миткод</string>
+    <string name="sToolTipPopupMapLayout">Быстрый переход к Карте и Схеме</string>
 		<!-- tabs -->
 	<string name="sSelAlphabeticalTab">А&#8230;Я</string>
 	<string name="sSelLinesTab">Линии</string>

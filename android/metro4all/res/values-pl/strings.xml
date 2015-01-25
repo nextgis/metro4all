@@ -89,6 +89,8 @@
 	<string name="sSummary">Podsumowanie podróży</string>		
 	<string name="sSummaryClick">Kliknij, aby zobaczyć szczegóły</string>	
 	<string name="sNoPortals">Wszystkie wyjścia lub wejścia tej stacji są okresowo zamkniete.</string>
+	<string name="sToolTipPortalFromLayout">Wybierz %1$s za pomocą meetkodu</string>
+	<string name="sToolTipPopupMapLayout">Przejdź do Mapie i Schematu</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Z</string>
 	<string name="sSelLinesTab">Linie</string>

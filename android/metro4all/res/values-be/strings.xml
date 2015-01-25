@@ -89,6 +89,8 @@
 	<string name="sSummary">Выдаць маршрут</string>		
 	<string name="sSummaryClick">Больш інфармацыі</string>		
 	<string name="sNoPortals">Каля станцыі зараз няма працуючых уваходаў або выхадаў</string>
+	<string name="sToolTipPortalFromLayout">Выберы %1$s з дапамогай миткода</string>
+    <string name="sToolTipPopupMapLayout">Хуткі пераход да карце і макету</string>
 	<!-- tabs -->
 	<string name="sSelAlphabeticalTab">A&#8230;Я</string>
 	<string name="sSelLinesTab">Лініі</string>
