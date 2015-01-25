@@ -6,8 +6,8 @@ var tr = {
 		'luggageFriendly': 'Stations with routes accessible for people with baby-strollers'
 	},
 	'stationHeader': {
-		'routesIn': 'Number of in-routes',
-		'routesOut': 'Number of out-routes',
+		'routesIn': 'Number of entrance routes',
+		'routesOut': 'Number of exit routes',
 		'minTaper': 'Narrowest place on the routes, mm',
 		'minStairways': 'Minimal number of escalators on the routes',
 		'maxLiftAmount': 'Maximal number of elevators on the routes',
@@ -45,12 +45,12 @@ var tr = {
 		'maxRailsSlope': 'Maximum rails slope, %'
 	},
 	'accessibilityHeader': {
-		'wheelchairFriendlyRoutesIn': 'Number of in-routes accessible for wheelchair users',
-		'wheelchairFriendlyRoutesOut': 'Number of out-routes accessible for wheelchair users',
-		'handicappedFriendlyRoutesIn': 'Number of in-routes accessible for people with walking difficulties',
-		'handicappedFriendlyRoutesOut': 'Number of out-routes accessible for people with walking difficulties',
-		'luggageFriendlyRoutesIn': 'Number of in-routes accessible for people with baby-strollers',
-		'luggageFriendlyRoutesOut': 'Number of out-routes accessible for people with baby-strollers'
+		'wheelchairFriendlyRoutesIn': 'Number of entrance routes accessible for wheelchair users',
+		'wheelchairFriendlyRoutesOut': 'Number of exit routes accessible for wheelchair users',
+		'handicappedFriendlyRoutesIn': 'Number of entrance routes accessible for people with walking difficulties',
+		'handicappedFriendlyRoutesOut': 'Number of exit routes accessible for people with walking difficulties',
+		'luggageFriendlyRoutesIn': 'Number of entrance routes accessible for people with baby-strollers',
+		'luggageFriendlyRoutesOut': 'Number of exit routes accessible for people with baby-strollers'
 	},
 	'transferHeader': {
 		'minWidth': 'Narrowest place, mm',
@@ -75,8 +75,8 @@ var tr = {
 	},
 	'metroStatHeader': {
 		'totalElements': 'Total number of infrastructure elements measured',
-		'totalRoutesIn': 'Total number of in-routes',
-		'totalRoutesOut': 'Total number of out-routes',
+		'totalRoutesIn': 'Total number of entrance routes',
+		'totalRoutesOut': 'Total number of exit routes',
 		'totalTransfers': 'Total number of transfer routes',
 		'totalNodesWithTransfers': 'Total number of nodes with transfer routes',
 		'totalLifts': 'Total number of elevators',
