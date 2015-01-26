@@ -99,6 +99,7 @@
 	<string name="sPrefTitle">Ustawienia</string>
 	<string name="sPrefCatMain">Główne</string>
 	<string name="sPrefCatData">Dane</string>
+    <string name="sPrefCatOther">Inni</string>
 	<string name="sPrefNaviType">Typ nawigacji</string>
 	<string name="sPrefNaviTypeSummary">Typ nawigacji wpływa na wybór trasy</string>
 	<string name="sPrefNaviTypeTitle">Wybierz typ nawigacji</string>

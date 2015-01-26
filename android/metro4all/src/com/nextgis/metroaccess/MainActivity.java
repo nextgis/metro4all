@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -60,7 +59,6 @@ import android.widget.Toast;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
@@ -68,7 +66,6 @@ import com.nextgis.metroaccess.data.PortalItem;
 import com.nextgis.metroaccess.data.RouteItem;
 import com.nextgis.metroaccess.data.StationItem;
 
-import org.json.JSONArray;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.IMyLocationConsumer;
 import org.osmdroid.views.overlay.mylocation.IMyLocationProvider;
@@ -88,7 +85,6 @@ import java.util.List;
 import edu.asu.emit.qyan.alg.model.Path;
 import edu.asu.emit.qyan.alg.model.abstracts.BaseVertex;
 
-import static com.nextgis.metroaccess.Constants.APP_VERSION;
 import static com.nextgis.metroaccess.Constants.ARRIVAL_RESULT;
 import static com.nextgis.metroaccess.Constants.BUNDLE_CITY_CHANGED;
 import static com.nextgis.metroaccess.Constants.BUNDLE_ENTRANCE_KEY;
@@ -102,8 +98,6 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
 import static com.nextgis.metroaccess.Constants.ICONS_RAW;
-import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
-import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
 import static com.nextgis.metroaccess.Constants.LOCATING_TIMEOUT;
 import static com.nextgis.metroaccess.Constants.META;
 import static com.nextgis.metroaccess.Constants.PREF_RESULT;
@@ -112,10 +106,7 @@ import static com.nextgis.metroaccess.Constants.ROUTE_DATA_DIR;
 import static com.nextgis.metroaccess.Constants.STATUS_FINISH_LOCATING;
 import static com.nextgis.metroaccess.Constants.STATUS_INTERRUPT_LOCATING;
 import static com.nextgis.metroaccess.Constants.TAG;
-import static com.nextgis.metroaccess.PreferencesActivity.DeleteRecursive;
 import static com.nextgis.metroaccess.PreferencesActivity.clearRecent;
-import static com.nextgis.metroaccess.SelectStationActivity.getRecentStations;
-import static com.nextgis.metroaccess.SelectStationActivity.indexOf;
 
 //https://code.google.com/p/k-shortest-paths/
 
@@ -162,8 +153,6 @@ public class MainActivity extends ActionBarActivity {
 
         m_sUrl = prefs.getString(PreferencesActivity.KEY_PREF_DOWNLOAD_PATH, m_sUrl);
 
-        updateApplicationStructure(prefs);
-
         m_oGraph = Analytics.getGraph();
 
 		//create downloading queue empty initially
@@ -183,7 +172,7 @@ public class MainActivity extends ActionBarActivity {
 
         boolean disableGA = prefs.getBoolean(PreferencesActivity.KEY_PREF_GA, true);
         ((Analytics) getApplication()).reload(disableGA);
-        GoogleAnalytics.getInstance(this).setDryRun(true);
+//        GoogleAnalytics.getInstance(this).setDryRun(true);
 	}
 
     protected void CreateHandler(){
@@ -1160,60 +1149,6 @@ public class MainActivity extends ActionBarActivity {
 //                tintIcon.mutate().setColorFilter(colorDark, PorterDuff.Mode.SRC_ATOP);
                 item.setIcon(new BitmapDrawable(context.getResources(), bitmap));
             }
-        }
-    }
-
-    private void updateApplicationStructure(SharedPreferences prefs) {
-        try {
-            int currentVersionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-            int savedVersionCode = prefs.getInt(APP_VERSION, 0);
-
-            switch (savedVersionCode) {
-                case 0:
-                    // ==========Improvement==========
-                    File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()).getPath());
-                    DeleteRecursive(oDataFolder);
-                    // ==========End Improvement==========
-                case 14:
-                case 15:
-                    // delete unnecessary data
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.remove("recent_dep_counter");
-                    editor.remove("recent_arr_counter");
-
-                    JSONArray depStationsIds = getRecentStations(prefs, true);
-                    JSONArray arrStationsIds = getRecentStations(prefs, false);
-
-                    // convert recent stations to new format
-                    for (int i = 0; i < 10; i++) {
-                        int dep = prefs.getInt("recent_dep_stationid" + i, -1);
-                        int arr = prefs.getInt("recent_arr_stationid" + i, -1);
-                        editor.remove("recent_dep_stationid" + i);
-                        editor.remove("recent_arr_stationid" + i);
-                        editor.remove("recent_dep_portalid" + i);
-                        editor.remove("recent_arr_portalid" + i);
-
-                        if(dep != -1 && indexOf(depStationsIds, dep) == -1)
-                            depStationsIds.put(dep);
-
-                        if(arr != -1 && indexOf(arrStationsIds, arr) == -1)
-                            arrStationsIds.put(arr);
-                    }
-
-                    editor.putString(KEY_PREF_RECENT_DEP_STATIONS, depStationsIds.toString());
-                    editor.putString(KEY_PREF_RECENT_ARR_STATIONS, arrStationsIds.toString());
-                    editor.apply();
-                    break;
-                default:
-                    break;
-            }
-
-            if(savedVersionCode < currentVersionCode) { // update from previous version or clean install
-                // save current version to preferences
-                prefs.edit().putInt(APP_VERSION, currentVersionCode).apply();
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
         }
     }
 }

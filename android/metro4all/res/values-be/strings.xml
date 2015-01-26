@@ -99,6 +99,7 @@
 	<string name="sPrefTitle">Настройкі</string>
 	<string name="sPrefCatMain">Асноўныя</string>
 	<string name="sPrefCatData">Дадзеныя</string>
+    <string name="sPrefCatOther">Iншыя</string>
 	<string name="sPrefNaviType">Тып навігацыі</string>
 	<string name="sPrefNaviTypeSummary">Тып навігацыі ўплывае на маршрут</string>
 	<string name="sPrefNaviTypeTitle">Выбраць тып навігацыі</string>

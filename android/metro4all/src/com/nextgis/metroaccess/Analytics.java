@@ -22,6 +22,7 @@ package com.nextgis.metroaccess;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -30,7 +31,17 @@ import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 import com.nextgis.metroaccess.data.MAGraph;
 
+import org.json.JSONArray;
+
+import java.io.File;
 import java.util.Locale;
+
+import static com.nextgis.metroaccess.Constants.APP_VERSION;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_ARR_STATIONS;
+import static com.nextgis.metroaccess.Constants.KEY_PREF_RECENT_DEP_STATIONS;
+import static com.nextgis.metroaccess.PreferencesActivity.DeleteRecursive;
+import static com.nextgis.metroaccess.SelectStationActivity.getRecentStations;
+import static com.nextgis.metroaccess.SelectStationActivity.indexOf;
 
 public class Analytics extends Application {
 //    private static final String PROPERTY_ID = "UA-57998948-1";
@@ -72,6 +83,9 @@ public class Analytics extends Application {
     public void onCreate() {
         super.onCreate();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        updateApplicationStructure(prefs);
+
         String sCurrentCity = prefs.getString(PreferencesActivity.KEY_PREF_CITY, "");
         String sCurrentCityLang = prefs.getString(PreferencesActivity.KEY_PREF_CITYLANG, Locale.getDefault().getLanguage());
         mGraph = new MAGraph(this, sCurrentCity, getExternalFilesDir(null), sCurrentCityLang);
@@ -110,5 +124,60 @@ public class Analytics extends Application {
             event.setValue(value[0]);
 
         getTracker().send(event.build());
+    }
+
+
+    private void updateApplicationStructure(SharedPreferences prefs) {
+        try {
+            int currentVersionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            int savedVersionCode = prefs.getInt(APP_VERSION, 0);
+
+            switch (savedVersionCode) {
+                case 0:
+                    // ==========Improvement==========
+                    File oDataFolder = new File(getExternalFilesDir(MainActivity.GetRouteDataDir()).getPath());
+                    DeleteRecursive(oDataFolder);
+                    // ==========End Improvement==========
+                case 14:
+                case 15:
+                    // delete unnecessary data
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove("recent_dep_counter");
+                    editor.remove("recent_arr_counter");
+
+                    JSONArray depStationsIds = getRecentStations(prefs, true);
+                    JSONArray arrStationsIds = getRecentStations(prefs, false);
+
+                    // convert recent stations to new format
+                    for (int i = 0; i < 10; i++) {
+                        int dep = prefs.getInt("recent_dep_stationid" + i, -1);
+                        int arr = prefs.getInt("recent_arr_stationid" + i, -1);
+                        editor.remove("recent_dep_stationid" + i);
+                        editor.remove("recent_arr_stationid" + i);
+                        editor.remove("recent_dep_portalid" + i);
+                        editor.remove("recent_arr_portalid" + i);
+
+                        if(dep != -1 && indexOf(depStationsIds, dep) == -1)
+                            depStationsIds.put(dep);
+
+                        if(arr != -1 && indexOf(arrStationsIds, arr) == -1)
+                            arrStationsIds.put(arr);
+                    }
+
+                    editor.putString(KEY_PREF_RECENT_DEP_STATIONS, depStationsIds.toString());
+                    editor.putString(KEY_PREF_RECENT_ARR_STATIONS, arrStationsIds.toString());
+                    editor.apply();
+                    break;
+                default:
+                    break;
+            }
+
+            if(savedVersionCode < currentVersionCode) { // update from previous version or clean install
+                // save current version to preferences
+                prefs.edit().putInt(APP_VERSION, currentVersionCode).apply();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+        }
     }
 }

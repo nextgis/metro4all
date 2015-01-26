@@ -13,6 +13,7 @@
 + Bugfixing:
 	* Layout sometimes was not shown on API <=10
 	* Recent stations now work correct
+	* App crash from <2.4 update
 
 ## v. 2.5.1 (16.01.2015)
 * Improved icons quality and markers position on map screen
