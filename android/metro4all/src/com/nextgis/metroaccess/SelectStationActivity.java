@@ -80,6 +80,8 @@ public class SelectStationActivity extends ActionBarActivity {
     private Intent resultIntent;
 
     private SharedPreferences prefs;
+    private boolean mIsKeyboardShown = false;
+    private int mHeightDifference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,15 +169,27 @@ public class SelectStationActivity extends ActionBarActivity {
                         //r will be populated with the coordinates of your view
                         // that area still visible.
                         activityRootView.getWindowVisibleDisplayFrame(r);
-                        int heightDiff = activityRootView.getRootView().getHeight() - r.height();
+//                        int heightDiff = activityRootView.getRootView().getHeight() - r.height();
+                        mHeightDifference = activityRootView.getRootView().getHeight() - r.height();
 
                         // if more than 1/5 of display, its probably a keyboard...
-                        if (heightDiff > softKeyboardHeight)
+                        mIsKeyboardShown = mHeightDifference > softKeyboardHeight;
+
+                        if (mIsKeyboardShown)
                             tvNotes.setVisibility(View.GONE);
                         else
                             tvNotes.setVisibility(View.VISIBLE);
                     }
                 });
+    }
+
+    public boolean isKeyboardShown() {
+        return mIsKeyboardShown;
+    }
+
+    public int getKeyboardHeight() {
+//        return getResources().getDisplayMetrics().heightPixels / 5;
+        return mHeightDifference;
     }
 
     @Override

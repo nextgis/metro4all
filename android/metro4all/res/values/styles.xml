@@ -19,6 +19,7 @@
 
     <style name="Theme.Application" parent="@style/Theme.AppCompat.Light">
         <item name="colorPrimary">@color/metro_material_main</item>
+        <item name="colorPrimaryDark">@color/metro_material_status</item>
         <item name="colorAccent">@color/metro_material_dark</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textColorPrimary">@android:color/white</item>
@@ -40,24 +41,33 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="actionBarStyle">@style/Widget.Toolbar</item>
-        <!--<item name="android:preferenceCategoryStyle">@style/Theme.Settings.Category</item>-->
+        <item name="toolbarNavigationButtonStyle">@style/Widget.Toolbar.NavButton</item>
         <item name="android:textColorSecondary">@android:color/secondary_text_light</item>
-
-        <item name="colorSwitchThumbNormal">@color/metro_material_dark</item>
-        <item name="android:colorForeground">@color/metro_material_dark</item>
-
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="Theme.Settings.Limitations" parent="@style/Theme.Settings">
-        <item name="colorAccent">@android:color/white</item>
+        <!--<item name="colorAccent">@android:color/white</item>-->
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="switchStyle">@style/Theme.Widget.Switch</item>
+        <item name="colorSwitchThumbNormal">@color/metro_material_dark</item>
+        <item name="android:colorForeground">@color/metro_material_dark</item>
+    </style>
+
+    <style name="Theme.Widget.Switch" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <!--<item name="android:tint">@android:color/white</item>-->
+        <!--<item name="buttonTint">@color/switch_selector</item>-->
+        <!--<item name="colorAccent">@android:color/white</item>-->
+        <!--<item name="track">@drawable/abc_switch_thumb_material</item>-->
+        <!--<item name="android:thumb">@drawable/limitations_switch_thumb</item>-->
     </style>
 
     <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
         <item name="navigationIcon">?attr/homeAsUpIndicator</item>
+    </style>
+
+    <style name="Widget.Toolbar.NavButton" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:tint">@android:color/white</item>
     </style>
 
 </resources>

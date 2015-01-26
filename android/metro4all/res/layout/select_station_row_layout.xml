@@ -27,7 +27,6 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingBottom="2dp"
-    android:paddingRight="@dimen/station_row_padding_right"
     android:paddingTop="2dp"
     >
 
@@ -55,6 +54,13 @@
         android:scaleType="center"
         android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
         android:tint="@color/portal_normal"
+        tools:ignore="ContentDescription"/>
+
+    <ImageButton
+        android:background="@null"
+        android:src="@null"
+        android:layout_width="@dimen/station_row_padding_right"
+        android:layout_height="match_parent"
         tools:ignore="ContentDescription"/>
 
 </LinearLayout>

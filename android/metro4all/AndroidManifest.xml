@@ -3,7 +3,7 @@
     package="com.nextgis.metroaccess"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="16"
-    android:versionName="2.6b">
+    android:versionName="2.6">
 
     <uses-sdk
         android:minSdkVersion="9"

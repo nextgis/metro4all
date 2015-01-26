@@ -22,6 +22,7 @@
     <color name="metro_color_main">#50C0DB</color>
 
  	<color name="metro_material_main">#6CBCD0</color>
+ 	<color name="metro_material_status">#3693AB</color>
     <color name="metro_material_dark">#335F81</color>
 
  	<color name="grey_light">#ececea</color>

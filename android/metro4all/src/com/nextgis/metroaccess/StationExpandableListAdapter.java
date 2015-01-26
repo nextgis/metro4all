@@ -30,7 +30,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,10 +205,8 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
         Bitmap myBitmap = MainActivity.getBitmapFromSVG(mContext, R.raw._0, color);
         ivIcon.setImageBitmap(myBitmap);
 
-//        ImageButton ibtnLayout = (ImageButton) convertView.findViewById(R.id.ibtnLayout);
         final ImageButton ibtnMenu = (ImageButton) convertView.findViewById(R.id.ibtnMenu);
         final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
-//        final SelectStationActivity parentActivity = (SelectStationActivity) ibtnLayout.getContext();
         final SelectStationActivity parentActivity = (SelectStationActivity) ibtnMenu.getContext();
 
         final Bundle bundle = new Bundle();
@@ -227,6 +227,9 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
                         hideHint(mContext, mHintScreenName);
                         view.getRootView().getRootView().findViewById(R.id.ttSelectStation).setVisibility(View.GONE);
                     }
+
+//                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.hideSoftInputFromWindow(view.getRootView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                     LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View layout = mInflater.inflate(R.layout.stationlist_popup_menu, parent, false);
@@ -249,7 +252,7 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
 
                     Drawable background = mContext.getResources().getDrawable(R.drawable.abc_popup_background_mtrl_mult);
                     mDropdown.setBackgroundDrawable(background);
-                    mDropdown.showAsDropDown(view, -itemLayout.getMeasuredWidth() / 2, -10);
+                    mDropdown.setClippingEnabled(false);
 
                     itemMap.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -274,6 +277,26 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
                             parentActivity.startActivityForResult(intentView, SUBSCREEN_PORTAL_RESULT);
                         }
                     });
+
+//                    mDropdown.showAsDropDown(view, -itemLayout.getMeasuredWidth() / 2, -10);
+                    SelectStationActivity parentActivity = (SelectStationActivity) mContext;
+
+                    int[] loc = new int[2];
+                    view.getLocationOnScreen(loc);
+                    int x = loc[0] - mDropdown.getWidth() / 2 - mDropdown.getWidth() / 4;
+                    int y = loc[1] + ibtnMenu.getMeasuredHeight() / 2;
+
+                    DisplayMetrics displaymetrics = new DisplayMetrics();
+                    parentActivity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                    int height = displaymetrics.heightPixels;
+
+                    if(parentActivity.isKeyboardShown())
+                        height -= parentActivity.getKeyboardHeight();
+
+                    if (y + mDropdown.getHeight() > height)
+                        y = y - mDropdown.getHeight() - ibtnMenu.getMeasuredHeight() / 2;
+
+                    mDropdown.showAtLocation(view.getRootView(), Gravity.NO_GRAVITY, x, y);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
