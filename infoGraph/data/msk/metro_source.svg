@@ -26,7 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -40,7 +40,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1125"
+     inkscape:window-height="1142"
      id="namedview1117"
      showgrid="false"
      inkscape:object-paths="true"
@@ -48,11 +48,11 @@
      inkscape:snap-smooth-nodes="true"
      inkscape:zoom="1.1115814"
      inkscape:cx="427.71208"
-     inkscape:cy="669.3037"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:cy="417.41032"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="stations" />
+     inkscape:current-layer="mainG" />
   <defs
      id="defs4">
     <linearGradient
@@ -6165,247 +6165,6 @@
          x="23.6"
          width="18"
          height="18" />
-    </g>
-    <g
-       transform="matrix(1.2766628,0,0,1.2766628,88.294143,5.0643079)"
-       id="selectors">
-      <g
-         id="selector_1">
-        <rect
-           style="fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
-           id="rect4357"
-           width="30"
-           height="6"
-           x="-37.097088"
-           y="457.48132" />
-        <text
-           xml:space="preserve"
-           x="-3.0052037"
-           y="462.62878"
-           id="text4715"
-           class="lineLabel"><tspan
-             id="tspan4717"
-             x="-3.0052037"
-             y="462.62878">Сокольническая</tspan></text>
-      </g>
-      <g
-         transform="translate(0,0.24549103)"
-         id="selector_2">
-        <rect
-           y="477.54681"
-           x="-37.097088"
-           height="6"
-           width="30"
-           id="rect4719"
-           style="fill:#00aa44;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" />
-        <text
-           id="text4741"
-           y="482.1391"
-           x="-3.0052037"
-           xml:space="preserve"
-           class="lineLabel"><tspan
-             y="482.1391"
-             x="-3.0052037"
-             id="tspan4743">Замоскворецкая</tspan></text>
-      </g>
-      <g
-         transform="translate(0,-0.40189743)"
-         id="selector_3">
-        <rect
-           style="fill:#3771c8;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
-           id="rect4721"
-           width="30"
-           height="6"
-           x="-37.097088"
-           y="498.50519" />
-        <text
-           xml:space="preserve"
-           x="-3.0052037"
-           y="503.11066"
-           id="text4745"
-           class="lineLabel"><tspan
-             id="tspan4747"
-             x="-3.0052037"
-             y="503.11066">Арбатско-Покровская</tspan></text>
-      </g>
-      <g
-         transform="translate(0,-0.42367554)"
-         id="selector_4">
-        <rect
-           y="518.83795"
-           x="-37.097088"
-           height="6"
-           width="30"
-           id="rect4723"
-           style="fill:#55ddff;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" />
-        <text
-           id="text4749"
-           y="523.98688"
-           x="-3.0052037"
-           xml:space="preserve"
-           class="lineLabel"><tspan
-             y="523.98688"
-             x="-3.0052037"
-             id="tspan4751">Филёвская</tspan></text>
-      </g>
-      <g
-         transform="translate(0,-0.87663651)"
-         id="selector_5">
-        <rect
-           style="fill:#803300;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
-           id="rect4725"
-           width="30"
-           height="6"
-           x="-37.097088"
-           y="539.60193" />
-        <text
-           xml:space="preserve"
-           x="-3.0052037"
-           y="544.35388"
-           id="text4753"
-           class="lineLabel"><tspan
-             id="tspan4755"
-             x="-3.0052037"
-             y="544.35388">Кольцевая</tspan></text>
-      </g>
-      <g
-         transform="translate(0,0.96126556)"
-         id="selector_6">
-        <rect
-           y="558.07501"
-           x="-37.097088"
-           height="6"
-           width="30"
-           id="rect4727"
-           style="fill:#ff7f2a;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" />
-        <text
-           id="text4757"
-           y="562.60577"
-           x="-3.0052037"
-           xml:space="preserve"
-           class="lineLabel"><tspan
-             y="562.60577"
-             x="-3.0052037"
-             id="tspan4759">Калужско-Рижская</tspan></text>
-      </g>
-      <g
-         transform="translate(0,1.2384987)"
-         id="selector_7">
-        <rect
-           style="fill:#bc5fd3;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
-           id="rect4729"
-           width="30"
-           height="6"
-           x="-37.097088"
-           y="578.10876" />
-        <text
-           xml:space="preserve"
-           x="-3.0052037"
-           y="582.67908"
-           id="text4761"
-           class="lineLabel"><tspan
-             id="tspan4763"
-             x="-3.0052037"
-             y="582.67908">Таганско-Краснопресненская</tspan></text>
-      </g>
-      <g
-         transform="translate(0,1.4913483)"
-         id="selector_8">
-        <rect
-           y="598.16687"
-           x="-37.097088"
-           height="6"
-           width="30"
-           id="rect4731"
-           style="fill:#ffd42a;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" />
-        <text
-           id="text4765"
-           y="603.29382"
-           x="-3.0052037"
-           xml:space="preserve"
-           class="lineLabel"><tspan
-             y="603.29382"
-             x="-3.0052037"
-             id="tspan4767">Калининско-Солнцевская</tspan></text>
-      </g>
-      <g
-         transform="translate(0,1.1749229)"
-         id="selector_9">
-        <rect
-           style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
-           id="rect4733"
-           width="30"
-           height="6"
-           x="-37.097088"
-           y="618.79431" />
-        <text
-           xml:space="preserve"
-           x="-3.0052037"
-           y="623.34705"
-           id="text4769"
-           class="lineLabel"><tspan
-             id="tspan4771"
-             x="-3.0052037"
-             y="623.34705">Серпуховско-Тимирязевская</tspan></text>
-      </g>
-      <g
-         transform="translate(0,1.9331131)"
-         id="selector_10">
-        <rect
-           y="638.34705"
-           x="-37.097088"
-           height="6"
-           width="30"
-           id="rect4735"
-           style="fill:#abc837;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" />
-        <text
-           id="text4773"
-           y="643.50916"
-           x="-3.0052037"
-           xml:space="preserve"
-           class="lineLabel"><tspan
-             y="643.50916"
-             x="-3.0052037"
-             id="tspan4775">Люблинско-Дмитровская</tspan></text>
-      </g>
-      <g
-         id="selector_11">
-        <rect
-           style="fill:#37c8ab;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
-           id="rect4737"
-           width="30"
-           height="6"
-           x="-37.097088"
-           y="660.63867" />
-        <text
-           xml:space="preserve"
-           x="-3.0052037"
-           y="665.76563"
-           id="text4777"
-           class="lineLabel"><tspan
-             id="tspan4779"
-             x="-3.0052037"
-             y="665.76563">Каховская</tspan></text>
-      </g>
-      <g
-         id="selector_12">
-        <rect
-           y="680.90216"
-           x="-37.097088"
-           height="6"
-           width="30"
-           id="rect4739"
-           style="fill:#afc6e9;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" />
-        <text
-           id="text4781"
-           y="685.41827"
-           x="-3.0052037"
-           xml:space="preserve"
-           class="lineLabel"><tspan
-             y="685.41827"
-             x="-3.0052037"
-             id="tspan4783">Бутовская</tspan></text>
-      </g>
     </g>
   </g>
 </svg>

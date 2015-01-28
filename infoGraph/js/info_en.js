@@ -67,7 +67,7 @@ var tr = {
 		'station': 'for station ',
 		'node': 'Node ',
 		'transfer': 'for transfer ',
-		'metro': 'for metro system '
+		'metro': 'for metro network '
 	},
 	'booleanWords': {
 		'yes': 'yes',
