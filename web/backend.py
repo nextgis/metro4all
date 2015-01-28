@@ -23,7 +23,11 @@ def init_graph(city):
         graph.add_node(int(node['id_station']))
 
     for edge in edges:
-        graph.add_edge(int(edge['id_from']), int(edge['id_to']))
+        graph.add_edge(
+            int(edge['id_from']),
+            int(edge['id_to']),
+            weight=int(edge['cost'])
+        )
 
     return graph
 
@@ -213,7 +217,7 @@ def get_portals(lang, city):
 
 
 @route('/<lang>/<city>/routes/search')
-def get_routes(lang, city, delta=5, limit=3):
+def get_routes(lang, city, limit=3):
 
     station_from = int(request.query.station_from) if request.query.station_from else None
     station_to = int(request.query.station_to) if request.query.station_to else None
@@ -260,19 +264,23 @@ def get_routes(lang, city, delta=5, limit=3):
 
     if ((station_from is not None) and (station_to is not None)):
 
-        minlength = nx.shortest_path_length(GRAPH[city], station_from, station_to)
-        # generator
-        simple_paths = nx.all_simple_paths(GRAPH[city], station_from, station_to, minlength+delta)
-        simple_paths_list = [p for p in simple_paths]
-        simple_paths_list_sorted = sorted(simple_paths_list, key=lambda path: len(path))
+        all_shortest_paths = nx.all_shortest_paths(
+            GRAPH[city],
+            station_from,
+            station_to,
+            weight='weight'
+        )
 
         routes = []
-        for index in range(min(limit, len(simple_paths_list))):
+        for index, path in enumerate(all_shortest_paths):
+            if index == limit:
+                break
+
             route = []
-            for station in simple_paths_list_sorted[index]:
+            for station in path:
                 station_info = get_station_info(station)
                 line_id = station_info['line']
-                same_line = check_the_same_line(station, get_next_item(simple_paths_list_sorted[index], station))
+                same_line = check_the_same_line(station, get_next_item(path, station))
 
                 station_type = "regular" if same_line else "interchange"
                 node_id=station_info['node_id']
@@ -292,7 +300,7 @@ def get_routes(lang, city, delta=5, limit=3):
 
                 if station_type == "interchange":
                     unit['barriers'] = None
-                    unit['barriers'] = interchange_barriers(station, get_next_item(simple_paths_list_sorted[index], station))
+                    unit['barriers'] = interchange_barriers(station, get_next_item(path, station))
 
                 elif station_type == "regular":
                     unit['barriers'] = None
