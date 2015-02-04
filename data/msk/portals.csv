@@ -1226,6 +1226,6 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 21140;5;ул. Рузская, дублер Ленинского проспекта (МКАД);ul. Ruzskaja, dubler Leninskogo prospekta (MKAD);235;both;55.6454015177;37.4719410357;900;81;81;1;29;0;0;0;0
 21150;6;ул. Академика Анохина, Тропаревский лесопарк, дублёр Ленинского проспекта (МКАД);ul. Akademika Anohina, Troparevskij lesopark, dubljor Leninskogo prospekta (MKAD);235;both;55.6450331808;37.4711634356;900;84;50;2;84;0;0;0;0
 21160;7;Ленинский проспект (МКАД);Leninskij prospekt (MKAD);235;both;55.6451241282;37.4723048252;900;95;95;2;64;300;900;18;0
-21170;8;Ленинский проспект (МКАД);Leninskij prospekt (MKAD);235;both;55.644801265;37.4715954357;900;98;61;0;0;300;900;18;0
+21170;8;Ленинский проспект (МКАД);Leninskij prospekt (MKAD);235;both;55.644801265;37.4715954357;900;98;61;1;29;300;900;18;0
 21180;9;дублер Ленинского проспекта (в центр);dubler Leninskogo prospekta (to city centre);235;both;55.6446512018;37.4729960253;900;87;87;2;56;300;900;18;0
 21190;10;дублер Ленинского проспекта (в центр), ул. Академика Бакулева;dubler Leninskogo prospekta (to city centre), ul. Akademika Bakuleva;235;both;55.6443192439;37.4722729937;900;90;61;2;59;300;900;18;0
