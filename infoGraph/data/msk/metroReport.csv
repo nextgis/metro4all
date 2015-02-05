@@ -13,7 +13,7 @@ totalNodesWithHallLevelLifts,otherInfo,18
 totalNodesWithTrainLevelLifts,otherInfo,21
 totalNodesWithSurfaceLevelLifts,otherInfo,22
 totalPanduses,nodeInfo,108
-totalPandusesAvailable,otherInfo,51
+totalPandusesAvailable,nodeInfo,51
 totalNodesWithPanduses,nodeInfo,51
 totalNodesWithPandusesAvailable,nodeInfo,20
 totalNodesWithStairway,nodeInfo,108
