@@ -66,7 +66,7 @@ otherInfo	totalNodesWithHallLevelLifts	Количество узлов, обор
 otherInfo	totalNodesWithTrainLevelLifts	Количество узлов, оборудованных лифтами до уровня платформы
 otherInfo	totalNodesWithSurfaceLevelLifts	Количество узлов, оборудованных лифтами до уровня поверхности
 nodeInfo	totalPanduses	Количество пандусов - всего
-otherInfo	totalPandusesAvailable	Количество пандусов, доступных для инвалидов-колясочников
+nodeInfo	totalPandusesAvailable	Количество пандусов, доступных для инвалидов-колясочников
 nodeInfo	totalNodesWithPanduses	Количество узлов, оборудованных пандусами
 nodeInfo	totalNodesWithPandusesAvailable	Количество узлов, оборудованных пандусами, доступными для инвалидов-колясочников
 nodeInfo	totalNodesWithStairway	Количество узлов, оборудованных эскалаторами
