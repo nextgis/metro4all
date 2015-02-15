@@ -41,6 +41,13 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   var importedNode = document.importNode(xml.documentElement, true);
   d3.select("#metroMap").node().appendChild(importedNode);
 
+  window.onhashchange = function() {
+ 	var stationId = hash.get('station');
+ 		transferId = hash.get('transfer');
+ 	if (typeof stationId != 'undefined') { composeStationReport(stationId); }
+ 	else if (typeof transferId != 'undefined') { composeTransferReport(transferId); };
+ };
+
   var svg = d3.select("svg#svgCanvas"),
   svgWidth = (svg.style("width")).replace('px', ''),
   svgHeight = (svg.style("height")).replace('px', '');
@@ -240,6 +247,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   reset.on("click", function() {
     resetShema();
     resetMenu();
+    hash.clear();
     metroStat(metroData);
   });
 
@@ -317,6 +325,14 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     stationTooltip.style("display", "none");
   })
   .on("click", function() {
+  	var stationId = splitId(this.id);
+  	//Change hash
+  	hash.clear();
+  	hash.add({station: stationId});  	
+  	composeStationReport(stationId);
+  });
+
+  function composeStationReport(stationId) {
     //var targetInfo = d3.select("div#targetInfo");
     //var nodeInfo = d3.select("div#nodeInfo");
     nodeInfoData = [];
@@ -324,7 +340,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     targetAccessData = [];
 
     //Routes by stations (station's data)
-    var stationData = stationDataById[splitId(this.id)];
+    var stationData = stationDataById[stationId];
     var tableData = [];
     tableData.push(
       {factor: tr.stationHeader.routesIn, value: stationData.routesIn},
@@ -425,17 +441,25 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     tabulate(targetAccess, targetAccessData, ['factor', 'value']);
 
     scrollToFocus("infoPanel");
-  });
+  };
 
   //Transfers (rectangles) events
   transfers.on("click", function() {
+  	var transferId = splitId(this.id);
+  	//Change hash
+  	hash.clear();
+  	hash.add({transfer: transferId});   	
+  	composeTransferReport(transferId);
+  });
+
+  function composeTransferReport(transferId) {
     //var targetInfo = d3.select("div#targetInfo");
     //var nodeInfo = d3.select("div#nodeInfo");
     nodeInfoData = [];
     targetInfoData = [];
     targetAccessData = [];
     //Routes by transfers (transfer's data)
-    var transferData = transferDataById[splitId(this.id)];
+    var transferData = transferDataById[transferId];
     //console.log(transferData);    
     var tableData = [
       {factor: tr.transferHeader.minWidth, value: transferData[0].minWidth},
@@ -488,7 +512,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     tabulate(targetAccess, targetAccessData, ['factor', 'value']);
 
     scrollToFocus("infoPanel");
-  });
+  };
 
 
   d3.select("select#infra-select").on("change", function() {
