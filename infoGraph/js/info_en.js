@@ -32,7 +32,7 @@ var tr = {
 		'hallLevelLiftsAmount': 'Number of elevators leading to entrance hall level',
 		'trainLevelLiftsAmount': 'Number of elevators leading to train platforms',
 		'surfaceLevelLiftsAmount': 'Number of elevators leading to day surface',
-		'minLiftWidth': 'Минимальная ширина дверей лифтов, мм',
+		'minLiftWidth': 'Minimal elevator door width, mm',
 		'pandusAmount': 'Number of ramps',
 		'pandusMaxSlope': 'Maximum ramps slope, %',
 		'pandusAvailableAmount': 'Number of ramps accessible for wheelchair users',
