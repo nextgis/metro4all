@@ -35,14 +35,15 @@ output_f.writeheader()
 
 for row in input_f:
     station = dict()
-    for source_name, target_name in fieldmap:
-        if source_name in row.keys():
-            station[target_name] = row[source_name]
-        else:
-            pass
-            #Needed only if we want to replicate missing name_[lang] with English
-            #if source_name.startswith('name'):
-            #    station[target_name] = row['name_en']
-            #else:
-            #    station[target_name] = ''
-    output_f.writerow(station)
+    if row['closed'] == '':
+        for source_name, target_name in fieldmap:
+            if source_name in row.keys():
+                station[target_name] = row[source_name]
+            else:
+                pass
+                #Needed only if we want to replicate missing name_[lang] with English
+                #if source_name.startswith('name'):
+                #    station[target_name] = row['name_en']
+                #else:
+                #    station[target_name] = ''
+        output_f.writerow(station)
