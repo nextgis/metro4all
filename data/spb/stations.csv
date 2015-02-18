@@ -11,7 +11,6 @@ id_station;id_line;id_node;name_en;name_ru;name_pl;lat;lon
 12;1;12;Ploschad Vosstaniya;Площадь Восстания;Ploschad Vosstaniya;59.931592;30.360453
 13;1;13;Chernyshevskaya;Чернышевская;Chernyshevskaya;59.944516;30.359937
 14;1;14;Ploschad Lenina;Площадь Ленина;Ploschad Lenina;59.957278;30.355601
-15;1;15;Vyborgskaya;Выборгская;Vyborgskaya;59.971031;30.347313
 16;1;16;Lesnaya;Лесная;Lesnaya;59.98475;30.344206
 17;1;17;Ploschad Muzhestva;Площадь Мужества;Ploschad Muzhestva;59.999603;30.366326
 18;1;18;Politekhnicheskaya;Политехническая;Politekhnicheskaya;60.008937;30.370868
