@@ -52,16 +52,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   svgWidth = (svg.style("width")).replace('px', ''),
   svgHeight = (svg.style("height")).replace('px', '');
 
-  /*
-  d3.select(window).on('resize', resize);
-  function resize() {
-    console.log(d3.select("#metroMap").attr("width"));
-    console.log(svg.style());
-    console.log(svg.attr("id"));
-    //svgWidth = d3.select('div.shema-infoGraph').attr("width"),
-    //svgHeight = d3.select('div.shema-infoGraph').attr("height");
-  };*/
-
   var zoom = d3.behavior.zoom()
     .scaleExtent([0.7, 3])
     .size([svgWidth, svgHeight])
@@ -123,7 +113,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
       //luggageFriendlyRoutesAmount: d.luggageFriendlyRoutesAmount
     };
   });
-//console.log(stationDataById);
 
   nodesData.forEach(function(d) {
     nodeDataById[d.nodeId] = {
@@ -221,7 +210,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   var lines = d3.select("g#shema").selectAll("path"),
       nodes = d3.select("g#stations").selectAll("g");
       stations = d3.select("g#stations").selectAll("path"),
-      //stations = d3.select("g#stations").selectAll("circle"),
       transfers = d3.select("g#stations").selectAll("rect"),
       stationLabels = d3.select("g#stations").selectAll("text.stationLabel"),
       stationIcons = d3.select("g#stations").selectAll("image.stationIcon"),
@@ -238,12 +226,10 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
       nodeInfoData = [],
       targetInfoData = [],
       targetAccessData = [];
-   //console.log(nodeDataById);
   //Clearing all temporary stuff!
   resetShema();
   resetMenu();
 
-  //reset.on("click", resetAll);
   reset.on("click", function() {
     resetShema();
     resetMenu();
@@ -253,13 +239,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
 
   //Add info about metro stat
   metroStat(metroData);
-
-  /*//Show/hide station's names
-  checkbox.on("change", function() {
-    resetLabels(stationLabels);
-    resetLabels(transferLabels);
-    namesForStations(stationLabels, stationDataById, this.checked);
-  })*/
 
   //Get coordinates for labels
   d3.selectAll(".stationLabel").each( function() {
@@ -312,14 +291,11 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     t = stationTooltip.html("");
 
     t.style("display", "block")
-    /*.style("left", (d3.event.pageX - 285) + "px")
-    .style("top", (d3.event.pageY - 250) + "px");*/
     .style('left', (d3.mouse(d3.select('div.content').node())[0] + 15) + 'px')
     .style('top', (d3.mouse(d3.select('div.content').node())[1] - 5) + 'px'); 
     t.append("span").text(function() {
       return tr.language == 'eng' ? stationDataById[id].stationName_en : stationDataById[id].stationName;
     })
-    //console.log(d3.event.pageX);
   })
   .on("mouseout", function() {
     stationTooltip.style("display", "none");
@@ -333,8 +309,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   });
 
   function composeStationReport(stationId) {
-    //var targetInfo = d3.select("div#targetInfo");
-    //var nodeInfo = d3.select("div#nodeInfo");
     nodeInfoData = [];
     targetInfoData = [];
     targetAccessData = [];
@@ -453,14 +427,11 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   });
 
   function composeTransferReport(transferId) {
-    //var targetInfo = d3.select("div#targetInfo");
-    //var nodeInfo = d3.select("div#nodeInfo");
     nodeInfoData = [];
     targetInfoData = [];
     targetAccessData = [];
     //Routes by transfers (transfer's data)
-    var transferData = transferDataById[transferId];
-    //console.log(transferData);    
+    var transferData = transferDataById[transferId];   
     var tableData = [
       {factor: tr.transferHeader.minWidth, value: transferData[0].minWidth},
       {factor: tr.transferHeader.minStairs, value: transferData[0].minStairs},
@@ -523,24 +494,11 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     radio.filter("input#allStations").property("checked", true);
 
     switch( sel.value ) {
-      case "lift": //resetLabels(transferLabels);
-                   //resetLabels(stationLabels);
-                   lines.classed("dim", true);
+      case "lift": lines.classed("dim", true);
                    transfers.classed("dim", true);
                    stations.filter(function() {
                      if (stationDataById[splitId(this.id)].maxLiftAmount == 0) { return this.id;};
                    }).classed("dim", true);
-                   /*stationLabels[0].forEach(function(label) {
-                      // Adding images via coordinates
-                     if (stationDataById[splitId(label.id)].maxLiftAmount > 0) {
-                       var pos = positionById[splitId(label.id)];
-                       d3.select("g#stations").append("image")
-                       .attr("x", pos.x).attr("y", function(d) {return pos.y - 15})
-                       .attr("width", 24).attr("height", 24)
-                       .attr("xlink:href", "data/elevator.png");                            
-                     }
-                     d3.select("p#selectInfo").html("Станции, оборудованные лифтами, обозначены соответствующим значком")
-                   })*/
                    shemaHeader.html(document.querySelector("#infra-select > option:checked").innerHTML)
                     .classed("hidden", false);
                    break;
@@ -754,7 +712,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     mainG.attr("transform", "");
     zoom.scale(1);
     zoom.translate([0,0]);
-    //return false;
   };
 
   function resetMenu() {
@@ -767,7 +724,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   function resetStat() {
     nodeDescription.html("");
     nodeDescription.classed("hidden", true);
-    //targetDescription.html("по метро");
     
     deleteObjects(nodeInfo, "table");
     deleteObjects(targetInfo, "table");
@@ -781,26 +737,19 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   function zooming() {
     if (zoom.scale() === zoom.scaleExtent()[0]) { zoom.translate([155, 40]);} // make zoom.translate([0, 0]) if minimum scale equla to 1
     mainG.attr("transform", "translate(" + zoom.translate() + ")scale(" + zoom.scale() + ")");
-    //svg.attr("transform", "translate(" + zoom.translate() + ")scale(" + zoom.scale() + ")");
   };
 
   function zoomEvent() {
-    var //clicked = d3.event.target,
-    //direction = 1,
-    factor = 0.2,
-    //target_zoom = 1,
-    center = [svgWidth / 2, svgHeight / 2],
-    extent = zoom.scaleExtent(),
-    translate = zoom.translate(),
-    currentFocus = [],
-    targetFocus = [],
-    view = {x: translate[0], y: translate[1], k: zoom.scale()};
+    var factor = 0.2,
+        center = [svgWidth / 2, svgHeight / 2],
+        extent = zoom.scaleExtent(),
+        translate = zoom.translate(),
+        currentFocus = [],
+        targetFocus = [],
+        view = {x: translate[0], y: translate[1], k: zoom.scale()};
   
-    //d3.event.preventDefault();
-    //console.log(center);
     factor = (this.name === 'zoomIn') ? factor : -factor;
-    targetZoom = zoom.scale() + factor;// * (1 + factor);
-    //console.log(targetZoom);
+    targetZoom = zoom.scale() + factor;
 
     if (targetZoom < extent[0]) {
       targetZoom = extent[0];
@@ -814,7 +763,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     view.x += center[0] - targetFocus[0];
     view.y += center[1] - targetFocus[1];
 
-    //interpolateZoom([view.x, view.y], view.k);
     //Default translate for default scale
     if (targetZoom === extent[0]) {
       interpolateZoom([0, 0], view.k);
@@ -824,7 +772,6 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
   };
 
   function interpolateZoom (translate, scale) {
-    //var self = this;
     return d3.transition().duration(750).tween("zoom", function () {
       var iTranslate = d3.interpolate(zoom.translate(), translate),
       iScale = d3.interpolate(zoom.scale(), scale);
