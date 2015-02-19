@@ -11,11 +11,12 @@ import numpy as np
 vocabPath = sys.argv[1]
 filePath = sys.argv[2]
 
-vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=0, names=['stationId', 'lineId', 'nodeId', 'stationName', 'stationName_en', 'lon', 'lat', 'lineName'])
+vocabDf = pd.read_csv(vocabPath, sep=',', header=0, encoding='utf-8', index_col=0, names=['stationId', 'lineId', 'nodeId', 'id_osm', 'stationName', 'stationName_en', 'lon', 'lat', 'lineName'])
 #['stationName', 'stationName_en', 'lineName', 'stationId', 'lineId', 'nodeId', 'lat', 'lon']
+del vocabDf['id_osm']
 del vocabDf['lat']
 del vocabDf['lon']
-sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'station', 'line', 'portalName_ru', 'portalName_en', 'station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
+sourceDf = pd.read_csv(filePath, sep=',', header=0, encoding='utf-8', names=['id', 'id2', 'meetcode', 'station', 'line', 'portalName_ru', 'portalName_en','station_id', 'line_id', '0_x', '0_y', 'direction', 'min_width', 'min_steps', 'min_rail_steps', 'lift', 'lift_minus_steps', 'min_lift_steps', 'min_rail_width', 'max_rail_width', 'max_angle', 'max_slope', 'stairways', 'pandusUnavailable', 'wheelchairFriendlyRoutes', 'handicappedFriendlyRoutes', 'luggageFriendlyRoutes', 'Creator', 'Closed', 'Comment'])
 
 ''' Calculated columns
 sourceDf['max_slope'] = np.tan(np.radians(sourceDf['max_angle'])) * 100
@@ -53,7 +54,7 @@ maxLiftAmount = pd.DataFrame({'maxLiftAmount' : sourceDf.groupby(by='station_id'
 minLiftStairs = pd.DataFrame({'minLiftStairs' : sourceDf.groupby(by='station_id')['min_lift_steps'].min()})
 avLiftStairs = pd.DataFrame({'avLiftStairs' : sourceDf.groupby(by='station_id')['min_lift_steps'].mean()})
 maxLiftStairs = pd.DataFrame({'maxLiftStairs' : sourceDf.groupby(by='station_id')['min_lift_steps'].max()})
-minStairways = pd.DataFrame({'minStairways' : sourceDf.groupby(by='station_id').min()['stairways']})
+minStairways = pd.DataFrame({'minStairways' : sourceDf.groupby(by='station_id')['stairways'].min()})
 maxStairways = pd.DataFrame({'maxStairways' : sourceDf.groupby(by='station_id').max()['stairways']})
 
 
@@ -90,16 +91,16 @@ result = result.join(routesOut, how='inner', sort=False)
 result = result.join(minTaper, how='inner', sort=False)
 result = result.join(maxTaper, how='inner', sort=False)
 result = result.join(minStairs, how='inner', sort=False)
-result = result.join(np.round(avStairs, decimals=0), how='inner', sort=False)
+result = result.join(np.round(avStairs, decimals=0).astype(int), how='inner', sort=False)
 result = result.join(maxStairs, how='inner', sort=False)
 result = result.join(minRailsStairs, how='inner', sort=False)
-result = result.join(np.round(avRailsStairs, decimals=0), how='inner', sort=False)
+result = result.join(np.round(avRailsStairs, decimals=0).astype(int), how='inner', sort=False)
 result = result.join(maxRailsStairs, how='inner', sort=False)
 result = result.join(lift, how='inner', sort=False)
 result = result.join(minLiftAmount, how='inner', sort=False)
 result = result.join(maxLiftAmount, how='inner', sort=False)
 result = result.join(minLiftStairs, how='inner', sort=False)
-result = result.join(np.round(avLiftStairs, decimals=0), how='inner', sort=False)
+result = result.join(np.round(avLiftStairs, decimals=0).astype(int), how='inner', sort=False)
 result = result.join(maxLiftStairs, how='inner', sort=False)
 result = result.join(minStairways, how='inner', sort=False)
 result = result.join(maxStairways, how='inner', sort=False)
