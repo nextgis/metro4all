@@ -506,7 +506,8 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
       case "stairway": lines.classed("dim", true);
                        transfers.classed("dim", true);
                        stations.filter(function() {
-                         if (stationDataById[splitId(this.id)].maxStairways == 0) { return this.id;};
+                         var nodeId = stationDataById[splitId(this.id)].nodeId;                      
+                         if (nodeDataById[nodeId].stairwaysAmount == 0) { return this.id;};
                        }).classed("dim", true);
                        shemaHeader.html(document.querySelector("#infra-select > option:checked").innerHTML)
                         .classed("hidden", false);                       
