@@ -57,8 +57,11 @@ var tr = {
 		'minStairs': 'Stairs total length, steps',
 		'minRailsStairs': 'Stairs total length when using ramps or rails, steps',
 		'minLiftStairs': 'Stairs total length when using elevators, steps',
-		'stairwaysAmount': 'Number of escalators',
-		'liftAmount': 'Number of elevators',
+		'minStairways': 'Number of escalators',
+		'lift': 'Number of elevators',
+		'minRailsWidth': 'Minimal rails width, mm',
+		'maxRailsWidth': 'Maximum rails width, mm',
+		'maxSlope': 'Maximum rails slope, %',
 		'wheelchairFriendlyRoutes': 'Is transfer route accessible for wheelchair users?',
 		'handicappedFriendlyRoutes': 'Is transfer route accessible for people with walking difficulties?',
 		'luggageFriendlyRoutes': 'Is transfer route accessible for people with baby-strollers?'
