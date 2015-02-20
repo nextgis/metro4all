@@ -189,11 +189,11 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
       minRailsStairs: parseInt(d.minRailsStairs),
       lift: parseInt(d.lift),
       //liftStairsEconomy: d.liftStairsEconomy,
-      //minRailsWidth: d.minRailsWidth,
-      //maxRailsWidth: d.maxRailsWidth,
+      minRailsWidth: d.minRailsWidth,
+      maxRailsWidth: d.maxRailsWidth,
       //maxAngle: d.maxAngle,
-      //maxSlope: d.maxSlope,
-      //minStairways: d.minStairways,
+      maxSlope: d.maxSlope,
+      minStairways: d.minStairways,
       wheelchairFriendlyRoutes: parseInt(d.wheelchairFriendlyRoutes),
       handicappedFriendlyRoutes: parseInt(d.handicappedFriendlyRoutes),
       luggageFriendlyRoutes: parseInt(d.luggageFriendlyRoutes),
@@ -343,7 +343,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
 
     //Infrastructure by stations (node's data)
     var nodeData = nodeDataById[stationData.nodeId];
-    var tableData = [];
+    tableData = [];
     tableData.push(
       {factor: tr.nodeHeader.totalElements, value: nodeData.totalElements},
       {factor: tr.nodeHeader.stairwaysAmount, value: nodeData.stairwaysAmount},
@@ -394,7 +394,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     nodeDescription.classed('hidden', false);
 
     //Accessibility by stations (station's data)
-    var tableData = [];
+    tableData = [];
     tableData.push(
       {factor: tr.accessibilityHeader.wheelchairFriendlyRoutesIn, value: stationData.wheelchairFriendlyRoutesIn},
       {factor: tr.accessibilityHeader.wheelchairFriendlyRoutesOut, value: stationData.wheelchairFriendlyRoutesOut},
@@ -438,8 +438,8 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
       {factor: tr.transferHeader.minRailsStairs, value: transferData[0].minRailsStairs}
     ];
 
-    if (transfersData.lift > 0) {
-      tableData.push({factor: tr.transferHeader.minLiftStairs, value: transferData.minLiftStairs});
+    if (transferData[0].lift > 0) {
+      tableData.push({factor: tr.transferHeader.minLiftStairs, value: transferData[0].minLiftStairs});
     };
 
     targetInfoData = tableData;
@@ -452,12 +452,20 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
       }
     });
 
-    //Infrastructure by transfers (node's data)
+    //Infrastructure by transfers (transfer's data)
     var nodeData = nodeDataById[transferData[0].nodeId];
-    var tableData = [
-      {factor: tr.transferHeader.stairwaysAmount, value: nodeData.stairwaysAmount},
-      {factor: tr.transferHeader.liftAmount, value: nodeData.liftAmount}
+    tableData = [
+      {factor: tr.transferHeader.minStairways, value: transferData[0].minStairways},
+      {factor: tr.transferHeader.lift, value: transferData[0].lift}
       ];
+
+    if (transferData[0].maxSlope > 0) {
+      tableData.push(
+      	{factor: tr.transferHeader.minRailsWidth, value: transferData[0].minRailsWidth},
+      	{factor: tr.transferHeader.maxRailsWidth, value: transferData[0].maxRailsWidth},
+      	{factor: tr.transferHeader.maxSlope, value: transferData[0].maxSlope}
+      );
+    };
 
     nodeInfoData = tableData;
 
@@ -465,7 +473,7 @@ function ready(error, xml, metroData, stationsData, transfersData, nodesData) {
     nodeDescription.classed('hidden', false);
 
     //Accessibility by transfers (transfer's data)
-    var tableData = [];
+    tableData = [];
     tableData.push(
       {factor: tr.transferHeader.wheelchairFriendlyRoutes, value: transferData[0].wheelchairFriendlyRoutes == 0 ? tr.booleanWords.no : tr.booleanWords.yes},
       {factor: tr.transferHeader.handicappedFriendlyRoutes, value: transferData[0].handicappedFriendlyRoutes == 0 ? tr.booleanWords.no : tr.booleanWords.yes},
