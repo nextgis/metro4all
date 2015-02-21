@@ -238,7 +238,9 @@ public class StationImageView extends ActionBarActivity {
                 overlayBitmap(canvas, baseBitmap);
 
                 if (LimitationsActivity.hasLimitations(this)) {
-                    baseBitmap = BitmapFactory.decodeFile(sParent + "/interchanges/" + sName);
+                    baseBitmap = BitmapFactory.decodeFile(sParent + "/numbers/" + sName);
+//                    String[] s = sName.split(".png");
+//                    baseBitmap = BitmapFactory.decodeFile(sParent + "/" + s[0] + "_num.png");
                     overlayBitmap(canvas, baseBitmap);
                 }
 

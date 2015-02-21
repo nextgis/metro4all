@@ -140,7 +140,7 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
                 meetcode += " " + pit.GetReadableMeetCode();
 
             RouteItem oEntrance = new RouteItem(mnDeparturePortalId, getString(R.string.sEntranceName) + meetcode, list.get(0), -1, 6);
-	   		routeList.add(FillBarriersForEntrance(oEntrance, list.get(0)));
+            routeList.add(FillBarriersForEntrance(oEntrance, list.get(0)));
 
 		    for(int i = 0; i < list.size(); i++){
 		    	bCrossCross = false;
@@ -200,6 +200,7 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 //		    StationItem sit = mmoStations.get(list.get(list.size() - 1));
 //			RouteItem oExit = new RouteItem(sit.GetId(), getString(R.string.sExitName), sit.GetLine(), -1, 7);
 //			routeList.add(FillBarriersForExit(oExit, mnArrivalPortalId));
+
             sit = mmoStations.get(list.get((list.size() - 1)));
             pit = null;
             meetcode = "";
@@ -212,59 +213,61 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 
             RouteItem oExit = new RouteItem(mnArrivalPortalId, getString(R.string.sExitName) + meetcode, list.get(list.size() - 1), -1, 7);
             routeList.add(FillBarriersForEntrance(oExit, list.get(list.size() - 1)));
-		
-			int[] naBarriers = {0,0,0,0,0,0,0,0,0};
-			for(RouteItem rit : routeList){
-				List<BarrierItem> bits = rit.GetProblems();
-				if(bits != null){
-					for(BarrierItem bit : bits){
-						if(bit.GetId() == 0){
-							if(naBarriers[0] == 0 || naBarriers[0] > bit.GetValue()){
-								naBarriers[0] = bit.GetValue();
-							}
-						}
-						else if(bit.GetId() == 1){
-							naBarriers[1] += bit.GetValue();
-						}
-						else if(bit.GetId() == 2){
-							naBarriers[2] += bit.GetValue();
-						}
-						else if(bit.GetId() == 3){
-							naBarriers[3] += bit.GetValue();
-						}
-						else if(bit.GetId() == 4){
-							naBarriers[4] += bit.GetValue();
-						}
-						else if(bit.GetId() == 5){
-							if(naBarriers[5] == 0){
-								naBarriers[5] = bit.GetValue();
-							}
-							else if(naBarriers[5] > bit.GetValue()){
-								naBarriers[5] = bit.GetValue();
-							}
-						}
-						else if(bit.GetId() == 6){
-							if(naBarriers[6] < bit.GetValue()){
-								naBarriers[6] = bit.GetValue();
-							}
-						}
-						else if(bit.GetId() == 7){
-							if(naBarriers[7] < bit.GetValue()){
-								naBarriers[7] = bit.GetValue();
-							}
-						}
-                        else if(bit.GetId() == 8){
-                            if(naBarriers[8] < bit.GetValue()){
-                                naBarriers[8] = bit.GetValue();
+
+            if (LimitationsActivity.hasLimitations(this)) {
+                int[] naBarriers = {0,0,0,0,0,0,0,0,0};
+                for(RouteItem rit : routeList){
+                    List<BarrierItem> bits = rit.GetProblems();
+                    if(bits != null){
+                        for(BarrierItem bit : bits){
+                            if(bit.GetId() == 0){
+                                if(naBarriers[0] == 0 || naBarriers[0] > bit.GetValue()){
+                                    naBarriers[0] = bit.GetValue();
+                                }
+                            }
+                            else if(bit.GetId() == 1){
+                                naBarriers[1] += bit.GetValue();
+                            }
+                            else if(bit.GetId() == 2){
+                                naBarriers[2] += bit.GetValue();
+                            }
+                            else if(bit.GetId() == 3){
+                                naBarriers[3] += bit.GetValue();
+                            }
+                            else if(bit.GetId() == 4){
+                                naBarriers[4] += bit.GetValue();
+                            }
+                            else if(bit.GetId() == 5){
+                                if(naBarriers[5] == 0){
+                                    naBarriers[5] = bit.GetValue();
+                                }
+                                else if(naBarriers[5] > bit.GetValue()){
+                                    naBarriers[5] = bit.GetValue();
+                                }
+                            }
+                            else if(bit.GetId() == 6){
+                                if(naBarriers[6] < bit.GetValue()){
+                                    naBarriers[6] = bit.GetValue();
+                                }
+                            }
+                            else if(bit.GetId() == 7){
+                                if(naBarriers[7] < bit.GetValue()){
+                                    naBarriers[7] = bit.GetValue();
+                                }
+                            }
+                            else if(bit.GetId() == 8){
+                                if(naBarriers[8] < bit.GetValue()){
+                                    naBarriers[8] = bit.GetValue();
+                                }
                             }
                         }
-					}
-				}
-			}
-			
-			RouteItem oSumm = new RouteItem(-1, getString(R.string.sSummary), 0, 0, 0);
-			FillWithData(naBarriers, oSumm, false);	    		
-			routeList.add(0, oSumm);
+                    }
+                }
+
+                RouteItem oSumm = new RouteItem(-1, getString(R.string.sSummary), 0, 0, 0);
+                FillWithData(naBarriers, oSumm, false);
+                routeList.add(0, oSumm);
+            }
 
 	        // create new adapter
 		    RouteExpandableListAdapter expListAdapter = new RouteExpandableListAdapter(this, routeList);
@@ -278,7 +281,7 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 
 	protected RouteItem FillBarriers(RouteItem it, int StationFromId, int StationToId){
 		int[] naBarriers = mmoCrosses.get("" + StationFromId + "->" + StationToId);
-		if(naBarriers != null && naBarriers.length == 9){
+		if(naBarriers != null && naBarriers.length == 9 && LimitationsActivity.hasLimitations(this)){
 			FillWithData(naBarriers, it, false);
 		}
 		return it;
@@ -288,8 +291,8 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 		StationItem sit = mmoStations.get(StationId);
 		if(sit != null){
 			PortalItem pit = sit.GetPortal(it.GetId());
-			if(pit != null){
-				FillWithData(pit.GetDetailes(), it, false);		
+			if(pit != null && LimitationsActivity.hasLimitations(this)){
+				FillWithData(pit.GetDetailes(), it, false);
 			}
 			it.SetLine(sit.GetLine());
 		}		
@@ -301,7 +304,7 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 		if(sit != null){
 			PortalItem pit = sit.GetPortal(PortalId);
 			if(pit != null){
-				FillWithData(pit.GetDetailes(), it, false);		
+				FillWithData(pit.GetDetailes(), it, false);
 			}
 			//it.SetLine(sit.GetLine());
 		}
@@ -340,7 +343,8 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 			BarrierItem bit = new BarrierItem(1, sName, false, naBarriers[1]);
 			it.AddBarrier(bit);
 		}
-		if(bWithZeroes || naBarriers[2] > 0){//min_step_ramp
+//		if(bWithZeroes || naBarriers[2] > 0){//min_step_ramp
+		if(naBarriers[1] > 0){//min_step_ramp
 			String sName = getString(R.string.sStairsWORails) + ": " + naBarriers[2];
 			BarrierItem bit = new BarrierItem(2, sName, false, naBarriers[2]);
 			it.AddBarrier(bit);
