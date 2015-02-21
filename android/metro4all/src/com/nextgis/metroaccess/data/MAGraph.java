@@ -30,11 +30,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +57,7 @@ import edu.asu.emit.qyan.alg.model.Vertex;
 import static com.nextgis.metroaccess.Constants.*;
 
 public class MAGraph {
-	
+
 	protected Graph m_oGraph;
 	protected YenTopKShortestPathsAlg m_oYenAlg;
 	
@@ -459,7 +461,7 @@ public class MAGraph {
 		File oRouteDataDir = new File(m_oExternalDir, MainActivity.GetRouteDataDir());
 		if(!oRouteDataDir.exists())
 			return;
-		
+
 		File[] files = oRouteDataDir.listFiles();
 		for (File inFile : files) {
 		    if (inFile.isDirectory()) {
@@ -468,34 +470,34 @@ public class MAGraph {
 		        	String sJSON = MainActivity.readFromFile(metafile);
 		        	JSONObject oJSON;
 					try {
-						oJSON = new JSONObject(sJSON);						
-						
+						oJSON = new JSONObject(sJSON);
+
 						Map<String,String> sLocaleNames = GetNames(oJSON);
 						String sName = "";
-						
+
 						if(oJSON.has("name"))
-							sName = oJSON.getString("name");	
+							sName = oJSON.getString("name");
 						else if(oJSON.has("name_en"))
 							sName = oJSON.getString("name_en");
-							
+
 						if(sName.length() == 0 && sLocaleNames.size() == 0){
 							continue;
-						}						
-						
-						int nVer = oJSON.getInt("ver");	
+						}
+
+						int nVer = oJSON.getInt("ver");
 						boolean bDirected = oJSON.getBoolean("directed");
-			        	
+
 			        	GraphDataItem Item = new GraphDataItem(nVer, sName, sLocaleNames, inFile.getName(), 0, bDirected, m_oContext.getString(R.string.sKB), m_oContext.getString(R.string.sMB));
-			        	
-			        	m_moRouteMetadata.put(inFile.getName(), Item);	
-			        	
+
+			        	m_moRouteMetadata.put(inFile.getName(), Item);
+
 			        	if(!bHaveCity && inFile.getName().equals(sCurrentCity))
 			        		bHaveCity = true;
-			        	
+
 			        	if(m_sFirstCity.length() < 2){
 			        		m_sFirstCity = inFile.getName();
 			        	}
-			        	
+
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -503,11 +505,32 @@ public class MAGraph {
 		        }
 		    }
 		}
-		
+
 		if(!bHaveCity)
 			SetCurrentCity( m_sFirstCity );
 	}
-	
+
+    public static Map<String, GraphDataItem> sortByLocalNames(final Map<String, GraphDataItem> map) {
+        LocalNameComparator comparator =  new LocalNameComparator(map);
+        TreeMap<String, GraphDataItem> result = new TreeMap<>(comparator);
+        result.putAll(map);
+
+        return result;
+    }
+
+    static class LocalNameComparator implements Comparator<String> {
+
+        Map<String, GraphDataItem> map;
+
+        public LocalNameComparator(Map<String, GraphDataItem> base) {
+            this.map = base;
+        }
+
+        public int compare(String s1, String s2) {
+            return map.get(s1).GetLocaleName().compareTo(map.get(s2).GetLocaleName());
+        }
+    }
+
 	public String GetLocale(){
 		return m_sLocale;
 	}

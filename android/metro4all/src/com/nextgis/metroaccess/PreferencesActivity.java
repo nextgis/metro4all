@@ -438,7 +438,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	
 	protected void UpdateCityList(){
 		MAGraph oGraph = MainActivity.GetGraph();
-		Map<String, GraphDataItem> oRouteMetadata = oGraph.GetRouteMetadata();        	
+		Map<String, GraphDataItem> oRouteMetadata = MAGraph.sortByLocalNames(oGraph.GetRouteMetadata());
     	if(oRouteMetadata.size() > 0){
     		CharSequence[] ent = new CharSequence[oRouteMetadata.size()];
     		CharSequence[] ent_val = new CharSequence[oRouteMetadata.size()];
