@@ -67,6 +67,7 @@ import static com.nextgis.metroaccess.Constants.BUNDLE_STATIONID_KEY;
 import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
+import static com.nextgis.metroaccess.Constants.PREF_RESULT;
 import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 import static com.nextgis.metroaccess.MainActivity.isProviderDisabled;
 import static com.nextgis.metroaccess.MainActivity.showLocationInfoDialog;
@@ -419,6 +420,14 @@ public class StationMapActivity extends ActionBarActivity {
     public void onResume() {
         super.onResume();
 
+        boolean was = m_bHaveLimits;
+        m_bHaveLimits = LimitationsActivity.hasLimitations(this);
+
+        if (was != m_bHaveLimits) {
+            mMapView.getOverlays().remove(1);
+            LoadPortalsToOverlay();
+        }
+
 /*  // commented because of bug https://github.com/osmdroid/osmdroid/issues/49
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(mAppContext);
@@ -544,6 +553,11 @@ public class StationMapActivity extends ActionBarActivity {
                 } else
                     onLocationFoundClick();
 
+                return true;
+            case R.id.btn_limitations:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), Analytics.LIMITATIONS, Analytics.MENU);
+                startActivity(new Intent(this, LimitationsActivity.class));
+//                startActivityForResult(new Intent(this, LimitationsActivity.class), PREF_RESULT);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

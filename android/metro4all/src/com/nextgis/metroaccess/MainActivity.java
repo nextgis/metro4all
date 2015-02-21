@@ -253,7 +253,7 @@ public class MainActivity extends ActionBarActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Limitations", Analytics.SCREEN_MAIN);
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.LIMITATIONS, Analytics.SCREEN_MAIN);
                 onSettings(true);
             }
         });
@@ -351,6 +351,10 @@ public class MainActivity extends ActionBarActivity {
         case R.id.btn_settings:
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_SETTINGS, Analytics.MENU);
             onSettings(false);
+            return true;
+        case R.id.btn_limitations:
+            ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.LIMITATIONS, Analytics.MENU);
+            onSettings(true);
             return true;
         case R.id.btn_about:
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_ABOUT, Analytics.MENU);

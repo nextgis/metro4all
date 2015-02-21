@@ -22,11 +22,14 @@
 package com.nextgis.metroaccess;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
@@ -44,6 +47,8 @@ import java.util.Map;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PATHCOUNT_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PATH_KEY;
 import static com.nextgis.metroaccess.Constants.BUNDLE_PORTALID_KEY;
+import static com.nextgis.metroaccess.Constants.PREF_RESULT;
+import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 
 public class StationListView extends ActionBarActivity implements ActionBar.OnNavigationListener {
 	
@@ -384,8 +389,14 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 			it.AddBarrier(bit);
 		}
     }
-	
-	
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater infl = getMenuInflater();
+        infl.inflate(R.menu.menu_routing, menu);
+        return true;
+    }
+
     @Override
      public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -394,8 +405,34 @@ public class StationListView extends ActionBarActivity implements ActionBar.OnNa
 
                 finish();
                 return true;
+            case R.id.btn_limitations:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.LIMITATIONS, Analytics.MENU);
+                startActivity(new Intent(this, LimitationsActivity.class));
+//                startActivityForResult(new Intent(this, LimitationsActivity.class), PREF_RESULT);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        boolean was = m_bHaveLimits;
+        m_bHaveLimits = LimitationsActivity.hasLimitations(this);
+
+        if (was != m_bHaveLimits) {
+            Bundle extras = getIntent().getExtras();
+            if (extras != null && moAdapters != null) {
+                for (int i = 0; i < mnPathCount; i++) {
+                    List<Integer> list = extras.getIntegerArrayList(BUNDLE_PATH_KEY + i);
+                    moAdapters[i] = CreateAndFillAdapter(list);
+                }
+            }
+
+            firstLaunch = true;
+            onNavigationItemSelected(0, 0);
         }
     }
 

@@ -36,5 +36,8 @@
         android:key="wheel_width"
         android:summary="@string/sPrefWheelBaseSizeSummary"
         android:title="@string/sPrefWheelBaseSize"/>
-
+    <Preference
+        android:selectable="false"
+        android:enabled="true"
+        android:summary="@string/sPrefLimitationsInfo"/>
 </PreferenceScreen>

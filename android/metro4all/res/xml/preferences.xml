@@ -62,12 +62,12 @@
             android:key="legend"
             android:title="@string/sPrefLegend"/>
 
-        <Preference
-            android:title="@string/sLimits">
-            <intent
-                android:targetPackage="com.nextgis.metroaccess"
-                android:targetClass="com.nextgis.metroaccess.LimitationsActivity"/>
-        </Preference>
+        <!--<Preference-->
+            <!--android:title="@string/sLimits">-->
+            <!--<intent-->
+                <!--android:targetPackage="com.nextgis.metroaccess"-->
+                <!--android:targetClass="com.nextgis.metroaccess.LimitationsActivity"/>-->
+        <!--</Preference>-->
 
 
         <CheckBoxPreference

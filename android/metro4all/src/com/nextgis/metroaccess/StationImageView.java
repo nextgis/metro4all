@@ -66,6 +66,7 @@ import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
+import static com.nextgis.metroaccess.Constants.PREF_RESULT;
 import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 import static com.nextgis.metroaccess.MainActivity.tintIcons;
 
@@ -81,6 +82,7 @@ public class StationImageView extends ActionBarActivity {
     private boolean mIsHintNotShowed = false;
     private boolean mIsPortalIn = false;
     private String mHintScreenName;
+    private boolean mIsLimitations;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +142,8 @@ public class StationImageView extends ActionBarActivity {
             t.send(new HitBuilders.AppViewBuilder().build());
         }
 
+        mIsLimitations = LimitationsActivity.hasLimitations(this);
+
         mWebView.post(new Runnable() {
             @Override
             public void run() {
@@ -176,6 +180,18 @@ public class StationImageView extends ActionBarActivity {
                 });
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        boolean was = mIsLimitations;
+        mIsLimitations = LimitationsActivity.hasLimitations(this);
+
+        if (was != mIsLimitations) {
+            loadImage();    // TODO progress dialog > like onCreate
+        }
     }
 
     private void showHint() {
@@ -237,7 +253,7 @@ public class StationImageView extends ActionBarActivity {
                 baseBitmap = BitmapFactory.decodeFile(sParent + "/titles/" + sName);    // TODO localization
                 overlayBitmap(canvas, baseBitmap);
 
-                if (LimitationsActivity.hasLimitations(this)) {
+                if (mIsLimitations) {
                     baseBitmap = BitmapFactory.decodeFile(sParent + "/numbers/" + sName);
 //                    String[] s = sName.split(".png");
 //                    baseBitmap = BitmapFactory.decodeFile(sParent + "/" + s[0] + "_num.png");
@@ -311,6 +327,11 @@ public class StationImageView extends ActionBarActivity {
             case R.id.btn_legend:
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT, Analytics.LEGEND, Analytics.ACTION_BAR);
                 onLegendClick();
+                return true;
+            case R.id.btn_limitations:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_LAYOUT + " " + getDirection(), Analytics.LIMITATIONS, Analytics.MENU);
+                startActivity(new Intent(this, LimitationsActivity.class));
+//                startActivityForResult(new Intent(this, LimitationsActivity.class), PREF_RESULT);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

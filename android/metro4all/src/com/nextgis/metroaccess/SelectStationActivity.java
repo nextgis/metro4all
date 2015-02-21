@@ -76,6 +76,7 @@ public class SelectStationActivity extends ActionBarActivity {
     protected static RecentStationListFragment mRecentStListFragment;
 
     protected boolean m_bIn, isCityChanged = false;
+    protected boolean mIsLimitations;
     private int mStationId, mPortalId;
     private Intent resultIntent;
 
@@ -98,6 +99,8 @@ public class SelectStationActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        mIsLimitations = LimitationsActivity.hasLimitations(this);
 
         FragmentRollAdapter mAdapter = new FragmentRollAdapter(getSupportFragmentManager());
         mAdapter.setActionBar(actionBar);
@@ -163,7 +166,7 @@ public class SelectStationActivity extends ActionBarActivity {
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        if (!HasLimits()) return;
+                        if (!mIsLimitations) return;
 
                         Rect r = new Rect();
                         //r will be populated with the coordinates of your view
@@ -195,7 +198,21 @@ public class SelectStationActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tvNotes.setVisibility(HasLimits() ? View.VISIBLE : View.GONE);
+
+        boolean was = mIsLimitations;
+        mIsLimitations = LimitationsActivity.hasLimitations(this);
+
+        if (was != mIsLimitations) {
+            FragmentRollAdapter mAdapter = new FragmentRollAdapter(getSupportFragmentManager());
+            mAdapter.setActionBar(getSupportActionBar());
+            ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+
+            int current = mPager.getCurrentItem();
+            mPager.setAdapter(mAdapter);
+            mPager.setCurrentItem(current);
+
+            tvNotes.setVisibility(mIsLimitations ? View.VISIBLE : View.GONE);
+        }
     }
 
     public boolean IsIn() {
@@ -285,14 +302,17 @@ public class SelectStationActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                // app icon in action bar clicked; go home
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.BACK, getTab());
-
                 finish();
                 return true;
             case R.id.btn_settings:
-                // app icon in action bar clicked; go home
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.MENU_SETTINGS, getTab());
-                onSettings();
+                onSettings(false);
+                return true;
+            case R.id.btn_limitations:
+                ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.LIMITATIONS, getTab());
+                onSettings(true);
                 return true;
             case R.id.btn_about:
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_SELECT_STATION + " " + getDirection(), Analytics.MENU_ABOUT, getTab());
@@ -388,13 +408,14 @@ public class SelectStationActivity extends ActionBarActivity {
         }
     }
 
-    protected void onSettings() {
-        Intent intentSet = new Intent(this, PreferencesActivity.class);
-        startActivityForResult(intentSet, PREF_RESULT);
-    }
-
-    public boolean HasLimits() {
-        return LimitationsActivity.hasLimitations(this);
+    protected void onSettings(boolean isLimitations) {
+        if (isLimitations)
+            startActivity(new Intent(this, LimitationsActivity.class));
+//            startActivityForResult(new Intent(this, LimitationsActivity.class), PREF_RESULT);
+        else {
+            Intent intentSet = new Intent(this, PreferencesActivity.class);
+            startActivityForResult(intentSet, PREF_RESULT);
+        }
     }
 
     public static JSONArray getRecentStations(SharedPreferences prefs, boolean isDeparture) {

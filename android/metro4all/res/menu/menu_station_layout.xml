@@ -33,5 +33,10 @@
         android:orderInCategory="1"
         android:title="@string/sLegend"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/btn_limitations"
+        android:title="@string/sLimits"
+        android:orderInCategory="2"
+        app:showAsAction="never"/>
 
 </menu>
