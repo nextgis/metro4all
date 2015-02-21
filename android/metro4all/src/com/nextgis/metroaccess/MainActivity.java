@@ -20,7 +20,6 @@
  ****************************************************************************/
 package com.nextgis.metroaccess;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -59,6 +58,7 @@ import android.widget.Toast;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.nextgis.metroaccess.data.DownloadData;
 import com.nextgis.metroaccess.data.GraphDataItem;
 import com.nextgis.metroaccess.data.MAGraph;
@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
 
 	protected List<DownloadData> m_asDownloadData;
 
-	public static String m_sUrl = "http://metro4all.org/data/v2.5/";
+	public static String m_sUrl = "http://metro4all.org/data/v2.7/";
 	public static MAGraph m_oGraph;
 
 	protected ListView m_lvListButtons;
@@ -172,7 +172,7 @@ public class MainActivity extends ActionBarActivity {
 
         boolean disableGA = prefs.getBoolean(PreferencesActivity.KEY_PREF_GA, true);
         ((Analytics) getApplication()).reload(disableGA);
-//        GoogleAnalytics.getInstance(this).setDryRun(true);
+        GoogleAnalytics.getInstance(this).setDryRun(true);
 	}
 
     protected void CreateHandler(){
@@ -346,9 +346,9 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
         case android.R.id.home:
+            // app icon in action bar clicked; go home
             return false;
         case R.id.btn_settings:
-            // app icon in action bar clicked; go home
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.MENU_SETTINGS, Analytics.MENU);
             onSettings(false);
             return true;
@@ -363,53 +363,67 @@ public class MainActivity extends ActionBarActivity {
 
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Locate closest entrance", Analytics.ACTION_BAR);
 
-            LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            final boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            final boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            final boolean isLocationDisabled = !isGPSEnabled && !isNetworkEnabled;
-
-            if (!isGPSEnabled || !isNetworkEnabled) {   // one of them is turned off
-                String network, gps, info;
-                network = gps = "";
-
-                if (!isNetworkEnabled)
-                    network = "\r\n- " + getString(R.string.sLocationNetwork);
-
-                if(!isGPSEnabled)
-                    gps = "\r\n- " + getString(R.string.sLocationGPS);
-
-                if (isLocationDisabled)
-                    info = getString(R.string.sLocationDisabledMsg);
-                else
-                    info = getString(R.string.sLocationInaccuracy) + network + gps;
-
-                final Activity context = this;
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.sLocationAccuracy).setMessage(info)
-                        .setPositiveButton(R.string.sSettings,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                                    }
-                                })
-                        .setNegativeButton(R.string.sCancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (isLocationDisabled)
-                                    Toast.makeText(context, R.string.sLocationFail, Toast.LENGTH_LONG).show();
-                                else
-                                    locateClosestEntrance();
-                            }
-                        });
-                builder.create();
-                builder.show();
+            final Context context = this;
+            if (isProviderDisabled(context, false)) {
+                showLocationInfoDialog(context, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (isProviderDisabled(context, true))
+                            Toast.makeText(context, R.string.sLocationFail, Toast.LENGTH_LONG).show();
+                        else
+                            locateClosestEntrance();
+                    }
+                });
             } else
                 locateClosestEntrance();
             break;
         }
 		return super.onOptionsItemSelected(item);
 	}
+
+    public static void showLocationInfoDialog(final Context context, DialogInterface.OnClickListener onNegativeButtonClicked) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        final boolean isLocationDisabled = isProviderDisabled(context, true);
+
+        if (isProviderDisabled(context, false)) {   // at least one provider is turned off
+            String network, gps, info;
+            network = gps = "";
+
+            if (!isNetworkEnabled)
+                network = "\r\n- " + context.getString(R.string.sLocationNetwork);
+
+            if(!isGPSEnabled)
+                gps = "\r\n- " + context.getString(R.string.sLocationGPS);
+
+            if (isLocationDisabled)
+                info = context.getString(R.string.sLocationDisabledMsg);
+            else
+                info = context.getString(R.string.sLocationInaccuracy) + network + gps;
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(R.string.sLocationAccuracy).setMessage(info)
+                    .setPositiveButton(R.string.sSettings,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                }
+                            })
+                    .setNegativeButton(R.string.sCancel, onNegativeButtonClicked);
+            builder.create();
+            builder.show();
+        }
+    }
+
+    public static boolean isProviderDisabled(Context context, boolean both) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        final boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        return both ? !isGPSEnabled && !isNetworkEnabled : !isGPSEnabled || !isNetworkEnabled;
+    }
 
     private void locateClosestEntrance() {
         menu.findItem(R.id.btn_locate).setEnabled(false);
@@ -494,8 +508,16 @@ public class MainActivity extends ActionBarActivity {
     }
 
 	protected void CheckForUpdates(){
-		MetaDownloader uploader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), m_oGetJSONHandler, true);
+		final MetaDownloader uploader = new MetaDownloader(MainActivity.this, getResources().getString(R.string.sDownLoading), m_oGetJSONHandler, true);
 		uploader.execute(GetDownloadURL() + META);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                uploader.Abort();
+                LoadInterface();
+            }
+        }, 3000);
 	}
 
 	protected void GetRoutingData(){

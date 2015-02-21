@@ -22,6 +22,7 @@ package com.nextgis.metroaccess;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -67,6 +68,8 @@ import static com.nextgis.metroaccess.Constants.PARAM_ACTIVITY_FOR_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
+import static com.nextgis.metroaccess.MainActivity.isProviderDisabled;
+import static com.nextgis.metroaccess.MainActivity.showLocationInfoDialog;
 import static com.nextgis.metroaccess.MainActivity.tintIcons;
 
 public class StationMapActivity extends ActionBarActivity {
@@ -527,7 +530,20 @@ public class StationMapActivity extends ActionBarActivity {
             case R.id.btn_location_found:
                 ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAP + " " + getDirection(), "Find nearest station", Analytics.ACTION_BAR);
 
-                onLocationFoundClick();
+                final Context context = this;
+                if (isProviderDisabled(context, false)) {
+                    showLocationInfoDialog(context, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (isProviderDisabled(context, true))
+                                Toast.makeText(context, R.string.sLocationFail, Toast.LENGTH_LONG).show();
+                            else
+                                onLocationFoundClick();
+                        }
+                    });
+                } else
+                    onLocationFoundClick();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
