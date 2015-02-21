@@ -25,12 +25,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.nextgis.metroaccess.data.PortalItem;
@@ -45,6 +50,7 @@ import static com.nextgis.metroaccess.Constants.DEPARTURE_RESULT;
 import static com.nextgis.metroaccess.Constants.PARAM_PORTAL_DIRECTION;
 import static com.nextgis.metroaccess.Constants.PARAM_ROOT_ACTIVITY;
 import static com.nextgis.metroaccess.Constants.PARAM_SCHEME_PATH;
+import static com.nextgis.metroaccess.Constants.SUBSCREEN_PORTAL_RESULT;
 import static com.nextgis.metroaccess.MainActivity.getBitmapFromSVG;
 
 public class ButtonListAdapter extends BaseAdapter {
@@ -92,7 +98,7 @@ public class ButtonListAdapter extends BaseAdapter {
         return null;
     }
 
-    private View CreatePane(View convertView, ViewGroup parent, final boolean isFromPane, final StationItem station, final PortalItem portal) {
+    private View CreatePane(View convertView, final ViewGroup parent, final boolean isFromPane, final StationItem station, final PortalItem portal) {
         if (convertView == null) {
             convertView = m_oInfalInflater.inflate(R.layout.fromto_layout, parent, false);
         }
@@ -113,8 +119,7 @@ public class ButtonListAdapter extends BaseAdapter {
         }
 
         // set map button
-        ImageView ibtnMap = (ImageView) convertView.findViewById(R.id.ibtnMap);
-        ImageView ibtnLayout = (ImageView) convertView.findViewById(R.id.ibtnLayout);
+        final ImageView ibtnMenu = (ImageView) convertView.findViewById(R.id.ibtnMenu);
         ImageView ivMetroIconLeft = (ImageView) convertView.findViewById(R.id.ivMetroIconLeft);
         ImageView ivMetroIconRight = (ImageView) convertView.findViewById(R.id.ivMetroIconRight);
         ImageView ivSmallIcon = (ImageView) convertView.findViewById(R.id.ivSmallIcon);
@@ -128,31 +133,62 @@ public class ButtonListAdapter extends BaseAdapter {
         bundle.putString(PARAM_SCHEME_PATH, schemaFile.getPath());
 
         if (station != nullStation) {
-            ibtnMap.setVisibility(View.VISIBLE);
-            ibtnMap.setOnClickListener(new View.OnClickListener() {
+            ibtnMenu.setVisibility(View.VISIBLE);
+            ibtnMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_MAP, gaPane + " " + Analytics.PANE);
+                public void onClick(View v) {
+                    LayoutInflater mInflater = (LayoutInflater) m_oContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View layout = mInflater.inflate(R.layout.stationlist_popup_menu, parent, false);
 
-                    Intent intent = new Intent(m_oContext, StationMapActivity.class);
-                    intent.putExtras(bundle);
+                    final TextView itemMap = (TextView) layout.findViewById(R.id.tvMap);
+                    final TextView itemLayout = (TextView) layout.findViewById(R.id.tvLayout);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                    Activity parent = (Activity) m_oContext;
-                    parent.startActivityForResult(intent, requestCode);
-                }
-            });
+                    // fix for items full-width background fill
+                    if (itemMap.getLayoutParams().width > itemLayout.getLayoutParams().width)
+                        itemLayout.setLayoutParams(lp);
+                    else
+                        itemMap.setLayoutParams(lp);
 
-            ibtnLayout.setVisibility(View.VISIBLE);
-            ibtnLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_LAYOUT, gaPane + " " + Analytics.PANE);
+                    layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 
-                    Intent intent = new Intent(m_oContext, StationImageView.class);
-                    intent.putExtras(bundle);
+                    final PopupWindow mDropdown = new PopupWindow(layout, itemLayout.getMeasuredWidth(),
+                            itemMap.getMeasuredHeight() + itemLayout.getMeasuredHeight(), true);
+                    mDropdown.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                    Activity parent = (Activity) m_oContext;
-                    parent.startActivityForResult(intent, requestCode);
+                    Drawable background = m_oContext.getResources().getDrawable(R.drawable.abc_popup_background_mtrl_mult);
+                    mDropdown.setBackgroundDrawable(background);
+                    mDropdown.setClippingEnabled(false);
+
+                    itemMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_MAP, gaPane + " " + Analytics.PANE);
+
+                            mDropdown.dismiss();
+                            Intent intent = new Intent(m_oContext, StationMapActivity.class);
+                            intent.putExtras(bundle);
+
+                            Activity parent = (Activity) m_oContext;
+                            parent.startActivityForResult(intent, requestCode);
+                        }
+                    });
+
+                    itemLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((Analytics) ((Activity) m_oContext).getApplication()).addEvent(Analytics.SCREEN_MAIN, Analytics.BTN_LAYOUT, gaPane + " " + Analytics.PANE);
+
+                            mDropdown.dismiss();
+                            Intent intent = new Intent(m_oContext, StationImageView.class);
+                            intent.putExtras(bundle);
+
+                            Activity parent = (Activity) m_oContext;
+                            parent.startActivityForResult(intent, requestCode);
+                        }
+                    });
+
+                    mDropdown.showAsDropDown(ibtnMenu, (int) (-itemLayout.getMeasuredWidth() * 0.75), -30);
                 }
             });
 
@@ -172,8 +208,7 @@ public class ButtonListAdapter extends BaseAdapter {
             setImageToImageView(ivMetroIconRight, arrowIcon);
             setImageToImageView(ivSmallIcon, lineIcon);
         } else {    // hide all icons if statiton is not selected
-            ibtnMap.setVisibility(View.GONE);
-            ibtnLayout.setVisibility(View.GONE);
+            ibtnMenu.setVisibility(View.GONE);
             ivMetroIconLeft.setVisibility(View.GONE);
             ivMetroIconRight.setVisibility(View.GONE);
             ivSmallIcon.setVisibility(View.GONE);
