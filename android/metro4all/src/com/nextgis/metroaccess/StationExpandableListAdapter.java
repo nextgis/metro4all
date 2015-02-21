@@ -331,7 +331,10 @@ public abstract class StationExpandableListAdapter extends BaseExpandableListAda
 
                     if (moOriginalStationList != null && moOriginalStationList.size() > 0) {
                         for (final StationItem station : moOriginalStationList) {
-                            if (station.GetName().toLowerCase().contains(constraint.toString().toLowerCase()))
+                            String stationName = station.GetName().toLowerCase().replace("ё", "е");
+                            String constr = constraint.toString().toLowerCase().replace("ё", "е");
+
+                            if (stationName.contains(constr))
                                 results.add(station);
                         }
                     }
