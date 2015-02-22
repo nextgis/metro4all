@@ -178,6 +178,7 @@ def createzip(city):
     zf = zipfile.ZipFile(city + '.zip', 'w')
     zf.write('graph.csv')
     zf.write('interchanges.csv')
+    zf.write('official_help.csv')
 
     for dirname, subdirs, files in os.walk('schemes'):
         #zf.write('schemes')
