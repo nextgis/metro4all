@@ -129,7 +129,7 @@
 	<string name="stationFilterHintText">Start entering name of the station</string>
     <string name="sPrefGA">Enable Google Analytics</string>
     <string name="sPrefGASum">Collects data to enhance app performance</string>
-    <string name="sLimitationsInfo">Here is text about limitations feature</string>
+    <string name="sLimitationsInfo">Turn it on to see additional information about barriers on the route and station layouts</string>
     <string name="sLimitationsHelp">Official assistance</string>
     <string name="sLimitationsHelpDialog">Assistance service of %s</string>
     <string name="sLimitationsPhone">Phone:</string>
