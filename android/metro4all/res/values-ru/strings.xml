@@ -136,7 +136,7 @@
     <string name="sLimitationsWork">Время дежурства: %s</string>
     <string name="sLimitationsRequest">Подача заявки за %s</string>
     <string name="sLimitationsSource">Источник: %s</string>
-    <string name="sLimitationsHelpNoInfo">Для этого города нет информации.</string>
+    <string name="sLimitationsHelpNoInfo">Для этого города пока нет информации.</string>
 
 	<string name="switch_on">Вкл</string>
 	<string name="switch_off">Выкл</string>
