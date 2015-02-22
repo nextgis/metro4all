@@ -135,7 +135,7 @@
     <string name="sLimitationsPhone">Phone:</string>
     <string name="sLimitationsService">Service hours: %s</string>
     <string name="sLimitationsWork">Work hours: %s</string>
-    <string name="sLimitationsRequest">Request advance in %s</string>
+    <string name="sLimitationsRequest">Request assistance %s in advance</string>
     <string name="sLimitationsSource">Source: %s</string>
     <string name="sLimitationsHelpNoInfo">There is no info yet</string>
 
