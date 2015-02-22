@@ -39,5 +39,10 @@
     <Preference
         android:selectable="false"
         android:enabled="true"
-        android:summary="@string/sPrefLimitationsInfo"/>
+        android:summary="@string/sLimitationsInfo"/>
+    <Preference
+        android:key="official_help"
+        android:title="@string/sLimitationsHelp"
+        android:persistent="false">
+    </Preference>
 </PreferenceScreen>

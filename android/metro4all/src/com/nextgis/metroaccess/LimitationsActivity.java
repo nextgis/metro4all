@@ -1,5 +1,6 @@
 package com.nextgis.metroaccess;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,17 +9,21 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class LimitationsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     public static final String KEY_PREF_HAVE_LIMITS = "limits";
     public static final String KEY_PREF_MAX_WIDTH = "max_width";
     public static final String KEY_PREF_WHEEL_WIDTH = "wheel_width";
+    public static final String KEY_PREF_OFFICIAL_HELP = "official_help";
 
     private Toolbar mActionBar;
     private SharedPreferences prefs;
@@ -40,6 +45,22 @@ public class LimitationsActivity extends PreferenceActivity implements Preferenc
         mPreferenceMaxWidth.setOnPreferenceChangeListener(this);
         mPreferenceWheel.setOnPreferenceChangeListener(this);
         setDependency(hasLimitations(this));
+
+        findPreference(KEY_PREF_OFFICIAL_HELP).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                String title = String.format(getString(R.string.sLimitationsHelpDialog), Analytics.getGraph().GetCurrentCityName());
+                AlertDialog builder = new AlertDialog.Builder(preference.getContext())
+                        .setTitle(title).setMessage(Analytics.getGraph().GetOfficialHelp())
+                        .setPositiveButton(android.R.string.ok, null).create();
+                builder.show();
+                ((TextView) builder.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                ((TextView) builder.findViewById(android.R.id.message)).setLinksClickable(true);
+                Linkify.addLinks(((TextView) builder.findViewById(android.R.id.message)), Linkify.ALL);
+
+                return false;
+            }
+        });
     }
 
     @Override

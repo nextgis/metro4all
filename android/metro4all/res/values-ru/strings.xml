@@ -128,6 +128,15 @@
 	<string name="stationFilterHintText">Введите часть названия станции</string>
     <string name="sPrefGA">Включить Google Analytics</string>
     <string name="sPrefGASum">Собирает данные для улучшения производительности приложения</string>
+    <string name="sLimitationsInfo">Описание функции ограничений</string>
+    <string name="sLimitationsHelp">Официальная помощь</string>
+    <string name="sLimitationsHelpDialog">Служба помощи города %s</string>
+    <string name="sLimitationsPhone">Телефон:</string>
+    <string name="sLimitationsService">Время обслуживания: %s</string>
+    <string name="sLimitationsWork">Время дежурства: %s</string>
+    <string name="sLimitationsRequest">Подача заявки за %s</string>
+    <string name="sLimitationsSource">Источник: %s</string>
+    <string name="sLimitationsHelpNoInfo">Для этого города нет информации.</string>
 
 	<string name="switch_on">Вкл</string>
 	<string name="switch_off">Выкл</string>
