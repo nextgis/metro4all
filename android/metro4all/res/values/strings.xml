@@ -84,9 +84,9 @@
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
-	<string name="sLimits">Limitations</string>
-	<string name="sLimitsSet">Set my limitations</string>
-	<string name="sLimitsHave">Limitations</string>
+	<string name="sLimits">Mobile requirements</string>
+	<string name="sLimitsSet">Set my mobile requirements</string>
+	<string name="sLimitsHave">Mobile requirements</string>
 	<string name="sSummary">Route summary</string>
 	<string name="sSummaryClick">Details…</string>
 	<string name="sNoPortals">There are no working entrances or exits now.</string>
@@ -130,14 +130,14 @@
     <string name="sPrefGA">Enable Google Analytics</string>
     <string name="sPrefGASum">Collects data to enhance app performance</string>
     <string name="sLimitationsInfo">Here is text about limitations feature</string>
-    <string name="sLimitationsHelp">Official help</string>
-    <string name="sLimitationsHelpDialog">Help service of %s</string>
+    <string name="sLimitationsHelp">Official assistance</string>
+    <string name="sLimitationsHelpDialog">Assistance service of %s</string>
     <string name="sLimitationsPhone">Phone:</string>
     <string name="sLimitationsService">Service hours: %s</string>
     <string name="sLimitationsWork">Work hours: %s</string>
     <string name="sLimitationsRequest">Request advance in %s</string>
     <string name="sLimitationsSource">Source: %s</string>
-    <string name="sLimitationsHelpNoInfo">There is no info yet.</string>
+    <string name="sLimitationsHelpNoInfo">There is no info yet</string>
 
 	<string name="switch_on">On</string>
 	<string name="switch_off">Off</string>
