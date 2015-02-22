@@ -151,17 +151,24 @@ def update_meta(city):
     f.close()
 
     return ver
+def add_schemes():
+    os.mkdir('temp/schemes')
+    schemes_layers = 'data/' + city + '/schemes/layers/'
+    schemes_numbers = 'data/' + city + '/schemes/numbers/'
+    
+    layers_files = os.listdir(schemes_layers)
+    for file_name in layers_files:
+        shutil.copy(schemes_layers + file_name, 'temp/schemes/'+ file_name)
+    shutil.copytree(schemes_numbers,'temp/schemes/numbers')
 
 def copyfiles():
     
     graph = 'data/' + city + '/graph.csv'
     interchanges = 'data/' + city + '/interchanges.csv'
-    schemes = 'data/' + city + '/schemes/'
     icons = 'data/' + city + '/icons/'
 
     shutil.copy(graph,'temp/graph.csv')
     shutil.copy(interchanges,'temp/interchanges.csv')
-    shutil.copytree(schemes,'temp/schemes')
     shutil.copytree(icons,'temp/icons')
 
 def createzip(city):
@@ -246,6 +253,7 @@ if __name__ == '__main__':
     split_stations('data/' + city + '/' + 'stations.csv')
     split_portals('data/' + city + '/' + 'portals.csv')
     split_lines('data/' + city + '/' + 'lines.csv')
+    add_schemes()
     copyfiles()
     createzip(city)
     get_meta()
