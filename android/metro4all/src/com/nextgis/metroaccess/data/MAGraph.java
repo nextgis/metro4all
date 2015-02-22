@@ -28,13 +28,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -43,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.nextgis.metroaccess.MainActivity;
@@ -448,6 +450,96 @@ public class MAGraph {
     	
     	return true;
 	}
+
+    public String GetOfficialHelp() {
+        String result = m_oContext.getString(R.string.sLimitationsHelpNoInfo);
+
+        try {
+            //fill with lines list
+            String sFileName = "official_help.csv";
+            File oRouteDataDir = new File(GetCurrentRouteDataPath());
+            File officialHelpFile = new File(oRouteDataDir, sFileName);
+
+            if (officialHelpFile.exists()) {
+                InputStream in = new BufferedInputStream(new FileInputStream(officialHelpFile));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder sb = new StringBuilder();
+                List<String> headersList = new ArrayList<>();
+                List<String> dataList = new ArrayList<>();
+
+                String line = reader.readLine();
+
+                if (line != null) {
+                    Collections.addAll(headersList, line.split(CSV_CHAR));
+
+                    line = reader.readLine();
+                    if (line != null) {
+                        Collections.addAll(dataList, line.split(CSV_CHAR));
+
+                        line = dataList.get(headersList.indexOf("phone")).replace("\"", "");
+                        if (!TextUtils.isEmpty(line)) {
+                            String[] phones = line.split(",");
+                            sb.append(m_oContext.getString(R.string.sLimitationsPhone)).append(" ");
+
+                            for (String phone : phones)
+                                sb.append(phone).append("\r\n");
+                        }
+                        sb.append("\r\n");
+
+                        line = dataList.get(headersList.indexOf("service_hours"));
+                        if (!TextUtils.isEmpty(line))
+                            sb.append(String.format(m_oContext.getString(R.string.sLimitationsService), line)).append("\r\n");
+
+                        line = dataList.get(headersList.indexOf("work_hours"));
+                        if (!TextUtils.isEmpty(line))
+                            sb.append(String.format(m_oContext.getString(R.string.sLimitationsWork), line)).append("\r\n");
+
+                        line = dataList.get(headersList.indexOf("request_advance"));
+                        if (!TextUtils.isEmpty(line)) {
+                            int time = Integer.parseInt(line);
+                            String min = "min", hour = "hour";
+
+                            try {
+                                Class clasz = Class.forName("com.android.internal.R$string");
+                                Field field = clasz.getDeclaredField("minutes");
+                                field.setAccessible(true);
+                                min = m_oContext.getString((int) field.get(null));
+                                field = clasz.getDeclaredField("hours");
+                                field.setAccessible(true);
+                                hour = m_oContext.getString((int) field.get(null));
+                            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+
+                            String str = "";
+
+                            if (time % 60 == 0)
+                                str = String.format("%d %s ", time / 60, hour);
+
+                            if (time % 60 != 0)
+                                str = String.format("%s%d %s", str, time % 60, min);
+
+                            sb.append(String.format(m_oContext.getString(R.string.sLimitationsRequest), str)).append("\r\n");
+                        }
+
+                        line = dataList.get(headersList.indexOf("source"));
+                        if (!TextUtils.isEmpty(line))
+//                            sb.append(String.format("<a href=\'%s\'>%s</a>", line, m_oContext.getString(R.string.sPrefLimitationsSource)));
+                        sb.append(String.format(m_oContext.getString(R.string.sLimitationsSource), line));
+
+                        result = sb.toString();
+                    }
+                }
+
+                reader.close();
+                in.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
     public void FillRouteMetadata(){
         FillRouteMetadata(m_sCurrentCity);
