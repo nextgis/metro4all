@@ -1,2 +1,2 @@
-city,phone,service_hours,work_hours,request_advance,source
-ekb,+7 (343) 358-04-77,,,40,http://metro-ektb.ru/info/informaciya_dlya_malomobilnyh_grupp/
+phone;service_hours;work_hours;request_advance;source
++7 (343) 358-04-77;;;40;http://metro-ektb.ru/info/informaciya_dlya_malomobilnyh_grupp/

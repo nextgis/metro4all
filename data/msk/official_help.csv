@@ -1,2 +1,2 @@
-city,phone,service_hours,work_hours,request_advance,source
-msk,+7 (495) 622-73-41,8:30-19:30,10:00-17:00,180,http://mosmetro.ru/about/mob_pass
+phone;service_hours;work_hours;request_advance;source
++7 (495) 622-73-41;8:30-19:30;10:00-17:00;180;http://mosmetro.ru/about/mob_pass

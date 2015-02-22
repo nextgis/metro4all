@@ -1,2 +1,2 @@
-city,phone,service_hours,work_hours,request_advance,source
-niz,"+7 (831) 249-95-50, +7 (831) 245-58-07",,,,http://metronn.ru/index.php/home/novosti/25-nizhegorodskij-metropoliten-teper-dostupen-dlya-malomobilnykh-grazhdan
+phone;service_hours;work_hours;request_advance;source
++7 (831) 249-95-50, +7 (831) 245-58-07;;;;http://metronn.ru/index.php/home/novosti/25-nizhegorodskij-metropoliten-teper-dostupen-dlya-malomobilnykh-grazhdan

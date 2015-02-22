@@ -1,2 +1,2 @@
-city,phone,service_hours,work_hours,request_advance,source
-min,"+375 (17) 219-56-16, +375 (17) 327-49-22",,,,http://dislife.ru/articles/view/31683
+phone;service_hours;work_hours;request_advance;source
++375 (17) 219-56-16, +375 (17) 327-49-22;;;;http://dislife.ru/articles/view/31683
