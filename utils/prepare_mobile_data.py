@@ -165,10 +165,12 @@ def copyfiles():
     
     graph = 'data/' + city + '/graph.csv'
     interchanges = 'data/' + city + '/interchanges.csv'
+    official_help = 'data/' + city + '/official_help.csv'
     icons = 'data/' + city + '/icons/'
 
     shutil.copy(graph,'temp/graph.csv')
     shutil.copy(interchanges,'temp/interchanges.csv')
+    shutil.copy(official_help,'temp/official_help.csv')
     shutil.copytree(icons,'temp/icons')
 
 def createzip(city):
