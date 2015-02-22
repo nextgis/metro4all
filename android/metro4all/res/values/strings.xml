@@ -84,9 +84,9 @@
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
-	<string name="sLimits">Mobile requirements</string>
-	<string name="sLimitsSet">Set my mobile requirements</string>
-	<string name="sLimitsHave">Mobile requirements</string>
+	<string name="sLimits">Mobility requirements</string>
+	<string name="sLimitsSet">Set my mobility requirements</string>
+	<string name="sLimitsHave">Mobility requirements</string>
 	<string name="sSummary">Route summary</string>
 	<string name="sSummaryClick">Details…</string>
 	<string name="sNoPortals">There are no working entrances or exits now.</string>
