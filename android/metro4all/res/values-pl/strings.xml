@@ -128,6 +128,15 @@
 	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>	
     <string name="sPrefGA">Włącz Google Analytics</string>
     <string name="sPrefGASum">Zbieranie danych w celu poprawy jakości aplikacji</string>
+        <string name="sLimitationsInfo">Turn it on to see additional information about barriers on the route and station layouts</string>
+    <string name="sLimitationsHelp">Official assistance</string>
+    <string name="sLimitationsHelpDialog">Assistance service of %s</string>
+    <string name="sLimitationsPhone">Phone:</string>
+    <string name="sLimitationsService">Service hours: %s</string>
+    <string name="sLimitationsWork">Work hours: %s</string>
+    <string name="sLimitationsRequest">Request assistance %s in advance</string>
+    <string name="sLimitationsSource">Source: %s</string>
+    <string name="sLimitationsHelpNoInfo">There is no info yet</string>
 	
 	<string name="switch_on">Wł</string>
 	<string name="switch_off">Wył</string>
