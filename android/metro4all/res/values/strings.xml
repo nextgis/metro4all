@@ -34,6 +34,7 @@
 	<string name="sLocationStart">Locating…</string>
 	<string name="sLocationGPS">GPS</string>
 	<string name="sLocationNetwork">Wi-Fi and mobile network coordinates</string>
+	<string name="sLocationNoCitySelected">No city selected</string>
 
 	<string name="sSelectDataToDownload">Select data to download</string>
 	<string name="sUpdateAvaliable">Data update is available</string>
@@ -138,6 +139,9 @@
     <string name="sLimitationsRequest">Request assistance %s in advance</string>
     <string name="sLimitationsSource">Source: %s</string>
     <string name="sLimitationsHelpNoInfo">There is no info yet</string>
+
+    <string name="sTimeUnitHour">h.</string>
+    <string name="sTimeUnitMinute">min.</string>
 
 	<string name="switch_on">On</string>
 	<string name="switch_off">Off</string>

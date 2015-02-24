@@ -33,6 +33,7 @@
     <string name="sLocationStart">Определение местоположения…</string>
     <string name="sLocationGPS">GPS</string>
     <string name="sLocationNetwork">По Wi-Fi и координатам сети</string>
+    <string name="sLocationNoCitySelected">Не выбран город</string>
 
 	<string name="sSelectDataToDownload">Выберите город для загрузки:</string>
 	<string name="sUpdateAvaliable">Имеется обновление данных</string>
@@ -137,6 +138,9 @@
     <string name="sLimitationsRequest">Подача заявки за %s</string>
     <string name="sLimitationsSource">Источник: %s</string>
     <string name="sLimitationsHelpNoInfo">Для этого города пока нет информации</string>
+
+    <string name="sTimeUnitHour">ч.</string>
+    <string name="sTimeUnitMinute">мин.</string>
 
 	<string name="switch_on">Вкл</string>
 	<string name="switch_off">Выкл</string>
