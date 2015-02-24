@@ -33,7 +33,7 @@
     <string name="sLocationStart">Вызначэнне месцазнаходжання…</string>
     <string name="sLocationGPS">GPS</string>
     <string name="sLocationNetwork">Па каардынатам сеткі i Wi-Fi</string>
-    <string name="sLocationNoCitySelected">Не выбран город</string>
+    <string name="sLocationNoCitySelected">Не абраны горад</string>
     
 	<string name="sSelectDataToDownload">Абярыце дадзеныя для запампавання</string>
 	<string name="sUpdateAvaliable">Аднаўленне дадзеных дасяжнае</string>
@@ -129,15 +129,15 @@
 	<string name="stationFilterHintText">Пачніце ўвод назвы станцыі</string>
     <string name="sPrefGA">Уключыць Google Analytics</string>
     <string name="sPrefGASum">Збірае дадзеныя для паляпшэння прадуктыўнасці праграмы</string>
-    <string name="sLimitationsInfo">Включенный режим ограничений позволяет увидеть дополнительную информацию о препятствиях на маршруте и схемах станций.</string>
-    <string name="sLimitationsHelp">Официальная помощь</string>
-    <string name="sLimitationsHelpDialog">Служба помощи города %s</string>
-    <string name="sLimitationsPhone">Телефон:</string>
-    <string name="sLimitationsService">Время обслуживания: %s</string>
-    <string name="sLimitationsWork">Время дежурства: %s</string>
-    <string name="sLimitationsRequest">Подача заявки за %s</string>
-    <string name="sLimitationsSource">Источник: %s</string>
-    <string name="sLimitationsHelpNoInfo">Для этого города пока нет информации</string>
+    <string name="sLimitationsInfo">Рэжым абмежаванняў дазваляе ўбачыць дадатковую інфармацыю пра перашкоды на маршруце і схемах станцый</string>
+    <string name="sLimitationsHelp">Афіцыйная дапамога</string>
+    <string name="sLimitationsHelpDialog">Служба дапамогі горада %s</string>
+    <string name="sLimitationsPhone">Тэлефон:</string>
+    <string name="sLimitationsService">Час абслугоўвання: %s</string>
+    <string name="sLimitationsWork">Час дзяжурства: %s</string>
+    <string name="sLimitationsRequest">Падача заяўкі за %s</string>
+    <string name="sLimitationsSource">Крыніца: %s</string>
+    <string name="sLimitationsHelpNoInfo">Для гэтага горада пакуль няма інфармацыі</string>
 
     <string name="sTimeUnitHour">г.</string>
     <string name="sTimeUnitMinute">хв.</string>
