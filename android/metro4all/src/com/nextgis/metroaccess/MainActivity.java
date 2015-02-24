@@ -365,6 +365,11 @@ public class MainActivity extends ActionBarActivity {
         case R.id.btn_locate:
             if (!item.isEnabled()) return true;
 
+            if (!m_bInterfaceLoaded) {
+                Toast.makeText(this, R.string.sLocationNoCitySelected, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
             ((Analytics) getApplication()).addEvent(Analytics.SCREEN_MAIN, "Locate closest entrance", Analytics.ACTION_BAR);
 
             final Context context = this;
