@@ -20,6 +20,8 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.regex.Pattern;
+
 public class LimitationsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     public static final String KEY_PREF_HAVE_LIMITS = "limits";
     public static final String KEY_PREF_MAX_WIDTH = "max_width";
@@ -102,7 +104,11 @@ public class LimitationsActivity extends PreferenceActivity implements Preferenc
                 TextView message = (TextView) builder.findViewById(android.R.id.message);
                 message.setMovementMethod(LinkMovementMethod.getInstance());
                 message.setLinksClickable(true);
-                Linkify.addLinks(message, Linkify.ALL);
+                Linkify.addLinks(message, Linkify.WEB_URLS);
+
+                Pattern pattern = Pattern.compile("\\+[0-9]+\\s\\(?[0-9]*\\)?\\s[0-9\\-]+");
+                String scheme = "tel:";
+                Linkify.addLinks(message, pattern, scheme);
             }
         });
         officialHelp.setVisibility(View.VISIBLE);

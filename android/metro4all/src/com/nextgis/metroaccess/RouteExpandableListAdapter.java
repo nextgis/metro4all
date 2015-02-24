@@ -26,6 +26,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.nextgis.metroaccess.data.BarrierItem;
@@ -146,7 +150,7 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
 		final RouteItem entry = (RouteItem) getGroup(groupPosition);
 		if (convertView == null) {
 			convertView = mInfalInflater.inflate(R.layout.station_row_layout, null);
@@ -214,14 +218,14 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
 			ivIcon.setVisibility(View.INVISIBLE);
 		}
 		
-		ImageButton showSchemaButton = (ImageButton) convertView.findViewById(R.id.show_sheme);
+		final ImageButton showSchemaButton = (ImageButton) convertView.findViewById(R.id.show_sheme);
 		showSchemaButton.setFocusable(false);
-        ImageButton showMapButton = (ImageButton) convertView.findViewById(R.id.show_map);
-        showMapButton.setFocusable(false);
+//        ImageButton showMapButton = (ImageButton) convertView.findViewById(R.id.show_map);
+//        showMapButton.setFocusable(false);
 
         final File schemaFile = new File(sRouteDataPath + "/schemes", "" + entry.GetNode() + ".png");
         int portalId = 0;
-        boolean crossButton = false;
+//        boolean crossButton = false;
 
         if (mDeparturePortalId != 0 && entry.GetId() == mDepartureStationId)
             portalId = mDeparturePortalId;
@@ -240,34 +244,99 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
         bundle.putBoolean(PARAM_ACTIVITY_FOR_RESULT, false);
 
         if (portalId != 0){
-            crossButton = true;
+//            crossButton = true;
 
-            showMapButton.setOnClickListener(new OnClickListener() {
+            // redefine  menu button
+            showSchemaButton.setImageResource(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
+            showSchemaButton.setColorFilter(mContext.getResources().getColor(R.color.grey_dark), PorterDuff.Mode.SRC_ATOP);
+            showSchemaButton.setBackgroundDrawable(null);
+            showSchemaButton.setVisibility(View.VISIBLE);
 
-                public void onClick(View arg0) {
-                    try {
-                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_MAP, Analytics.ACTION_ITEM);
+            showSchemaButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View layout = mInflater.inflate(R.layout.stationlist_popup_menu, parent, false);
 
-                        Intent intent = new Intent(mContext, StationMapActivity.class);
-                        intent.putExtras(bundle);
-                        intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+                    final TextView itemMap = (TextView) layout.findViewById(R.id.tvMap);
+                    final TextView itemLayout = (TextView) layout.findViewById(R.id.tvLayout);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                        mContext.startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Log.e(TAG, "Call failed", e);
-                    }
+                    // fix for items full-width background fill
+                    if (itemMap.getLayoutParams().width > itemLayout.getLayoutParams().width)
+                        itemLayout.setLayoutParams(lp);
+                    else
+                        itemMap.setLayoutParams(lp);
+
+                    layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+                    final PopupWindow mDropdown = new PopupWindow(layout, itemLayout.getMeasuredWidth(),
+                            itemMap.getMeasuredHeight() + itemLayout.getMeasuredHeight(), true);
+                    mDropdown.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                    Drawable background = mContext.getResources().getDrawable(R.drawable.abc_popup_background_mtrl_mult);
+                    mDropdown.setBackgroundDrawable(background);
+                    mDropdown.setClippingEnabled(true);
+
+                    itemMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_MAP, Analytics.ACTION_ITEM);
+
+                            mDropdown.dismiss();
+
+                            Intent intent = new Intent(mContext, StationMapActivity.class);
+                            intent.putExtras(bundle);
+                            intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+
+                            mContext.startActivity(intent);
+                        }
+                    });
+
+                    itemLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, schemaFile.getPath());
+                            ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_LAYOUT, Analytics.ACTION_ITEM);
+
+                            mDropdown.dismiss();
+
+                            Intent intent = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
+                            intent.putExtras(bundle);
+                            intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+
+                            mContext.startActivity(intent);
+                        }
+                    });
+
+                    mDropdown.showAsDropDown(showSchemaButton, (int) (-itemLayout.getMeasuredWidth() * 0.75), -30);
                 }
-
             });
-            showMapButton.setVisibility(View.VISIBLE);
-        } else
-            showMapButton.setVisibility(View.GONE);
 
-        final boolean root = crossButton;
-
-        if (entry.GetType() == 6 || entry.GetType() == 7 || entry.GetType() == 0)
+//            showMapButton.setOnClickListener(new OnClickListener() {
+//
+//                public void onClick(View arg0) {
+//                    try {
+//                        ((Analytics) ((Activity) mContext).getApplication()).addEvent(Analytics.SCREEN_ROUTING, Analytics.BTN_MAP, Analytics.ACTION_ITEM);
+//
+//                        Intent intent = new Intent(mContext, StationMapActivity.class);
+//                        intent.putExtras(bundle);
+//                        intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+//
+//                        mContext.startActivity(intent);
+//                    } catch (ActivityNotFoundException e) {
+//                        Log.e(TAG, "Call failed", e);
+//                    }
+//                }
+//
+//            });
+//            showMapButton.setVisibility(View.VISIBLE);
+            return convertView;
+        } else if (entry.GetType() == 6 || entry.GetType() == 7 || entry.GetType() == 0)
             showSchemaButton.setVisibility(View.GONE);
         else {
+            showSchemaButton.setImageResource(R.drawable.ic_action_schema);
+            showSchemaButton.clearColorFilter();
             showSchemaButton.setVisibility(View.VISIBLE);
             showSchemaButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View arg0) {
@@ -278,8 +347,8 @@ public class RouteExpandableListAdapter extends BaseExpandableListAdapter {
                         Intent intent = new Intent(mContext, com.nextgis.metroaccess.StationImageView.class);
                         intent.putExtras(bundle);
 
-                        if (root)
-                            intent.putExtra(PARAM_ROOT_ACTIVITY, true);
+//                        if (root)
+//                            intent.putExtra(PARAM_ROOT_ACTIVITY, true);
 
                         mContext.startActivity(intent);
                     } catch (ActivityNotFoundException e) {

@@ -18,17 +18,17 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="48dip"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+              android:layout_width="fill_parent"
+              android:layout_height="48dip"
+              android:gravity="center_vertical"
+              android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/ivIcon"
-        android:layout_gravity="center"
         android:layout_width="48dip"
         android:layout_height="48dip"
-        android:layout_marginRight="5dip" />
+        android:layout_gravity="center"
+        android:layout_marginRight="5dip"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/tvBarriersExist"
@@ -54,25 +54,19 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/show_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dip"
-        android:background="@drawable/ic_action_map"
-        android:visibility="gone"/>
-
-    <ImageButton
         android:id="@+id/show_sheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="5dip"
-        android:background="@drawable/ic_action_schema" />
+        android:layout_marginEnd="5dip"
+        android:layout_marginRight="5dip"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:src="@drawable/ic_action_schema"/>
 
 </LinearLayout>
