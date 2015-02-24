@@ -22,7 +22,7 @@
 	<string name="sCannotReadFile">Немагчыма прачытаць файл</string>
 	<string name="sCannotGetPath">Шлях не знойдзены</string>
 	<string name="sInvalidCSVData">Памылковыя дадзеныя csv. Сума ў полі памылковая. Файл: </string>
-	<string name="sNoOrEmptyData">Дадзеныя адсутнічаюць альбо памылковыя. Калі ласка, запампуйце базу дадзеных.</string>
+	<string name="sNoOrEmptyData">Дадзеныя адсутнічаюць. Калі ласка, запампуйце базу дадзеных.</string>
 	<string name="sNoImage">Няма выявы або яна пашкоджана. Калі ласка, запампуйце базу дадзеных.</string>
 
     <string name="sLocationFail">Немагчыма вызначыць месцазнаходжанне</string>
@@ -33,6 +33,7 @@
     <string name="sLocationStart">Вызначэнне месцазнаходжання…</string>
     <string name="sLocationGPS">GPS</string>
     <string name="sLocationNetwork">Па каардынатам сеткі i Wi-Fi</string>
+    <string name="sLocationNoCitySelected">Не выбран город</string>
     
 	<string name="sSelectDataToDownload">Абярыце дадзеныя для запампавання</string>
 	<string name="sUpdateAvaliable">Аднаўленне дадзеных дасяжнае</string>
@@ -83,9 +84,9 @@
 	<string name="sDownloadData">Запампаваць новыя дадзеныя?</string>
 	<string name="sDeleteData">Выдаліць існуючыя адзеныя?</string>
 	<string name="sConflictNotes">Канфлікт з зададзенымі абмежаваннямі паказваецца чырвоным</string>
-	<string name="sLimits">Абмежаванні</string>	
+	<string name="sLimits">Мае абмежаванні</string>	
 	<string name="sLimitsSet">Задаць мае абмежаванні</string>
-	<string name="sLimitsHave">Абмежаванні</string>
+	<string name="sLimitsHave">Мае абмежаванні</string>
 	<string name="sSummary">Выдаць маршрут</string>		
 	<string name="sSummaryClick">Больш інфармацыі</string>		
 	<string name="sNoPortals">Каля станцыі зараз няма працуючых уваходаў або выхадаў</string>
@@ -128,7 +129,7 @@
 	<string name="stationFilterHintText">Пачніце ўвод назвы станцыі</string>
     <string name="sPrefGA">Уключыць Google Analytics</string>
     <string name="sPrefGASum">Збірае дадзеныя для паляпшэння прадуктыўнасці праграмы</string>
-        <string name="sLimitationsInfo">Включенный режим ограничений позволяет увидеть дополнительную информацию о препятствиях на маршруте и схемах станций</string>
+    <string name="sLimitationsInfo">Включенный режим ограничений позволяет увидеть дополнительную информацию о препятствиях на маршруте и схемах станций.</string>
     <string name="sLimitationsHelp">Официальная помощь</string>
     <string name="sLimitationsHelpDialog">Служба помощи города %s</string>
     <string name="sLimitationsPhone">Телефон:</string>
@@ -137,6 +138,9 @@
     <string name="sLimitationsRequest">Подача заявки за %s</string>
     <string name="sLimitationsSource">Источник: %s</string>
     <string name="sLimitationsHelpNoInfo">Для этого города пока нет информации</string>
+
+    <string name="sTimeUnitHour">г.</string>
+    <string name="sTimeUnitMinute">хв.</string>
 	
 	<string name="switch_on">УКЛ</string>
 	<string name="switch_off">ВЫКЛ</string>

@@ -22,7 +22,7 @@
 	<string name="sCannotReadFile">Nie można odczytać pliku</string>
 	<string name="sCannotGetPath">Błędna ścieżka do pliku</string>
 	<string name="sInvalidCSVData">Niepoprawna ilość pól w pliku csv: </string>
-	<string name="sNoOrEmptyData">Brak danych lub dane niepoprawne. Proszę ściągnąć aktualizację bazy danych.</string>
+	<string name="sNoOrEmptyData">Brak danych. Proszę ściągnąć aktualizację bazy danych.</string>
 	<string name="sNoImage">Brak lub niepoprawny format grafiki. Uzupełnij dane.</string>
 
     <string name="sLocationFail">Nie udało się ustalić twojej lokalizacji</string>
@@ -33,6 +33,7 @@
 	<string name="sLocationStart">Ustalam Twoją lokalizację…</string>
 	<string name="sLocationGPS">GPS</string>
 	<string name="sLocationNetwork">Wi-Fi i sieci komórkowe</string>
+	<string name="sLocationNoCitySelected">No city selected</string>
 	
 	<string name="sSelectDataToDownload">Wybierz dane do pobrania</string>
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
@@ -83,9 +84,9 @@
 	<string name="sDownloadData">Ściągnąć nowe dane?</string>
 	<string name="sDeleteData">Usunąć istniejące dane?</string>
 	<string name="sConflictNotes">Wyjścia, które mogą być niedostępne przy ustawionych ograniczeniach są zaznaczone na czerwono</string>
-	<string name="sLimits">Ograniczenia</string>	
-	<string name="sLimitsSet">Ustaw ograniczenia</string>
-	<string name="sLimitsHave">Status</string>
+	<string name="sLimits">Moje ograniczenia</string>	
+	<string name="sLimitsSet">Ustaw moje ograniczenia</string>
+	<string name="sLimitsHave">Moje ograniczenia</string>
 	<string name="sSummary">Podsumowanie podróży</string>		
 	<string name="sSummaryClick">Kliknij, aby zobaczyć szczegóły</string>	
 	<string name="sNoPortals">Wszystkie wyjścia lub wejścia tej stacji są okresowo zamkniete.</string>
@@ -128,7 +129,7 @@
 	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>	
     <string name="sPrefGA">Włącz Google Analytics</string>
     <string name="sPrefGASum">Zbieranie danych w celu poprawy jakości aplikacji</string>
-        <string name="sLimitationsInfo">Turn it on to see additional information about barriers on the route and station layouts</string>
+    <string name="sLimitationsInfo">Turn this mode on to see additional information about barriers on the route and station layouts.</string>
     <string name="sLimitationsHelp">Official assistance</string>
     <string name="sLimitationsHelpDialog">Assistance service of %s</string>
     <string name="sLimitationsPhone">Phone:</string>
@@ -137,6 +138,9 @@
     <string name="sLimitationsRequest">Request assistance %s in advance</string>
     <string name="sLimitationsSource">Source: %s</string>
     <string name="sLimitationsHelpNoInfo">There is no info yet</string>
+
+    <string name="sTimeUnitHour">h.</string>
+    <string name="sTimeUnitMinute">min.</string>
 	
 	<string name="switch_on">Wł</string>
 	<string name="switch_off">Wył</string>

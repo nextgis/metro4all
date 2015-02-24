@@ -22,7 +22,7 @@
 	<string name="sCannotReadFile">Не могу прочитать файл</string>
 	<string name="sCannotGetPath">Не найден путь</string>
 	<string name="sInvalidCSVData">Некорректные данные в csv, неправильное число полей. Файл: </string>
-	<string name="sNoOrEmptyData">Отсутствуют данные для построения маршрутов или данные повреждены. Обновите данные</string>
+	<string name="sNoOrEmptyData">Отсутствуют данные для построения маршрутов. Обновите данные</string>
     <string name="sNoImage">Нет изображения или оно повреждено. Обновите данные.</string>
 
     <string name="sLocationFail">Невозможно определить местоположение</string>
@@ -84,9 +84,9 @@
 	<string name="sDownloadData">Загрузить данные по маршрутам?</string>
 	<string name="sDeleteData">Удалить данные по маршрутам?</string>
 	<string name="sConflictNotes">Входы, конфликтующие с вашими ограничениями, отмечены красным</string>
-	<string name="sLimits">Ограничения</string>
+	<string name="sLimits">Мои ограничения</string>
 	<string name="sLimitsSet">Установить мои ограничения</string>
-	<string name="sLimitsHave">Ограничения</string>
+	<string name="sLimitsHave">Мои ограничения</string>
 	<string name="sSummary">Сводка по маршруту</string>
 	<string name="sSummaryClick">Подробно…</string>
     <string name="sNoPortals">У станции сейчас нет работающих входов или выходов.</string>
@@ -129,7 +129,7 @@
 	<string name="stationFilterHintText">Введите часть названия станции</string>
     <string name="sPrefGA">Включить Google Analytics</string>
     <string name="sPrefGASum">Собирает данные для улучшения производительности приложения</string>
-    <string name="sLimitationsInfo">Включенный режим ограничений позволяет увидеть дополнительную информацию о препятствиях на маршруте и схемах станций</string>
+    <string name="sLimitationsInfo">Включенный режим ограничений позволяет увидеть дополнительную информацию о препятствиях на маршруте и схемах станций.</string>
     <string name="sLimitationsHelp">Официальная помощь</string>
     <string name="sLimitationsHelpDialog">Служба помощи города %s</string>
     <string name="sLimitationsPhone">Телефон:</string>

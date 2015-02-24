@@ -23,7 +23,7 @@
 	<string name="sCannotReadFile">Cannot read file</string>
 	<string name="sCannotGetPath">Cannot find path</string>
 	<string name="sInvalidCSVData">The csv data are invalid. Field count is wrong. File: </string>
-	<string name="sNoOrEmptyData">The data are absent or invalid. Please download the database.</string>
+	<string name="sNoOrEmptyData">The data are absent. Please download the database.</string>
 	<string name="sNoImage">There is no image or image is invalid. Please update the data.</string>
 
 	<string name="sLocationFail">Cannot locate your device</string>
@@ -85,9 +85,9 @@
 	<string name="sDownloadData">Download new data?</string>
 	<string name="sDeleteData">Delete existing data?</string>
 	<string name="sConflictNotes">Exits that conflict with set limitations are shown in red</string>
-	<string name="sLimits">Mobility requirements</string>
+	<string name="sLimits">My mobility requirements</string>
 	<string name="sLimitsSet">Set my mobility requirements</string>
-	<string name="sLimitsHave">Mobility requirements</string>
+	<string name="sLimitsHave">My mobility requirements</string>
 	<string name="sSummary">Route summary</string>
 	<string name="sSummaryClick">Details…</string>
 	<string name="sNoPortals">There are no working entrances or exits now.</string>
@@ -130,7 +130,7 @@
 	<string name="stationFilterHintText">Start entering name of the station</string>
     <string name="sPrefGA">Enable Google Analytics</string>
     <string name="sPrefGASum">Collects data to enhance app performance</string>
-    <string name="sLimitationsInfo">Turn it on to see additional information about barriers on the route and station layouts</string>
+    <string name="sLimitationsInfo">Turn this mode on to see additional information about barriers on the route and station layouts.</string>
     <string name="sLimitationsHelp">Official assistance</string>
     <string name="sLimitationsHelpDialog">Assistance service of %s</string>
     <string name="sLimitationsPhone">Phone:</string>
