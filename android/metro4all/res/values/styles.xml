@@ -4,7 +4,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
+    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -15,59 +15,84 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
-
-    <style name="Theme.Application" parent="@style/Theme.AppCompat.Light">
         <item name="colorPrimary">@color/metro_material_main</item>
         <item name="colorPrimaryDark">@color/metro_material_status</item>
         <item name="colorAccent">@color/metro_material_dark</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/black</item>
         <item name="android:textColorLink">@color/metro_material_main</item>
+
+        <item name="toolbarNavigationButtonStyle">@style/Widget.Toolbar.NavButton</item>
+        <item name="actionOverflowButtonStyle">@style/Widget.Toolbar.Overflow</item>
 
         <item name="editTextColor">@android:color/black</item>
         <item name="android:spinnerItemStyle">@style/Theme.Application.Spinner</item>
-        <item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
+        <!--<item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>-->
+        <item name="android:spinnerDropDownItemStyle">@style/Theme.Application.Spinner.DropDown</item>
     </style>
 
-    <style name="Theme.Application.Spinner" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
+    <style name="Theme.Application" parent="AppTheme">
+        <item name="android:textColor">@android:color/black</item>
+        <!--<item name="android:textColorPrimary">@android:color/white</item>-->
+        <item name="android:textColorSecondary">@android:color/black</item>
+    </style>
+
+    <style name="Theme.Application.Spinner" parent="@style/Widget.AppCompat.DropDownItem.Spinner">
         <item name="android:background">@null</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Title</item>
     </style>
 
-    <style name="Theme.Settings" parent="@style/Theme.Application">
+    <style name="Theme.Application.Spinner.DropDown" parent="@style/Widget.AppCompat.Light.DropDownItem.Spinner">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Settings" parent="@style/AppTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="toolbarNavigationButtonStyle">@style/Widget.Toolbar.NavButton</item>
         <item name="android:textColorSecondary">@android:color/secondary_text_light</item>
+
+        <!--<item name="android:textColor">@android:color/black</item>-->
+        <!--<item name="android:textColorPrimaryInverse">@android:color/white</item>-->
+        <!--<item name="android:textColorPrimary">@android:color/white</item>-->
     </style>
 
     <style name="Theme.Settings.Limitations" parent="@style/Theme.Settings">
         <!--<item name="colorAccent">@android:color/white</item>-->
+        <!--<item name="switchStyle">@style/Theme.Widget.Switch</item>-->
         <item name="colorControlActivated">@android:color/white</item>
-        <item name="switchStyle">@style/Theme.Widget.Switch</item>
         <item name="colorSwitchThumbNormal">@color/metro_material_dark</item>
         <item name="android:colorForeground">@color/metro_material_dark</item>
     </style>
 
-    <style name="Theme.Widget.Switch" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+    <!--<style name="Theme.Widget.Switch" parent="@style/Widget.AppCompat.CompoundButton.Switch">-->
         <!--<item name="android:tint">@android:color/white</item>-->
         <!--<item name="buttonTint">@color/switch_selector</item>-->
         <!--<item name="colorAccent">@android:color/white</item>-->
         <!--<item name="track">@drawable/abc_switch_thumb_material</item>-->
         <!--<item name="android:thumb">@drawable/limitations_switch_thumb</item>-->
-    </style>
+    <!--</style>-->
 
     <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
         <item name="navigationIcon">?attr/homeAsUpIndicator</item>
+        <!--<item name="android:textColorPrimary">@android:color/white</item>-->
+        <!--<item name="android:textColorSecondary">@android:color/white</item>-->
+        <!--<item name="actionMenuTextColor">@android:color/white</item>-->
+        <!--<item name="actionOverflowButtonStyle">@style/Widget.AppCompat.ActionButton.Overflow</item>-->
+        <!--<item name="drawerArrowStyle">@style/Widget.AppCompat.DrawerArrowToggle</item>-->
     </style>
 
     <style name="Widget.Toolbar.NavButton" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="android:tint">@android:color/white</item>
+    </style>
+
+    <style name="Widget.Toolbar.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+    <style name="Widget.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>
