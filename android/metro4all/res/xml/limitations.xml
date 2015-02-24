@@ -36,13 +36,13 @@
         android:key="wheel_width"
         android:summary="@string/sPrefWheelBaseSizeSummary"
         android:title="@string/sPrefWheelBaseSize"/>
-    <Preference
+    <com.nextgis.metroaccess.InfoPreference
         android:selectable="false"
         android:enabled="true"
         android:summary="@string/sLimitationsInfo"/>
-    <Preference
-        android:key="official_help"
-        android:title="@string/sLimitationsHelp"
-        android:persistent="false">
-    </Preference>
+    <!--<Preference-->
+        <!--android:key="official_help"-->
+        <!--android:title="@string/sLimitationsHelp"-->
+        <!--android:persistent="false">-->
+    <!--</Preference>-->
 </PreferenceScreen>

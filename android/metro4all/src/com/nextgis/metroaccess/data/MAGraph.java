@@ -38,6 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,10 +46,14 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
+import android.util.TimeUtils;
 
 import com.nextgis.metroaccess.MainActivity;
 import com.nextgis.metroaccess.R;
+
+import javax.xml.datatype.Duration;
 
 import edu.asu.emit.qyan.alg.control.YenTopKShortestPathsAlg;
 import edu.asu.emit.qyan.alg.model.Graph;
@@ -488,28 +493,29 @@ public class MAGraph {
 
                         line = dataList.get(headersList.indexOf("service_hours"));
                         if (!TextUtils.isEmpty(line))
-                            sb.append(String.format(m_oContext.getString(R.string.sLimitationsService), line)).append("\r\n");
+                            sb.append(String.format(m_oContext.getString(R.string.sLimitationsService), line.replace("-", " - "))).append("\r\n");
 
                         line = dataList.get(headersList.indexOf("work_hours"));
                         if (!TextUtils.isEmpty(line))
-                            sb.append(String.format(m_oContext.getString(R.string.sLimitationsWork), line)).append("\r\n");
+                            sb.append(String.format(m_oContext.getString(R.string.sLimitationsWork), line.replace("-", " - "))).append("\r\n");
 
                         line = dataList.get(headersList.indexOf("request_advance"));
                         if (!TextUtils.isEmpty(line)) {
                             int time = Integer.parseInt(line);
-                            String min = "min", hour = "hour";
+//                            String min = "min", hour = "hour";
+                            String min = m_oContext.getString(R.string.sTimeUnitMinute), hour = m_oContext.getString(R.string.sTimeUnitHour);
 
-                            try {
-                                Class clasz = Class.forName("com.android.internal.R$string");
-                                Field field = clasz.getDeclaredField("minutes");
-                                field.setAccessible(true);
-                                min = m_oContext.getString((int) field.get(null));
-                                field = clasz.getDeclaredField("hours");
-                                field.setAccessible(true);
-                                hour = m_oContext.getString((int) field.get(null));
-                            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
+//                            try {
+//                                Class clasz = Class.forName("com.android.internal.R$string");
+//                                Field field = clasz.getDeclaredField("minutes");
+//                                field.setAccessible(true);
+//                                min = m_oContext.getString((int) field.get(null));
+//                                field = clasz.getDeclaredField("hours");
+//                                field.setAccessible(true);
+//                                hour = m_oContext.getString((int) field.get(null));
+//                            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+//                                e.printStackTrace();
+//                            }
 
                             String str = "";
 

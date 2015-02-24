@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class LimitationsActivity extends PreferenceActivity implements Preferenc
     public static final String KEY_PREF_HAVE_LIMITS = "limits";
     public static final String KEY_PREF_MAX_WIDTH = "max_width";
     public static final String KEY_PREF_WHEEL_WIDTH = "wheel_width";
-    public static final String KEY_PREF_OFFICIAL_HELP = "official_help";
+//    public static final String KEY_PREF_OFFICIAL_HELP = "official_help";
 
     private Toolbar mActionBar;
     private SharedPreferences prefs;
@@ -46,21 +47,22 @@ public class LimitationsActivity extends PreferenceActivity implements Preferenc
         mPreferenceWheel.setOnPreferenceChangeListener(this);
         setDependency(hasLimitations(this));
 
-        findPreference(KEY_PREF_OFFICIAL_HELP).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                String title = String.format(getString(R.string.sLimitationsHelpDialog), Analytics.getGraph().GetCurrentCityName());
-                AlertDialog builder = new AlertDialog.Builder(preference.getContext())
-                        .setTitle(title).setMessage(Analytics.getGraph().GetOfficialHelp())
-                        .setPositiveButton(android.R.string.ok, null).create();
-                builder.show();
-                ((TextView) builder.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
-                ((TextView) builder.findViewById(android.R.id.message)).setLinksClickable(true);
-                Linkify.addLinks(((TextView) builder.findViewById(android.R.id.message)), Linkify.ALL);
-
-                return false;
-            }
-        });
+//        findPreference(KEY_PREF_OFFICIAL_HELP).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//                String title = String.format(getString(R.string.sLimitationsHelpDialog), Analytics.getGraph().GetCurrentCityName());
+//                AlertDialog builder = new AlertDialog.Builder(preference.getContext())
+//                        .setTitle(title).setMessage(Analytics.getGraph().GetOfficialHelp())
+//                        .setPositiveButton(android.R.string.ok, null).create();
+//                builder.show();
+//                TextView message = (TextView) builder.findViewById(android.R.id.message);
+//                message.setMovementMethod(LinkMovementMethod.getInstance());
+//                message.setLinksClickable(true);
+//                Linkify.addLinks(message, Linkify.ALL);
+//
+//                return false;
+//            }
+//        });
     }
 
     @Override
@@ -87,6 +89,23 @@ public class LimitationsActivity extends PreferenceActivity implements Preferenc
                 finish();
             }
         });
+
+        Button officialHelp = (Button) contentView.findViewById(R.id.btHelp);
+        officialHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = String.format(getString(R.string.sLimitationsHelpDialog), Analytics.getGraph().GetCurrentCityName());
+                AlertDialog builder = new AlertDialog.Builder(v.getContext())
+                        .setTitle(title).setMessage(Analytics.getGraph().GetOfficialHelp())
+                        .setPositiveButton(android.R.string.ok, null).create();
+                builder.show();
+                TextView message = (TextView) builder.findViewById(android.R.id.message);
+                message.setMovementMethod(LinkMovementMethod.getInstance());
+                message.setLinksClickable(true);
+                Linkify.addLinks(message, Linkify.ALL);
+            }
+        });
+        officialHelp.setVisibility(View.VISIBLE);
 
         ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
         LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
