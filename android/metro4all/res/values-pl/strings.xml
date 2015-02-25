@@ -33,7 +33,7 @@
 	<string name="sLocationStart">Ustalam Twoją lokalizację…</string>
 	<string name="sLocationGPS">GPS</string>
 	<string name="sLocationNetwork">Wi-Fi i sieci komórkowe</string>
-	<string name="sLocationNoCitySelected">No city selected</string>
+	<string name="sLocationNoCitySelected">Nie wybrano miasta</string>
 	
 	<string name="sSelectDataToDownload">Wybierz dane do pobrania</string>
 	<string name="sUpdateAvaliable">Aktualizacja bazy danych jest dostępna</string>
@@ -129,15 +129,15 @@
 	<string name="stationFilterHintText">Zacznij wpisywać nazwę stacji</string>	
     <string name="sPrefGA">Włącz Google Analytics</string>
     <string name="sPrefGASum">Zbieranie danych w celu poprawy jakości aplikacji</string>
-    <string name="sLimitationsInfo">Turn this mode on to see additional information about barriers on the route and station layouts.</string>
-    <string name="sLimitationsHelp">Official assistance</string>
-    <string name="sLimitationsHelpDialog">Assistance service of %s</string>
-    <string name="sLimitationsPhone">Phone:</string>
-    <string name="sLimitationsService">Service hours: %s</string>
-    <string name="sLimitationsWork">Work hours: %s</string>
-    <string name="sLimitationsRequest">Request assistance %s in advance</string>
-    <string name="sLimitationsSource">Source: %s</string>
-    <string name="sLimitationsHelpNoInfo">There is no info yet</string>
+    <string name="sLimitationsInfo">Włącz ten tryb aby zobaczyć dodatkowe informacje o barierach w układach trasy i stacji</string>
+    <string name="sLimitationsHelp">Wsparcie oficjalne</string>
+    <string name="sLimitationsHelpDialog">Wsparcie oficjalne dla %s</string>
+    <string name="sLimitationsPhone">Telefon:</string>
+    <string name="sLimitationsService">Godziny obsługi: %s</string>
+    <string name="sLimitationsWork">Godziny pracy: %s</string>
+    <string name="sLimitationsRequest">Zapytaj o wsparcie %s z góry</string>
+    <string name="sLimitationsSource">Źródło: %s</string>
+    <string name="sLimitationsHelpNoInfo">Jeszcze nie mamy informacji</string>
 
     <string name="sTimeUnitHour">h.</string>
     <string name="sTimeUnitMinute">min.</string>
