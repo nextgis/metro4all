@@ -142,6 +142,7 @@ public class SelectStationActivity extends ActionBarActivity {
             m_bIn = extras.getBoolean(BUNDLE_ENTRANCE_KEY);
             mStationId = extras.getInt(BUNDLE_STATIONID_KEY);
             mPortalId = extras.getInt(BUNDLE_PORTALID_KEY);
+            int selectedStation = -1;
 
             Tracker t = ((Analytics) getApplication()).getTracker();
             t.setScreenName(Analytics.SCREEN_SELECT_STATION + " " + getDirection());
@@ -150,10 +151,22 @@ public class SelectStationActivity extends ActionBarActivity {
             switch (nType) {
                 case DEPARTURE_RESULT:
                     setTitle(R.string.sFromStation);
+                    selectedStation = prefs.getInt("dep_" + BUNDLE_STATIONID_KEY, -1);
                     break;
                 case ARRIVAL_RESULT:
                     setTitle(R.string.sToStation);
+                    selectedStation = prefs.getInt("arr_" + BUNDLE_STATIONID_KEY, -1);
                     break;
+            }
+
+            if (selectedStation != -1) {
+                final int finalSelectedStation = selectedStation;
+                mPager.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAlphaStListFragment.expandStation(finalSelectedStation);
+                    }
+                });
             }
         }
 
@@ -274,7 +287,7 @@ public class SelectStationActivity extends ActionBarActivity {
         }
 
         @Override
-        public Fragment getItem(int arg0) {
+        public SelectStationListFragment getItem(int arg0) {
             switch (arg0) {
                 case 0:
                     mAlphaStListFragment = new AlphabeticalStationListFragment();

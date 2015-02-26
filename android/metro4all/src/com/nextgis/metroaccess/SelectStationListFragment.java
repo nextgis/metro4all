@@ -137,4 +137,17 @@ public abstract class SelectStationListFragment extends Fragment {
     public void Update(){
         etFilter.setText("");
     }
+
+    public void expandStation(int stationId) {
+        int position = -1;
+
+        for (int i = 0; i < m_oExpListAdapter.getGroupCount(); i++)
+            if (m_oExpListAdapter.getGroupId(i) == stationId) {
+                position = i;
+                break;
+            }
+
+        m_oExpListView.smoothScrollToPositionFromTop(position);
+        m_oExpListView.expandGroup(position, true);
+    }
 }
