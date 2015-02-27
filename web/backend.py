@@ -76,6 +76,15 @@ for city in cities:
     SCHEMAS[city] = dict(zip([os.path.splitext(s)[0] for s in schemes], schemes))
 
 
+# Workaround for https://github.com/nextgis/metro4all/issues/217
+def by2be(fn):
+    def wrapped(*args, **kwargs):
+        lang = kwargs['lang']
+        kwargs['lang'] = 'be' if lang == 'by' else lang
+        return fn(*args, **kwargs)
+    return wrapped
+
+
 @route('/<city>')
 @view('index')
 def main(city):
@@ -158,6 +167,7 @@ def schemes(path):
 
 # Получение списка станций для выпадающих списков
 @route('/<lang>/<city>/stations')
+@by2be
 def get_stations(lang, city):
     results = []
     for line in LINES[city]:
@@ -186,6 +196,7 @@ def get_stations(lang, city):
 
 # Получение списка входов для заданной станции
 @route('/<lang>/<city>/portals/search')
+@by2be
 def get_portals(lang, city):
 
     id_station = request.query.station
@@ -217,6 +228,7 @@ def get_portals(lang, city):
 
 
 @route('/<lang>/<city>/routes/search')
+@by2be
 def get_routes(lang, city, limit=3):
 
     station_from = int(request.query.station_from) if request.query.station_from else None
