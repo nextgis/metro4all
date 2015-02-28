@@ -170,7 +170,8 @@ def copyfiles():
 
     shutil.copy(graph,'temp/graph.csv')
     shutil.copy(interchanges,'temp/interchanges.csv')
-    shutil.copy(official_help,'temp/official_help.csv')
+    if os.path.exists(official_help):
+        shutil.copy(official_help,'temp/official_help.csv')
     shutil.copytree(icons,'temp/icons')
 
 def createzip(city):
@@ -178,7 +179,8 @@ def createzip(city):
     zf = zipfile.ZipFile(city + '.zip', 'w')
     zf.write('graph.csv')
     zf.write('interchanges.csv')
-    zf.write('official_help.csv')
+    if os.path.exists('official_help.csv'):
+        zf.write('official_help.csv')
 
     for dirname, subdirs, files in os.walk('schemes'):
         #zf.write('schemes')
