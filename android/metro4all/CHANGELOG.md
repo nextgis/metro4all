@@ -1,13 +1,14 @@
 ## v. 2.7 (01.03.2015)
-+ Added mobility requirements official help service info
-+ Added additional mobility requirements info visibility
++ Added official assistance service info
++ Rework all station layouts (all numbers are moved to a separate layer and can be switched off)
++ Mobility requirements info (on station layouts and route screen) is shown only when the accessibility mode is turned on
 + Fixed sometimes black controls appearance in toolbar
 + Bugfixing
 
 + UI changes:
 	* Ascending city sort in select curent city dialog
 	* Added location accuracy dialog to map screen
-	* Added mobility requirements menu item to each screen
+	* Added My mobility requirements menu item to each screen
 	* City autoexpanded in select station screen if there was selected one
 
 ## v. 2.6 (26.01.2015)
