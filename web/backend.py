@@ -90,62 +90,62 @@ def by2be(fn):
 def main(city):
     config = {
         'msk': dict(
-            mainmap=dict(center=[55.75, 37.62], zoom=10),
+            mainmap=dict(center=[55.75, 37.62], zoom=10, maxBounds=[[55.391, 37.075], [56.030, 38.188]]),
             city='msk',
             route_css_class='city-1'
         ),
         'spb': dict(
-            mainmap=dict(center=[59.95, 30.316667], zoom=10),
+            mainmap=dict(center=[59.95, 30.316667], zoom=10, maxBounds=[[59.744, 30.043], [60.091, 30.567]]),
             city='spb',
             route_css_class='city-2'
         ),
         'waw': dict(
-            mainmap=dict(center=[52.2286, 21.0491], zoom=11),
+            mainmap=dict(center=[52.2286, 21.0491], zoom=11, maxBounds=[[52.098, 20.852], [52.368, 21.271]]),
             city='waw',
             route_css_class='city-3'
         ),
         'min': dict(
-            mainmap=dict(center=[53.916667, 27.55], zoom=11),
+            mainmap=dict(center=[53.916667, 27.55], zoom=11, maxBounds=[[53.805, 27.375], [53.972, 27.831]]),
             city='min',
             route_css_class='city-4'
         ),
         'kzn': dict(
-            mainmap=dict(center=[55.7916, 49.1295], zoom=12),
+            mainmap=dict(center=[55.7916, 49.1295], zoom=12, maxBounds=[[55.603, 48.821], [55.938, 49.381]]),
             city='kzn',
             route_css_class='city-5'
         ),
         'niz': dict(
-            mainmap=dict(center=[56.3004, 43.9165], zoom=12),
+            mainmap=dict(center=[56.3004, 43.9165], zoom=12, maxBounds=[[56.193, 43.718], [56.400, 44.135]]),
             city='niz',
             route_css_class='city-6'
         ),
         'ekb': dict(
-            mainmap=dict(center=[56.8366, 60.6535], zoom=11),
+            mainmap=dict(center=[56.8366, 60.6535], zoom=11, maxBounds=[[56.716, 60.383], [56.945, 60.843]]),
             city='ekb',
             route_css_class='city-7'
         ),
         'ams': dict(
-            mainmap=dict(center=[52.3723,4.9013], zoom=11),
+            mainmap=dict(center=[52.3723,4.9013], zoom=11, maxBounds=[[52.163, 4.465], [52.629, 5.347]]),
             city='ams',
             route_css_class='city-8'
          ),
         'lau': dict(
-            mainmap=dict(center=[46.5218,6.6327], zoom=13),
+            mainmap=dict(center=[46.5218,6.6327], zoom=13, maxBounds=[[46.478, 6.479], [46.587, 6.758]]),
             city='lau',
             route_css_class='city-9'
          ),
-          'vog': dict(
-            mainmap=dict(center=[48.7106, 44.5171], zoom=11),
+        'vog': dict(
+            mainmap=dict(center=[48.7106, 44.5171], zoom=11, maxBounds=[[48.407, 44.109], [48.889, 44.690]]),
             city='vog',
             route_css_class='city-10'
         ),
-         'gla': dict(
-            mainmap=dict(center=[55.861147,-4.2499891], zoom=13),
+        'gla': dict(
+            mainmap=dict(center=[55.861147,-4.2499891], zoom=13, maxBounds=[[55.668, -4.613], [56.034, -3.935]]),
             city='gla',
             route_css_class='city-11'
          ),
-                'sam': dict(
-            mainmap=dict(center=[53.2061, 50.2171], zoom=11),
+        'sam': dict(
+            mainmap=dict(center=[53.2061, 50.2171], zoom=11, maxBounds=[[53.092, 49.747], [53.552, 50.390]]),
             city='sam',
             route_css_class='city-12'
         )
