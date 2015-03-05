@@ -259,7 +259,7 @@
 
             content += this._addTerminalStation('EXIT', routes[index]);
             content += "</ul>";
-            content += '<a href="' + m4a.resources.routes.help_link + '" target="_blank">' + m4a.resources.routes.help + '</a>';
+            content += '<a href="' + m4a.resources.routes.help_link + '#' + global_config.city + '" target="_blank">' + m4a.resources.routes.help + '</a>';
 
             m4a.view.$routePanel.append(content);
 

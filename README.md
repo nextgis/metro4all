@@ -3,7 +3,7 @@ Metro4All
 
 http://metro4all.org
 
-Metro navigation and accessibility for people with special needs.
+Subway navigation and accessibility app.
 
 Now available for: Amsterdam, Ekaterinburg, Kazan, Lausanne, Minsk, Moscow, Nizhny Novgorod, Saint-Petersburg, Samara, Warsaw, Glasgow (upcoming), Novosibirsk (upcoming), Volgograd (upcoming).
 

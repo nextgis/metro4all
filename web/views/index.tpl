@@ -105,7 +105,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script>
         var global_config = {
-          mainmap: {'center': {{config['mainmap']['center']}}, 'zoom': {{config['mainmap']['zoom']}}},
+          mainmap: {'center': {{config['mainmap']['center']}}, 'zoom': {{config['mainmap']['zoom']}}, 'maxBounds': {{config['mainmap']['maxBounds']}}},
           city: "{{config['city']}}",
           language: "ru"
         }

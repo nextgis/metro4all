@@ -1,4 +1,17 @@
-## v. 2.6 (unreleased)
+## v. 2.7 (01.03.2015)
++ Added official assistance service info
++ Rework all station layouts (all numbers are moved to a separate layer and can be switched off)
++ Mobility requirements info (on station layouts and route screen) is shown only when the accessibility mode is turned on
++ Fixed sometimes black controls appearance in toolbar
++ Bugfixing
+
++ UI changes:
+	* Ascending city sort in select curent city dialog
+	* Added location accuracy dialog to map screen
+	* Added My mobility requirements menu item to each screen
+	* City autoexpanded in select station screen if there was selected one
+
+## v. 2.6 (26.01.2015)
 + Added hints to show app features for users
 + Added meetcodes-strip to layout screen
 + Added meetcodes to map instead icons
