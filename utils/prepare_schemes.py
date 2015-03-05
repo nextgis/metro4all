@@ -78,7 +78,7 @@ if __name__ == '__main__':
     args = sys.argv[ 1: ]
     fns = args[0]
     city = args[1]
-    git_folder = "/home/sim/work/metro4all/metroaccess/"
+    git_folder = "/home/sim/work/metro4all/repo/"
     utils_folder = git_folder + "utils"
     png_folder_main = "data/" + city + "/schemes/"
     png_folder_layers = "data/" + city + "/schemes/layers/"
