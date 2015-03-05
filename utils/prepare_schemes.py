@@ -54,7 +54,7 @@ def process_svg(fn,git_folder,png_folder_main,png_folder_layers,png_folder_numbe
     os.system(cmd)
 
     #convert to png - numbers
-    cmd = "inkscape -d 150 -b white -f " + fn_numbers + " -e " + git_folder + png_folder_numbers + fn_png
+    cmd = "inkscape -d 150 -f " + fn_numbers + " -e " + git_folder + png_folder_numbers + fn_png
     print(cmd)
     os.system(cmd)
 
