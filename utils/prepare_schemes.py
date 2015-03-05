@@ -13,8 +13,11 @@
 import shutil
 import os,sys
 
-def process_svg(fn,git_folder,png_folder):
+def process_svg(fn,git_folder,png_folder_main,png_folder_layers,png_folder_numbers):
 
+    fn_main = fn + "_main.svg"
+    fn_layers = fn + "_layers.svg"
+    fn_numbers = fn + "_numbers.svg"
     fn = fn + ".svg"
     fn_png = fn.replace(".svg",".png")
 
@@ -24,26 +27,50 @@ def process_svg(fn,git_folder,png_folder):
     os.system(cmd)
     #TODO optionally get file from GitHub
 
+    #make copies
+    shutil.copy(fn,fn_main)
+    shutil.copy(fn,fn_layers)
+    shutil.copy(fn,fn_numbers)
+
     #turn off layers
-    cmd = "python turn-svglayers-off.py " + fn
+    cmd = "python turn-svglayers-off.py " + fn_main + " photos,pointers,element-ids,exits"
+    print(cmd)
+    os.system(cmd)
+    cmd = "python turn-svglayers-off.py " + fn_layers + " photos,pointers,element-ids,exits,numbers"
+    print(cmd)
+    os.system(cmd)
+    cmd = "python turn-svglayers-off.py " + fn_numbers + " photos,pointers,element-ids,exits,name_ru,name_en,scheme,meetcode,copyright"
+    print(cmd)
+    os.system(cmd)
+
+    #convert to png - main
+    cmd = "inkscape -d 150 -b white -f " + fn_main + " -e " + git_folder + png_folder_main + fn_png
+    print(cmd)
+    os.system(cmd)
+
+    #convert to png - layers
+    cmd = "inkscape -d 150 -b white -f " + fn_layers + " -e " + git_folder + png_folder_layers + fn_png
+    print(cmd)
+    os.system(cmd)
+
+    #convert to png - numbers
+    cmd = "inkscape -d 150 -b white -f " + fn_numbers + " -e " + git_folder + png_folder_numbers + fn_png
     print(cmd)
     os.system(cmd)
 
     #convert to png
-    cmd = "inkscape -d 150 -b white -f " + fn + " -e " + git_folder + png_folder + fn_png
-    print(cmd)
-    os.system(cmd)
-
-    #convert to png
-    cmd = "Remove " + fn
+    cmd = "Remove *.svg"
     print(cmd)
     os.remove(fn)
+    os.remove(fn_main)
+    os.remove(fn_layers)
+    os.remove(fn_numbers)
 
     #chdir to git folder
     os.chdir(git_folder)
 
     #add new scheme
-    cmd = "git add " + png_folder + fn_png
+    cmd = "git add " + png_folder_main
     print(cmd)
     os.system(cmd)
 
@@ -53,7 +80,9 @@ if __name__ == '__main__':
     city = args[1]
     git_folder = "/home/sim/work/metro4all/metroaccess/"
     utils_folder = git_folder + "utils"
-    png_folder = "data/" + city + "/schemes/"
+    png_folder_main = "data/" + city + "/schemes/"
+    png_folder_layers = "data/" + city + "/schemes/layers/"
+    png_folder_numbers = "data/" + city + "/schemes/numbers/"
 
     commit_str = []
     if fns == "ALL":
@@ -61,7 +90,7 @@ if __name__ == '__main__':
     else:
         for fn in fns.split(","):
             os.chdir(utils_folder)
-            process_svg(fn,git_folder,png_folder)
+            process_svg(fn,git_folder,png_folder_main,png_folder_layers,png_folder_numbers)
             commit_str.append(fn)
     
     #commit
