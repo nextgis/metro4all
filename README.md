@@ -10,8 +10,9 @@ Now available for: Amsterdam, Ekaterinburg, Kazan, Lausanne, Minsk, Moscow, Nizh
 Metro4all is:
 
 * Database of metro data that includes, stations, lines, exits, navigation graph, schematics for each station, measurements of infrastructure elements at each station
-* Web-app: routing engine that allows to set FROM and TO including particular exits/entrances and build a route showing all info on obstacles
-* Android-app: same as above
+* Web-app (link, Github): routing engine that allows to set FROM and TO including particular exits/entrances and build a route showing all info on obstacles
+* Android-app: same as above https://play.google.com/store/apps/details?id=com.nextgis.metroaccess
+* iOS-app: upcoming
 * Website with additional information
 
 Read more about data structures, running apps, etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
