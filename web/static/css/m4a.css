@@ -204,6 +204,34 @@
     background-position: 0 -176px;
 }
 
+.marker-station-portal {
+    background-image: url(../img/portal.png);
+    line-height: 24px;
+    text-align: center;    
+}
+
+.marker-station-portal-checked {
+    background-image: url(../img/portal_checked.png);
+    line-height: 24px;
+    text-align: center;    
+}
+
+.marker-station-portal-inaccessible {
+    background-image: url(../img/inaccessible.png);
+    line-height: 24px;
+    text-align: center;    
+}
+
+.marker-station-portal > span,
+.marker-station-portal-checked > span,
+.marker-station-portal-inaccessible > span  {
+    color: #ffffff;
+    display: inline-block;
+    line-height: 24px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 .obstacles {
     margin: 7px 0 10px 0;
     padding: 0;

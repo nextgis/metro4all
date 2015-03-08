@@ -114,7 +114,7 @@
                         pointToLayer: function (feature, latlng) {
                             var marker;
                             if (context.isFeatureSelected(feature, type)) {
-                                marker = L.marker(latlng, { icon: context.buildSelectedIcon() });
+                                marker = L.marker(latlng, { icon: context.buildSelectedIcon(feature) });
                                 context.portalsSelected[type] = { feature: feature, marker: marker };
                             } else {
                                 marker = L.marker(latlng, { icon: context.buildIconStation(feature, type)});
@@ -175,7 +175,7 @@
             }
             this.portalsSelected[type].marker = marker;
             this.portalsSelected[type].feature = feature;
-            this.portalsSelected[type].marker.setIcon(this.buildSelectedIcon());
+            this.portalsSelected[type].marker.setIcon(this.buildSelectedIcon(feature));
 
             view.$document.triggerHandler('/url/update', ['portal-' + type, feature.id]);
         },
@@ -190,15 +190,30 @@
 
         buildIconStation: function (station, type) {
             if (m4a.profiles.validateStation(station)) {
-                return L.icon({ iconUrl: '/static/img/' + type + '.png', iconAnchor: [8, 8]});
+                return L.divIcon({ 
+                                   iconSize: [24, 24],
+                                   className: "marker-station-portal",
+                                   html: "<span>" + station.properties.meetcode + "</span>",
+                                   iconAnchor: [12, 12]
+                                });
             } else {
-                return L.icon({ iconUrl: '/static/img/invalid.png', iconAnchor: [8, 8]});
+                return L.divIcon({
+                                   iconSize: [24, 24],
+                                   className: "marker-station-portal-inaccessible",
+                                   html: "<span>" + station.properties.meetcode + "</span>",
+                                   iconAnchor: [12, 12]
+                                });
             }
         },
 
 
-        buildSelectedIcon: function () {
-            return L.icon({iconUrl: '/static/img/check.png', iconAnchor: [8, 8]});
+        buildSelectedIcon: function (station) {
+            return L.divIcon({
+                               iconSize: [24, 24],
+                               className: "marker-station-portal-checked",
+                               html: "<span>" + station.properties.meetcode + "</span>",
+                               iconAnchor: [12, 12]
+                            });
         },
 
 
