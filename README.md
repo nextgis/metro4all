@@ -5,7 +5,7 @@ http://metro4all.org
 
 Subway navigation and accessibility app.
 
-Now available for: Amsterdam, Ekaterinburg, Kazan, Lausanne, Minsk, Moscow, Nizhny Novgorod, Saint-Petersburg, Samara, Warsaw, Glasgow (upcoming), Novosibirsk (upcoming), Volgograd (upcoming).
+Now available for: Amsterdam, Glasgow, Ekaterinburg, Kazan, Lausanne, Minsk, Moscow, Nizhny Novgorod, Saint-Petersburg, Samara, Volgograd, Warsaw, Novosibirsk (upcoming), Marseille (upcoming).
 
 Metro4all is:
 
