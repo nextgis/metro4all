@@ -1,0 +1,7 @@
+station_from;station_to;max_width;min_step;min_step_ramp;lift;lift_minus_step;min_rail_width;max_rail_width;max_angle;escalator
+10;40;;;;;;;;;
+40;10;;;;;;;;;
+11;26;;;;;;;;;
+26;11;;;;;;;;;
+27;41;;;;;;;;;
+41;27;;;;;;;;;
