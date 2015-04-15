@@ -14,7 +14,7 @@
             "trl_d3": " cm",
         },
         routes: {
-            "wch_w": "Szerokość wózka inwalidzkiego",
+            "wch_w": "Minimalna szerokość przejścia",
             "wch_w1": " do ",
             "wch_w2": " cm",
             "n_str": "Brak schodów",
@@ -23,7 +23,7 @@
             "elev_y": "Jest winda",
             "elev_n": "Brak windy",
             "elev_y_1": ", oszczędza ",
-            "elev_y_2": "stopni",
+            "elev_y_2": " stopni",
             "min_max": "Min/max odległość między kołami",
             "cm": " сm",
             "no_r": "Brak rampy",
