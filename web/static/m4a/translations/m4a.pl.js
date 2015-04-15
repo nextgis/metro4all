@@ -15,7 +15,7 @@
         },
         routes: {
             "wch_w": "Minimalna szerokość przejścia",
-            "wch_w1": " do ",
+            "wch_w1": "",
             "wch_w2": " cm",
             "n_str": "Brak schodów",
             "stps": "Stopni",
