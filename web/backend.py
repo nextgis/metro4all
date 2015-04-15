@@ -336,12 +336,12 @@ def get_routes(lang, city, limit=3):
                 portal_from=dict(
                     barriers=portal_barriers(portal_from),
                     meetcode='#%s' % portal_from_obj['meetcode'],
-                    name='%s' % portal_from_obj.get('name_' + lang, 'name_en')
+                    name='%s' % portal_from_obj.get('name_' + lang, portal_from_obj.get('name_en'))
                 ) if portal_from else None,
                 portal_to=dict(
                     barriers=portal_barriers(portal_to),
                     meetcode='#%s' % portal_to_obj['meetcode'],
-                    name='%s' % portal_to_obj.get('name_' + lang, 'name_en')
+                    name='%s' % portal_to_obj.get('name_' + lang, portal_to_obj.get('name_en'))
                 ) if portal_to else None
             )
 
