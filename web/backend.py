@@ -152,7 +152,7 @@ def main(city):
         'kiev': dict(
             mainmap=dict(center=[50.4131, 30.5358], zoom=11, maxBounds=[[50.3203, 30.3545], [50.5385, 30.6429]]),
             city='kiev',
-            route_css_class='city-13'
+            route_css_class='city-14'
         )
     }
     city = city if city in cities else 'msk'
