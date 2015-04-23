@@ -1,7 +1,7 @@
 $(document).ready(function () {
     m4a.loader.init();
 
-    var url = m4a.viewmodel.url.proxy,
+    var url = m4a.viewmodel.url || m4a.viewmodel.url.proxy,
         viewmodel = m4a.viewmodel,
         view = m4a.view;
 
