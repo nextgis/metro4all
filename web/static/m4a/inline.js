@@ -11,6 +11,30 @@ $(document).ready(function () {
     viewmodel.stationMarkers = [];
     viewmodel.lineSegments = null;
 
+    // Скрываем выходы на низких масштабных уровнях
+    viewmodel.mainMap.on('zoomend', function (e) {
+        var map = viewmodel.mainMap,
+            zoom = map.getZoom(),
+            portals_in = m4a.stations.portals.in.layer,
+            portals_out = m4a.stations.portals.out.layer,
+            portalsSelected = m4a.stations.portalsSelected;
+
+        if (zoom < 15) {
+            if (map.hasLayer(portals_in)) {
+                map.removeLayer(portals_in);
+                portalsSelected.in.marker.addTo(map);
+            }
+            if (map.hasLayer(portals_out)) {
+                map.removeLayer(portals_out);
+                portalsSelected.out.marker.addTo(map);
+            }
+        }
+        if (zoom >= 15) {
+            if (!map.hasLayer(portals_in) && portals_in) { map.addLayer(portals_in); }
+            if (!map.hasLayer(portals_out) && portals_out) { map.addLayer(portals_out); }
+        }
+    });
+
     $.ajax(url + global_config.language + "/" + global_config.city + "/stations").done(function (data) {
 
         $.ajax(url + "data/" + global_config.city + "/lines.geojson").done(function (lines) {

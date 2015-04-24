@@ -114,10 +114,10 @@
                         pointToLayer: function (feature, latlng) {
                             var marker;
                             if (context.isFeatureSelected(feature, type)) {
-                                marker = L.marker(latlng, { icon: context.buildSelectedIcon(feature) });
+                                marker = L.marker(latlng, { zIndexOffset: 1000, icon: context.buildSelectedIcon(feature) });
                                 context.portalsSelected[type] = { feature: feature, marker: marker };
                             } else {
-                                marker = L.marker(latlng, { icon: context.buildIconStation(feature, type)});
+                                marker = L.marker(latlng, { zIndexOffset: 1000, icon: context.buildIconStation(feature, type)});
                             }
 //                            context.portals[type].markers[feature.id] = marker;
                             return marker;
