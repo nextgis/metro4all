@@ -22,11 +22,11 @@ $(document).ready(function () {
         if (zoom < 15) {
             if (map.hasLayer(portals_in)) {
                 map.removeLayer(portals_in);
-                portalsSelected.in.marker.addTo(map);
+                if (portalsSelected.in.marker) { portalsSelected.in.marker.addTo(map); }
             }
             if (map.hasLayer(portals_out)) {
                 map.removeLayer(portals_out);
-                portalsSelected.out.marker.addTo(map);
+                if (portalsSelected.out.marker) { portalsSelected.out.marker.addTo(map); }
             }
         }
         if (zoom >= 15) {
@@ -236,6 +236,8 @@ $(document).ready(function () {
                         }
 
                         $.unblockUI();
+
+                        m4a.viewmodel.mainMap.fire("zoomend");
                     });
                 }
                 return false;
