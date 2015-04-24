@@ -105,7 +105,10 @@
         updatePortalsLayer: function (type, data) {
             var context = this;
 
-            if (this.portals[type]['layer']) { // Очищаем слой выходов
+            if (this.portals[type]['layer']) {
+                // Хак для скрытия маркеров отмеченных выходов
+                m4a.viewmodel.mainMap.addLayer(this.portals[type]['layer']);             
+                // Очищаем слой выходов
                 m4a.viewmodel.mainMap.removeLayer(this.portals[type]['layer']);
             }
 
