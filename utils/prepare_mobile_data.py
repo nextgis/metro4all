@@ -57,8 +57,6 @@ def split_stations(csv_in):
 
 def split_lines(csv_in):
 
-    langs = ('ru','en','pl')
-
     for lang in langs:
         input_f = csv.DictReader(open(csv_in, 'rb'), delimiter=';')
         if 'name_' + lang in input_f.fieldnames:
@@ -252,7 +250,7 @@ if __name__ == '__main__':
     city = sys.argv[1]
     USERNAME = sys.argv[2]
     PASSWORD = sys.argv[3]
-    langs = ('ru','en','pl','be')
+    langs = ('ru','en','pl','be','uk')
     data_path = '/usr/local/www/metro4all.ru/data/data/v' + data_minimum_version + '/'
 
     split_stations('data/' + city + '/' + 'stations.csv')
