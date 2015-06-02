@@ -17,17 +17,17 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 130121;3;Красный пр-т (чётная сторона), ул. Гоголя, Дом офицеров;Krasnyj prospekt (even side), ul. Gogolja, Dom oficerov;10;both;55.0418544;82.9167563;720;37;5;0;0;370;580;25;1
 130130;4;Красный пр-т, ул. Гоголя, Дворец бракосочетания;Krasnyj prospekt, ul. Gogolja, Wedding Palace;3;both;55.0418355;82.917807;720;58;30;0;0;370;990;25;0
 130131;4;Красный пр-т, ул. Гоголя, Дворец бракосочетания;Krasnyj prospekt, ul. Gogolja, Wedding Palace;10;both;55.0418355;82.917807;720;32;4;0;0;370;990;25;1
-130140;5;Красный пр-т (нечётная сторона), ул. Крылова;Krasnyj prospekt (odd side), ul. Krylova;3;both;55.0403107;82.9172987;720;65;35;0;0;360;980;22;0
+130140;5;Красный пр-т (нечётная сторона), ул. Крылова;Krasnyj prospekt (odd side), ul. Krylova;3;both;55.0403107;82.9172987;720;65;35;0;0;370;990;22;0
 130150;6;"Красный пр-т (чётная сторона), ул. Крылова, Стадион ""Спартак""";"Krasnyj prospekt (even side), ul. Krylova, ""Spartak"" stadium";3;both;55.0404075;82.9181128;720;70;36;0;0;370;990;22;0
-130180;8;"ул. Гоголя, ул. Мичурина, ТРЦ ""Галерея Новосибирск"" (официально - вход #1)";"ul. Gogolja, ul. Michurina, ""Galereja Novosibirsk"" Shopping mall (officially #1)";10;both;55.0428735;82.920524;710;35;0;0;0;370;900;27;1
-130190;9;"ул. Гоголя, ул. Мичурина, Центральный рынок, Магазин ""1000 мелочей"" (официально - вход #2)";"ul. Gogolja, ul. Michurina, Central market, ""1000 melochej"" shop (officially #2)";10;both;55.0420315;82.9207577;710;46;0;0;0;330;900;25;1
+130180;8;"ул. Гоголя, ул. Мичурина, ТРЦ ""Галерея Новосибирск"" (официально - вход #1)";"ul. Gogolja, ul. Michurina, ""Galereja Novosibirsk"" Shopping mall (officially #1)";10;both;55.0428735;82.920524;710;35;0;0;0;330;890;27;1
+130190;9;"ул. Гоголя, ул. Мичурина, Центральный рынок, Магазин ""1000 мелочей"" (официально - вход #2)";"ul. Gogolja, ul. Michurina, Central market, ""1000 melochej"" shop (officially #2)";10;both;55.0420315;82.9207577;710;46;0;0;0;370;820;25;1
 130200;1;ул. Вокзальная магистраль, ул. Советская, ул. Орджоникидзе;ul. Vokzal'naja magistral', ul. Sovetskaja, ul. Ordzhonikidze;4;both;55.0306817;82.9188173;720;32;0;0;0;360;930;21;1
 130210;5;ул. Ленина, ГУ Банка России;ul. Lenina, Bank of Russia;4;both;55.0304811;82.9191433;720;34;2;0;0;370;930;21;1
 130220;2;Красный пр-т, ул. Орджоникидзе, Театр Оперы и Балета;Krasnyj prospekt, ul. Ordzhonikidze, Opera and Ballet Theatre;4;both;55.0308845;82.9208473;720;34;1;0;0;360;900;22;1
 130230;3;Первомайский сквер;Pervomajskij public garden;4;both;55.0292655;82.9203146;720;31;0;0;0;370;990;22;1
 130240;4;ул. Депутатская, Мэрия Новосибирска, Филармония, Театр Оперы и Балета;ul. Deputatskaja, Mjerija Novosibirska, Philharmonic, Opera and Ballet Theatre;4;both;55.0293651;82.9213018;720;36;1;0;0;360;960;19;1
-130250;1;"ул. Шевченко, ""Спортмастер""";"ul. Shevchenko, ""Sportmaster"" sport shop";5;both;55.0193333;82.937624;720;52;0;0;0;380;990;19;0
-130260;2;ул. Шевченко, ул. Московская, Законодательное Собрание Новосибирской Области;ul. Shevchenko, ul. Moskovskaja, Legislative Assembly for Novosibirskaja Oblast;5;both;55.0196316;82.9380097;720;53;0;0;0;380;990;19;0
+130250;1;"ул. Шевченко, ""Спортмастер""";"ul. Shevchenko, ""Sportmaster"" sport shop";5;both;55.0193333;82.937624;720;52;26;0;0;380;990;19;0
+130260;2;ул. Шевченко, ул. Московская, Законодательное Собрание Новосибирской Области;ul. Shevchenko, ul. Moskovskaja, Legislative Assembly for Novosibirskaja Oblast;5;both;55.0196316;82.9380097;720;53;26;0;0;380;990;19;0
 130270;3;ул. Маковского, ул. Нижегородская, Администрация Октябрьского района, СибАГС;ul. Makovskogo, ul. Nizhegorodskaja, Oktjabrskij District Administration, SibAGS;5;both;55.0183924;82.9398799;720;32;0;0;0;360;990;23;1
 130280;4;"ул. Московская, ул. Сакко и Ванцетти, магазин ""Бахетле""";"ul. Moskovskaja, ul. Sakko i Vancetti, ""Bahetle"" shop";5;both;55.0186946;82.9402747;720;31;0;0;0;370;990;23;1
 130290;1;ул. Зыряновская, ул. Восход, ж/д станция;ul. Zyrjanovskaja, ul. Voskhod, railway station;6;out;55.0094323;82.9391109;720;0;0;0;0;0;0;0;1
