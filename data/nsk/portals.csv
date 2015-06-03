@@ -28,7 +28,7 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 130240;4;ул. Депутатская, Мэрия Новосибирска, Филармония, Театр Оперы и Балета;ul. Deputatskaja, Mjerija Novosibirska, Philharmonic, Opera and Ballet Theatre;4;both;55.0293651;82.9213018;720;36;1;0;0;360;960;19;1
 130250;1;"ул. Шевченко, ""Спортмастер""";"ul. Shevchenko, ""Sportmaster"" sport shop";5;both;55.0193333;82.937624;720;52;26;0;0;380;990;19;0
 130260;2;ул. Шевченко, ул. Московская, Законодательное Собрание Новосибирской Области;ul. Shevchenko, ul. Moskovskaja, Legislative Assembly for Novosibirskaja Oblast;5;both;55.0196316;82.9380097;720;53;26;0;0;380;990;19;0
-130270;3;ул. Маковского, ул. Нижегородская, Администрация Октябрьского района, СибАГС;ul. Makovskogo, ul. Nizhegorodskaja, Oktjabrskij District Administration, SibAGS;5;both;55.0183924;82.9398799;720;32;0;0;0;360;990;23;1
+130270;3;ул. Маковского, ул. Нижегородская, Администрация Октябрьского района, СибАГС;ul. Makovskogo, ul. Nizhegorodskaja, Oktjabrskij District Administration, SibAGS;5;both;55.0183924;82.9398799;720;32;0;0;0;370;990;23;1
 130280;4;"ул. Московская, ул. Сакко и Ванцетти, магазин ""Бахетле""";"ul. Moskovskaja, ul. Sakko i Vancetti, ""Bahetle"" shop";5;both;55.0186946;82.9402747;720;31;0;0;0;370;990;23;1
 130290;1;ул. Зыряновская, ул. Восход, ж/д станция;ul. Zyrjanovskaja, ul. Voskhod, railway station;6;out;55.0094323;82.9391109;720;0;0;0;0;0;0;0;1
 130291;1;ул. Зыряновская, ул. Восход, ж/д станция;ul. Zyrjanovskaja, ul. Voskhod, railway station;6;in;55.0094323;82.9391109;720;38;38;0;0;0;0;0;0
