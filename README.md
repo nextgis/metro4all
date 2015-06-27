@@ -15,8 +15,8 @@ Metro4all is:
 * iOS-app: all station with achemes and exits on the city map - https://itunes.apple.com/ru/app/metro4all/id980535350?ls=1&mt=8
 * Website with additional information - http://metro4all.org/
 
-Separate Android app repository - https://github.com/nextgis/metro4all-android
-Separate iOS app repository - https://github.com/nextgis/metro4all-ios
+* Separate Android app repository - https://github.com/nextgis/metro4all-android
+* Separate iOS app repository - https://github.com/nextgis/metro4all-ios
 
 Read more about data structures, running apps, etc. in wiki: https://github.com/nextgis/metro4all/wiki/_pages
 
