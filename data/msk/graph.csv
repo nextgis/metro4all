@@ -1,4 +1,4 @@
-ID_FROM;ID_TO;NAME_FROM;NAME_TO;COST
+id_from;id_to;name_from;name_to;cost
 27;26;Варшавская;Каховская;119
 27;25;Варшавская;Каширская (11);148
 37;38;Аэропорт;Сокол;120
