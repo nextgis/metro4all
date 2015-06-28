@@ -1,29 +1,29 @@
 id_from;id_to;name_from;name_to;cost
-124;123;Uruchye;Borisovsky Trakt;3
-123;122;Borisovsky Trakt;Uschod;3
-122;121;Uschod;Moskovskaya;3
-121;120;Moskovskaya;Park Chelyuskintsev;3
-120;119;Park Chelyuskintsev;Akademiya Nauk;3
-119;118;Akademiya Nauk;Ploshchad Yakuba Kolasa;3
-118;117;Ploshchad Yakuba Kolasa;Ploshchad Pieramohi;3
-117;116;Ploshchad Pieramohi;Kastrychnickaja;3
-116;115;Kastrychnickaja;Ploshchad Lenina;3
-115;114;Ploshchad Lenina;Institut Kultury;3
-114;113;Institut Kultury;Grushevka;3
-113;112;Grushevka;Mikhalova;3
-112;111;Mikhalova;Petrovshchina;3
-111;110;Petrovshchina;Malinovka;3
-223;222;Kamennaya Gorka;Kuntsevshchina;3
-222;221;Kuntsevshchina;Sportivnaya;3
-221;220;Sportivnaya;Pushkinskaya;3
-220;219;Pushkinskaya;Molodyozhnaya;3
-219;218;Molodyozhnaya;Frunzenskaya;3
-218;217;Frunzenskaya;Nemiga;3
-217;216;Nemiga;Kupalovskaya;3
-216;215;Kupalovskaya;Pervomaiskaya;3
-215;214;Pervomaiskaya;Proletarskaya;3
-214;213;Proletarskaya;Traktornyi Zavod;3
-213;212;Traktornyi Zavod;Partizanskaya;3
-212;211;Partizanskaya;Avtozavodskaya;3
-211;210;Avtozavodskaya;Mogilevskaya;3
-116;216;Kastrychnickaja;Kupalovskaya;5
+124;123;Uruchye;Borisovsky Trakt;110
+123;122;Borisovsky Trakt;Uschod;110
+122;121;Uschod;Moskovskaya;110
+121;120;Moskovskaya;Park Chelyuskintsev;110
+120;119;Park Chelyuskintsev;Akademiya Nauk;110
+119;118;Akademiya Nauk;Ploshchad Yakuba Kolasa;110
+118;117;Ploshchad Yakuba Kolasa;Ploshchad Pieramohi;110
+117;116;Ploshchad Pieramohi;Kastrychnickaja;110
+116;115;Kastrychnickaja;Ploshchad Lenina;110
+115;114;Ploshchad Lenina;Institut Kultury;110
+114;113;Institut Kultury;Grushevka;110
+113;112;Grushevka;Mikhalova;110
+112;111;Mikhalova;Petrovshchina;110
+111;110;Petrovshchina;Malinovka;110
+223;222;Kamennaya Gorka;Kuntsevshchina;120
+222;221;Kuntsevshchina;Sportivnaya;120
+221;220;Sportivnaya;Pushkinskaya;120
+220;219;Pushkinskaya;Molodyozhnaya;120
+219;218;Molodyozhnaya;Frunzenskaya;120
+218;217;Frunzenskaya;Nemiga;120
+217;216;Nemiga;Kupalovskaya;120
+216;215;Kupalovskaya;Pervomaiskaya;120
+215;214;Pervomaiskaya;Proletarskaya;120
+214;213;Proletarskaya;Traktornyi Zavod;120
+213;212;Traktornyi Zavod;Partizanskaya;120
+212;211;Partizanskaya;Avtozavodskaya;120
+211;210;Avtozavodskaya;Mogilevskaya;120
+116;216;Kastrychnickaja;Kupalovskaya;300
