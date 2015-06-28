@@ -1,53 +1,53 @@
 id_from;id_to;name_from;name_to;cost
-1;2;Isolatorweg;Sloterdijk;3
-2;3;Sloterdijk;De Vlugtlaan;3
-3;4;De Vlugtlaan;Jan van Galenstraat;3
-4;5;Jan van Galenstraat;Postjesweg;3
-5;6;Postjesweg;Lelylaan;3
-6;7;Lelylaan;Heemstedestraat;3
-7;8;Heemstedestraat;Henk Sneevlietweg;3
-8;9;Henk Sneevlietweg;Amstelveenseweg;3
-9;10;Amstelveenseweg;Zuid;3
-10;11;Zuid;RAI;3
-11;12;RAI;Overamstel;3
-12;13;Overamstel;Van der Madeweg;3
-13;14;Van der Madeweg;Duivendrecht;3
-14;15;Duivendrecht;Strandvliet;3
-15;16;Strandvliet;Bijlmer ArenA;3
-16;17;Bijlmer ArenA;Bullewijk;3
-17;18;Bullewijk;Holendrecht;3
-18;19;Holendrecht;Reigersbos;3
-19;20;Reigersbos;Gein ;3
-21;22;Centraal Station;Nieuwmarkt;3
-22;23;Nieuwmarkt;Waterlooplein;3
-23;24;Waterlooplein;Weesperplein;3
-24;25;Weesperplein;Wibautstraat;3
-25;26;Wibautstraat;Amstel;3
-26;27;Amstel;Spaklerweg;3
-27;12;Spaklerweg;Overamstel;3
-27;13;Spaklerweg;Van der Madeweg;3
-13;47;Van der Madeweg;Venserpolder;3
-47;48;Venserpolder;Diemen Zuid;3
-48;49;Diemen Zuid;Verrijn Stuartweg;3
-49;50;Verrijn Stuartweg;Ganzenhoef;3
-50;51;Ganzenhoef;Kraaiennest;3
-51;52;Kraaiennest;Gaasperplas ;3
-10;28;Zuid;De Boelelaan/VU;3
-28;29;De Boelelaan/VU;A.J. Ernststraat;3
-29;30;A.J. Ernststraat;Van Boshuizenstraat;3
-30;31;Van Boshuizenstraat;Uilenstede;3
-31;32;Uilenstede;Kronenburg;3
-32;33;Kronenburg;Zonnestein;3
-33;34;Zonnestein;Onderuit;3
-34;35;Onderuit;Oranjebaan;3
-35;36;Oranjebaan;Amstelveen Centrum;3
-36;37;Amstelveen Centrum;Ouderkerkerlaan;3
-37;38;Ouderkerkerlaan;Sportlaan;3
-38;39;Sportlaan;Marne;3
-39;40;Marne;Gondel;3
-40;41;Gondel;Meent;3
-41;42;Meent;Brink;3
-42;43;Brink;Poortwachter;3
-43;44;Poortwachter;Spinnerij;3
-44;45;Spinnerij;Sacharovlaan;3
-45;46;Sacharovlaan;Westwijk;3
+1;2;Isolatorweg;Sloterdijk;120
+2;3;Sloterdijk;De Vlugtlaan;120
+3;4;De Vlugtlaan;Jan van Galenstraat;60
+4;5;Jan van Galenstraat;Postjesweg;60
+5;6;Postjesweg;Lelylaan;120
+6;7;Lelylaan;Heemstedestraat;60
+7;8;Heemstedestraat;Henk Sneevlietweg;60
+8;9;Henk Sneevlietweg;Amstelveenseweg;180
+9;10;Amstelveenseweg;Zuid;120
+10;11;Zuid;RAI;120
+11;12;RAI;Overamstel;180
+12;13;Overamstel;Van der Madeweg;120
+13;14;Van der Madeweg;Duivendrecht;120
+14;15;Duivendrecht;Strandvliet;120
+15;16;Strandvliet;Bijlmer ArenA;60
+16;17;Bijlmer ArenA;Bullewijk;60
+17;18;Bullewijk;Holendrecht;120
+18;19;Holendrecht;Reigersbos;120
+19;20;Reigersbos;Gein ;60
+21;22;Centraal Station;Nieuwmarkt;120
+22;23;Nieuwmarkt;Waterlooplein;60
+23;24;Waterlooplein;Weesperplein;60
+24;25;Weesperplein;Wibautstraat;120
+25;26;Wibautstraat;Amstel;60
+26;27;Amstel;Spaklerweg;120
+27;12;Spaklerweg;Overamstel;120
+27;13;Spaklerweg;Van der Madeweg;120
+13;47;Van der Madeweg;Venserpolder;120
+47;48;Venserpolder;Diemen Zuid;120
+48;49;Diemen Zuid;Verrijn Stuartweg;60
+49;50;Verrijn Stuartweg;Ganzenhoef;120
+50;51;Ganzenhoef;Kraaiennest;60
+51;52;Kraaiennest;Gaasperplas ;60
+10;28;Zuid;De Boelelaan/VU;120
+28;29;De Boelelaan/VU;A.J. Ernststraat;60
+29;30;A.J. Ernststraat;Van Boshuizenstraat;120
+30;31;Van Boshuizenstraat;Uilenstede;60
+31;32;Uilenstede;Kronenburg;120
+32;33;Kronenburg;Zonnestein;60
+33;34;Zonnestein;Onderuit;60
+34;35;Onderuit;Oranjebaan;60
+35;36;Oranjebaan;Amstelveen Centrum;60
+36;37;Amstelveen Centrum;Ouderkerkerlaan;60
+37;38;Ouderkerkerlaan;Sportlaan;120
+38;39;Sportlaan;Marne;60
+39;40;Marne;Gondel;60
+40;41;Gondel;Meent;60
+41;42;Meent;Brink;60
+42;43;Brink;Poortwachter;60
+43;44;Poortwachter;Spinnerij;60
+44;45;Spinnerij;Sacharovlaan;60
+45;46;Sacharovlaan;Westwijk;120
