@@ -1,16 +1,16 @@
 id_from;id_to;name_from;name_to;cost
-1;2;St Enoch;Buchanan Street;3
-2;3;Buchanan Street;Cowcaddens;3
-3;4;Cowcaddens;St George's Cross;3
-4;5;St George's Cross;Kelvinbridge;3
-5;6;Kelvinbridge;Hillhead;3
-6;7;Hillhead;Kelvinhall;3
-7;8;Kelvinhall;Partick;3
-8;9;Partick;Govan;3
-9;10;Govan;Ibrox;3
-10;11;Ibrox;Cessnock;3
-11;12;Cessnock;Kinning Park;3
-12;13;Kinning Park;Shields Road;3
-13;14;Shields Road;West Street;3
-14;15;West Street;Bridge Street;3
-15;1;Bridge Street;St Enoch;3
+1;2;St Enoch;Buchanan Street;80
+2;3;Buchanan Street;Cowcaddens;80
+3;4;Cowcaddens;St George's Cross;80
+4;5;St George's Cross;Kelvinbridge;80
+5;6;Kelvinbridge;Hillhead;80
+6;7;Hillhead;Kelvinhall;80
+7;8;Kelvinhall;Partick;80
+8;9;Partick;Govan;80
+9;10;Govan;Ibrox;80
+10;11;Ibrox;Cessnock;80
+11;12;Cessnock;Kinning Park;80
+12;13;Kinning Park;Shields Road;80
+13;14;Shields Road;West Street;80
+14;15;West Street;Bridge Street;80
+15;1;Bridge Street;St Enoch;80
