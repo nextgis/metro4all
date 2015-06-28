@@ -964,7 +964,6 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 19371;5;ул. Героев Панфиловцев (четная сторона);ul. Geroev Panfilovcev (even side);127;in;55.85166573;37.44004283;740;70;0;0;0;300;560;18;0
 19380;6;Химкинский б-р, ул. Героев Панфиловцев;Himkinskij boulevard, ul. Geroev Panfilovcev;127;out;55.85156118;37.44025414;740;36;1;0;0;400;880;20;1
 19381;6;Химкинский б-р, ул. Героев Панфиловцев;Himkinskij boulevard, ul. Geroev Panfilovcev;127;in;55.85156118;37.44025414;740;69;1;0;0;400;880;20;0
-19390;7;ул. Сходненская, Химкинский б-р;ul. Shodnenskaja, Himkinskij boulevard;127;both;55.8496872;37.4407535;740;58;25;0;0;300;600;16;0
 19400;8;"ул. Сходненская, к/т ""Полет""";"ul. Shodnenskaja, cinema ""Polet""";127;both;55.84923232;37.44076462;740;54;54;0;0;0;0;0;0
 19410;9;"Химкинский б-р, ТРЦ ""Калейдоскоп""";"Himkinskij boulevard, shopping mall ""Kalejdoskop""";127;both;55.84961713;37.4410649;740;58;58;0;0;0;0;0;0
 19420;7;ул. Большие Каменщики, ул. Народная;ul. Bol'shie Kamenschiki, ul. Narodnaja;116;both;55.73930287;37.6530166;740;28;28;0;0;0;0;0;1
