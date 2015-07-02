@@ -28,7 +28,8 @@ fieldmap = (
     ('Мин. ширина рельс', 'min_rail_width'),
     ('Макс. ширина рельс', 'max_rail_width'),
     ('Макс. угол', 'max_angle'),
-    ('Количество эскалаторов на маршруте', 'escalator')
+    ('Количество эскалаторов на маршруте', 'escalator'),
+    ('Время на маршруте', 'time'),
 )
 
 #create new list of fieldnames with only langs present in the source file
