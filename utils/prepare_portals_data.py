@@ -28,8 +28,7 @@ fieldmap = (
     ('Мин. ширина рельс', 'min_rail_width'),
     ('Макс. ширина рельс', 'max_rail_width'),
     ('Макс. угол', 'max_angle'),
-    ('Количество эскалаторов на маршруте', 'escalator'),
-    ('Время на маршруте', 'time'),
+    ('Количество эскалаторов на маршруте', 'escalator')
 )
 
 #create new list of fieldnames with only langs present in the source file
@@ -39,6 +38,7 @@ output_fnames = []
 for source_name, target_name in fieldmap:
     if source_name in input_fnames:
         output_fnames.append(target_name)
+output_fnames.append('time')
 
 #output_f = csv.DictWriter(open(os.path.join(os.path.dirname(csv_path), 'portals.csv'), 'wb'), [target_name for source_name, target_name in fieldmap], delimiter=';')
 output_f = csv.DictWriter(open(os.path.join(os.path.dirname(csv_path), 'portals.csv'), 'wb'), output_fnames, delimiter=';')
@@ -47,6 +47,7 @@ output_f.writeheader()
 
 for row in input_f:
     portal = dict()
+
     if row['Закрыт'] == '':
         for source_name, target_name in fieldmap:
             if source_name in row.keys():
@@ -58,4 +59,5 @@ for row in input_f:
             #    else:
             #        portal[target_name] = ''
         if portal['lat'] != '':
+            portal['time'] = int(portal['min_step']) + int(portal['escalator'])*100 + 60
             output_f.writerow(portal)
