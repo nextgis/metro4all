@@ -16,14 +16,14 @@ id_from;id_to;name_from;name_to;cost
 223;222;Kamennaya Gorka;Kuntsevshchina;120
 222;221;Kuntsevshchina;Sportivnaya;120
 221;220;Sportivnaya;Pushkinskaya;120
-220;219;Pushkinskaya;Molodyozhnaya;120
-219;218;Molodyozhnaya;Frunzenskaya;120
-218;217;Frunzenskaya;Nemiga;120
-217;216;Nemiga;Kupalovskaya;120
-216;215;Kupalovskaya;Pervomaiskaya;120
-215;214;Pervomaiskaya;Proletarskaya;120
-214;213;Proletarskaya;Traktornyi Zavod;120
-213;212;Traktornyi Zavod;Partizanskaya;120
-212;211;Partizanskaya;Avtozavodskaya;120
-211;210;Avtozavodskaya;Mogilevskaya;120
+220;219;Pushkinskaya;Molodyozhnaya;125
+219;218;Molodyozhnaya;Frunzenskaya;81
+218;217;Frunzenskaya;Nemiga;110
+217;216;Nemiga;Kupalovskaya;72
+216;215;Kupalovskaya;Pervomaiskaya;96
+215;214;Pervomaiskaya;Proletarskaya;94
+214;213;Proletarskaya;Traktornyi Zavod;135
+213;212;Traktornyi Zavod;Partizanskaya;125
+212;211;Partizanskaya;Avtozavodskaya;129
+211;210;Avtozavodskaya;Mogilevskaya;124
 116;216;Kastrychnickaja;Kupalovskaya;300
