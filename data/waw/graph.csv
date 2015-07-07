@@ -8,14 +8,14 @@ id_from;id_to;name_from;name_to;cost
 7;8;Dworzec Gdański;Ratusz Arsenał;180
 8;9;Ratusz Arsenał;Świętokrzyska;120
 9;10;Świętokrzyska;Centrum;60
-10;11;Centrum;Politechnika;180
-11;12;Politechnika;Pole Mokotowskie;60
-12;13;Pole Mokotowskie;Racławicka;120
-13;14;Racławicka;Wierzbno;120
-14;15;Wierzbno;Wilanowska;60
-15;16;Wilanowska;Służew;120
-16;17;Służew;Ursynów;120
-17;18;Ursynów;Stokłosy;120
-18;19;Stokłosy;Imielin;120
-19;20;Imielin;Natolin;120
-20;21;Natolin;Kabaty;120
+10;11;Centrum;Politechnika;109
+11;12;Politechnika;Pole Mokotowskie;100
+12;13;Pole Mokotowskie;Racławicka;87
+13;14;Racławicka;Wierzbno;82
+14;15;Wierzbno;Wilanowska;82
+15;16;Wilanowska;Służew;93
+16;17;Służew;Ursynów;92
+17;18;Ursynów;Stokłosy;71
+18;19;Stokłosy;Imielin;88
+19;20;Imielin;Natolin;87
+20;21;Natolin;Kabaty;94
