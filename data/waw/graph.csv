@@ -1,13 +1,13 @@
 id_from;id_to;name_from;name_to;cost
-1;2;Młociny;Wawrzyszew;120
-2;3;Wawrzyszew;Stare Bielany;120
-3;4;Stare Bielany;Słodowiec;120
-4;5;Słodowiec;Marymont;60
-5;6;Marymont;Plac Wilsona;120
-6;7;Plac Wilsona;Dworzec Gdański;180
-7;8;Dworzec Gdański;Ratusz Arsenał;180
-8;9;Ratusz Arsenał;Świętokrzyska;120
-9;10;Świętokrzyska;Centrum;60
+1;2;Młociny;Wawrzyszew;70
+2;3;Wawrzyszew;Stare Bielany;67
+3;4;Stare Bielany;Słodowiec;81
+4;5;Słodowiec;Marymont;84
+5;6;Marymont;Plac Wilsona;77
+6;7;Plac Wilsona;Dworzec Gdański;113
+7;8;Dworzec Gdański;Ratusz Arsenał;113
+8;9;Ratusz Arsenał;Świętokrzyska;87
+9;10;Świętokrzyska;Centrum;49
 10;11;Centrum;Politechnika;109
 11;12;Politechnika;Pole Mokotowskie;100
 12;13;Pole Mokotowskie;Racławicka;87
