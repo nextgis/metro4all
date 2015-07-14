@@ -33,7 +33,7 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 11080;1;Московский пр-т;Moskovskij prospekt;9;in;59.916366;30.318378;790;6;6;0;0;0;0;0;1;166
 11100;1;Московский пр-т;Moskovskij prospekt;30;in;59.916366;30.318378;790;6;6;0;0;0;0;0;1;166
 11200;4;Загородный пр-т, Витебский вокзал;Zagorodnyj prospekt, Vitebskij railway station;10;in;59.920427;30.330045;770;3;3;0;0;0;0;0;1;163
-11210;4;Загородный пр-т, Витебский вокзал;Zagorodnyj prospekt, Vitebskij railway station;10;out;59.920717;30.329723;770;0;0;0;0;0;0;0;1;160
+11210;5;Загородный пр-т, Витебский вокзал;Zagorodnyj prospekt, Vitebskij railway station;10;out;59.920717;30.329723;770;0;0;0;0;0;0;0;1;160
 11320;3;пер. Кузнечный, Владимирский собор;pereulok Kuznechnyj, Vladimirskij cathedral;11;in;59.927644;30.348033;750;24;0;0;0;366;746;26;1;184
 11330;4;пер. Кузнечный, Владимирский собор;pereulok Kuznechnyj, Vladimirskij cathedral;11;out;59.927660;30.348278;780;24;0;0;0;366;746;26;1;184
 11440;4;"Лиговский пр-т, гостиница ""Октябрьская""";"Ligovskij prospekt, hotel ""Oktjabrskaja""";12;in;59.931570;30.360797;730;0;0;0;0;0;0;0;1;160
