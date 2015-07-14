@@ -1,67 +1,66 @@
-id_station;id_line;id_node;name_en;name_ru;name_pl;lat;lon
-3;1;3;Prospekt Veteranov;Проспект Ветеранов;Prospekt Veteranov;59.841819;30.251917
-4;1;4;Leninsky prospekt;Ленинский проспект;Leninsky prospekt;59.85064;30.268385
-5;1;5;Avtovo;Автово;Avtovo;59.867304;30.261416
-6;1;6;Kirovsky zavod;Кировский завод;Kirovsky zavod;59.879683;30.261972
-7;1;7;Narvskaya;Нарвская;Narvskaya;59.901194;30.274938
-8;1;8;Baltiyskaya;Балтийская;Baltiyskaya;59.907593;30.300785
-9;1;9;Tekhnologichesky institut 1;Технологический институт 1;Tekhnologichesky institut 1;59.916042;30.31807
-10;1;10;Pushkinskaya;Пушкинская;Pushkinskaya;59.920581;30.329933
-11;1;11;Vladimirskaya;Владимирская;Vladimirskaya;59.927601;30.348098
-12;1;12;Ploschad Vosstaniya;Площадь Восстания;Ploschad Vosstaniya;59.931592;30.360453
-13;1;13;Chernyshevskaya;Чернышевская;Chernyshevskaya;59.944516;30.359937
-14;1;14;Ploschad Lenina;Площадь Ленина;Ploschad Lenina;59.957278;30.355601
-16;1;16;Lesnaya;Лесная;Lesnaya;59.98475;30.344206
-17;1;17;Ploschad Muzhestva;Площадь Мужества;Ploschad Muzhestva;59.999603;30.366326
-18;1;18;Politekhnicheskaya;Политехническая;Politekhnicheskaya;60.008937;30.370868
-19;1;19;Akademicheskaya;Академическая;Akademicheskaya;60.012756;30.39592
-20;1;20;Grazhdansky prospekt;Гражданский проспект;Grazhdansky prospekt;60.034951;30.418164
-21;1;21;Devyatkino;Девяткино;Devyatkino;60.050692;30.442943
-23;2;23;Kupchino;Купчино;Kupchino;59.829678;30.375457
-24;2;24;Zvezdnaya;Звёздная;Zvezdnaya;59.833234;30.349505
-25;2;25;Moskovskaya;Московская;Moskovskaya;59.851308;30.322265
-26;2;26;Park Pobedy;Парк Победы;Park Pobedy;59.866431;30.321829
-27;2;27;Electrosila;Электросила;Electrosila;59.879221;30.318654
-28;2;28;Moskovskie vorota;Московские ворота;Moskovskie vorota;59.891724;30.317877
-29;2;29;Frunzenskaya;Фрунзенская;Frunzenskaya;59.906259;30.317556
-30;2;9;Tekhnologichesky institut 2;Технологический институт 2;Tekhnologichesky institut 2;59.916037;30.318705
-31;2;31;Sennaya ploschad;Сенная площадь;Sennaya ploschad;59.927028;30.320479
-32;2;32;Nevsky prospekt;Невский проспект;Nevsky prospekt;59.934585;30.327917
-33;2;33;Gorkovskaya;Горьковская;Gorkovskaya;59.956163;30.318737
-34;2;34;Petrogradskaya;Петроградская;Petrogradskaya;59.965689;30.312284
-35;2;35;Chernaya rechka;Чёрная речка;Chernaya rechka;59.985454;30.300865
-36;2;36;Pionerskaya;Пионерская;Pionerskaya;60.002518;30.296674
-37;2;37;Udelnaya;Удельная;Udelnaya;60.016713;30.315879
-38;2;38;Ozerki;Озерки;Ozerki;60.037062;30.321556
-39;2;39;Prospekt Prosvescheniya;Проспект Просвещения;Prospekt Prosvescheniya;60.051435;30.33243
-40;2;40;Parnas;Парнас;Parnas;60.06691;30.33402
-42;3;42;Rybatskoye;Рыбацкое;Rybatskoye;59.830839;30.50029
-43;3;43;Obukhovo;Обухово;Obukhovo;59.848798;30.457747
-44;3;44;Proletarskaya;Пролетарская;Proletarskaya;59.865233;30.470345
-45;3;45;Lomonosovskaya;Ломоносовская;Lomonosovskaya;59.877323;30.441665
-46;3;46;Elizarovskaya;Елизаровская;Elizarovskaya;59.896772;30.423502
-47;3;47;Ploschad Aleksandra Nevskogo 1;Площадь Александра Невского 1;Ploschad Aleksandra Nevskogo 1;59.924203;30.385343
-48;3;12;Mayakovskaya;Маяковская;Mayakovskaya;59.931444;30.355014
-49;3;32;Gostiny dvor;Гостиный двор;Gostiny dvor;59.934131;30.331157
-51;3;51;Vasileostrovskaya;Василеостровская;Vasileostrovskaya;59.94258;30.278238
-52;3;52;Primorskaya;Приморская;Primorskaya;59.948382;30.235218
-63;4;63;Ulitsa Dybenko;Улица Дыбенко;Ulitsa Dybenko;59.907446;30.483305
-64;4;64;Prospekt Bolshevikov;Проспект Большевиков;Prospekt Bolshevikov;59.919833;30.466766
-65;4;65;Ladozhskaya;Ладожская;Ladozhskaya;59.931533;30.442401
-66;4;66;Novocherkasskaya;Новочеркасская;Novocherkasskaya;59.928971;30.411889
-67;4;47;Ploschad Aleksandra Nevskogo 2;Площадь Александра Невского 2;Ploschad Aleksandra Nevskogo 2;59.923599;30.383537
-68;4;68;Ligovsky prospekt;Лиговский проспект;Ligovsky prospekt;59.920732;30.35565
-69;4;11;Dostoevskaya;Достоевская;Dostoevskaya;59.928213;30.346213
-70;4;31;Spasskaya;Спасская;Spasskaya;59.92671;30.319672
-83;5;83;Mezhdunarodnaya;Международная;Mezhdunarodnaya;59.870152;30.379657
-84;5;84;Bukharestskaya;Бухарестская;Bukharestskaya;59.883086;30.370033
-85;5;85;Volkovskaya;Волковская;Volkovskaya;59.895976;30.357691
-86;5;86;Obvodny kanal;Обводный канал;Obvodny kanal;59.91463;30.349597
-87;5;10;Zvenigorodskaya;Звенигородская;Zvenigorodskaya;59.922358;30.33578
-88;5;31;Sadovaya;Садовая;Sadovaya;59.92682;30.317893
-89;5;89;Admiralteyskaya;Адмиралтейская;Admiralteyskaya;59.936045;30.314888
-90;5;90;Sportivnaya;Спортивная;Sportivnaya;59.951804;30.291177
-91;5;91;Chkalovskaya;Чкаловская;Chkalovskaya;59.96096;30.292036
-92;5;92;Krestovsky ostrov;Крестовский остров;Krestovsky ostrov;59.97176;30.259459
-93;5;93;Staraya derevnya;Старая деревня;Staraya derevnya;59.989265;30.255286
-94;5;94;Komendantsky prospekt;Комендантский проспект;Komendantsky prospekt;60.008747;30.258374
+id_station;id_line;id_node;name_en;name_ru;lat;lon
+3;1;3;Prospekt Veteranov;Проспект Ветеранов;59.841819;30.251917
+4;1;4;Leninsky prospekt;Ленинский проспект;59.85064;30.268385
+5;1;5;Avtovo;Автово;59.867304;30.261416
+6;1;6;Kirovsky zavod;Кировский завод;59.879683;30.261972
+7;1;7;Narvskaya;Нарвская;59.901194;30.274938
+8;1;8;Baltiyskaya;Балтийская;59.907593;30.300785
+9;1;9;Tekhnologichesky institut 1;Технологический институт 1;59.916042;30.31807
+10;1;10;Pushkinskaya;Пушкинская;59.920581;30.329933
+11;1;11;Vladimirskaya;Владимирская;59.927601;30.348098
+12;1;12;Ploschad Vosstaniya;Площадь Восстания;59.931592;30.360453
+13;1;13;Chernyshevskaya;Чернышевская;59.944516;30.359937
+14;1;14;Ploschad Lenina;Площадь Ленина;59.957278;30.355601
+16;1;16;Lesnaya;Лесная;59.98475;30.344206
+17;1;17;Ploschad Muzhestva;Площадь Мужества;59.999603;30.366326
+18;1;18;Politekhnicheskaya;Политехническая;60.008937;30.370868
+19;1;19;Akademicheskaya;Академическая;60.012756;30.39592
+20;1;20;Grazhdansky prospekt;Гражданский проспект;60.034951;30.418164
+21;1;21;Devyatkino;Девяткино;60.050692;30.442943
+23;2;23;Kupchino;Купчино;59.829678;30.375457
+24;2;24;Zvezdnaya;Звёздная;59.833234;30.349505
+25;2;25;Moskovskaya;Московская;59.851308;30.322265
+26;2;26;Park Pobedy;Парк Победы;59.866431;30.321829
+27;2;27;Electrosila;Электросила;59.879221;30.318654
+28;2;28;Moskovskie vorota;Московские ворота;59.891724;30.317877
+29;2;29;Frunzenskaya;Фрунзенская;59.906259;30.317556
+30;2;9;Tekhnologichesky institut 2;Технологический институт 2;59.916037;30.318705
+31;2;31;Sennaya ploschad;Сенная площадь;59.927028;30.320479
+32;2;32;Nevsky prospekt;Невский проспект;59.934585;30.327917
+33;2;33;Gorkovskaya;Горьковская;59.956163;30.318737
+34;2;34;Petrogradskaya;Петроградская;59.965689;30.312284
+35;2;35;Chernaya rechka;Чёрная речка;59.985454;30.300865
+36;2;36;Pionerskaya;Пионерская;60.002518;30.296674
+37;2;37;Udelnaya;Удельная;60.016713;30.315879
+38;2;38;Ozerki;Озерки;60.037062;30.321556
+39;2;39;Prospekt Prosvescheniya;Проспект Просвещения;60.051435;30.33243
+40;2;40;Parnas;Парнас;60.06691;30.33402
+42;3;42;Rybatskoye;Рыбацкое;59.830839;30.50029
+43;3;43;Obukhovo;Обухово;59.848798;30.457747
+44;3;44;Proletarskaya;Пролетарская;59.865233;30.470345
+45;3;45;Lomonosovskaya;Ломоносовская;59.877323;30.441665
+46;3;46;Elizarovskaya;Елизаровская;59.896772;30.423502
+47;3;47;Ploschad Aleksandra Nevskogo 1;Площадь Александра Невского 1;59.924203;30.385343
+48;3;12;Mayakovskaya;Маяковская;59.931444;30.355014
+49;3;32;Gostiny dvor;Гостиный двор;59.934131;30.331157
+52;3;52;Primorskaya;Приморская;59.948382;30.235218
+63;4;63;Ulitsa Dybenko;Улица Дыбенко;59.907446;30.483305
+64;4;64;Prospekt Bolshevikov;Проспект Большевиков;59.919833;30.466766
+65;4;65;Ladozhskaya;Ладожская;59.931533;30.442401
+66;4;66;Novocherkasskaya;Новочеркасская;59.928971;30.411889
+67;4;47;Ploschad Aleksandra Nevskogo 2;Площадь Александра Невского 2;59.923599;30.383537
+68;4;68;Ligovsky prospekt;Лиговский проспект;59.920732;30.35565
+69;4;11;Dostoevskaya;Достоевская;59.928213;30.346213
+70;4;31;Spasskaya;Спасская;59.92671;30.319672
+83;5;83;Mezhdunarodnaya;Международная;59.870152;30.379657
+84;5;84;Bukharestskaya;Бухарестская;59.883086;30.370033
+85;5;85;Volkovskaya;Волковская;59.895976;30.357691
+86;5;86;Obvodny kanal;Обводный канал;59.91463;30.349597
+87;5;10;Zvenigorodskaya;Звенигородская;59.922358;30.33578
+88;5;31;Sadovaya;Садовая;59.92682;30.317893
+89;5;89;Admiralteyskaya;Адмиралтейская;59.936045;30.314888
+90;5;90;Sportivnaya;Спортивная;59.951804;30.291177
+91;5;91;Chkalovskaya;Чкаловская;59.96096;30.292036
+92;5;92;Krestovsky ostrov;Крестовский остров;59.97176;30.259459
+93;5;93;Staraya derevnya;Старая деревня;59.989265;30.255286
+94;5;94;Komendantsky prospekt;Комендантский проспект;60.008747;30.258374
