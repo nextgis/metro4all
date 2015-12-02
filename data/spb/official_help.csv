@@ -1,2 +1,2 @@
-phone,service_hours,work_hours,request_advance,source
-+7 800 350 11 55,,,,http://www.metro.spb.ru/forlpk.html
+phone;service_hours;work_hours;request_advance;source
++7 800 350 11 55;;;;http://www.metro.spb.ru/forlpk.html
