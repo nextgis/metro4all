@@ -1241,5 +1241,5 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 21311;2;Проектируемый проезд № 4062, БЦ Newton;"Proektiruemyi proezd 4062, Business Center ""Newton""";237;out;55.6945865;37.6640117;550;89;89;0;0;0;0;0;0;149
 21320;3;"пр-т Андропова, автосалон ""Lexus""";"prospekt Andropova, ""Lexus"" auto sales center";237;in;55.69386265;37.66466974;1000;0;0;1;0;0;1000;4;0;60
 21321;3;"пр-т Андропова, автосалон ""Lexus""";"prospekt Andropova, ""Lexus"" auto sales center";237;out;55.69386265;37.66466974;1000;11;0;1;11;0;1000;4;0;71
-21330;5;"Проектируемый проезд № 4062, БЦ ""Park Plaza"", технопарк ""Nagatino i-Land""";"Proektiruemyi proezd 4062, Business Center ""Park Plaza"", Technopark ""Nagatino i-Land""";237;in;55.69377407;37.66413571;1000;0;0;1;0;0;1000;4;0;60
-21331;5;"Проектируемый проезд № 4062, БЦ ""Park Plaza"", технопарк ""Nagatino i-Land""";"Proektiruemyi proezd 4062, Business Center ""Park Plaza"", Technopark ""Nagatino i-Land""";237;out;55.69377407;37.66413571;1000;11;0;1;11;0;1000;4;0;71
+21330;5;"Проектируемый проезд № 4062, БЦ ""Park Plaza"", технопарк ""Nagatino i-Land""";"Proektiruemyi proezd 4062, Business Center ""Park Plaza"", Technopark ""Nagatino i-Land""";237;in;55.69381082;37.66413264;1000;0;0;1;0;0;1000;4;0;60
+21331;5;"Проектируемый проезд № 4062, БЦ ""Park Plaza"", технопарк ""Nagatino i-Land""";"Proektiruemyi proezd 4062, Business Center ""Park Plaza"", Technopark ""Nagatino i-Land""";237;out;55.69381082;37.66413264;1000;11;0;1;11;0;1000;4;0;71
