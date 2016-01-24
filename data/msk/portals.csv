@@ -1174,9 +1174,7 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 20472;4;"ул. Сумская, рынок ""Южный""";"ul. Sumskaja, market ""Juzhnyj""";149;both;55.6226845;37.6097347;740;37;4;0;0;310;760;16;1;197
 20480;6;"Дворец спорта ""Содружество""";"Sport center ""Sodruzhestvo""";108;both;55.6055239;37.53482479;740;58;4;0;0;400;750;19;0;118
 20490;8;"ТЦ ""Золотой Вавилон""";"shopping mall ""Zolotoj Vavilon""";108;both;55.60609828;37.53517094;740;66;4;0;0;400;750;19;0;126
-20500;4;ул. Тарусская, ул. Айвазовского;ul. Tarusskaja, ul. Ajvazovskogo;108;both;55.60653253;37.53315021;740;60;2;0;0;370;750;20;0;120
 20510;2;Новоясеневский пр-т , Литовский б-р;Novojasenevskij prospekt , Litovskij boulevard;108;both;55.60655334;37.53140488;740;61;1;0;0;420;750;20;0;121
-20520;3;Новоясеневский пр-т , Литовский б-р;Novojasenevskij prospekt , Litovskij boulevard;108;both;55.60685163;37.53156582;740;58;2;0;0;460;750;20;0;118
 20530;1;ул. Тарусская, ул. Голубинская;ul. Tarusskaja, ul. Golubinskaja;108;both;55.60620372;37.53139101;740;26;0;0;0;310;750;20;0;86
 20550;7;ул. Ясногорская, ул. Айвазовского;ul. Jasnogorskaja, ul. Ajvazovskogo;108;both;55.60623771;37.53451263;740;58;4;0;0;400;750;19;0;118
 20590;1;ул. Скобелевская;ul. Skobelevskaja;192;both;55.54844975;37.55613421;900;0;0;1;0;0;1000;2;0;60
@@ -1243,3 +1241,5 @@ id_entrance;meetcode;name_ru;name_en;id_station;direction;lat;lon;max_width;min_
 21323;4;"пр-т Андропова, автосалон ""Lexus""";"prospekt Andropova, ""Lexus"" auto sales center";237;out;55.69382319;37.66467531;720;33;0;1;33;0;1000;4;0;93
 21331;5;"Проектируемый проезд № 4062, БЦ ""Park Plaza"", технопарк ""Nagatino i-Land""";"Proektiruemyi proezd 4062, Business Center ""Park Plaza"", Technopark ""Nagatino i-Land""";237;out;55.69385211;37.66412328;720;11;0;1;11;0;1000;4;0;71
 21333;6;"Проектируемый проезд № 4062, БЦ ""Park Plaza"", технопарк ""Nagatino i-Land""";"Proektiruemyi proezd 4062, Business Center ""Park Plaza"", Technopark ""Nagatino i-Land""";237;out;55.69381082;37.66413264;720;11;0;1;11;0;1000;4;0;71
+21400;1;"Бизнес-парк ""Румянцево"", Киевское шоссе";"Business Park ""Rumyantsevo"", Kievskoe highway";238;both;55.6329381;37.4396304;800;37;0;0;0;310;1000;22;1;197
+21410;2;Киевское шоссе;Kievskoe highway;238;both;55.6330686;37.4434293;800;45;1;0;0;310;1000;22;1;205
