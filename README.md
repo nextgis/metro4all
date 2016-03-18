@@ -26,3 +26,9 @@ License information:
 
 * Code - GPL v2
 * Data - CC-BY-SA 4.0 International
+
+Commercial support
+----------
+Need to fix a bug or add a feature to Metro4All? We provide custom development and support for this system. [Contact us](http://nextgis.ru/en/contact/) to discuss options!
+
+[![http://nextgis.com](http://nextgis.ru/img/nextgis.png)](http://nextgis.com)
