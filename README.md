@@ -25,8 +25,8 @@ Read more about data structures, running apps, etc. in wiki: https://github.com/
 
 
 License information:
-
-* Code - GPL v2
+----------
+* Code - GPL v2 or any later version
 * Data - CC-BY-SA 4.0 International
 
 Commercial support
