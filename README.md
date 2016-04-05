@@ -5,6 +5,8 @@ http://metro4all.org
 
 Subway navigation and accessibility app.
 
+![Screenshot_1](http://metro4all.org/wp-content/uploads/2016/03/Metro-For-All-Moscow-Metro-For-All-instructions2.jpg)
+
 Now available for: Amsterdam, Glasgow, Ekaterinburg, Kazan, Kiev, Lausanne, Minsk, Moscow, Nizhny Novgorod, Saint-Petersburg, Samara, Volgograd, Warsaw, Novosibirsk, Marseille (upcoming).
 
 Metro4all is:
@@ -23,6 +25,12 @@ Read more about data structures, running apps, etc. in wiki: https://github.com/
 
 
 License information:
-
-* Code - GPL v2
+----------
+* Code - GPL v2 or any later version
 * Data - CC-BY-SA 4.0 International
+
+Commercial support
+----------
+Need to fix a bug or add a feature to Metro4All? We provide custom development and support for this system. [Contact us](http://nextgis.ru/en/contact/) to discuss options!
+
+[![http://nextgis.com](http://nextgis.ru/img/nextgis.png)](http://nextgis.com)
