@@ -43,7 +43,7 @@ id_station;id_line;id_node;name_en;name_ru;lat;lon
 47;3;47;Ploschad Aleksandra Nevskogo 1;Площадь Александра Невского 1;59.924203;30.385343
 48;3;12;Mayakovskaya;Маяковская;59.931444;30.355014
 49;3;32;Gostiny dvor;Гостиный двор;59.934131;30.331157
-51;3;51;Vasileostrovskaya;Василеостровская;Vasileostrovskaya;59.94258;30.278238
+51;3;51;Vasileostrovskaya;Василеостровская;59.94258;30.278238
 52;3;52;Primorskaya;Приморская;59.948382;30.235218
 63;4;63;Ulitsa Dybenko;Улица Дыбенко;59.907446;30.483305
 64;4;64;Prospekt Bolshevikov;Проспект Большевиков;59.919833;30.466766
