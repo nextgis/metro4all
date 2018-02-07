@@ -1,5 +1,5 @@
-Metro4All
-===========
+Metro4All - Project is closed, feel free to reuse data
+======================================================
 
 http://metro4all.org
 
